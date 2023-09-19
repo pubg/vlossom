@@ -2,7 +2,7 @@
     "name": "vlossom",
     "description": "Vlossom UI components for Vue",
     "private": true,
-    "version": "0.0.0",
+    "version": "0.0.1",
     "type": "module",
     "author": "PUBG Studio",
     "repository": {
@@ -21,10 +21,22 @@
     "scripts": {
         "build": "vue-tsc && vite build"
     },
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/vlossom.umd.cjs",
+    "module": "./dist/vlossom.js",
+    "exports": {
+        ".": {
+            "import": "./dist/vlossom.js",
+            "require": "./dist/vlossom.umd.cjs"
+        }
+    },
     "peerDependencies": {
         "vue": "^3.3.4"
     },
     "devDependencies": {
+        "@types/node": "^20.6.2",
         "@vitejs/plugin-vue": "^4.2.3",
         "typescript": "^5.0.2",
         "vite": "^4.4.5",
