@@ -1,58 +1,9 @@
 {
-  "name": "vlossom",
-  "description": "Vlossom UI components for Vue",
-  "private": true,
-  "version": "0.0.1",
-  "type": "module",
-  "author": "PUBG Studio",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pubg/vlossom.git"
-  },
-  "license": "MIT",
-  "keywords": [
-    "vue",
-    "components",
-    "ui",
-    "framework",
-    "ui library",
-    "component library"
-  ],
-  "scripts": {
-    "build": "vue-tsc && vite build",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/vlossom.umd.cjs",
-  "module": "./dist/vlossom.js",
-  "exports": {
-    ".": {
-      "import": "./dist/vlossom.js",
-      "require": "./dist/vlossom.umd.cjs"
-    }
-  },
-  "peerDependencies": {
-    "vue": "^3.3.4"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^7.4.2",
-    "@storybook/addon-interactions": "^7.4.2",
-    "@storybook/addon-links": "^7.4.2",
-    "@storybook/blocks": "^7.4.2",
-    "@storybook/testing-library": "^0.2.1",
-    "@storybook/vue3": "^7.4.2",
-    "@storybook/vue3-vite": "^7.4.2",
-    "@types/node": "^20.6.2",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.67.0",
-    "storybook": "^7.4.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vue-tsc": "^1.8.5"
-  }
+    "private": true,
+    "version": "0.0.1",
+    "type": "module",
+    "author": "PUBG Studio",
+    "workspaces": [
+        "packages/*"
+    ]
 }
