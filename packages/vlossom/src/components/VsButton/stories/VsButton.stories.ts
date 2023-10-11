@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import VsButton from './VsButton.vue';
+import VsButton from '../VsButton.vue';
 
 const meta: Meta<typeof VsButton> = {
     title: 'Vlossom/VsButton',
