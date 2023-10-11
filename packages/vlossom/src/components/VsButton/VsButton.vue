@@ -11,6 +11,7 @@ import { PropType, computed, defineComponent, toRefs } from 'vue';
 
 interface ButtonStyleSet {
     backgroundColor: string;
+    borderColor: string;
     borderRadius: string;
     color: string;
     fontSize: string;
