@@ -1,6 +1,6 @@
 <template>
     <div class="vs-input" :class="{ disabled: disabled }">
-        <vs-button v-if="prepend" :color-scheme="colorScheme" @click="excuteButtonAction(prepend.action)"> </vs-button>
+        <button class="action-button" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
 
         <input
             class="input"
@@ -16,7 +16,7 @@
             @blur="onBlur"
         />
 
-        <vs-button v-if="append" :color-scheme="colorScheme" @click="excuteButtonAction(append.action)"> </vs-button>
+        <button class="action-button" v-if="append" @click="excuteButtonAction(append.action)"></button>
 
         <button
             v-if="!noClear && inputValue && !readonly && !disabled"
@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { VsButton } from '@/components/VsButton';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -58,7 +57,6 @@ export interface InputButton {
 
 const VsInput = defineComponent({
     name: 'vs-input',
-    components: { VsButton },
     props: {
         colorScheme: { type: String, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
