@@ -5,10 +5,10 @@ import VsSection from '../VsSection.vue';
 const meta: Meta<typeof VsSection> = {
     title: 'Vlossom/VsSection',
     component: VsSection,
-    render: (args: any, context) => ({
+    render: (args: any) => ({
         components: { VsSection },
         setup() {
-            return { args, context };
+            return { args };
         },
         template: '<vs-section v-bind="args">This is Section Content</vs-section>',
     }),
@@ -27,9 +27,25 @@ type Story = StoryObj<typeof VsSection>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    args: {
-        colorScheme: 'red',
-    },
+    render: (args: any) => ({
+        components: { VsSection },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-section v-bind="args" color-scheme="red">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="orange">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="yellow">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="green">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="teal">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="blue">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="indigo">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="purple">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="pink">This is Section Content</vs-section>
+            </div>
+        `,
+    }),
 };
 
 export const StyleSet: Story = {
@@ -44,7 +60,11 @@ export const HasTitle: Story = {
         setup() {
             return { args };
         },
-        template:
-            '<vs-section v-bind="args"><template #title>This is Section Title</template><div>This is Section Content</div></vs-section>',
+        template: `
+            <vs-section v-bind="args">
+                <template #title>This is Section Title</template>
+                This is Section Content
+            </vs-section>
+        `,
     }),
 };
