@@ -1,0 +1,63 @@
+@use '@/styles/mixin' as *;
+
+.vs-input {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    height: 3rem;
+    border: solid 1px;
+    border-radius: 0.4rem;
+    // border-color, background-color
+
+    .input {
+        width: 100%;
+        line-height: 3.2rem;
+        padding: 0 1.2rem;
+        background-color: transparent;
+        // color
+    }
+
+    .action-button {
+        height: 100%;
+        margin: 0;
+        padding: 0 1rem;
+        border-radius: 0;
+    }
+
+    .action-button + .clear-button {
+        right: 4rem;
+    }
+
+    .clear-button {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        right: 1rem;
+        opacity: 0;
+        width: 2rem;
+        height: 100%;
+        transform: translate(0, -50%);
+        transition: opacity 0.4s;
+        // color
+
+        &.number {
+            right: 3.4rem;
+        }
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &:hover {
+        .clear-button {
+            opacity: 1;
+        }
+    }
+
+    &:focus-within {
+        @include focus-shadow;
+    }
+}
