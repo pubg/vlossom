@@ -31,9 +31,25 @@ type Story = StoryObj<typeof VsInput>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    args: {
-        colorScheme: 'red',
-    },
+    render: (args: any) => ({
+        components: { VsInput },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-input color-scheme="red" />
+                <vs-input color-scheme="orange" />
+                <vs-input color-scheme="yellow" />
+                <vs-input color-scheme="green" />
+                <vs-input color-scheme="teal" />
+                <vs-input color-scheme="blue" />
+                <vs-input color-scheme="indigo" />
+                <vs-input color-scheme="purple" />
+                <vs-input color-scheme="pink" />
+            </div>
+        `,
+    }),
 };
 
 export const StyleSet: Story = {
