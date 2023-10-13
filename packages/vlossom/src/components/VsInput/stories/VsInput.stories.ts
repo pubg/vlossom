@@ -38,7 +38,7 @@ export const ColorScheme: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#df120a' },
+        styleSet: { backgroundColor: '#eef1ff', fontColor: '#3f3f3f', border: '1px solid #4851aa' },
     },
 };
 
