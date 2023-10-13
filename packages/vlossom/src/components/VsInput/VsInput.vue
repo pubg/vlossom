@@ -157,12 +157,15 @@ const VsInput = defineComponent({
         function onEnter() {
             emit('enter');
 
-            if (prepend.value && prepend.value.action) {
-                excuteButtonAction(prepend.value.action);
+            const prependAction = prepend.value?.action;
+            const appendAction = append.value?.action;
+
+            if (prependAction) {
+                excuteButtonAction(prependAction);
             }
 
-            if (append.value && append.value.action) {
-                excuteButtonAction(append.value.action);
+            if (appendAction) {
+                excuteButtonAction(appendAction);
             }
         }
 
