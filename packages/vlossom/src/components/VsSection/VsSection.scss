@@ -1,0 +1,44 @@
+.vs-section {
+    position: relative;
+    padding: 2.8rem 3.2rem;
+    border-radius: 0.4rem;
+    // box-shadow, background-color
+
+    .section-title {
+        margin-bottom: 1.2rem;
+    }
+}
+
+.vs-section + .vs-section {
+    margin-top: 3rem;
+}
+
+@media screen and (max-width: 992px) {
+    .vs-section {
+        padding: 2rem 2.4rem;
+    }
+
+    .vs-section + .vs-section {
+        margin-top: 2.4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .vs-section {
+        padding: 1.8rem 2.2rem;
+    }
+
+    .vs-section + .vs-section {
+        margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .vs-section {
+        padding: 1.6rem 1.4rem;
+    }
+
+    .vs-section + .vs-section {
+        margin-top: 1.6rem;
+    }
+}
