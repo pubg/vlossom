@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import VsButton from '../VsButton.vue';
 
 const meta: Meta<typeof VsButton> = {
-    title: 'Vlossom/VsButton',
+    title: 'Components/VsButton',
     component: VsButton,
     render: (args: any) => ({
         components: { VsButton },
@@ -27,14 +27,30 @@ type Story = StoryObj<typeof VsButton>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    args: {
-        colorScheme: 'red',
-    },
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-button color-scheme="red">Button</vs-button>
+                <vs-button color-scheme="orange">Button</vs-button>
+                <vs-button color-scheme="yellow">Button</vs-button>
+                <vs-button color-scheme="green">Button</vs-button>
+                <vs-button color-scheme="teal">Button</vs-button>
+                <vs-button color-scheme="blue">Button</vs-button>
+                <vs-button color-scheme="indigo">Button</vs-button>
+                <vs-button color-scheme="purple">Button</vs-button>
+                <vs-button color-scheme="pink">Button</vs-button>
+            </div>
+        `,
+    }),
 };
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#df120a', fontSize: '20px' },
+        styleSet: { backgroundColor: '#df120a', fontSize: '2rem' },
     },
 };
 

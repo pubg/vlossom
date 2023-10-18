@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import VsInput, { InputType } from '../VsInput.vue';
 
 const meta: Meta<typeof VsInput> = {
-    title: 'Vlossom/VsInput',
+    title: 'Components/VsInput',
     component: VsInput,
     render: (args: any) => ({
         components: { VsInput },

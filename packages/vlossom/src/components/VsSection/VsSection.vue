@@ -1,5 +1,5 @@
 <template>
-    <section class="vs-section">
+    <section class="vs-section" :style="customProperties">
         <div class="section-title" v-if="hasTitle">
             <h3>
                 <slot name="title" />
@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent } from 'vue';
+import { PropType, computed, defineComponent, toRefs } from 'vue';
+import { getCustomStyles } from '@/composables/customStyle';
 
 interface SectionStyleSet {
     backgroundColor: string;
     borderRadius: string;
     boxShadow: string;
-    margin: string;
     padding: string;
     titleMargin: string;
 }
@@ -29,11 +29,16 @@ const VsSection = defineComponent({
         colorScheme: { type: String, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
     },
-    setup(_, { slots }) {
+    setup(props, { slots }) {
+        const { styleSet } = toRefs(props);
+
+        const { customProperties } = getCustomStyles<VsSectionStyleSet>(styleSet, 'vs-section');
+
         const hasTitle = computed(() => !!slots.title);
 
         return {
             hasTitle,
+            customProperties,
         };
     },
 });
@@ -42,4 +47,4 @@ export default VsSection;
 export type VsSectionInstance = InstanceType<typeof VsSection>;
 </script>
 
-<style lang="scss" scoped src="./VsSection.scss"></style>
+<style lang="scss" scoped src="./VsSection.scss" />

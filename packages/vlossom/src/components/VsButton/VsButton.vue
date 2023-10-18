@@ -1,5 +1,5 @@
 <template>
-    <button type="button" :class="['vs-button', { ...classObj }]" :disabled="disabled">
+    <button type="button" :class="['vs-button', { ...classObj }]" :style="customProperties" :disabled="disabled">
         <span class="content">
             <slot />
         </span>
@@ -8,15 +8,16 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
+import { getCustomStyles } from '@/composables/customStyle';
 
 interface ButtonStyleSet {
     backgroundColor: string;
-    borderColor: string;
     borderRadius: string;
     color: string;
     fontSize: string;
     fontWeight: string;
     maxHeight: string;
+    outlineBorder: string;
     padding: string;
 }
 
@@ -36,7 +37,9 @@ const VsButton = defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { dense, large, loading, mobileFull, outline } = toRefs(props);
+        const { styleSet, dense, large, loading, mobileFull, outline } = toRefs(props);
+
+        const { customProperties } = getCustomStyles<VsButtonStyleSet>(styleSet, 'vs-button');
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -48,6 +51,7 @@ const VsButton = defineComponent({
 
         return {
             classObj,
+            customProperties,
         };
     },
 });
@@ -56,4 +60,4 @@ export default VsButton;
 export type VsButtonInstance = InstanceType<typeof VsButton>;
 </script>
 
-<style lang="scss" scoped src="./VsButton.scss"></style>
+<style lang="scss" scoped src="./VsButton.scss" />

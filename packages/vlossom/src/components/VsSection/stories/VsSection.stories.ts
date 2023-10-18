@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import VsSection from '../VsSection.vue';
 
 const meta: Meta<typeof VsSection> = {
-    title: 'Vlossom/VsSection',
+    title: 'Components/VsSection',
     component: VsSection,
     render: (args: any) => ({
         components: { VsSection },
@@ -50,7 +50,7 @@ export const ColorScheme: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#df120a', borderRadius: '0.8rem', padding: '4rem 2rem' },
+        styleSet: { backgroundColor: '#99b1ff', borderRadius: '0.8rem', padding: '4rem 2rem' },
     },
 };
 
