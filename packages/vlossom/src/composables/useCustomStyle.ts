@@ -1,6 +1,6 @@
 import { computed, ComputedRef, Ref } from 'vue';
 
-export function getCustomStyles<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
+export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
     const styles: ComputedRef<T> = computed(() => {
         // TODO
         if (typeof styleSet.value === 'string') {

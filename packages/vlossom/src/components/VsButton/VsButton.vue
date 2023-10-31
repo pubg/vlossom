@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { getCustomStyles } from '@/composables/customStyle';
+import { useCustomStyle } from '@/composables/useCustomStyle';
 import { ColorScheme } from '@/declaration/types';
 
 interface ButtonStyleSet {
@@ -45,7 +45,7 @@ const VsButton = defineComponent({
     setup(props) {
         const { styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
-        const { customProperties } = getCustomStyles<VsButtonStyleSet>(styleSet, 'vs-button');
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(styleSet, 'vs-button');
 
         const classObj = computed(() => ({
             dense: dense.value,

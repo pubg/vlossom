@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { getCustomStyles } from '@/composables/customStyle';
+import { useCustomStyle } from '@/composables/useCustomStyle';
 import { ColorScheme } from '@/declaration/types';
 
 interface SectionStyleSet {
@@ -33,7 +33,7 @@ const VsSection = defineComponent({
     setup(props, { slots }) {
         const { styleSet } = toRefs(props);
 
-        const { customProperties } = getCustomStyles<VsSectionStyleSet>(styleSet, 'vs-section');
+        const { customProperties } = useCustomStyle<VsSectionStyleSet>(styleSet, 'vs-section');
 
         const hasTitle = computed(() => !!slots.title);
 

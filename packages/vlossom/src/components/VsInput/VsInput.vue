@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { getCustomStyles } from '@/composables/customStyle';
+import { useCustomStyle } from '@/composables/useCustomStyle';
 import { ColorScheme } from '@/declaration/types';
 
 interface InputStyleSet {
@@ -86,7 +86,7 @@ const VsInput = defineComponent({
     setup(props, { emit }) {
         const { styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
 
-        const { customProperties } = getCustomStyles<VsInputStyleSet>(styleSet, 'vs-input');
+        const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'vs-input');
 
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
