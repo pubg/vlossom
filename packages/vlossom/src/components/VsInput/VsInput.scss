@@ -5,7 +5,7 @@
     display: flex;
     overflow: hidden;
     background-color: var(--vs-input-backgroundColor, #ffffff);
-    border: var(--vs-input-border, solid 1px #000000);
+    border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, 0.4rem);
     height: var(--vs-input-height, 3rem);
 
@@ -27,12 +27,12 @@
         cursor: pointer;
 
         &.prepend {
-            background-color: var(--vs-input-prependBackgroundColor, #99b1ff);
+            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
             color: var(--vs-input-prependColor, #ffffff);
         }
 
         &.append {
-            background-color: var(--vs-input-appendBackgroundColor, #99b1ff);
+            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
             color: var(--vs-input-appendColor, #ffffff);
         }
     }
@@ -53,7 +53,7 @@
         height: 100%;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, #000000);
+        color: var(--vs-input-clearButtonColor, var(--vs-line-color));
 
         &.number {
             right: 3.4rem;

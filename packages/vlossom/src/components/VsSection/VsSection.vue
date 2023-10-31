@@ -1,5 +1,5 @@
 <template>
-    <section class="vs-section" :style="customProperties">
+    <section :class="['vs-section', { [`vs-${colorScheme}`]: !!colorScheme }]" :style="customProperties">
         <div class="section-title" v-if="hasTitle">
             <h3>
                 <slot name="title" />
@@ -12,6 +12,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { getCustomStyles } from '@/composables/customStyle';
+import { ColorScheme } from '@/declaration/types';
 
 interface SectionStyleSet {
     backgroundColor: string;
@@ -26,7 +27,7 @@ export type VsSectionStyleSet = Partial<SectionStyleSet>;
 const VsSection = defineComponent({
     name: 'vs-section',
     props: {
-        colorScheme: { type: String, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
     },
     setup(props, { slots }) {

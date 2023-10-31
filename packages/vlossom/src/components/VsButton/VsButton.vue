@@ -1,5 +1,10 @@
 <template>
-    <button type="button" :class="['vs-button', { ...classObj }]" :style="customProperties" :disabled="disabled">
+    <button
+        type="button"
+        :class="['vs-button', `vs-${colorScheme}`, { ...classObj }]"
+        :style="customProperties"
+        :disabled="disabled"
+    >
         <span class="content">
             <slot />
         </span>
@@ -9,6 +14,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { getCustomStyles } from '@/composables/customStyle';
+import { ColorScheme } from '@/declaration/types';
 
 interface ButtonStyleSet {
     backgroundColor: string;
@@ -26,7 +32,7 @@ export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 const VsButton = defineComponent({
     name: 'vs-button',
     props: {
-        colorScheme: { type: String, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -37,7 +43,7 @@ const VsButton = defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { styleSet, dense, large, loading, mobileFull, outline } = toRefs(props);
+        const { styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
         const { customProperties } = getCustomStyles<VsButtonStyleSet>(styleSet, 'vs-button');
 
@@ -47,6 +53,7 @@ const VsButton = defineComponent({
             loading: loading.value,
             'mobile-full': mobileFull.value,
             outline: outline.value,
+            primary: primary.value,
         }));
 
         return {

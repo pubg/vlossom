@@ -16,7 +16,7 @@ const meta: Meta<typeof VsSection> = {
     argTypes: {
         colorScheme: {
             control: 'select',
-            options: ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
+            options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
         },
     },
 };
@@ -35,8 +35,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 <vs-section v-bind="args" color-scheme="red">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="orange">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="yellow">This is Section Content</vs-section>
+                <vs-section v-bind="args" color-scheme="amber">This is Section Content</vs-section>
                 <vs-section v-bind="args" color-scheme="green">This is Section Content</vs-section>
                 <vs-section v-bind="args" color-scheme="teal">This is Section Content</vs-section>
                 <vs-section v-bind="args" color-scheme="blue">This is Section Content</vs-section>

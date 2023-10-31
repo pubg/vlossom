@@ -1,0 +1,82 @@
+@use 'palette' as *;
+
+$colorScheme-light: (
+    'red': (
+        comp-backgroundColor: #{$red-100},
+        comp-color: #{$red-700},
+        comp-backgroundColor-primary: #{$red-500},
+        comp-color-primary: #{$grey-50},
+        area-backgroundColor: #{$red-50},
+        line-color: #{$red-500},
+    ),
+    'amber': (
+        comp-backgroundColor: #{$amber-200},
+        comp-color: #{$amber-800},
+        comp-backgroundColor-primary: #{$amber-600},
+        comp-color-primary: #{$grey-50},
+        area-backgroundColor: #{$amber-50},
+        line-color: #{$amber-500},
+    ),
+    'green': (
+        comp-backgroundColor: #{$green-100},
+        comp-color: #{$green-800},
+        comp-backgroundColor-primary: #{$green-600},
+        comp-color-primary: #{$grey-50},
+        area-backgroundColor: #{$green-50},
+        line-color: #{$green-600},
+    ),
+    'blue': (
+        comp-backgroundColor: #{$blue-100},
+        comp-color: #{$blue-800},
+        comp-backgroundColor-primary: #{$blue-500},
+        comp-color-primary: #{$grey-50},
+        area-backgroundColor: #{$blue-50},
+        line-color: #{$blue-500},
+    ),
+    'indigo': (
+        comp-backgroundColor: #{$indigo-200},
+        comp-color: #{$indigo-600},
+        comp-backgroundColor-primary: #{$indigo-600},
+        comp-color-primary: #{$grey-50},
+        area-backgroundColor: #{$indigo-100},
+        line-color: #{$indigo-600},
+    ),
+);
+
+$colorScheme-dark: (
+    'red': (
+        line-color: #{$red-300},
+    ),
+    'amber': (
+        line-color: #{$amber-300},
+    ),
+    'green': (
+        line-color: #{$green-400},
+    ),
+    'blue': (
+        line-color: #{$blue-300},
+    ),
+    'indigo': (
+        line-color: #{$indigo-400},
+    ),
+);
+
+:root {
+    @each $color, $map in $colorScheme-light {
+        .vs-#{$color} {
+            @each $key, $value in $map {
+                --vs-#{$key}: #{$value};
+            }
+        }
+    }
+
+    .vs-dark {
+        @each $color, $map in $colorScheme-dark {
+            .vs-#{$color} {
+                @each $key, $value in $map {
+                    --vs-#{$key}: #{$value};
+                }
+            }
+        }
+    }
+}

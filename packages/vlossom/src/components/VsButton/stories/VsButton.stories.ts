@@ -16,7 +16,7 @@ const meta: Meta<typeof VsButton> = {
     argTypes: {
         colorScheme: {
             control: 'select',
-            options: ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
+            options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
         },
     },
 };
@@ -35,8 +35,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 <vs-button color-scheme="red">Button</vs-button>
-                <vs-button color-scheme="orange">Button</vs-button>
-                <vs-button color-scheme="yellow">Button</vs-button>
+                <vs-button color-scheme="amber">Button</vs-button>
                 <vs-button color-scheme="green">Button</vs-button>
                 <vs-button color-scheme="teal">Button</vs-button>
                 <vs-button color-scheme="blue">Button</vs-button>
@@ -50,7 +49,7 @@ export const ColorScheme: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#df120a', fontSize: '2rem' },
+        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
     },
 };
 
@@ -91,7 +90,22 @@ export const Outline: Story = {
 };
 
 export const Primary: Story = {
-    args: {
-        primary: true,
-    },
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-button color-scheme="red" primary>Button</vs-button>
+                <vs-button color-scheme="amber" primary>Button</vs-button>
+                <vs-button color-scheme="green" primary>Button</vs-button>
+                <vs-button color-scheme="teal" primary>Button</vs-button>
+                <vs-button color-scheme="blue" primary>Button</vs-button>
+                <vs-button color-scheme="indigo" primary>Button</vs-button>
+                <vs-button color-scheme="purple" primary>Button</vs-button>
+                <vs-button color-scheme="pink" primary>Button</vs-button>
+            </div>
+        `,
+    }),
 };

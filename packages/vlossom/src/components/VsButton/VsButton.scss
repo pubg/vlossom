@@ -11,8 +11,8 @@
     cursor: pointer;
     font-size: var(--vs-button-fontSize, 1.4rem);
     font-weight: var(--vs-button-fontWeight, 400);
-    background-color: var(--vs-button-backgroundColor, #99b1ff);
-    color: var(--vs-button-color, #ffffff);
+    background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
+    color: var(--vs-button-color, var(--vs-comp-color));
 
     .content {
         display: flex;
@@ -45,6 +45,14 @@
     }
 }
 
+// Primary {
+.vs-button {
+    &.primary {
+        background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        color: var(--vs-button-color, var(--vs-comp-color-primary));
+    }
+}
+
 // Size
 .vs-button {
     &.dense {
@@ -66,8 +74,8 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid #99b1ff);
-        color: var(--vs-button-color, #99b1ff);
+        border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-color));
+        color: var(--vs-button-color, var(--vs-comp-color));
         font-weight: var(--vs-button-fontWeight, 500);
 
         &:after {

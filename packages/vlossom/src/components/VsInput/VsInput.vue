@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-input" :class="{ disabled: disabled }" :style="customProperties">
+    <div :class="['vs-input', `vs-${colorScheme}`, { disabled: disabled }]" :style="customProperties">
         <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
 
         <input
@@ -23,13 +23,16 @@
             class="clear-button"
             :class="{ number: type === InputType.NUMBER }"
             @click.stop="clearWithFocus()"
-        ></button>
+        >
+            X
+        </button>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { getCustomStyles } from '@/composables/customStyle';
+import { ColorScheme } from '@/declaration/types';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -59,7 +62,7 @@ export interface InputButton {
 const VsInput = defineComponent({
     name: 'vs-input',
     props: {
-        colorScheme: { type: String, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
