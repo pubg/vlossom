@@ -1,9 +1,10 @@
 .vs-section {
     position: relative;
     padding: var(--vs-section-padding, 2.8rem 3.2rem);
-    background-color: var(--vs-section-backgroundColor, var(--vs-area-backgroundColor, #ffffff));
+    background-color: var(--vs-section-backgroundColor, var(--vs-area-backgroundColor));
+    color: var(--vs-section-fontColor, var(--vs-font-color));
     border-radius: var(--vs-section-borderRadius, 0.4rem);
-    box-shadow: var(--vs-section-boxShadow, 0 0 1rem 0 rgba(0, 0, 0, 0.16));
+    box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow));
 
     .section-title {
         margin: var(--vs-section-titleMargin, 0 0 1.2rem 0);

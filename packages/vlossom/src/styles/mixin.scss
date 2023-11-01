@@ -1,10 +1,10 @@
 @mixin focus-shadow {
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16);
+    box-shadow: var(--vs-area-shadow);
     transition: box-shadow 0.1s linear;
 }
 
 @mixin disabled {
-    background-color: transparentize(#eef1ff, 0.25);
+    background-color: var(--vs-area-backgroundColor);
     opacity: 0.5;
     filter: grayscale(0.7);
     pointer-events: none;

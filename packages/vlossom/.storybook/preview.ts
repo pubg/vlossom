@@ -1,7 +1,6 @@
 import type { Preview } from '@storybook/vue3';
 
-import '@/styles/colorScheme.scss';
-import '@/styles/palette.scss';
+import '@/styles/index.scss';
 
 const preview: Preview = {
     parameters: {

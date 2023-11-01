@@ -4,7 +4,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    background-color: var(--vs-input-backgroundColor, #ffffff);
+    background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, 0.4rem);
     height: var(--vs-input-height, 3rem);
@@ -16,7 +16,7 @@
         border: none;
         outline: none;
         background-color: transparent;
-        color: var(--vs-input-fontColor, #000000);
+        color: var(--vs-input-fontColor, var(--vs-font-color));
     }
 
     .action-button {
