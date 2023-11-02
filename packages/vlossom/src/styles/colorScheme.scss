@@ -58,7 +58,7 @@ $colorScheme-dark: (
     ),
     'blue': (
         area-backgroundColor: transparentize($blue-400, 0.9),
-        line-color: #{$blue-300},
+        line-color: #{$blue-400},
     ),
     'indigo': (
         area-backgroundColor: transparentize($indigo-400, 0.8),
