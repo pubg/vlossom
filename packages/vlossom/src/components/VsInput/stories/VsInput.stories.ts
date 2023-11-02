@@ -1,23 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsInput, { InputType } from '../VsInput.vue';
+import { colorScheme } from '@/declaration/storybook/argTypes';
+import { ref } from 'vue';
 
 const meta: Meta<typeof VsInput> = {
-    title: 'Vlossom/VsInput',
+    title: 'Components/VsInput',
     component: VsInput,
     render: (args: any) => ({
         components: { VsInput },
         setup() {
-            return { args };
+            const value = ref('');
+            return { value, args };
         },
-        template: '<vs-input v-bind="args" />',
+        template: '<vs-input v-model="value" v-bind="args" />',
     }),
     tags: ['autodocs'],
     argTypes: {
-        colorScheme: {
-            control: 'select',
-            options: ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
-        },
+        colorScheme,
         type: {
             control: 'radio',
             options: [InputType.TEXT, InputType.NUMBER],
@@ -34,19 +34,19 @@ export const ColorScheme: Story = {
     render: (args: any) => ({
         components: { VsInput },
         setup() {
-            return { args };
+            const value = ref('');
+            return { value, args };
         },
         template: `
             <div>
-                <vs-input color-scheme="red" />
-                <vs-input color-scheme="orange" />
-                <vs-input color-scheme="yellow" />
-                <vs-input color-scheme="green" />
-                <vs-input color-scheme="teal" />
-                <vs-input color-scheme="blue" />
-                <vs-input color-scheme="indigo" />
-                <vs-input color-scheme="purple" />
-                <vs-input color-scheme="pink" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="red" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="amber" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="green" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="teal" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="blue" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="indigo" />
+                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="purple" />
+                <vs-input v-model="value" color-scheme="pink" />
             </div>
         `,
     }),

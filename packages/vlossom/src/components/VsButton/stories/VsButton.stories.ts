@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsButton from '../VsButton.vue';
+import { colorScheme } from '@/declaration/storybook/argTypes';
 
 const meta: Meta<typeof VsButton> = {
-    title: 'Vlossom/VsButton',
+    title: 'Components/VsButton',
     component: VsButton,
     render: (args: any) => ({
         components: { VsButton },
@@ -14,10 +15,7 @@ const meta: Meta<typeof VsButton> = {
     }),
     tags: ['autodocs'],
     argTypes: {
-        colorScheme: {
-            control: 'select',
-            options: ['red', 'orange', 'yellow', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
-        },
+        colorScheme,
     },
 };
 
@@ -27,14 +25,29 @@ type Story = StoryObj<typeof VsButton>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    args: {
-        colorScheme: 'red',
-    },
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-button color-scheme="red">Button</vs-button>
+                <vs-button color-scheme="amber">Button</vs-button>
+                <vs-button color-scheme="green">Button</vs-button>
+                <vs-button color-scheme="teal">Button</vs-button>
+                <vs-button color-scheme="blue">Button</vs-button>
+                <vs-button color-scheme="indigo">Button</vs-button>
+                <vs-button color-scheme="purple">Button</vs-button>
+                <vs-button color-scheme="pink">Button</vs-button>
+            </div>
+        `,
+    }),
 };
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#df120a', fontSize: '20px' },
+        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
     },
 };
 
@@ -75,7 +88,22 @@ export const Outline: Story = {
 };
 
 export const Primary: Story = {
-    args: {
-        primary: true,
-    },
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-button color-scheme="red" primary>Button</vs-button>
+                <vs-button color-scheme="amber" primary>Button</vs-button>
+                <vs-button color-scheme="green" primary>Button</vs-button>
+                <vs-button color-scheme="teal" primary>Button</vs-button>
+                <vs-button color-scheme="blue" primary>Button</vs-button>
+                <vs-button color-scheme="indigo" primary>Button</vs-button>
+                <vs-button color-scheme="purple" primary>Button</vs-button>
+                <vs-button color-scheme="pink" primary>Button</vs-button>
+            </div>
+        `,
+    }),
 };

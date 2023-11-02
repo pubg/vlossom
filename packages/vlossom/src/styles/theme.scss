@@ -1,0 +1,33 @@
+@use 'palette' as *;
+
+$theme-light: (
+    font-color: #{$grey-800},
+    plain-backgroundColor: #ffffff,
+    area-backgroundColor: #ffffff,
+    area-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16),
+);
+
+$theme-dark: (
+    font-color: #{$grey-400},
+    plain-backgroundColor: #000000,
+    area-backgroundColor: #14151f,
+    area-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 0.16),
+);
+
+:root {
+    &,
+    .vs-idle {
+        @each $key, $value in $theme-light {
+            --vs-#{$key}: #{$value};
+        }
+    }
+
+    .vs-dark {
+        &,
+        .vs-idle {
+            @each $key, $value in $theme-dark {
+                --vs-#{$key}: #{$value};
+            }
+        }
+    }
+}

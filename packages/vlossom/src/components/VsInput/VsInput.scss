@@ -4,17 +4,19 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    height: 3rem;
-    border: solid 1px;
-    border-radius: 0.4rem;
-    // border-color, background-color
+    background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-input-border, solid 1px var(--vs-line-color));
+    border-radius: var(--vs-input-borderRadius, 0.4rem);
+    height: var(--vs-input-height, 3rem);
 
     .input {
         width: 100%;
         line-height: 3.2rem;
         padding: 0 1.2rem;
+        border: none;
+        outline: none;
         background-color: transparent;
-        // color
+        color: var(--vs-input-fontColor, var(--vs-font-color));
     }
 
     .action-button {
@@ -22,6 +24,17 @@
         margin: 0;
         padding: 0 1rem;
         border-radius: 0;
+        cursor: pointer;
+
+        &.prepend {
+            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
+            color: var(--vs-input-prependColor, #ffffff);
+        }
+
+        &.append {
+            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
+            color: var(--vs-input-appendColor, #ffffff);
+        }
     }
 
     .action-button + .clear-button {
@@ -40,7 +53,7 @@
         height: 100%;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
-        // color
+        color: var(--vs-input-clearButtonColor, var(--vs-line-color));
 
         &.number {
             right: 3.4rem;

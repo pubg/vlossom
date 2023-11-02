@@ -1,5 +1,10 @@
 <template>
-    <button type="button" :class="['vs-button', { ...classObj }]" :disabled="disabled">
+    <button
+        type="button"
+        :class="['vs-button', `vs-${colorScheme}`, { ...classObj }]"
+        :style="customProperties"
+        :disabled="disabled"
+    >
         <span class="content">
             <slot />
         </span>
@@ -8,15 +13,17 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
+import { useCustomStyle } from '@/composables/useCustomStyle';
+import { ColorScheme } from '@/declaration/types';
 
 interface ButtonStyleSet {
     backgroundColor: string;
-    borderColor: string;
     borderRadius: string;
     color: string;
     fontSize: string;
     fontWeight: string;
     maxHeight: string;
+    outlineBorder: string;
     padding: string;
 }
 
@@ -25,7 +32,7 @@ export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 const VsButton = defineComponent({
     name: 'vs-button',
     props: {
-        colorScheme: { type: String, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -36,7 +43,9 @@ const VsButton = defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { dense, large, loading, mobileFull, outline } = toRefs(props);
+        const { styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
+
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(styleSet, 'vs-button');
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -44,10 +53,12 @@ const VsButton = defineComponent({
             loading: loading.value,
             'mobile-full': mobileFull.value,
             outline: outline.value,
+            primary: primary.value,
         }));
 
         return {
             classObj,
+            customProperties,
         };
     },
 });
@@ -56,4 +67,4 @@ export default VsButton;
 export type VsButtonInstance = InstanceType<typeof VsButton>;
 </script>
 
-<style lang="scss" scoped src="./VsButton.scss"></style>
+<style lang="scss" scoped src="./VsButton.scss" />

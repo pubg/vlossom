@@ -1,6 +1,6 @@
 <template>
-    <div class="vs-input" :class="{ disabled: disabled }">
-        <button class="action-button" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
+    <div :class="['vs-input', `vs-${colorScheme}`, { disabled: disabled }]" :style="customProperties">
+        <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
 
         <input
             class="input"
@@ -16,19 +16,23 @@
             @blur="onBlur"
         />
 
-        <button class="action-button" v-if="append" @click="excuteButtonAction(append.action)"></button>
+        <button class="action-button append" v-if="append" @click="excuteButtonAction(append.action)"></button>
 
         <button
             v-if="!noClear && inputValue && !readonly && !disabled"
             class="clear-button"
             :class="{ number: type === InputType.NUMBER }"
             @click.stop="clearWithFocus()"
-        ></button>
+        >
+            X
+        </button>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { useCustomStyle } from '@/composables/useCustomStyle';
+import { ColorScheme } from '@/declaration/types';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -58,7 +62,7 @@ export interface InputButton {
 const VsInput = defineComponent({
     name: 'vs-input',
     props: {
-        colorScheme: { type: String, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: 'indigo' },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
@@ -80,7 +84,9 @@ const VsInput = defineComponent({
     emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
-        const { disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
+        const { styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
+
+        const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'vs-input');
 
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -168,6 +174,7 @@ const VsInput = defineComponent({
         }
 
         return {
+            customProperties,
             InputType,
             inputValue,
             inputRef,
