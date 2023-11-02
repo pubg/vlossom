@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsSection from '../VsSection.vue';
+import { colorScheme } from '@/declaration/storybook/argTypes';
 
 const meta: Meta<typeof VsSection> = {
     title: 'Components/VsSection',
@@ -14,10 +15,7 @@ const meta: Meta<typeof VsSection> = {
     }),
     tags: ['autodocs'],
     argTypes: {
-        colorScheme: {
-            control: 'select',
-            options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
-        },
+        colorScheme,
     },
 };
 

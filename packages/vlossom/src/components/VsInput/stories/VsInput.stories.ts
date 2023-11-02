@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsInput, { InputType } from '../VsInput.vue';
+import { colorScheme } from '@/declaration/storybook/argTypes';
 import { ref } from 'vue';
 
 const meta: Meta<typeof VsInput> = {
@@ -16,10 +17,7 @@ const meta: Meta<typeof VsInput> = {
     }),
     tags: ['autodocs'],
     argTypes: {
-        colorScheme: {
-            control: 'select',
-            options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
-        },
+        colorScheme,
         type: {
             control: 'radio',
             options: [InputType.TEXT, InputType.NUMBER],
