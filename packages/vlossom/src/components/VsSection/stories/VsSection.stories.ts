@@ -52,10 +52,10 @@ export const HasTitle: Story = {
             return { args };
         },
         template: `
-        <vs-section v-bind="args">
-        <template #title>This is Section Title</template>
-        This is Section Content
-        </vs-section>
+            <vs-section v-bind="args">
+                <template #title>This is Section Title</template>
+                This is Section Content
+            </vs-section>
         `,
     }),
 };
