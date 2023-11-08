@@ -13,11 +13,10 @@ export function registerStyleSets(newStyleSets: StyleSets) {
 export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
     const styles: ComputedRef<T> = computed(() => {
         if (typeof styleSet.value === 'string') {
-            const preDefinedStyleSet = styleSets.value[styleSet.value]?.[
-                ('vs' + kebabToPascal(prefix)) as keyof StyleSet
-            ] as T;
+            const preDefinedStyleSet =
+                styleSets.value[styleSet.value]?.[('vs' + kebabToPascal(prefix)) as keyof StyleSet];
 
-            return preDefinedStyleSet ?? {};
+            return (preDefinedStyleSet ?? {}) as T;
         }
 
         return styleSet.value;

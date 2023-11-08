@@ -13,5 +13,5 @@ export interface StyleSets {
 }
 
 export interface VlossomOptions {
-    styleSets: StyleSets;
+    styleSets?: StyleSets;
 }
