@@ -52,12 +52,6 @@ export const ColorScheme: Story = {
     }),
 };
 
-export const StyleSet: Story = {
-    args: {
-        styleSet: { backgroundColor: '#eef1ff', fontColor: '#3f3f3f', border: '1px solid #4851aa' },
-    },
-};
-
 export const Disabled: Story = {
     args: {
         disabled: true,
@@ -107,5 +101,17 @@ export const Prepend: Story = {
 export const Type: Story = {
     args: {
         type: 'number',
+    },
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: { backgroundColor: '#eef1ff', fontColor: '#3f3f3f', border: '1px solid #4851aa' },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
     },
 };

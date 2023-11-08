@@ -45,12 +45,6 @@ export const ColorScheme: Story = {
     }),
 };
 
-export const StyleSet: Story = {
-    args: {
-        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
-    },
-};
-
 export const Dense: Story = {
     args: {
         dense: true,
@@ -94,16 +88,28 @@ export const Primary: Story = {
             return { args };
         },
         template: `
-            <div>
-                <vs-button color-scheme="red" primary>Button</vs-button>
-                <vs-button color-scheme="amber" primary>Button</vs-button>
-                <vs-button color-scheme="green" primary>Button</vs-button>
-                <vs-button color-scheme="teal" primary>Button</vs-button>
-                <vs-button color-scheme="blue" primary>Button</vs-button>
-                <vs-button color-scheme="indigo" primary>Button</vs-button>
-                <vs-button color-scheme="purple" primary>Button</vs-button>
-                <vs-button color-scheme="pink" primary>Button</vs-button>
-            </div>
+        <div>
+        <vs-button color-scheme="red" primary>Button</vs-button>
+        <vs-button color-scheme="amber" primary>Button</vs-button>
+        <vs-button color-scheme="green" primary>Button</vs-button>
+        <vs-button color-scheme="teal" primary>Button</vs-button>
+        <vs-button color-scheme="blue" primary>Button</vs-button>
+        <vs-button color-scheme="indigo" primary>Button</vs-button>
+        <vs-button color-scheme="purple" primary>Button</vs-button>
+        <vs-button color-scheme="pink" primary>Button</vs-button>
+        </div>
         `,
     }),
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
 };
