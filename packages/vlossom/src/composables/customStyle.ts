@@ -1,20 +1,28 @@
 import type { Ref } from 'vue';
-import type { StyleSet, StyleSets } from '@/declaration/types';
+import type { StyleSet } from '@/declaration/types';
 
 import { computed, ComputedRef, ref } from 'vue';
 import { kebabToPascal } from '@/utils';
 
-const styleSets: Ref<StyleSets> = ref({});
+const registeredStyleSet: Ref<StyleSet> = ref({});
 
-export function registerStyleSets(newStyleSets: StyleSets) {
-    Object.assign(styleSets.value, newStyleSets);
+export function registerStyleSet(newStyleSet: StyleSet) {
+    Object.entries(newStyleSet).forEach(([key, value]) => {
+        const styleSet = registeredStyleSet.value[key as keyof StyleSet];
+
+        if (!styleSet) {
+            registeredStyleSet.value[key as keyof StyleSet] = value;
+        } else {
+            Object.assign(styleSet, value);
+        }
+    });
 }
 
 export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
     const styles: ComputedRef<T> = computed(() => {
         if (typeof styleSet.value === 'string') {
             const preDefinedStyleSet =
-                styleSets.value[styleSet.value]?.[('vs' + kebabToPascal(prefix)) as keyof StyleSet];
+                registeredStyleSet.value[('vs' + kebabToPascal(prefix)) as keyof StyleSet]?.[styleSet.value];
 
             return (preDefinedStyleSet ?? {}) as T;
         }

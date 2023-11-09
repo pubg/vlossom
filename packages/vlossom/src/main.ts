@@ -1,14 +1,14 @@
 import type { App } from 'vue';
 import type { VlossomOptions } from '@/declaration/types';
 
-import { registerStyleSets } from '@/composables/customStyle';
+import { registerStyleSet } from '@/composables/customStyle';
 
 export function createVlossom(options: VlossomOptions) {
-    const { styleSets = {} } = options;
+    const { styleSet = {} } = options;
 
     return {
         install(app: App) {
-            registerStyleSets(styleSets);
+            registerStyleSet(styleSet);
 
             // TODO: register components ...
             app.config.globalProperties.$vlossom = 'vlossom';

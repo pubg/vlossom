@@ -3,15 +3,11 @@ import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/com
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
 
 export interface StyleSet {
-    vsButton?: VsButtonStyleSet;
-    vsInput?: VsInputStyleSet;
-    vsSection?: VsSectionStyleSet;
-}
-
-export interface StyleSets {
-    [key: string]: StyleSet;
+    vsButton?: { [key: string]: VsButtonStyleSet };
+    vsInput?: { [key: string]: VsInputStyleSet };
+    vsSection?: { [key: string]: VsSectionStyleSet };
 }
 
 export interface VlossomOptions {
-    styleSets?: StyleSets;
+    styleSet?: StyleSet;
 }

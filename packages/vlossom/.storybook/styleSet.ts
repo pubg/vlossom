@@ -1,4 +1,4 @@
-import type { StyleSet, StyleSets } from '../src/declaration/types';
+import type { StyleSet } from '../src/declaration/types';
 import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '../src/components';
 
 const vsButton: VsButtonStyleSet = {
@@ -16,12 +16,8 @@ const vsSection: VsSectionStyleSet = {
     fontColor: 'white',
 };
 
-const exampleStyleSet: StyleSet = {
-    vsButton,
-    vsInput,
-    vsSection,
-};
-
-export const styleSets: StyleSets = {
-    myStyleSet: exampleStyleSet,
+export const styleSet: StyleSet = {
+    vsButton: { myStyleSet: vsButton },
+    vsInput: { myStyleSet: vsInput },
+    vsSection: { myStyleSet: vsSection },
 };

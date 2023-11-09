@@ -2,11 +2,11 @@ import type { Preview } from '@storybook/vue3';
 
 import { setup } from '@storybook/vue3';
 import { createVlossom } from '../src/main';
-import { styleSets } from './styleSet';
+import { styleSet } from './styleSet';
 import '@/styles/index.scss';
 
 const vlossom = createVlossom({
-    styleSets,
+    styleSet,
 });
 
 setup((app) => {
