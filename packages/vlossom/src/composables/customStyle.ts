@@ -20,6 +20,10 @@ export function registerStyleSet(newStyleSet: StyleSet) {
 
 export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
     const styles: ComputedRef<T> = computed(() => {
+        if (!styleSet.value) {
+            return {} as T;
+        }
+
         if (typeof styleSet.value === 'string') {
             const preDefinedStyleSet =
                 registeredStyleSet.value[('vs' + kebabToPascal(prefix)) as keyof StyleSet]?.[styleSet.value];

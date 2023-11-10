@@ -1,5 +1,5 @@
 <template>
-    <section :class="['vs-section', `vs-${colorScheme}`]" :style="customProperties">
+    <section :class="['vs-section', `vs-${computedColorScheme}`]" :style="customProperties">
         <div class="section-title" v-if="hasTitle">
             <h3>
                 <slot name="title" />
@@ -13,6 +13,7 @@
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useCustomStyle } from '@/composables/customStyle';
 import { ColorScheme } from '@/declaration/types';
+import { useColorScheme } from '@/composables/colorScheme';
 
 interface SectionStyleSet {
     backgroundColor: string;
@@ -28,19 +29,22 @@ export type VsSectionStyleSet = Partial<SectionStyleSet>;
 const VsSection = defineComponent({
     name: 'vs-section',
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: 'idle' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
     },
     setup(props, { slots }) {
-        const { styleSet } = toRefs(props);
+        const { colorScheme, styleSet } = toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(colorScheme, 'vsSection', 'idle');
 
         const { customProperties } = useCustomStyle<VsSectionStyleSet>(styleSet, 'section');
 
         const hasTitle = computed(() => !!slots.title);
 
         return {
-            hasTitle,
+            computedColorScheme,
             customProperties,
+            hasTitle,
         };
     },
 });
