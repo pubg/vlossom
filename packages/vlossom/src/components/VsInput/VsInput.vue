@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-input', `vs-${colorScheme}`, { disabled: disabled }]" :style="customProperties">
+    <div :class="['vs-input', `vs-${computedColorScheme}`, { disabled: disabled }]" :style="customProperties">
         <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
 
         <input
@@ -31,6 +31,7 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { useColorScheme } from '@/composables/colorScheme';
 import { useCustomStyle } from '@/composables/customStyle';
 import { ColorScheme } from '@/declaration/types';
 
@@ -62,7 +63,7 @@ export interface InputButton {
 const VsInput = defineComponent({
     name: 'vs-input',
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: 'indigo' },
+        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
@@ -84,7 +85,9 @@ const VsInput = defineComponent({
     emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
-        const { styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
+        const { colorScheme, styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(colorScheme, 'vsInput', 'indigo');
 
         const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'input');
 
@@ -174,6 +177,7 @@ const VsInput = defineComponent({
         }
 
         return {
+            computedColorScheme,
             customProperties,
             InputType,
             inputValue,
