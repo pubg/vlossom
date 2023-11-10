@@ -1,13 +1,24 @@
 import type { Preview } from '@storybook/vue3';
 
+import { setup } from '@storybook/vue3';
+import { createVlossom } from '../src/main';
+import { styleSet } from './styleSet';
 import '@/styles/index.scss';
+
+const vlossom = createVlossom({
+    styleSet,
+});
+
+setup((app) => {
+    app.use(vlossom);
+});
 
 const decorators = [
     (story, context) => {
         const backgrounds = context.globals.backgrounds;
 
         if (backgrounds) {
-            if (context.globals.backgrounds.value === '#f8f8f8') {
+            if (backgrounds.value === '#f8f8f8') {
                 document.body.classList.remove('vs-dark');
                 document.body.classList.add('vs-light');
             } else {

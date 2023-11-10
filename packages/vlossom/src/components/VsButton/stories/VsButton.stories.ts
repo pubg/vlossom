@@ -45,12 +45,6 @@ export const ColorScheme: Story = {
     }),
 };
 
-export const StyleSet: Story = {
-    args: {
-        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
-    },
-};
-
 export const Dense: Story = {
     args: {
         dense: true,
@@ -106,4 +100,16 @@ export const Primary: Story = {
             </div>
         `,
     }),
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
 };

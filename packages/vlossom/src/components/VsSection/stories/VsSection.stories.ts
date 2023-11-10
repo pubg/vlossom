@@ -45,12 +45,6 @@ export const ColorScheme: Story = {
     }),
 };
 
-export const StyleSet: Story = {
-    args: {
-        styleSet: { backgroundColor: '#99b1ff', borderRadius: '0.8rem', padding: '4rem 2rem' },
-    },
-};
-
 export const HasTitle: Story = {
     render: (args: any) => ({
         components: { VsSection },
@@ -64,4 +58,16 @@ export const HasTitle: Story = {
             </vs-section>
         `,
     }),
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: { backgroundColor: '#99b1ff', borderRadius: '0.8rem', padding: '4rem 2rem' },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
 };
