@@ -22,7 +22,8 @@
         "build": "vue-tsc && vite build",
         "test": "vitest",
         "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "test-storybook": "test-storybook"
     },
     "files": [
         "dist"
@@ -39,10 +40,13 @@
         "vue": "^3.3.4"
     },
     "devDependencies": {
+        "@storybook/addon-a11y": "^7.5.3",
         "@storybook/addon-essentials": "^7.4.2",
         "@storybook/addon-interactions": "^7.4.2",
         "@storybook/addon-links": "^7.4.2",
         "@storybook/blocks": "^7.4.2",
+        "@storybook/jest": "^0.2.3",
+        "@storybook/test-runner": "^0.14.0",
         "@storybook/testing-library": "^0.2.1",
         "@storybook/vue3": "^7.4.2",
         "@storybook/vue3-vite": "^7.4.2",
@@ -50,6 +54,7 @@
         "@typescript-eslint/eslint-plugin": "^6.7.2",
         "@typescript-eslint/parser": "^6.7.2",
         "@vitejs/plugin-vue": "^4.2.3",
+        "axe-playwright": "^1.2.3",
         "eslint": "^8.49.0",
         "eslint-plugin-vue": "^9.17.0",
         "react": "^18.2.0",

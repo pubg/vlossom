@@ -1,6 +1,8 @@
 <template>
     <div :class="['vs-input', `vs-${computedColorScheme}`, { disabled: disabled }]" :style="customProperties">
-        <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)"></button>
+        <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)">
+            Prepend
+        </button>
 
         <input
             class="input"
@@ -16,7 +18,7 @@
             @blur="onBlur"
         />
 
-        <button class="action-button append" v-if="append" @click="excuteButtonAction(append.action)"></button>
+        <button class="action-button append" v-if="append" @click="excuteButtonAction(append.action)">Append</button>
 
         <button
             v-if="!noClear && inputValue && !readonly && !disabled"
