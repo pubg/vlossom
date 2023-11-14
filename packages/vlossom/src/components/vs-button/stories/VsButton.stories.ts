@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsButton from '../VsButton.vue';
-import { colorScheme } from '@/declaration/storybook/argTypes';
+import { colorScheme } from '@/declaration/storybook/arg-types';
 
 const meta: Meta<typeof VsButton> = {
-    title: 'Components/VsButton',
+    title: 'Components/Base Components/VsButton',
     component: VsButton,
     render: (args: any) => ({
         components: { VsButton },

@@ -1,8 +1,8 @@
 import type { App } from 'vue';
 import type { VlossomOptions } from '@/declaration/types';
 
-import { setGlobalColorScheme } from './composables/colorScheme';
-import { registerStyleSet } from '@/composables/customStyle';
+import { setGlobalColorScheme } from './composables/color-scheme-composable';
+import { registerStyleSet } from '@/composables/custom-style-composable';
 
 export function createVlossom(options: VlossomOptions) {
     const { colorScheme = {}, styleSet = {} } = options;

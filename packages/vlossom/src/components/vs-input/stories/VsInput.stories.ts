@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsInput, { InputType } from '../VsInput.vue';
-import { colorScheme } from '@/declaration/storybook/argTypes';
+import { colorScheme } from '@/declaration/storybook/arg-types';
 import { ref } from 'vue';
 
 const meta: Meta<typeof VsInput> = {
-    title: 'Components/VsInput',
+    title: 'Components/Input Components/VsInput',
     component: VsInput,
     render: (args: any) => ({
         components: { VsInput },
