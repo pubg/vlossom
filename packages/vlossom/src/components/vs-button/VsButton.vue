@@ -71,4 +71,3 @@ export type VsButtonInstance = InstanceType<typeof VsButton>;
 </script>
 
 <style lang="scss" scoped src="./VsButton.scss" />
-@/composables/color-scheme @/composables/custom-style

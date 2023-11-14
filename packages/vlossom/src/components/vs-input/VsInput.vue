@@ -200,4 +200,3 @@ export type VsInputInstance = InstanceType<typeof VsInput>;
 </script>
 
 <style lang="scss" scoped src="./VsInput.scss" />
-@/composables/color-scheme @/composables/custom-style

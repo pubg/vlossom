@@ -53,4 +53,3 @@ export type VsSectionInstance = InstanceType<typeof VsSection>;
 </script>
 
 <style lang="scss" scoped src="./VsSection.scss" />
-@/composables/color-scheme @/composables/custom-style
