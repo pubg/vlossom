@@ -12,7 +12,7 @@ export function setGlobalColorScheme(colorScheme: GlobalColorScheme) {
 export function useColorScheme(
     colorScheme: Ref<ColorScheme | ''>,
     key: keyof GlobalColorScheme,
-    defaultColorScheme: ColorScheme,
+    defaultColorScheme: ColorScheme | 'idle',
 ) {
     const computedColorScheme = computed(
         () =>

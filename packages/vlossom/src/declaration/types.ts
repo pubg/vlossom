@@ -1,6 +1,6 @@
 import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
-export type ColorScheme = 'idle' | 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
 
 export interface GlobalColorScheme {
     default?: ColorScheme;
