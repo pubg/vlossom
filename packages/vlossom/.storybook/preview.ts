@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/vue3';
 
 import { setup } from '@storybook/vue3';
 import { createVlossom } from '../src/main';
-import { styleSet } from './styleSet';
+import { styleSet } from './examples/style-set';
 import '@/styles/index.scss';
 
 const vlossom = createVlossom({
