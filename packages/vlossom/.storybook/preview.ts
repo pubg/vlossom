@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/vue3';
 
 import { setup } from '@storybook/vue3';
 import { createVlossom } from '../src/main';
-import { styleSet } from './styleSet';
+import { styleSet } from './examples/style-set';
 import '@/styles/index.scss';
 
 const vlossom = createVlossom({
@@ -14,7 +14,7 @@ setup((app) => {
 });
 
 const decorators = [
-    (story, context) => {
+    (story: any, context: any) => {
         const backgrounds = context.globals.backgrounds;
 
         if (backgrounds) {

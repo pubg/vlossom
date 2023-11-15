@@ -20,6 +20,7 @@
     ],
     "scripts": {
         "build": "vue-tsc && vite build",
+        "test": "vitest",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build"
     },
@@ -57,6 +58,7 @@
         "storybook": "^7.4.2",
         "typescript": "^5.0.2",
         "vite": "^4.4.5",
+        "vitest": "^0.34.6",
         "vue-tsc": "^1.8.5"
     }
 }

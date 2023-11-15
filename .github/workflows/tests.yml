@@ -1,0 +1,17 @@
+name: Tests
+
+on: push
+
+jobs:
+    test-vitest:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version-file: '.nvmrc'
+            - name: Install dependencies
+              run: yarn
+            - run: yarn test
+              working-directory: ./packages/vlossom
