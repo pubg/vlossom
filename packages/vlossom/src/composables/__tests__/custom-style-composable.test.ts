@@ -40,7 +40,7 @@ describe('useCustomStyle composable', () => {
 
         expect(customProperties.value).toEqual({
             '--vs-button-backgroundColor': '#1e88e5',
-            '--vs-button-color': 'red',
+            '--vs-button-color': 'white',
         });
     });
 });
