@@ -11,9 +11,8 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useCustomStyle } from '@/composables/customStyle';
+import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme } from '@/declaration/types';
-import { useColorScheme } from '@/composables/colorScheme';
 
 interface SectionStyleSet {
     backgroundColor: string;

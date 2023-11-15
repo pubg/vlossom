@@ -31,8 +31,7 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme } from '@/composables/colorScheme';
-import { useCustomStyle } from '@/composables/customStyle';
+import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme } from '@/declaration/types';
 
 interface InputStyleSet {

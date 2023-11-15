@@ -13,8 +13,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme } from '@/composables/colorScheme';
-import { useCustomStyle } from '@/composables/customStyle';
+import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme } from '@/declaration/types';
 
 interface ButtonStyleSet {

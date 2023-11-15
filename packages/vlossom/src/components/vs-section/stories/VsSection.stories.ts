@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsSection from '../VsSection.vue';
-import { colorScheme } from '@/declaration/storybook/argTypes';
+import { colorScheme } from '@/declaration/storybook/arg-types';
 
 const meta: Meta<typeof VsSection> = {
-    title: 'Components/VsSection',
+    title: 'Components/Layout Components/VsSection',
     component: VsSection,
     render: (args: any) => ({
         components: { VsSection },

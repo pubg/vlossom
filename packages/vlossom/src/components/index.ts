@@ -1,3 +1,3 @@
-export * from './VsButton';
-export * from './VsInput';
-export * from './VsSection';
+export * from './vs-button';
+export * from './vs-input';
+export * from './vs-section';
