@@ -1,5 +1,5 @@
-import type { StyleSet } from '../../src/declaration/types';
-import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '../../src/components';
+import type { StyleSet } from '@/declaration/types';
+import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
