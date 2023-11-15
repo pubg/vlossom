@@ -13,12 +13,16 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: yarn
+              working-directory: packages/vlossom
             - name: Install Playwright
               run: npx playwright install --with-deps
+              working-directory: packages/vlossom
             - name: Build Storybook
               run: yarn build-storybook --quiet
+              working-directory: packages/vlossom
             - name: Serve Storybook and run tests
               run: |
                   npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
                     "npx http-server storybook-static --port 6006 --silent" \
                     "npx wait-on tcp:6006 && yarn test-storybook"
+              working-directory: packages/vlossom
