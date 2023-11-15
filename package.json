@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "type": "module",
     "author": "PUBG Studio",
+    "scripts": {
+        "storybook": "npm run storybook -w vlossom"
+    },
     "workspaces": [
         "packages/*"
     ]
