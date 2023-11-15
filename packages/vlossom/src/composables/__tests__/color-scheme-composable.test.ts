@@ -38,7 +38,7 @@ describe('useColorScheme composable', () => {
         expect(computedColorScheme.value).toBe('blue');
     });
 
-    it('use a default color scheme value of component if there is nor prop or global value', () => {
+    it("use a default color scheme value of component if there isn't both prop and global value", () => {
         setGlobalColorScheme(globalColorScheme);
 
         const { computedColorScheme } = useColorScheme(ref(''), 'vsSection', 'idle');
