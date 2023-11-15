@@ -5,9 +5,11 @@
         :style="customProperties"
         :disabled="disabled"
     >
-        <span class="content">
+        <span v-if="!loading" class="content">
             <slot />
         </span>
+
+        <span v-if="loading" class="loading-content"> rotate icon </span>
     </button>
 </template>
 
