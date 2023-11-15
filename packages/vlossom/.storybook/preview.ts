@@ -14,7 +14,7 @@ setup((app) => {
 });
 
 const decorators = [
-    (story, context) => {
+    (story: any, context: any) => {
         const backgrounds = context.globals.backgrounds;
 
         if (backgrounds) {
