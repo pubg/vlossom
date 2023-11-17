@@ -2,17 +2,14 @@ import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/com
 
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
 
-export interface GlobalColorScheme {
-    default?: ColorScheme;
-    vsButton?: ColorScheme;
-    vsInput?: ColorScheme;
-    vsSection?: ColorScheme;
-}
+export type VsComponents = 'VsButton' | 'VsInput' | 'VsSection';
+
+export type GlobalColorScheme = { [key: string]: ColorScheme };
 
 export interface StyleSet {
-    vsButton?: { [key: string]: VsButtonStyleSet };
-    vsInput?: { [key: string]: VsInputStyleSet };
-    vsSection?: { [key: string]: VsSectionStyleSet };
+    VsButton?: { [key: string]: VsButtonStyleSet };
+    VsInput?: { [key: string]: VsInputStyleSet };
+    VsSection?: { [key: string]: VsSectionStyleSet };
 }
 
 export interface VlossomOptions {

@@ -26,7 +26,7 @@ interface SectionStyleSet {
 export type VsSectionStyleSet = Partial<SectionStyleSet>;
 
 const VsSection = defineComponent({
-    name: 'vs-section',
+    name: 'VsSection',
     props: {
         colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
@@ -34,9 +34,9 @@ const VsSection = defineComponent({
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsSection', 'idle');
+        const { computedColorScheme } = useColorScheme(colorScheme, 'VsSection');
 
-        const { customProperties } = useCustomStyle<VsSectionStyleSet>(styleSet, 'section');
+        const { customProperties } = useCustomStyle<VsSectionStyleSet>(styleSet, 'VsSection');
 
         const hasTitle = computed(() => !!slots.title);
 

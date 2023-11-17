@@ -31,8 +31,9 @@ interface ButtonStyleSet {
 
 export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 
+const name = 'VsButton';
 const VsButton = defineComponent({
-    name: 'vs-button',
+    name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
@@ -47,9 +48,9 @@ const VsButton = defineComponent({
     setup(props) {
         const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsButton', 'indigo');
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(styleSet, 'button');
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             dense: dense.value,

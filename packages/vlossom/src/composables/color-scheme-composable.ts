@@ -9,14 +9,9 @@ export function setGlobalColorScheme(colorScheme: GlobalColorScheme) {
     globalColorScheme.value = colorScheme;
 }
 
-export function useColorScheme(
-    colorScheme: Ref<ColorScheme | ''>,
-    key: keyof GlobalColorScheme,
-    defaultColorScheme: ColorScheme | 'idle',
-) {
+export function useColorScheme(colorScheme: Ref<ColorScheme>, key?: keyof GlobalColorScheme) {
     const computedColorScheme = computed(
-        () =>
-            colorScheme.value || globalColorScheme.value[key] || globalColorScheme.value.default || defaultColorScheme,
+        () => colorScheme.value || globalColorScheme.value[key] || globalColorScheme.value.default || 'default',
     );
 
     return {
