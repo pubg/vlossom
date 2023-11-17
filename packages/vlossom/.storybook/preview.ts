@@ -56,6 +56,16 @@ const preview: Preview = {
                 },
             ],
         },
+        a11y: {
+            config: {
+                rules: [
+                    {
+                        id: 'color-contrast',
+                        reviewOnFail: true,
+                    },
+                ],
+            },
+        },
     },
     decorators,
 };

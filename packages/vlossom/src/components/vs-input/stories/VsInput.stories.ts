@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import VsInput, { InputType } from '../VsInput.vue';
 import { colorScheme } from '@/declaration/storybook/arg-types';
 import { ref } from 'vue';
+import { userEvent, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -16,6 +18,9 @@ const meta: Meta<typeof VsInput> = {
         template: '<vs-input v-model="value" v-bind="args" />',
     }),
     tags: ['autodocs'],
+    args: {
+        placeholder: 'This is placeholder',
+    },
     argTypes: {
         colorScheme,
         type: {
@@ -39,17 +44,20 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="red" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="amber" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="green" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="teal" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="blue" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="indigo" />
-                <vs-input v-model="value" style="marginBottom: 10px" color-scheme="purple" />
-                <vs-input v-model="value" color-scheme="pink" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="red" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="amber" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="green" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="teal" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="blue" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="indigo" />
+                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="purple" />
+                <vs-input v-model="value" v-bind="args" color-scheme="pink" />
             </div>
         `,
     }),
+    args: {
+        placeholder: 'This is placeholder',
+    },
 };
 
 export const Disabled: Story = {
@@ -61,12 +69,21 @@ export const Disabled: Story = {
 export const NoClear: Story = {
     args: {
         noClear: true,
+        placeholder: 'email',
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByPlaceholderText('email'), 'email@provider.com', { delay: 100 });
+        await userEvent.hover(canvas.getByPlaceholderText('email'));
+
+        await expect(canvas.queryAllByRole('button')).toHaveLength(0);
     },
 };
 
 export const Placeholder: Story = {
     args: {
-        placeholder: 'This is placeholder',
+        placeholder: 'Enter name',
     },
 };
 
@@ -81,9 +98,18 @@ export const Append: Story = {
         append: {
             icon: 'search',
             action: () => {
-                alert('append icon clicked');
+                document.getElementsByClassName('vs-input')[0].insertAdjacentText('afterend', 'append icon clicked');
             },
         },
+        placeholder: 'email',
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByPlaceholderText('email'), 'email@provider.com', { delay: 100 });
+        await userEvent.click(canvas.getAllByRole('button')[0]);
+
+        await expect(canvas.getByText('append icon clicked')).toBeInTheDocument();
     },
 };
 
@@ -92,9 +118,18 @@ export const Prepend: Story = {
         prepend: {
             icon: 'info',
             action: () => {
-                alert('prepend icon clicked');
+                document.getElementsByClassName('vs-input')[0].insertAdjacentText('afterend', 'prepend icon clicked');
             },
         },
+        placeholder: 'email',
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.type(canvas.getByPlaceholderText('email'), 'email@provider.com', { delay: 100 });
+        await userEvent.click(canvas.getAllByRole('button')[0]);
+
+        await expect(canvas.getByText('prepend icon clicked')).toBeInTheDocument();
     },
 };
 
