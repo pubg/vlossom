@@ -244,7 +244,6 @@ describe('Name Input', () => {
             });
 
             // then
-            // expect(wrapper.attributes('style')).toHaveProperty('width', '300px');
             expect(wrapper.attributes('style')).toBe('width: 300px;');
         });
 
@@ -263,7 +262,7 @@ describe('Name Input', () => {
                 });
 
                 // then
-                expect(wrapper.attributes('style')).toHaveProperty('width', '150px');
+                expect(wrapper.attributes('style')).toBe('width: 150px;');
             });
 
             it('grid를 설정할 수 있다', () => {
@@ -276,7 +275,7 @@ describe('Name Input', () => {
                 });
 
                 // then
-                expect(wrapper.attributes('style')).toHaveProperty('width', '25%');
+                expect(wrapper.attributes('style')).toBe('width: 25%;');
             });
         });
 
@@ -295,7 +294,7 @@ describe('Name Input', () => {
                 });
 
                 // then
-                expect(wrapper.attributes('style')).toHaveProperty('width', '250px');
+                expect(wrapper.attributes('style')).toBe('width: 250px;');
             });
 
             it('grid를 설정할 수 있다', () => {
@@ -308,7 +307,7 @@ describe('Name Input', () => {
                 });
 
                 // then
-                expect(wrapper.attributes('style')).toHaveProperty('width', '50%');
+                expect(wrapper.attributes('style')).toBe('width: 50%;');
             });
         });
     });
