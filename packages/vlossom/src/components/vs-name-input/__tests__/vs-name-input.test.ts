@@ -3,12 +3,16 @@ import { shallowMount } from '@vue/test-utils';
 import VsNameInput, { NameInputValue, StateMessage, UIState } from '../VsNameInput.vue';
 import { nextTick } from 'vue';
 
+function shallowMountComponent() {
+    return shallowMount(VsNameInput);
+}
+
 describe('Name Input', () => {
     describe('v-model로 수정하고 싶은 값을 two-way binding 할 수 있다', () => {
         // TODO: init event test (not change event)
         it('modelValue의 초깃값을 설정할 수 있다', () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),

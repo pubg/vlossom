@@ -62,7 +62,7 @@ export default defineComponent({
         lastName: { type: String, default: '' },
     },
     expose: ['validate', 'focus', 'blur', 'clear'],
-    // emits: ['update:modelValue', 'change', 'blur', 'focus', 'clear'],
+    emits: ['update:modelValue', 'change', 'blur', 'focus', 'clear'],
     setup() {
         const computedMessages: ComputedRef<StateMessage[]> = computed(() => []);
         const computedWidth: ComputedRef<string> = computed(() => '');
