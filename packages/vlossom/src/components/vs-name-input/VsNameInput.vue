@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount, ComputedRef } from 'vue';
+import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount, ComputedRef, watch } from 'vue';
 
 export enum UIState {
     IDLE = 'idle',
@@ -118,9 +118,14 @@ const VsNameInput = defineComponent({
             }
         });
 
+        watch(modelValue, () => {
+            inputValue.value = modelValue.value;
+        });
+
         function emitValue(v: any) {
             emit('update:modelValue', v);
             emit('change', v);
+            changed.value = true;
         }
 
         const isEmptyInputValue = computed(() => {
