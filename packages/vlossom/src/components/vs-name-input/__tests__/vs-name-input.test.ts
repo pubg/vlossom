@@ -73,6 +73,7 @@ describe('Name Input', () => {
 
             // when
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
+            await nextTick();
 
             // then
             expect(wrapper.emitted()).toHaveProperty('change');
@@ -91,10 +92,28 @@ describe('Name Input', () => {
                 },
             });
 
+            // when
+            await nextTick();
+
             // then
-            nextTick(() => {
-                expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+            expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+            expect(wrapper.vm.changed).toBe(false);
+        });
+
+        it('v-model:firstName과 v-model에 firstName의 binding된 값이 다른 경우 v-model:firstName이 우선한다', () => {
+            // given
+            const wrapper = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: 'Hello', lastName: '' },
+                    firstName: 'Hi',
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    'onUpdate:firstName': (v: string) => wrapper.setProps({ firstName: v }),
+                },
             });
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: '' });
+            expect(wrapper.props('firstName')).toBe('Hi');
         });
 
         it('v-model:firstName으로 firstName을 수정할 수 있다', async () => {
@@ -134,6 +153,22 @@ describe('Name Input', () => {
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: 'Vlossom' });
             expect(wrapper.props('lastName')).toBe('Vlossom');
         });
+
+        it('clear 버튼을 누르면 값이 비워진다', () => {
+            // given
+            const wrapper = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: 'Hello', lastName: 'World' },
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                },
+            });
+
+            // when
+            wrapper.find('.clear-btn').trigger('click');
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+        });
     });
 
     describe('v-model binding이 없이도 수정 가능하다', () => {
@@ -155,6 +190,20 @@ describe('Name Input', () => {
             // then
             expect(wrapper.props('firstName')).toBe('Hi');
             expect(wrapper.props('lastName')).toBe('Vlossom');
+        });
+
+        it('clear 버튼을 누르면 값이 비워진다', async () => {
+            // given
+            const wrapper = shallowMount(VsNameInput);
+            await wrapper.find('.first-name').setValue('Hi');
+            await wrapper.find('.last-name').setValue('Vlossom');
+
+            // when
+            wrapper.find('.clear-btn').trigger('click');
+
+            // then
+            expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
+            expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('');
         });
     });
 
@@ -519,7 +568,7 @@ describe('Name Input', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 value를 비울 수 있다', () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
