@@ -12,7 +12,7 @@ const meta: Meta<typeof VsNameInput> = {
             const value = ref(null);
             return { value, args };
         },
-        template: '<vs-name-input v-model="value" v-bind="args" />{{value}}',
+        template: '<vs-name-input v-model="value" v-bind="args" width="300px"/>{{value}}',
     }),
     tags: ['autodocs'],
 };

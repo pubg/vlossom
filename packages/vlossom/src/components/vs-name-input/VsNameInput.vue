@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-name-input', { disabled: disabled }]" :style="{ width: computedWidth }">
-        <div class="label" v-if="noLabel" v-show="label">{{ label }}</div>
+        <div class="label" v-if="!noLabel && label" v-show="label">{{ label }}</div>
 
         <input
             class="first-name"
@@ -33,19 +33,7 @@
 </template>
 
 <script lang="ts">
-import {
-    defineComponent,
-    PropType,
-    Ref,
-    ref,
-    toRefs,
-    computed,
-    onMounted,
-    ComputedRef,
-    watch,
-    defineEmits,
-    nextTick,
-} from 'vue';
+import { defineComponent, PropType, Ref, ref, toRefs, computed, onMounted, ComputedRef, watch } from 'vue';
 
 export enum UIState {
     IDLE = 'idle',
@@ -101,12 +89,18 @@ const VsNameInput = defineComponent({
         firstName: { type: String, default: '' },
         lastName: { type: String, default: '' },
     },
-    emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
+    emits: ['change', 'update:modelValue', 'update:firstName', 'update:lastName', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
-        const { modelValue, firstName: firstNameValue, lastName: lastNameValue } = toRefs(props);
+        const { modelValue, firstName: firstNameValue, lastName: lastNameValue, width } = toRefs(props);
         const computedMessages: ComputedRef<StateMessage[]> = computed(() => []);
-        const computedWidth: ComputedRef<string> = computed(() => '');
+        const computedWidth: ComputedRef<string> = computed(() => {
+            if (typeof width.value === 'string') {
+                return width.value;
+            }
+
+            return '';
+        });
         const focused = ref(false);
         const changed = ref(false);
 
@@ -133,9 +127,12 @@ const VsNameInput = defineComponent({
 
         const inputValue: Ref<NameInputValue> = ref(initInputValue());
 
-        if (JSON.stringify(inputValue.value) !== JSON.stringify(modelValue.value)) {
-            emit('update:modelValue', inputValue.value);
-        }
+        onMounted(() => {
+            if (JSON.stringify(inputValue.value) !== JSON.stringify(modelValue.value)) {
+                // emit('update:modelValue', inputValue.value);
+                emit('change', inputValue.value);
+            }
+        });
 
         watch(
             modelValue,
