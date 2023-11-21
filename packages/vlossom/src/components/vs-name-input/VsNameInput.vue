@@ -1,38 +1,48 @@
 <template>
-    <div :class="['vs-name-input', `vs-${computedColorScheme}`, { disabled: disabled }]" :style="customProperties">
+    <div :class="['vs-name-input', { disabled: disabled }]" :style="{ width: width }">
+        <vs-label class="label" v-if="noLabel === false && label" :required="required">
+            <span v-html="label"></span>
+        </vs-label>
+
         <input
-            class="input"
-            ref="inputRef"
+            class="first-name"
+            ref="firstInputRef"
             :value="inputValue.firstName"
             :disabled="disabled"
             :readonly="readonly"
             :placeholder="placeholder"
-            @input="updateValue($event)"
+            @input="updateFirstValue($event)"
             @keyup.enter="onEnter"
             @focus="onFocus"
             @blur="onBlur"
         />
 
         <input
-            class="input"
-            ref="inputRef"
+            class="last-name"
+            ref="lastInputRef"
             :value="inputValue.lastName"
             :disabled="disabled"
             :readonly="readonly"
             :placeholder="placeholder"
-            @input="updateValue($event)"
+            @input="updateLastValue($event)"
             @keyup.enter="onEnter"
             @focus="onFocus"
             @blur="onBlur"
         />
 
-        <button v-if="!noClear && inputValue && !readonly && !disabled" class="clear-button"> X </button>
+        <button v-if="!noClear && !isEmptyInputValue && !readonly && !disabled" class="clear-button" @click="clear">
+            X
+        </button>
+        {{ inputValue }}
+
+        <div class="message-group relative flex flex-align-center" v-if="noMsg === false">
+            <vs-message v-for="(message, index) in messages" :key="index" :state="message.state" :text="message.text" />
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount } from 'vue';
 import { ColorScheme } from '@/declaration/types';
 
 interface InputStyleSet {
@@ -64,7 +74,6 @@ const VsNameInput = defineComponent({
     name: 'vs-name-input',
     props: {
         colorScheme: { type: String as PropType<ColorScheme>, default: '' },
-        styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
         placeholder: { type: String, default: '' },
@@ -77,68 +86,83 @@ const VsNameInput = defineComponent({
             type: Object as PropType<InputButton>,
             default: null,
         },
+
+        // label
+        label: { type: String, default: '' },
+        messages: { type: Array as PropType<any[]>, default: () => [] as any[] }, // type 재정의 필요
+        noLabel: { type: Boolean, default: false },
+        noMsg: { type: Boolean, default: false },
+        required: { type: Boolean, default: false },
+        visible: { type: Boolean, default: true },
+        width: { type: String, default: '' },
+
         // v-model
+        firstName: { type: String, default: '' },
+        lastName: { type: String, default: '' },
         modelValue: { type: Object as PropType<Name>, default: () => ({ firstName: '', lastName: '' }) },
     },
     emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, modelValue } = toRefs(props);
+        const { modelValue, firstName: firstNameValue, lastName: lastNameValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsInput', 'indigo');
+        const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
+        const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
 
-        const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'input');
+        const inputValue: Ref<Name> = ref(modelValue.value || { firstName: '', lastName: '' });
 
-        const inputRef: Ref<HTMLInputElement | null> = ref(null);
+        onBeforeMount(() => {
+            if (firstNameValue.value) {
+                inputValue.value.firstName = firstNameValue.value;
+            }
 
-        const inputValue: ComputedRef<Name> = computed(() => {
-            return modelValue.value || { firstName: '', lastName: '' };
+            if (lastNameValue.value) {
+                inputValue.value.lastName = lastNameValue.value;
+            }
         });
 
-        function emitValue(v: Name) {
+        function emitValue(v: any) {
             emit('update:modelValue', v);
             emit('change', v);
         }
 
-        // function convertValue(v: string | number | null | undefined): string | number {
-        //     if (!v) {
-        //         return type.value === InputType.TEXT ? '' : 0;
-        //     }
+        const isEmptyInputValue = computed(() => {
+            return inputValue.value.firstName === '' && inputValue.value.lastName === '';
+        });
 
-        //     if (type.value === InputType.TEXT) {
-        //         return v.toString();
-        //     } else {
-        //         return Number(v);
-        //     }
-        // }
+        function updateFirstValue(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const targetValue = target.value || '';
+            inputValue.value.firstName = targetValue;
+            emitValue(inputValue.value);
+        }
 
-        function updateValue(event: Event) {
-            console.log(event);
-            const target = { firstName: inputValue.value.firstName, lastName: inputValue.value.lastName };
-            console.log(target);
-            // const targetValue = target.value || '';
-            // const converted = convertValue(targetValue);
-            emitValue(target as Name);
+        function updateLastValue(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const targetValue = target.value || '';
+            inputValue.value.lastName = targetValue;
+            emitValue(inputValue.value);
         }
 
         function focus() {
-            inputRef.value?.focus();
+            firstInputRef.value?.focus();
+            lastInputRef.value?.focus();
         }
 
-        function blur() {
-            inputRef.value?.blur();
-        }
-
-        function select() {
-            inputRef.value?.select();
-        }
-
-        // function clear() {
-        //     const emptyValue = convertValue(null);
-        //     emitValue(emptyValue);
-
-        //     emit('clear');
+        // function blur() {
+        //     inputRef.value?.blur();
         // }
+
+        // function select() {
+        //     inputRef.value?.select();
+        // }
+
+        function clear() {
+            inputValue.value.firstName = '';
+            inputValue.value.lastName = '';
+            emitValue(inputValue.value);
+            emit('clear');
+        }
 
         function onFocus() {
             emit('focus');
@@ -164,15 +188,16 @@ const VsNameInput = defineComponent({
         // }
 
         return {
-            computedColorScheme,
-            customProperties,
             inputValue,
-            inputRef,
-            updateValue,
+            firstInputRef,
+            lastInputRef,
+            isEmptyInputValue,
+            updateFirstValue,
+            updateLastValue,
             focus,
             blur,
-            select,
-            // clear,
+            // select,
+            clear,
             onFocus,
             onBlur,
             // onEnter,
