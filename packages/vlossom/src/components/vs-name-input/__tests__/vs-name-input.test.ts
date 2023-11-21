@@ -3,12 +3,16 @@ import { shallowMount } from '@vue/test-utils';
 import VsNameInput, { NameInputValue, StateMessage, UIState } from '../VsNameInput.vue';
 import { nextTick } from 'vue';
 
+function shallowMountComponent() {
+    return shallowMount(VsNameInput);
+}
+
 describe('Name Input', () => {
     describe('v-model로 수정하고 싶은 값을 two-way binding 할 수 있다', () => {
         // TODO: init event test (not change event)
         it('modelValue의 초깃값을 설정할 수 있다', () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -24,7 +28,7 @@ describe('Name Input', () => {
 
         it('modelValue를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -42,7 +46,7 @@ describe('Name Input', () => {
 
         it('modelValue를 바꿔서 값을 반영할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -60,7 +64,7 @@ describe('Name Input', () => {
 
         it('값이 변경되면 change 이벤트가 발생한다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -79,7 +83,7 @@ describe('Name Input', () => {
 
         it('null 값이 할당된 경우 기본 값으로 할당한다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     // @ts-expect-error: null 값이 할당되는 경우를 테스트하기 위해 null을 할당한다
                     modelValue: null,
@@ -88,12 +92,14 @@ describe('Name Input', () => {
             });
 
             // then
-            expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+            nextTick(() => {
+                expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+            });
         });
 
         it('v-model:firstName으로 firstName을 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: '' },
                     firstName: 'Hello',
@@ -112,7 +118,7 @@ describe('Name Input', () => {
 
         it('v-model:lastName으로 lastName을 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: '', lastName: 'World' },
                     lastName: 'World',
@@ -133,7 +139,7 @@ describe('Name Input', () => {
     describe('v-model binding이 없이도 수정 가능하다', () => {
         it('v-model binding은 없고, v-model:firstName만 binding만 있을 경우도 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     firstName: 'Hello',
                     lastName: 'World',

@@ -10,8 +10,6 @@
             :readonly="readonly"
             :placeholder="placeholderFirstName"
             @input="updateFirstValue($event)"
-            @focus="onFocus"
-            @blur="onBlur"
         />
 
         <input
@@ -22,14 +20,11 @@
             :readonly="readonly"
             :placeholder="placeholderLastName"
             @input="updateLastValue($event)"
-            @focus="onFocus"
-            @blur="onBlur"
         />
 
         <button v-if="!noClear && !isEmptyInputValue && !readonly && !disabled" class="clear-button" @click="clear">
             X
         </button>
-        {{ inputValue }}
 
         <div class="messages" v-if="noMsg">
             <div class="message" v-for="message in computedMessages" :key="message.state">{{ message.message }}</div>
@@ -38,7 +33,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount, ComputedRef, watch } from 'vue';
+import {
+    defineComponent,
+    PropType,
+    Ref,
+    ref,
+    toRefs,
+    computed,
+    onMounted,
+    ComputedRef,
+    watch,
+    defineEmits,
+    nextTick,
+} from 'vue';
 
 export enum UIState {
     IDLE = 'idle',
@@ -94,7 +101,7 @@ const VsNameInput = defineComponent({
         firstName: { type: String, default: '' },
         lastName: { type: String, default: '' },
     },
-    // emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
+    emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
         const { modelValue, firstName: firstNameValue, lastName: lastNameValue } = toRefs(props);
@@ -106,24 +113,76 @@ const VsNameInput = defineComponent({
         const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
         const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
 
-        const inputValue: Ref<NameInputValue> = ref(modelValue.value || { firstName: '', lastName: '' });
+        const initInputValue = () => {
+            let initialInputValue = { firstName: '', lastName: '' };
 
-        onBeforeMount(() => {
+            if (modelValue.value) {
+                initialInputValue = modelValue.value;
+            }
+
             if (firstNameValue.value) {
-                inputValue.value.firstName = firstNameValue.value;
+                initialInputValue.firstName = firstNameValue.value;
             }
 
             if (lastNameValue.value) {
-                inputValue.value.lastName = lastNameValue.value;
+                initialInputValue.lastName = lastNameValue.value;
             }
-        });
 
-        watch(modelValue, () => {
-            inputValue.value = modelValue.value;
-        });
+            return initialInputValue;
+        };
 
-        function emitValue(v: any) {
+        const inputValue: Ref<NameInputValue> = ref(initInputValue());
+
+        if (JSON.stringify(inputValue.value) !== JSON.stringify(modelValue.value)) {
+            emit('update:modelValue', inputValue.value);
+        }
+
+        watch(
+            modelValue,
+            () => {
+                if (!modelValue.value) {
+                    inputValue.value = { firstName: '', lastName: '' };
+                } else {
+                    inputValue.value = modelValue.value;
+                }
+
+                emitValue(inputValue.value);
+            },
+            { deep: true },
+        );
+
+        watch(
+            firstNameValue,
+            () => {
+                if (!firstNameValue.value) {
+                    inputValue.value.firstName = '';
+                } else {
+                    inputValue.value.firstName = firstNameValue.value;
+                }
+
+                emitValue(inputValue.value);
+            },
+            { deep: true },
+        );
+
+        watch(
+            lastNameValue,
+            () => {
+                if (!lastNameValue.value) {
+                    inputValue.value.lastName = '';
+                } else {
+                    inputValue.value.lastName = lastNameValue.value;
+                }
+
+                emitValue(inputValue.value);
+            },
+            { deep: true },
+        );
+
+        function emitValue(v: NameInputValue) {
             emit('update:modelValue', v);
+            emit('update:firstName', v.firstName);
+            emit('update:lastName', v.lastName);
             emit('change', v);
             changed.value = true;
         }
@@ -166,14 +225,6 @@ const VsNameInput = defineComponent({
             emit('clear');
         }
 
-        function onFocus() {
-            emit('focus');
-        }
-
-        function onBlur() {
-            emit('blur');
-        }
-
         return {
             inputValue,
             firstInputRef,
@@ -189,8 +240,6 @@ const VsNameInput = defineComponent({
             focus,
             blur,
             clear,
-            onFocus,
-            onBlur,
         };
     },
 });

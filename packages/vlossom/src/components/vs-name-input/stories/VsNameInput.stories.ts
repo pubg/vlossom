@@ -9,13 +9,10 @@ const meta: Meta<typeof VsNameInput> = {
     render: (args: any) => ({
         components: { VsNameInput },
         setup() {
-            const value = ref({
-                firstName: '',
-                lastName: '',
-            });
+            const value = ref(null);
             return { value, args };
         },
-        template: '<vs-name-input v-model="value" v-bind="args" />',
+        template: '<vs-name-input v-model="value" v-bind="args" />{{value}}',
     }),
     tags: ['autodocs'],
 };
