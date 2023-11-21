@@ -168,7 +168,7 @@ describe('Name Input', () => {
             });
 
             // then
-            const label = wrapper.find('label');
+            const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
         });
@@ -178,7 +178,7 @@ describe('Name Input', () => {
             const wrapper = shallowMount(VsNameInput);
 
             // then
-            const label = wrapper.find('label');
+            const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(false);
             expect(label.text()).toBe('');
@@ -193,7 +193,7 @@ describe('Name Input', () => {
             });
 
             // then
-            expect(wrapper.find('label').exists()).toBe(false);
+            expect(wrapper.find('.label').exists()).toBe(false);
         });
     });
 
@@ -244,7 +244,8 @@ describe('Name Input', () => {
             });
 
             // then
-            expect(wrapper.attributes('style')).toHaveProperty('width', '300px');
+            // expect(wrapper.attributes('style')).toHaveProperty('width', '300px');
+            expect(wrapper.attributes('style')).toBe('width: 300px;');
         });
 
         describe('container가 lg일 때', () => {

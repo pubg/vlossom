@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-name-input', { disabled: disabled }]" :style="{ width: computedWidth }">
-        <div class="label" v-if="!noLabel && label" v-show="label">{{ label }}</div>
+        <div class="label" v-if="!noLabel" v-show="label">{{ label }}</div>
 
         <input
             class="first-name"
