@@ -89,6 +89,23 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+            expect(wrapper.vm.changed).toBe(false);
+        });
+
+        it('v-model:firstName과 v-model에 firstName의 binding된 값이 다른 경우 v-model:firstName이 우선한다', () => {
+            // given
+            const wrapper = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: 'Hello', lastName: '' },
+                    firstName: 'Hi',
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    'onUpdate:firstName': (v: string) => wrapper.setProps({ firstName: v }),
+                },
+            });
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: '' });
+            expect(wrapper.props('firstName')).toBe('Hi');
         });
 
         it('v-model:firstName으로 firstName을 수정할 수 있다', async () => {
@@ -96,7 +113,7 @@ describe('Name Input', () => {
             const wrapper = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: '' },
-                    firstName: 'Hello',
+                    firstName: 'Hi',
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
                     'onUpdate:firstName': (v: string) => wrapper.setProps({ firstName: v }),
                 },
@@ -128,10 +145,26 @@ describe('Name Input', () => {
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: 'Vlossom' });
             expect(wrapper.props('lastName')).toBe('Vlossom');
         });
+
+        it('clear 버튼을 누르면 값이 비워진다', () => {
+            // given
+            const wrapper = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: 'Hello', lastName: 'World' },
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                },
+            });
+
+            // when
+            wrapper.find('.clear-btn').trigger('click');
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
+        });
     });
 
     describe('v-model binding이 없이도 수정 가능하다', () => {
-        it('v-model binding은 없고, v-model:firstName만 binding만 있을 경우도 수정할 수 있다', async () => {
+        it('v-model binding은 없고, v-model:firstName, v-model:lastName binding만 있을 경우도 수정할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -150,6 +183,20 @@ describe('Name Input', () => {
             expect(wrapper.props('firstName')).toBe('Hi');
             expect(wrapper.props('lastName')).toBe('Vlossom');
         });
+
+        it('clear 버튼을 누르면 값이 비워진다', async () => {
+            // given
+            const wrapper = shallowMount(VsNameInput);
+            await wrapper.find('.first-name').setValue('Hi');
+            await wrapper.find('.last-name').setValue('Vlossom');
+
+            // when
+            wrapper.find('.clear-btn').trigger('click');
+
+            // then
+            expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
+            expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('');
+        });
     });
 
     describe('label', () => {
@@ -162,7 +209,7 @@ describe('Name Input', () => {
             });
 
             // then
-            const label = wrapper.find('label');
+            const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
         });
@@ -172,7 +219,7 @@ describe('Name Input', () => {
             const wrapper = shallowMount(VsNameInput);
 
             // then
-            const label = wrapper.find('label');
+            const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(false);
             expect(label.text()).toBe('');
@@ -187,7 +234,7 @@ describe('Name Input', () => {
             });
 
             // then
-            expect(wrapper.find('label').exists()).toBe(false);
+            expect(wrapper.find('.label').exists()).toBe(false);
         });
     });
 
