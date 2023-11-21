@@ -28,7 +28,7 @@ describe('Name Input', () => {
 
         it('modelValue를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -46,7 +46,7 @@ describe('Name Input', () => {
 
         it('modelValue를 바꿔서 값을 반영할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -64,7 +64,7 @@ describe('Name Input', () => {
 
         it('값이 변경되면 change 이벤트가 발생한다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -73,6 +73,7 @@ describe('Name Input', () => {
 
             // when
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
+            await nextTick();
 
             // then
             expect(wrapper.emitted()).toHaveProperty('change');
@@ -83,7 +84,7 @@ describe('Name Input', () => {
 
         it('null 값이 할당된 경우 기본 값으로 할당한다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     // @ts-expect-error: null 값이 할당되는 경우를 테스트하기 위해 null을 할당한다
                     modelValue: null,
@@ -91,14 +92,17 @@ describe('Name Input', () => {
                 },
             });
 
+            // when
+            await nextTick();
+
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
             expect(wrapper.vm.changed).toBe(false);
         });
 
-        it('v-model:firstName과 v-model에 firstName의 binding된 값이 다른 경우 v-model:firstName이 우선한다', () => {
+        it('v-model:firstName과 v-model에 firstName의 binding된 값이 다른 경우 v-model:firstName이 우선한다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: '' },
                     firstName: 'Hi',
@@ -107,6 +111,8 @@ describe('Name Input', () => {
                 },
             });
 
+            await nextTick();
+
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: '' });
             expect(wrapper.props('firstName')).toBe('Hi');
@@ -114,7 +120,7 @@ describe('Name Input', () => {
 
         it('v-model:firstName으로 firstName을 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: '' },
                     firstName: 'Hi',
@@ -133,7 +139,7 @@ describe('Name Input', () => {
 
         it('v-model:lastName으로 lastName을 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: '', lastName: 'World' },
                     lastName: 'World',
@@ -150,9 +156,9 @@ describe('Name Input', () => {
             expect(wrapper.props('lastName')).toBe('Vlossom');
         });
 
-        it('clear 버튼을 누르면 값이 비워진다', () => {
+        it('clear 버튼을 누르면 값이 비워진다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
@@ -161,6 +167,7 @@ describe('Name Input', () => {
 
             // when
             wrapper.find('.clear-btn').trigger('click');
+            await nextTick();
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
@@ -170,7 +177,7 @@ describe('Name Input', () => {
     describe('v-model binding이 없이도 수정 가능하다', () => {
         it('v-model binding은 없고, v-model:firstName, v-model:lastName binding만 있을 경우도 수정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     firstName: 'Hello',
                     lastName: 'World',
@@ -196,6 +203,7 @@ describe('Name Input', () => {
 
             // when
             wrapper.find('.clear-btn').trigger('click');
+            await nextTick();
 
             // then
             expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
@@ -564,7 +572,7 @@ describe('Name Input', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 value를 비울 수 있다', () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
