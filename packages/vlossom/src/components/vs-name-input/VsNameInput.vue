@@ -1,8 +1,6 @@
 <template>
-    <div :class="['vs-name-input', { disabled: disabled }]" :style="{ width: width }">
-        <vs-label class="label" v-if="noLabel === false && label" :required="required">
-            <span v-html="label"></span>
-        </vs-label>
+    <div :class="['vs-name-input', { disabled: disabled }]" :style="{ width: computedWidth }">
+        <div class="label" v-if="noLabel" v-show="label">{{ label }}</div>
 
         <input
             class="first-name"
@@ -10,9 +8,8 @@
             :value="inputValue.firstName"
             :disabled="disabled"
             :readonly="readonly"
-            :placeholder="placeholder"
+            :placeholder="placeholderFirstName"
             @input="updateFirstValue($event)"
-            @keyup.enter="onEnter"
             @focus="onFocus"
             @blur="onBlur"
         />
@@ -23,9 +20,8 @@
             :value="inputValue.lastName"
             :disabled="disabled"
             :readonly="readonly"
-            :placeholder="placeholder"
+            :placeholder="placeholderLastName"
             @input="updateLastValue($event)"
-            @keyup.enter="onEnter"
             @focus="onFocus"
             @blur="onBlur"
         />
@@ -35,37 +31,40 @@
         </button>
         {{ inputValue }}
 
-        <div class="message-group relative flex flex-align-center" v-if="noMsg === false">
-            <vs-message v-for="(message, index) in messages" :key="index" :state="message.state" :text="message.text" />
+        <div class="messages" v-if="noMsg">
+            <div class="message" v-for="message in computedMessages" :key="message.state">{{ message.message }}</div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount } from 'vue';
-import { ColorScheme } from '@/declaration/types';
+import { defineComponent, PropType, Ref, ref, toRefs, computed, onBeforeMount, ComputedRef } from 'vue';
 
-interface InputStyleSet {
-    appendBackgroundColor: string;
-    appendColor: string;
-    backgroundColor: string;
-    border: string;
-    borderRadius: string;
-    clearButtonColor: string;
-    fontColor: string;
-    height: string;
-    prependBackgroundColor: string;
-    prependColor: string;
+export enum UIState {
+    IDLE = 'idle',
+    SUCCESS = 'success',
+    INFO = 'info',
+    DANGER = 'danger',
+    WARN = 'warning',
+    SELECTED = 'selected',
 }
 
-export type VsInputStyleSet = Partial<InputStyleSet>;
+export interface StateMessage {
+    state: UIState;
+    message: string;
+}
+type Rules<T = any> = (((v: T) => string) | ((v: T) => PromiseLike<string>))[];
+type Messages<T = any> = (StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>))[];
 
-export interface InputButton {
-    icon?: string;
-    action?: (value: string | number) => void;
+interface Grid {
+    xs?: string | number;
+    sm?: string | number;
+    md?: string | number;
+    lg?: string | number;
+    xl?: string | number;
 }
 
-export interface Name {
+export interface NameInputValue {
     firstName: string;
     lastName: string;
 }
@@ -73,43 +72,41 @@ export interface Name {
 const VsNameInput = defineComponent({
     name: 'vs-name-input',
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
-        disabled: { type: Boolean, default: false },
-        noClear: { type: Boolean, default: false },
-        placeholder: { type: String, default: '' },
-        readonly: { type: Boolean, default: false },
-        append: {
-            type: Object as PropType<InputButton>,
-            default: null,
-        },
-        prepend: {
-            type: Object as PropType<InputButton>,
-            default: null,
-        },
-
-        // label
+        grid: { type: Object as PropType<Grid>, default: () => ({}) },
         label: { type: String, default: '' },
-        messages: { type: Array as PropType<any[]>, default: () => [] as any[] }, // type 재정의 필요
+        messages: { type: Array as PropType<Messages<NameInputValue>>, default: () => [] },
         noLabel: { type: Boolean, default: false },
         noMsg: { type: Boolean, default: false },
+        placeholderFirstName: { type: String, default: 'first name' },
+        placeholderLastName: { type: String, default: 'last name' },
+        rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
+        width: { type: [String, Object] as PropType<string | Grid>, default: '100%' },
+
+        // add
+        disabled: { type: Boolean, default: false },
+        readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
+        noClear: { type: Boolean, default: false },
         visible: { type: Boolean, default: true },
-        width: { type: String, default: '' },
 
         // v-model
+        modelValue: { type: Object as PropType<NameInputValue>, default: () => null },
         firstName: { type: String, default: '' },
         lastName: { type: String, default: '' },
-        modelValue: { type: Object as PropType<Name>, default: () => ({ firstName: '', lastName: '' }) },
     },
-    emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
+    // emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, { emit }) {
         const { modelValue, firstName: firstNameValue, lastName: lastNameValue } = toRefs(props);
+        const computedMessages: ComputedRef<StateMessage[]> = computed(() => []);
+        const computedWidth: ComputedRef<string> = computed(() => '');
+        const focused = ref(false);
+        const changed = ref(false);
 
         const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
         const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
 
-        const inputValue: Ref<Name> = ref(modelValue.value || { firstName: '', lastName: '' });
+        const inputValue: Ref<NameInputValue> = ref(modelValue.value || { firstName: '', lastName: '' });
 
         onBeforeMount(() => {
             if (firstNameValue.value) {
@@ -144,18 +141,18 @@ const VsNameInput = defineComponent({
             emitValue(inputValue.value);
         }
 
+        function validate(): Promise<boolean> {
+            return Promise.resolve(true);
+        }
+
         function focus() {
             firstInputRef.value?.focus();
             lastInputRef.value?.focus();
         }
 
-        // function blur() {
-        //     inputRef.value?.blur();
-        // }
-
-        // function select() {
-        //     inputRef.value?.select();
-        // }
+        function blur(): void {
+            //
+        }
 
         function clear() {
             inputValue.value.firstName = '';
@@ -172,35 +169,23 @@ const VsNameInput = defineComponent({
             emit('blur');
         }
 
-        // function onEnter() {
-        //     emit('enter');
-
-        //     const prependAction = prepend.value?.action;
-        //     const appendAction = append.value?.action;
-
-        //     if (prependAction) {
-        //         excuteButtonAction(prependAction);
-        //     }
-
-        //     if (appendAction) {
-        //         excuteButtonAction(appendAction);
-        //     }
-        // }
-
         return {
             inputValue,
             firstInputRef,
             lastInputRef,
             isEmptyInputValue,
+            computedMessages,
+            computedWidth,
+            focused,
+            changed,
             updateFirstValue,
             updateLastValue,
+            validate,
             focus,
             blur,
-            // select,
             clear,
             onFocus,
             onBlur,
-            // onEnter,
         };
     },
 });
