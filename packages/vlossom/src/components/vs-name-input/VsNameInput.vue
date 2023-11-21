@@ -1,99 +1,187 @@
 <template>
-    <div :style="{ width: computedWidth }">
-        <div class="label" v-if="noLabel" v-show="label">{{ label }}</div>
-        <input class="first-name" :placeholder="placeholderFirstName" @change.stop />
-        <input class="last-name" :placeholder="placeholderLastName" @change.stop />
-        <div class="messages" v-if="noMsg">
-            <div class="message" v-for="message in computedMessages" :key="message.state">{{ message.message }}</div>
-        </div>
+    <div :class="['vs-name-input', `vs-${computedColorScheme}`, { disabled: disabled }]" :style="customProperties">
+        <input
+            class="input"
+            ref="inputRef"
+            :value="inputValue.firstName"
+            :disabled="disabled"
+            :readonly="readonly"
+            :placeholder="placeholder"
+            @input="updateValue($event)"
+            @keyup.enter="onEnter"
+            @focus="onFocus"
+            @blur="onBlur"
+        />
+
+        <input
+            class="input"
+            ref="inputRef"
+            :value="inputValue.lastName"
+            :disabled="disabled"
+            :readonly="readonly"
+            :placeholder="placeholder"
+            @input="updateValue($event)"
+            @keyup.enter="onEnter"
+            @focus="onFocus"
+            @blur="onBlur"
+        />
+
+        <button v-if="!noClear && inputValue && !readonly && !disabled" class="clear-button"> X </button>
     </div>
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, computed, defineComponent, ref } from 'vue';
+import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { useColorScheme, useCustomStyle } from '@/composables';
+import { ColorScheme } from '@/declaration/types';
 
-export enum UIState {
-    IDLE = 'idle',
-    SUCCESS = 'success',
-    INFO = 'info',
-    DANGER = 'danger',
-    WARN = 'warning',
-    SELECTED = 'selected',
+interface InputStyleSet {
+    appendBackgroundColor: string;
+    appendColor: string;
+    backgroundColor: string;
+    border: string;
+    borderRadius: string;
+    clearButtonColor: string;
+    fontColor: string;
+    height: string;
+    prependBackgroundColor: string;
+    prependColor: string;
 }
 
-export interface StateMessage {
-    state: UIState;
-    message: string;
-}
-type Rules<T = any> = (((v: T) => string) | ((v: T) => PromiseLike<string>))[];
-type Messages<T = any> = (StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>))[];
+export type VsInputStyleSet = Partial<InputStyleSet>;
 
-interface Grid {
-    xs?: string | number;
-    sm?: string | number;
-    md?: string | number;
-    lg?: string | number;
-    xl?: string | number;
+export interface InputButton {
+    icon?: string;
+    action?: (value: string | number) => void;
 }
 
-export interface NameInputValue {
+export interface Name {
     firstName: string;
     lastName: string;
 }
 
-export default defineComponent({
+const VsNameInput = defineComponent({
+    name: 'vs-name-input',
     props: {
-        grid: { type: Object as PropType<Grid>, default: () => ({}) },
-        label: { type: String, default: '' },
-        messages: { type: Array as PropType<Messages<NameInputValue>>, default: () => [] },
-        noLabel: { type: Boolean, default: false },
-        noMsg: { type: Boolean, default: false },
-        placeholderFirstName: { type: String, default: 'first name' },
-        placeholderLastName: { type: String, default: 'last name' },
-        rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
-        width: { type: [String, Object] as PropType<string | Grid>, default: '100%' },
-        // v-model
-        modelValue: {
-            type: Object as PropType<NameInputValue>,
+        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
+        disabled: { type: Boolean, default: false },
+        noClear: { type: Boolean, default: false },
+        placeholder: { type: String, default: '' },
+        readonly: { type: Boolean, default: false },
+        append: {
+            type: Object as PropType<InputButton>,
             default: null,
         },
-        firstName: { type: String, default: '' },
-        lastName: { type: String, default: '' },
+        prepend: {
+            type: Object as PropType<InputButton>,
+            default: null,
+        },
+        // v-model
+        modelValue: { type: Object as PropType<Name>, default: () => ({ firstName: '', lastName: '' }) },
     },
-    expose: ['validate', 'focus', 'blur', 'clear'],
-    // emits: ['update:modelValue', 'change', 'blur', 'focus', 'clear'],
-    setup() {
-        const computedMessages: ComputedRef<StateMessage[]> = computed(() => []);
-        const computedWidth: ComputedRef<string> = computed(() => '');
-        const focused = ref(false);
-        const changed = ref(false);
+    emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
+    expose: ['focus', 'blur', 'select', 'clear'],
+    setup(props, { emit }) {
+        const { colorScheme, styleSet, modelValue } = toRefs(props);
 
-        function validate(): Promise<boolean> {
-            return Promise.resolve(true);
+        const { computedColorScheme } = useColorScheme(colorScheme, 'vsInput', 'indigo');
+
+        const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'input');
+
+        const inputRef: Ref<HTMLInputElement | null> = ref(null);
+
+        const inputValue: ComputedRef<Name> = computed(() => {
+            return modelValue.value || { firstName: '', lastName: '' };
+        });
+
+        function emitValue(v: Name) {
+            emit('update:modelValue', v);
+            emit('change', v);
         }
 
-        function focus(): void {
-            //
+        // function convertValue(v: string | number | null | undefined): string | number {
+        //     if (!v) {
+        //         return type.value === InputType.TEXT ? '' : 0;
+        //     }
+
+        //     if (type.value === InputType.TEXT) {
+        //         return v.toString();
+        //     } else {
+        //         return Number(v);
+        //     }
+        // }
+
+        function updateValue(event: Event) {
+            console.log(event);
+            const target = { firstName: inputValue.value.firstName, lastName: inputValue.value.lastName };
+            console.log(target);
+            // const targetValue = target.value || '';
+            // const converted = convertValue(targetValue);
+            emitValue(target as Name);
         }
 
-        function blur(): void {
-            //
+        function focus() {
+            inputRef.value?.focus();
         }
 
-        function clear(): void {
-            //
+        function blur() {
+            inputRef.value?.blur();
         }
+
+        function select() {
+            inputRef.value?.select();
+        }
+
+        // function clear() {
+        //     const emptyValue = convertValue(null);
+        //     emitValue(emptyValue);
+
+        //     emit('clear');
+        // }
+
+        function onFocus() {
+            emit('focus');
+        }
+
+        function onBlur() {
+            emit('blur');
+        }
+
+        // function onEnter() {
+        //     emit('enter');
+
+        //     const prependAction = prepend.value?.action;
+        //     const appendAction = append.value?.action;
+
+        //     if (prependAction) {
+        //         excuteButtonAction(prependAction);
+        //     }
+
+        //     if (appendAction) {
+        //         excuteButtonAction(appendAction);
+        //     }
+        // }
 
         return {
-            computedMessages,
-            computedWidth,
-            validate,
-            focused,
-            changed,
+            computedColorScheme,
+            customProperties,
+            inputValue,
+            inputRef,
+            updateValue,
             focus,
             blur,
-            clear,
+            select,
+            // clear,
+            onFocus,
+            onBlur,
+            // onEnter,
         };
     },
 });
+
+export default VsNameInput;
+export type VsNameInputInstance = InstanceType<typeof VsNameInput>;
 </script>
+
+<style lang="scss" scoped src="./VsInput.scss" />
