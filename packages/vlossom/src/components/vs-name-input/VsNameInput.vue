@@ -184,4 +184,4 @@ export default VsNameInput;
 export type VsNameInputInstance = InstanceType<typeof VsNameInput>;
 </script>
 
-<style lang="scss" scoped src="./VsInput.scss" />
+<style lang="scss" scoped src="./VsNameInput.scss" />
