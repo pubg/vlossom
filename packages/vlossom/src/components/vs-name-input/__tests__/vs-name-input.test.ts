@@ -277,7 +277,7 @@ describe('Name Input', () => {
 
     describe('width / grid 설정', () => {
         let container: HTMLDivElement;
-        let wrapper: any;
+        let wrapper: ReturnType<typeof shallowMountComponent>;
         beforeEach(() => {
             container = document.createElement('div');
             document.body.appendChild(container);
@@ -380,6 +380,8 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
+            expect(wrapper.vm.computedMessages[0].state).toBe(UIState.INFO);
+            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
         });
 
         it('messages를 함수로 전달할 수 있다', () => {
@@ -396,9 +398,11 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
+            expect(wrapper.vm.computedMessages[0].state).toBe(UIState.INFO);
+            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
         });
 
-        it('messages를 PromiseLike를 반환하는 함수로도 전달할 수 있다', () => {
+        it('messages를 PromiseLike를 반환하는 함수로도 전달할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -410,13 +414,17 @@ describe('Name Input', () => {
                 },
             });
 
+            await nextTick();
+
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
+            expect(wrapper.vm.computedMessages[0].state).toBe(UIState.INFO);
+            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
         });
     });
 
     describe('rules & validate', () => {
-        let wrapper: any;
+        let wrapper: ReturnType<typeof shallowMountComponent>;
         const firstNameRequiredCheck = ({ firstName }: NameInputValue) => (firstName ? '' : 'firstName is required');
         const lastNameRequiredCheck = ({ lastName }: NameInputValue) => (lastName ? '' : 'lastName is required');
         const namePromiseCheck = (_: NameInputValue) => {
@@ -450,7 +458,7 @@ describe('Name Input', () => {
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
 
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
