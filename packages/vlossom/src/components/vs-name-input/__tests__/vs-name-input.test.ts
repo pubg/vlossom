@@ -202,8 +202,7 @@ describe('Name Input', () => {
             });
 
             // when
-            wrapper.find('.clear-btn').trigger('click');
-            await nextTick();
+            await wrapper.find('.clear-btn').trigger('click');
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
@@ -238,8 +237,7 @@ describe('Name Input', () => {
             await wrapper.find('.last-name').setValue('Vlossom');
 
             // when
-            wrapper.find('.clear-btn').trigger('click');
-            await nextTick();
+            await wrapper.find('.clear-btn').trigger('click');
 
             // then
             expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
@@ -248,7 +246,7 @@ describe('Name Input', () => {
     });
 
     describe('label', () => {
-        it('label을 설정할 수 있다', () => {
+        it('label을 설정할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -256,15 +254,20 @@ describe('Name Input', () => {
                 },
             });
 
+            // when
+            await nextTick();
+
             // then
             const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
-        });
 
-        it('label을 설정하지 않아도 label 영역이 있다', () => {
+        it('label을 설정하지 않아도 label 영역이 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput);
+
+            // when
+            await nextTick();
 
             // then
             const label = wrapper.find('.label');
@@ -559,7 +562,6 @@ describe('Name Input', () => {
 
         it('blur 함수를 호출해서 blur 시킬 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
 
@@ -622,7 +624,7 @@ describe('Name Input', () => {
     });
 
     describe('clear', () => {
-        it('clear 함수를 호출하면 value를 비울 수 있다', () => {
+        it('clear 함수를 호출하면 value를 비울 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
@@ -633,6 +635,7 @@ describe('Name Input', () => {
 
             // when
             wrapper.vm.clear();
+            await nextTick();
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
