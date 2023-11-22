@@ -507,10 +507,17 @@ describe('Name Input', () => {
     });
 
     describe('focus / blur', () => {
-        it('focus 함수를 호출해서 focus 시킬 수 있다', () => {
-            // given
-            const wrapper = shallowMount(VsNameInput);
+        let wrapper: ReturnType<typeof shallowMountComponent>;
 
+        beforeEach(() => {
+            wrapper = shallowMount(VsNameInput, { attachTo: document.body });
+        });
+
+        afterEach(() => {
+            wrapper.unmount();
+        });
+
+        it('focus 함수를 호출해서 focus 시킬 수 있다', () => {
             // when
             wrapper.vm.focus();
 
@@ -521,7 +528,6 @@ describe('Name Input', () => {
 
         it('blur 함수를 호출해서 blur 시킬 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
 
@@ -535,7 +541,6 @@ describe('Name Input', () => {
 
         it('firstName input에서 tab을 입력하면  lastName input으로 focus가 바뀐다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
 
@@ -549,7 +554,6 @@ describe('Name Input', () => {
 
         it('lastName input에서 shift + tab을 입력하면 firstName input으로 focus가 바뀐다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
 
@@ -563,7 +567,6 @@ describe('Name Input', () => {
 
         it('lastName input에서 tab을 입력하면 focus가 사라진다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
             await wrapper.find('.last-name').trigger('keydown.tab');
