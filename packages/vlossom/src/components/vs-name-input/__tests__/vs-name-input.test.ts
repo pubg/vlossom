@@ -100,7 +100,7 @@ describe('Name Input', () => {
             expect(wrapper.vm.changed).toBe(false);
         });
 
-        it('v-model:firstName과 v-model에 firstName의 binding된 값이 다른 경우 v-model:firstName이 우선한다', () => {
+        it('v-model:firstName과, v-model의 firstName에 binding된 값이 다른 경우 v-model:firstName이 우선한다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
