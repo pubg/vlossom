@@ -622,7 +622,7 @@ describe('Name Input', () => {
     });
 
     describe('clear', () => {
-        it('clear 함수를 호출하면 value를 비울 수 있다', () => {
+        it('clear 함수를 호출하면 value를 비울 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
@@ -633,6 +633,7 @@ describe('Name Input', () => {
 
             // when
             wrapper.vm.clear();
+            await nextTick();
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
