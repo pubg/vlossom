@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
+import { mount, shallowMount } from '@vue/test-utils';
 import VsNameInput, { NameInputValue, StateMessage, UIState } from '../VsNameInput.vue';
 import { nextTick } from 'vue';
 
@@ -248,7 +248,7 @@ describe('Name Input', () => {
     describe('label', () => {
         it('label을 설정할 수 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper = mount(VsNameInput, {
                 props: {
                     label: 'Name Input',
                 },
@@ -261,10 +261,11 @@ describe('Name Input', () => {
             const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
+        });
 
         it('label을 설정하지 않아도 label 영역이 있다', async () => {
             // given
-            const wrapper = shallowMount(VsNameInput);
+            const wrapper = mount(VsNameInput);
 
             // when
             await nextTick();
@@ -278,7 +279,7 @@ describe('Name Input', () => {
 
         it('noLabel props를 설정하면 label 영역이 없다', () => {
             // given
-            const wrapper = shallowMount(VsNameInput, {
+            const wrapper = mount(VsNameInput, {
                 props: {
                     noLabel: true,
                 },
@@ -478,12 +479,10 @@ describe('Name Input', () => {
         beforeEach(() => {
             wrapper = shallowMount(VsNameInput, {
                 props: {
-                    props: {
-                        modelValue: { firstName: '', lastName: '' },
-                        'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
-                    },
-                    rules: [firstNameRequiredCheck, lastNameRequiredCheck],
+                    modelValue: { firstName: '', lastName: '' },
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
                 },
+                rules: [firstNameRequiredCheck, lastNameRequiredCheck],
             });
         });
         afterEach(() => {
