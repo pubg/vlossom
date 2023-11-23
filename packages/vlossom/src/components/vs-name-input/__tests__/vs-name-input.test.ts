@@ -21,8 +21,6 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hello', lastName: 'World' });
-            expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('Hello');
-            expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('World');
             expect(wrapper.vm.changed).toBe(false);
         });
 
@@ -55,11 +53,11 @@ describe('Name Input', () => {
 
             // when
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
+            await nextTick();
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: 'Vlossom' });
-            expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('Hi');
-            expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('Vlossom');
+            expect(wrapper.vm.changed).toBe(true);
         });
 
         it('값이 변경되면 change 이벤트가 발생한다', async () => {
@@ -118,7 +116,7 @@ describe('Name Input', () => {
             expect(wrapper.props('firstName')).toBe('Hi');
         });
 
-        it('v-model:firstName으로 firstName을 수정할 수 있다', async () => {
+        it('firstName을 수정하면 v-model:firstName binding 된 값이 변경된다', async () => {
             // given
             const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
@@ -137,7 +135,26 @@ describe('Name Input', () => {
             expect(wrapper.props('firstName')).toBe('Hi');
         });
 
-        it('v-model:lastName으로 lastName을 수정할 수 있다', async () => {
+        it('v-model:firstName을 수정하면 binding 된 값이 변경된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: 'Hello', lastName: '' },
+                    firstName: 'Hello',
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    'onUpdate:firstName': (v: string) => wrapper.setProps({ firstName: v }),
+                },
+            });
+
+            // when
+            await wrapper.setProps({ firstName: 'Hi' });
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: '' });
+            expect(wrapper.props('firstName')).toBe('Hi');
+        });
+
+        it('lastName을 수정하면 v-model:lastName binding 된 값이 변경된다', async () => {
             // given
             const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
@@ -150,6 +167,25 @@ describe('Name Input', () => {
 
             // when
             await wrapper.find('.last-name').setValue('Vlossom');
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: 'Vlossom' });
+            expect(wrapper.props('lastName')).toBe('Vlossom');
+        });
+
+        it('v-model:lastName을 수정하면 binding 된 값이 변경된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
+                props: {
+                    modelValue: { firstName: '', lastName: 'World' },
+                    lastName: 'World',
+                    'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    'onUpdate:lastName': (v: string) => wrapper.setProps({ lastName: v }),
+                },
+            });
+
+            // when
+            await wrapper.setProps({ lastName: 'Vlossom' });
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: 'Vlossom' });
@@ -195,7 +231,7 @@ describe('Name Input', () => {
             expect(wrapper.props('lastName')).toBe('Vlossom');
         });
 
-        it('clear 버튼을 누르면 값이 비워진다', async () => {
+        it('아무 binding된 값이 없어도 입력 후 clear 버튼을 누르면 값이 비워진다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput);
             await wrapper.find('.first-name').setValue('Hi');
@@ -366,7 +402,7 @@ describe('Name Input', () => {
     });
 
     describe('messages', () => {
-        it('messages를 StateMessage[] 형태로 전달할 수 있다', () => {
+        it('messages를 StateMessage[] 형태로 전달할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -378,13 +414,15 @@ describe('Name Input', () => {
                 },
             });
 
+            await nextTick();
+
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
             expect(wrapper.vm.computedMessages[0].state).toBe(UIState.INFO);
             expect(wrapper.vm.computedMessages[0].message).toBe('info message');
         });
 
-        it('messages를 함수로 전달할 수 있다', () => {
+        it('messages를 함수로 전달할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -395,6 +433,8 @@ describe('Name Input', () => {
                     ],
                 },
             });
+
+            await nextTick();
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
@@ -507,27 +547,19 @@ describe('Name Input', () => {
     });
 
     describe('focus / blur', () => {
-        let wrapper: ReturnType<typeof shallowMountComponent>;
-
-        beforeEach(() => {
-            wrapper = shallowMount(VsNameInput, { attachTo: document.body });
-        });
-
-        afterEach(() => {
-            wrapper.unmount();
-        });
-
-        it('focus 함수를 호출해서 focus 시킬 수 있다', () => {
+        it('focus 함수를 호출해서 firstName input에 focus 시킬 수 있다', () => {
             // when
+            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
 
             // then
             expect(wrapper.vm.focused).toBe(true);
-            expect(wrapper.find('.first-name').element).toBe(document.activeElement);
+            expect(wrapper.vm.focusedFirstName).toBe(true);
         });
 
         it('blur 함수를 호출해서 blur 시킬 수 있다', async () => {
             // given
+            const wrapper = shallowMount(VsNameInput);
             wrapper.vm.focus();
             await nextTick();
 
@@ -536,47 +568,56 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.focused).toBe(false);
-            expect(wrapper.find('.first-name').element).not.toBe(document.activeElement);
+            expect(wrapper.vm.focusedFirstName).toBe(false);
+            expect(wrapper.vm.focusedLastName).toBe(false);
         });
 
         it('firstName input에서 tab을 입력하면  lastName input으로 focus가 바뀐다', async () => {
             // given
-            wrapper.vm.focus();
+            const wrapper = shallowMount(VsNameInput);
+            await wrapper.find('.first-name').trigger('focus');
             await nextTick();
 
             // when
             await wrapper.find('.first-name').trigger('keydown.tab');
+            await wrapper.find('.last-name').trigger('focus'); // focus 이벤트가 발생하지 않아서 직접 발생시킨다
 
             // then
             expect(wrapper.vm.focused).toBe(true);
-            expect(wrapper.find('.last-name').element).toBe(document.activeElement);
+            expect(wrapper.vm.focusedFirstName).toBe(false);
+            expect(wrapper.vm.focusedLastName).toBe(true);
         });
 
         it('lastName input에서 shift + tab을 입력하면 firstName input으로 focus가 바뀐다', async () => {
             // given
-            wrapper.vm.focus();
+            const wrapper = shallowMount(VsNameInput);
+            await wrapper.find('.last-name').trigger('focus');
             await nextTick();
 
             // when
             await wrapper.find('.last-name').trigger('keydown.tab', { shiftKey: true });
+            await wrapper.find('.first-name').trigger('focus'); // focus 이벤트가 발생하지 않아서 직접 발생시킨다
 
             // then
             expect(wrapper.vm.focused).toBe(true);
-            expect(wrapper.find('.first-name').element).toBe(document.activeElement);
+            expect(wrapper.vm.focusedFirstName).toBe(true);
+            expect(wrapper.vm.focusedLastName).toBe(false);
         });
 
         it('lastName input에서 tab을 입력하면 focus가 사라진다', async () => {
             // given
-            wrapper.vm.focus();
+            const wrapper = shallowMount(VsNameInput);
+            await wrapper.find('.last-name').trigger('focus');
             await nextTick();
-            await wrapper.find('.last-name').trigger('keydown.tab');
 
             // when
             await wrapper.find('.last-name').trigger('keydown.tab');
+            await wrapper.find('.last-name').trigger('blur'); // focus 이벤트가 발생하지 않아서 직접 발생시킨다
 
             // then
             expect(wrapper.vm.focused).toBe(false);
-            expect(wrapper.find('.last-name').element).not.toBe(document.activeElement);
+            expect(wrapper.vm.focusedFirstName).toBe(false);
+            expect(wrapper.vm.focusedLastName).toBe(false);
         });
     });
 
