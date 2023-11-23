@@ -1,26 +1,28 @@
 <template>
-    <vs-label v-if="noLabel" v-show="label" :required="required">{{ label }}</vs-label>
+    <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
+
     <div tabindex="0">hi</div>
     <input
         class="first-name"
-        ref="inputRef"
+        ref="firstInputRef"
         :value="firstValue"
         :disabled="disabled"
         :readonly="readonly"
         :placeholder="placeholderFirstName"
         @input="onInput($event, 'firstName')"
-        @focus="onFocus"
-        @blur="onBlur"
+        @focus="onFocus('firstName')"
+        @blur="onBlur('firstName')"
     />
     <input
         class="last-name"
+        ref="lastInputRef"
         :value="lastValue"
         :disabled="disabled"
         :readonly="readonly"
         :placeholder="placeholderLastName"
         @input="onInput($event, 'lastName')"
-        @focus="onFocus"
-        @blur="onBlur"
+        @focus="onFocus('lastName')"
+        @blur="onBlur('lastName')"
     />
     <vs-message v-if="computedMessages.length" :messages="computedMessages" />
     <button class="clear-btn" type="button" @click.stop="clear">clear</button>
@@ -29,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, onBeforeMount, PropType, Ref, ref, toRefs, watch } from 'vue';
 import VsLabel from './VsLabel.vue';
 import VsMessage from './VsMessage.vue';
 import { useModel } from './useModel';
@@ -82,11 +84,14 @@ export default defineComponent({
         modelValue: { type: Object as PropType<NameInputValue | null>, default: null },
     },
     emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'focus', 'blur'],
-    expose: ['focus', 'blur', 'clear', 'validate'],
+    expose: ['focusFirstName', 'focusLastName', 'blur', 'clear', 'validate'],
     setup(props, { emit }) {
         const { modelValue, firstName, lastName, rules, messages } = toRefs(props);
 
-        const focused = ref(false);
+        const firstFocused = ref(false);
+        const lastFocused = ref(false);
+        const focused = computed(() => firstFocused.value || lastFocused.value);
+
         const changed = ref(false);
 
         const { checkVModel } = useModel();
@@ -94,7 +99,7 @@ export default defineComponent({
         const hasFirstVModel = checkVModel('firstName');
         const hasLastVModel = checkVModel('lastName');
 
-        const internalFirstValue = ref(firstName.value || modelValue.value?.firstName || '');
+        const internalFirstValue = ref(modelValue.value?.firstName || '');
 
         const firstValue = computed({
             get() {
@@ -102,7 +107,7 @@ export default defineComponent({
                     return internalFirstValue.value;
                 }
 
-                return firstName.value || modelValue.value?.firstName || '';
+                return modelValue.value?.firstName || '';
             },
             set(v: string) {
                 internalFirstValue.value = v;
@@ -112,7 +117,7 @@ export default defineComponent({
             },
         });
 
-        const internalLastValue = ref(lastName.value || modelValue.value?.lastName || '');
+        const internalLastValue = ref(modelValue.value?.lastName || '');
 
         const lastValue = computed({
             get() {
@@ -120,7 +125,7 @@ export default defineComponent({
                     return internalLastValue.value;
                 }
 
-                return lastName.value || modelValue.value?.lastName || '';
+                return modelValue.value?.lastName || '';
             },
             set(v: string) {
                 internalLastValue.value = v;
@@ -128,6 +133,33 @@ export default defineComponent({
                 emit('update:lastName', v);
                 emit('update:modelValue', { firstName: internalFirstValue.value, lastName: v });
             },
+        });
+
+        watch(
+            firstName,
+            (v: string) => {
+                if (v) {
+                    firstValue.value = v;
+                }
+            },
+            { immediate: true },
+        );
+
+        watch(
+            lastName,
+            (v: string) => {
+                if (v) {
+                    lastValue.value = v;
+                }
+            },
+            { immediate: true },
+        );
+
+        onBeforeMount(() => {
+            if (!modelValue.value) {
+                firstValue.value = '';
+                lastValue.value = '';
+            }
         });
 
         const inputValue = computed(() => ({ firstName: firstValue.value, lastName: lastValue.value }));
@@ -146,30 +178,32 @@ export default defineComponent({
             } else {
                 lastValue.value = targetValue;
             }
-
-            // if (props.modelModifiers?.trim) {
-            //     // TODO
-            // }
         }
 
-        function onFocus() {
-            focused.value = true;
+        function onFocus(type: 'firstName' | 'lastName') {
+            if (type === 'firstName') {
+                firstFocused.value = true;
+            } else {
+                lastFocused.value = true;
+            }
             emit('focus');
         }
 
-        function onBlur() {
-            focused.value = false;
+        function onBlur(type: 'firstName' | 'lastName') {
+            if (type === 'firstName') {
+                firstFocused.value = false;
+            } else {
+                lastFocused.value = false;
+            }
             emit('blur');
         }
 
-        const inputRef: Ref<HTMLInputElement | null> = ref(null);
-
-        function focus() {
-            inputRef.value?.focus();
-        }
+        const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
+        const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
 
         function blur() {
-            inputRef.value?.blur();
+            firstInputRef.value?.blur();
+            lastInputRef.value?.blur();
         }
 
         function clear() {
@@ -181,6 +215,10 @@ export default defineComponent({
         const validationMessages: Ref<StateMessage[]> = ref([]);
 
         function validate() {
+            return validationMessages.value.length === 0;
+        }
+
+        function composeValidationMessages() {
             validationMessages.value = [];
 
             const promises = rules.value.map((rule) => {
@@ -188,20 +226,20 @@ export default defineComponent({
             });
 
             Promise.all(promises).then((results) => {
-                results.map((result) => {
+                results.forEach((result) => {
                     if (result) {
                         validationMessages.value.push({ state: UIState.DANGER, message: result });
                     }
                 });
-            });
 
-            return validationMessages.value.length > 0;
+                return validationMessages.value.length > 0;
+            });
         }
 
         watch(
             rules,
             () => {
-                validate();
+                composeValidationMessages();
             },
             { immediate: true },
         );
@@ -236,12 +274,14 @@ export default defineComponent({
         );
 
         watch(inputValue, () => {
-            validate();
+            composeValidationMessages();
             composeMessages();
         });
 
         return {
             focused,
+            firstFocused,
+            lastFocused,
             changed,
             hasVModel,
             hasFirstVModel,
@@ -252,8 +292,10 @@ export default defineComponent({
             onInput,
             onFocus,
             onBlur,
-            inputRef,
-            focus,
+            firstInputRef,
+            lastInputRef,
+            // focusFirstName,
+            // focusLastName,
             blur,
             clear,
             validate,
