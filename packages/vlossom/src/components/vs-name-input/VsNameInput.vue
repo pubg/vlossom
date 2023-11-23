@@ -1,37 +1,41 @@
 <template>
-    <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
+    <div class="container" ref="container">
+        <div class="vs-name-input">
+            <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
 
-    <div tabindex="0">hi</div>
-    <input
-        class="first-name"
-        ref="firstInputRef"
-        :value="firstValue"
-        :disabled="disabled"
-        :readonly="readonly"
-        :placeholder="placeholderFirstName"
-        @input="onInput($event, 'firstName')"
-        @focus="onFocus('firstName')"
-        @blur="onBlur('firstName')"
-    />
-    <input
-        class="last-name"
-        ref="lastInputRef"
-        :value="lastValue"
-        :disabled="disabled"
-        :readonly="readonly"
-        :placeholder="placeholderLastName"
-        @input="onInput($event, 'lastName')"
-        @focus="onFocus('lastName')"
-        @blur="onBlur('lastName')"
-    />
-    <vs-message v-if="computedMessages.length" :messages="computedMessages" />
-    <button class="clear-btn" type="button" @click.stop="clear">clear</button>
-    {{ firstValue }}
-    {{ lastValue }}
+            <div tabindex="0">hi</div>
+            <input
+                class="first-name"
+                ref="firstInputRef"
+                :value="firstValue"
+                :disabled="disabled"
+                :readonly="readonly"
+                :placeholder="placeholderFirstName"
+                @input="onInput($event, 'firstName')"
+                @focus="onFocus('firstName')"
+                @blur="onBlur('firstName')"
+            />
+            <input
+                class="last-name"
+                ref="lastInputRef"
+                :value="lastValue"
+                :disabled="disabled"
+                :readonly="readonly"
+                :placeholder="placeholderLastName"
+                @input="onInput($event, 'lastName')"
+                @focus="onFocus('lastName')"
+                @blur="onBlur('lastName')"
+            />
+            <vs-message v-if="computedMessages.length" :messages="computedMessages" />
+            <button class="clear-btn" type="button" @click.stop="clear">clear</button>
+            {{ firstValue }}
+            {{ lastValue }}
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, nextTick, onBeforeMount, PropType, Ref, ref, toRefs, watch } from 'vue';
 import VsLabel from './VsLabel.vue';
 import VsMessage from './VsMessage.vue';
 import { useModel } from './useModel';
@@ -78,19 +82,20 @@ export default defineComponent({
         readonly: { type: Boolean, default: false },
         rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
         messages: { type: Object as PropType<Messages<NameInputValue>>, default: () => ({}) },
+        width: { type: [String, Object] as PropType<string | Grid>, default: '100%' },
         // v-model
         firstName: { type: String, default: '' },
         lastName: { type: String, default: '' },
         modelValue: { type: Object as PropType<NameInputValue | null>, default: null },
     },
     emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'focus', 'blur'],
-    expose: ['focusFirstName', 'focusLastName', 'blur', 'clear', 'validate'],
+    expose: ['focus', 'blur', 'clear', 'validate'],
     setup(props, { emit }) {
-        const { modelValue, firstName, lastName, rules, messages } = toRefs(props);
+        const { modelValue, firstName, lastName, rules, messages, width } = toRefs(props);
 
-        const firstFocused = ref(false);
-        const lastFocused = ref(false);
-        const focused = computed(() => firstFocused.value || lastFocused.value);
+        const focusedFirstName = ref(false);
+        const focusedLastName = ref(false);
+        const focused = computed(() => focusedFirstName.value || focusedLastName.value);
 
         const changed = ref(false);
 
@@ -182,24 +187,30 @@ export default defineComponent({
 
         function onFocus(type: 'firstName' | 'lastName') {
             if (type === 'firstName') {
-                firstFocused.value = true;
+                focusedFirstName.value = true;
+                focusedLastName.value = false;
             } else {
-                lastFocused.value = true;
+                focusedLastName.value = true;
+                focusedFirstName.value = false;
             }
             emit('focus');
         }
 
         function onBlur(type: 'firstName' | 'lastName') {
             if (type === 'firstName') {
-                firstFocused.value = false;
+                focusedFirstName.value = false;
             } else {
-                lastFocused.value = false;
+                focusedLastName.value = false;
             }
             emit('blur');
         }
 
         const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
         const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
+
+        function focus() {
+            firstInputRef.value?.focus();
+        }
 
         function blur() {
             firstInputRef.value?.blur();
@@ -278,10 +289,50 @@ export default defineComponent({
             composeMessages();
         });
 
+        // width, grid
+        const container: Ref<HTMLElement | null> = ref(null);
+
+        const computedWidth = computed(() => {
+            if (typeof width.value === 'string') {
+                return {
+                    xs: width.value,
+                    sm: width.value,
+                    md: width.value,
+                    lg: width.value,
+                    xl: width.value,
+                };
+            }
+
+            return {
+                xs: width.value.xs || '100%',
+                sm: width.value.sm || width.value.xs || '100%',
+                md: width.value.md || width.value.sm || '100%',
+                lg: width.value.lg || width.value.md || width.value.sm || width.value.xs || '100%',
+                xl: width.value.xl || width.value.lg || width.value.md || width.value.sm || width.value.xs || '100%',
+            };
+        });
+
+        watch(
+            width,
+            async () => {
+                await nextTick();
+                if (container.value === null) {
+                    return;
+                }
+
+                container.value.style.setProperty('--vs-name-input-width-xs', computedWidth.value.xs.toString());
+                container.value.style.setProperty('--vs-name-input-width-sm', computedWidth.value.sm.toString());
+                container.value.style.setProperty('--vs-name-input-width-md', computedWidth.value.md.toString());
+                container.value.style.setProperty('--vs-name-input-width-lg', computedWidth.value.lg.toString());
+                container.value.style.setProperty('--vs-name-input-width-xl', computedWidth.value.xl.toString());
+            },
+            { immediate: true },
+        );
+
         return {
+            focusedFirstName,
+            focusedLastName,
             focused,
-            firstFocused,
-            lastFocused,
             changed,
             hasVModel,
             hasFirstVModel,
@@ -294,14 +345,73 @@ export default defineComponent({
             onBlur,
             firstInputRef,
             lastInputRef,
-            // focusFirstName,
-            // focusLastName,
+            focus,
             blur,
             clear,
             validate,
             validationMessages,
             calculatedMessages,
+            container,
+            computedWidth,
         };
     },
 });
 </script>
+
+<style lang="scss" scoped>
+@mixin responsive_width($target_class, $variable_name) {
+    .#{$target_class} {
+        width: var(--vs-name-input-width-xs);
+
+        @container (min-width: 480px) {
+            width: var(--#{$variable_name}-sm);
+        }
+
+        @container (min-width: 768px) {
+            width: var(--#{$variable_name}-md);
+        }
+
+        @container (min-width: 992px) {
+            width: var(--#{$variable_name}-lg);
+        }
+
+        @container (min-width: 1280px) {
+            width: var(--#{$variable_name}-xl);
+        }
+    }
+}
+
+.container {
+    container-type: inline-size;
+
+    @include responsive_width('vs-name-input', 'vs-name-input-width');
+
+    // .vs-name-input {
+    //     width: var(--vs-name-input-width-xs);
+    // }
+
+    // @container (min-width: 480px) {
+    //     .vs-name-input {
+    //         width: var(--vs-name-input-width-sm);
+    //     }
+    // }
+
+    // @container (min-width: 768px) {
+    //     .vs-name-input {
+    //         width: var(--vs-name-input-width-md);
+    //     }
+    // }
+
+    // @container (min-width: 992px) {
+    //     .vs-name-input {
+    //         width: var(--vs-name-input-width-lg);
+    //     }
+    // }
+
+    // @container (min-width: 1280px) {
+    //     .vs-name-input {
+    //         width: var(--vs-name-input-width-xl);
+    //     }
+    // }
+}
+</style>
