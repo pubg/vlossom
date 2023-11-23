@@ -1,10 +1,10 @@
 <template>
     <div :style="{ width: computedWidth }">
-        <div class="label" v-if="noLabel" v-show="label">{{ label }}</div>
+        <div class="label" v-if="!noLabel" v-show="label">{{ label }}</div>
         <input class="first-name" :placeholder="placeholderFirstName" @change.stop />
         <input class="last-name" :placeholder="placeholderLastName" @change.stop />
         <button class="clear-btn" type="button" @click.stop="clear">clear</button>
-        <div class="messages" v-if="noMsg">
+        <div class="messages" v-if="!noMsg">
             <div class="message" v-for="message in computedMessages" :key="message.state">{{ message.message }}</div>
         </div>
     </div>
