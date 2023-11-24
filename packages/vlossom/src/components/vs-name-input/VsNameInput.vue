@@ -294,7 +294,6 @@ export default defineComponent({
         });
 
         // width, grid
-
         const { widthProperties, widthClasses } = useWidth(name, width, grid);
 
         return {

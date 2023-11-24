@@ -316,92 +316,61 @@ describe('Name Input', () => {
     });
 
     describe('width / grid 설정', () => {
-        let container: HTMLDivElement;
-        let wrapper: ReturnType<typeof shallowMountComponent>;
-        beforeEach(() => {
-            container = document.createElement('div');
-            document.body.appendChild(container);
-        });
-
-        afterEach(() => {
-            wrapper.unmount();
-            container.remove();
-        });
-
         it('width를 string value로 직접 설정할 수 있다', () => {
             // given
-            wrapper = shallowMount(VsNameInput, {
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
                 props: {
                     width: '300px',
                 },
             });
 
             // then
-            expect(wrapper.attributes('style')).toBe('width: 300px;');
+            expect(wrapper.vm.widthProperties).toEqual({
+                '--vs-name-input-base': '300px',
+            });
+            expect(wrapper.vm.widthClasses).toEqual([]);
         });
 
-        describe('container가 lg일 때', () => {
-            beforeEach(() => {
-                container.setAttribute('style', 'width: 1200px;');
+        it('width를 객체 value로 설정 할 수 있다', () => {
+            // given
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
+                props: {
+                    width: { lg: '150px', md: '200px', sm: '250px' },
+                },
             });
 
-            it('width를 설정 할 수 있다', () => {
-                // given
-                wrapper = shallowMount(VsNameInput, {
-                    attachTo: container,
-                    props: {
-                        width: { lg: '150px', md: '200px', sm: '250px' },
-                    },
-                });
-
-                // then
-                expect(wrapper.attributes('style')).toBe('width: 150px;');
+            // then
+            expect(wrapper.vm.widthProperties).toEqual({
+                '--vs-name-input-base': '100%',
+                '--vs-name-input-sm': '250px',
+                '--vs-name-input-md': '200px',
+                '--vs-name-input-lg': '150px',
             });
-
-            it('grid를 설정할 수 있다', () => {
-                // given
-                wrapper = shallowMount(VsNameInput, {
-                    attachTo: container,
-                    props: {
-                        grid: { lg: 3, md: 4, sm: 6 },
-                    },
-                });
-
-                // then
-                expect(wrapper.attributes('style')).toBe('width: 25%;');
-            });
+            expect(wrapper.vm.widthClasses).toEqual(['vs-name-input-sm', 'vs-name-input-md', 'vs-name-input-lg']);
         });
 
-        describe('container가 sm일 때', () => {
-            beforeEach(() => {
-                container.setAttribute('style', 'width: 800px;');
+        it('grid를 설정할 수 있다', () => {
+            // given
+            const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
+                props: {
+                    grid: { xl: 2, lg: 3, md: 4, sm: 6 },
+                },
             });
 
-            it('width를 설정 할 수 있다', () => {
-                // given
-                wrapper = shallowMount(VsNameInput, {
-                    attachTo: container,
-                    props: {
-                        width: { lg: '150px', md: '200px', sm: '250px' },
-                    },
-                });
-
-                // then
-                expect(wrapper.attributes('style')).toBe('width: 250px;');
+            // then
+            expect(wrapper.vm.widthProperties).toEqual({
+                '--vs-name-input-base': '100%',
+                '--vs-name-input-sm': 'calc(6/12 * 100%)',
+                '--vs-name-input-md': 'calc(4/12 * 100%)',
+                '--vs-name-input-lg': 'calc(3/12 * 100%)',
+                '--vs-name-input-xl': 'calc(2/12 * 100%)',
             });
-
-            it('grid를 설정할 수 있다', () => {
-                // given
-                wrapper = shallowMount(VsNameInput, {
-                    attachTo: container,
-                    props: {
-                        grid: { lg: 3, md: 4, sm: 6 },
-                    },
-                });
-
-                // then
-                expect(wrapper.attributes('style')).toBe('width: 50%;');
-            });
+            expect(wrapper.vm.widthClasses).toEqual([
+                'vs-name-input-sm',
+                'vs-name-input-md',
+                'vs-name-input-lg',
+                'vs-name-input-xl',
+            ]);
         });
     });
 
@@ -550,19 +519,27 @@ describe('Name Input', () => {
 
     describe('focus / blur', () => {
         it('focus 함수를 호출해서 firstName input에 focus 시킬 수 있다', () => {
-            // when
+            // given
             const wrapper = shallowMount(VsNameInput);
+            const focusHandler = jest.spyOn(wrapper.vm, 'onFocus');
+
+            // when
             wrapper.vm.focus();
 
             // then
+            expect(focusHandler).toHaveBeenCalled();
             expect(wrapper.vm.focused).toBe(true);
             expect(wrapper.vm.focusedFirstName).toBe(true);
         });
 
         it('blur 함수를 호출해서 blur 시킬 수 있다', async () => {
             // given
+            const wrapper = shallowMount(VsNameInput);
+
+            // given
             wrapper.vm.focus();
-            await nextTick();
+            expect(wrapper.vm.focused).toBe(true);
+            expect(wrapper.vm.focusedFirstName).toBe(true);
 
             // when
             wrapper.vm.blur();
