@@ -516,6 +516,7 @@ describe('Name Input', () => {
             // given
             // when
             await wrapper.setProps({ rules: [namePromiseCheck] });
+            await nextTick();
 
             // then
             expect(wrapper.vm.changed).toBe(false);
