@@ -1,33 +1,33 @@
 @mixin responsive_width($component_name) {
-    $base: var(--#{$component_name}-width);
-    $sm: var(--#{$component_name}-width-sm);
-    $md: var(--#{$component_name}-width-md);
-    $lg: var(--#{$component_name}-width-lg);
-    $xl: var(--#{$component_name}-width-xl);
+    $base: var(--#{$component_name}-base);
+    $sm: var(--#{$component_name}-sm);
+    $md: var(--#{$component_name}-md);
+    $lg: var(--#{$component_name}-lg);
+    $xl: var(--#{$component_name}-xl);
 
     .#{$component_name} {
         width: $base;
     }
 
-    .#{$component_name}-width-sm {
+    .#{$component_name}-sm {
         @container (min-width: 480px) {
             width: $sm;
         }
     }
 
-    .#{$component_name}-width-md {
+    .#{$component_name}-md {
         @container (min-width: 768px) {
             width: $md;
         }
     }
 
-    .#{$component_name}-width-lg {
+    .#{$component_name}-lg {
         @container (min-width: 992px) {
             width: $lg;
         }
     }
 
-    .#{$component_name}-width-xl {
+    .#{$component_name}-xl {
         @container (min-width: 1280px) {
             width: $xl;
         }

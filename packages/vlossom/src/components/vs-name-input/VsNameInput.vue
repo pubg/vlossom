@@ -95,7 +95,7 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'focus', 'blur'],
     expose: ['focus', 'blur', 'clear', 'validate'],
     setup(props, { emit }) {
-        const { modelValue, firstName, lastName, rules, messages, width } = toRefs(props);
+        const { modelValue, firstName, lastName, rules, messages, width, grid } = toRefs(props);
 
         const focusedFirstName = ref(false);
         const focusedLastName = ref(false);
@@ -295,7 +295,7 @@ export default defineComponent({
 
         // width, grid
 
-        const { widthProperties, widthClasses } = useWidth(name, width);
+        const { widthProperties, widthClasses } = useWidth(name, width, grid);
 
         return {
             name,

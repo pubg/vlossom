@@ -1,8 +1,17 @@
 import { Ref, computed } from 'vue';
 import { Grid } from '../VsNameInput.vue';
 
-export function useWidth(name: string, width: Ref<string | Grid>) {
+export function useWidth(name: string, width: Ref<string | Grid>, grid: Ref<Grid>) {
     const computedWidth = computed(() => {
+        if (Object.keys(grid.value).length > 0) {
+            return Object.entries(grid.value).reduce((acc, [key, value]) => {
+                return {
+                    ...acc,
+                    [key]: `calc(${value}/12 * 100%)`,
+                };
+            }, {} as Grid);
+        }
+
         if (typeof width.value === 'string') {
             return {
                 xs: width.value,
@@ -12,24 +21,26 @@ export function useWidth(name: string, width: Ref<string | Grid>) {
         return width.value;
     });
 
-    const widthProperties = computed(() => ({
-        [`--${name}-width`]: computedWidth.value.xs?.toString() ?? '100%',
-        ...(computedWidth.value.sm && { [`--${name}-width-sm`]: computedWidth.value.sm?.toString() }),
-        ...(computedWidth.value.md && { [`--${name}-width-md`]: computedWidth.value.md?.toString() }),
-        ...(computedWidth.value.lg && { [`--${name}-width-lg`]: computedWidth.value.lg?.toString() }),
-        ...(computedWidth.value.xl && { [`--${name}-width-xl`]: computedWidth.value.xl?.toString() }),
-    }));
+    const widthProperties = computed(() => {
+        const { xs, sm, md, lg, xl } = computedWidth.value;
+
+        return {
+            [`--${name}-base`]: xs?.toString() ?? '100%',
+            ...(sm && { [`--${name}-sm`]: sm?.toString() }),
+            ...(md && { [`--${name}-md`]: md?.toString() }),
+            ...(lg && { [`--${name}-lg`]: lg?.toString() }),
+            ...(xl && { [`--${name}-xl`]: xl?.toString() }),
+        };
+    });
 
     const widthClasses = computed(() => {
-        if (typeof width.value === 'string') {
-            return [];
-        }
+        const { sm, md, lg, xl } = computedWidth.value;
 
         return [
-            ...(width.value.sm ? ['vs-name-input-width-sm'] : []),
-            ...(width.value.md ? ['vs-name-input-width-md'] : []),
-            ...(width.value.lg ? ['vs-name-input-width-lg'] : []),
-            ...(width.value.xl ? ['vs-name-input-width-xl'] : []),
+            ...(sm ? [`${name}-sm`] : []),
+            ...(md ? [`${name}-md`] : []),
+            ...(lg ? [`${name}-lg`] : []),
+            ...(xl ? [`${name}-xl`] : []),
         ];
     });
 
