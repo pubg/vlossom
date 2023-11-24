@@ -1,0 +1,35 @@
+@mixin responsive_width($component_name) {
+    $base: var(--#{$component_name}-width);
+    $sm: var(--#{$component_name}-width-sm);
+    $md: var(--#{$component_name}-width-md);
+    $lg: var(--#{$component_name}-width-lg);
+    $xl: var(--#{$component_name}-width-xl);
+
+    .#{$component_name} {
+        width: $base;
+    }
+
+    .#{$component_name}-width-sm {
+        @container (min-width: 480px) {
+            width: $sm;
+        }
+    }
+
+    .#{$component_name}-width-md {
+        @container (min-width: 768px) {
+            width: $md;
+        }
+    }
+
+    .#{$component_name}-width-lg {
+        @container (min-width: 992px) {
+            width: $lg;
+        }
+    }
+
+    .#{$component_name}-width-xl {
+        @container (min-width: 1280px) {
+            width: $xl;
+        }
+    }
+}

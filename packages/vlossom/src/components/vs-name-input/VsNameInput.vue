@@ -1,6 +1,6 @@
 <template>
-    <div class="container" ref="container">
-        <div :class="[name, '300px']">
+    <div class="container" :style="widthProperties">
+        <div :class="[name, ...widthClasses]">
             <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
 
             <div tabindex="0">hi</div>
@@ -294,9 +294,8 @@ export default defineComponent({
         });
 
         // width, grid
-        const container: Ref<HTMLElement | null> = ref(null);
 
-        useWidth(name, width, container);
+        const { widthProperties, widthClasses } = useWidth(name, width);
 
         return {
             name,
@@ -321,7 +320,8 @@ export default defineComponent({
             validate,
             validationMessages,
             calculatedMessages,
-            container,
+            widthProperties,
+            widthClasses,
         };
     },
 });
