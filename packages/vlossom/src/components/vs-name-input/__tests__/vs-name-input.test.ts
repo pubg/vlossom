@@ -370,7 +370,7 @@ describe('Name Input', () => {
 
         describe('container가 sm일 때', () => {
             beforeEach(() => {
-                container.setAttribute('style', 'width: 800px;');
+                container.setAttribute('style', 'width: 600px;');
             });
 
             it('width를 설정 할 수 있다', () => {
