@@ -1,6 +1,6 @@
 <template>
     <div class="container" ref="container">
-        <div class="vs-name-input">
+        <div :class="[name, '300px']">
             <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
 
             <div tabindex="0">hi</div>
@@ -27,7 +27,7 @@
                 @blur="onBlur('lastName')"
             />
             <vs-message v-if="computedMessages.length" :messages="computedMessages" />
-            <button class="clear-btn" type="button" @click.stop="clear">clear</button>
+            <button v-if="firstValue || lastValue" class="clear-btn" type="button" @click.stop="clear">clear</button>
             {{ firstValue }}
             {{ lastValue }}
         </div>
@@ -35,10 +35,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onBeforeMount, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, onBeforeMount, PropType, Ref, ref, toRefs, watch } from 'vue';
 import VsLabel from './VsLabel.vue';
 import VsMessage from './VsMessage.vue';
-import { useModel } from './useModel';
+import { useModel } from './composables/useModel';
+import { useWidth } from './composables/useWidth';
 
 export enum UIState {
     IDLE = 'idle',
@@ -56,7 +57,7 @@ export interface StateMessage {
 type Rules<T = any> = (((v: T) => string) | ((v: T) => PromiseLike<string>))[];
 type Messages<T = any> = (StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>))[];
 
-interface Grid {
+export interface Grid {
     xs?: string | number;
     sm?: string | number;
     md?: string | number;
@@ -69,9 +70,11 @@ export interface NameInputValue {
     lastName: string;
 }
 
+const name = 'vs-name-input';
+
 export default defineComponent({
     components: { VsLabel, VsMessage },
-    name: 'vs-name-input',
+    name,
     props: {
         label: { type: String, default: '' },
         noLabel: { type: Boolean, default: false },
@@ -83,6 +86,7 @@ export default defineComponent({
         rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
         messages: { type: Object as PropType<Messages<NameInputValue>>, default: () => ({}) },
         width: { type: [String, Object] as PropType<string | Grid>, default: '100%' },
+        grid: { type: Object as PropType<Grid>, default: () => ({}) },
         // v-model
         firstName: { type: String, default: '' },
         lastName: { type: String, default: '' },
@@ -292,44 +296,10 @@ export default defineComponent({
         // width, grid
         const container: Ref<HTMLElement | null> = ref(null);
 
-        const computedWidth = computed(() => {
-            if (typeof width.value === 'string') {
-                return {
-                    xs: width.value,
-                    sm: width.value,
-                    md: width.value,
-                    lg: width.value,
-                    xl: width.value,
-                };
-            }
-
-            return {
-                xs: width.value.xs || '100%',
-                sm: width.value.sm || width.value.xs || '100%',
-                md: width.value.md || width.value.sm || '100%',
-                lg: width.value.lg || width.value.md || width.value.sm || width.value.xs || '100%',
-                xl: width.value.xl || width.value.lg || width.value.md || width.value.sm || width.value.xs || '100%',
-            };
-        });
-
-        watch(
-            width,
-            async () => {
-                await nextTick();
-                if (container.value === null) {
-                    return;
-                }
-
-                container.value.style.setProperty('--vs-name-input-width-xs', computedWidth.value.xs.toString());
-                container.value.style.setProperty('--vs-name-input-width-sm', computedWidth.value.sm.toString());
-                container.value.style.setProperty('--vs-name-input-width-md', computedWidth.value.md.toString());
-                container.value.style.setProperty('--vs-name-input-width-lg', computedWidth.value.lg.toString());
-                container.value.style.setProperty('--vs-name-input-width-xl', computedWidth.value.xl.toString());
-            },
-            { immediate: true },
-        );
+        useWidth(name, width, container);
 
         return {
+            name,
             focusedFirstName,
             focusedLastName,
             focused,
@@ -352,66 +322,16 @@ export default defineComponent({
             validationMessages,
             calculatedMessages,
             container,
-            computedWidth,
         };
     },
 });
 </script>
 
 <style lang="scss" scoped>
-@mixin responsive_width($target_class, $variable_name) {
-    .#{$target_class} {
-        width: var(--vs-name-input-width-xs);
-
-        @container (min-width: 480px) {
-            width: var(--#{$variable_name}-sm);
-        }
-
-        @container (min-width: 768px) {
-            width: var(--#{$variable_name}-md);
-        }
-
-        @container (min-width: 992px) {
-            width: var(--#{$variable_name}-lg);
-        }
-
-        @container (min-width: 1280px) {
-            width: var(--#{$variable_name}-xl);
-        }
-    }
-}
+@import './width.scss';
 
 .container {
     container-type: inline-size;
-
-    @include responsive_width('vs-name-input', 'vs-name-input-width');
-
-    // .vs-name-input {
-    //     width: var(--vs-name-input-width-xs);
-    // }
-
-    // @container (min-width: 480px) {
-    //     .vs-name-input {
-    //         width: var(--vs-name-input-width-sm);
-    //     }
-    // }
-
-    // @container (min-width: 768px) {
-    //     .vs-name-input {
-    //         width: var(--vs-name-input-width-md);
-    //     }
-    // }
-
-    // @container (min-width: 992px) {
-    //     .vs-name-input {
-    //         width: var(--vs-name-input-width-lg);
-    //     }
-    // }
-
-    // @container (min-width: 1280px) {
-    //     .vs-name-input {
-    //         width: var(--vs-name-input-width-xl);
-    //     }
-    // }
+    @include responsive_width('vs-name-input');
 }
 </style>
