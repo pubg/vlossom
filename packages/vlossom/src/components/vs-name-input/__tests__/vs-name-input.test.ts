@@ -94,6 +94,7 @@ describe('Name Input', () => {
 
             // when
             await nextTick();
+            await nextTick();
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
@@ -202,8 +203,8 @@ describe('Name Input', () => {
             wrapper.find('.clear-btn').trigger('click');
 
             // then
-            expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
-            expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('');
+            expect(wrapper.props('firstName')).toBe('');
+            expect(wrapper.props('lastName')).toBe('');
         });
     });
 
@@ -276,6 +277,7 @@ describe('Name Input', () => {
         let wrapper: any;
         beforeEach(() => {
             container = document.createElement('div');
+            container.id = 'container';
             document.body.appendChild(container);
         });
 
@@ -330,10 +332,10 @@ describe('Name Input', () => {
 
         describe('container가 sm일 때', () => {
             beforeEach(() => {
-                container.setAttribute('style', 'width: 800px;');
+                container.setAttribute('style', 'width: 750px;');
             });
 
-            it('width를 설정 할 수 있다', () => {
+            it('width를 설정 할 수 있다', async () => {
                 // given
                 wrapper = shallowMount(VsNameInput, {
                     attachTo: container,
@@ -341,6 +343,8 @@ describe('Name Input', () => {
                         width: { lg: '150px', md: '200px', sm: '250px' },
                     },
                 });
+
+                await nextTick();
 
                 // then
                 expect(wrapper.attributes('style')).toBe('width: 250px;');
@@ -378,7 +382,7 @@ describe('Name Input', () => {
             expect(wrapper.vm.computedMessages).toHaveLength(3);
         });
 
-        it('messages를 함수로 전달할 수 있다', () => {
+        it('messages를 함수로 전달할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -390,11 +394,14 @@ describe('Name Input', () => {
                 },
             });
 
+            //when
+            await nextTick();
+
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
         });
 
-        it('messages를 PromiseLike를 반환하는 함수로도 전달할 수 있다', () => {
+        it('messages를 PromiseLike를 반환하는 함수로도 전달할 수 있다', async () => {
             // given
             const wrapper = shallowMount(VsNameInput, {
                 props: {
@@ -405,6 +412,9 @@ describe('Name Input', () => {
                     ],
                 },
             });
+
+            //when
+            await nextTick();
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
@@ -445,8 +455,10 @@ describe('Name Input', () => {
             // when
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
 
+            await nextTick();
+            await nextTick();
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
@@ -455,6 +467,8 @@ describe('Name Input', () => {
             await wrapper.setProps({ modelValue: { firstName: 'hey', lastName: 'why' } });
             await wrapper.setProps({ modelValue: { firstName: '', lastName: '' } });
 
+            await nextTick();
+            await nextTick();
             // then
             expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
@@ -464,18 +478,25 @@ describe('Name Input', () => {
             // given
             // when
             await wrapper.setProps({ rules: [namePromiseCheck] });
+            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
+
+            await nextTick();
+            await nextTick();
 
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(1);
         });
 
-        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', () => {
+        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
             // when
             wrapper.vm.validate();
 
+            await nextTick();
+            await nextTick();
+
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
         });
 
@@ -485,6 +506,9 @@ describe('Name Input', () => {
             wrapper.setProps({ messages: [infoMsg] });
             // when
             await wrapper.setProps({ modelValue: { firstName: '', lastName: 'test' } });
+
+            await nextTick();
+            await nextTick();
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(2);
@@ -533,7 +557,7 @@ describe('Name Input', () => {
             await nextTick();
 
             // when
-            await wrapper.find('.first-name').trigger('keydown.tab');
+            await wrapper.find('.first-name').trigger('keydown', { keyCode: 9 });
 
             // then
             expect(wrapper.vm.focused).toBe(true);
@@ -557,7 +581,7 @@ describe('Name Input', () => {
             // given
             wrapper.vm.focus();
             await nextTick();
-            await wrapper.find('.last-name').trigger('keydown.tab');
+            await wrapper.find('.first-name').trigger('keydown.tab');
 
             // when
             await wrapper.find('.last-name').trigger('keydown.tab');

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import VsNameInput from '../VsNameInput.vue';
+import VsNameInput, { NameInputValue, StateMessage, UIState } from '../VsNameInput.vue';
 import { ref } from 'vue';
 
 const meta: Meta<typeof VsNameInput> = {
@@ -9,10 +9,33 @@ const meta: Meta<typeof VsNameInput> = {
     render: (args: any) => ({
         components: { VsNameInput },
         setup() {
-            const value = ref(null);
-            return { value, args };
+            const value: any = ref(null);
+            const widthObj = { lg: '150px', md: '200px', sm: '250px' };
+            const widthStr = '200px';
+
+            const firstNameRequiredCheck = ({ firstName }: NameInputValue) =>
+                firstName ? '' : 'firstName is required';
+            const lastNameRequiredCheck = ({ lastName }: NameInputValue) => (lastName ? '' : 'lastName is required');
+            const namePromiseCheck = (_: NameInputValue) => {
+                console.log(_);
+                return Promise.resolve('Name Promise Check');
+            };
+
+            // setTimeout(() => (value.value = { firstName: 'HI', lastName: 'Vlossom' }), 1000);
+            return {
+                value,
+                args,
+                widthObj,
+                widthStr,
+                messages: [
+                    // () => Promise.resolve({ state: UIState.INFO, message: 'info message' }),
+                    // () => Promise.resolve({ state: UIState.SUCCESS, message: 'success message' }),
+                    // () => Promise.resolve({ state: UIState.WARN, message: 'warning message' }),
+                ],
+                rules: [namePromiseCheck, firstNameRequiredCheck, lastNameRequiredCheck],
+            };
         },
-        template: '<vs-name-input v-model="value" v-bind="args" width="300px"/>{{value}}',
+        template: '<vs-name-input v-model="value" v-bind="args"  :messages="messages" :rules="rules"/>{{value}}',
     }),
     tags: ['autodocs'],
 };

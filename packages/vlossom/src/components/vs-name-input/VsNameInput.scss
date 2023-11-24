@@ -1,76 +1,16 @@
 @use '@/styles/mixin' as *;
 
-.vs-input {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-input-border, solid 1px var(--vs-line-color));
-    border-radius: var(--vs-input-borderRadius, 0.4rem);
-    height: var(--vs-input-height, 3rem);
-
-    .input {
-        width: 100%;
-        line-height: 3.2rem;
-        padding: 0 1.2rem;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        color: var(--vs-input-fontColor, var(--vs-font-color));
-    }
-
-    .action-button {
-        height: 100%;
-        margin: 0;
-        padding: 0 1rem;
-        border-radius: 0;
-        cursor: pointer;
-
-        &.prepend {
-            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
-            color: var(--vs-input-prependColor, #ffffff);
-        }
-
-        &.append {
-            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
-            color: var(--vs-input-appendColor, #ffffff);
-        }
-    }
-
-    .action-button + .clear-button {
-        right: 4rem;
-    }
-
-    .clear-button {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 50%;
-        right: 1rem;
+.vs-name-input {
+    .clear-btn {
         opacity: 0;
-        width: 2rem;
-        height: 100%;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-line-color));
-
-        &.number {
-            right: 3.4rem;
-        }
-    }
-
-    &.disabled {
-        @include disabled;
     }
 
     &:hover {
-        .clear-button {
+        .clear-btn {
             opacity: 1;
         }
     }
 
-    &:focus-within {
-        @include focus-shadow;
-    }
 }
