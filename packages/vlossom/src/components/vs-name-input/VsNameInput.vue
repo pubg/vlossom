@@ -7,7 +7,7 @@
             ref="firstInputRef"
             :value="inputValue.firstName"
             :placeholder="placeholderFirstName"
-            @input="updateFirstValue($event)"
+            @input="updateInputValue($event)"
         />
 
         <input
@@ -15,7 +15,7 @@
             ref="lastInputRef"
             :value="inputValue.lastName"
             :placeholder="placeholderLastName"
-            @input="updateLastValue($event)"
+            @input="updateInputValue($event)"
         />
 
         <button v-if="!isEmptyInputValue" class="clear-btn" @click="clear"> X </button>
@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts">
-import { reduceEachTrailingCommentRange } from 'typescript';
 import { defineComponent, PropType, Ref, ref, toRefs, computed, onMounted, ComputedRef, watch, nextTick } from 'vue';
 
 export enum UIState {
@@ -154,7 +153,7 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value = modelValue.value || { firstName: '', lastName: '' };
-                emitValue(inputValue.value);
+                emitValue(inputValue.value, 0);
             },
             { deep: true },
         );
@@ -166,7 +165,7 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value.firstName = firstNameValue.value || '';
-                emitValue(inputValue.value);
+                emitValue(inputValue.value, 1);
             },
             { deep: true },
         );
@@ -178,36 +177,43 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value.lastName = lastNameValue.value || '';
-                emitValue(inputValue.value);
+                emitValue(inputValue.value, 2);
             },
             { deep: true },
         );
 
-        function emitValue(v: NameInputValue) {
+        function emitValue(v: NameInputValue, flag: 0 | 1 | 2) {
+            if (flag! == 2) {
+                emit('update:firstName', v.firstName);
+            }
+            if (flag! == 1) {
+                emit('update:lastName', v.lastName);
+            }
             emit('update:modelValue', v);
-            emit('update:firstName', v.firstName);
-            emit('update:lastName', v.lastName);
-            checkRules(inputValue.value);
-            emit('change', v);
-            changed.value = true;
+
+            checkRules(v);
+            updatedChanged(inputValue.value);
         }
 
         const isEmptyInputValue = computed(() => {
             return inputValue.value.firstName === '' && inputValue.value.lastName === '';
         });
 
-        function updateFirstValue(event: Event) {
+        function updateInputValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = target.value || '';
-            inputValue.value.firstName = targetValue;
-            emitValue(inputValue.value);
+            if (target.className === 'first-name') {
+                inputValue.value.firstName = targetValue;
+                emitValue(inputValue.value, 1);
+            } else {
+                inputValue.value.lastName = targetValue;
+                emitValue(inputValue.value, 2);
+            }
         }
 
-        function updateLastValue(event: Event) {
-            const target = event.target as HTMLInputElement;
-            const targetValue = target.value || '';
-            inputValue.value.lastName = targetValue;
-            emitValue(inputValue.value);
+        function updatedChanged(v: NameInputValue) {
+            emit('change', v);
+            changed.value = true;
         }
 
         //width
@@ -326,7 +332,7 @@ const VsNameInput = defineComponent({
         function clear() {
             inputValue.value.firstName = '';
             inputValue.value.lastName = '';
-            emitValue(inputValue.value);
+            emitValue(inputValue.value, 0);
             emit('clear');
         }
 
@@ -340,8 +346,7 @@ const VsNameInput = defineComponent({
             computedGridWidth,
             focused,
             changed,
-            updateFirstValue,
-            updateLastValue,
+            updateInputValue,
             validate,
             focus,
             blur,
