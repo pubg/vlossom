@@ -3,7 +3,6 @@
         <div :class="[name, ...widthClasses]">
             <vs-label v-if="!noLabel" v-show="label" :required="required">{{ label }}</vs-label>
 
-            <div tabindex="0">hi</div>
             <input
                 class="first-name"
                 ref="firstInputRef"
@@ -173,11 +172,6 @@ export default defineComponent({
 
         const inputValue = computed(() => ({ firstName: firstValue.value, lastName: lastValue.value }));
 
-        watch(inputValue, () => {
-            emit('change', inputValue.value);
-            changed.value = true;
-        });
-
         function onInput(e: Event, type: 'firstName' | 'lastName') {
             const target = e.target as HTMLInputElement;
             const targetValue = target.value || '';
@@ -192,11 +186,10 @@ export default defineComponent({
         function onFocus(type: 'firstName' | 'lastName') {
             if (type === 'firstName') {
                 focusedFirstName.value = true;
-                focusedLastName.value = false;
             } else {
                 focusedLastName.value = true;
-                focusedFirstName.value = false;
             }
+
             emit('focus');
         }
 
@@ -206,6 +199,7 @@ export default defineComponent({
             } else {
                 focusedLastName.value = false;
             }
+
             emit('blur');
         }
 
@@ -229,43 +223,34 @@ export default defineComponent({
         // validation
         const validationMessages: Ref<StateMessage[]> = ref([]);
 
-        function validate() {
-            return validationMessages.value.length === 0;
-        }
-
-        function composeValidationMessages() {
-            validationMessages.value = [];
-
-            const promises = rules.value.map((rule) => {
+        async function checkRules() {
+            const calculated = rules.value.map((rule) => {
                 return rule(inputValue.value);
             });
 
-            Promise.all(promises).then((results) => {
-                results.forEach((result) => {
-                    if (result) {
-                        validationMessages.value.push({ state: UIState.DANGER, message: result });
-                    }
-                });
+            const results = await Promise.all(calculated);
 
-                return validationMessages.value.length > 0;
-            });
+            validationMessages.value = results.filter((v) => !!v).map((v) => ({ state: UIState.DANGER, message: v }));
         }
 
         watch(
             rules,
             () => {
-                composeValidationMessages();
+                checkRules();
             },
             { immediate: true },
         );
 
+        function validate() {
+            changed.value = true;
+            return validationMessages.value.length === 0;
+        }
+
         // using messages prop
-        const calculatedMessages: Ref<StateMessage[]> = ref([]);
+        const generalMessages: Ref<StateMessage[]> = ref([]);
 
-        async function composeMessages() {
-            calculatedMessages.value = [];
-
-            const promises = messages.value.map((message) => {
+        async function checkMessages() {
+            const calculated = messages.value.map((message) => {
                 if (typeof message === 'function') {
                     return message(inputValue.value);
                 } else {
@@ -273,24 +258,31 @@ export default defineComponent({
                 }
             });
 
-            calculatedMessages.value = (await Promise.all(promises)).filter((v) => !!v) as StateMessage[];
+            generalMessages.value = (await Promise.all(calculated)).filter((v) => !!v) as StateMessage[];
         }
-
-        const computedMessages = computed(() => {
-            return [...validationMessages.value, ...calculatedMessages.value];
-        });
 
         watch(
             messages,
             () => {
-                composeMessages();
+                checkMessages();
             },
             { immediate: true },
         );
 
+        const computedMessages = computed(() => {
+            if (!changed.value) {
+                return generalMessages.value;
+            }
+
+            return [...generalMessages.value, ...validationMessages.value];
+        });
+
         watch(inputValue, () => {
-            composeValidationMessages();
-            composeMessages();
+            emit('change', inputValue.value);
+            changed.value = true;
+
+            checkRules();
+            checkMessages();
         });
 
         // width, grid
@@ -318,7 +310,7 @@ export default defineComponent({
             clear,
             validate,
             validationMessages,
-            calculatedMessages,
+            generalMessages,
             widthProperties,
             widthClasses,
         };

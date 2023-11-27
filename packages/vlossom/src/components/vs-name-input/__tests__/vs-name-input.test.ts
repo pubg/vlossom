@@ -467,6 +467,7 @@ describe('Name Input', () => {
         it('설정된 값이 유효하면 message가 없다', async () => {
             // when
             await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
+            await nextTick();
 
             // then
             expect(wrapper.vm.changed).toBe(true);
@@ -492,15 +493,15 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.changed).toBe(false);
-            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
         it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
             // when
-            await wrapper.vm.validate();
+            wrapper.vm.validate();
 
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
         });
 
@@ -559,6 +560,7 @@ describe('Name Input', () => {
 
             // when
             await wrapper.find('.first-name').trigger('keydown.tab');
+            await wrapper.find('.first-name').trigger('blur'); // blur 이벤트가 발생하지 않아서 직접 발생시킨다
             await wrapper.find('.last-name').trigger('focus'); // focus 이벤트가 발생하지 않아서 직접 발생시킨다
 
             // then
@@ -575,6 +577,7 @@ describe('Name Input', () => {
 
             // when
             await wrapper.find('.last-name').trigger('keydown.tab', { shiftKey: true });
+            await wrapper.find('.last-name').trigger('blur'); // blur 이벤트가 발생하지 않아서 직접 발생시킨다
             await wrapper.find('.first-name').trigger('focus'); // focus 이벤트가 발생하지 않아서 직접 발생시킨다
 
             // then
