@@ -450,8 +450,8 @@ describe('Name Input', () => {
                 props: {
                     modelValue: { firstName: '', lastName: '' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    rules: [firstNameRequiredCheck, lastNameRequiredCheck],
                 },
-                rules: [firstNameRequiredCheck, lastNameRequiredCheck],
             });
         });
         afterEach(() => {
@@ -477,6 +477,7 @@ describe('Name Input', () => {
             // when
             await wrapper.setProps({ modelValue: { firstName: 'hey', lastName: 'why' } });
             await wrapper.setProps({ modelValue: { firstName: '', lastName: '' } });
+            await nextTick(); // added for async validations
 
             // then
             expect(wrapper.vm.changed).toBe(true);
@@ -487,15 +488,16 @@ describe('Name Input', () => {
             // given
             // when
             await wrapper.setProps({ rules: [namePromiseCheck] });
+            await nextTick(); // added for async validations
 
             // then
             expect(wrapper.vm.changed).toBe(false);
             expect(wrapper.vm.computedMessages).toHaveLength(1);
         });
 
-        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', () => {
+        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
             // when
-            wrapper.vm.validate();
+            await wrapper.vm.validate();
 
             // then
             expect(wrapper.vm.changed).toBe(false);
@@ -508,6 +510,7 @@ describe('Name Input', () => {
             wrapper.setProps({ messages: [infoMsg] });
             // when
             await wrapper.setProps({ modelValue: { firstName: '', lastName: 'test' } });
+            await nextTick(); // added for async validations
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(2);
@@ -521,13 +524,11 @@ describe('Name Input', () => {
         it('focus 함수를 호출해서 firstName input에 focus 시킬 수 있다', () => {
             // given
             const wrapper = shallowMount(VsNameInput);
-            const focusHandler = jest.spyOn(wrapper.vm, 'onFocus');
 
             // when
             wrapper.vm.focus();
 
             // then
-            expect(focusHandler).toHaveBeenCalled();
             expect(wrapper.vm.focused).toBe(true);
             expect(wrapper.vm.focusedFirstName).toBe(true);
         });
