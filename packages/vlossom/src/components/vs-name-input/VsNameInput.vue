@@ -153,7 +153,7 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value = modelValue.value || { firstName: '', lastName: '' };
-                emitValue(inputValue.value, 0);
+                emitValue(inputValue.value);
             },
             { deep: true },
         );
@@ -165,7 +165,7 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value.firstName = firstNameValue.value || '';
-                emitValue(inputValue.value, 1);
+                emitValue(inputValue.value);
             },
             { deep: true },
         );
@@ -177,19 +177,15 @@ const VsNameInput = defineComponent({
                     return;
                 }
                 inputValue.value.lastName = lastNameValue.value || '';
-                emitValue(inputValue.value, 2);
+                emitValue(inputValue.value);
             },
             { deep: true },
         );
 
-        function emitValue(v: NameInputValue, flag: 0 | 1 | 2) {
-            if (flag! == 2) {
-                emit('update:firstName', v.firstName);
-            }
-            if (flag! == 1) {
-                emit('update:lastName', v.lastName);
-            }
+        function emitValue(v: NameInputValue) {
             emit('update:modelValue', v);
+            emit('update:firstName', v.firstName);
+            emit('update:lastName', v.lastName);
 
             checkRules(v);
             updatedChanged(inputValue.value);
@@ -204,10 +200,10 @@ const VsNameInput = defineComponent({
             const targetValue = target.value || '';
             if (target.className === 'first-name') {
                 inputValue.value.firstName = targetValue;
-                emitValue(inputValue.value, 1);
+                emitValue(inputValue.value);
             } else {
                 inputValue.value.lastName = targetValue;
-                emitValue(inputValue.value, 2);
+                emitValue(inputValue.value);
             }
         }
 
@@ -332,7 +328,7 @@ const VsNameInput = defineComponent({
         function clear() {
             inputValue.value.firstName = '';
             inputValue.value.lastName = '';
-            emitValue(inputValue.value, 0);
+            emitValue(inputValue.value);
             emit('clear');
         }
 
