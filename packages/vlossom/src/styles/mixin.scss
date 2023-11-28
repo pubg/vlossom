@@ -9,3 +9,41 @@
     filter: grayscale(0.7);
     pointer-events: none;
 }
+
+@mixin responsive_width {
+    $xs: var(--vs-width-xs);
+    $sm: var(--vs-width-sm);
+    $md: var(--vs-width-md);
+    $lg: var(--vs-width-lg);
+    $xl: var(--vs-width-xl);
+
+    .vs-width-xs {
+        @container (min-width: 0px) {
+            width: $xs;
+        }
+    }
+
+    .vs-width-sm {
+        @container (min-width: 480px) {
+            width: $sm;
+        }
+    }
+
+    .vs-width-md {
+        @container (min-width: 768px) {
+            width: $md;
+        }
+    }
+
+    .vs-width-lg {
+        @container (min-width: 992px) {
+            width: $lg;
+        }
+    }
+
+    .vs-width-xl {
+        @container (min-width: 1280px) {
+            width: $xl;
+        }
+    }
+}
