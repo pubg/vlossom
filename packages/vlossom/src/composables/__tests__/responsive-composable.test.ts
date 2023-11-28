@@ -54,4 +54,17 @@ describe('useResponsiveWidth composable', () => {
         });
         expect(widthClasses.value).toEqual(['vs-width-md', 'vs-width-lg']);
     });
+
+    it('grid comes first ', () => {
+        const { widthVariables, widthClasses } = useResponsiveWidth(
+            ref({ lg: '20%', sm: '50%' }),
+            ref({ lg: 4, md: 6 }),
+        );
+
+        expect(widthVariables.value).toEqual({
+            '--vs-width-md': 'calc(6/12 * 100%)',
+            '--vs-width-lg': 'calc(4/12 * 100%)',
+        });
+        expect(widthClasses.value).toEqual(['vs-width-md', 'vs-width-lg']);
+    });
 });
