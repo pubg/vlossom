@@ -1,5 +1,5 @@
 <template>
-    <div :style="{ width: computedWidth }">
+    <vs-wrapper :width="width" :grid="grid">
         <div class="label" v-if="!noLabel" v-show="label">{{ label }}</div>
         <input
             class="first-name"
@@ -21,10 +21,11 @@
                 {{ message.message }}
             </div>
         </div>
-    </div>
+    </vs-wrapper>
 </template>
 
 <script lang="ts">
+import { Breakpoints } from '@/declaration/types';
 import { ComputedRef, PropType, Ref, computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } from 'vue';
 
 export enum UIState {
@@ -43,14 +44,6 @@ export interface StateMessage {
 type Rules<T = any> = (((v: T) => string) | ((v: T) => PromiseLike<string>))[];
 type Messages<T = any> = (StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>))[];
 
-interface Grid {
-    xs?: string | number;
-    sm?: string | number;
-    md?: string | number;
-    lg?: string | number;
-    xl?: string | number;
-}
-
 export interface NameInputValue {
     firstName: string;
     lastName: string;
@@ -58,7 +51,7 @@ export interface NameInputValue {
 
 export default defineComponent({
     props: {
-        grid: { type: Object as PropType<Grid>, default: () => ({}) },
+        grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
         label: { type: String, default: '' },
         messages: { type: Array as PropType<Messages<NameInputValue>>, default: () => [] },
         noLabel: { type: Boolean, default: false },
@@ -66,7 +59,7 @@ export default defineComponent({
         placeholderFirstName: { type: String, default: 'first name' },
         placeholderLastName: { type: String, default: 'last name' },
         rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
-        width: { type: [String, Object] as PropType<string | Grid>, default: '100%' },
+        width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
         // v-model
         modelValue: {
             type: Object as PropType<NameInputValue>,
@@ -79,7 +72,6 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'blur', 'focus', 'clear'],
     setup(props, { emit }) {
         const { modelValue, firstName, lastName, messages, rules } = toRefs(props);
-
         const inputValue: Ref<NameInputValue> = ref({ firstName: '', lastName: '' });
         const changed = ref(false);
 
