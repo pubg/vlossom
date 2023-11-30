@@ -1,4 +1,6 @@
-describe('input composable', () => {
+import { describe } from 'vitest';
+
+describe.skip('input composable', () => {
     describe('inputValue (modelValue)', () => {});
 
     describe('messages', () => {});
