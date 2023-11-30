@@ -1,7 +1,8 @@
 import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsNameInput, { NameInputValue, StateMessage, UIState } from '../VsNameInput.vue';
+import VsNameInput, { NameInputValue } from '../VsNameInput.vue';
 import { nextTick } from 'vue';
+import { StateMessage, UIState } from '@/declaration/types';
 
 function mountComponent() {
     return mount(VsNameInput);
@@ -244,45 +245,6 @@ describe('Name Input', () => {
             // then
             expect((wrapper.find('.first-name').element as HTMLInputElement).value).toBe('');
             expect((wrapper.find('.last-name').element as HTMLInputElement).value).toBe('');
-        });
-    });
-
-    describe('label', () => {
-        it('label을 설정할 수 있다', () => {
-            // given
-            const wrapper = mount(VsNameInput, {
-                props: {
-                    label: 'Name Input',
-                },
-            });
-
-            // then
-            const label = wrapper.find('.label');
-            expect(label.exists()).toBe(true);
-            expect(label.isVisible()).toBe(true);
-        });
-
-        it('label을 설정하지 않아도 label 영역이 있다', () => {
-            // given
-            const wrapper = mount(VsNameInput);
-
-            // then
-            const label = wrapper.find('.label');
-            expect(label.exists()).toBe(true);
-            expect(label.isVisible()).toBe(false);
-            expect(label.text()).toBe('');
-        });
-
-        it('noLabel props를 설정하면 label 영역이 없다', () => {
-            // given
-            const wrapper = mount(VsNameInput, {
-                props: {
-                    noLabel: true,
-                },
-            });
-
-            // then
-            expect(wrapper.find('.label').exists()).toBe(false);
         });
     });
 

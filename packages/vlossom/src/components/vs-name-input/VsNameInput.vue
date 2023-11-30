@@ -1,53 +1,40 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
-        <div class="label" v-if="!noLabel" v-show="label">{{ label }}</div>
-        <input
-            class="first-name"
-            :value="inputValue.firstName"
-            :placeholder="placeholderFirstName"
-            @input="updateValue('firstName', $event)"
-            @focus="onFocus('firstName', $event)"
-            @blur="onBlur('firstName', $event)"
-            @change.stop
-        />
-        <input
-            class="last-name"
-            :value="inputValue.lastName"
-            :placeholder="placeholderLastName"
-            @input="updateValue('lastName', $event)"
-            @focus="onFocus('lastName', $event)"
-            @blur="onBlur('lastName', $event)"
-            @change.stop
-        />
-        <button class="clear-btn" type="button" @click.stop="clear">clear</button>
-        <div class="messages" v-if="!noMsg">
-            <div class="message" v-for="message in computedMessages" :key="message.state">
-                {{ message.message }}
-            </div>
-        </div>
+        <vs-input-wrapper
+            :label="label"
+            :messages="computedMessages"
+            :no-label="noLabel"
+            :no-msg="noMsg"
+            :required="required"
+        >
+            <input
+                class="first-name"
+                :value="inputValue.firstName"
+                :placeholder="placeholderFirstName"
+                @input.stop="updateValue('firstName', $event)"
+                @focus.stop="onFocus('firstName', $event)"
+                @blur.stop="onBlur('firstName', $event)"
+                @change.stop
+            />
+            <input
+                class="last-name"
+                :value="inputValue.lastName"
+                :placeholder="placeholderLastName"
+                @input.stop="updateValue('lastName', $event)"
+                @focus.stop="onFocus('lastName', $event)"
+                @blur.stop="onBlur('lastName', $event)"
+                @change.stop
+            />
+            changed: {{ changed }} / valid: {{ valid }}
+            <button class="clear-btn" type="button" @click.stop="clear">clear</button>
+        </vs-input-wrapper>
     </vs-wrapper>
 </template>
 
 <script lang="ts">
+import { PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
+import { getInputProps, getResponsiveProps, useInput } from '@/composables';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { Breakpoints } from '@/declaration/types';
-import { ComputedRef, PropType, Ref, computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } from 'vue';
-
-export enum UIState {
-    IDLE = 'idle',
-    SUCCESS = 'success',
-    INFO = 'info',
-    DANGER = 'danger',
-    WARN = 'warning',
-    SELECTED = 'selected',
-}
-
-export interface StateMessage {
-    state: UIState;
-    message: string;
-}
-type Rules<T = any> = (((v: T) => string) | ((v: T) => PromiseLike<string>))[];
-type Messages<T = any> = (StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>))[];
 
 export interface NameInputValue {
     firstName: string;
@@ -57,15 +44,10 @@ export interface NameInputValue {
 export default defineComponent({
     components: { VsWrapper },
     props: {
-        grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
-        label: { type: String, default: '' },
-        messages: { type: Array as PropType<Messages<NameInputValue>>, default: () => [] },
-        noLabel: { type: Boolean, default: false },
-        noMsg: { type: Boolean, default: false },
+        ...getResponsiveProps(),
+        ...getInputProps<NameInputValue>(),
         placeholderFirstName: { type: String, default: 'first name' },
         placeholderLastName: { type: String, default: 'last name' },
-        rules: { type: Array as PropType<Rules<NameInputValue>>, default: () => [] },
-        width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
         // v-model
         modelValue: {
             type: Object as PropType<NameInputValue>,
@@ -75,102 +57,37 @@ export default defineComponent({
         lastName: { type: String, default: '' },
     },
     expose: ['validate', 'focus', 'blur', 'clear'],
-    emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'blur', 'focus', 'clear'],
-    setup(props, { emit }) {
+    emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'focus', 'blur'],
+    setup(props, context) {
         const { modelValue, firstName, lastName, messages, rules } = toRefs(props);
         const inputValue: Ref<NameInputValue> = ref({ firstName: '', lastName: '' });
-        const changed = ref(false);
+        const { emit } = context;
 
-        const innerMessages: Ref<StateMessage[]> = ref([]);
-        async function checkMessages() {
-            innerMessages.value = [];
-            const pendingMessages: Promise<StateMessage>[] = [];
-            messages.value.forEach((message) => {
-                if (typeof message === 'function') {
-                    const result = message(inputValue.value);
-                    if (result instanceof Promise) {
-                        pendingMessages.push(result);
-                    } else {
-                        innerMessages.value.push(result as StateMessage);
+        function clear(): void {
+            inputValue.value = { firstName: '', lastName: '' };
+        }
+
+        const { changed, computedMessages, showRuleMessages, validate } = useInput(inputValue, modelValue, context, {
+            messages,
+            rules,
+            clear,
+            callbacks: {
+                onChange: (value, oldValue) => {
+                    if (value.firstName !== oldValue.firstName) {
+                        emit('update:firstName', value.firstName);
                     }
-                } else {
-                    innerMessages.value.push(message);
-                }
-            });
-
-            if (pendingMessages.length === 0) {
-                return;
-            }
-            const resolvedMessages = await Promise.all(pendingMessages);
-            innerMessages.value.push(...resolvedMessages);
-        }
-        watch(messages, checkMessages, { deep: true });
-
-        const showRuleMessages = ref(false);
-        const ruleMessages: Ref<StateMessage[]> = ref([]);
-        async function checkRules() {
-            ruleMessages.value = [];
-
-            const pendingRules: Promise<string>[] = [];
-            rules.value.forEach((rule) => {
-                const result = rule(inputValue.value);
-                if (!result) {
-                    return;
-                }
-                if (result instanceof Promise) {
-                    pendingRules.push(result);
-                } else {
-                    ruleMessages.value.push({ state: UIState.DANGER, message: result as string });
-                }
-            });
-
-            if (pendingRules.length === 0) {
-                return;
-            }
-            const resolvedMessages = (await Promise.all(pendingRules)).map((resolved) => ({
-                state: UIState.DANGER,
-                message: resolved,
-            }));
-            ruleMessages.value.push(...resolvedMessages);
-        }
-        watch(rules, checkRules, { deep: true });
-
-        const computedMessages: ComputedRef<StateMessage[]> = computed(() => {
-            if (showRuleMessages.value) {
-                return [...innerMessages.value, ...ruleMessages.value];
-            }
-
-            return innerMessages.value;
-        });
-
-        watch(inputValue, (value, oldValue) => {
-            emit('update:modelValue', value);
-            if (value.firstName !== oldValue.firstName) {
-                emit('update:firstName', value.firstName);
-            }
-            if (value.lastName !== oldValue.lastName) {
-                emit('update:lastName', value.lastName);
-            }
-
-            checkMessages();
-            checkRules();
-
-            if (!isInitialized.value) {
-                return;
-            }
-            changed.value = true;
-            showRuleMessages.value = true;
-            emit('change', value);
-        });
-
-        watch(
-            modelValue,
-            (value) => {
-                inputValue.value = value;
+                    if (value.lastName !== oldValue.lastName) {
+                        emit('update:lastName', value.lastName);
+                    }
+                },
+                onMounted() {
+                    inputValue.value = {
+                        firstName: firstName.value || modelValue.value?.firstName || '',
+                        lastName: lastName.value || modelValue.value?.lastName || '',
+                    };
+                },
             },
-            { deep: true },
-        );
-
+        });
         watch(firstName, (value) => {
             inputValue.value = { ...inputValue.value, firstName: value };
         });
@@ -182,25 +99,6 @@ export default defineComponent({
         function updateValue(property: 'firstName' | 'lastName', event: Event): void {
             const target = event.target as HTMLInputElement;
             inputValue.value = { ...inputValue.value, [property]: target.value };
-        }
-
-        const isInitialized = ref(false);
-        function getInitialValue() {
-            return {
-                firstName: firstName.value || modelValue.value?.firstName || '',
-                lastName: lastName.value || modelValue.value?.lastName || '',
-            };
-        }
-        onMounted(() => {
-            inputValue.value = getInitialValue();
-            nextTick(() => {
-                isInitialized.value = true;
-            });
-        });
-
-        function validate(): boolean {
-            showRuleMessages.value = true;
-            return ruleMessages.value.length === 0;
         }
 
         const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
@@ -241,10 +139,6 @@ export default defineComponent({
             if (focusedLastName.value) {
                 lastInputRef.value?.blur();
             }
-        }
-
-        function clear(): void {
-            inputValue.value = { firstName: '', lastName: '' };
         }
 
         return {

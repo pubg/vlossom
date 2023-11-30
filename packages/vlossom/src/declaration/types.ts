@@ -27,3 +27,20 @@ export interface Breakpoints {
     lg?: string | number;
     xl?: string | number;
 }
+
+export enum UIState {
+    IDLE = 'idle',
+    SUCCESS = 'success',
+    INFO = 'info',
+    DANGER = 'danger',
+    WARN = 'warning',
+    SELECTED = 'selected',
+}
+
+export interface StateMessage {
+    state: UIState;
+    message: string;
+}
+
+export type Rule<T = any> = ((v: T) => string) | ((v: T) => PromiseLike<string>);
+export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>);
