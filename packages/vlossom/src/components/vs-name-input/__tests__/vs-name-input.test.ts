@@ -9,7 +9,6 @@ function shallowMountComponent() {
 
 describe('Name Input', () => {
     describe('v-model로 수정하고 싶은 값을 two-way binding 할 수 있다', () => {
-        // TODO: init event test (not change event)
         it('modelValue의 초깃값을 설정할 수 있다', () => {
             // given
             const wrapper: ReturnType<typeof shallowMountComponent> = shallowMount(VsNameInput, {
@@ -21,6 +20,7 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hello', lastName: 'World' });
+            expect(wrapper.vm.inputValue).toEqual({ firstName: 'Hello', lastName: 'World' });
             expect(wrapper.vm.changed).toBe(false);
         });
 
@@ -52,8 +52,8 @@ describe('Name Input', () => {
             });
 
             // when
-            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
             await nextTick();
+            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: 'Vlossom' });
@@ -70,8 +70,8 @@ describe('Name Input', () => {
             });
 
             // when
-            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
             await nextTick();
+            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
 
             // then
             expect(wrapper.emitted()).toHaveProperty('change');
@@ -455,6 +455,7 @@ describe('Name Input', () => {
             });
 
             await nextTick();
+            await nextTick();
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
@@ -490,6 +491,7 @@ describe('Name Input', () => {
         it('rule이 설정되었어도 값의 변경이 없다면 message가 없다', () => {
             // then
             expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.showRuleMessages).toBe(false);
             expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
@@ -499,6 +501,7 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
@@ -509,26 +512,32 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
         });
 
+        // TODO: nextTick 개수 확인
         it('PromiseLike의 rule도 체크할 수 있다', async () => {
             // given
             // when
             await wrapper.setProps({ rules: [namePromiseCheck] });
+            await wrapper.setProps({ modelValue: { firstName: 'hey', lastName: 'why' } });
             await nextTick();
 
             // then
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(1);
         });
 
         it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', () => {
             // when
-            wrapper.vm.validate();
+            const result = wrapper.vm.validate();
 
             // then
+            expect(result).toBe(false);
             expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
         });
 
@@ -536,10 +545,12 @@ describe('Name Input', () => {
             // given
             const infoMsg: StateMessage = { state: UIState.INFO, message: 'info message' };
             wrapper.setProps({ messages: [infoMsg] });
+
             // when
             await wrapper.setProps({ modelValue: { firstName: '', lastName: 'test' } });
 
             // then
+            expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
             expect(wrapper.vm.computedMessages[0]).toEqual(infoMsg);
             expect(wrapper.vm.computedMessages[1].state).toBe(UIState.DANGER);

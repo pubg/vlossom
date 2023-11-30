@@ -1,17 +1,31 @@
 <template>
     <div :style="{ width: computedWidth }">
         <div class="label" v-if="!noLabel" v-show="label">{{ label }}</div>
-        <input class="first-name" :placeholder="placeholderFirstName" @change.stop />
-        <input class="last-name" :placeholder="placeholderLastName" @change.stop />
+        <input
+            class="first-name"
+            :value="inputValue.firstName"
+            @input="updateValue('firstName', $event)"
+            :placeholder="placeholderFirstName"
+            @change.stop
+        />
+        <input
+            class="last-name"
+            :value="inputValue.lastName"
+            @input="updateValue('lastName', $event)"
+            :placeholder="placeholderLastName"
+            @change.stop
+        />
         <button class="clear-btn" type="button" @click.stop="clear">clear</button>
         <div class="messages" v-if="!noMsg">
-            <div class="message" v-for="message in computedMessages" :key="message.state">{{ message.message }}</div>
+            <div class="message" v-for="message in computedMessages" :key="message.state">
+                {{ message.message }}
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, computed, defineComponent, ref } from 'vue';
+import { ComputedRef, PropType, Ref, computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } from 'vue';
 
 export enum UIState {
     IDLE = 'idle',
@@ -62,15 +76,138 @@ export default defineComponent({
         lastName: { type: String, default: '' },
     },
     expose: ['validate', 'focus', 'blur', 'clear'],
-    emits: ['update:modelValue', 'change', 'blur', 'focus', 'clear'],
-    setup() {
-        const computedMessages: ComputedRef<StateMessage[]> = computed(() => []);
-        const computedWidth: ComputedRef<string> = computed(() => '');
-        const focused = ref(false);
+    emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'blur', 'focus', 'clear'],
+    setup(props, { emit }) {
+        const { modelValue, firstName, lastName, messages, rules } = toRefs(props);
+
+        const inputValue: Ref<NameInputValue> = ref({ firstName: '', lastName: '' });
         const changed = ref(false);
 
-        function validate(): Promise<boolean> {
-            return Promise.resolve(true);
+        const innerMessages: Ref<StateMessage[]> = ref([]);
+        async function checkMessages() {
+            innerMessages.value = [];
+            const pendingMessages: Promise<StateMessage>[] = [];
+            messages.value.forEach((message) => {
+                if (typeof message === 'function') {
+                    const result = message(inputValue.value);
+                    if (result instanceof Promise) {
+                        pendingMessages.push(result);
+                    } else {
+                        innerMessages.value.push(result as StateMessage);
+                    }
+                } else {
+                    innerMessages.value.push(message);
+                }
+            });
+
+            if (pendingMessages.length === 0) {
+                return;
+            }
+            const resolvedMessages = await Promise.all(pendingMessages);
+            innerMessages.value.push(...resolvedMessages);
+        }
+        watch(messages, checkMessages, { deep: true });
+
+        const showRuleMessages = ref(false);
+        const ruleMessages: Ref<StateMessage[]> = ref([]);
+        async function checkRules() {
+            ruleMessages.value = [];
+
+            const pendingRules: Promise<string>[] = [];
+            rules.value.forEach((rule) => {
+                const result = rule(inputValue.value);
+                if (!result) {
+                    return;
+                }
+                if (result instanceof Promise) {
+                    pendingRules.push(result);
+                } else {
+                    ruleMessages.value.push({ state: UIState.DANGER, message: result as string });
+                }
+            });
+
+            if (pendingRules.length === 0) {
+                return;
+            }
+            const resolvedMessages = (await Promise.all(pendingRules)).map((resolved) => ({
+                state: UIState.DANGER,
+                message: resolved,
+            }));
+            ruleMessages.value.push(...resolvedMessages);
+        }
+        watch(rules, checkRules, { deep: true });
+
+        const computedMessages: ComputedRef<StateMessage[]> = computed(() => {
+            if (showRuleMessages.value) {
+                return [...innerMessages.value, ...ruleMessages.value];
+            }
+
+            return innerMessages.value;
+        });
+
+        watch(inputValue, (value, oldValue) => {
+            emit('update:modelValue', value);
+            if (value.firstName !== oldValue.firstName) {
+                emit('update:firstName', value.firstName);
+            }
+            if (value.lastName !== oldValue.lastName) {
+                emit('update:lastName', value.lastName);
+            }
+
+            checkMessages();
+            checkRules();
+
+            if (!isInitialized.value) {
+                return;
+            }
+            changed.value = true;
+            showRuleMessages.value = true;
+            emit('change', value);
+        });
+
+        watch(
+            modelValue,
+            (value) => {
+                inputValue.value = value;
+            },
+            { deep: true },
+        );
+
+        watch(firstName, (value) => {
+            inputValue.value = { ...inputValue.value, firstName: value };
+        });
+
+        watch(lastName, (value) => {
+            inputValue.value = { ...inputValue.value, lastName: value };
+        });
+
+        function updateValue(property: 'firstName' | 'lastName', event: Event): void {
+            const target = event.target as HTMLInputElement;
+            inputValue.value = { ...inputValue.value, [property]: target.value };
+        }
+
+        const isInitialized = ref(false);
+        function getInitialValue() {
+            return {
+                firstName: firstName.value || modelValue.value?.firstName || '',
+                lastName: lastName.value || modelValue.value?.lastName || '',
+            };
+        }
+        onMounted(() => {
+            inputValue.value = getInitialValue();
+            nextTick(() => {
+                isInitialized.value = true;
+            });
+        });
+
+        const computedWidth: ComputedRef<string> = computed(() => '');
+        const focused = ref(false);
+        const focusedFirstName = ref(false);
+        const focusedLastName = ref(false);
+
+        function validate(): boolean {
+            showRuleMessages.value = true;
+            return ruleMessages.value.length === 0;
         }
 
         function focus(): void {
@@ -82,14 +219,19 @@ export default defineComponent({
         }
 
         function clear(): void {
-            //
+            inputValue.value = { firstName: '', lastName: '' };
         }
 
         return {
+            inputValue,
+            updateValue,
+            showRuleMessages,
             computedMessages,
             computedWidth,
             validate,
             focused,
+            focusedFirstName,
+            focusedLastName,
             changed,
             focus,
             blur,
