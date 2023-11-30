@@ -40,7 +40,7 @@ const meta: Meta<typeof VsNameInput> = {
             };
         },
         template:
-            '<vs-name-input v-model="value" v-bind="args" v-model:changed="changed" v-model:valid="valid" :messages="messages" :rules="rules"/>{{value}}',
+            '<vs-name-input v-model="value" label="my name input" required v-bind="args" v-model:changed="changed" v-model:valid="valid" :messages="messages" :rules="rules"/>{{value}}',
     }),
     tags: ['autodocs'],
 };

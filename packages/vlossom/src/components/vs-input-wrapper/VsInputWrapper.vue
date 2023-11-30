@@ -6,7 +6,9 @@
         <i class="required-star" v-if="required">*</i>
     </label>
 
-    <slot />
+    <div>
+        <slot />
+    </div>
 
     <slot name="messages">
         <div class="messages" v-if="!noMsg">

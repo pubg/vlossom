@@ -35,6 +35,7 @@
 import { PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { getInputProps, getResponsiveProps, useInput } from '@/composables';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 
 export interface NameInputValue {
     firstName: string;
@@ -42,7 +43,7 @@ export interface NameInputValue {
 }
 
 export default defineComponent({
-    components: { VsWrapper },
+    components: { VsWrapper, VsInputWrapper },
     props: {
         ...getResponsiveProps(),
         ...getInputProps<NameInputValue>(),
@@ -57,7 +58,16 @@ export default defineComponent({
         lastName: { type: String, default: '' },
     },
     expose: ['validate', 'focus', 'blur', 'clear'],
-    emits: ['update:modelValue', 'update:firstName', 'update:lastName', 'change', 'focus', 'blur'],
+    emits: [
+        'update:modelValue',
+        'update:changed',
+        'update:valid',
+        'update:firstName',
+        'update:lastName',
+        'change',
+        'focus',
+        'blur',
+    ],
     setup(props, context) {
         const { modelValue, firstName, lastName, messages, rules } = toRefs(props);
         const inputValue: Ref<NameInputValue> = ref({ firstName: '', lastName: '' });
@@ -67,9 +77,17 @@ export default defineComponent({
             inputValue.value = { firstName: '', lastName: '' };
         }
 
-        const { changed, computedMessages, showRuleMessages, validate } = useInput(inputValue, modelValue, context, {
+        function firstNameRequiredCheck(value: NameInputValue) {
+            return value.firstName ? '' : 'firstName is required';
+        }
+        function lastNameRequiredCheck(value: NameInputValue) {
+            return value.lastName ? '' : 'lastName is required';
+        }
+        const allRules = computed(() => [...rules.value, firstNameRequiredCheck, lastNameRequiredCheck]);
+
+        const { computedMessages, validate } = useInput(inputValue, modelValue, context, {
             messages,
-            rules,
+            rules: allRules,
             clear,
             callbacks: {
                 onChange: (value, oldValue) => {
@@ -144,7 +162,6 @@ export default defineComponent({
         return {
             inputValue,
             updateValue,
-            showRuleMessages,
             computedMessages,
             validate,
             firstInputRef,
@@ -154,7 +171,6 @@ export default defineComponent({
             focused,
             focusedFirstName,
             focusedLastName,
-            changed,
             focus,
             blur,
             clear,

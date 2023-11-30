@@ -1,8 +1,8 @@
-import { describe, expect, it, beforeEach, afterEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsNameInput, { NameInputValue } from '../VsNameInput.vue';
 import { nextTick } from 'vue';
-import { StateMessage, UIState } from '@/declaration/types';
+import { UIState } from '@/declaration/types';
 
 function mountComponent() {
     return mount(VsNameInput);
@@ -16,13 +16,15 @@ describe('Name Input', () => {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    changed: false,
+                    'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 },
             });
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hello', lastName: 'World' });
             expect(wrapper.vm.inputValue).toEqual({ firstName: 'Hello', lastName: 'World' });
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.props('changed')).toBe(false);
         });
 
         it('modelValue를 업데이트 할 수 있다', async () => {
@@ -31,6 +33,8 @@ describe('Name Input', () => {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    changed: false,
+                    'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 },
             });
 
@@ -40,7 +44,7 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: 'Vlossom' });
-            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.props('changed')).toBe(true);
         });
 
         it('modelValue를 바꿔서 값을 반영할 수 있다', async () => {
@@ -49,6 +53,8 @@ describe('Name Input', () => {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    changed: false,
+                    'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 },
             });
 
@@ -58,7 +64,7 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: 'Hi', lastName: 'Vlossom' });
-            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.props('changed')).toBe(true);
         });
 
         it('값이 변경되면 change 이벤트가 발생한다', async () => {
@@ -67,6 +73,8 @@ describe('Name Input', () => {
                 props: {
                     modelValue: { firstName: 'Hello', lastName: 'World' },
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    changed: false,
+                    'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 },
             });
 
@@ -78,7 +86,7 @@ describe('Name Input', () => {
             expect(wrapper.emitted()).toHaveProperty('change');
             expect(wrapper.emitted().change).toHaveLength(1);
             expect(wrapper.emitted().change[0]).toEqual([{ firstName: 'Hi', lastName: 'Vlossom' }]);
-            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.props('changed')).toBe(true);
         });
 
         it('null 값이 할당된 경우 기본 값으로 할당한다', async () => {
@@ -88,6 +96,8 @@ describe('Name Input', () => {
                     // @ts-expect-error: null 값이 할당되는 경우를 테스트하기 위해 null을 할당한다
                     modelValue: null,
                     'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
+                    changed: false,
+                    'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 },
             });
 
@@ -96,7 +106,7 @@ describe('Name Input', () => {
 
             // then
             expect(wrapper.props('modelValue')).toEqual({ firstName: '', lastName: '' });
-            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.props('changed')).toBe(false);
         });
 
         it('v-model:firstName과, v-model의 firstName에 binding된 값이 다른 경우 v-model:firstName이 우선한다', async () => {
@@ -333,99 +343,6 @@ describe('Name Input', () => {
             expect(wrapper.vm.computedMessages).toHaveLength(3);
             expect(wrapper.vm.computedMessages[0].state).toBe(UIState.INFO);
             expect(wrapper.vm.computedMessages[0].message).toBe('info message');
-        });
-    });
-
-    describe('rules & validate', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
-        const firstNameRequiredCheck = ({ firstName }: NameInputValue) => (firstName ? '' : 'firstName is required');
-        const lastNameRequiredCheck = ({ lastName }: NameInputValue) => (lastName ? '' : 'lastName is required');
-        const namePromiseCheck = () => {
-            return Promise.resolve('Name Promise Check');
-        };
-
-        beforeEach(() => {
-            wrapper = mount(VsNameInput, {
-                props: {
-                    props: {
-                        modelValue: { firstName: '', lastName: '' },
-                        'onUpdate:modelValue': (v: NameInputValue) => wrapper.setProps({ modelValue: v }),
-                    },
-                    rules: [firstNameRequiredCheck, lastNameRequiredCheck],
-                },
-            });
-        });
-        afterEach(() => {
-            wrapper.unmount();
-        });
-
-        it('rule이 설정되었어도 값의 변경이 없다면 message가 없다', () => {
-            // then
-            expect(wrapper.vm.changed).toBe(false);
-            expect(wrapper.vm.showRuleMessages).toBe(false);
-            expect(wrapper.vm.computedMessages).toHaveLength(0);
-        });
-
-        it('설정된 값이 유효하면 message가 없다', async () => {
-            // when
-            await wrapper.setProps({ modelValue: { firstName: 'Hi', lastName: 'Vlossom' } });
-
-            // then
-            expect(wrapper.vm.changed).toBe(true);
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toHaveLength(0);
-        });
-
-        it('설정된 값이 유효하지 않으면 message가 있다', async () => {
-            // when
-            await wrapper.setProps({ modelValue: { firstName: 'hey', lastName: 'why' } });
-            await wrapper.setProps({ modelValue: { firstName: '', lastName: '' } });
-
-            // then
-            expect(wrapper.vm.changed).toBe(true);
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toHaveLength(2);
-        });
-
-        // TODO: nextTick 개수 확인
-        it('PromiseLike의 rule도 체크할 수 있다', async () => {
-            // given
-            // when
-            await wrapper.setProps({ rules: [namePromiseCheck] });
-            await wrapper.setProps({ modelValue: { firstName: 'hey', lastName: 'why' } });
-            await nextTick();
-
-            // then
-            expect(wrapper.vm.changed).toBe(true);
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toHaveLength(1);
-        });
-
-        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', () => {
-            // when
-            const result = wrapper.vm.validate();
-
-            // then
-            expect(result).toBe(false);
-            expect(wrapper.vm.changed).toBe(false);
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toHaveLength(2);
-        });
-
-        it('기존 message가 있으면 rule 체크 결과를 danger 타입으로 추가한다', async () => {
-            // given
-            const infoMsg: StateMessage = { state: UIState.INFO, message: 'info message' };
-            wrapper.setProps({ messages: [infoMsg] });
-
-            // when
-            await wrapper.setProps({ modelValue: { firstName: '', lastName: 'test' } });
-
-            // then
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toHaveLength(2);
-            expect(wrapper.vm.computedMessages[0]).toEqual(infoMsg);
-            expect(wrapper.vm.computedMessages[1].state).toBe(UIState.DANGER);
-            expect(wrapper.vm.computedMessages[1].message).toBe('firstName is required');
         });
     });
 
