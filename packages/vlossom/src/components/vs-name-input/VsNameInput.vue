@@ -4,15 +4,19 @@
         <input
             class="first-name"
             :value="inputValue.firstName"
-            @input="updateValue('firstName', $event)"
             :placeholder="placeholderFirstName"
+            @input="updateValue('firstName', $event)"
+            @focus="onFocus('firstName', $event)"
+            @blur="onBlur('firstName', $event)"
             @change.stop
         />
         <input
             class="last-name"
             :value="inputValue.lastName"
-            @input="updateValue('lastName', $event)"
             :placeholder="placeholderLastName"
+            @input="updateValue('lastName', $event)"
+            @focus="onFocus('lastName', $event)"
+            @blur="onBlur('lastName', $event)"
             @change.stop
         />
         <button class="clear-btn" type="button" @click.stop="clear">clear</button>
@@ -25,6 +29,7 @@
 </template>
 
 <script lang="ts">
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { Breakpoints } from '@/declaration/types';
 import { ComputedRef, PropType, Ref, computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } from 'vue';
 
@@ -50,6 +55,7 @@ export interface NameInputValue {
 }
 
 export default defineComponent({
+    components: { VsWrapper },
     props: {
         grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
         label: { type: String, default: '' },
@@ -192,22 +198,49 @@ export default defineComponent({
             });
         });
 
-        const computedWidth: ComputedRef<string> = computed(() => '');
-        const focused = ref(false);
-        const focusedFirstName = ref(false);
-        const focusedLastName = ref(false);
-
         function validate(): boolean {
             showRuleMessages.value = true;
             return ruleMessages.value.length === 0;
         }
 
-        function focus(): void {
-            //
+        const firstInputRef: Ref<HTMLInputElement | null> = ref(null);
+        const lastInputRef: Ref<HTMLInputElement | null> = ref(null);
+
+        const focusedFirstName = ref(false);
+        const focusedLastName = ref(false);
+        const focused = computed(() => focusedFirstName.value || focusedLastName.value);
+
+        function onFocus(type: 'firstName' | 'lastName', event: Event) {
+            if (type === 'firstName') {
+                focusedFirstName.value = true;
+            } else {
+                focusedLastName.value = true;
+            }
+
+            emit('focus', event);
         }
 
-        function blur(): void {
-            //
+        function onBlur(type: 'firstName' | 'lastName', event: Event) {
+            if (type === 'firstName') {
+                focusedFirstName.value = false;
+            } else {
+                focusedLastName.value = false;
+            }
+
+            emit('blur', event);
+        }
+
+        function focus() {
+            firstInputRef.value?.focus();
+        }
+
+        function blur() {
+            if (focusedFirstName.value) {
+                firstInputRef.value?.blur();
+            }
+            if (focusedLastName.value) {
+                lastInputRef.value?.blur();
+            }
         }
 
         function clear(): void {
@@ -219,8 +252,11 @@ export default defineComponent({
             updateValue,
             showRuleMessages,
             computedMessages,
-            computedWidth,
             validate,
+            firstInputRef,
+            lastInputRef,
+            onFocus,
+            onBlur,
             focused,
             focusedFirstName,
             focusedLastName,
