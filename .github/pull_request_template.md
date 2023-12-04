@@ -1,14 +1,18 @@
+## Type of PR (check all applicable)
+
+-   [ ] Feature (feat)
+-   [ ] Style (style)
+-   [ ] Test (test)
+-   [ ] Fix Bug (fix)
+-   [ ] Refactor (refactor)
+-   [ ] Build (build)
+-   [ ] Update Docs (docs)
+-   [ ] Chore (chore)
+
+
 ## Summary
 
 ## Description
-
-## Type of PR (check all applicable)
-- [ ] Feature
-- [ ] Bug Fix
-- [ ] Refactor
-- [ ] Optimization
-- [ ] Update Docs
-- [ ] Project Setting
 
 <!-- Uncomment below if necessary -->
 <!-- ## Screenshots or Recordings -->
@@ -17,5 +21,3 @@
 - Related Issue #
 - Closes #
 -->
-
-
