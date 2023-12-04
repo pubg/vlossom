@@ -34,7 +34,7 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme } from '@/declaration/types';
+import { ColorScheme, VsComponents } from '@/declaration/types';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -61,8 +61,10 @@ export interface InputButton {
     action?: (value: string | number) => void;
 }
 
+const name = VsComponents.VsInput;
+
 const VsInput = defineComponent({
-    name: 'vs-input',
+    name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme>, default: '' },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
@@ -88,9 +90,9 @@ const VsInput = defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsInput', 'indigo');
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsInputStyleSet>(styleSet, 'input');
+        const { customProperties } = useCustomStyle<VsInputStyleSet>(name, styleSet);
 
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 

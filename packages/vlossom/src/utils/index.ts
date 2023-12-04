@@ -1,6 +1,6 @@
-export function kebabToPascal(str: string) {
+export function pascalToKebab(str: string) {
     return str
-        .split('-')
-        .map((s) => s[0].toUpperCase() + s.slice(1))
-        .join('');
+        .split(/(?=[A-Z])/)
+        .map((s) => s.toLowerCase())
+        .join('-');
 }

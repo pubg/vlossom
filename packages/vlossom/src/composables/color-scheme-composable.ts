@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import type { ColorScheme, GlobalColorScheme } from '@/declaration/types';
+import type { ColorScheme, GlobalColorScheme, VsComponents } from '@/declaration/types';
 
 import { computed, ref } from 'vue';
 
@@ -9,9 +9,9 @@ export function setGlobalColorScheme(colorScheme: GlobalColorScheme) {
     globalColorScheme.value = colorScheme;
 }
 
-export function useColorScheme(colorScheme: Ref<ColorScheme>, key?: keyof GlobalColorScheme) {
+export function useColorScheme(component: VsComponents, colorScheme: Ref<ColorScheme>) {
     const computedColorScheme = computed(
-        () => colorScheme.value || globalColorScheme.value[key] || globalColorScheme.value.default || 'default',
+        () => colorScheme.value || globalColorScheme.value[component] || globalColorScheme.value.default || 'default',
     );
 
     return {

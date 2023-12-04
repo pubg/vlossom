@@ -1,10 +1,14 @@
 import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
+export enum VsComponents {
+    VsButton = 'VsButton',
+    VsInput = 'VsInput',
+    VsSection = 'VsSection',
+}
+
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
 
-export type VsComponents = 'VsButton' | 'VsInput' | 'VsSection';
-
-export type GlobalColorScheme = { [key: string]: ColorScheme };
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponents]?: ColorScheme };
 
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
