@@ -1,6 +1,12 @@
+import { PropType, Ref, computed } from 'vue';
 import type { Breakpoints } from '@/declaration/types';
 
-import { Ref, computed } from 'vue';
+export function getResponsiveProps() {
+    return {
+        grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
+        width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
+    };
+}
 
 export function useResponsiveWidth(width: Ref<Breakpoints>, grid: Ref<Breakpoints>) {
     const computedWidth = computed(() => {
