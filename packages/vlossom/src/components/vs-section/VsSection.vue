@@ -12,7 +12,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme } from '@/declaration/types';
+import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface SectionStyleSet {
     backgroundColor: string;
@@ -25,18 +25,20 @@ interface SectionStyleSet {
 
 export type VsSectionStyleSet = Partial<SectionStyleSet>;
 
+const name = VsComponent.VsSection;
+
 const VsSection = defineComponent({
-    name: 'vs-section',
+    name,
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsSection', 'idle');
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsSectionStyleSet>(styleSet, 'section');
+        const { customProperties } = useCustomStyle<VsSectionStyleSet>(name, styleSet);
 
         const hasTitle = computed(() => !!slots.title);
 

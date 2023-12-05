@@ -1,6 +1,14 @@
 @use 'palette' as *;
 
 $colorScheme-light: (
+    'default': (
+        area-backgroundColor: #ffffff,
+        comp-backgroundColor: #{$indigo-200},
+        comp-color: #{$indigo-600},
+        comp-backgroundColor-primary: #{$indigo-600},
+        comp-color-primary: #{$grey-50},
+        line-color: #{$indigo-600},
+    ),
     'red': (
         area-backgroundColor: transparentize($red-50, 0.5),
         comp-backgroundColor: #{$red-100},
@@ -44,6 +52,10 @@ $colorScheme-light: (
 );
 
 $colorScheme-dark: (
+    'default': (
+        area-backgroundColor: #14151f,
+        line-color: #{$indigo-400},
+    ),
     'red': (
         area-backgroundColor: transparentize($red-400, 0.9),
         line-color: #{$red-300},

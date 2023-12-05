@@ -4,6 +4,7 @@ import type { StyleSet } from '@/declaration/types';
 import { beforeAll, afterAll, describe, expect, it } from 'vitest';
 import { registerStyleSet, clearStyleSet, useCustomStyle } from '../custom-style-composable';
 import { ref } from 'vue';
+import { VsComponent } from '@/declaration/types';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
@@ -11,7 +12,7 @@ const vsButton: VsButtonStyleSet = {
 };
 
 export const styleSet: StyleSet = {
-    vsButton: { myStyleSet: vsButton },
+    VsButton: { myStyleSet: vsButton },
 };
 
 describe('useCustomStyle composable', () => {
@@ -25,8 +26,8 @@ describe('useCustomStyle composable', () => {
 
     it('parse styleSet object and return custom properties successfully', () => {
         const { customProperties } = useCustomStyle<VsButtonStyleSet>(
+            VsComponent.VsButton,
             ref({ backgroundColor: '#a5d6ad', fontSize: '2rem' }),
-            'button',
         );
 
         expect(customProperties.value).toEqual({
@@ -36,7 +37,7 @@ describe('useCustomStyle composable', () => {
     });
 
     it('find pre-defined styleSet and return custom properties successfully', () => {
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(ref('myStyleSet'), 'button');
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(VsComponent.VsButton, ref('myStyleSet'));
 
         expect(customProperties.value).toEqual({
             '--vs-button-backgroundColor': '#1e88e5',

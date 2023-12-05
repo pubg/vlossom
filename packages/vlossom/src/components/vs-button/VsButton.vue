@@ -16,7 +16,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme } from '@/declaration/types';
+import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface ButtonStyleSet {
     backgroundColor: string;
@@ -31,10 +31,12 @@ interface ButtonStyleSet {
 
 export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 
+const name = VsComponent.VsButton;
+
 const VsButton = defineComponent({
-    name: 'vs-button',
+    name,
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -47,9 +49,9 @@ const VsButton = defineComponent({
     setup(props) {
         const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(colorScheme, 'vsButton', 'indigo');
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(styleSet, 'button');
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             dense: dense.value,

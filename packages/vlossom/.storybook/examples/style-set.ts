@@ -17,7 +17,7 @@ const vsSection: VsSectionStyleSet = {
 };
 
 export const styleSet: StyleSet = {
-    vsButton: { myStyleSet: vsButton },
-    vsInput: { myStyleSet: vsInput },
-    vsSection: { myStyleSet: vsSection },
+    VsButton: { myStyleSet: vsButton },
+    VsInput: { myStyleSet: vsInput },
+    VsSection: { myStyleSet: vsSection },
 };

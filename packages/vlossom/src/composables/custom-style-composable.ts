@@ -1,8 +1,8 @@
 import type { Ref } from 'vue';
-import type { StyleSet } from '@/declaration/types';
+import type { StyleSet, VsComponent } from '@/declaration/types';
 
 import { computed, ComputedRef, ref } from 'vue';
-import { kebabToPascal } from '@/utils';
+import { pascalToKebab } from '@/utils';
 
 const registeredStyleSet: Ref<StyleSet> = ref({});
 
@@ -22,15 +22,14 @@ export function clearStyleSet() {
     registeredStyleSet.value = {};
 }
 
-export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<string | T>, prefix: string) {
+export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
     const styles: ComputedRef<T> = computed(() => {
         if (!styleSet.value) {
             return {} as T;
         }
 
         if (typeof styleSet.value === 'string') {
-            const preDefinedStyleSet =
-                registeredStyleSet.value[('vs' + kebabToPascal(prefix)) as keyof StyleSet]?.[styleSet.value];
+            const preDefinedStyleSet = registeredStyleSet.value[component]?.[styleSet.value];
 
             return (preDefinedStyleSet ?? {}) as T;
         }
@@ -40,7 +39,7 @@ export function useCustomStyle<T extends { [key: string]: any }>(styleSet: Ref<s
 
     const customProperties = computed(() =>
         Object.entries(styles.value).reduce((acc, [key, value]) => {
-            acc[`--vs-${prefix}-${key}`] = value;
+            acc[`--${pascalToKebab(component)}-${key}`] = value;
             return acc;
         }, {} as { [key: string]: any }),
     );

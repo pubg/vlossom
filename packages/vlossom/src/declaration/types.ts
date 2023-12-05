@@ -1,18 +1,19 @@
 import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
-export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
-
-export interface GlobalColorScheme {
-    default?: ColorScheme;
-    vsButton?: ColorScheme;
-    vsInput?: ColorScheme;
-    vsSection?: ColorScheme;
+export enum VsComponent {
+    VsButton = 'VsButton',
+    VsInput = 'VsInput',
+    VsSection = 'VsSection',
 }
 
+export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
+
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
+
 export interface StyleSet {
-    vsButton?: { [key: string]: VsButtonStyleSet };
-    vsInput?: { [key: string]: VsInputStyleSet };
-    vsSection?: { [key: string]: VsSectionStyleSet };
+    VsButton?: { [key: string]: VsButtonStyleSet };
+    VsInput?: { [key: string]: VsInputStyleSet };
+    VsSection?: { [key: string]: VsSectionStyleSet };
 }
 
 export interface VlossomOptions {
