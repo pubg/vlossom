@@ -3,10 +3,11 @@ import type { GlobalColorScheme } from '@/declaration/types';
 import { beforeAll, afterAll, describe, expect, it } from 'vitest';
 import { setGlobalColorScheme, useColorScheme } from '../color-scheme-composable';
 import { ref } from 'vue';
+import { VsComponent } from '@/declaration/types';
 
 const globalColorScheme: GlobalColorScheme = {
-    vsButton: 'red',
-    vsInput: 'amber',
+    VsButton: 'red',
+    VsInput: 'amber',
 };
 
 describe('useColorScheme composable', () => {
@@ -19,13 +20,13 @@ describe('useColorScheme composable', () => {
     });
 
     it('use colorScheme prop first if it exists', () => {
-        const { computedColorScheme } = useColorScheme(ref('green'), 'vsButton', 'indigo');
+        const { computedColorScheme } = useColorScheme(VsComponent.VsButton, ref('green'));
 
         expect(computedColorScheme.value).toBe('green');
     });
 
     it('use a global color scheme value of component if it exists', () => {
-        const { computedColorScheme } = useColorScheme(ref(''), 'vsInput', 'indigo');
+        const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
 
         expect(computedColorScheme.value).toBe('amber');
     });
@@ -33,16 +34,16 @@ describe('useColorScheme composable', () => {
     it('use a default global color scheme value if it exists', () => {
         setGlobalColorScheme({ ...globalColorScheme, default: 'blue' });
 
-        const { computedColorScheme } = useColorScheme(ref(''), 'vsSection', 'idle');
+        const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
         expect(computedColorScheme.value).toBe('blue');
     });
 
-    it("use a default color scheme value of component if there isn't both prop and global value", () => {
+    it("return default if there isn't both prop and global values", () => {
         setGlobalColorScheme(globalColorScheme);
 
-        const { computedColorScheme } = useColorScheme(ref(''), 'vsSection', 'idle');
+        const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
-        expect(computedColorScheme.value).toBe('idle');
+        expect(computedColorScheme.value).toBe('default');
     });
 });

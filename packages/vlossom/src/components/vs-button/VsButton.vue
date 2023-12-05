@@ -36,7 +36,7 @@ const name = VsComponent.VsButton;
 const VsButton = defineComponent({
     name,
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },

@@ -9,7 +9,7 @@ export function setGlobalColorScheme(colorScheme: GlobalColorScheme) {
     globalColorScheme.value = colorScheme;
 }
 
-export function useColorScheme(component: VsComponent, colorScheme: Ref<ColorScheme>) {
+export function useColorScheme(component: VsComponent, colorScheme: Ref<ColorScheme | undefined>) {
     const computedColorScheme = computed(
         () => colorScheme.value || globalColorScheme.value[component] || globalColorScheme.value.default || 'default',
     );

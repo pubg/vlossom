@@ -66,7 +66,7 @@ const name = VsComponent.VsInput;
 const VsInput = defineComponent({
     name,
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },

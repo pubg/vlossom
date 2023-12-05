@@ -30,7 +30,7 @@ const name = VsComponent.VsSection;
 const VsSection = defineComponent({
     name,
     props: {
-        colorScheme: { type: String as PropType<ColorScheme>, default: '' },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSectionStyleSet>, default: '' },
     },
     setup(props, { slots }) {
