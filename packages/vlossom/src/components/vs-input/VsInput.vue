@@ -34,7 +34,7 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponents } from '@/declaration/types';
+import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -61,7 +61,7 @@ export interface InputButton {
     action?: (value: string | number) => void;
 }
 
-const name = VsComponents.VsInput;
+const name = VsComponent.VsInput;
 
 const VsInput = defineComponent({
     name,

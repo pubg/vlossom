@@ -12,7 +12,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponents } from '@/declaration/types';
+import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface SectionStyleSet {
     backgroundColor: string;
@@ -25,7 +25,7 @@ interface SectionStyleSet {
 
 export type VsSectionStyleSet = Partial<SectionStyleSet>;
 
-const name = VsComponents.VsSection;
+const name = VsComponent.VsSection;
 
 const VsSection = defineComponent({
     name,

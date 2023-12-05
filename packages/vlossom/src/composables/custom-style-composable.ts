@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import type { StyleSet, VsComponents } from '@/declaration/types';
+import type { StyleSet, VsComponent } from '@/declaration/types';
 
 import { computed, ComputedRef, ref } from 'vue';
 import { pascalToKebab } from '@/utils';

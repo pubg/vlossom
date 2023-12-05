@@ -16,7 +16,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponents } from '@/declaration/types';
+import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface ButtonStyleSet {
     backgroundColor: string;
@@ -31,7 +31,7 @@ interface ButtonStyleSet {
 
 export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 
-const name = VsComponents.VsButton;
+const name = VsComponent.VsButton;
 
 const VsButton = defineComponent({
     name,
