@@ -22,7 +22,7 @@ export function clearStyleSet() {
     registeredStyleSet.value = {};
 }
 
-export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponents, styleSet: Ref<string | T>) {
+export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
     const styles: ComputedRef<T> = computed(() => {
         if (!styleSet.value) {
             return {} as T;
