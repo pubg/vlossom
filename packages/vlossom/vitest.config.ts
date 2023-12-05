@@ -1,12 +1,9 @@
-// vitest.config.ts
-import vue from '@vitejs/plugin-vue';
-import { fileURLToPath } from 'node:url';
+import { defineConfig, configDefaults } from 'vitest/config';
 import path from 'path';
-import { defineConfig } from 'vitest/config';
+import { fileURLToPath } from 'node:url';
 
+// https://vitest.dev/config/
 export default defineConfig({
-    plugins: [vue()],
-    // test 코드 내에서 @ alias 사용을 위해 셋팅
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
@@ -16,5 +13,12 @@ export default defineConfig({
         // 브라우저 환경에서 테스트하는 것을 명시
         environment: 'jsdom',
         root: fileURLToPath(new URL('./', import.meta.url)),
+        exclude: [...configDefaults.exclude, '**/stories/**', '**/*storybook/**'],
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'json', 'html'],
+            reportsDirectory: './coverage',
+            exclude: [...configDefaults.exclude, '**/stories/**', '**/*storybook/**'],
+        },
     },
 });
