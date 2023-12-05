@@ -15,17 +15,13 @@ $theme-dark: (
 );
 
 :root {
-    & {
-        @each $key, $value in $theme-light {
-            --vs-#{$key}: #{$value};
-        }
+    @each $key, $value in $theme-light {
+        --vs-#{$key}: #{$value};
     }
 
     .vs-dark {
-        & {
-            @each $key, $value in $theme-dark {
-                --vs-#{$key}: #{$value};
-            }
+        @each $key, $value in $theme-dark {
+            --vs-#{$key}: #{$value};
         }
     }
 }
