@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, toRefs } from 'vue';
+import { PropType, defineComponent, toRefs } from 'vue';
 import { useResponsiveWidth } from '@/composables';
 import type { Breakpoints } from '@/declaration/types';
 
@@ -18,20 +18,7 @@ const VsWrapper = defineComponent({
     setup(props) {
         const { width, grid } = toRefs(props);
 
-        const { widthVariables, widthClasses } = useResponsiveWidth(
-            computed(() => (typeof width.value === 'string' ? {} : width.value)),
-            grid,
-        );
-
-        const widthProperties = computed(() => {
-            if (typeof width.value === 'string') {
-                return {
-                    width: width.value,
-                };
-            }
-
-            return widthVariables.value;
-        });
+        const { widthProperties, widthClasses } = useResponsiveWidth(width, grid);
 
         return {
             widthProperties,
