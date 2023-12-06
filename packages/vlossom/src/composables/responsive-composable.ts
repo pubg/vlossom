@@ -8,8 +8,12 @@ export function getResponsiveProps() {
     };
 }
 
-export function useResponsiveWidth(width: Ref<Breakpoints>, grid: Ref<Breakpoints>) {
-    const computedWidth = computed(() => {
+export function useResponsiveWidth(width: Ref<string | Breakpoints>, grid: Ref<Breakpoints>) {
+    const responsiveWidth = computed(() => {
+        if (typeof width.value === 'string') {
+            return {};
+        }
+
         if (Object.keys(grid.value).length > 0) {
             return Object.entries(grid.value).reduce((acc, [key, value]) => {
                 return {
@@ -23,7 +27,7 @@ export function useResponsiveWidth(width: Ref<Breakpoints>, grid: Ref<Breakpoint
     });
 
     const widthVariables = computed(() => {
-        const { xs, sm, md, lg, xl } = computedWidth.value;
+        const { xs, sm, md, lg, xl } = responsiveWidth.value;
 
         return {
             ...(xs && { ['--vs-width-xs']: xs?.toString() }),
@@ -35,7 +39,7 @@ export function useResponsiveWidth(width: Ref<Breakpoints>, grid: Ref<Breakpoint
     });
 
     const widthClasses = computed(() => {
-        const { xs, sm, md, lg, xl } = computedWidth.value;
+        const { xs, sm, md, lg, xl } = responsiveWidth.value;
 
         return [
             ...(xs ? ['vs-width-xs'] : []),
@@ -46,8 +50,19 @@ export function useResponsiveWidth(width: Ref<Breakpoints>, grid: Ref<Breakpoint
         ];
     });
 
+    const widthProperties = computed(() => {
+        if (typeof width.value === 'string') {
+            return {
+                width: width.value,
+            };
+        }
+
+        return widthVariables.value;
+    });
+
     return {
         widthVariables,
         widthClasses,
+        widthProperties,
     };
 }
