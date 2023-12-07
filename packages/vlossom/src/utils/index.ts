@@ -13,11 +13,7 @@ export function getMetaArguments(componentProps: { [key: string]: any }) {
             metaArgs[prop] = defaultValue();
             return;
         }
-        if (defaultValue === undefined) {
-            metaArgs[prop] = null;
-        } else {
-            metaArgs[prop] = defaultValue;
-        }
+        metaArgs[prop] = defaultValue ?? null;
     });
     return metaArgs;
 }
