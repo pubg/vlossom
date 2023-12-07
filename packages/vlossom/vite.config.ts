@@ -1,11 +1,11 @@
-import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
-import { defineConfig as defineVitestConfig, configDefaults } from 'vitest/config';
+import { defineConfig } from 'vite';
+import { configDefaults } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
 
 // https://vitejs.dev/config/
-const viteConfig = defineViteConfig({
+export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
@@ -27,10 +27,7 @@ const viteConfig = defineViteConfig({
             },
         },
     },
-});
-
-// https://vitest.dev/config/
-const vitestConfig = defineVitestConfig({
+    // https://vitest.dev/config/
     test: {
         // 브라우저 환경에서 테스트하는 것을 명시
         environment: 'jsdom',
@@ -44,5 +41,3 @@ const vitestConfig = defineVitestConfig({
         },
     },
 });
-
-export default mergeConfig(viteConfig, vitestConfig);
