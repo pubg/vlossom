@@ -5,7 +5,7 @@ export function pascalToKebab(str: string) {
         .join('-');
 }
 
-export function getMetaArguments(componentProps: { [key: string]: any }) {
+export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
     const metaArgs: { [key: string]: any } = {};
     Object.keys(componentProps).forEach((prop) => {
         const { default: defaultValue } = componentProps[prop];
@@ -15,5 +15,5 @@ export function getMetaArguments(componentProps: { [key: string]: any }) {
         }
         metaArgs[prop] = defaultValue ?? null;
     });
-    return metaArgs;
+    return { ...metaArgs, ...originalArgs };
 }

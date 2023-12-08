@@ -20,7 +20,7 @@ const meta: Meta<typeof VsSection> = {
     },
 };
 
-meta.args = getMetaArguments(VsSection.props);
+meta.args = getMetaArguments(VsSection.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsSection>;
 

@@ -31,7 +31,7 @@ const meta: Meta<typeof VsInput> = {
     },
 };
 
-meta.args = getMetaArguments(VsInput.props);
+meta.args = getMetaArguments(VsInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsInput>;
 

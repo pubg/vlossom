@@ -20,7 +20,7 @@ const meta: Meta<typeof VsButton> = {
     },
 };
 
-meta.args = getMetaArguments(VsButton.props);
+meta.args = getMetaArguments(VsButton.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsButton>;
 
