@@ -1,4 +1,4 @@
-const storybookMetaUtils = {
+const storybookUtil = {
     getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
         const metaArgs: { [key: string]: any } = {};
         Object.keys(componentProps).forEach((prop) => {
@@ -13,4 +13,4 @@ const storybookMetaUtils = {
     },
 };
 
-export default storybookMetaUtils;
+export default storybookUtil;

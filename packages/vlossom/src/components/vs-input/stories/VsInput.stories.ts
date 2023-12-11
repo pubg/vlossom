@@ -5,7 +5,7 @@ import { colorScheme } from '@/declaration/storybook/arg-types';
 import { ref } from 'vue';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { storybookMetaUtils } from '@/utils';
+import { storybookUtil } from '@/utils';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -31,7 +31,7 @@ const meta: Meta<typeof VsInput> = {
     },
 };
 
-meta.args = storybookMetaUtils.getMetaArguments(VsInput.props, meta.args);
+meta.args = storybookUtil.getMetaArguments(VsInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsInput>;
 
