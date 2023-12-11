@@ -2,7 +2,7 @@ import type { Ref } from 'vue';
 import type { StyleSet, VsComponent } from '@/declaration/types';
 
 import { computed, ComputedRef, ref } from 'vue';
-import { pascalToKebab } from '@/utils';
+import { stringUtil } from '@/utils';
 
 const registeredStyleSet: Ref<StyleSet> = ref({});
 
@@ -39,7 +39,7 @@ export function useCustomStyle<T extends { [key: string]: any }>(component: VsCo
 
     const customProperties = computed(() =>
         Object.entries(styles.value).reduce((acc, [key, value]) => {
-            acc[`--${pascalToKebab(component)}-${key}`] = value;
+            acc[`--${stringUtil.pascalToKebab(component)}-${key}`] = value;
             return acc;
         }, {} as { [key: string]: any }),
     );

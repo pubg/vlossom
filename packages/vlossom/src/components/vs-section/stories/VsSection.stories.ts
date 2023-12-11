@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsSection from '../VsSection.vue';
 import { colorScheme } from '@/declaration/storybook/arg-types';
-import { getMetaArguments } from '@/utils';
+import { storybookMetaUtils } from '@/utils';
 
 const meta: Meta<typeof VsSection> = {
     title: 'Components/Layout Components/VsSection',
@@ -20,7 +20,7 @@ const meta: Meta<typeof VsSection> = {
     },
 };
 
-meta.args = getMetaArguments(VsSection.props, meta.args);
+meta.args = storybookMetaUtils.getMetaArguments(VsSection.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsSection>;
 

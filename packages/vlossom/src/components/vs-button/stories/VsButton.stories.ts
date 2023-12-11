@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsButton from '../VsButton.vue';
 import { colorScheme } from '@/declaration/storybook/arg-types';
-import { getMetaArguments } from '@/utils';
+import { storybookMetaUtils } from '@/utils';
 
 const meta: Meta<typeof VsButton> = {
     title: 'Components/Base Components/VsButton',
@@ -20,7 +20,7 @@ const meta: Meta<typeof VsButton> = {
     },
 };
 
-meta.args = getMetaArguments(VsButton.props, meta.args);
+meta.args = storybookMetaUtils.getMetaArguments(VsButton.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsButton>;
 
