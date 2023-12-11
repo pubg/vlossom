@@ -215,7 +215,7 @@ describe('input composable', () => {
         });
     });
 
-    describe('rules & validate', () => {
+    describe('rules', () => {
         it('rule이 설정되었어도 값의 변경이 없다면 message가 없다', () => {
             //given
             const wrapper = mount(InputComponent, {
@@ -297,26 +297,6 @@ describe('input composable', () => {
             expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.DANGER, message: 'required' }]);
         });
 
-        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
-            //given
-            const wrapper = mount(InputComponent, {
-                props: {
-                    rules: [(v: string) => (v ? '' : 'required')],
-                },
-            });
-
-            // when
-            const result = wrapper.vm.validate();
-            await nextTick();
-
-            // then
-            expect(result).toBe(false);
-            expect(wrapper.vm.valid).toBe(false);
-            expect(wrapper.vm.changed).toBe(false);
-            expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.DANGER, message: 'required' }]);
-        });
-
         it('기존 message가 있으면 rule 체크 결과를 danger 타입으로 추가한다', async () => {
             // given
             const infoMsg: StateMessage = { state: UIState.INFO, message: 'info message' };
@@ -341,6 +321,69 @@ describe('input composable', () => {
             expect(wrapper.vm.computedMessages).toHaveLength(2);
             expect(wrapper.vm.computedMessages[0]).toEqual(infoMsg);
             expect(wrapper.vm.computedMessages[1]).toEqual({ state: UIState.DANGER, message: 'required' });
+        });
+    });
+
+    describe('validate', () => {
+        it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
+            //given
+            const wrapper = mount(InputComponent, {
+                props: {
+                    rules: [(v: string) => (v ? '' : 'required')],
+                },
+            });
+
+            // when
+            const result = wrapper.vm.validate();
+            await nextTick();
+
+            // then
+            expect(result).toBe(false);
+            expect(wrapper.vm.valid).toBe(false);
+            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.showRuleMessages).toBe(true);
+            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.DANGER, message: 'required' }]);
+        });
+
+        describe('shake', () => {
+            it('validate를 호출 했을 때 값이 유효하면 shake 값(boolean)에 변화가 없다', async () => {
+                // given
+                const wrapper = mount(InputComponent, {
+                    props: {
+                        rules: [(v: string) => (v ? '' : 'required')],
+                    },
+                });
+                const oldShake = wrapper.vm.shake;
+                await nextTick();
+                inputValue.value = 'test';
+                await nextTick();
+
+                // when
+                const result = wrapper.vm.validate();
+                await nextTick();
+
+                // then
+                expect(result).toBe(true);
+                expect(wrapper.vm.shake).toBe(oldShake);
+            });
+
+            it('validate를 호출 했을 때 값이 유효하지 않으면 shake 값(boolean)이 바뀐다', async () => {
+                // given
+                const wrapper = mount(InputComponent, {
+                    props: {
+                        rules: [(v: string) => (v ? '' : 'required')],
+                    },
+                });
+                const oldShake = wrapper.vm.shake;
+
+                // when
+                const result = wrapper.vm.validate();
+                await nextTick();
+
+                // then
+                expect(result).toBe(false);
+                expect(wrapper.vm.shake).toBe(!oldShake);
+            });
         });
     });
 });

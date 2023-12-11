@@ -142,14 +142,20 @@ export function useInput<T = unknown>(
         });
     });
 
+    const shake = ref(false);
     function validate(): boolean {
         showRuleMessages.value = true;
-        return ruleMessages.value.length === 0;
+        const isValid = ruleMessages.value.length === 0;
+        if (!isValid) {
+            shake.value = !shake.value;
+        }
+        return isValid;
     }
 
     return {
         changed,
         valid,
+        shake,
         computedMessages,
         showRuleMessages,
         validate,

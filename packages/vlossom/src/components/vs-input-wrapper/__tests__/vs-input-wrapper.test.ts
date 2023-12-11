@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import VsInputWrapper from '../VsInputWrapper.vue';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import VsInputWrapper from '../VsInputWrapper.vue';
+import { nextTick } from 'vue';
 
 describe('vs-input-wrapper', () => {
     describe('label', () => {
@@ -66,6 +67,42 @@ describe('vs-input-wrapper', () => {
 
             // then
             expect(wrapper.find('.messages').exists()).toBe(false);
+        });
+    });
+
+    describe('shake', () => {
+        it('shake props 값이 바뀌면 shake-horizontal class가 붙는다', async () => {
+            // given
+            const wrapper = mount(VsInputWrapper, {
+                props: {
+                    shake: false,
+                },
+            });
+
+            // when
+            await wrapper.setProps({ shake: true });
+
+            // then
+            expect(wrapper.find('.vs-input-wrapper').classes()).toContain('shake-horizontal');
+        });
+
+        it('shake props 값이 바뀌면 shake-horizontal class가 붙었다가 600ms 후에 떨어진다', async () => {
+            // given
+            const wrapper = mount(VsInputWrapper, {
+                props: {
+                    shake: false,
+                },
+            });
+            vi.useFakeTimers();
+
+            // when
+            await wrapper.setProps({ shake: true });
+            vi.advanceTimersByTime(600);
+            await nextTick();
+
+            // then
+            expect(wrapper.find('.vs-input-wrapper').classes()).not.toContain('shake-horizontal');
+            vi.clearAllTimers();
         });
     });
 });
