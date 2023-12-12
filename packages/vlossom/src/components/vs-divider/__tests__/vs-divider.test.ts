@@ -41,7 +41,6 @@ describe('vs-divider', () => {
             expect(wrapper.classes('horizontal')).toBe(false);
             expect(wrapper.classes('vertical')).toBe(true);
 
-            console.log(wrapper.attributes());
             expect(wrapper.attributes().style.includes('--vs-divider-verticalHeight: 4rem;')).toBe(true);
         });
     });
