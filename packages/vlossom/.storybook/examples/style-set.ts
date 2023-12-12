@@ -1,9 +1,15 @@
 import type { StyleSet } from '@/declaration/types';
-import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet, VsDividerStyleSet } from '@/components';
+import type { VsButtonStyleSet, VsDividerStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
+};
+
+const vsDivider: VsDividerStyleSet = {
+    lineColor: '#7071e8',
+    lineWidth: '3px',
+    lineStyle: 'double',
 };
 
 const vsInput: VsInputStyleSet = {
@@ -16,15 +22,9 @@ const vsSection: VsSectionStyleSet = {
     fontColor: 'white',
 };
 
-const vsDivider: VsDividerStyleSet = {
-    lineColor: '#7071e8',
-    lineWidth: '3px',
-    lineStyle: 'double'
-};
-
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
+    VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
     VsSection: { myStyleSet: vsSection },
-    VsDivider: { myStyleSet: vsDivider },
 };
