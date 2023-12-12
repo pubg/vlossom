@@ -1,0 +1,27 @@
+.swirl-in-fwd{animation:swirl-in-fwd .6s ease-out both}
+.fade-in{animation:fade-in 1.2s cubic-bezier(.39,.575,.565,1.000) both}
+.fade-in-top{animation:fade-in-top .4s cubic-bezier(.39,.575,.565,1.000) both}
+.fade-in-right{animation:fade-in-right .4s cubic-bezier(.39,.575,.565,1.000) both}
+.fade-in-bottom{animation:fade-in-bottom .4s cubic-bezier(.39,.575,.565,1.000) both}
+.fade-in-left{animation:fade-in-left .4s cubic-bezier(.39,.575,.565,1.000) both}
+.fade-out-top{animation:fade-out-top .4s cubic-bezier(.25,.46,.45,.94) both}
+.fade-out-right{animation:fade-out-right .4s cubic-bezier(.25,.46,.45,.94) both}
+.fade-out-bottom{animation:fade-out-bottom .4s cubic-bezier(.25,.46,.45,.94) both}
+.fade-out-left{animation:fade-out-left .4s cubic-bezier(.25,.46,.45,.94) both}
+.shake-horizontal{animation:shake-horizontal .6s cubic-bezier(.455,.03,.515,.955) both}
+.scale-up-ver-top{animation:scale-up-ver-top .15s cubic-bezier(.39,.575,.565,1.000) both}
+.scale-up-center{animation:scale-up-center .2s cubic-bezier(.39,.575,.565,1.000) both}
+
+@keyframes swirl-in-fwd{0%{transform:rotate(-540deg) scale(0);opacity:0}100%{transform:rotate(0) scale(1);opacity:1}}
+@keyframes fade-in{0%{opacity:0}100%{opacity:1}}
+@keyframes fade-in-top{0%{transform:translateY(-10px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes fade-in-right{0%{transform:translateX(10px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes fade-in-bottom{0%{transform:translateY(10px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes fade-in-left{0%{transform:translateX(-10px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes fade-out-top{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-10px);opacity:0}}
+@keyframes fade-out-right{0%{transform:translateX(0);opacity:1}100%{transform:translateX(10px);opacity:0}}
+@keyframes fade-out-bottom{0%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
+@keyframes fade-out-left{0%{transform:translateX(0);opacity:1}100%{transform:translateX(-10px);opacity:0}}
+@keyframes shake-horizontal{0%,100%{transform:translateX(0)}10%,30%,50%,70%{transform:translateX(-8px)}20%,40%,60%{transform:translateX(8px)}80%{transform:translateX(6px)}90%{transform:translateX(-6px)}}
+@keyframes scale-up-ver-top{0%{transform:scaleY(.4);transform-origin:100% 0}100%{transform:scaleY(1);transform-origin:100% 0}}
+@keyframes scale-up-center{0%{transform:scale(.5)}100%{transform:scale(1)}}
