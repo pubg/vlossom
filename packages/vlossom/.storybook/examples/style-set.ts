@@ -8,8 +8,8 @@ const vsButton: VsButtonStyleSet = {
 
 const vsDivider: VsDividerStyleSet = {
     lineColor: '#7071e8',
-    lineWidth: '3px',
     lineStyle: 'double',
+    lineWidth: '3px',
 };
 
 const vsInput: VsInputStyleSet = {

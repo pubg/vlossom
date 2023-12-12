@@ -8,9 +8,9 @@ import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface DividerStyleSet {
-    lineWidth: string;
-    lineStyle: string;
     lineColor: string;
+    lineStyle: string;
+    lineWidth: string;
     verticalHeight: string;
 }
 
