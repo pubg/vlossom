@@ -9,6 +9,9 @@
         "type": "git",
         "url": "git+https://github.com/pubg/vlossom.git"
     },
+    "bugs": {
+        "url": "https://github.com/pubg/vlossom/issues"
+    },
     "license": "MIT",
     "keywords": [
         "vue",
@@ -26,7 +29,8 @@
         "test:coverage": "vitest run --coverage",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "test-storybook": "test-storybook"
+        "test-storybook": "test-storybook",
+        "chromatic": "chromatic --exit-zero-on-changes"
     },
     "files": [
         "dist"
@@ -60,6 +64,7 @@
         "@vitest/coverage-v8": "^0.34.6",
         "@vue/test-utils": "^2.4.3",
         "axe-playwright": "^1.2.3",
+        "chromatic": "^10.1.0",
         "eslint": "^8.49.0",
         "eslint-plugin-vue": "^9.17.0",
         "jsdom": "^23.0.1",

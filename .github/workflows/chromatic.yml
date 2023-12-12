@@ -1,0 +1,36 @@
+name: Chromatic
+
+on:
+    pull_request:
+        types: [opened, synchronize]
+    push:
+        branches:
+            - main
+
+permissions:
+    pull-requests: write
+
+jobs:
+    chromatic:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install dependencies
+              run: yarn install --immutable --immutable-cache --check-cache
+
+            - name: Publish to Chromatic
+              id: chromatic
+              uses: chromaui/action@latest
+              with:
+                  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+            - name: Comment PR
+              if: github.event_name == 'pull_request' && github.event.action == 'opened'
+              uses: thollander/actions-comment-pull-request@v2
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
