@@ -1,9 +1,10 @@
-import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
+import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet, VsDividerStyleSet } from '@/components';
 
 export enum VsComponent {
     VsButton = 'VsButton',
     VsInput = 'VsInput',
     VsSection = 'VsSection',
+    VsDivider = 'VsDivider',
 }
 
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
@@ -14,6 +15,7 @@ export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsDivider?: { [key: string]: VsDividerStyleSet };
 }
 
 export interface VlossomOptions {
