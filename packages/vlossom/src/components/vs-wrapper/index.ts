@@ -1,1 +1,1 @@
-export { default as VsWrapper } from './VsWrapper.vue';
+export { default as VsWrapper } from './VsWrapper';

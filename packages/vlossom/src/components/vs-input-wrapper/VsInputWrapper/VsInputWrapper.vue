@@ -26,11 +26,9 @@
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { StateMessage } from '@/declaration/types';
-import VsMessage from '@/components/vs-message/VsMessage.vue';
 
 const VsInputWrapper = defineComponent({
     name: 'vs-input-wrapper',
-    components: { VsMessage },
     props: {
         label: { type: String, default: '' },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
