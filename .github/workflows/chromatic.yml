@@ -34,4 +34,6 @@ jobs:
               uses: thollander/actions-comment-pull-request@v2
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
+                  message: |
+                      📸chromatic: ${{ steps.chromatic.outputs.buildUrl }}
+                      🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}
