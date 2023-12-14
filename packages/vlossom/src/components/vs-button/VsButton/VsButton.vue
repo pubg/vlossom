@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <span v-if="loading" class="loading-content"> rotate icon </span>
+        <span v-if="loading" class="loading-content"> test </span>
     </button>
 </template>
 
