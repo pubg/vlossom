@@ -7,9 +7,6 @@ on:
         branches:
             - main
 
-permissions:
-    pull-requests: write
-
 jobs:
     chromatic:
         runs-on: ubuntu-latest
@@ -28,12 +25,3 @@ jobs:
               with:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   workingDir: ./packages/vlossom
-
-            - name: Comment PR
-              if: github.event_name == 'pull_request' && github.event.action == 'opened'
-              uses: thollander/actions-comment-pull-request@v2
-              with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  message: |
-                      📸chromatic: ${{ steps.chromatic.outputs.buildUrl }}
-                      🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}
