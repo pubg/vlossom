@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <span v-if="loading" class="loading-content"> test </span>
+        <span v-if="loading" class="loading-content"> test1 </span>
     </button>
 </template>
 
