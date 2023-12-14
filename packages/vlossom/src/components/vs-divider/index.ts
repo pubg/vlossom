@@ -1,2 +1,2 @@
-export { default as VsDivider } from './VsDivider.vue';
-export type { VsDividerInstance, VsDividerStyleSet } from './VsDivider.vue';
+export { default as VsDivider } from './VsDivider';
+export type { VsDividerInstance, VsDividerStyleSet } from './VsDivider';
