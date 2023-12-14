@@ -5,7 +5,7 @@
     display: flex;
     overflow: hidden;
     background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-input-border, solid 1px var(--vs-line-color));
+    border: var(--vs-input-border, solid 1px var(--vs-comp-border-color));
     border-radius: var(--vs-input-borderRadius, 0.4rem);
     height: var(--vs-input-height, 3rem);
 
@@ -53,7 +53,7 @@
         height: 100%;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-line-color));
+        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
 
         &.number {
             right: 3.4rem;

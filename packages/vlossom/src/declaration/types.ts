@@ -1,8 +1,8 @@
-import type { VsButtonStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
-import { Ref } from 'vue';
+import type { VsButtonStyleSet, VsDividerStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
 
 export enum VsComponent {
     VsButton = 'VsButton',
+    VsDivider = 'VsDivider',
     VsInput = 'VsInput',
     VsSection = 'VsSection',
 }
@@ -13,6 +13,7 @@ export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponen
 
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
+    VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
 }
