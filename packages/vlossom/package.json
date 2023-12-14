@@ -19,6 +19,7 @@
         "component library"
     ],
     "scripts": {
+        "dev": "vite --port 3000",
         "build": "vue-tsc && vite build",
         "test": "vitest run --reporter=verbose",
         "test:watch": "vitest --reporter=verbose",

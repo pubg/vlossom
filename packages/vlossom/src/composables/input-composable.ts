@@ -1,15 +1,5 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
-import { StateMessage, Rule, Message, UIState } from '@/declaration/types';
-
-interface InputComponentOptions<T = unknown> {
-    messages?: Ref<Message<T>[]>;
-    rules?: Ref<Rule<T>[]>;
-    clear?: () => void;
-    callbacks?: {
-        onChange?: (newValue: T, oldValue: T) => void;
-        onMounted?: () => void;
-    };
-}
+import { StateMessage, Rule, Message, UIState, InputComponentOptions } from '@/declaration/types';
 
 export function getInputProps<T = unknown>() {
     return {
@@ -140,6 +130,10 @@ export function useInput<T = unknown>(
     });
 
     onMounted(() => {
+        inputValue.value = modelValue.value;
+        checkMessages();
+        checkRules();
+
         if (options?.callbacks?.onMounted) {
             options.callbacks?.onMounted();
         }
@@ -148,14 +142,20 @@ export function useInput<T = unknown>(
         });
     });
 
+    const shake = ref(false);
     function validate(): boolean {
         showRuleMessages.value = true;
-        return ruleMessages.value.length === 0;
+        const isValid = ruleMessages.value.length === 0;
+        if (!isValid) {
+            shake.value = !shake.value;
+        }
+        return isValid;
     }
 
     return {
         changed,
         valid,
+        shake,
         computedMessages,
         showRuleMessages,
         validate,

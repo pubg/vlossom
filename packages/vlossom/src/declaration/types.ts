@@ -47,3 +47,13 @@ export interface StateMessage {
 
 export type Rule<T = any> = ((v: T) => string) | ((v: T) => PromiseLike<string>);
 export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>);
+
+export interface InputComponentOptions<T = unknown> {
+    messages?: Ref<Message<T>[]>;
+    rules?: Ref<Rule<T>[]>;
+    clear?: () => void;
+    callbacks?: {
+        onChange?: (newValue: T, oldValue: T) => void;
+        onMounted?: () => void;
+    };
+}
