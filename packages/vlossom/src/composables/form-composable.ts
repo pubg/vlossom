@@ -1,4 +1,4 @@
-import { Ref, inject, onBeforeUnmount, ref, watch } from 'vue';
+import { Ref, inject, onBeforeMount, onBeforeUnmount, ref, watch } from 'vue';
 import { stringUtil } from '@/utils';
 
 export function useFormComposable(
@@ -16,37 +16,31 @@ export function useFormComposable(
     const validateFlag = inject<Ref<boolean>>('validateFlag', ref(false));
     const clearFlag = inject<Ref<boolean>>('clearFlag', ref(false));
 
-    watch(
-        label,
-        () => {
-            if (label.value) {
-                labelObj.value[id] = label.value;
-            }
-        },
-        { immediate: true },
-    );
+    watch(label, () => {
+        if (label.value) {
+            labelObj.value[id] = label.value;
+        }
+    });
 
-    watch(
-        changed,
-        () => {
-            chagedObj.value[id] = changed.value;
-        },
-        { immediate: true },
-    );
+    watch(changed, () => {
+        chagedObj.value[id] = changed.value;
+    });
 
-    watch(
-        valid,
-        () => {
-            validObj.value[id] = valid.value;
-        },
-        { immediate: true },
-    );
+    watch(valid, () => {
+        validObj.value[id] = valid.value;
+    });
 
     watch(validateFlag, validate);
 
     watch(clearFlag, () => {
         clear();
         changed.value = false;
+    });
+
+    onBeforeMount(() => {
+        labelObj.value[id] = label.value;
+        chagedObj.value[id] = changed.value;
+        validObj.value[id] = valid.value;
     });
 
     onBeforeUnmount(() => {

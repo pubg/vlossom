@@ -2,13 +2,15 @@ import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
-    VsSectionStyleSet,
     VsPageStyleSet,
+    VsSectionStyleSet,
 } from '@/components';
+import { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
     VsDivider = 'VsDivider',
+    VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsPage = 'VsPage',
     VsSection = 'VsSection',
