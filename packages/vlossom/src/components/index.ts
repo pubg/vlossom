@@ -4,5 +4,6 @@ export * from './vs-divider';
 export * from './vs-input';
 export * from './vs-input-wrapper';
 export * from './vs-message';
+export * from './vs-page';
 export * from './vs-section';
 export * from './vs-wrapper';
