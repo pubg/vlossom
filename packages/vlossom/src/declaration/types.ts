@@ -59,9 +59,9 @@ export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T)
 export interface InputComponentOptions<T = unknown> {
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
-    clear?: () => void;
     callbacks?: {
         onChange?: (newValue: T, oldValue: T) => void;
         onMounted?: () => void;
+        onClear?: () => void;
     };
 }

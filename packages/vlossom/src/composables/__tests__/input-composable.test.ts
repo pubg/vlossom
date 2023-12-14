@@ -5,9 +5,12 @@ import { getInputProps, useInput } from '@/composables/input-composable';
 import { StateMessage, UIState } from '@/declaration/types';
 
 describe('input composable', () => {
+    const inputValue = ref('');
     let onMountedSpy = vi.fn();
     let onChangeSpy = vi.fn();
-    const inputValue = ref('');
+    let onClearSpy = vi.fn(() => {
+        inputValue.value = '';
+    });
 
     const InputComponent = defineComponent({
         render: () => null,
@@ -16,13 +19,14 @@ describe('input composable', () => {
             ...getInputProps<string>(),
         },
         setup(props, ctx) {
-            const { modelValue, messages, rules } = toRefs(props);
+            const { modelValue, label, messages, rules } = toRefs(props);
 
             return {
-                ...useInput(inputValue, modelValue, ctx, {
+                ...useInput(inputValue, modelValue, ctx, label, {
                     callbacks: {
                         onMounted: onMountedSpy,
                         onChange: onChangeSpy,
+                        onClear: onClearSpy,
                     },
                     messages,
                     rules,
@@ -35,6 +39,9 @@ describe('input composable', () => {
         inputValue.value = '';
         onMountedSpy = vi.fn();
         onChangeSpy = vi.fn();
+        onClearSpy = vi.fn(() => {
+            inputValue.value = '';
+        });
     });
 
     afterEach(() => {
@@ -384,6 +391,31 @@ describe('input composable', () => {
                 expect(result).toBe(false);
                 expect(wrapper.vm.shake).toBe(!oldShake);
             });
+        });
+    });
+
+    describe('clear', () => {
+        it('clear 함수를 호출하면 onClear callback이 실행된다', async () => {
+            // given
+            const wrapper = mount(InputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                },
+            });
+
+            // when
+            await nextTick();
+            inputValue.value = 'test';
+            await nextTick();
+            wrapper.vm.clear();
+            await nextTick();
+
+            // then
+            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.modelValue).toBe('');
+            expect(inputValue.value).toBe('');
+            expect(onClearSpy).toHaveBeenCalledTimes(1);
         });
     });
 });
