@@ -1,3 +1,4 @@
+import { Ref } from 'vue';
 import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
@@ -29,6 +30,7 @@ export interface StyleSet {
 }
 
 export interface VlossomOptions {
+    theme?: 'light' | 'dark';
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
 }
