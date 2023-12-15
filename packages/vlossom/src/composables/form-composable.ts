@@ -11,7 +11,7 @@ export function useFormComposable(
     const id = stringUtil.createID();
 
     const labelObj = inject<Ref<Record<string, string>>>('labelObj', ref({}));
-    const chagedObj = inject<Ref<Record<string, boolean>>>('changedObj', ref({}));
+    const changedObj = inject<Ref<Record<string, boolean>>>('changedObj', ref({}));
     const validObj = inject<Ref<Record<string, boolean>>>('validObj', ref({}));
     const validateFlag = inject<Ref<boolean>>('validateFlag', ref(false));
     const clearFlag = inject<Ref<boolean>>('clearFlag', ref(false));
@@ -23,7 +23,7 @@ export function useFormComposable(
     });
 
     watch(changed, () => {
-        chagedObj.value[id] = changed.value;
+        changedObj.value[id] = changed.value;
     });
 
     watch(valid, () => {
@@ -39,13 +39,13 @@ export function useFormComposable(
 
     onBeforeMount(() => {
         labelObj.value[id] = label.value;
-        chagedObj.value[id] = changed.value;
+        changedObj.value[id] = changed.value;
         validObj.value[id] = valid.value;
     });
 
     onBeforeUnmount(() => {
         delete labelObj.value[id];
-        delete chagedObj.value[id];
+        delete changedObj.value[id];
         delete validObj.value[id];
     });
 
