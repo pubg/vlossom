@@ -1,4 +1,4 @@
-import { beforeEach, afterEach, describe, it, expect } from 'vitest';
+import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
 import VsForm from './../VsForm.vue';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
@@ -48,7 +48,25 @@ describe('vs-form', () => {
             expect(wrapper.emitted('update:valid')?.[0][0]).toBe(false);
         });
 
-        it.todo('valid 하지 않은 label을 모아서 snackbar를 띄울 수 있다', () => {});
+        it('onError 함수가 props로 전달되고 form의 값이 유효하지 않으면 onError 함수를 실행한다', async () => {
+            // given
+            wrapper.vm.validObj = {
+                test: false,
+            };
+            wrapper.vm.labelObj = {
+                test: 'test',
+            };
+            const onError = vi.fn();
+            wrapper.setProps({ onError });
+
+            // when
+            const valid = await wrapper.vm.validate();
+
+            // then
+            expect(valid).toBe(false);
+            expect(onError).toBeCalledTimes(1);
+            expect(onError).toBeCalledWith(['test']);
+        });
     });
 
     describe('changed', () => {

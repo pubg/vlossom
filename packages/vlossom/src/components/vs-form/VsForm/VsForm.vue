@@ -47,10 +47,12 @@ const VsForm = defineComponent({
             validateFlag.value = !validateFlag.value;
             await nextTick();
 
-            // on error callback with invalid labels
-            const invalidIds = Object.keys(validObj.value).filter((id) => !validObj.value[id]);
-            const invalidLabels = invalidIds.map((id) => labelObj.value[id]).filter((label) => !!label);
-            props.onError?.(invalidLabels);
+            if (!isValid.value) {
+                // on error callback with invalid labels
+                const invalidIds = Object.keys(validObj.value).filter((id) => !validObj.value[id]);
+                const invalidLabels = invalidIds.map((id) => labelObj.value[id]).filter((label) => !!label);
+                props.onError?.(invalidLabels);
+            }
 
             return isValid.value;
         }
