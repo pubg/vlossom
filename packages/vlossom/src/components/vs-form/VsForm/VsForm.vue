@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, computed, defineComponent, nextTick, provide, ref, watch } from 'vue';
+import { PropType, Ref, computed, defineComponent, nextTick, provide, ref, watch } from 'vue';
 import { VsComponent } from '@/declaration/types';
 import VsContainer from '@/components/vs-container/VsContainer/VsContainer.vue';
 
@@ -17,13 +17,17 @@ const VsForm = defineComponent({
     name: 'vs-form',
     components: { VsContainer },
     props: {
+        onError: {
+            type: Function as PropType<(invalidLabels: string[]) => void>,
+            default: null,
+        },
         // v-model
         changed: { type: Boolean, default: false },
         valid: { type: Boolean, default: true },
     },
     emits: ['update:changed', 'update:valid'],
     expose: ['validate', 'clear'],
-    setup(_, { emit }) {
+    setup(props, { emit }) {
         const labelObj: Ref<Record<string, string>> = ref({});
         const changedObj: Ref<Record<string, boolean>> = ref({});
         const validObj: Ref<Record<string, boolean>> = ref({});
@@ -43,11 +47,11 @@ const VsForm = defineComponent({
             validateFlag.value = !validateFlag.value;
             await nextTick();
 
+            // on error callback with invalid labels
             const invalidIds = Object.keys(validObj.value).filter((id) => !validObj.value[id]);
             const invalidLabels = invalidIds.map((id) => labelObj.value[id]).filter((label) => !!label);
-            if (invalidLabels.length > 0) {
-                // TODO: open error snackbar
-            }
+            props.onError?.(invalidLabels);
+
             return isValid.value;
         }
 
