@@ -14,7 +14,7 @@ const meta: Meta<typeof VsPage> = {
         <vs-page v-bind="args">
             <template #title>This is Page Title</template>
             <template #description>This is Page Description</template>
-            This is Page Content. Titles and descriptions can be added via slot.
+            This is Page Content. Page Title and Page Description is added via slot.
         </vs-page>
     `,
     }),
@@ -28,7 +28,7 @@ export const Default: Story = {};
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { padding: '1.2rem 3rem', fontColor: '#3559e0' },
+        styleSet: { padding: '1.2rem 3rem', fontColor: '#3559e0', headerMargin: '0 0 4rem 0' },
     },
 };
 
