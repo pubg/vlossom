@@ -70,6 +70,18 @@ describe('form-composable', () => {
             expect(labelObj.value[id]).toBe(label.value);
         });
 
+        it('빈 라벨이라도 labelObj에 업데이트 된다', async () => {
+            // given
+            const id = wrapper.vm.id;
+
+            // when
+            label.value = '';
+            await nextTick();
+
+            // then
+            expect(labelObj.value[id]).toBe(label.value);
+        });
+
         it('label 값이 변경되면 labelObj도 변경된다', async () => {
             // given
             const id = wrapper.vm.id;

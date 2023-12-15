@@ -17,9 +17,7 @@ export function useFormComposable(
     const clearFlag = inject<Ref<boolean>>('clearFlag', ref(false));
 
     watch(label, () => {
-        if (label.value) {
-            labelObj.value[id] = label.value;
-        }
+        labelObj.value[id] = label.value;
     });
 
     watch(changed, () => {
