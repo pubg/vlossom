@@ -5,14 +5,13 @@ describe('string util', () => {
     describe('createID', () => {
         const { createID } = stringUtil;
 
-        it('임의의 ID를 생성할 수 있다', () => {
+        it('임의의 ID를 생성할 수 있다 (ID는 알파벳 소문자와 숫자로만 이루어져 있다)', () => {
             // when
             const result = createID();
 
             // then
             expect(result).toBeDefined();
             expect(result).toHaveLength(10);
-            // 생성된 ID는 알파벳 소문자와 숫자로만 이루어져 있다
             expect(result).toMatch(/^[a-z0-9]+$/);
         });
 

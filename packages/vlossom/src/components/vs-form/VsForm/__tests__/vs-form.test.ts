@@ -1,4 +1,4 @@
-import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
+import { beforeEach, afterEach, describe, it, expect } from 'vitest';
 import VsForm from './../VsForm.vue';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
@@ -36,19 +36,17 @@ describe('vs-form', () => {
         });
 
         it('valid 여부가 바뀌면 update:valid event가 emit된다', async () => {
-            // given
+            // when
             wrapper.vm.validObj = {
                 test: false,
             };
-
-            // when
-            await wrapper.vm.validate();
+            await nextTick();
 
             // then
             expect(wrapper.emitted('update:valid')?.[0][0]).toBe(false);
         });
 
-        it('onError 함수가 props로 전달되고 form의 값이 유효하지 않으면 onError 함수를 실행한다', async () => {
+        it('유효하지 않은 input의 label을 error 이벤트로 emit한다', async () => {
             // given
             wrapper.vm.validObj = {
                 test: false,
@@ -56,16 +54,13 @@ describe('vs-form', () => {
             wrapper.vm.labelObj = {
                 test: 'test',
             };
-            const onError = vi.fn();
-            wrapper.setProps({ onError });
 
             // when
             const valid = await wrapper.vm.validate();
 
             // then
             expect(valid).toBe(false);
-            expect(onError).toBeCalledTimes(1);
-            expect(onError).toBeCalledWith(['test']);
+            expect(wrapper.emitted('error')?.[0][0]).toEqual(['test']);
         });
     });
 

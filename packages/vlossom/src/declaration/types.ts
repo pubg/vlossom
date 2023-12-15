@@ -5,7 +5,7 @@ import type {
     VsPageStyleSet,
     VsSectionStyleSet,
 } from '@/components';
-import { Ref } from 'vue';
+import type { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
