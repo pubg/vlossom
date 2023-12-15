@@ -19,8 +19,8 @@ import { VsComponent } from '@/declaration/types';
 
 interface PageStyleSet {
     fontColor: string;
-    padding: string;
     headerMargin: string;
+    padding: string;
 }
 
 export type VsPageStyleSet = Partial<PageStyleSet>;
