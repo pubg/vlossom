@@ -19,7 +19,6 @@ import { VsComponent } from '@/declaration/types';
 
 interface PageStyleSet {
     fontColor: string;
-    // titleMargin: string;
     padding: string;
 }
 
@@ -36,8 +35,6 @@ const VsPage = defineComponent({
         const { styleSet } = toRefs(props);
 
         const { customProperties } = useCustomStyle<VsPageStyleSet>(name, styleSet);
-
-        console.log(customProperties);
 
         const hasTitle = computed((): boolean => !!slots['title']);
         const hasDescription = computed((): boolean => !!slots['description']);
