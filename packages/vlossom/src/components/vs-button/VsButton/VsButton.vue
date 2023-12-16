@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <span v-if="loading" class="loading-content"> rotate icon </span>
+        <rotate-right v-if="loading" class="loading" />
     </button>
 </template>
 
@@ -17,6 +17,7 @@
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
+import RotateRight from '@/assets/icons/RotateRight';
 
 interface ButtonStyleSet {
     backgroundColor: string;
@@ -35,6 +36,9 @@ const name = VsComponent.VsButton;
 
 const VsButton = defineComponent({
     name,
+    components: {
+        RotateRight,
+    },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
@@ -47,7 +51,7 @@ const VsButton = defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
+        const { colorScheme, styleSet, dense, large, mobileFull, outline, primary } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -56,7 +60,6 @@ const VsButton = defineComponent({
         const classObj = computed(() => ({
             dense: dense.value,
             large: large.value,
-            loading: loading.value,
             'mobile-full': mobileFull.value,
             outline: outline.value,
             primary: primary.value,
