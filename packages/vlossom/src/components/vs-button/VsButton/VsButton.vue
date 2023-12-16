@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <rotate-right v-if="loading" class="loading" />
+        <rotate-right v-if="loading" aria-label="loading" class="loading" />
     </button>
 </template>
 
