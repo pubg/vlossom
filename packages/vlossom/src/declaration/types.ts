@@ -4,6 +4,7 @@ import type {
     VsInputStyleSet,
     VsPageStyleSet,
     VsSectionStyleSet,
+    VsValueTagStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
@@ -17,6 +18,7 @@ export enum VsComponent {
     VsMessage = 'VsMessage',
     VsPage = 'VsPage',
     VsSection = 'VsSection',
+    VsValueTag = 'VsValueTag',
     VsWrapper = 'VsWrapper',
 }
 
@@ -30,6 +32,7 @@ export interface StyleSet {
     VsInput?: { [key: string]: VsInputStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
+    VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
 export interface VlossomStore {
