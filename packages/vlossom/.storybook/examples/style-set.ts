@@ -1,5 +1,11 @@
 import type { StyleSet } from '@/declaration/types';
-import type { VsButtonStyleSet, VsDividerStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
+import type {
+    VsButtonStyleSet,
+    VsDividerStyleSet,
+    VsInputStyleSet,
+    VsSectionStyleSet,
+    VsPageStyleSet,
+} from '@/components';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
@@ -22,9 +28,15 @@ const vsSection: VsSectionStyleSet = {
     fontColor: 'white',
 };
 
+const vsPage: VsPageStyleSet = {
+    fontColor: '#ff90bc',
+    padding: '0.8rem 1.5rem',
+};
+
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
     VsSection: { myStyleSet: vsSection },
+    VsPage: { myStyleSet: vsPage },
 };

@@ -1,9 +1,16 @@
-import type { VsButtonStyleSet, VsDividerStyleSet, VsInputStyleSet, VsSectionStyleSet } from '@/components';
+import type {
+    VsButtonStyleSet,
+    VsDividerStyleSet,
+    VsInputStyleSet,
+    VsSectionStyleSet,
+    VsPageStyleSet,
+} from '@/components';
 
 export enum VsComponent {
     VsButton = 'VsButton',
     VsDivider = 'VsDivider',
     VsInput = 'VsInput',
+    VsPage = 'VsPage',
     VsSection = 'VsSection',
 }
 
@@ -16,6 +23,7 @@ export interface StyleSet {
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsPage?: { [key: string]: VsPageStyleSet };
 }
 
 export interface VlossomOptions {
