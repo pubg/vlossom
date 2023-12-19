@@ -2,13 +2,15 @@ import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
-    VsSectionStyleSet,
     VsPageStyleSet,
+    VsSectionStyleSet,
 } from '@/components';
+import type { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
     VsDivider = 'VsDivider',
+    VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsPage = 'VsPage',
     VsSection = 'VsSection',
@@ -59,9 +61,21 @@ export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T)
 export interface InputComponentOptions<T = unknown> {
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
-    clear?: () => void;
     callbacks?: {
         onChange?: (newValue: T, oldValue: T) => void;
         onMounted?: () => void;
+        onClear?: () => void;
     };
+}
+
+export interface VsFormProvide {
+    labelObj: Ref<Record<string, string>>;
+    changedObj: Ref<Record<string, boolean>>;
+    validObj: Ref<Record<string, boolean>>;
+    validateFlag: Ref<boolean>;
+    clearFlag: Ref<boolean>;
+    updateLabel: (id: string, label: string) => void;
+    updateChanged: (id: string, changed: boolean) => void;
+    updateValid: (id: string, valid: boolean) => void;
+    removeFromForm: (id: string) => void;
 }

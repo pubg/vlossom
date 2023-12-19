@@ -1,5 +1,6 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
 import { StateMessage, Rule, Message, UIState, InputComponentOptions } from '@/declaration/types';
+import { useInputForm } from './input-form-composable';
 
 export function getInputProps<T = unknown>() {
     return {
@@ -25,6 +26,7 @@ export function useInput<T = unknown>(
     inputValue: Ref<T>,
     modelValue: Ref<T>,
     ctx: any,
+    label: Ref<string>,
     options?: InputComponentOptions<T>,
 ) {
     const { emit } = ctx;
@@ -152,6 +154,18 @@ export function useInput<T = unknown>(
         return isValid;
     }
 
+    function clear() {
+        if (options?.callbacks?.onClear) {
+            options.callbacks.onClear();
+        }
+
+        nextTick(() => {
+            changed.value = false;
+        });
+    }
+
+    useInputForm(label, changed, valid, validate, clear);
+
     return {
         changed,
         valid,
@@ -159,5 +173,6 @@ export function useInput<T = unknown>(
         computedMessages,
         showRuleMessages,
         validate,
+        clear,
     };
 }
