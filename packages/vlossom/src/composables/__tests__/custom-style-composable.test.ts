@@ -1,34 +1,29 @@
 import type { VsButtonStyleSet } from '@/components';
 import type { StyleSet } from '@/declaration/types';
 
-import { beforeAll, afterAll, describe, expect, it } from 'vitest';
-import { registerStyleSet, clearStyleSet, useCustomStyle } from '../custom-style-composable';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { VsComponent } from '@/declaration/types';
+import { useCustomStyle } from '../custom-style-composable';
+import { store } from '@/store';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
 };
 
-export const styleSet: StyleSet = {
+const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
 };
 
 describe('useCustomStyle composable', () => {
-    beforeAll(() => {
-        registerStyleSet(styleSet);
-    });
-
-    afterAll(() => {
-        clearStyleSet();
+    beforeEach(() => {
+        store.registerStyleSet(styleSet);
     });
 
     it('parse styleSet object and return custom properties successfully', () => {
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(
-            VsComponent.VsButton,
-            ref({ backgroundColor: '#a5d6ad', fontSize: '2rem' }),
-        );
+        const myStyleSet = { backgroundColor: '#a5d6ad', fontSize: '2rem' };
+        const { customProperties } = useCustomStyle<VsButtonStyleSet>(VsComponent.VsButton, ref(myStyleSet));
 
         expect(customProperties.value).toEqual({
             '--vs-button-backgroundColor': '#a5d6ad',
