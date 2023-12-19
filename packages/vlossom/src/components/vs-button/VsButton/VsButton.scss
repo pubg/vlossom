@@ -101,7 +101,7 @@
 }
 
 .vs-button + .vs-button {
-    margin-left: 6px;
+    margin-left: 0.3rem;
 }
 
 @media screen and (max-width: 768px) {
@@ -112,6 +112,6 @@
     }
 
     .vs-button.mobile-full + .vs-button.mobile-full {
-        margin-top: 5px;
+        margin-top: 0.3rem;
     }
 }
