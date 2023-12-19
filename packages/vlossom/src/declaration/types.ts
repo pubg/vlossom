@@ -67,3 +67,15 @@ export interface InputComponentOptions<T = unknown> {
         onClear?: () => void;
     };
 }
+
+export interface VsFormProvide {
+    labelObj: Ref<Record<string, string>>;
+    changedObj: Ref<Record<string, boolean>>;
+    validObj: Ref<Record<string, boolean>>;
+    validateFlag: Ref<boolean>;
+    clearFlag: Ref<boolean>;
+    updateLabel: (id: string, label: string) => void;
+    updateChanged: (id: string, changed: boolean) => void;
+    updateValid: (id: string, valid: boolean) => void;
+    removeFromForm: (id: string) => void;
+}

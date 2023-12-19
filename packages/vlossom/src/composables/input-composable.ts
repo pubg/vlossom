@@ -1,6 +1,6 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
 import { StateMessage, Rule, Message, UIState, InputComponentOptions } from '@/declaration/types';
-import { useFormComposable } from './form-composable';
+import { useInputForm } from './input-form-composable';
 
 export function getInputProps<T = unknown>() {
     return {
@@ -164,7 +164,7 @@ export function useInput<T = unknown>(
         });
     }
 
-    useFormComposable(label, changed, valid, validate, clear);
+    useInputForm(label, changed, valid, validate, clear);
 
     return {
         changed,

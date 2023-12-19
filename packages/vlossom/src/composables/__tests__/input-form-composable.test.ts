@@ -1,60 +1,45 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { Ref, defineComponent, nextTick, ref } from 'vue';
-import { useFormComposable } from '@/composables';
+import { defineComponent, nextTick, ref } from 'vue';
+import { useFormProvide, useInputForm } from '@/composables';
+import type { VsFormProvide } from '@/declaration/types';
 
 describe('form-composable', () => {
-    // provides
-    const labelObj: Ref<Record<string, string>> = ref({});
-    const changedObj: Ref<Record<string, boolean>> = ref({});
-    const validObj: Ref<Record<string, boolean>> = ref({});
-    const validateFlag = ref(false);
-    const clearFlag = ref(false);
-
     // parameters
     const label = ref('Test label');
     const valid = ref(false);
     const changed = ref(false);
-    const validate = vi.fn(() => true);
-    const clear = vi.fn();
+    const validateSpy = vi.fn(() => true);
+    const clearSpy = vi.fn();
 
     const InputComponent = defineComponent({
         render: () => null,
         setup() {
-            const { id } = useFormComposable(label, valid, changed, validate, clear);
+            const { id } = useInputForm(label, valid, changed, validateSpy, clearSpy);
             return { id };
         },
     });
 
-    function createWrapper() {
+    function createWrapper(provide: any = {}) {
         return mount(InputComponent, {
             global: {
-                provide: {
-                    labelObj,
-                    changedObj,
-                    validObj,
-                    validateFlag,
-                    clearFlag,
-                },
+                provide,
             },
         });
     }
 
+    let formProvide: VsFormProvide;
     let wrapper: ReturnType<typeof createWrapper>;
-    beforeEach(() => {
-        labelObj.value = {};
-        changedObj.value = {};
-        validObj.value = {};
-        validateFlag.value = false;
-        clearFlag.value = false;
 
+    beforeEach(() => {
         label.value = 'Test label';
         valid.value = false;
         changed.value = false;
-        validate.mockClear();
-        clear.mockClear();
+        validateSpy.mockClear();
+        clearSpy.mockClear();
 
-        wrapper = createWrapper();
+        formProvide = useFormProvide().getFormProvide();
+        wrapper = createWrapper({ 'vs-form': formProvide });
     });
 
     afterEach(() => {
@@ -67,7 +52,7 @@ describe('form-composable', () => {
             const id = wrapper.vm.id;
 
             // then
-            expect(labelObj.value[id]).toBe(label.value);
+            expect(formProvide.labelObj.value[id]).toBe(label.value);
         });
 
         it('빈 라벨이라도 labelObj에 업데이트 된다', async () => {
@@ -79,7 +64,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(labelObj.value[id]).toBe(label.value);
+            expect(formProvide.labelObj.value[id]).toBe(label.value);
         });
 
         it('label 값이 변경되면 labelObj도 변경된다', async () => {
@@ -92,7 +77,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(labelObj.value[id]).toBe(newLabel);
+            expect(formProvide.labelObj.value[id]).toBe(newLabel);
         });
     });
 
@@ -102,7 +87,7 @@ describe('form-composable', () => {
             const id = wrapper.vm.id;
 
             // then
-            expect(changedObj.value[id]).toBe(changed.value);
+            expect(formProvide.changedObj.value[id]).toBe(changed.value);
         });
 
         it('changed 값이 변경되면 changedObj도 변경된다', async () => {
@@ -115,7 +100,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(changedObj.value[id]).toBe(newChanged);
+            expect(formProvide.changedObj.value[id]).toBe(newChanged);
         });
     });
 
@@ -125,7 +110,7 @@ describe('form-composable', () => {
             const id = wrapper.vm.id;
 
             // then
-            expect(validObj.value[id]).toBe(valid.value);
+            expect(formProvide.validObj.value[id]).toBe(valid.value);
         });
 
         it('valid 값이 변경되면 validObj도 변경된다', async () => {
@@ -138,29 +123,29 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(validObj.value[id]).toBe(newValid);
+            expect(formProvide.validObj.value[id]).toBe(newValid);
         });
     });
 
     describe('validateFlag', () => {
         it('validateFlag가 바뀌면 validate가 호출된다', async () => {
             // when
-            validateFlag.value = true;
+            formProvide.validateFlag.value = true;
             await nextTick();
 
             // then
-            expect(validate).toBeCalledTimes(1);
+            expect(validateSpy).toBeCalledTimes(1);
         });
     });
 
     describe('clearFlag', () => {
         it('clearFlag가 바뀌면 clear가 호출된다', async () => {
             // when
-            clearFlag.value = true;
+            formProvide.clearFlag.value = true;
             await nextTick();
 
             // then
-            expect(clear).toBeCalledTimes(1);
+            expect(clearSpy).toBeCalledTimes(1);
         });
 
         it('clearFlag가 바뀌면 changed가 false로 변경된다', async () => {
@@ -168,12 +153,12 @@ describe('form-composable', () => {
             const id = wrapper.vm.id;
 
             // when
-            clearFlag.value = true;
+            formProvide.clearFlag.value = true;
             await nextTick();
 
             // then
             expect(changed.value).toBe(false);
-            expect(changedObj.value[id]).toBe(false);
+            expect(formProvide.changedObj.value[id]).toBe(false);
         });
     });
 
@@ -187,7 +172,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(labelObj.value[id]).toBeUndefined();
+            expect(formProvide.labelObj.value[id]).toBeUndefined();
         });
 
         it('changedObj에서 id에 해당하는 값이 삭제된다', async () => {
@@ -199,7 +184,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(changedObj.value[id]).toBeUndefined();
+            expect(formProvide.changedObj.value[id]).toBeUndefined();
         });
 
         it('validObj에서 id에 해당하는 값이 삭제된다', async () => {
@@ -211,7 +196,7 @@ describe('form-composable', () => {
             await nextTick();
 
             // then
-            expect(validObj.value[id]).toBeUndefined();
+            expect(formProvide.validObj.value[id]).toBeUndefined();
         });
     });
 });

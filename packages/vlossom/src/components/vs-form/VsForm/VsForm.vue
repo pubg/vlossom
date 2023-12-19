@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
-import { Ref, computed, defineComponent, nextTick, provide, ref, watch } from 'vue';
-import { VsComponent } from '@/declaration/types';
+import { computed, defineComponent, nextTick, provide, watch } from 'vue';
+import { VsComponent, VsFormProvide } from '@/declaration/types';
 import VsContainer from '@/components/vs-container/VsContainer/VsContainer.vue';
+import { useFormProvide } from '@/composables';
 
 export const name = VsComponent.VsForm;
 
@@ -24,17 +25,9 @@ const VsForm = defineComponent({
     emits: ['update:changed', 'update:valid', 'error'],
     expose: ['validate', 'clear'],
     setup(_, { emit }) {
-        const labelObj: Ref<Record<string, string>> = ref({});
-        const changedObj: Ref<Record<string, boolean>> = ref({});
-        const validObj: Ref<Record<string, boolean>> = ref({});
-        const validateFlag = ref(false);
-        const clearFlag = ref(false);
+        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getFormProvide } = useFormProvide();
 
-        provide('labelObj', labelObj);
-        provide('validObj', validObj);
-        provide('changedObj', changedObj);
-        provide('validateFlag', validateFlag);
-        provide('clearFlag', clearFlag);
+        provide<VsFormProvide>('vs-form', getFormProvide());
 
         const isValid = computed(() => Object.values(validObj.value).every((v) => v));
         const isChanged = computed(() => Object.values(changedObj.value).some((v) => v));
