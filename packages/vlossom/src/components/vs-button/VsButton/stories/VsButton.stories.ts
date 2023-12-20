@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { colorScheme, getMetaArguments } from '@/storybook/args';
+import { colorScheme } from '@/storybook/args';
 import VsButton from './../VsButton.vue';
 
 const meta: Meta<typeof VsButton> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof VsButton> = {
     },
 };
 
-meta.args = getMetaArguments(VsButton.props, meta.args);
+// meta.args = getMetaArguments(VsButton.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsButton>;
 
