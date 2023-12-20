@@ -8,17 +8,14 @@
 
 <script lang="ts">
 import { PropType, defineComponent } from 'vue';
-import { StateMessage } from '@/declaration/types';
+import { StateMessage, VsComponent } from '@/declaration/types';
 
-const VsMessage = defineComponent({
-    name: 'vs-message',
+export default defineComponent({
+    name: VsComponent.VsMessage,
     props: {
         message: { type: Object as PropType<StateMessage>, required: true, default: () => ({}) },
     },
 });
-
-export default VsMessage;
-export type VsMessageInstance = InstanceType<typeof VsMessage>;
 </script>
 
 <style lang="scss" scoped src="./VsMessage.scss" />

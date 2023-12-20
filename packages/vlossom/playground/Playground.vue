@@ -1,5 +1,9 @@
 <template>
-    <vs-container> Hello World </vs-container>
+    <vs-page>
+        <template #title>Vlossom Playground</template>
+
+        Hello World
+    </vs-page>
 </template>
 
 <script lang="ts">

@@ -63,7 +63,7 @@ export interface InputButton {
 
 const name = VsComponent.VsInput;
 
-const VsInput = defineComponent({
+export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -198,9 +198,6 @@ const VsInput = defineComponent({
         };
     },
 });
-
-export default VsInput;
-export type VsInputInstance = InstanceType<typeof VsInput>;
 </script>
 
 <style lang="scss" scoped src="./VsInput.scss" />

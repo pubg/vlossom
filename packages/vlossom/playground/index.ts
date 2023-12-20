@@ -1,7 +1,9 @@
 import { createApp } from 'vue';
 import { createVlossom } from '../src/main';
-import App from './App.vue';
+import Playground from './Playground.vue';
 
-const app = createApp(App);
+const app = createApp(Playground);
+
 app.use(createVlossom());
+
 app.mount('#app');

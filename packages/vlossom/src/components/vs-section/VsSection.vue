@@ -27,7 +27,7 @@ export type VsSectionStyleSet = Partial<SectionStyleSet>;
 
 const name = VsComponent.VsSection;
 
-const VsSection = defineComponent({
+export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -49,9 +49,6 @@ const VsSection = defineComponent({
         };
     },
 });
-
-export default VsSection;
-export type VsSectionInstance = InstanceType<typeof VsSection>;
 </script>
 
 <style lang="scss" scoped src="./VsSection.scss" />
