@@ -12,9 +12,7 @@ export function useCustomStyle<T extends { [key: string]: any }>(component: VsCo
         }
 
         if (typeof styleSet.value === 'string') {
-            const preDefinedStyleSet = store.getStore().styleSets[component]?.[styleSet.value];
-
-            return (preDefinedStyleSet ?? {}) as T;
+            return (store.getStyleSet(component, styleSet.value) || {}) as T;
         }
 
         return styleSet.value;

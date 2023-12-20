@@ -5,13 +5,7 @@ import { computed } from 'vue';
 import { store } from '@/store';
 
 export function useColorScheme(component: VsComponent, colorScheme: Ref<ColorScheme | undefined>) {
-    const computedColorScheme = computed(
-        () =>
-            colorScheme.value ||
-            store.getStore().globalColorScheme[component] ||
-            store.getStore().globalColorScheme.default ||
-            'default',
-    );
+    const computedColorScheme = computed(() => colorScheme.value || store.getGlobalColorScheme(component) || 'default');
 
     return {
         computedColorScheme,
