@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <rotate-right v-if="loading" aria-label="loading" class="loading" />
+        <rotate-right v-if="loading" aria-label="loading" class="loading-icon" />
     </button>
 </template>
 
@@ -51,7 +51,7 @@ const VsButton = defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, large, mobileFull, outline, primary } = toRefs(props);
+        const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -60,6 +60,7 @@ const VsButton = defineComponent({
         const classObj = computed(() => ({
             dense: dense.value,
             large: large.value,
+            loading: loading.value,
             'mobile-full': mobileFull.value,
             outline: outline.value,
             primary: primary.value,

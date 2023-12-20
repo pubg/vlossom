@@ -95,8 +95,11 @@
         }
     }
 
-    .loading {
-        animation: rotate 2s linear infinite;
+    &.loading {
+        pointer-events: none;
+        .loading-icon {
+            animation: rotate 2s linear infinite;
+        }
     }
 }
 
