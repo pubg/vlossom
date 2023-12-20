@@ -1,7 +1,9 @@
 import { VsComponent } from '@/declaration/types';
 import VsForm from './VsForm.vue';
 
-export type VsFormInstance = InstanceType<typeof VsForm>;
+type VsFormInstance = InstanceType<typeof VsForm>;
+
+export type { VsFormInstance };
 
 export default {
     name: VsComponent.VsForm,

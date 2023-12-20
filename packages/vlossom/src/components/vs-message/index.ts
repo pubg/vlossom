@@ -1,7 +1,9 @@
 import { VsComponent } from '@/declaration/types';
 import VsMessage from './VsMessage.vue';
 
-export type VsMessageInstance = InstanceType<typeof VsMessage>;
+type VsMessageInstance = InstanceType<typeof VsMessage>;
+
+export type { VsMessageInstance };
 
 export default {
     name: VsComponent.VsMessage,

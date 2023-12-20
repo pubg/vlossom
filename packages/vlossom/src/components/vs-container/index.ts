@@ -1,7 +1,9 @@
 import { VsComponent } from '@/declaration/types';
 import VsContainer from './VsContainer.vue';
 
-export type VsContainerInstance = InstanceType<typeof VsContainer>;
+type VsContainerInstance = InstanceType<typeof VsContainer>;
+
+export type { VsContainerInstance };
 
 export default {
     name: VsComponent.VsContainer,

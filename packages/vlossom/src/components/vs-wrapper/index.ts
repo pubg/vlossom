@@ -1,7 +1,9 @@
 import { VsComponent } from '@/declaration/types';
 import VsWrapper from './VsWrapper.vue';
 
-export type VsWrapperInstance = InstanceType<typeof VsWrapper>;
+type VsWrapperInstance = InstanceType<typeof VsWrapper>;
+
+export type { VsWrapperInstance };
 
 export default {
     name: VsComponent.VsWrapper,
