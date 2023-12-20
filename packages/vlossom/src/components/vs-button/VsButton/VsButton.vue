@@ -17,7 +17,7 @@
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
-import RotateRight from '@/assets/icons/RotateRight';
+import RotateRight from '@/assets/icons/rotate-right';
 
 interface ButtonStyleSet {
     backgroundColor: string;
