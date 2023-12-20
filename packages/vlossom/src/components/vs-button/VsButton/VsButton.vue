@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <span v-if="loading" class="loading-content"> rotate icon </span>
+        <rotate-right v-if="loading" aria-label="loading" class="loading-icon" />
     </button>
 </template>
 
@@ -17,6 +17,7 @@
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
+import RotateRight from '@/assets/icons/rotate-right';
 
 interface ButtonStyleSet {
     backgroundColor: string;
@@ -35,6 +36,9 @@ const name = VsComponent.VsButton;
 
 const VsButton = defineComponent({
     name,
+    components: {
+        RotateRight,
+    },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },

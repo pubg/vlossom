@@ -45,7 +45,7 @@
     }
 }
 
-// Primary {
+// primary {
 .vs-button {
     &.primary {
         background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor-primary));
@@ -53,7 +53,7 @@
     }
 }
 
-// Size
+// size
 .vs-button {
     &.dense {
         padding: var(--vs-button-padding, 0.3rem 1.2rem);
@@ -70,7 +70,7 @@
     }
 }
 
-// Outline
+// outline
 .vs-button {
     &.outline {
         background: none;
@@ -84,31 +84,40 @@
     }
 }
 
-.rotate-ani {
-    animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
+// loading
+.vs-button {
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
-    100% {
-        transform: rotate(360deg);
+
+    &.loading {
+        pointer-events: none;
+
+        .loading-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            animation: rotate 2s linear infinite;
+        }
     }
 }
 
 .vs-button + .vs-button {
-    margin-left: 6px;
+    margin-left: 0.3rem;
 }
 
 @media screen and (max-width: 768px) {
-    .vs-button.mobile-full + .vs-button.mobile-full {
-        margin-top: 5px;
-    }
-
     .vs-button.mobile-full {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .vs-button.mobile-full + .vs-button.mobile-full {
+        margin-top: 0.3rem;
     }
 }
