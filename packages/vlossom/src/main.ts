@@ -1,18 +1,16 @@
 import type { App } from 'vue';
 import type { VlossomOptions } from '@/declaration/types';
-import { setGlobalColorScheme, registerStyleSet } from '@/composables';
+import { Vlossom } from './vlossom';
 import * as VsComponents from '@/components';
 
-export function createVlossom(options?: VlossomOptions) {
-    const { colorScheme = {}, styleSet = {} } = options || {};
-    // TODO: VlossomFramework 클래스 생성
+let vlossom: Vlossom;
 
+export function createVlossom(options?: VlossomOptions) {
     return {
         install(app: App<Element>) {
-            setGlobalColorScheme(colorScheme);
-            registerStyleSet(styleSet);
+            vlossom = new Vlossom(options);
 
-            app.config.globalProperties.$vlossom = 'vlossom';
+            app.config.globalProperties.$vlossom = vlossom;
 
             Object.values(VsComponents).forEach((component) => {
                 app.use(component);
@@ -20,3 +18,9 @@ export function createVlossom(options?: VlossomOptions) {
         },
     };
 }
+
+function getVlossom() {
+    return vlossom;
+}
+
+export { getVlossom };

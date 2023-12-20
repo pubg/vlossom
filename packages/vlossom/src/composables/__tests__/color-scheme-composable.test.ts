@@ -1,49 +1,48 @@
-import type { GlobalColorScheme } from '@/declaration/types';
-
-import { beforeAll, afterAll, describe, expect, it } from 'vitest';
-import { setGlobalColorScheme, useColorScheme } from '../color-scheme-composable';
+import { describe, expect, it } from 'vitest';
 import { ref } from 'vue';
+import { store } from '@/store';
 import { VsComponent } from '@/declaration/types';
-
-const globalColorScheme: GlobalColorScheme = {
-    VsButton: 'red',
-    VsInput: 'amber',
-};
+import { useColorScheme } from '../color-scheme-composable';
 
 describe('useColorScheme composable', () => {
-    beforeAll(() => {
-        setGlobalColorScheme(globalColorScheme);
-    });
-
-    afterAll(() => {
-        setGlobalColorScheme({});
-    });
-
     it('use colorScheme prop first if it exists', () => {
+        // given
+        store.setGlobalColorScheme({ VsButton: 'red' });
+
+        // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsButton, ref('green'));
 
+        // then
         expect(computedColorScheme.value).toBe('green');
     });
 
     it('use a global color scheme value of component if it exists', () => {
+        // given
+        store.setGlobalColorScheme({ VsInput: 'amber' });
+
+        // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
 
+        // then
         expect(computedColorScheme.value).toBe('amber');
     });
 
     it('use a default global color scheme value if it exists', () => {
-        setGlobalColorScheme({ ...globalColorScheme, default: 'blue' });
+        // given
+        store.setGlobalColorScheme({ default: 'blue' });
 
+        // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
+        // then
         expect(computedColorScheme.value).toBe('blue');
     });
 
     it("return default if there isn't both prop and global values", () => {
-        setGlobalColorScheme(globalColorScheme);
-
+        // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
+        // then
         expect(computedColorScheme.value).toBe('default');
     });
 });

@@ -28,7 +28,13 @@ export interface StyleSet {
     VsPage?: { [key: string]: VsPageStyleSet };
 }
 
+export interface VlossomStore {
+    globalColorScheme: GlobalColorScheme;
+    styleSets: StyleSet;
+}
+
 export interface VlossomOptions {
+    theme?: 'light' | 'dark';
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
 }

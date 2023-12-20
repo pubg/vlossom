@@ -1,26 +1,9 @@
 import type { Ref } from 'vue';
-import type { StyleSet, VsComponent } from '@/declaration/types';
+import type { VsComponent } from '@/declaration/types';
 
-import { computed, ComputedRef, ref } from 'vue';
+import { computed, ComputedRef } from 'vue';
 import { stringUtil } from '@/utils';
-
-const registeredStyleSet: Ref<StyleSet> = ref({});
-
-export function registerStyleSet(newStyleSet: StyleSet) {
-    Object.entries(newStyleSet).forEach(([key, value]) => {
-        const styleSet = registeredStyleSet.value[key as keyof StyleSet];
-
-        if (!styleSet) {
-            registeredStyleSet.value[key as keyof StyleSet] = value;
-        } else {
-            Object.assign(styleSet, value);
-        }
-    });
-}
-
-export function clearStyleSet() {
-    registeredStyleSet.value = {};
-}
+import { store } from '@/store';
 
 export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
     const styles: ComputedRef<T> = computed(() => {
@@ -29,9 +12,7 @@ export function useCustomStyle<T extends { [key: string]: any }>(component: VsCo
         }
 
         if (typeof styleSet.value === 'string') {
-            const preDefinedStyleSet = registeredStyleSet.value[component]?.[styleSet.value];
-
-            return (preDefinedStyleSet ?? {}) as T;
+            return (store.getStyleSet(component, styleSet.value) || {}) as T;
         }
 
         return styleSet.value;
