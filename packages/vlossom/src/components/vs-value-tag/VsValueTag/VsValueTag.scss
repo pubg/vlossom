@@ -1,0 +1,36 @@
+// @use '@/styles/abstracts' as *;
+
+.vs-value-tag {
+    display: flex;
+    align-items: center;
+    padding: 2px 2px;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor));
+    width: 100%;
+
+    .label {
+        padding: 0 1.2rem 0 0.8rem;
+        color: var(--vs-value-tag-color, var(--vs-comp-color));
+        width: var(--vs-value-tag-labelWidth, '100%');
+    }
+
+    .value {
+        flex: 1;
+        line-height: 2.2rem;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+        background-color: var(--vs-plain-backgroundColor);
+    }
+}
+
+// Primary {
+.vs-value-tag {
+    &.primary {
+        background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor-primary));
+
+        .label {
+            color: var(--vs-value-tag-color, var(--vs-comp-color-primary));
+        }
+    }
+}
