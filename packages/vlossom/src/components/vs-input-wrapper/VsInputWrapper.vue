@@ -25,11 +25,11 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
-import { StateMessage } from '@/declaration/types';
-import VsMessage from '@/components/vs-message/VsMessage/VsMessage.vue';
+import { StateMessage, VsComponent } from '@/declaration/types';
+import VsMessage from '@/components/vs-message/VsMessage.vue';
 
-const VsInputWrapper = defineComponent({
-    name: 'vs-input-wrapper',
+export default defineComponent({
+    name: VsComponent.VsInputWrapper,
     components: { VsMessage },
     props: {
         label: { type: String, default: '' },
@@ -55,9 +55,6 @@ const VsInputWrapper = defineComponent({
         };
     },
 });
-
-export default VsInputWrapper;
-export type VsInputWrapperInstance = InstanceType<typeof VsInputWrapper>;
 </script>
 
 <style lang="scss" scoped src="./VsInputWrapper.scss" />

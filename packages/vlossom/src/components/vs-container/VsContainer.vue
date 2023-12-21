@@ -6,16 +6,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { VsComponent } from '@/declaration/types';
 
-const VsContainer = defineComponent({
-    name: 'vs-container',
+export default defineComponent({
+    name: VsComponent.VsContainer,
     setup() {
         return {};
     },
 });
-
-export default VsContainer;
-export type VsContainerInstance = InstanceType<typeof VsContainer>;
 </script>
 
 <style lang="scss" scoped src="./VsContainer.scss" />

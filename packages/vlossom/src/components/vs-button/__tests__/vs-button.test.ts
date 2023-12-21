@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsButton from '../VsButton.vue';
+import VsButton from './../VsButton.vue';
 
 describe('vs-button', () => {
     describe('disabled', () => {

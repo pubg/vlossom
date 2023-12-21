@@ -4,16 +4,20 @@ import type {
     VsInputStyleSet,
     VsPageStyleSet,
     VsSectionStyleSet,
-} from '@/components';
+} from '@/components/types';
 import type { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
+    VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
     VsForm = 'VsForm',
     VsInput = 'VsInput',
+    VsInputWrapper = 'VsInputWrapper',
+    VsMessage = 'VsMessage',
     VsPage = 'VsPage',
     VsSection = 'VsSection',
+    VsWrapper = 'VsWrapper',
 }
 
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
@@ -35,6 +39,7 @@ export interface VlossomStore {
 
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
+    components?: VsComponent[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
 }

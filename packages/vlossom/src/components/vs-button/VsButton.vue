@@ -34,11 +34,9 @@ export type VsButtonStyleSet = Partial<ButtonStyleSet>;
 
 const name = VsComponent.VsButton;
 
-const VsButton = defineComponent({
+export default defineComponent({
     name,
-    components: {
-        RotateRight,
-    },
+    components: { RotateRight },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
@@ -73,9 +71,6 @@ const VsButton = defineComponent({
         };
     },
 });
-
-export default VsButton;
-export type VsButtonInstance = InstanceType<typeof VsButton>;
 </script>
 
 <style lang="scss" scoped src="./VsButton.scss" />

@@ -1,4 +1,4 @@
-import type { VsButtonStyleSet } from '@/components';
+import type { VsButtonStyleSet } from '@/components/types';
 import type { StyleSet } from '@/declaration/types';
 
 import { beforeEach, describe, expect, it } from 'vitest';

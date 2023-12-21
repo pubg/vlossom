@@ -5,7 +5,7 @@ import type {
     VsInputStyleSet,
     VsSectionStyleSet,
     VsPageStyleSet,
-} from '@/components';
+} from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',

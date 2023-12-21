@@ -27,7 +27,7 @@ export type VsPageStyleSet = Partial<PageStyleSet>;
 
 const name = VsComponent.VsPage;
 
-const VsPage = defineComponent({
+export default defineComponent({
     name,
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsPageStyleSet>, default: '' },
@@ -47,9 +47,6 @@ const VsPage = defineComponent({
         };
     },
 });
-
-export default VsPage;
-export type VsPageInstance = InstanceType<typeof VsPage>;
 </script>
 
 <style lang="scss" scoped src="./VsPage.scss" />

@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-divider', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties" />
+    <div class="vs-divider" :class="[`vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties" />
 </template>
 
 <script lang="ts">
@@ -18,7 +18,7 @@ export type VsDividerStyleSet = Partial<DividerStyleSet>;
 
 const name = VsComponent.VsDivider;
 
-const VsDivider = defineComponent({
+export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -46,9 +46,6 @@ const VsDivider = defineComponent({
         };
     },
 });
-
-export default VsDivider;
-export type VsDividerInstance = InstanceType<typeof VsDivider>;
 </script>
 
 <style lang="scss" scoped src="./VsDivider.scss" />

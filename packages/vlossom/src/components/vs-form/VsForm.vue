@@ -9,13 +9,11 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, provide, watch } from 'vue';
 import { VsComponent, VsFormProvide } from '@/declaration/types';
-import VsContainer from '@/components/vs-container/VsContainer/VsContainer.vue';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { useFormProvide } from '@/composables';
 
-export const name = VsComponent.VsForm;
-
-const VsForm = defineComponent({
-    name: 'vs-form',
+export default defineComponent({
+    name: VsComponent.VsForm,
     components: { VsContainer },
     props: {
         // v-model
@@ -71,7 +69,4 @@ const VsForm = defineComponent({
         };
     },
 });
-
-export default VsForm;
-export type VsFormInstance = InstanceType<typeof VsForm>;
 </script>

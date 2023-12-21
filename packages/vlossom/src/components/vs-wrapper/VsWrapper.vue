@@ -7,10 +7,10 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs } from 'vue';
 import { useResponsiveWidth } from '@/composables';
-import type { Breakpoints } from '@/declaration/types';
+import { VsComponent, type Breakpoints } from '@/declaration/types';
 
-const VsWrapper = defineComponent({
-    name: 'vs-wrapper',
+export default defineComponent({
+    name: VsComponent.VsWrapper,
     props: {
         width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
         grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
@@ -26,9 +26,6 @@ const VsWrapper = defineComponent({
         };
     },
 });
-
-export default VsWrapper;
-export type VsWrapperInstance = InstanceType<typeof VsWrapper>;
 </script>
 
 <style lang="scss" scoped src="./VsWrapper.scss" />
