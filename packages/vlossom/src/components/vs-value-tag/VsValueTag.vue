@@ -23,7 +23,7 @@ export type VsValueTagStyleSet = Partial<ValueTagStyleSet>;
 
 const name = VsComponent.VsValueTag;
 
-const VsValueTag = defineComponent({
+export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -51,8 +51,6 @@ const VsValueTag = defineComponent({
         };
     },
 });
-
-export default VsValueTag;
-export type VsValueTagInstance = InstanceType<typeof VsValueTag>;
 </script>
+
 <style lang="scss" scoped src="./VsValueTag.scss" />

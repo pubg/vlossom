@@ -5,6 +5,7 @@ import type {
     VsInputStyleSet,
     VsSectionStyleSet,
     VsPageStyleSet,
+    VsValueTagStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+
 import VsValueTag from '../VsValueTag.vue';
-import { colorScheme } from '@/declaration/storybook/arg-types';
+import { colorScheme } from '@/storybook/args';
 
 const meta: Meta<typeof VsValueTag> = {
     title: 'Components/Base Components/VsValueTag',
