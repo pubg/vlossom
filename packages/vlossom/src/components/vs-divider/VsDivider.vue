@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-dvider" :class="[`vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties" />
+    <div class="vs-divider" :class="[`vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties" />
 </template>
 
 <script lang="ts">
