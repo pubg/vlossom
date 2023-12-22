@@ -9,6 +9,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$indigo-600},
         comp-color-primary: #{$grey-50},
         line-color: #{$grey-700},
+        light-backgroundColor: transparentize($grey-200, 0.2),
     ),
     'red': (
         area-backgroundColor: transparentize($red-50, 0.5),
@@ -18,6 +19,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$red-500},
         comp-color-primary: #{$grey-50},
         line-color: #{$red-500},
+        light-backgroundColor: transparentize($red-200, 0.8),
     ),
     'amber': (
         area-backgroundColor: transparentize($amber-50, 0.45),
@@ -27,6 +29,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$amber-600},
         comp-color-primary: #{$grey-50},
         line-color: #{$amber-500},
+        light-backgroundColor: transparentize($amber-200, 0.8),
     ),
     'green': (
         area-backgroundColor: transparentize($green-50, 0.45),
@@ -36,6 +39,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$green-600},
         comp-color-primary: #{$grey-50},
         line-color: #{$green-600},
+        light-backgroundColor: transparentize($green-200, 0.8),
     ),
     'blue': (
         area-backgroundColor: transparentize($blue-50, 0.45),
@@ -45,6 +49,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$blue-500},
         comp-color-primary: #{$grey-50},
         line-color: #{$blue-500},
+        light-backgroundColor: transparentize($blue-200, 0.8),
     ),
     'indigo': (
         area-backgroundColor: transparentize($indigo-100, 0.45),
@@ -54,6 +59,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$indigo-600},
         comp-color-primary: #{$grey-50},
         line-color: #{$indigo-600},
+        light-backgroundColor: transparentize($indigo-200, 0.8),
     ),
 );
 
@@ -62,31 +68,37 @@ $colorScheme-dark: (
         area-backgroundColor: #14151f,
         comp-border-color: #{$indigo-400},
         line-color: #{$grey-300},
+        light-backgroundColor: transparentize($grey-300, 0.8),
     ),
     'red': (
         area-backgroundColor: transparentize($red-400, 0.9),
         comp-border-color: #{$red-300},
         line-color: #{$red-300},
+        light-backgroundColor: transparentize($red-300, 0.8),
     ),
     'amber': (
         area-backgroundColor: transparentize($amber-400, 0.9),
         comp-border-color: #{$amber-300},
         line-color: #{$amber-300},
+        light-backgroundColor: transparentize($amber-300, 0.5),
     ),
     'green': (
         area-backgroundColor: transparentize($green-400, 0.9),
         comp-border-color: #{$green-400},
         line-color: #{$green-400},
+        light-backgroundColor: transparentize($green-300, 0.8),
     ),
     'blue': (
         area-backgroundColor: transparentize($blue-400, 0.9),
         comp-border-color: #{$blue-400},
         line-color: #{$blue-400},
+        light-backgroundColor: transparentize($blue-300, 0.8),
     ),
     'indigo': (
         area-backgroundColor: transparentize($indigo-400, 0.8),
         comp-border-color: #{$indigo-400},
         line-color: #{$indigo-400},
+        light-backgroundColor: transparentize($indigo-300, 0.8),
     ),
 );
 
