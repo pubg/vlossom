@@ -20,6 +20,7 @@ interface ValueTagStyleSet {
     fontSize: string;
     fontWeight: string;
     labelWidth: string;
+    lineHeight: string;
     padding: string;
     width: string;
 }

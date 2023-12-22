@@ -6,6 +6,7 @@
     font-size: var(--vs-value-tag-fontSize, 1.2rem);
     font-weight: var(--vs-value-tag-fontWeight, 400);
     width: var(--vs-value-tag-width, 100%);
+    line-height: var(--vs-value-tag-lineHeight, 2.2rem);
     background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor));
 
     .label {
@@ -16,9 +17,7 @@
 
     .value {
         flex: 1;
-        line-height: 2.2rem;
-        padding-left: 0.8rem;
-        padding-right: 0.8rem;
+        padding: 0 0.8rem;
         background-color: var(--vs-plain-backgroundColor);
     }
 }
