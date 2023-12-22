@@ -69,7 +69,16 @@ export const Primary: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#99b1ff', color: '#392467', labelWidth: '120px' },
+        styleSet: {
+            backgroundColor: '#99b1ff',
+            borderRadius: '0.3rem',
+            color: '#392467',
+            fontSize: '1.5rem',
+            fontWeight: '500',
+            padding: '0.18rem',
+            labelWidth: '4rem',
+            width: '20rem',
+        },
     },
 };
 

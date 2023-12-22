@@ -15,8 +15,13 @@ import { ColorScheme, VsComponent } from '@/declaration/types';
 
 interface ValueTagStyleSet {
     backgroundColor: string;
+    borderRadius: string;
     color: string;
+    fontSize: string;
+    fontWeight: string;
     labelWidth: string;
+    padding: string;
+    width: string;
 }
 
 export type VsValueTagStyleSet = Partial<ValueTagStyleSet>;

@@ -1,11 +1,12 @@
 .vs-value-tag {
     display: flex;
     align-items: center;
-    padding: 2px 2px;
-    border-radius: 3px;
-    font-size: 1.2rem;
+    padding: var(--vs-value-tag-padding, 0.12rem);
+    border-radius: var(--vs-value-tag-borderRadius, 0.2rem);
+    font-size: var(--vs-value-tag-fontSize, 1.2rem);
+    font-weight: var(--vs-value-tag-fontWeight, 400);
+    width: var(--vs-value-tag-width, 100%);
     background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor));
-    width: 100%;
 
     .label {
         padding: 0 1.2rem 0 0.8rem;

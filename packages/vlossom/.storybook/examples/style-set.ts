@@ -37,6 +37,9 @@ const vsPage: VsPageStyleSet = {
 const vsValueTag: VsValueTagStyleSet = {
     backgroundColor: '#b6c4b6',
     color: '#304d30',
+    fontSize: '1rem',
+    fontWeight: '480',
+    width: '50%',
 };
 
 export const styleSet: StyleSet = {
