@@ -40,7 +40,7 @@ export const ColorScheme: Story = {
                 <vs-value-tag v-bind="args" color-scheme="blue"><template #label>label</template><template #value>value</template></vs-value-tag>
                 <vs-value-tag v-bind="args" color-scheme="indigo"><template #label>label</template><template #value>value</template></vs-value-tag>
                 <vs-value-tag v-bind="args" color-scheme="purple"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="pink"></vs-value-tag>
+                <vs-value-tag v-bind="args" color-scheme="pink"><template #label>label</template><template #value>value</template></vs-value-tag>
             </div>
         `,
     }),
