@@ -33,14 +33,14 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-value-tag v-bind="args" color-scheme="red"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="amber"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="green"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="teal"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="blue"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="indigo"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="purple"><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="pink"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="red"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="amber"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="green"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="teal"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="blue"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="indigo"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="purple"><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="pink"><template #label>label</template><template #value>value</template></vs-value-tag>
             </div>
         `,
     }),
@@ -54,14 +54,14 @@ export const Primary: Story = {
         },
         template: `
             <div>
-                <vs-value-tag v-bind="args" color-scheme="red" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="amber" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="green" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="teal" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="blue" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="indigo" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="purple" primary><template #label>label</template><template #value>value</template></vs-value-tag>
-                <vs-value-tag v-bind="args" color-scheme="pink" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="red" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="amber" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="green" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="teal" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="blue" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="indigo" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="purple" primary><template #label>label</template><template #value>value</template></vs-value-tag>
+                <vs-value-tag color-scheme="pink" primary><template #label>label</template><template #value>value</template></vs-value-tag>
             </div>
         `,
     }),
