@@ -1,40 +1,56 @@
 <template>
-    <div :class="['vs-input', `vs-${computedColorScheme}`, { disabled: disabled }]" :style="customProperties">
-        <button class="action-button prepend" v-if="prepend" @click="excuteButtonAction(prepend.action)">
-            Prepend
-        </button>
-
-        <input
-            class="input"
-            ref="inputRef"
-            :type="type"
-            :value="inputValue"
-            :disabled="disabled"
-            :readonly="readonly"
-            :placeholder="placeholder"
-            @input="updateValue($event)"
-            @keyup.enter="onEnter"
-            @focus="onFocus"
-            @blur="onBlur"
-        />
-
-        <button class="action-button append" v-if="append" @click="excuteButtonAction(append.action)">Append</button>
-
-        <button
-            v-if="!noClear && inputValue && !readonly && !disabled"
-            class="clear-button"
-            :class="{ number: type === InputType.NUMBER }"
-            @click.stop="clearWithFocus()"
+    <vs-wrapper :width="width" :grid="grid">
+        <vs-input-wrapper
+            :label="label"
+            :messages="computedMessages"
+            :no-label="noLabel"
+            :no-msg="noMsg"
+            :required="required"
+            :shake="shake"
         >
-            X
-        </button>
-    </div>
+            <div :class="['vs-input', `vs-${computedColorScheme}`, { disabled }]" :style="customProperties">
+                <button class="action-button prepend" v-if="hasPrepend" @click="$emit('prepend')">
+                    <slot name="prepend-icon" />
+                </button>
+
+                <input
+                    class="input"
+                    ref="inputRef"
+                    :type="type"
+                    :value="inputValue"
+                    :disabled="disabled"
+                    :readonly="readonly"
+                    :placeholder="placeholder"
+                    @input="updateValue($event)"
+                    @focus="onFocus"
+                    @blur="onBlur"
+                    @keyup.enter="onEnter"
+                />
+
+                <button class="action-button append" v-if="hasAppend" @click="$emit('append')">
+                    <slot name="append-icon" />
+                </button>
+
+                <button
+                    v-if="!noClear && inputValue && !readonly && !disabled"
+                    class="clear-button"
+                    :class="{ number: type === InputType.NUMBER }"
+                    @click.stop="clearWithFocus()"
+                >
+                    <close class="clear-icon" />
+                </button>
+            </div>
+        </vs-input-wrapper>
+    </vs-wrapper>
 </template>
 
 <script lang="ts">
-import { computed, ComputedRef, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import Close from '@/assets/icons/close';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -56,56 +72,47 @@ export enum InputType {
     NUMBER = 'number',
 }
 
-export interface InputButton {
-    icon?: string;
-    action?: (value: string | number) => void;
-}
+type InputValue = string | number;
 
 const name = VsComponent.VsInput;
 
 export default defineComponent({
     name,
+    components: { VsInputWrapper, VsWrapper, Close },
     props: {
+        ...getInputProps<string | number>(),
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
-        disabled: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
-        placeholder: { type: String, default: '' },
-        readonly: { type: Boolean, default: false },
-        append: {
-            type: Object as PropType<InputButton>,
-            default: null,
-        },
-        prepend: {
-            type: Object as PropType<InputButton>,
-            default: null,
-        },
         type: { type: String, default: InputType.TEXT },
-        value: { type: [String, Number], default: '' },
+        max: { type: [Number, Object] as PropType<number | null>, default: null },
+        min: { type: [Number, Object] as PropType<number | null>, default: null },
         // v-model
         modelValue: { type: [String, Number], default: '' },
     },
-    emits: ['change', 'update:modelValue', 'focus', 'blur', 'enter', 'clear'],
+    emits: [
+        'update:modelValue',
+        'update:changed',
+        'update:valid',
+        'change',
+        'focus',
+        'blur',
+        'enter',
+        'prepend',
+        'append',
+    ],
     expose: ['focus', 'blur', 'select', 'clear'],
-    setup(props, { emit }) {
-        const { colorScheme, styleSet, disabled, readonly, prepend, append, type, modelValue, value } = toRefs(props);
+    setup(props, context) {
+        const { colorScheme, styleSet, type, modelValue, label, messages, rules, required, max, min } = toRefs(props);
+
+        const { slots, emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { customProperties } = useCustomStyle<VsInputStyleSet>(name, styleSet);
 
-        const inputRef: Ref<HTMLInputElement | null> = ref(null);
-
-        const inputValue: ComputedRef<string | number> = computed(() => {
-            return modelValue.value || value.value || (type.value === InputType.NUMBER ? 0 : '');
-        });
-
-        function emitValue(v: string | number) {
-            emit('update:modelValue', v);
-            emit('change', v);
-        }
-
-        function convertValue(v: string | number | null | undefined): string | number {
+        function convertValue(v: InputValue | null | undefined): InputValue {
             if (!v) {
                 return type.value === InputType.TEXT ? '' : 0;
             }
@@ -117,20 +124,79 @@ export default defineComponent({
             }
         }
 
+        const inputValue: Ref<InputValue> = ref('');
+
+        function requiredCheck(v: InputValue) {
+            if (required.value && v === '') {
+                return 'required';
+            }
+
+            return '';
+        }
+
+        function maxCheck(v: InputValue) {
+            if (max.value === null) {
+                return '';
+            }
+
+            if (type.value === InputType.TEXT && typeof v === 'string' && v.length > max.value) {
+                return 'max length: ' + max.value;
+            }
+
+            if (type.value === InputType.NUMBER && typeof v === 'number' && v > max.value) {
+                return 'max value: ' + max.value;
+            }
+
+            return '';
+        }
+
+        function minCheck(v: InputValue) {
+            if (min.value === null) {
+                return '';
+            }
+
+            if (type.value === InputType.TEXT && typeof v === 'string' && v.length < min.value) {
+                return 'min length: ' + min.value;
+            }
+
+            if (type.value === InputType.NUMBER && typeof v === 'number' && v < min.value) {
+                return 'min value: ' + min.value;
+            }
+
+            return '';
+        }
+
+        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
+
+        function onClear() {
+            const emptyValue = convertValue(null);
+            inputValue.value = emptyValue;
+        }
+
+        const { computedMessages, shake } = useInput(inputValue, modelValue, context, label, {
+            messages,
+            rules: allRules,
+            callbacks: {
+                onMounted: () => {
+                    inputValue.value = convertValue(modelValue.value);
+
+                    // response to null binding
+                    if (!modelValue.value && modelValue.value !== convertValue(modelValue.value)) {
+                        emit('update:modelValue', inputValue.value);
+                    }
+                },
+                onClear,
+            },
+        });
+
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = target.value || '';
             const converted = convertValue(targetValue);
-            emitValue(converted);
+            inputValue.value = converted;
         }
 
-        function excuteButtonAction(action: InputButton['action']) {
-            if (!action || disabled.value || readonly.value) {
-                return;
-            }
-
-            action(inputValue.value);
-        }
+        const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
         function focus() {
             inputRef.value?.focus();
@@ -144,17 +210,8 @@ export default defineComponent({
             inputRef.value?.select();
         }
 
-        function clear() {
-            const emptyValue = convertValue(null);
-            emitValue(emptyValue);
-
-            emit('clear');
-        }
-
-        function clearWithFocus() {
-            clear();
-            focus();
-        }
+        const hasPrepend = computed(() => !!slots['prepend-icon']);
+        const hasAppend = computed(() => !!slots['append-icon']);
 
         function onFocus() {
             emit('focus');
@@ -167,16 +224,18 @@ export default defineComponent({
         function onEnter() {
             emit('enter');
 
-            const prependAction = prepend.value?.action;
-            const appendAction = append.value?.action;
-
-            if (prependAction) {
-                excuteButtonAction(prependAction);
+            if (hasPrepend.value) {
+                emit('prepend');
             }
 
-            if (appendAction) {
-                excuteButtonAction(appendAction);
+            if (hasAppend.value) {
+                emit('append');
             }
+        }
+
+        function clearWithFocus() {
+            onClear();
+            focus();
         }
 
         return {
@@ -184,17 +243,19 @@ export default defineComponent({
             customProperties,
             InputType,
             inputValue,
-            inputRef,
             updateValue,
-            excuteButtonAction,
+            inputRef,
+            hasPrepend,
+            hasAppend,
+            computedMessages,
+            shake,
             focus,
             blur,
             select,
-            clear,
-            clearWithFocus,
             onFocus,
             onBlur,
             onEnter,
+            clearWithFocus,
         };
     },
 });

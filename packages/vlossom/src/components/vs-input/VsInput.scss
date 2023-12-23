@@ -15,30 +15,27 @@
         padding: 0 1.2rem;
         border: none;
         outline: none;
+        font-size: 1rem;
         background-color: transparent;
         color: var(--vs-input-fontColor, var(--vs-font-color));
     }
 
     .action-button {
-        height: 100%;
         margin: 0;
-        padding: 0 1rem;
+        padding: 0 0.8rem;
+        border: none;
         border-radius: 0;
         cursor: pointer;
 
         &.prepend {
-            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
-            color: var(--vs-input-prependColor, #ffffff);
+            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor));
+            color: var(--vs-input-prependColor, var(--vs-comp-color));
         }
 
         &.append {
-            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
-            color: var(--vs-input-appendColor, #ffffff);
+            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor));
+            color: var(--vs-input-appendColor, var(--vs-comp-color));
         }
-    }
-
-    .action-button + .clear-button {
-        right: 4rem;
     }
 
     .clear-button {
@@ -47,17 +44,27 @@
         justify-content: center;
         align-items: center;
         top: 50%;
-        right: 1rem;
+        right: 0.6rem;
         opacity: 0;
-        width: 2rem;
-        height: 100%;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
         color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        background: none;
+        border: none;
+        cursor: pointer;
 
         &.number {
-            right: 3.4rem;
+            right: 2.2rem;
         }
+
+        .clear-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+    }
+
+    .action-button.append + .clear-button {
+        right: 3.4rem;
     }
 
     &.disabled {
