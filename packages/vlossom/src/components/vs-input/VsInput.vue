@@ -8,13 +8,12 @@
             :required="required"
             :shake="shake"
         >
-            <div :class="['vs-input', `vs-${computedColorScheme}`, { disabled }]" :style="customProperties">
+            <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
                 <button class="action-button prepend" v-if="hasPrepend" @click="$emit('prepend')">
                     <slot name="prepend-icon" />
                 </button>
 
                 <input
-                    class="input"
                     ref="inputRef"
                     :type="type"
                     :value="inputValue"
@@ -59,7 +58,8 @@ interface InputStyleSet {
     border: string;
     borderRadius: string;
     clearButtonColor: string;
-    fontColor: string;
+    color: string;
+    fontSize: string;
     height: string;
     prependBackgroundColor: string;
     prependColor: string;
@@ -84,6 +84,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
+        dense: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
         type: { type: String, default: InputType.TEXT },
         max: { type: [Number, Object] as PropType<number | null>, default: null },
@@ -104,9 +105,15 @@ export default defineComponent({
     ],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, context) {
-        const { colorScheme, styleSet, type, modelValue, label, messages, rules, required, max, min } = toRefs(props);
+        const { colorScheme, styleSet, dense, disabled, type, modelValue, label, messages, rules, required, max, min } =
+            toRefs(props);
 
         const { slots, emit } = context;
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: disabled.value,
+        }));
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -239,6 +246,7 @@ export default defineComponent({
         }
 
         return {
+            classObj,
             computedColorScheme,
             customProperties,
             InputType,

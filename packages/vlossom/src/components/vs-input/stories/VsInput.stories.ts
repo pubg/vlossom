@@ -57,7 +57,13 @@ export const ColorScheme: Story = {
         `,
     }),
     args: {
-        placeholder: 'This is placeholder',
+        placeholder: 'this is placeholder',
+    },
+};
+
+export const Dense: Story = {
+    args: {
+        dense: true,
     },
 };
 
@@ -180,7 +186,7 @@ export const NumberType: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#eef1ff', fontColor: '#3f3f3f', border: '1px solid #4851aa' },
+        styleSet: { backgroundColor: '#eef1ff', color: '#4851aa', border: '1px solid #4851aa' },
     },
 };
 
