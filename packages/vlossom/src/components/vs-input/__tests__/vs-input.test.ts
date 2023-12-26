@@ -8,12 +8,10 @@ function mountComponent() {
 }
 
 describe('vs-input', () => {
-    let wrapper: ReturnType<typeof mountComponent>;
-
     describe('v-model', () => {
         it('modelValue의 string 타입 초깃값을 설정할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: 'initialText',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -29,7 +27,7 @@ describe('vs-input', () => {
 
         it('modelValue의 number 타입 초깃값을 설정할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: 123,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -46,7 +44,7 @@ describe('vs-input', () => {
 
         it('modelValue를 업데이트 할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -64,7 +62,7 @@ describe('vs-input', () => {
 
         it('modelValue를 바꿔서 input 값을 업데이트 할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -80,7 +78,7 @@ describe('vs-input', () => {
 
         it('type이 string 일 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: 123,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -100,7 +98,7 @@ describe('vs-input', () => {
 
         it('type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: '123',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -121,7 +119,7 @@ describe('vs-input', () => {
 
         it('modelValue가 null이고 타입이 string이면 빈 문자열로 가공해준다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     // @ts-expect-error: for null test
                     modelValue: null,
@@ -139,7 +137,7 @@ describe('vs-input', () => {
 
         it('modelValue가 null이고 타입이 number이면 0으로 가공해준다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     // @ts-expect-error: for null test
                     modelValue: null,
@@ -157,10 +155,69 @@ describe('vs-input', () => {
         });
     });
 
+    describe('v-model modifier', () => {
+        it('capitalize', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    modelModifiers: {
+                        capitalize: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue('test');
+
+            // then
+            expect(wrapper.props('modelValue')).toBe('Test');
+        });
+
+        it('lower', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    modelModifiers: {
+                        lower: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue('TEST');
+
+            // then
+            expect(wrapper.props('modelValue')).toBe('test');
+        });
+
+        it('upper', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    modelModifiers: {
+                        upper: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue('test');
+
+            // then
+            expect(wrapper.props('modelValue')).toBe('TEST');
+        });
+    });
+
     describe('clear', () => {
         it('input 영역을 mouse over 하면 clear 버튼이 나타난다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: 'initialText',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -176,7 +233,7 @@ describe('vs-input', () => {
 
         it('value가 없으면 input 영역을 mouse over 하여도 clear 버튼이 나타나지 않는다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -192,7 +249,7 @@ describe('vs-input', () => {
 
         it('clear 버튼을 누르면 input 값을 초기화 할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
                     modelValue: 'initialText',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -212,7 +269,7 @@ describe('vs-input', () => {
     describe('prepend / append', () => {
         it('prepend를 설정할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
                     'prepend-icon': '<div class="prepend-icon"></div>',
                 },
@@ -227,7 +284,7 @@ describe('vs-input', () => {
 
         it('append를 설정할 수 있다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
                     'append-icon': '<div class="append-icon"></div>',
                 },
@@ -242,7 +299,7 @@ describe('vs-input', () => {
 
         it('prepend를 클릭하면 prepend 이벤트를 발생시킨다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
                     'prepend-icon': '<div class="prepend-icon"></div>',
                 },
@@ -257,7 +314,7 @@ describe('vs-input', () => {
 
         it('append를 클릭하면 append 이벤트를 발생시킨다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
                     'append-icon': '<div class="append-icon"></div>',
                 },
@@ -274,7 +331,7 @@ describe('vs-input', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            wrapper = mount(VsInput);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput);
 
             // when
             await wrapper.find('input').trigger('focus');
@@ -285,7 +342,7 @@ describe('vs-input', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            wrapper = mount(VsInput);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput);
 
             // when
             await wrapper.find('input').trigger('blur');
@@ -298,7 +355,7 @@ describe('vs-input', () => {
     describe('enter', () => {
         it('enter 이벤트를 발생시킬 수 있다', async () => {
             // given
-            wrapper = mount(VsInput);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput);
 
             // when
             await wrapper.find('input').trigger('keyup.enter');
@@ -309,7 +366,7 @@ describe('vs-input', () => {
 
         it('prepend와 append가 있을 경우 prepend, append 이벤트도 함께 발생시킨다', async () => {
             // given
-            wrapper = mount(VsInput, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
                     'prepend-icon': '<div class="prepend-icon"></div>',
                     'append-icon': '<div class="append-icon"></div>',

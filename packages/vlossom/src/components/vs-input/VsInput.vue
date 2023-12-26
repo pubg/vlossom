@@ -47,6 +47,7 @@
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
+import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import Close from '@/assets/icons/close';
@@ -72,7 +73,7 @@ export enum InputType {
     NUMBER = 'number',
 }
 
-type InputValue = string | number;
+export type InputValue = string | number;
 
 const name = VsComponent.VsInput;
 
@@ -86,11 +87,15 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
-        type: { type: String, default: InputType.TEXT },
+        type: { type: String as PropType<InputType>, default: InputType.TEXT },
         max: { type: [Number, Object] as PropType<number | null>, default: null },
         min: { type: [Number, Object] as PropType<number | null>, default: null },
         // v-model
         modelValue: { type: [String, Number], default: '' },
+        modelModifiers: {
+            type: Object as PropType<{ capitalize?: boolean; lower?: boolean; upper?: boolean }>,
+            default: () => ({}),
+        },
     },
     emits: [
         'update:modelValue',
@@ -105,8 +110,21 @@ export default defineComponent({
     ],
     expose: ['focus', 'blur', 'select', 'clear'],
     setup(props, context) {
-        const { colorScheme, styleSet, dense, disabled, type, modelValue, label, messages, rules, required, max, min } =
-            toRefs(props);
+        const {
+            colorScheme,
+            styleSet,
+            dense,
+            disabled,
+            type,
+            modelValue,
+            label,
+            messages,
+            rules,
+            required,
+            max,
+            min,
+            modelModifiers,
+        } = toRefs(props);
 
         const { slots, emit } = context;
 
@@ -133,45 +151,7 @@ export default defineComponent({
 
         const inputValue: Ref<InputValue> = ref('');
 
-        function requiredCheck(v: InputValue) {
-            if (required.value && v === '') {
-                return 'required';
-            }
-
-            return '';
-        }
-
-        function maxCheck(v: InputValue) {
-            if (max.value === null) {
-                return '';
-            }
-
-            if (type.value === InputType.TEXT && typeof v === 'string' && v.length > max.value) {
-                return 'max length: ' + max.value;
-            }
-
-            if (type.value === InputType.NUMBER && typeof v === 'number' && v > max.value) {
-                return 'max value: ' + max.value;
-            }
-
-            return '';
-        }
-
-        function minCheck(v: InputValue) {
-            if (min.value === null) {
-                return '';
-            }
-
-            if (type.value === InputType.TEXT && typeof v === 'string' && v.length < min.value) {
-                return 'min length: ' + min.value;
-            }
-
-            if (type.value === InputType.NUMBER && typeof v === 'number' && v < min.value) {
-                return 'min value: ' + min.value;
-            }
-
-            return '';
-        }
+        const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
@@ -199,7 +179,22 @@ export default defineComponent({
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = target.value || '';
-            const converted = convertValue(targetValue);
+            let converted = convertValue(targetValue);
+
+            if (typeof converted === 'string' && Object.keys(modelModifiers.value).length > 0) {
+                if (modelModifiers.value.capitalize) {
+                    converted = converted.charAt(0).toUpperCase() + converted.slice(1);
+                }
+
+                if (modelModifiers.value.lower) {
+                    converted = converted.toLowerCase();
+                }
+
+                if (modelModifiers.value.upper) {
+                    converted = converted.toUpperCase();
+                }
+            }
+
             inputValue.value = converted;
         }
 
