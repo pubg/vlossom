@@ -28,6 +28,10 @@ const vsInput: VsInputStyleSet = {
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
+    fontSize: '1rem',
+    fontWeight: '500',
+    subTitleFontSize: '1.2rem',
+    subTitleFontWeight: '600',
 };
 
 const vsSection: VsSectionStyleSet = {

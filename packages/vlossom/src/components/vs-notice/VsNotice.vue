@@ -1,5 +1,9 @@
 <template>
-    <div v-if="isVisible" :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div
+        v-if="isVisible"
+        :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]"
+        :style="customProperties"
+    >
         <strong class="sub-title">Notice</strong>
         <p>
             <slot />
@@ -21,6 +25,8 @@ interface NoticeStyleSet {
     color: string;
     fontSize: string;
     fontWeight: string;
+    subTitleFontSize: string;
+    subTitleFontWeight: string;
 }
 
 export type VsNoticeStyleSet = Partial<NoticeStyleSet>;

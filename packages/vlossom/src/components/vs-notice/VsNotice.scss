@@ -7,14 +7,16 @@
     overflow: hidden;
     background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor));
     color: var(--vs-notice-color, var(--vs-comp-color));
+    font-size: var(--vs-notice-fontSize, 1.2rem);
+    font-weight: var(--vs-notice-fontWeight, 500);
 
     .sub-title {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 0 2rem 0 0;
-        font-size: 1.2rem;
-        font-weight: 600;
+        font-size: var(--vs-notice-subTitleFontSize, 1.2rem);
+        font-weight: var(--vs-notice-subTitleFontWeight, 600);
 
         &:after {
             content: '';
