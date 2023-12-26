@@ -1,0 +1,52 @@
+.vs-notice {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 3rem;
+    padding: 0.8rem 4rem 0.8rem 2.4rem;
+    overflow: hidden;
+    background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor));
+    color: var(--vs-notice-color, var(--vs-comp-color));
+
+    .sub-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 2rem 0 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+
+        &:after {
+            content: '';
+            width: 1px;
+            height: 1rem;
+            opacity: 0.6;
+            margin-left: 2rem;
+            background-color: black;
+        }
+    }
+
+    .vs-notice-close {
+        background: none;
+        border: none;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0.8rem;
+        right: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+
+        .close-icon {
+            width: 1rem;
+            height: 1.5rem;
+        }
+    }
+
+    // primary
+    &.primary {
+        background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        color: var(--vs-notice-color, var(--vs-comp-color-primary));
+    }
+}
