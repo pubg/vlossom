@@ -6,6 +6,7 @@ import type {
     VsSectionStyleSet,
     VsPageStyleSet,
     VsValueTagStyleSet,
+    VsNoticeStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
@@ -22,6 +23,15 @@ const vsDivider: VsDividerStyleSet = {
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',
     fontColor: '#1e88e5',
+};
+
+const vsNotice: VsNoticeStyleSet = {
+    backgroundColor: '#1e88e5',
+    color: 'white',
+    fontSize: '1rem',
+    fontWeight: '500',
+    subTitleFontSize: '1.2rem',
+    subTitleFontWeight: '600',
 };
 
 const vsSection: VsSectionStyleSet = {
@@ -46,6 +56,7 @@ export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
+    VsNotice: { myStyleSet: vsNotice },
     VsSection: { myStyleSet: vsSection },
     VsPage: { myStyleSet: vsPage },
     VsValueTag: { myStyleSet: vsValueTag },

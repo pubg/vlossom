@@ -5,6 +5,7 @@ import type {
     VsPageStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
+    VsNoticeStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
@@ -16,6 +17,7 @@ export enum VsComponent {
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
     VsMessage = 'VsMessage',
+    VsNotice = 'VsNotice',
     VsPage = 'VsPage',
     VsSection = 'VsSection',
     VsValueTag = 'VsValueTag',
@@ -31,6 +33,7 @@ export interface StyleSet {
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
