@@ -284,7 +284,10 @@ describe('input composable', () => {
             //given
             const wrapper = mount(InputComponent, {
                 props: {
-                    rules: [(v: string) => Promise.resolve(v ? '' : 'required')],
+                    rules: [
+                        (v: string) => Promise.resolve(v ? '' : 'required'),
+                        (v: string) => Promise.resolve(v === 'test' ? 'must not be test' : ''),
+                    ],
                 },
             });
 

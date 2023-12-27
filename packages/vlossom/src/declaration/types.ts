@@ -82,7 +82,7 @@ export interface InputComponentOptions<T = unknown> {
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
     callbacks?: {
-        onChange?: (newValue: T, oldValue: T) => void;
+        onChange?: (newValue: T, oldValue: T | null) => void;
         onMounted?: () => void;
         onClear?: () => void;
     };

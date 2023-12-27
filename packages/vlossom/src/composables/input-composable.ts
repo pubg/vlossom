@@ -23,7 +23,7 @@ export function getInputProps<T = unknown>() {
 }
 
 export function useInput<T = unknown>(
-    inputValue: Ref<T>,
+    inputValue: Ref<T | null>,
     modelValue: Ref<T>,
     ctx: any,
     label: Ref<string>,
@@ -39,9 +39,16 @@ export function useInput<T = unknown>(
     async function checkMessages() {
         innerMessages.value = [];
         const pendingMessages: Promise<StateMessage>[] = [];
+
+        if (inputValue.value === null) {
+            return;
+        }
+
+        const value: T = inputValue.value;
+
         messages.value.forEach((message) => {
             if (typeof message === 'function') {
-                const result = message(inputValue.value);
+                const result = message(value);
                 if (result instanceof Promise) {
                     pendingMessages.push(result);
                 } else {
@@ -64,10 +71,16 @@ export function useInput<T = unknown>(
     const ruleMessages: Ref<StateMessage[]> = ref([]);
     async function checkRules() {
         ruleMessages.value = [];
-
         const pendingRules: Promise<string>[] = [];
+
+        if (inputValue.value === null) {
+            return;
+        }
+
+        const value: T = inputValue.value;
+
         rules.value.forEach((rule) => {
-            const result = rule(inputValue.value);
+            const result = rule(value);
             if (!result) {
                 return;
             }
@@ -81,10 +94,12 @@ export function useInput<T = unknown>(
         if (pendingRules.length === 0) {
             return;
         }
-        const resolvedMessages = (await Promise.all(pendingRules)).map((resolved) => ({
-            state: UIState.DANGER,
-            message: resolved,
-        }));
+        const resolvedMessages = (await Promise.all(pendingRules))
+            .filter((resolved) => !!resolved)
+            .map((resolved) => ({
+                state: UIState.DANGER,
+                message: resolved,
+            }));
         ruleMessages.value.push(...resolvedMessages);
     }
     watch(rules, checkRules, { deep: true });
@@ -98,6 +113,10 @@ export function useInput<T = unknown>(
     });
 
     watch(inputValue, (value, oldValue) => {
+        if (value === null) {
+            return;
+        }
+
         emit('update:modelValue', value);
         if (options?.callbacks?.onChange) {
             options.callbacks.onChange(value, oldValue);
