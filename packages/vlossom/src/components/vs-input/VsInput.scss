@@ -7,11 +7,11 @@
     background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
     border: var(--vs-input-border, solid 1px var(--vs-comp-border-color));
     border-radius: var(--vs-input-borderRadius, 0.4rem);
-    height: var(--vs-input-height, 2.6rem);
+    height: var(--vs-input-height, 2.5rem);
 
     input {
         width: 100%;
-        padding: 0 1.2rem;
+        padding: 0 1rem;
         border: none;
         outline: none;
         font-size: var(--vs-input-fontSize, 1rem);
@@ -21,19 +21,19 @@
 
     .action-button {
         margin: 0;
-        padding: 0 0.7rem;
+        padding: 0 0.6rem;
         border: none;
         border-radius: 0;
         cursor: pointer;
 
         &.prepend {
-            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor));
-            color: var(--vs-input-prependColor, var(--vs-comp-color));
+            background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
+            color: var(--vs-input-prependColor, var(--vs-comp-color-primary));
         }
 
         &.append {
-            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor));
-            color: var(--vs-input-appendColor, var(--vs-comp-color));
+            background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
+            color: var(--vs-input-appendColor, var(--vs-comp-color-primary));
         }
     }
 
