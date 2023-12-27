@@ -45,13 +45,13 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="red" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="amber" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="green" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="teal" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="blue" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="indigo" />
-                <vs-input v-model="value" v-bind="args" style="marginBottom: 10px" color-scheme="purple" />
+                <vs-input v-model="value" v-bind="args" color-scheme="red" style="marginBottom: 10px"  />
+                <vs-input v-model="value" v-bind="args" color-scheme="amber" style="marginBottom: 10px" />
+                <vs-input v-model="value" v-bind="args" color-scheme="green" style="marginBottom: 10px" />
+                <vs-input v-model="value" v-bind="args" color-scheme="teal" style="marginBottom: 10px" />
+                <vs-input v-model="value" v-bind="args" color-scheme="blue" style="marginBottom: 10px" />
+                <vs-input v-model="value" v-bind="args" color-scheme="indigo" style="marginBottom: 10px" />
+                <vs-input v-model="value" v-bind="args" color-scheme="purple" style="marginBottom: 10px" />
                 <vs-input v-model="value" v-bind="args" color-scheme="pink" />
             </div>
         `,
