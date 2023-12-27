@@ -39,11 +39,8 @@ export interface StyleSet {
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
-<<<<<<< HEAD
     VsProgress?: { [key: string]: VsProgressStyleSet };
-=======
     VsSection?: { [key: string]: VsSectionStyleSet };
->>>>>>> 3687624 (add VsLabelValue)
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
