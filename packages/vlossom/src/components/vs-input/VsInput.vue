@@ -87,7 +87,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         noClear: { type: Boolean, default: false },
-        type: { type: String as PropType<InputType>, default: InputType.TEXT },
+        type: { type: String as PropType<InputType | string>, default: InputType.TEXT },
         max: { type: [Number, Object] as PropType<number | null>, default: null },
         min: { type: [Number, Object] as PropType<number | null>, default: null },
         // v-model
@@ -149,7 +149,7 @@ export default defineComponent({
             }
         }
 
-        const inputValue: Ref<InputValue> = ref('');
+        const inputValue: Ref<InputValue | null> = ref(null);
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
@@ -166,11 +166,6 @@ export default defineComponent({
             callbacks: {
                 onMounted: () => {
                     inputValue.value = convertValue(modelValue.value);
-
-                    // response to null binding
-                    if (!modelValue.value && modelValue.value !== convertValue(modelValue.value)) {
-                        emit('update:modelValue', inputValue.value);
-                    }
                 },
                 onClear,
             },

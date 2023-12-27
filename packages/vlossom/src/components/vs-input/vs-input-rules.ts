@@ -5,7 +5,7 @@ export function useVsInputRules(
     required: Ref<boolean>,
     max: Ref<number | null>,
     min: Ref<number | null>,
-    type: Ref<InputType>,
+    type: Ref<string>,
 ) {
     function requiredCheck(v: InputValue) {
         if (required.value && v === '') {

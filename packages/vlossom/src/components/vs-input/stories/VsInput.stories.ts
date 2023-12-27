@@ -85,22 +85,6 @@ export const Messages: Story = {
     },
 };
 
-export const Max: Story = {
-    args: {
-        label: 'Max 10',
-        type: InputType.NUMBER,
-        max: 10,
-    },
-};
-
-export const Min: Story = {
-    args: {
-        label: 'Min 5',
-        type: InputType.NUMBER,
-        min: 5,
-    },
-};
-
 export const NoClear: Story = {
     args: {
         noClear: true,
@@ -125,13 +109,6 @@ export const Placeholder: Story = {
 export const Readonly: Story = {
     args: {
         readonly: true,
-    },
-};
-
-export const Required: Story = {
-    args: {
-        label: 'Label',
-        required: true,
     },
 };
 
