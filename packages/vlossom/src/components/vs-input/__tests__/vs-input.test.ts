@@ -275,11 +275,9 @@ describe('vs-input', () => {
                 },
             });
 
-            // when
-            await nextTick();
-
             // then
             expect(wrapper.find('button').exists()).toBe(true);
+            expect(wrapper.html()).toContain('prepend-icon');
         });
 
         it('append를 설정할 수 있다', async () => {
@@ -290,11 +288,9 @@ describe('vs-input', () => {
                 },
             });
 
-            // when
-            await nextTick();
-
             // then
             expect(wrapper.find('button').exists()).toBe(true);
+            expect(wrapper.html()).toContain('append-icon');
         });
 
         it('prepend를 클릭하면 prepend 이벤트를 발생시킨다', async () => {
@@ -380,6 +376,105 @@ describe('vs-input', () => {
             expect(wrapper.emitted('enter')).toHaveLength(1);
             expect(wrapper.emitted('prepend')).toHaveLength(1);
             expect(wrapper.emitted('append')).toHaveLength(1);
+        });
+    });
+
+    describe('rules', () => {
+        it('required 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 'test',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    required: true,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('required');
+        });
+
+        it('type이 string 일 때 max 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    max: 3,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('test');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('max length: 3');
+        });
+
+        it('type이 number 일 때 max 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 0,
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    type: InputType.NUMBER,
+                    max: 3,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('4');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('max value: 3');
+        });
+
+        it('type이 string 일 때 min 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 'test',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    min: 3,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('te');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('min length: 3');
+        });
+
+        it('type이 number 일 때 min 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 4,
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    type: InputType.NUMBER,
+                    min: 3,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('2');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('min value: 3');
         });
     });
 });
