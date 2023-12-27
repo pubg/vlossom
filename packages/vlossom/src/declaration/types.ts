@@ -6,6 +6,7 @@ import type {
     VsSectionStyleSet,
     VsValueTagStyleSet,
     VsNoticeStyleSet,
+    VsProgressStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
@@ -19,6 +20,7 @@ export enum VsComponent {
     VsMessage = 'VsMessage',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',
+    VsProgress = 'VsProgress',
     VsSection = 'VsSection',
     VsValueTag = 'VsValueTag',
     VsWrapper = 'VsWrapper',
@@ -35,6 +37,7 @@ export interface StyleSet {
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
+    VsProgress?: { [key: string]: VsProgressStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 

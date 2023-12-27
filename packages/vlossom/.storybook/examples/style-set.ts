@@ -7,6 +7,7 @@ import type {
     VsPageStyleSet,
     VsValueTagStyleSet,
     VsNoticeStyleSet,
+    VsProgressStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
@@ -52,6 +53,12 @@ const vsValueTag: VsValueTagStyleSet = {
     width: '50%',
 };
 
+const vsProgress: VsProgressStyleSet = {
+    borderRadius: '0.2rem',
+    height: '0.5rem',
+    width: '100%',
+};
+
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsDivider: { myStyleSet: vsDivider },
@@ -59,5 +66,6 @@ export const styleSet: StyleSet = {
     VsNotice: { myStyleSet: vsNotice },
     VsSection: { myStyleSet: vsSection },
     VsPage: { myStyleSet: vsPage },
+    VsProgress: { myStyleSet: vsProgress },
     VsValueTag: { myStyleSet: vsValueTag },
 };

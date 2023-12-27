@@ -1,0 +1,23 @@
+progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--vs-progress-width, 100%);
+    height: var(--vs-progress-height, 0.7rem);
+}
+
+progress[value] {
+    &::-webkit-progress-bar {
+        overflow: hidden;
+        background-color: var(--vs-light-backgroundColor);
+        border-radius: var(--vs-progress-borderRadius, 0.4rem);
+    }
+
+    &::-webkit-progress-value {
+        position: relative;
+        background-color: var(--vs-progress-backgroundColor, var(--vs-comp-backgroundColor));
+    }
+
+    &.primary::-webkit-progress-value {
+        background-color: var(--vs-progress-backgroundColor, var(--vs-comp-backgroundColor-primary));
+    }
+}
