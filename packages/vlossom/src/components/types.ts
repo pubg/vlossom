@@ -4,6 +4,7 @@ export type * from './vs-divider';
 export type * from './vs-form';
 export type * from './vs-input';
 export type * from './vs-input-wrapper';
+export type * from './vs-label-value';
 export type * from './vs-message';
 export type * from './vs-notice';
 export type * from './vs-page';

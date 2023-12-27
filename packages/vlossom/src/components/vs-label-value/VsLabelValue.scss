@@ -1,0 +1,41 @@
+.vs-label-value {
+    width: 100%;
+    height: 100%;
+    background-color: var(--vs-light-backgroundColor);
+    display: flex;
+    justify-content: between;
+
+    > .cell {
+        display: flex;
+        align-items: center;
+        padding: 1.2rem 1.6rem;
+    }
+
+    .label {
+        flex: 0 0 10rem;
+        padding: 1.2rem 1.4rem;
+        font-weight: 500;
+        background-color: var(--vs-label-value-backgroundColor, var(--vs-comp-backgroundColor));
+        color: var(--vs-label-value-color, var(--vs-comp-color));
+        word-break: break-word;
+    }
+
+    .value {
+        flex: 1 !important;
+        overflow-x: auto;
+    }
+
+    .actions {
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+}
+
+.vs-label-value {
+    &.primary {
+        .label {
+            color: var(--vs-label-value-color, var(--vs-comp-color-primary));
+            background-color: var(--vs-label-value-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        }
+    }
+}

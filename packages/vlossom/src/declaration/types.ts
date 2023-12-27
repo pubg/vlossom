@@ -2,11 +2,12 @@ import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
+    VsLabelValueStyleSet,
+    VsNoticeStyleSet,
     VsPageStyleSet,
+    VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-    VsNoticeStyleSet,
-    VsProgressStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
@@ -17,6 +18,7 @@ export enum VsComponent {
     VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
+    VsLabelValue = 'VsLabelValue',
     VsMessage = 'VsMessage',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',
@@ -34,10 +36,14 @@ export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
-    VsSection?: { [key: string]: VsSectionStyleSet };
+    VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
+<<<<<<< HEAD
     VsProgress?: { [key: string]: VsProgressStyleSet };
+=======
+    VsSection?: { [key: string]: VsSectionStyleSet };
+>>>>>>> 3687624 (add VsLabelValue)
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
