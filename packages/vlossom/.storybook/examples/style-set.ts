@@ -54,8 +54,8 @@ const vsValueTag: VsValueTagStyleSet = {
 };
 
 const vsProgress: VsProgressStyleSet = {
-    borderRadius: '0.4rem',
-    height: '0.7rem',
+    borderRadius: '0.2rem',
+    height: '0.5rem',
     width: '100%',
 };
 

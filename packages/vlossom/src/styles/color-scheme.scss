@@ -9,7 +9,7 @@ $colorScheme-light: (
         comp-backgroundColor-primary: #{$indigo-600},
         comp-color-primary: #{$grey-50},
         line-color: #{$grey-700},
-        light-backgroundColor: transparentize($grey-200, 0.2),
+        light-backgroundColor: transparentize($indigo-200, 0.8),
     ),
     'red': (
         area-backgroundColor: transparentize($red-50, 0.5),
@@ -68,7 +68,7 @@ $colorScheme-dark: (
         area-backgroundColor: #14151f,
         comp-border-color: #{$indigo-400},
         line-color: #{$grey-300},
-        light-backgroundColor: transparentize($grey-300, 0.8),
+        light-backgroundColor: transparentize($indigo-300, 0.8),
     ),
     'red': (
         area-backgroundColor: transparentize($red-400, 0.9),

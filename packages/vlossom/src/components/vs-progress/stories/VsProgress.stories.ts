@@ -24,11 +24,8 @@ type Story = StoryObj<typeof VsProgress>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    render: (args: any) => ({
+    render: () => ({
         components: { VsProgress },
-        setup() {
-            return { args };
-        },
         template: `
 			<div>
 				<vs-progress color-scheme="red" :value="10"/>
@@ -45,11 +42,8 @@ export const ColorScheme: Story = {
 };
 
 export const Primary: Story = {
-    render: (args: any) => ({
+    render: () => ({
         components: { VsProgress },
-        setup() {
-            return { args };
-        },
         template: `
 			<div>
 				<vs-progress color-scheme="red" primary :value="20" :max="200"/>
@@ -66,13 +60,27 @@ export const Primary: Story = {
 };
 
 export const StyleSet: Story = {
-    args: {
-        styleSet: { width: '50%', height: '2rem', borderRadius: '0.1rem' },
-    },
+    render: () => ({
+        components: { VsProgress },
+        setup() {
+            const styleSet = { borderRadius: '0.8rem', height: '1rem', width: '50%' };
+            return { styleSet };
+        },
+        template: `
+			<vs-progress :style-set="styleSet" :value="20" :max="200"/>
+		`,
+    }),
 };
 
 export const PreDefinedStyleSet: Story = {
-    args: {
-        styleSet: 'myStyleSet',
-    },
+    render: () => ({
+        components: { VsProgress },
+        setup() {
+            const styleSet = { borderRadius: '0.8rem', height: '1rem', width: '50%' };
+            return { styleSet };
+        },
+        template: `
+			<vs-progress style-set="myStyleSet" :value="20" :max="200"/>
+		`,
+    }),
 };
