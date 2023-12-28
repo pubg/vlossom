@@ -32,10 +32,10 @@
     }
 
     .vs-chip-icon {
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
         align-items: center;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
     }
 
     .vs-chip-leading-icon {
@@ -50,6 +50,9 @@
     }
 
     .vs-chip-content {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
         padding: var(--vs-chip-padding, 0 0.2rem);
     }
 
