@@ -5,6 +5,7 @@ import { colorScheme } from '@/storybook/args';
 import VsChip from './../VsChip.vue';
 import Check from '@/assets/icons/check';
 import Person from '@/assets/icons/person';
+import { userEvent, within } from '@storybook/testing-library';
 
 const meta: Meta<typeof VsChip> = {
     title: 'Components/Base Components/VsChip',
@@ -182,9 +183,17 @@ export const ClickEventWithPrimary: Story = {
 					<template #leading-icon>
 						<check v-if="isSelected(id)" aria-label="check" width="16px" height="16px"/>
 					</template>
-					Chip	
+					{{color}}	
 				</vs-chip>
             </div>
         `,
     }),
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.click(canvas.getByText('red'), { delay: 150 });
+        await userEvent.click(canvas.getByText('amber'), { delay: 150 });
+        await userEvent.click(canvas.getByText('blue'), { delay: 150 });
+        await userEvent.click(canvas.getByText('blue'), { delay: 150 });
+    },
 };
