@@ -9,7 +9,7 @@ perferendis sed voluptates omnis sit maxime ad! Porro incidunt
 voluptatem quaerat sint itaque, blanditiis excepturi!`;
 
 const meta: Meta<typeof VsLabelValue> = {
-    title: 'Components/Base Components/VsLabelValue',
+    title: 'Components/Layout Components/VsLabelValue',
     component: VsLabelValue,
     render: (args: any) => ({
         components: { VsLabelValue },
@@ -71,24 +71,76 @@ export const Primary: Story = {
     }),
 };
 
-// export const StyleSet: Story = {
-//     args: {
-//         styleSet: {
-//             backgroundColor: '#99b1ff',
-//             borderRadius: '0.3rem',
-//             color: '#392467',
-//             fontSize: '1.5rem',
-//             fontWeight: '550',
-//             padding: '0.18rem',
-//             labelWidth: '4rem',
-//             lineHeight: '3rem',
-//             width: '20rem',
-//         },
-//     },
-// };
+export const HasActions: Story = {
+    render: (args: any) => ({
+        components: { VsLabelValue },
+        setup() {
+            return { args };
+        },
+        template: `
+        <vs-label-value v-bind="args">
+            <template #label>label</template>
+            <template #value>${value}</template>
+            <template #actions><vs-button dense primary>action</vs-button></template>
+        </vs-label-value>
+        `,
+    }),
+};
 
-// export const PreDefinedStyleSet: Story = {
-//     args: {
-//         styleSet: 'myStyleSet',
-//     },
-// };
+export const VerticalAlignTop: Story = {
+    render: (args: any) => ({
+        components: { VsLabelValue },
+        setup() {
+            return { args };
+        },
+        template: `
+        <vs-label-value v-bind="args">
+            <template #label>label</template>
+            <template #value>${value}</template>
+            <template #actions><vs-button dense primary>action</vs-button></template>
+        </vs-label-value>
+        `,
+    }),
+    args: {
+        verticalAlign: 'top',
+    },
+};
+
+export const VerticalAlignBottom: Story = {
+    render: (args: any) => ({
+        components: { VsLabelValue },
+        setup() {
+            return { args };
+        },
+        template: `
+        <vs-label-value v-bind="args">
+            <template #label>label</template>
+            <template #value>${value}</template>
+            <template #actions><vs-button dense primary>action</vs-button></template>
+        </vs-label-value>
+        `,
+    }),
+    args: {
+        verticalAlign: 'bottom',
+    },
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: {
+            backgroundColor: '#f8e8ee',
+            fontSize: '1.3rem',
+            labelBackgroundColor: '#fdcedf',
+            labelColor: '#a7727d',
+            labelFontWeight: '550',
+            labelWidth: '15rem',
+            padding: '2rem 2rem',
+        },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
+};
