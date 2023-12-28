@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsChip from './../VsChip.vue';
 
@@ -8,7 +8,7 @@ function mountComponent() {
 
 describe('vs-chip', () => {
     describe('leading-icon', () => {
-        it('leading-icon 있는 경우 leading-icon 슬롯이 렌더된다', () => {
+        it('leading-icon이 있는 경우 leading-icon 슬롯이 렌더된다', () => {
             // given
             const wrapper = mount(VsChip, {
                 slots: {
@@ -20,13 +20,13 @@ describe('vs-chip', () => {
             expect(wrapper.find('.vs-chip-leading-icon').exists()).toBe(true);
             expect(wrapper.html()).toContain('<div>icon</div>');
         });
+
         it('leading-icon이 없는 경우 leading-icon 슬롯이 렌더되지 않는다', () => {
             // given
             const wrapper = mount(VsChip);
 
             // then
             expect(wrapper.find('.vs-chip-leading-icon').exists()).toBe(false);
-            expect(wrapper.html()).not.toContain('<div>icon</div>');
         });
     });
 
@@ -41,6 +41,10 @@ describe('vs-chip', () => {
                         closable: true,
                     },
                 });
+            });
+
+            afterEach(() => {
+                wrapper.unmount();
             });
 
             it('close 버튼이 렌더된다', () => {
