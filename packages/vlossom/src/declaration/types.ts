@@ -102,3 +102,5 @@ export interface VsFormProvide {
     updateValid: (id: string, valid: boolean) => void;
     removeFromForm: (id: string) => void;
 }
+
+export type VerticalAlign = 'top' | 'bottom' | '';

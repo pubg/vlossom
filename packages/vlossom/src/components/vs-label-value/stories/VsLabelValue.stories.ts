@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsLabelValue from '../VsLabelValue.vue';
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, verticalAlign } from '@/storybook/args';
 
 const value = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Possimus, voluptatem cum? Atque facilis mollitia distinctio
@@ -21,6 +21,7 @@ const meta: Meta<typeof VsLabelValue> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        verticalAlign,
     },
 };
 

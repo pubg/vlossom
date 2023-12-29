@@ -14,7 +14,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { ColorScheme, VsComponent, VerticalAlign } from '@/declaration/types';
 
 interface LabelValueStyleSet {
     backgroundColor: string;
@@ -31,13 +31,14 @@ export type VsLabelValueStyleSet = Partial<LabelValueStyleSet>;
 
 const name = VsComponent.VsLabelValue;
 
+
 export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet>, default: '' },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String, default: '' },
+        verticalAlign: { type: String as PropType<VerticalAlign>, default: '' },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
