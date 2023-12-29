@@ -32,12 +32,12 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const coloredChips = ref([...colorScheme.options]);
-            return { coloredChips };
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions };
         },
         template: `
             <div>
-				<vs-chip v-for="(color, index) in coloredChips" :key="index" :color-scheme="color">
+				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color">
 					Chip	
 				</vs-chip>
             </div>
@@ -49,25 +49,25 @@ export const Closable: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const initialColoredChips = colorScheme.options.map((color, index) => ({ id: index, color: color }));
-            const coloredChips = ref(initialColoredChips);
+            const initialColorOptions = colorScheme.options.map((color, index) => ({ id: index, color: color }));
+            const colorOptions = ref(initialColorOptions);
             const close = (index: number) => {
-                coloredChips.value = coloredChips.value.filter((_, i) => i !== index);
+                colorOptions.value = colorOptions.value.filter((_, i) => i !== index);
             };
             const reset = () => {
-                coloredChips.value = initialColoredChips;
+                colorOptions.value = initialColorOptions;
             };
 
-            return { coloredChips, close, reset };
+            return { colorOptions, close, reset };
         },
         template: `
             <div>
-			<vs-chip v-for="({color, id}, index) in coloredChips" :key="id" :color-scheme="color" 
+			<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
 					closable @close="close(index)"
 				>
 					Chip	
 				</vs-chip>
-				<vs-button v-if="!coloredChips.length" color-scheme="blue" @click="reset" dense> Reset </vs-button>
+				<vs-button v-if="!colorOptions.length" color-scheme="blue" @click="reset" dense> Reset </vs-button>
             </div>
         `,
     }),
@@ -77,12 +77,12 @@ export const NoRound: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const coloredChips = ref([...colorScheme.options]);
-            return { coloredChips };
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions };
         },
         template: `
             <div>
-				<vs-chip v-for="(color, index) in coloredChips" :key="index" :color-scheme="color" 
+				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color" 
 					no-round
 				>
 					Chip	
@@ -96,12 +96,12 @@ export const Primary: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const coloredChips = ref([...colorScheme.options]);
-            return { coloredChips };
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions };
         },
         template: `
             <div>
-				<vs-chip v-for="(color, index) in coloredChips" :key="index" :color-scheme="color" 
+				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color" 
 					primary
 				>
 					Chip	
@@ -160,7 +160,7 @@ export const ClickEventWithPrimary: Story = {
     render: () => ({
         components: { VsChip, Check },
         setup() {
-            const coloredChips = ref(colorScheme.options.map((color, index) => ({ id: index, color: color })));
+            const colorOptions = ref(colorScheme.options.map((color, index) => ({ id: index, color: color })));
 
             const selectedChips: Ref<number[]> = ref([]);
             const onClick = (id: number) => {
@@ -173,11 +173,11 @@ export const ClickEventWithPrimary: Story = {
 
             const isSelected = (id: number) => selectedChips.value.includes(id);
 
-            return { coloredChips, selectedChips, onClick, isSelected };
+            return { colorOptions, selectedChips, onClick, isSelected };
         },
         template: `
             <div style="display:flex; align-items:center">
-				<vs-chip v-for="({color, id}, index) in coloredChips" :key="id" :color-scheme="color" 
+				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
 					@click="onClick(id)" :primary="isSelected(id)"
 				>
 					<template #leading-icon>
