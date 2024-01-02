@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 
 on: push
 
@@ -8,9 +8,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version-file: '.nvmrc'
             - name: Install dependencies
               run: yarn
             - run: yarn test
@@ -21,9 +18,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version-file: '.nvmrc'
             - name: Install dependencies
               run: yarn
             - name: Install Playwright
@@ -37,3 +31,26 @@ jobs:
                     "npx http-server storybook-static --port 6006 --silent" \
                     "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook"
               working-directory: ./packages/vlossom
+
+    build-vlossom:
+        needs: [test-vitest, test-storybook]
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install dependencies
+              run: yarn
+            - name: Build Vlossom
+              run: yarn build
+              working-directory: ./packages/vlossom
+
+    build-docs:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install dependencies
+              run: yarn
+            - name: Build Docs
+              run: yarn build
+              working-directory: ./packages/docs
