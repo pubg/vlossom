@@ -38,6 +38,18 @@ jobs:
                     "npx wait-on tcp:127.0.0.1:6006 && npm run test-storybook"
               working-directory: ./packages/vlossom
 
+    lint:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+            - name: Install dependencies
+              run: npm ci
+            - run: npm run lint --ws
+
     build-vlossom:
         timeout-minutes: 60
         runs-on: ubuntu-latest
