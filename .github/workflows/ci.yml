@@ -3,7 +3,16 @@ name: CI
 on: push
 
 jobs:
+    cache-dependencies:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
+
     test-vitest:
+        needs: cache-dependencies
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
@@ -18,6 +27,7 @@ jobs:
               working-directory: ./packages/vlossom
 
     test-storybook:
+        needs: cache-dependencies
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
@@ -41,6 +51,7 @@ jobs:
               working-directory: ./packages/vlossom
 
     build-vlossom:
+        needs: cache-dependencies
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
@@ -56,6 +67,7 @@ jobs:
               working-directory: ./packages/vlossom
 
     build-docs:
+        needs: cache-dependencies
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
