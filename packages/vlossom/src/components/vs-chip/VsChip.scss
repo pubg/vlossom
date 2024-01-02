@@ -9,12 +9,12 @@
     border-radius: var(--vs-chip-borderRadius, 1.3rem);
     color: var(--vs-chip-color, var(--vs-comp-color));
     display: inline-flex;
-    font-size: var(--vs-chip-fontSize, 0.82rem);
+    font-size: var(--vs-chip-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
-    height: var(--vs-chip-height, 1.5rem);
+    height: var(--vs-chip-height, 1.2rem);
     justify-content: center;
-    min-height: var(--vs-chip-minHeight, 1.2rem);
-    padding: 0 0.4rem;
+    min-height: var(--vs-chip-minHeight, 1.4rem);
+    padding: var(--vs-chip-padding, 0.2rem 0.6rem);
     position: relative;
 
     &:after {
@@ -47,17 +47,17 @@
         cursor: pointer;
         height: calc(var(--vs-chip-height, 1.2rem) * 0.8);
         width: calc(var(--vs-chip-height, 1.2rem) * 0.8);
+
+        &.primary {
+            background-color: var(--vs-light-backgroundColor);
+        }
     }
 
     .vs-chip-content {
         align-items: center;
         display: inline-flex;
         justify-content: center;
-        padding: var(--vs-chip-padding, 0 0.2rem);
-    }
-
-    .vs-chip-icon + .vs-chip-content {
-        margin-left: 0.05rem;
+        padding: 0 0.2rem;
     }
 
     &.noRound {

@@ -8,7 +8,7 @@
             <slot />
         </span>
 
-        <button v-if="closable" type="button" class="vs-chip-icon vs-chip-close" @click.stop="$emit('close')">
+        <button v-if="closable" type="button" :class="['vs-chip-icon', 'vs-chip-close', { primary }]" @click.stop="$emit('close')">
             <close aria-label="close" class="close-icon" />
         </button>
     </div>
