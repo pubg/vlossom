@@ -8,6 +8,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
             - name: Install dependencies
               run: npm ci
             - run: npm run test
@@ -18,6 +22,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
             - name: Install dependencies
               run: npm ci
             - name: Install Playwright
@@ -33,11 +41,14 @@ jobs:
               working-directory: ./packages/vlossom
 
     build-vlossom:
-        needs: [test-vitest, test-storybook]
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
             - name: Install dependencies
               run: npm ci
             - name: Build Vlossom
@@ -49,6 +60,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+                  cache: 'npm'
             - name: Install dependencies
               run: npm ci
             - name: Build Docs
