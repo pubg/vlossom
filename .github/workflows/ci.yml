@@ -9,8 +9,8 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Install dependencies
-              run: yarn
-            - run: yarn test
+              run: npm ci
+            - run: npm run test
               working-directory: ./packages/vlossom
 
     test-storybook:
@@ -19,17 +19,17 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Install dependencies
-              run: yarn
+              run: npm ci
             - name: Install Playwright
               run: npx playwright install --with-deps
             - name: Build Storybook
-              run: yarn build-storybook --quiet
+              run: npm run build-storybook --quiet
               working-directory: ./packages/vlossom
             - name: Serve Storybook and run tests
               run: |
                   npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
                     "npx http-server storybook-static --port 6006 --silent" \
-                    "npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook"
+                    "npx wait-on tcp:127.0.0.1:6006 && npm run test-storybook"
               working-directory: ./packages/vlossom
 
     build-vlossom:
@@ -39,9 +39,9 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Install dependencies
-              run: yarn
+              run: npm ci
             - name: Build Vlossom
-              run: yarn build
+              run: npm run build
               working-directory: ./packages/vlossom
 
     build-docs:
@@ -50,7 +50,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Install dependencies
-              run: yarn
+              run: npm ci
             - name: Build Docs
-              run: yarn build
+              run: npm run build
               working-directory: ./packages/docs
