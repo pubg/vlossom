@@ -4,6 +4,7 @@ import { expect } from '@storybook/jest';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsInput, { InputType } from '../VsInput.vue';
 import { UIState } from '@/declaration/types';
+import Search from '@/assets/icons/search';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -132,16 +133,14 @@ export const Prepend: Story = {
 
 export const Append: Story = {
     render: (args: any) => ({
-        components: { VsInput },
+        components: { VsInput, Search },
         setup() {
             return { args };
         },
         template: `
             <vs-input v-bind="args">
                 <template #append-icon>
-                    <svg aria-label="search" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                        <path fill="currentColor" d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
-                    </svg>
+                    <search aria-label="search" />
                 </template>
             </vs-input>
         `,

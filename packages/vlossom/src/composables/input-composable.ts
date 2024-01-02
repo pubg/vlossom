@@ -94,12 +94,17 @@ export function useInput<T = unknown>(
         if (pendingRules.length === 0) {
             return;
         }
-        const resolvedMessages = (await Promise.all(pendingRules))
-            .filter((resolved) => !!resolved)
-            .map((resolved) => ({
-                state: UIState.DANGER,
-                message: resolved,
-            }));
+        const resolvedMessages = (await Promise.all(pendingRules)).reduce((acc: StateMessage[], resolved) => {
+            if (resolved) {
+                acc.push({
+                    state: UIState.DANGER,
+                    message: resolved,
+                });
+            }
+
+            return acc;
+        }, []);
+
         ruleMessages.value.push(...resolvedMessages);
     }
     watch(rules, checkRules, { deep: true });
