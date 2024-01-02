@@ -64,7 +64,6 @@
         "@vue/test-utils": "^2.4.3",
         "axe-playwright": "^1.2.3",
         "chromatic": "^10.1.0",
-        "eslint-plugin-vue": "^9.17.0",
         "jsdom": "^23.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
