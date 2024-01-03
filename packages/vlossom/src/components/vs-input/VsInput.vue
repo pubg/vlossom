@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid">
+    <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
             :messages="computedMessages"
@@ -24,6 +24,7 @@
                     @focus="onFocus"
                     @blur="onBlur"
                     @keyup.enter="onEnter"
+                    @change.stop
                 />
 
                 <button class="action-button append" v-if="hasAppend" @click="$emit('append')">
@@ -36,7 +37,7 @@
                     :class="{ number: type === InputType.NUMBER }"
                     @click.stop="clearWithFocus()"
                 >
-                    <close class="clear-icon" />
+                    <close-icon class="clear-icon" />
                 </button>
             </div>
         </vs-input-wrapper>
@@ -50,7 +51,7 @@ import { ColorScheme, VsComponent } from '@/declaration/types';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import Close from '@/assets/icons/close';
+import CloseIcon from '@/assets/icons/close';
 
 interface InputStyleSet {
     appendBackgroundColor: string;
@@ -79,17 +80,16 @@ const name = VsComponent.VsInput;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, Close },
+    components: { VsInputWrapper, VsWrapper, CloseIcon },
     props: {
         ...getInputProps<string | number>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
-        noClear: { type: Boolean, default: false },
         type: { type: String as PropType<InputType | string>, default: InputType.TEXT },
-        max: { type: [Number, Object] as PropType<number | null>, default: null },
-        min: { type: [Number, Object] as PropType<number | null>, default: null },
+        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
+        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model
         modelValue: { type: [String, Number], default: '' },
         modelModifiers: {

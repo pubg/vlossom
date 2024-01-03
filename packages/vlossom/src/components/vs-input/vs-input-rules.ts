@@ -3,8 +3,8 @@ import { InputType, InputValue } from './VsInput.vue';
 
 export function useVsInputRules(
     required: Ref<boolean>,
-    max: Ref<number | null>,
-    min: Ref<number | null>,
+    max: Ref<number | string>,
+    min: Ref<number | string>,
     type: Ref<string>,
 ) {
     function requiredCheck(v: InputValue) {
@@ -16,15 +16,17 @@ export function useVsInputRules(
     }
 
     function maxCheck(v: InputValue) {
-        if (max.value === null) {
+        const limit = Number(max.value);
+
+        if (isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
             return '';
         }
 
-        if (type.value === InputType.TEXT && typeof v === 'string' && v.length > max.value) {
+        if (type.value === InputType.TEXT && typeof v === 'string' && v.length > limit) {
             return 'max length: ' + max.value;
         }
 
-        if (type.value === InputType.NUMBER && typeof v === 'number' && v > max.value) {
+        if (type.value === InputType.NUMBER && typeof v === 'number' && v > limit) {
             return 'max value: ' + max.value;
         }
 
@@ -32,15 +34,17 @@ export function useVsInputRules(
     }
 
     function minCheck(v: InputValue) {
-        if (min.value === null) {
+        const limit = Number(min.value);
+
+        if (isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
             return '';
         }
 
-        if (type.value === InputType.TEXT && typeof v === 'string' && v.length < min.value) {
+        if (type.value === InputType.TEXT && typeof v === 'string' && v.length < limit) {
             return 'min length: ' + min.value;
         }
 
-        if (type.value === InputType.NUMBER && typeof v === 'number' && v < min.value) {
+        if (type.value === InputType.NUMBER && typeof v === 'number' && v < limit) {
             return 'min value: ' + min.value;
         }
 

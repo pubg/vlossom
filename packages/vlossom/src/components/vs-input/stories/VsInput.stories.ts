@@ -3,8 +3,9 @@ import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsInput, { InputType } from '../VsInput.vue';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
+import SearchIcon from '@/assets/icons/search';
 import { UIState } from '@/declaration/types';
-import Search from '@/assets/icons/search';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -98,6 +99,12 @@ export const NoClear: Story = {
     },
 };
 
+export const NumberType: Story = {
+    args: {
+        type: 'number',
+    },
+};
+
 export const Placeholder: Story = {
     args: {
         placeholder: 'enter name',
@@ -107,6 +114,13 @@ export const Placeholder: Story = {
 export const Readonly: Story = {
     args: {
         readonly: true,
+    },
+};
+
+export const Required: Story = {
+    args: {
+        label: 'Label',
+        required: true,
     },
 };
 
@@ -133,14 +147,14 @@ export const Prepend: Story = {
 
 export const Append: Story = {
     render: (args: any) => ({
-        components: { VsInput, Search },
+        components: { VsInput, SearchIcon },
         setup() {
             return { args };
         },
         template: `
             <vs-input v-bind="args">
                 <template #append-icon>
-                    <search aria-label="search" />
+                    <search-icon aria-label="search" />
                 </template>
             </vs-input>
         `,
@@ -149,9 +163,38 @@ export const Append: Story = {
         placeholder: 'email',
     },
 };
-export const NumberType: Story = {
+
+export const Width: Story = {
+    render: (args: any) => ({
+        components: { VsInput, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container>
+                <vs-input v-bind="args" />
+            </vs-container>
+        `,
+    }),
     args: {
-        type: 'number',
+        width: { xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+    },
+};
+
+export const Grid: Story = {
+    render: (args: any) => ({
+        components: { VsInput, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container>
+                <vs-input v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        grid: { sm: 6, md: 4, lg: 3 },
     },
 };
 
