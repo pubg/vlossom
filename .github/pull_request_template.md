@@ -1,14 +1,14 @@
 ## Type of PR (check all applicable)
 
 -   [ ] Feature (feat)
--   [ ] Style (style)
--   [ ] Test (test)
 -   [ ] Fix Bug (fix)
 -   [ ] Refactor (refactor)
+-   [ ] Style (style)
+-   [ ] Test (test)
+-   [ ] CI (ci)
 -   [ ] Build (build)
 -   [ ] Update Docs (docs)
 -   [ ] Chore (chore)
-
 
 ## Summary
 
