@@ -3,6 +3,11 @@ export const colorScheme = {
     options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
 };
 
+export const verticalAlign = {
+    control: 'select',
+    options: ['default', 'top', 'bottom'],
+};
+
 export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
     const metaArgs: { [key: string]: any } = {};
     Object.keys(componentProps).forEach((prop) => {

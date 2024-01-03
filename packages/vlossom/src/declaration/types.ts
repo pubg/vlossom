@@ -2,11 +2,12 @@ import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
+    VsLabelValueStyleSet,
+    VsNoticeStyleSet,
     VsPageStyleSet,
+    VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-    VsNoticeStyleSet,
-    VsProgressStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
@@ -17,6 +18,7 @@ export enum VsComponent {
     VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
+    VsLabelValue = 'VsLabelValue',
     VsMessage = 'VsMessage',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',
@@ -34,10 +36,11 @@ export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
-    VsSection?: { [key: string]: VsSectionStyleSet };
+    VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
+    VsSection?: { [key: string]: VsSectionStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
@@ -99,3 +102,5 @@ export interface VsFormProvide {
     updateValid: (id: string, valid: boolean) => void;
     removeFromForm: (id: string) => void;
 }
+
+export type VerticalAlign = 'top' | 'bottom' | '';
