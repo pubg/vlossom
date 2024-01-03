@@ -2,6 +2,7 @@ import type { StyleSet } from '@/declaration/types';
 import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
+    VsFooterStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsNoticeStyleSet,
@@ -30,6 +31,14 @@ const vsDivider: VsDividerStyleSet = {
     lineColor: '#7071e8',
     lineStyle: 'double',
     lineWidth: '3px',
+};
+
+const vsFooter: VsFooterStyleSet = {
+    backgroundColor: 'ivory',
+    color: '#000',
+    height: '200px',
+    padding: '2%',
+    textAlign: 'start',
 };
 
 const vsInput: VsInputStyleSet = {
@@ -84,6 +93,7 @@ export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
+    VsFooter: { myStyleSet: vsFooter },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
     VsNotice: { myStyleSet: vsNotice },

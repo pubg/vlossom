@@ -62,7 +62,7 @@ export const Closable: Story = {
         },
         template: `
             <div>
-			<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
+				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
 					closable @close="close(index)"
 				>
 					Chip	
