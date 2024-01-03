@@ -149,7 +149,7 @@ export default defineComponent({
             }
         }
 
-        const inputValue: Ref<InputValue | null> = ref(null);
+        const inputValue: Ref<InputValue> = ref(modelValue.value);
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 

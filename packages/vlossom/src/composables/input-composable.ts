@@ -23,7 +23,7 @@ export function getInputProps<T = unknown>() {
 }
 
 export function useInput<T = unknown>(
-    inputValue: Ref<T | null>,
+    inputValue: Ref<T>,
     modelValue: Ref<T>,
     ctx: any,
     label: Ref<string>,
@@ -40,15 +40,9 @@ export function useInput<T = unknown>(
         innerMessages.value = [];
         const pendingMessages: Promise<StateMessage>[] = [];
 
-        if (inputValue.value === null) {
-            return;
-        }
-
-        const value: T = inputValue.value;
-
         messages.value.forEach((message) => {
             if (typeof message === 'function') {
-                const result = message(value);
+                const result = message(inputValue.value);
                 if (result instanceof Promise) {
                     pendingMessages.push(result);
                 } else {
@@ -73,14 +67,8 @@ export function useInput<T = unknown>(
         ruleMessages.value = [];
         const pendingRules: Promise<string>[] = [];
 
-        if (inputValue.value === null) {
-            return;
-        }
-
-        const value: T = inputValue.value;
-
         rules.value.forEach((rule) => {
-            const result = rule(value);
+            const result = rule(inputValue.value);
             if (!result) {
                 return;
             }
@@ -118,10 +106,6 @@ export function useInput<T = unknown>(
     });
 
     watch(inputValue, (value, oldValue) => {
-        if (value === null) {
-            return;
-        }
-
         emit('update:modelValue', value);
         if (options?.callbacks?.onChange) {
             options.callbacks.onChange(value, oldValue);
