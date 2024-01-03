@@ -9,11 +9,21 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
+    VsChipStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
+};
+
+const vsChip: VsChipStyleSet = {
+    backgroundColor: '#a5d6ad',
+    borderRadius: '1.2rem',
+    color: '#304d30',
+    height: '3rem',
+    minHeight: '2rem',
+    padding: '0.8rem 1.5rem',
 };
 
 const vsDivider: VsDividerStyleSet = {
@@ -70,9 +80,9 @@ const vsValueTag: VsValueTagStyleSet = {
     width: '50%',
 };
 
-
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
+    VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },

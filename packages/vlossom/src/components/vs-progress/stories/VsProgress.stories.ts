@@ -13,6 +13,10 @@ const meta: Meta<typeof VsProgress> = {
         template: '<vs-progress v-bind="args" />',
     }),
     tags: ['autodocs'],
+    args: {
+        value: 50,
+        max: 100,
+    },
     argTypes: {
         colorScheme,
     },

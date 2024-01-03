@@ -1,5 +1,6 @@
 import type {
     VsButtonStyleSet,
+    VsChipStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
@@ -13,6 +14,7 @@ import type { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
+    VsChip = 'VsChip',
     VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
     VsForm = 'VsForm',
@@ -34,6 +36,7 @@ export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponen
 
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
+    VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };

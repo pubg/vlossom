@@ -1,4 +1,5 @@
 export type * from './vs-button';
+export type * from './vs-chip';
 export type * from './vs-container';
 export type * from './vs-divider';
 export type * from './vs-form';
