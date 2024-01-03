@@ -34,7 +34,7 @@ const vsDivider: VsDividerStyleSet = {
 
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',
-    fontColor: '#1e88e5',
+    color: '#1e88e5',
 };
 
 const vsLabelValue: VsLabelValueStyleSet = {

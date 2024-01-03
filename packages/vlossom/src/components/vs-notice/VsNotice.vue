@@ -9,7 +9,7 @@
             <slot />
         </p>
         <button type="button" class="vs-notice-close" @click.stop="closeNotice()">
-            <close aria-label="close" class="close-icon" />
+            <close-icon aria-label="close" class="close-icon" />
         </button>
     </div>
 </template>
@@ -18,7 +18,7 @@
 import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
-import Close from '@/assets/icons/close';
+import CloseIcon from '@/assets/icons/close';
 
 interface NoticeStyleSet {
     backgroundColor: string;
@@ -35,7 +35,7 @@ const name = VsComponent.VsNotice;
 
 export default defineComponent({
     name,
-    components: { Close },
+    components: { CloseIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet>, default: '' },

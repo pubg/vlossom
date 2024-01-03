@@ -39,6 +39,7 @@ export function useInput<T = unknown>(
     async function checkMessages() {
         innerMessages.value = [];
         const pendingMessages: Promise<StateMessage>[] = [];
+
         messages.value.forEach((message) => {
             if (typeof message === 'function') {
                 const result = message(inputValue.value);
@@ -64,8 +65,8 @@ export function useInput<T = unknown>(
     const ruleMessages: Ref<StateMessage[]> = ref([]);
     async function checkRules() {
         ruleMessages.value = [];
-
         const pendingRules: Promise<string>[] = [];
+
         rules.value.forEach((rule) => {
             const result = rule(inputValue.value);
             if (!result) {
@@ -81,10 +82,17 @@ export function useInput<T = unknown>(
         if (pendingRules.length === 0) {
             return;
         }
-        const resolvedMessages = (await Promise.all(pendingRules)).map((resolved) => ({
-            state: UIState.DANGER,
-            message: resolved,
-        }));
+        const resolvedMessages = (await Promise.all(pendingRules)).reduce((acc: StateMessage[], resolved) => {
+            if (resolved) {
+                acc.push({
+                    state: UIState.DANGER,
+                    message: resolved,
+                });
+            }
+
+            return acc;
+        }, []);
+
         ruleMessages.value.push(...resolvedMessages);
     }
     watch(rules, checkRules, { deep: true });
