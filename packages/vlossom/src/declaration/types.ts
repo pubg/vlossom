@@ -1,22 +1,26 @@
 import type {
     VsButtonStyleSet,
+    VsChipStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
+    VsLabelValueStyleSet,
+    VsNoticeStyleSet,
     VsPageStyleSet,
+    VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-    VsNoticeStyleSet,
-    VsProgressStyleSet,
 } from '@/components/types';
 import type { Ref } from 'vue';
 
 export enum VsComponent {
     VsButton = 'VsButton',
+    VsChip = 'VsChip',
     VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
     VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
+    VsLabelValue = 'VsLabelValue',
     VsMessage = 'VsMessage',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',
@@ -32,12 +36,14 @@ export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponen
 
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
+    VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
-    VsSection?: { [key: string]: VsSectionStyleSet };
+    VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
+    VsSection?: { [key: string]: VsSectionStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
@@ -99,3 +105,5 @@ export interface VsFormProvide {
     updateValid: (id: string, valid: boolean) => void;
     removeFromForm: (id: string) => void;
 }
+
+export type VerticalAlign = 'top' | 'bottom' | '';

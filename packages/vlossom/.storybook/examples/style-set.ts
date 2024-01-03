@@ -3,16 +3,27 @@ import type {
     VsButtonStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
-    VsSectionStyleSet,
-    VsPageStyleSet,
-    VsValueTagStyleSet,
+    VsLabelValueStyleSet,
     VsNoticeStyleSet,
+    VsPageStyleSet,
     VsProgressStyleSet,
+    VsSectionStyleSet,
+    VsValueTagStyleSet,
+    VsChipStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
+};
+
+const vsChip: VsChipStyleSet = {
+    backgroundColor: '#a5d6ad',
+    borderRadius: '1.2rem',
+    color: '#304d30',
+    height: '3rem',
+    minHeight: '2rem',
+    padding: '0.8rem 1.5rem',
 };
 
 const vsDivider: VsDividerStyleSet = {
@@ -24,6 +35,16 @@ const vsDivider: VsDividerStyleSet = {
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',
     color: '#1e88e5',
+};
+
+const vsLabelValue: VsLabelValueStyleSet = {
+    backgroundColor: '#f5f5f5',
+    fontSize: '0.95rem',
+    labelBackgroundColor: '#18122b',
+    labelColor: '#ffffff',
+    labelFontWeight: '550',
+    labelWidth: '10%',
+    padding: '2rem',
 };
 
 const vsNotice: VsNoticeStyleSet = {
@@ -45,6 +66,12 @@ const vsPage: VsPageStyleSet = {
     padding: '0.8rem 1.5rem',
 };
 
+const vsProgress: VsProgressStyleSet = {
+    borderRadius: '0.2rem',
+    height: '0.5rem',
+    width: '100%',
+};
+
 const vsValueTag: VsValueTagStyleSet = {
     backgroundColor: '#b6c4b6',
     color: '#304d30',
@@ -53,19 +80,15 @@ const vsValueTag: VsValueTagStyleSet = {
     width: '50%',
 };
 
-const vsProgress: VsProgressStyleSet = {
-    borderRadius: '0.2rem',
-    height: '0.5rem',
-    width: '100%',
-};
-
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
+    VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
+    VsLabelValue: { myStyleSet: vsLabelValue },
     VsNotice: { myStyleSet: vsNotice },
-    VsSection: { myStyleSet: vsSection },
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
+    VsSection: { myStyleSet: vsSection },
     VsValueTag: { myStyleSet: vsValueTag },
 };
