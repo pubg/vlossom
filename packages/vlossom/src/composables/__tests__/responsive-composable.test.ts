@@ -65,6 +65,17 @@ describe('useResponsiveWidth composable', () => {
     });
 
     describe('grid', () => {
+        it('When both string type width and grid are present, string type width takes precedence', () => {
+            const { widthVariables, widthClasses, widthProperties } = useResponsiveWidth(
+                ref('400px'),
+                ref({ xl: 1, lg: 2, md: 3, sm: 4, xs: 6 }),
+            );
+
+            expect(widthVariables.value).toEqual({});
+            expect(widthClasses.value).toEqual([]);
+            expect(widthProperties.value).toEqual({ width: '400px' });
+        });
+
         it('grid with all breakpoints', () => {
             const { widthVariables, widthClasses, widthProperties } = useResponsiveWidth(
                 ref({}),

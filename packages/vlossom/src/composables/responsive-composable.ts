@@ -11,7 +11,7 @@ export function getResponsiveProps() {
 export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid: Ref<Breakpoints>) {
     const responsiveWidth: ComputedRef<Breakpoints | string> = computed(() => {
         if (typeof width.value === 'string') {
-            return {};
+            return width.value;
         }
 
         if (Object.keys(grid.value).length > 0) {
@@ -59,15 +59,9 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid
     });
 
     const widthProperties: ComputedRef<Record<string, string>> = computed(() => {
-        if (width.value === null) {
+        if (typeof responsiveWidth.value === 'string') {
             return {
-                width: '100%',
-            };
-        }
-
-        if (typeof width.value === 'string') {
-            return {
-                width: width.value,
+                width: responsiveWidth.value,
             };
         }
 
