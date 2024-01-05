@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, verticalAlign } from '@/storybook/args';
 import VsFooter from './../VsFooter.vue';
 
 const meta: Meta<typeof VsFooter> = {
@@ -15,6 +15,7 @@ const meta: Meta<typeof VsFooter> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        verticalAlign,
     },
 };
 export default meta;
@@ -72,6 +73,42 @@ export const Primary: Story = {
 			</div>
 		`,
     }),
+};
+
+export const VerticalAlignTop: Story = {
+    render: (args: any) => ({
+        components: { VsFooter },
+        setup() {
+            const styleSet = {
+                height: '200px',
+            };
+            return { args, styleSet };
+        },
+        template: `
+			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
+		`,
+    }),
+    args: {
+        verticalAlign: 'top',
+    },
+};
+
+export const VerticalAlignBottom: Story = {
+    render: (args: any) => ({
+        components: { VsFooter },
+        setup() {
+            const styleSet = {
+                height: '200px',
+            };
+            return { args, styleSet };
+        },
+        template: `
+			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
+		`,
+    }),
+    args: {
+        verticalAlign: 'bottom',
+    },
 };
 
 export const StyleSet: Story = {

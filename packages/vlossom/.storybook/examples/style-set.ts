@@ -34,7 +34,7 @@ const vsDivider: VsDividerStyleSet = {
 };
 
 const vsFooter: VsFooterStyleSet = {
-    backgroundColor: 'ivory',
+    backgroundColor: '#fff',
     color: '#000',
     height: '200px',
     padding: '2%',
