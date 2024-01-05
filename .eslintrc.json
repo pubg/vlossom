@@ -46,7 +46,7 @@
         "max-len": [
             "warn",
             {
-                "code": 150,
+                "code": 120,
                 "ignoreComments": true,
                 "ignoreTrailingComments": true,
                 "ignoreUrls": true,
