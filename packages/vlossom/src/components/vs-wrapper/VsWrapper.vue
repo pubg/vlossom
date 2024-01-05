@@ -12,7 +12,7 @@ import { VsComponent, type Breakpoints } from '@/declaration/types';
 export default defineComponent({
     name: VsComponent.VsWrapper,
     props: {
-        width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
+        width: { type: [String, Object] as PropType<string | Breakpoints>, default: null },
         grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
     },
     setup(props) {

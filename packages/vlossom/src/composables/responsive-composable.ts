@@ -1,17 +1,17 @@
-import { PropType, Ref, computed } from 'vue';
+import { ComputedRef, PropType, Ref, computed } from 'vue';
 import type { Breakpoints } from '@/declaration/types';
 
 export function getResponsiveProps() {
     return {
+        width: { type: [String, Object] as PropType<string | Breakpoints>, default: null },
         grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
-        width: { type: [String, Object] as PropType<string | Breakpoints>, default: '100%' },
     };
 }
 
-export function useResponsiveWidth(width: Ref<string | Breakpoints>, grid: Ref<Breakpoints>) {
-    const responsiveWidth = computed(() => {
+export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid: Ref<Breakpoints>) {
+    const responsiveWidth: ComputedRef<Breakpoints | string> = computed(() => {
         if (typeof width.value === 'string') {
-            return {};
+            return width.value;
         }
 
         if (Object.keys(grid.value).length > 0) {
@@ -23,10 +23,14 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints>, grid: Ref<B
             }, {} as Breakpoints);
         }
 
-        return width.value;
+        return width.value ?? '100%';
     });
 
-    const widthVariables = computed(() => {
+    const widthVariables: ComputedRef<Record<string, string>> = computed(() => {
+        if (typeof responsiveWidth.value === 'string') {
+            return {};
+        }
+
         const { xs, sm, md, lg, xl } = responsiveWidth.value;
 
         return {
@@ -38,7 +42,11 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints>, grid: Ref<B
         };
     });
 
-    const widthClasses = computed(() => {
+    const widthClasses: ComputedRef<string[]> = computed(() => {
+        if (typeof responsiveWidth.value === 'string') {
+            return [];
+        }
+
         const { xs, sm, md, lg, xl } = responsiveWidth.value;
 
         return [
@@ -50,10 +58,10 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints>, grid: Ref<B
         ];
     });
 
-    const widthProperties = computed(() => {
-        if (typeof width.value === 'string') {
+    const widthProperties: ComputedRef<Record<string, string>> = computed(() => {
+        if (typeof responsiveWidth.value === 'string') {
             return {
-                width: width.value,
+                width: responsiveWidth.value,
             };
         }
 
