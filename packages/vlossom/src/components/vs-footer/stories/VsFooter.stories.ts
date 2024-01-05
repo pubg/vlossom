@@ -48,6 +48,32 @@ export const ColorScheme: Story = {
     }),
 };
 
+export const Primary: Story = {
+    parameters: {
+        a11y: {
+            disable: true,
+            /* To allow multiple footers (Please refer to the links below)
+			- https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/contentinfo.html
+			- https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/
+			*/
+        },
+    },
+    render: () => ({
+        components: { VsFooter },
+        setup() {
+            const colorOptions = [...colorScheme.options];
+            return { colorOptions };
+        },
+        template: `
+			<div>
+                <div :style="{marginBottom: '1rem'}" v-for="(color, index) in colorOptions" :key="index">
+					<vs-footer :color-scheme="color" primary> This is Footer Content </vs-footer>
+				</div>
+			</div>
+		`,
+    }),
+};
+
 export const StyleSet: Story = {
     args: {
         styleSet: { backgroundColor: '#000', color: '#fff', height: '60px', padding: '10px', textAlign: 'center' },
