@@ -1,6 +1,8 @@
 import type { StyleSet } from '@/declaration/types';
 import type {
     VsButtonStyleSet,
+    VsCheckboxStyleSet,
+    VsChipStyleSet,
     VsDividerStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
@@ -9,12 +11,22 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-    VsChipStyleSet,
 } from '@/components/types';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
+};
+
+const vsCheckbox: VsCheckboxStyleSet = {
+    backgroundColor: '#0288d1',
+    border: '2px solid #0288d1',
+    borderRadius: '0.4rem',
+    checkLabelColor: '#0288d1',
+    fontSize: '1.2rem',
+    height: '1.4rem',
+    iconColor: '#ffb300',
+    width: '1.4rem',
 };
 
 const vsChip: VsChipStyleSet = {
@@ -82,6 +94,7 @@ const vsValueTag: VsValueTagStyleSet = {
 
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
+    VsCheckbox: { myStyleSet: vsCheckbox },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsInput: { myStyleSet: vsInput },
