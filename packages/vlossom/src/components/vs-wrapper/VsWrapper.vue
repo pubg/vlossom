@@ -1,5 +1,5 @@
 <template>
-    <div :style="widthProperties" :class="widthClasses">
+    <div class="vs-wrapper" :style="widthProperties" :class="widthClasses">
         <slot />
     </div>
 </template>

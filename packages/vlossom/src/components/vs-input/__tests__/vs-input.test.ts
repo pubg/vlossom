@@ -18,9 +18,6 @@ describe('vs-input', () => {
                 },
             });
 
-            // when
-            await nextTick();
-
             // then
             expect(wrapper.find('input').element.value).toBe('initialText');
         });
@@ -34,9 +31,6 @@ describe('vs-input', () => {
                     type: InputType.NUMBER,
                 },
             });
-
-            // when
-            await nextTick();
 
             // then
             expect(wrapper.find('input').element.value).toBe('123');
@@ -264,6 +258,23 @@ describe('vs-input', () => {
             expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.props('modelValue')).toBe('');
         });
+
+        it('clear 함수를 호출하면 input 값을 초기화 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 'initialText',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                },
+            });
+
+            // when
+            wrapper.vm.clear();
+            await nextTick();
+
+            // then
+            expect(wrapper.find('input').element.value).toBe('');
+        });
     });
 
     describe('prepend / append', () => {
@@ -475,6 +486,36 @@ describe('vs-input', () => {
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
             expect(wrapper.html()).toContain('min value: 3');
+        });
+    });
+
+    describe('validate', () => {
+        it('valid 할 때 validate 함수를 호출하면 true를 리턴한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 'test',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    required: true,
+                },
+            });
+
+            // then
+            expect(wrapper.vm.validate()).toBe(true);
+        });
+
+        it('invalid 할 때 validate 함수를 호출하면 false를 리턴한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    required: true,
+                },
+            });
+
+            // then
+            expect(wrapper.vm.validate()).toBe(false);
         });
     });
 });
