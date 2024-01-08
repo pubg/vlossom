@@ -75,6 +75,63 @@ describe('vs-checkbox', () => {
         });
     });
 
+    describe('true / false value', () => {
+        it('true-value, false-value를 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: 'A',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                    falseValue: 'B',
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+
+        it('checkbox를 true로 업데이트하면 modelValue를 true-value 값으로 업데이트 한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: 'B',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                    falseValue: 'B',
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue(true);
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual(['A']);
+        });
+
+        it('checkbox를 false로 업데이트하면 modelValue를 false-value 값으로 업데이트 한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: 'A',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                    falseValue: 'B',
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue(false);
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual(['B']);
+        });
+    });
+
     describe('clear', () => {
         it('clear 함수를 호출하면 input 값을 초기화 할 수 있다', async () => {
             // given

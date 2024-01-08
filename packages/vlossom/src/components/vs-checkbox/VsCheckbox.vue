@@ -14,9 +14,10 @@
                     <input
                         type="checkbox"
                         :id="id"
+                        :disabled="disabled || readonly"
                         :name="name"
                         :value="value"
-                        :checked="inputValue"
+                        :checked="isChecked"
                         @change="toggle"
                     />
                 </div>
@@ -54,7 +55,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, CheckIcon },
     props: {
-        ...getInputProps<boolean>(),
+        ...getInputProps<any>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
@@ -65,8 +66,10 @@ export default defineComponent({
         checkLabel: { type: String, default: '' },
         name: { type: String, default: '' },
         value: { type: String, default: '' },
+        trueValue: { type: null, default: true },
+        falseValue: { type: null, default: false },
         // v-model
-        modelValue: { type: Boolean, default: false },
+        modelValue: { type: null, default: false },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change'],
     expose: ['clear', 'validate'],
@@ -82,21 +85,25 @@ export default defineComponent({
             readonly,
             required,
             rules,
+            trueValue,
+            falseValue,
         } = toRefs(props);
-
-        const classObj = computed(() => ({
-            checked: inputValue.value,
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(name, styleSet);
 
-        const id = stringUtil.createID();
-
         const inputValue = ref(modelValue.value);
+
+        const isChecked = computed(() => inputValue.value === trueValue.value);
+
+        const classObj = computed(() => ({
+            checked: isChecked.value,
+            disabled: disabled.value,
+            readonly: readonly.value,
+        }));
+
+        const id = stringUtil.createID();
 
         function requiredCheck(v: boolean) {
             return required.value && !v ? 'required' : '';
@@ -109,10 +116,10 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = Boolean(modelValue.value);
+                    inputValue.value = modelValue.value === trueValue.value ? trueValue.value : falseValue.value;
                 },
                 onClear: () => {
-                    inputValue.value = false;
+                    inputValue.value = falseValue.value;
                 },
             },
         });
@@ -127,10 +134,11 @@ export default defineComponent({
             }
 
             const target = e.target as HTMLInputElement;
-            inputValue.value = target.checked;
+            inputValue.value = target.checked ? trueValue.value : falseValue.value;
         }
 
         return {
+            isChecked,
             classObj,
             computedColorScheme,
             customProperties,
