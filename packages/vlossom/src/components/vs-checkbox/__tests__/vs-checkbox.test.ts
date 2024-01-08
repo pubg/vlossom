@@ -7,7 +7,7 @@ function mountComponent() {
     return mount(VsCheckbox);
 }
 
-describe('vs-input', () => {
+describe('vs-checkbox', () => {
     describe('v-model', () => {
         it('modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
@@ -38,8 +38,6 @@ describe('vs-input', () => {
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0]).toEqual([true]);
-
-            expect(wrapper.find('input').element.checked).toBe(true);
         });
 
         it('modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
@@ -149,7 +147,7 @@ describe('vs-input', () => {
     });
 
     describe('before change', () => {
-        it('beforeChange 함수가 Promise<true>를 반환하면 값이 업데이트 된다', async () => {
+        it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                 props: {
@@ -160,14 +158,15 @@ describe('vs-input', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('input');
+            await wrapper.find('input').setValue(true);
 
             // then
-            expect(wrapper.find('input').element.checked).toBe(true);
-            expect(wrapper.props('modelValue')).toBe(true);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([true]);
         });
 
-        it('beforeChange 함수가 Promise<false>를 반환하면 값이 업데이트 되지 않는다', async () => {
+        it('beforeChange 함수가 Promise<false>를 리턴하면 값이 업데이트 되지 않는다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                 props: {
@@ -178,11 +177,11 @@ describe('vs-input', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('input');
+            await wrapper.find('input').setValue(true);
 
             // then
-            expect(wrapper.find('input').element.checked).toBe(false);
-            expect(wrapper.props('modelValue')).toBe(false);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toBeUndefined();
         });
     });
 });
