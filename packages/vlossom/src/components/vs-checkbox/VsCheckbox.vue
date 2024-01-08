@@ -11,7 +11,14 @@
             <div :class="['vs-checkbox', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
                 <div class="checkbox">
                     <check-icon class="check-icon" />
-                    <input type="checkbox" :id="id" :name="name" :value="value" :checked="inputValue" @input="toggle" />
+                    <input
+                        type="checkbox"
+                        :id="id"
+                        :name="name"
+                        :value="value"
+                        :checked="inputValue"
+                        @change="toggle"
+                    />
                 </div>
                 <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
             </div>
@@ -110,7 +117,7 @@ export default defineComponent({
             },
         });
 
-        async function toggle() {
+        async function toggle(e: Event) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value);
@@ -119,7 +126,8 @@ export default defineComponent({
                 }
             }
 
-            inputValue.value = !inputValue.value;
+            const target = e.target as HTMLInputElement;
+            inputValue.value = target.checked;
         }
 
         return {
