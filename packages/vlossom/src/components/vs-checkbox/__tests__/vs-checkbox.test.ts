@@ -60,7 +60,6 @@ describe('vs-checkbox', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                 props: {
-                    // @ts-expect-error: for null test
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
                 },
