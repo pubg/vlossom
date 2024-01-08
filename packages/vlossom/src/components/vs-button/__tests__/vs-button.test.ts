@@ -19,7 +19,7 @@ describe('vs-button', () => {
     });
 
     describe('loading', () => {
-        it('loading인 경우에 rotate right 아이콘이 나타난다', () => {
+        it('loading인 경우에 loading 아이콘이 나타난다', () => {
             // given
             const wrapper = mount(VsButton, {
                 props: {
@@ -29,7 +29,7 @@ describe('vs-button', () => {
 
             // then
             expect(wrapper.props('loading')).toBe(true);
-            expect(wrapper.findComponent({ name: 'rotate-right' }).exists()).toBe(true);
+            expect(wrapper.find('svg[aria-label="loading"]').exists()).toBe(true);
         });
     });
 });
