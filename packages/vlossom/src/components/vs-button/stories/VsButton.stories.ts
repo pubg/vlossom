@@ -76,7 +76,9 @@ export const MobileFull: Story = {
     },
     parameters: {
         chromatic: {
-            modes: modes.mobile,
+            modes: {
+                mobile: modes.mobile,
+            },
         },
     },
 };
