@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsPage from '../VsPage.vue';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsPage> = {
     title: 'Components/Layout Components/VsPage',
@@ -27,12 +27,7 @@ type Story = StoryObj<typeof VsPage>;
 
 export const Default: Story = {
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 

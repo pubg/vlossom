@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsDivider from '../VsDivider.vue';
 import { colorScheme } from '@/storybook/args';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsDivider> = {
     title: 'Components/Base Components/VsDivider',
@@ -25,12 +25,7 @@ type Story = StoryObj<typeof VsDivider>;
 
 export const Default: Story = {
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -54,12 +49,7 @@ export const ColorScheme: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -107,11 +97,7 @@ export const VerticalWithMobileFull: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                mobile: modes.mobile,
-            },
-        },
+        chromatic: chromaticParameters.mobile,
     },
 };
 

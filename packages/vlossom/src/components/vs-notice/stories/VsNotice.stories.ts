@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import VsNotice from '../VsNotice.vue';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsNotice> = {
     title: 'Components/Base Components/VsNotice',
@@ -44,12 +44,7 @@ export const ColorScheme: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -73,12 +68,7 @@ export const Primary: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 import VsButton from './../VsButton.vue';
 import { ref } from 'vue';
 
@@ -42,12 +42,7 @@ export const ColorScheme: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -62,12 +57,7 @@ export const Disabled: Story = {
         disabled: true,
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -100,11 +90,7 @@ export const MobileFull: Story = {
         mobileFull: true,
     },
     parameters: {
-        chromatic: {
-            modes: {
-                mobile: modes.mobile,
-            },
-        },
+        chromatic: chromaticParameters.mobile,
     },
 };
 
@@ -127,12 +113,7 @@ export const Outline: Story = {
         outline: true,
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -155,12 +136,7 @@ export const Primary: Story = {
         primary: true,
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
