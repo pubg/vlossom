@@ -6,6 +6,7 @@ import VsInput, { InputType } from '../VsInput.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import SearchIcon from '@/assets/icons/search';
 import { UIState } from '@/declaration/types';
+import { modes } from '@/storybook/chromatic-modes';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -34,16 +35,7 @@ meta.args = getMetaArguments(VsInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsInput>;
 
-export const Default: Story = {
-    parameters: {
-        chromatic: {
-            modes: {
-                light: { backgrounds: { value: '#f8f8f8' } },
-                dark: { backgrounds: { value: '#24252a' } },
-            },
-        },
-    },
-};
+export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
@@ -67,6 +59,14 @@ export const ColorScheme: Story = {
     args: {
         placeholder: 'this is placeholder',
     },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Dense: Story = {
@@ -78,6 +78,14 @@ export const Dense: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
     },
 };
 
@@ -152,6 +160,14 @@ export const Prepend: Story = {
     args: {
         placeholder: 'email',
     },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Append: Story = {
@@ -170,6 +186,14 @@ export const Append: Story = {
     }),
     args: {
         placeholder: 'email',
+    },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
     },
 };
 

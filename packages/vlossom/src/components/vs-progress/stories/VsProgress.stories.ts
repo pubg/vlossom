@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import VsProgress from './../VsProgress.vue';
+import { modes } from '@/storybook/chromatic-modes';
 
 const meta: Meta<typeof VsProgress> = {
     title: 'Components/Base Components/VsProgress',
@@ -43,6 +44,14 @@ export const ColorScheme: Story = {
 			</div>
 		`,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Primary: Story = {
@@ -61,6 +70,14 @@ export const Primary: Story = {
 			</div>
 		`,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const StyleSet: Story = {

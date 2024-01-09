@@ -23,7 +23,16 @@ const meta: Meta<typeof VsDivider> = {
 export default meta;
 type Story = StoryObj<typeof VsDivider>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
+};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
@@ -44,6 +53,14 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const StyleSet: Story = {

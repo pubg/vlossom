@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsLabelValue from '../VsLabelValue.vue';
 import { colorScheme, verticalAlign } from '@/storybook/args';
+import { modes } from '@/storybook/chromatic-modes';
 
 const value = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Possimus, voluptatem cum? Atque facilis mollitia distinctio
@@ -9,7 +10,7 @@ perferendis sed voluptates omnis sit maxime ad! Porro incidunt
 voluptatem quaerat sint itaque, blanditiis excepturi!`;
 
 const meta: Meta<typeof VsLabelValue> = {
-    title: 'Components/Layout Components/VsLabelValue',
+    title: 'Components/Base Components/VsLabelValue',
     component: VsLabelValue,
     render: (args: any) => ({
         components: { VsLabelValue },
@@ -49,6 +50,14 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Primary: Story = {
@@ -70,6 +79,14 @@ export const Primary: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const HasActions: Story = {
