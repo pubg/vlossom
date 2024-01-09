@@ -6,6 +6,7 @@ import VsChip from './../VsChip.vue';
 import CheckIcon from '@/assets/icons/check';
 import PersonIcon from '@/assets/icons/person';
 import { userEvent, within } from '@storybook/testing-library';
+import { modes } from '@/storybook/chromatic-modes';
 
 const meta: Meta<typeof VsChip> = {
     title: 'Components/Base Components/VsChip',
@@ -43,6 +44,14 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Closable: Story = {
@@ -71,6 +80,14 @@ export const Closable: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const NoRound: Story = {
@@ -109,6 +126,14 @@ export const Primary: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const StyleSet: Story = {

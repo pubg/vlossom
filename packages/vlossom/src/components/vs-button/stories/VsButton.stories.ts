@@ -44,6 +44,14 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const Dense: Story = {
@@ -55,6 +63,14 @@ export const Dense: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
     },
 };
 
@@ -71,6 +87,18 @@ export const Loading: Story = {
 };
 
 export const MobileFull: Story = {
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                <vs-button v-bind="args">Button</vs-button>
+                <vs-button v-bind="args">Button</vs-button>
+            </div>
+        `,
+    }),
     args: {
         mobileFull: true,
     },
@@ -108,6 +136,14 @@ export const Primary: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
+    },
 };
 
 export const StyleSet: Story = {
