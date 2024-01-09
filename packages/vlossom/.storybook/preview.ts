@@ -29,7 +29,7 @@ const decorators = [
 
         return {
             components: { story },
-            template: '<story />',
+            template: '<div style="margin: 2rem;"><story /></div>',
         };
     },
 ];
@@ -55,6 +55,13 @@ const preview: Preview = {
                     value: '#24252a',
                 },
             ],
+        },
+        viewport: {
+            viewports: {
+                mobile: { name: 'Mobile', styles: { width: '390px', height: '800px' } },
+                tablet: { name: 'Tablet', styles: { width: '834px', height: '1000px' } },
+                desktop: { name: 'Desktop', styles: { width: '1440px', height: '1000px' } },
+            },
         },
         a11y: {
             config: {

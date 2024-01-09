@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsSection from './../VsSection.vue';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsSection> = {
     title: 'Components/Layout Components/VsSection',
@@ -43,6 +44,9 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const HasTitle: Story = {
