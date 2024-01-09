@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsDivider from '../VsDivider.vue';
 import { colorScheme } from '@/storybook/args';
+import { modes } from '@/storybook/chromatic-modes';
 
 const meta: Meta<typeof VsDivider> = {
     title: 'Components/Base Components/VsDivider',
@@ -88,6 +89,11 @@ export const VerticalWithMobileFull: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: {
+            modes: modes.mobile,
+        },
+    },
 };
 
 export const VerticalWithStyleSet: Story = {

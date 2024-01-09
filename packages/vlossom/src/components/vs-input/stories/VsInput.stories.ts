@@ -34,7 +34,16 @@ meta.args = getMetaArguments(VsInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsInput>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        chromatic: {
+            modes: {
+                light: { backgrounds: { value: '#f8f8f8' } },
+                dark: { backgrounds: { value: '#24252a' } },
+            },
+        },
+    },
+};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({

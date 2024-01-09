@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
+import { modes } from '@/storybook/chromatic-modes';
 import VsButton from './../VsButton.vue';
 
 const meta: Meta<typeof VsButton> = {
@@ -72,6 +73,11 @@ export const Loading: Story = {
 export const MobileFull: Story = {
     args: {
         mobileFull: true,
+    },
+    parameters: {
+        chromatic: {
+            modes: modes.mobile,
+        },
     },
 };
 
