@@ -6,7 +6,7 @@ import VsChip from './../VsChip.vue';
 import CheckIcon from '@/assets/icons/check';
 import PersonIcon from '@/assets/icons/person';
 import { userEvent, within } from '@storybook/testing-library';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsChip> = {
     title: 'Components/Base Components/VsChip',
@@ -45,12 +45,7 @@ export const ColorScheme: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -81,12 +76,7 @@ export const Closable: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -127,12 +117,7 @@ export const Primary: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 

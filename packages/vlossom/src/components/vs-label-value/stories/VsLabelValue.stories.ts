@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsLabelValue from '../VsLabelValue.vue';
 import { colorScheme, verticalAlign } from '@/storybook/args';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const value = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Possimus, voluptatem cum? Atque facilis mollitia distinctio
@@ -51,12 +51,7 @@ export const ColorScheme: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -80,12 +75,7 @@ export const Primary: Story = {
         `,
     }),
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 

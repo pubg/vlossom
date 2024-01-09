@@ -6,7 +6,7 @@ import VsInput, { InputType } from '../VsInput.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import SearchIcon from '@/assets/icons/search';
 import { UIState } from '@/declaration/types';
-import { modes } from '@/storybook/chromatic-modes';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -60,12 +60,7 @@ export const ColorScheme: Story = {
         placeholder: 'this is placeholder',
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -80,12 +75,7 @@ export const Disabled: Story = {
         disabled: true,
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -161,12 +151,7 @@ export const Prepend: Story = {
         placeholder: 'email',
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -188,12 +173,7 @@ export const Append: Story = {
         placeholder: 'email',
     },
     parameters: {
-        chromatic: {
-            modes: {
-                light: modes.light,
-                dark: modes.dark,
-            },
-        },
+        chromatic: chromaticParameters.theme,
     },
 };
 
