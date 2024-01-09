@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import { modes } from '@/storybook/chromatic-modes';
 import VsButton from './../VsButton.vue';
+import { ref } from 'vue';
 
 const meta: Meta<typeof VsButton> = {
     title: 'Components/Base Components/VsButton',
@@ -26,21 +27,17 @@ type Story = StoryObj<typeof VsButton>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    render: (args: any) => ({
+    render: () => ({
         components: { VsButton },
         setup() {
-            return { args };
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions };
         },
         template: `
             <div>
-                <vs-button color-scheme="red">Button</vs-button>
-                <vs-button color-scheme="amber">Button</vs-button>
-                <vs-button color-scheme="green">Button</vs-button>
-                <vs-button color-scheme="teal">Button</vs-button>
-                <vs-button color-scheme="blue">Button</vs-button>
-                <vs-button color-scheme="indigo">Button</vs-button>
-                <vs-button color-scheme="purple">Button</vs-button>
-                <vs-button color-scheme="pink">Button</vs-button>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color">
+					Button
+				</vs-button>
             </div>
         `,
     }),
@@ -112,8 +109,30 @@ export const MobileFull: Story = {
 };
 
 export const Outline: Story = {
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions, args };
+        },
+        template: `
+            <div>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
+					Button
+				</vs-button>
+            </div>
+        `,
+    }),
     args: {
         outline: true,
+    },
+    parameters: {
+        chromatic: {
+            modes: {
+                light: modes.light,
+                dark: modes.dark,
+            },
+        },
     },
 };
 
@@ -121,21 +140,20 @@ export const Primary: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
-            return { args };
+            const colorOptions = ref([...colorScheme.options]);
+            return { colorOptions, args };
         },
         template: `
             <div>
-                <vs-button color-scheme="red" primary>Button</vs-button>
-                <vs-button color-scheme="amber" primary>Button</vs-button>
-                <vs-button color-scheme="green" primary>Button</vs-button>
-                <vs-button color-scheme="teal" primary>Button</vs-button>
-                <vs-button color-scheme="blue" primary>Button</vs-button>
-                <vs-button color-scheme="indigo" primary>Button</vs-button>
-                <vs-button color-scheme="purple" primary>Button</vs-button>
-                <vs-button color-scheme="pink" primary>Button</vs-button>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
+					Button
+				</vs-button>
             </div>
         `,
     }),
+    args: {
+        primary: true,
+    },
     parameters: {
         chromatic: {
             modes: {
