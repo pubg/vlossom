@@ -66,6 +66,12 @@ const preview: Preview = {
                 ],
             },
         },
+        // chromatic: {
+        //     modes: {
+        //         light: { backgrounds: { value: '#f8f8f8' } },
+        //         dark: { backgrounds: { value: '#24252a' } },
+        //     },
+        // },
     },
     decorators,
 };
