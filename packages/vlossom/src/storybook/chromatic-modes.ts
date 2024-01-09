@@ -1,5 +1,11 @@
 export const modes = {
     mobile: {
-        viewport: 'mobile1',
+        viewport: 'mobile',
+    },
+    tablet: {
+        viewport: 'tablet',
+    },
+    desktop: {
+        viewport: 'desktop',
     },
 };

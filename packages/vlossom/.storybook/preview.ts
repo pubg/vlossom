@@ -56,6 +56,13 @@ const preview: Preview = {
                 },
             ],
         },
+        viewport: {
+            viewports: {
+                mobile: { name: 'Mobile', styles: { width: '390px', height: '800px' } },
+                tablet: { name: 'Tablet', styles: { width: '834px', height: '1000px' } },
+                desktop: { name: 'Desktop', styles: { width: '1440px', height: '1000px' } },
+            },
+        },
         a11y: {
             config: {
                 rules: [
