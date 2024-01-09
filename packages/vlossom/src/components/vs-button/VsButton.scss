@@ -74,8 +74,8 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-color));
-        color: var(--vs-button-color, var(--vs-comp-color));
+        border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-border-color));
+        color: var(--vs-button-color, var(--vs-comp-border-color));
         font-weight: var(--vs-button-fontWeight, 500);
 
         &:after {
