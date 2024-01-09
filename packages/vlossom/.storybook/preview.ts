@@ -29,7 +29,7 @@ const decorators = [
 
         return {
             components: { story },
-            template: '<div style="margin: 2rem;"><story /><div>',
+            template: '<div style="margin: 2rem;"><story /></div>',
         };
     },
 ];
