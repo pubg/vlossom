@@ -5,40 +5,45 @@
     align-items: center;
     margin: 0.4rem 0.2rem;
     user-select: none;
-    position: relative;
 
-    .checkbox {
+    .checkbox-container {
+        position: relative;
         display: flex;
-        justify-content: center;
-        align-items: center;
 
-        width: var(--vs-checkbox-width, 1rem);
-        height: var(--vs-checkbox-height, 1rem);
-        border: var(--vs-checkbox-border, 2px solid var(--vs-comp-border-color));
-        border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+        .checkbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
 
-        .check-icon {
-            width: var(--vs-checkbox-width, 1rem);
-            height: var(--vs-checkbox-height, 1rem);
-            color: transparent;
-            transition: all 0.2s ease;
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+            border: var(--vs-checkbox-border, 2px solid var(--vs-comp-border-color));
+            border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+
+            .check-icon {
+                width: 100%;
+                height: 100%;
+                color: transparent;
+                transition: all 0.2s ease;
+            }
         }
 
-        &:focus-visible {
-            outline: none;
-            box-shadow: 0 0 4px 1px var(--vs-comp-border-color);
-        }
-    }
+        input[type='checkbox'] {
+            appearance: none;
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
 
-    input[type='checkbox'] {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-        margin: 0;
+            &:focus-visible {
+                border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+                box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            }
+        }
     }
 
     label {

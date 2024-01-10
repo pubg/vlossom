@@ -9,21 +9,22 @@
             :shake="shake"
         >
             <div :class="['vs-checkbox', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
-                <div class="checkbox" tabindex="0">
-                    <check-icon class="check-icon" />
+                <div class="checkbox-container">
+                    <span class="checkbox">
+                        <check-icon class="check-icon" />
+                    </span>
+                    <input
+                        type="checkbox"
+                        :id="id"
+                        :disabled="disabled || readonly"
+                        :name="name"
+                        :value="value"
+                        :checked="isChecked"
+                        @change="toggle"
+                        @focus="onFocus"
+                        @blur="onBlur"
+                    />
                 </div>
-                <input
-                    type="checkbox"
-                    tabindex="-1"
-                    :id="id"
-                    :disabled="disabled || readonly"
-                    :name="name"
-                    :value="value"
-                    :checked="isChecked"
-                    @change="toggle"
-                    @focus="onFocus"
-                    @blur="onBlur"
-                />
                 <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
             </div>
         </vs-input-wrapper>
@@ -44,6 +45,7 @@ interface CheckboxStyleSet {
     border: string;
     borderRadius: string;
     checkLabelColor: string;
+    focusBoxShadow: string;
     fontSize: string;
     height: string;
     iconColor: string;
