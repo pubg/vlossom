@@ -8,8 +8,13 @@
             <slot />
         </span>
 
-        <button v-if="closable" type="button" :class="['vs-chip-icon', 'vs-chip-close', { primary }]" @click.stop="$emit('close')">
-            <close aria-label="close" class="close-icon" />
+        <button
+            v-if="closable"
+            type="button"
+            :class="['vs-chip-icon', 'vs-chip-close', { primary }]"
+            @click.stop="$emit('close')"
+        >
+            <close-icon aria-label="close" class="close-icon" />
         </button>
     </div>
 </template>
@@ -18,7 +23,7 @@
 import { PropType, computed, defineComponent, toRefs, useAttrs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration/types';
-import Close from '@/assets/icons/close';
+import CloseIcon from '@/assets/icons/close';
 
 interface ChipStyleSet {
     backgroundColor: string;
@@ -42,7 +47,7 @@ const name = VsComponent.VsChip;
 
 export default defineComponent({
     name,
-    components: { Close },
+    components: { CloseIcon },
     props: {
         closable: { type: Boolean, default: false },
         colorScheme: { type: String as PropType<ColorScheme> },
