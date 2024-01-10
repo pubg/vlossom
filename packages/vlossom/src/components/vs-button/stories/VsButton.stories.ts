@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsButton from './../VsButton.vue';
-import { ref } from 'vue';
 
 const meta: Meta<typeof VsButton> = {
     title: 'Components/Base Components/VsButton',
@@ -30,7 +29,7 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsButton },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -98,7 +97,7 @@ export const Outline: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions, args };
         },
         template: `
@@ -121,7 +120,7 @@ export const Primary: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions, args };
         },
         template: `

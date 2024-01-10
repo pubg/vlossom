@@ -33,7 +33,7 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -84,7 +84,7 @@ export const NoRound: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -103,7 +103,7 @@ export const Primary: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
