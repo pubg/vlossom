@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme, verticalAlign } from '@/storybook/args';
 import VsFooter from './../VsFooter.vue';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsFooter> = {
     title: 'Components/Layout Components/VsFooter',
@@ -32,6 +33,7 @@ export const ColorScheme: Story = {
 			- https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/
 			*/
         },
+        chromatic: chromaticParameters.theme,
     },
     render: () => ({
         components: { VsFooter },
@@ -58,6 +60,7 @@ export const Primary: Story = {
 			- https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/
 			*/
         },
+        chromatic: chromaticParameters.theme,
     },
     render: () => ({
         components: { VsFooter },
