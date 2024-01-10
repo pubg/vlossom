@@ -9,18 +9,21 @@
             :shake="shake"
         >
             <div :class="['vs-checkbox', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
-                <div class="checkbox">
+                <div class="checkbox" tabindex="0">
                     <check-icon class="check-icon" />
-                    <input
-                        type="checkbox"
-                        :id="id"
-                        :disabled="disabled || readonly"
-                        :name="name"
-                        :value="value"
-                        :checked="isChecked"
-                        @change="toggle"
-                    />
                 </div>
+                <input
+                    type="checkbox"
+                    tabindex="-1"
+                    :id="id"
+                    :disabled="disabled || readonly"
+                    :name="name"
+                    :value="value"
+                    :checked="isChecked"
+                    @change="toggle"
+                    @focus="onFocus"
+                    @blur="onBlur"
+                />
                 <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
             </div>
         </vs-input-wrapper>
@@ -71,7 +74,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: null, default: false },
     },
-    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change'],
+    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
         const {
@@ -88,6 +91,8 @@ export default defineComponent({
             trueValue,
             falseValue,
         } = toRefs(props);
+
+        const { emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -137,6 +142,14 @@ export default defineComponent({
             inputValue.value = target.checked ? trueValue.value : falseValue.value;
         }
 
+        function onFocus() {
+            emit('focus');
+        }
+
+        function onBlur() {
+            emit('blur');
+        }
+
         return {
             isChecked,
             classObj,
@@ -149,6 +162,8 @@ export default defineComponent({
             validate,
             clear,
             toggle,
+            onFocus,
+            onBlur,
         };
     },
 });

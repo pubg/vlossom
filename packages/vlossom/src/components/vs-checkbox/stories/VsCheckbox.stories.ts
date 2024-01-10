@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsCheckbox from '../VsCheckbox.vue';
-import { ref } from 'vue';
 import { UIState } from '@/declaration/types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
@@ -34,7 +33,7 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsCheckbox },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -85,6 +84,7 @@ export const Width: Story = {
         template: `
             <vs-container>
                 <vs-checkbox v-bind="args" />
+                <vs-checkbox v-bind="args" />
             </vs-container>
         `,
     }),
@@ -102,11 +102,12 @@ export const Grid: Story = {
         template: `
             <vs-container>
                 <vs-checkbox v-bind="args" />
+                <vs-checkbox v-bind="args" />
             </vs-container>
         `,
     }),
     args: {
-        grid: { sm: 12, md: 6, lg: 3 },
+        grid: { xs: 12, md: 6, lg: 3 },
     },
 };
 
