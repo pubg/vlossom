@@ -2,6 +2,7 @@ import type {
     VsButtonStyleSet,
     VsChipStyleSet,
     VsDividerStyleSet,
+    VsFooterStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsNoticeStyleSet,
@@ -17,6 +18,7 @@ export enum VsComponent {
     VsChip = 'VsChip',
     VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
+    VsFooter = 'VsFooter',
     VsForm = 'VsForm',
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
@@ -38,6 +40,7 @@ export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
+    VsFooter?: { [key: string]: VsFooterStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
@@ -107,3 +110,14 @@ export interface VsFormProvide {
 }
 
 export type VerticalAlign = 'top' | 'bottom' | '';
+
+export type TextAlign =
+    | 'start'
+    | 'end'
+    | 'left'
+    | 'right'
+    | 'center'
+    | 'justify'
+    | 'justify-all'
+    | 'match-parent'
+    | 'inherit';

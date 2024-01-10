@@ -1,0 +1,13 @@
+footer {
+    background-color: var(--vs-footer-backgroundColor, var(--vs-comp-backgroundColor));
+    color: var(--vs-footer-color, var(--vs-comp-color));
+    flex: 1 1 auto;
+    height: var(--vs-footer-height, auto);
+    padding: var(--vs-footer-padding);
+    text-align: var(--vs-footer-textAlign, inherit);
+
+    &.primary {
+        background-color: var(--vs-footer-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        color: var(--vs-footer-color, var(--vs-comp-color-primary));
+    }
+}
