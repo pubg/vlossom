@@ -4,7 +4,6 @@
 }
 
 @mixin disabled {
-    background-color: var(--vs-area-backgroundColor);
     opacity: 0.5;
     filter: grayscale(0.7);
     pointer-events: none;

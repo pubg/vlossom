@@ -108,7 +108,7 @@ export default defineComponent({
         'prepend',
         'append',
     ],
-    expose: ['focus', 'blur', 'select', 'clear'],
+    expose: ['focus', 'blur', 'select', 'clear', 'validate'],
     setup(props, context) {
         const {
             colorScheme,
@@ -119,8 +119,8 @@ export default defineComponent({
             modelValue,
             label,
             messages,
-            rules,
             required,
+            rules,
             max,
             min,
             modelModifiers,
@@ -160,7 +160,7 @@ export default defineComponent({
             inputValue.value = emptyValue;
         }
 
-        const { computedMessages, shake } = useInput(inputValue, modelValue, context, label, {
+        const { computedMessages, shake, validate, clear } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
@@ -250,6 +250,8 @@ export default defineComponent({
             focus,
             blur,
             select,
+            clear,
+            validate,
             onFocus,
             onBlur,
             onEnter,

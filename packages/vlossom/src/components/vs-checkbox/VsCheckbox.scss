@@ -1,0 +1,73 @@
+@use '@/styles/mixin' as *;
+
+.vs-checkbox {
+    display: flex;
+    align-items: center;
+    margin: 0.4rem 0.2rem;
+    user-select: none;
+
+    .checkbox-container {
+        position: relative;
+        display: flex;
+
+        .checkbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+            border: var(--vs-checkbox-border, 2px solid var(--vs-comp-border-color));
+            border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+
+            .check-icon {
+                width: 100%;
+                height: 100%;
+                color: transparent;
+                transition: all 0.2s ease;
+            }
+        }
+
+        input[type='checkbox'] {
+            appearance: none;
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+
+            &:focus-visible {
+                border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+                box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            }
+        }
+    }
+
+    label {
+        margin-left: 0.8rem;
+        font-size: var(--vs-checkbox-fontSize, 1rem);
+        color: var(--vs-checkbox-checkLabelColor, var(--vs-font-color));
+        cursor: pointer;
+    }
+
+    &.checked {
+        .checkbox {
+            background-color: var(--vs-checkbox-backgroundColor, var(--vs-comp-border-color));
+
+            .check-icon {
+                color: var(--vs-checkbox-iconColor, var(--vs-plain-backgroundColor));
+            }
+        }
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        pointer-events: none;
+    }
+}
