@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-
-import VsLabelValue from '../VsLabelValue.vue';
 import { colorScheme, verticalAlign } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
+import VsLabelValue from '../VsLabelValue.vue';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const value = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Possimus, voluptatem cum? Atque facilis mollitia distinctio

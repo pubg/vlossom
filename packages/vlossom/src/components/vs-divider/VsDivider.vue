@@ -5,19 +5,11 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
-interface DividerStyleSet {
-    lineColor: string;
-    lineStyle: string;
-    lineWidth: string;
-    verticalHeight: string;
-}
-
-export type VsDividerStyleSet = Partial<DividerStyleSet>;
+import type { VsDividerStyleSet } from './types';
 
 const name = VsComponent.VsDivider;
-
 export default defineComponent({
     name,
     props: {

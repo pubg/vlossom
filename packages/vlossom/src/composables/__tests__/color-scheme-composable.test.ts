@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { store } from '@/store';
-import { VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
 import { useColorScheme } from '../color-scheme-composable';
 
 describe('useColorScheme composable', () => {

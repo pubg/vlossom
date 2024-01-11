@@ -2,7 +2,8 @@ import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref } from 'vue';
 import { useFormProvide, useInputForm } from '@/composables';
-import type { VsFormProvide } from '@/declaration/types';
+
+import type { VsFormProvide } from '@/declaration';
 
 describe('form-composable', () => {
     // parameters

@@ -1,12 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import type { Ref } from 'vue';
-import { ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import { colorScheme } from '@/storybook/args';
 import VsChip from './../VsChip.vue';
-import CheckIcon from '@/assets/icons/check';
-import PersonIcon from '@/assets/icons/person';
+import { CheckIcon, PersonIcon } from '@/icons';
 import { userEvent, within } from '@storybook/testing-library';
 import { chromaticParameters } from '@/storybook/parameters';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsChip> = {
     title: 'Components/Base Components/VsChip',
@@ -39,7 +38,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
 				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color">
-					Chip	
+					Chip
 				</vs-chip>
             </div>
         `,
@@ -66,10 +65,10 @@ export const Closable: Story = {
         },
         template: `
             <div>
-				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
+				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color"
 					closable @close="close(index)"
 				>
-					Chip	
+					Chip
 				</vs-chip>
 				<vs-button v-if="!colorOptions.length" color-scheme="blue" @click="reset" dense> Reset </vs-button>
             </div>
@@ -89,10 +88,10 @@ export const NoRound: Story = {
         },
         template: `
             <div>
-				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color" 
+				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color"
 					no-round
 				>
-					Chip	
+					Chip
 				</vs-chip>
             </div>
         `,
@@ -108,10 +107,10 @@ export const Primary: Story = {
         },
         template: `
             <div>
-				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color" 
+				<vs-chip v-for="(color, index) in colorOptions" :key="index" :color-scheme="color"
 					primary
 				>
-					Chip	
+					Chip
 				</vs-chip>
             </div>
         `,
@@ -152,14 +151,14 @@ export const LeadingIcon: Story = {
 					<template #leading-icon>
 						<check-icon aria-label="check" width="16px" height="16px"/>
 					</template>
-					Chip	
+					Chip
 				</vs-chip>
 
 				<vs-chip>
 					<template #leading-icon>
 						<person-icon aria-label="person" width="16px" height="16px"/>
 					</template>
-					Chip	
+					Chip
 				</vs-chip>
             </div>
         `,
@@ -187,13 +186,13 @@ export const ClickEventWithPrimary: Story = {
         },
         template: `
             <div style="display:flex; align-items:center">
-				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color" 
+				<vs-chip v-for="({color, id}, index) in colorOptions" :key="id" :color-scheme="color"
 					@click="onClick(id)" :primary="isSelected(id)"
 				>
 					<template #leading-icon>
 						<check-icon v-if="isSelected(id)" aria-label="check" width="16px" height="16px"/>
 					</template>
-					{{color}}	
+					{{color}}
 				</vs-chip>
             </div>
         `,

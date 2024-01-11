@@ -7,7 +7,7 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs } from 'vue';
 import { useResponsiveWidth } from '@/composables';
-import { VsComponent, type Breakpoints } from '@/declaration/types';
+import { VsComponent, type Breakpoints } from '@/declaration';
 
 export default defineComponent({
     name: VsComponent.VsWrapper,

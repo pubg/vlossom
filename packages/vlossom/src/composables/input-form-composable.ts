@@ -1,6 +1,6 @@
 import { Ref, inject, onBeforeMount, onBeforeUnmount, watch } from 'vue';
-import { stringUtil } from '@/utils';
-import { VsFormProvide } from '@/declaration/types';
+import { utils } from '@/utils';
+import { VsFormProvide } from '@/declaration';
 import { useFormProvide } from './form-provide-composable';
 
 export function useInputForm(
@@ -10,7 +10,7 @@ export function useInputForm(
     validate: () => boolean,
     clear: () => void,
 ) {
-    const id = stringUtil.createID();
+    const id = utils.string.createID();
 
     const { validateFlag, clearFlag, updateLabel, updateChanged, updateValid, removeFromForm } = inject<VsFormProvide>(
         'vs-form',

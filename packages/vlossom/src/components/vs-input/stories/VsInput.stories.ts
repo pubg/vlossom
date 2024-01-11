@@ -1,12 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
-import VsInput, { InputType } from '../VsInput.vue';
+import VsInput from '../VsInput.vue';
+import { InputType } from '../types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import SearchIcon from '@/assets/icons/search';
-import { UIState } from '@/declaration/types';
 import { chromaticParameters } from '@/storybook/parameters';
+import { UIState } from '@/declaration';
+import { SearchIcon } from '@/icons';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -26,7 +28,7 @@ const meta: Meta<typeof VsInput> = {
         colorScheme,
         type: {
             control: 'radio',
-            options: [InputType.TEXT, InputType.NUMBER],
+            options: [InputType.Text, InputType.Number],
         },
     },
 };
@@ -87,7 +89,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.SUCCESS, message: 'This is success message' }],
+        messages: [{ state: UIState.Success, message: 'This is success message' }],
     },
 };
 

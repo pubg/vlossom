@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
 
 export default defineComponent({
     name: VsComponent.VsContainer,

@@ -17,22 +17,12 @@
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
-import CloseIcon from '@/assets/icons/close';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { CloseIcon } from '@/icons';
 
-interface NoticeStyleSet {
-    backgroundColor: string;
-    color: string;
-    fontSize: string;
-    fontWeight: string;
-    subTitleFontSize: string;
-    subTitleFontWeight: string;
-}
-
-export type VsNoticeStyleSet = Partial<NoticeStyleSet>;
+import type { VsNoticeStyleSet } from './types';
 
 const name = VsComponent.VsNotice;
-
 export default defineComponent({
     name,
     components: { CloseIcon },

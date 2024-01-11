@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { useResponsiveWidth } from '../responsive-composable';
 import { ref } from 'vue';
+import { useResponsiveWidth } from '../responsive-composable';
 
 describe('useResponsiveWidth composable', () => {
     describe('width', () => {

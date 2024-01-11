@@ -16,24 +16,12 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
-import RotateRightIcon from '@/assets/icons/rotate-right';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { RotateRightIcon } from '@/icons';
 
-interface ButtonStyleSet {
-    backgroundColor: string;
-    borderRadius: string;
-    color: string;
-    fontSize: string;
-    fontWeight: string;
-    maxHeight: string;
-    outlineBorder: string;
-    padding: string;
-}
-
-export type VsButtonStyleSet = Partial<ButtonStyleSet>;
+import type { VsButtonStyleSet } from './types';
 
 const name = VsComponent.VsButton;
-
 export default defineComponent({
     name,
     components: { RotateRightIcon },

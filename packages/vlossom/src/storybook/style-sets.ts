@@ -1,4 +1,4 @@
-import type { StyleSet } from '@/declaration/types';
+import type { StyleSet } from '@/declaration';
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -12,7 +12,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-} from '@/components/types';
+} from '@/components';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',

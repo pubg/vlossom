@@ -1,5 +1,6 @@
-import type { GlobalColorScheme, StyleSet, VlossomStore, VsComponent } from '@/declaration/types';
 import { reactive } from 'vue';
+
+import type { GlobalColorScheme, StyleSet, VlossomStore, VsComponent } from '@/declaration';
 
 export class VsStore {
     private store: VlossomStore = reactive({

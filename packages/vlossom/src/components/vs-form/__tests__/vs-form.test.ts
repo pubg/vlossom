@@ -1,7 +1,7 @@
 import { beforeEach, afterEach, describe, it, expect } from 'vitest';
-import VsForm from './../VsForm.vue';
-import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { mount } from '@vue/test-utils';
+import VsForm from './../VsForm.vue';
 
 function mountComponent() {
     return mount(VsForm);

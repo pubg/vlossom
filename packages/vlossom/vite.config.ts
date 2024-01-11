@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite';
-import { configDefaults } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+import dts from 'vite-plugin-dts';
 import { fileURLToPath } from 'node:url';
+import { configDefaults } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue()],
+    plugins: [vue(), dts()],
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
@@ -14,7 +15,7 @@ export default defineConfig({
     },
     build: {
         lib: {
-            entry: path.resolve(__dirname, 'src/main.ts'),
+            entry: path.resolve(__dirname, 'src/index.ts'),
             name: 'Vlossom',
             fileName: 'vlossom',
         },

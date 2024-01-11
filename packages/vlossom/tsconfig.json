@@ -1,31 +1,35 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
+        "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
         "skipLibCheck": true,
+        "sourceMap": true,
+        "types": ["vite/client"],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
 
         /* Bundler mode */
-        "moduleResolution": "bundler",
+        "outDir": "dist",
+        "declaration": true,
+        "moduleResolution": "Bundler",
+        "emitDeclarationOnly": true,
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
+        "esModuleInterop": true,
         "jsx": "preserve",
 
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"]
-        },
-        "types": ["vite/client"]
+        "noFallthroughCasesInSwitch": true
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", ".storybook/**/*.ts"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+    "references": [{ "path": "./tsconfig.node.json" }],
+    "exclude": ["node_modules", "dist"]
 }

@@ -8,7 +8,9 @@
 
 <script lang="ts">
 import { PropType, defineComponent } from 'vue';
-import { StateMessage, VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
+
+import type { StateMessage } from '@/declaration';
 
 export default defineComponent({
     name: VsComponent.VsMessage,
@@ -17,5 +19,3 @@ export default defineComponent({
     },
 });
 </script>
-
-<style lang="scss" scoped src="./VsMessage.scss" />

@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme, verticalAlign } from '@/storybook/args';
 import VsFooter from './../VsFooter.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsFooter> = {
     title: 'Components/Layout Components/VsFooter',

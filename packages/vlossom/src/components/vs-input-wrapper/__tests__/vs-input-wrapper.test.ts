@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsInputWrapper from '../VsInputWrapper.vue';
 import { nextTick } from 'vue';
+import VsInputWrapper from '../VsInputWrapper.vue';
 
 describe('vs-input-wrapper', () => {
     describe('label', () => {
