@@ -3,7 +3,7 @@ import type { Vlossom } from './vlossom-framework';
 
 declare module 'vue' {
     interface ComponentCustomProperties {
-        $vlossom: Vlossom;
+        $vs: Vlossom;
     }
 }
 

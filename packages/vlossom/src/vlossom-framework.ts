@@ -29,7 +29,7 @@ function createVlossom(options?: VlossomOptions) {
         install(app: App) {
             vlossom = new Vlossom(options);
 
-            app.config.globalProperties.$vlossom = vlossom;
+            app.config.globalProperties.$vs = vlossom;
 
             registerComponents(app, options?.components);
         },
