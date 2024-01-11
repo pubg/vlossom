@@ -66,7 +66,7 @@ export interface VlossomOptions {
 }
 
 export interface Breakpoints {
-    xs?: string | number;
+    base?: string | number;
     sm?: string | number;
     md?: string | number;
     lg?: string | number;

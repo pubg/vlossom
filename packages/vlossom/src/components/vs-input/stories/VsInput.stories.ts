@@ -186,11 +186,12 @@ export const Width: Story = {
         template: `
             <vs-container>
                 <vs-input v-bind="args" />
+                <vs-input v-bind="args" />
             </vs-container>
         `,
     }),
     args: {
-        width: { xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
     },
 };
 
@@ -202,6 +203,7 @@ export const Grid: Story = {
         },
         template: `
             <vs-container>
+                <vs-input v-bind="args" />
                 <vs-input v-bind="args" />
             </vs-container>
         `,
