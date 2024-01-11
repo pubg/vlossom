@@ -6,6 +6,7 @@ import VsInput, { InputType } from '../VsInput.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import SearchIcon from '@/assets/icons/search';
 import { UIState } from '@/declaration/types';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsInput> = {
     title: 'Components/Input Components/VsInput',
@@ -58,6 +59,9 @@ export const ColorScheme: Story = {
     args: {
         placeholder: 'this is placeholder',
     },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Dense: Story = {
@@ -69,6 +73,9 @@ export const Dense: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -143,6 +150,9 @@ export const Prepend: Story = {
     args: {
         placeholder: 'email',
     },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Append: Story = {
@@ -161,6 +171,9 @@ export const Append: Story = {
     }),
     args: {
         placeholder: 'email',
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 

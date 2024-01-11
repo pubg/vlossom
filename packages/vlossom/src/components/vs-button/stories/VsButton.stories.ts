@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
+import { chromaticParameters } from '@/storybook/parameters';
 import VsButton from './../VsButton.vue';
 
 const meta: Meta<typeof VsButton> = {
@@ -25,24 +26,23 @@ type Story = StoryObj<typeof VsButton>;
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
-    render: (args: any) => ({
+    render: () => ({
         components: { VsButton },
         setup() {
-            return { args };
+            const colorOptions = [...colorScheme.options];
+            return { colorOptions };
         },
         template: `
             <div>
-                <vs-button color-scheme="red">Button</vs-button>
-                <vs-button color-scheme="amber">Button</vs-button>
-                <vs-button color-scheme="green">Button</vs-button>
-                <vs-button color-scheme="teal">Button</vs-button>
-                <vs-button color-scheme="blue">Button</vs-button>
-                <vs-button color-scheme="indigo">Button</vs-button>
-                <vs-button color-scheme="purple">Button</vs-button>
-                <vs-button color-scheme="pink">Button</vs-button>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color">
+					Button
+				</vs-button>
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Dense: Story = {
@@ -54,6 +54,9 @@ export const Dense: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -70,18 +73,6 @@ export const Loading: Story = {
 };
 
 export const MobileFull: Story = {
-    args: {
-        mobileFull: true,
-    },
-};
-
-export const Outline: Story = {
-    args: {
-        outline: true,
-    },
-};
-
-export const Primary: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
@@ -89,17 +80,63 @@ export const Primary: Story = {
         },
         template: `
             <div>
-                <vs-button color-scheme="red" primary>Button</vs-button>
-                <vs-button color-scheme="amber" primary>Button</vs-button>
-                <vs-button color-scheme="green" primary>Button</vs-button>
-                <vs-button color-scheme="teal" primary>Button</vs-button>
-                <vs-button color-scheme="blue" primary>Button</vs-button>
-                <vs-button color-scheme="indigo" primary>Button</vs-button>
-                <vs-button color-scheme="purple" primary>Button</vs-button>
-                <vs-button color-scheme="pink" primary>Button</vs-button>
+                <vs-button v-bind="args">Button</vs-button>
+                <vs-button v-bind="args">Button</vs-button>
             </div>
         `,
     }),
+    args: {
+        mobileFull: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.mobile,
+    },
+};
+
+export const Outline: Story = {
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            const colorOptions = [...colorScheme.options];
+            return { colorOptions, args };
+        },
+        template: `
+            <div>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
+					Button
+				</vs-button>
+            </div>
+        `,
+    }),
+    args: {
+        outline: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
+export const Primary: Story = {
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            const colorOptions = [...colorScheme.options];
+            return { colorOptions, args };
+        },
+        template: `
+            <div>
+				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
+					Button
+				</vs-button>
+            </div>
+        `,
+    }),
+    args: {
+        primary: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const StyleSet: Story = {

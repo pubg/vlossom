@@ -6,6 +6,7 @@ import VsChip from './../VsChip.vue';
 import CheckIcon from '@/assets/icons/check';
 import PersonIcon from '@/assets/icons/person';
 import { userEvent, within } from '@storybook/testing-library';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsChip> = {
     title: 'Components/Base Components/VsChip',
@@ -32,7 +33,7 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -43,6 +44,9 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Closable: Story = {
@@ -71,13 +75,16 @@ export const Closable: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const NoRound: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -96,7 +103,7 @@ export const Primary: Story = {
     render: () => ({
         components: { VsChip },
         setup() {
-            const colorOptions = ref([...colorScheme.options]);
+            const colorOptions = [...colorScheme.options];
             return { colorOptions };
         },
         template: `
@@ -109,6 +116,9 @@ export const Primary: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const StyleSet: Story = {

@@ -3,6 +3,7 @@ import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsCheckbox from '../VsCheckbox.vue';
 import { UIState } from '@/declaration/types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsCheckbox> = {
     title: 'Components/Input Components/VsCheckbox',
@@ -42,11 +43,17 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 

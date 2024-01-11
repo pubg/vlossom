@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 import VsValueTag from '../VsValueTag.vue';
 import { colorScheme } from '@/storybook/args';
+import { chromaticParameters } from '@/storybook/parameters';
 
 const meta: Meta<typeof VsValueTag> = {
     title: 'Components/Base Components/VsValueTag',
@@ -44,6 +45,9 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Primary: Story = {
@@ -65,6 +69,9 @@ export const Primary: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const StyleSet: Story = {
