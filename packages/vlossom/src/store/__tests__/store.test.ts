@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { VsStore } from './../index';
-import { VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
 
 describe('vlossom store', () => {
     it('store를 가져올 수 있다', () => {

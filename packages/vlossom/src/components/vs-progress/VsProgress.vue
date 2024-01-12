@@ -10,18 +10,11 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
-interface ProgressStyleSet {
-    borderRadius: string;
-    height: string;
-    width: string;
-}
-
-export type VsProgressStyleSet = Partial<ProgressStyleSet>;
+import type { VsProgressStyleSet } from './types';
 
 const name = VsComponent.VsProgress;
-
 export default defineComponent({
     name: name,
     props: {

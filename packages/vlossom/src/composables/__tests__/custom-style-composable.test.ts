@@ -1,11 +1,11 @@
-import type { VsButtonStyleSet } from '@/components/types';
-import type { StyleSet } from '@/declaration/types';
-
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ref } from 'vue';
-import { VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
 import { useCustomStyle } from '../custom-style-composable';
 import { store } from '@/store';
+
+import type { VsButtonStyleSet } from '@/components';
+import type { StyleSet } from '@/declaration';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',

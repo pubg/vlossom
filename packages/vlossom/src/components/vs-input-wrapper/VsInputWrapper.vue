@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
-import { StateMessage, VsComponent } from '@/declaration/types';
+import { VsComponent, type StateMessage } from '@/declaration';
 import VsMessage from '@/components/vs-message/VsMessage.vue';
 
 export default defineComponent({
@@ -56,5 +56,3 @@ export default defineComponent({
     },
 });
 </script>
-
-<style lang="scss" scoped src="./VsInputWrapper.scss" />

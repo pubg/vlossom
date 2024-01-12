@@ -1,5 +1,6 @@
 import { Ref, ref } from 'vue';
-import { VsFormProvide } from '@/declaration/types';
+
+import type { VsFormProvide } from '@/declaration';
 
 export function useFormProvide() {
     const labelObj: Ref<Record<string, string>> = ref({});

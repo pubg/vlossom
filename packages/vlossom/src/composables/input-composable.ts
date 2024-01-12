@@ -1,6 +1,8 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
-import { StateMessage, Rule, Message, UIState, InputComponentOptions } from '@/declaration/types';
 import { useInputForm } from './input-form-composable';
+import { UIState } from '@/declaration';
+
+import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
 
 export function getInputProps<T = unknown>() {
     return {
@@ -75,7 +77,7 @@ export function useInput<T = unknown>(
             if (result instanceof Promise) {
                 pendingRules.push(result);
             } else {
-                ruleMessages.value.push({ state: UIState.DANGER, message: result as string });
+                ruleMessages.value.push({ state: UIState.Danger, message: result as string });
             }
         });
 
@@ -85,7 +87,7 @@ export function useInput<T = unknown>(
         const resolvedMessages = (await Promise.all(pendingRules)).reduce((acc: StateMessage[], resolved) => {
             if (resolved) {
                 acc.push({
-                    state: UIState.DANGER,
+                    state: UIState.Danger,
                     message: resolved,
                 });
             }

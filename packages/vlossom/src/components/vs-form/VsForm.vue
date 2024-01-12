@@ -8,9 +8,9 @@
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, provide, watch } from 'vue';
-import { VsComponent, VsFormProvide } from '@/declaration/types';
-import VsContainer from '@/components/vs-container/VsContainer.vue';
+import { VsComponent, type VsFormProvide } from '@/declaration';
 import { useFormProvide } from '@/composables';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 export default defineComponent({
     name: VsComponent.VsForm,

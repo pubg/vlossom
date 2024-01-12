@@ -1,9 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme, getMetaArguments } from '@/storybook/args';
 import VsCheckbox from '../VsCheckbox.vue';
-import { UIState } from '@/declaration/types';
+import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsCheckbox> = {
     title: 'Components/Input Components/VsCheckbox',
@@ -65,7 +66,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.SUCCESS, message: 'This is success message' }],
+        messages: [{ state: UIState.Success, message: 'This is success message' }],
     },
 };
 

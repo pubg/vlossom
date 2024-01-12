@@ -12,18 +12,18 @@
         "lint": "eslint --ext .js,.ts,vue --ignore-path ../../.gitignore ."
     },
     "dependencies": {
-        "vue": "^3.3.4",
-        "vue-router": "^4.2.4"
+        "vue": "^3.4.8",
+        "vue-router": "^4.2.5"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^6.7.2",
-        "@typescript-eslint/parser": "^6.7.2",
-        "@vitejs/plugin-vue": "^4.2.3",
-        "eslint": "^8.49.0",
-        "eslint-plugin-vue": "^9.17.0",
-        "sass": "^1.68.0",
-        "typescript": "^5.0.2",
-        "vite": "^4.4.5",
-        "vue-tsc": "^1.8.5"
+        "@typescript-eslint/eslint-plugin": "^6.18.1",
+        "@typescript-eslint/parser": "^6.18.1",
+        "@vitejs/plugin-vue": "^4.6.2",
+        "eslint": "^8.56.0",
+        "eslint-plugin-vue": "^9.20.0",
+        "sass": "^1.69.7",
+        "typescript": "^5.3.3",
+        "vite": "^5.0.11",
+        "vue-tsc": "^1.8.27"
     }
 }

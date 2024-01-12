@@ -11,28 +11,9 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsValueTagStyleSet,
-} from '@/components/types';
+} from '@/components';
 import type { Ref } from 'vue';
-
-export enum VsComponent {
-    VsButton = 'VsButton',
-    VsCheckbox = 'VsCheckbox',
-    VsChip = 'VsChip',
-    VsContainer = 'VsContainer',
-    VsDivider = 'VsDivider',
-    VsFooter = 'VsFooter',
-    VsForm = 'VsForm',
-    VsInput = 'VsInput',
-    VsInputWrapper = 'VsInputWrapper',
-    VsLabelValue = 'VsLabelValue',
-    VsMessage = 'VsMessage',
-    VsNotice = 'VsNotice',
-    VsPage = 'VsPage',
-    VsProgress = 'VsProgress',
-    VsSection = 'VsSection',
-    VsValueTag = 'VsValueTag',
-    VsWrapper = 'VsWrapper',
-}
+import type { VsComponent, UIState } from './enums';
 
 export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
 
@@ -71,15 +52,6 @@ export interface Breakpoints {
     md?: string | number;
     lg?: string | number;
     xl?: string | number;
-}
-
-export enum UIState {
-    IDLE = 'idle',
-    SUCCESS = 'success',
-    INFO = 'info',
-    DANGER = 'danger',
-    WARN = 'warning',
-    SELECTED = 'selected',
 }
 
 export interface StateMessage {

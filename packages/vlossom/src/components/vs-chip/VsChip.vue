@@ -22,29 +22,16 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs, useAttrs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
-import CloseIcon from '@/assets/icons/close';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { CloseIcon } from '@/icons';
 
-interface ChipStyleSet {
-    backgroundColor: string;
-    borderRadius: string;
-    color: string;
-    fontSize: string;
-    fontWeight: string;
-    height: string;
-    minHeight: string;
-    outlineBorder: string;
-    padding: string;
-}
-
-export type VsChipStyleSet = Partial<ChipStyleSet>;
+import type { VsChipStyleSet } from './types';
 
 interface SetupContextAttrs {
     onClick?: () => void;
 }
 
 const name = VsComponent.VsChip;
-
 export default defineComponent({
     name,
     components: { CloseIcon },

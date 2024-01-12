@@ -9,20 +9,11 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent, TextAlign, VerticalAlign } from '@/declaration/types';
+import { ColorScheme, VsComponent, VerticalAlign } from '@/declaration';
 
-interface FooterStyleSet {
-    backgroundColor: string;
-    color: string;
-    height: string;
-    padding: string;
-    textAlign: TextAlign;
-}
-
-export type VsFooterStyleSet = Partial<FooterStyleSet>;
+import type { VsFooterStyleSet } from './types';
 
 const name = VsComponent.VsFooter;
-
 export default defineComponent({
     name,
     props: {

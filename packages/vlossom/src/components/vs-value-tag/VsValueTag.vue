@@ -11,24 +11,11 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
-interface ValueTagStyleSet {
-    backgroundColor: string;
-    borderRadius: string;
-    color: string;
-    fontSize: string;
-    fontWeight: string;
-    labelWidth: string;
-    lineHeight: string;
-    padding: string;
-    width: string;
-}
-
-export type VsValueTagStyleSet = Partial<ValueTagStyleSet>;
+import type { VsValueTagStyleSet } from './types';
 
 const name = VsComponent.VsValueTag;
-
 export default defineComponent({
     name,
     props: {

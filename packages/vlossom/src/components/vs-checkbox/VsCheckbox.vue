@@ -34,28 +34,15 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
-import { stringUtil } from '@/utils';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import CheckIcon from '@/assets/icons/check';
+import { CheckIcon } from '@/icons';
 
-interface CheckboxStyleSet {
-    backgroundColor: string;
-    border: string;
-    borderRadius: string;
-    checkLabelColor: string;
-    focusBoxShadow: string;
-    fontSize: string;
-    height: string;
-    iconColor: string;
-    width: string;
-}
-
-export type VsCheckboxStyleSet = Partial<CheckboxStyleSet>;
+import type { VsCheckboxStyleSet } from './types';
 
 const name = VsComponent.VsCheckbox;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, CheckIcon },
@@ -110,7 +97,7 @@ export default defineComponent({
             readonly: readonly.value,
         }));
 
-        const id = stringUtil.createID();
+        const id = utils.string.createID();
 
         function requiredCheck(v: boolean) {
             return required.value && !v ? 'required' : '';

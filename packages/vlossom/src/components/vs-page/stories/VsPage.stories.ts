@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-
 import VsPage from '../VsPage.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsPage> = {
     title: 'Components/Layout Components/VsPage',

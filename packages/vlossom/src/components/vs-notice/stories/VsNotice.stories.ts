@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import VsNotice from '../VsNotice.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsNotice> = {
     title: 'Components/Base Components/VsNotice',

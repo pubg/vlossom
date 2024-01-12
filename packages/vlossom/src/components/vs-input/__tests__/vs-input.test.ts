@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsInput, { InputType } from '../VsInput.vue';
+import VsInput from '../VsInput.vue';
+import { InputType } from '../types';
 import { nextTick } from 'vue';
 
 function mountComponent() {
@@ -28,7 +29,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: 123,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.NUMBER,
+                    type: InputType.Number,
                 },
             });
 
@@ -96,7 +97,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: '123',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.NUMBER,
+                    type: InputType.Number,
                 },
             });
 
@@ -136,7 +137,7 @@ describe('vs-input', () => {
                     // @ts-expect-error: for null test
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.NUMBER,
+                    type: InputType.Number,
                 },
             });
 
@@ -435,7 +436,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: 0,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.NUMBER,
+                    type: InputType.Number,
                     max: 3,
                 },
             });
@@ -474,7 +475,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: 4,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.NUMBER,
+                    type: InputType.Number,
                     min: 3,
                 },
             });

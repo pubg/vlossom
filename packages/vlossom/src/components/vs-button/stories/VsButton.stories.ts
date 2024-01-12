@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
 import { colorScheme } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsButton from './../VsButton.vue';
+
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsButton> = {
     title: 'Components/Base Components/VsButton',

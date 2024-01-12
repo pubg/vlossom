@@ -1,5 +1,6 @@
 import { ComputedRef, PropType, Ref, computed } from 'vue';
-import type { Breakpoints } from '@/declaration/types';
+
+import type { Breakpoints } from '@/declaration';
 
 export function getResponsiveProps() {
     return {

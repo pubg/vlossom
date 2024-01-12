@@ -12,21 +12,11 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
-interface SectionStyleSet {
-    backgroundColor: string;
-    borderRadius: string;
-    boxShadow: string;
-    fontColor: string;
-    padding: string;
-    titleMargin: string;
-}
-
-export type VsSectionStyleSet = Partial<SectionStyleSet>;
+import type { VsSectionStyleSet } from './types';
 
 const name = VsComponent.VsSection;
-
 export default defineComponent({
     name,
     props: {

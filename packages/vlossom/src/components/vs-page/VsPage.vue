@@ -15,18 +15,11 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useCustomStyle } from '@/composables';
-import { VsComponent } from '@/declaration/types';
+import { VsComponent } from '@/declaration';
 
-interface PageStyleSet {
-    fontColor: string;
-    headerMargin: string;
-    padding: string;
-}
-
-export type VsPageStyleSet = Partial<PageStyleSet>;
+import type { VsPageStyleSet } from './types';
 
 const name = VsComponent.VsPage;
-
 export default defineComponent({
     name,
     props: {

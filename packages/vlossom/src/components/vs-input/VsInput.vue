@@ -34,7 +34,7 @@
                 <button
                     v-if="!noClear && inputValue && !readonly && !disabled"
                     class="clear-button"
-                    :class="{ number: type === InputType.NUMBER }"
+                    :class="{ number: type === InputType.Number }"
                     @click.stop="clearWithFocus()"
                 >
                     <close-icon class="clear-icon" />
@@ -47,37 +47,18 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
-import { ColorScheme, VsComponent } from '@/declaration/types';
+import { VsComponent, type ColorScheme } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import CloseIcon from '@/assets/icons/close';
+import { CloseIcon } from '@/icons';
+import { InputType } from './types';
 
-interface InputStyleSet {
-    appendBackgroundColor: string;
-    appendColor: string;
-    backgroundColor: string;
-    border: string;
-    borderRadius: string;
-    clearButtonColor: string;
-    color: string;
-    fontSize: string;
-    height: string;
-    prependBackgroundColor: string;
-    prependColor: string;
-}
-
-export type VsInputStyleSet = Partial<InputStyleSet>;
-
-export enum InputType {
-    TEXT = 'text',
-    NUMBER = 'number',
-}
+import type { VsInputStyleSet } from './types';
 
 export type InputValue = string | number;
 
 const name = VsComponent.VsInput;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, CloseIcon },
@@ -87,7 +68,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
-        type: { type: String as PropType<InputType | string>, default: InputType.TEXT },
+        type: { type: String as PropType<InputType | string>, default: InputType.Text },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model
@@ -139,10 +120,10 @@ export default defineComponent({
 
         function convertValue(v: InputValue | null | undefined): InputValue {
             if (!v) {
-                return type.value === InputType.TEXT ? '' : 0;
+                return type.value === InputType.Text ? '' : 0;
             }
 
-            if (type.value === InputType.TEXT) {
+            if (type.value === InputType.Text) {
                 return v.toString();
             } else {
                 return Number(v);
