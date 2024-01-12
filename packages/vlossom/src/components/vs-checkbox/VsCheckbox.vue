@@ -87,9 +87,17 @@ export default defineComponent({
 
         const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(name, styleSet);
 
-        const inputValue = ref(modelValue.value);
+        const isArrayValue = computed(() => Array.isArray(modelValue.value));
 
-        const isChecked = computed(() => inputValue.value === trueValue.value);
+        const inputValue = ref(isArrayValue.value ? [...modelValue.value] : modelValue.value);
+
+        const isChecked = computed(() => {
+            if (isArrayValue.value) {
+                return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
+            }
+
+            return utils.object.isEqual(inputValue.value, trueValue.value);
+        });
 
         const classObj = computed(() => ({
             checked: isChecked.value,
@@ -99,8 +107,8 @@ export default defineComponent({
 
         const id = utils.string.createID();
 
-        function requiredCheck(v: boolean) {
-            return required.value && !v ? 'required' : '';
+        function requiredCheck() {
+            return required.value && !isChecked.value ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
@@ -110,10 +118,16 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
+                    if (isArrayValue.value) {
+                        return;
+                    }
+
                     inputValue.value = modelValue.value === trueValue.value ? trueValue.value : falseValue.value;
                 },
                 onClear: () => {
-                    inputValue.value = falseValue.value;
+                    inputValue.value = isArrayValue.value
+                        ? inputValue.value.filter((v: any) => !utils.object.isEqual(v, trueValue.value))
+                        : falseValue.value;
                 },
             },
         });
@@ -128,7 +142,16 @@ export default defineComponent({
             }
 
             const target = e.target as HTMLInputElement;
-            inputValue.value = target.checked ? trueValue.value : falseValue.value;
+
+            if (isArrayValue.value) {
+                if (target.checked) {
+                    inputValue.value = [...inputValue.value, trueValue.value];
+                } else {
+                    inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
+                }
+            } else {
+                inputValue.value = target.checked ? trueValue.value : falseValue.value;
+            }
         }
 
         function onFocus() {
