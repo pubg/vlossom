@@ -10,15 +10,15 @@
 }
 
 @mixin responsive_width {
-    $xs: var(--vs-width-xs);
+    $base: var(--vs-width-base);
     $sm: var(--vs-width-sm);
     $md: var(--vs-width-md);
     $lg: var(--vs-width-lg);
     $xl: var(--vs-width-xl);
 
-    .vs-width-xs {
+    .vs-width-base {
         @container (min-width: 0px) {
-            width: $xs;
+            width: $base;
         }
     }
 

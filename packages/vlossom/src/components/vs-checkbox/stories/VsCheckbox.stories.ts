@@ -96,7 +96,7 @@ export const Width: Story = {
         `,
     }),
     args: {
-        width: { xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
     },
 };
 
@@ -114,7 +114,7 @@ export const Grid: Story = {
         `,
     }),
     args: {
-        grid: { xs: 12, md: 6, lg: 3 },
+        grid: { md: 6, lg: 3 },
     },
 };
 

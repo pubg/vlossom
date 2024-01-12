@@ -31,10 +31,10 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid
             return {};
         }
 
-        const { xs, sm, md, lg, xl } = responsiveWidth.value;
+        const { base = '100%', sm, md, lg, xl } = responsiveWidth.value;
 
         return {
-            ...(xs && { ['--vs-width-xs']: xs?.toString() }),
+            ...(base && { ['--vs-width-base']: base?.toString() }),
             ...(sm && { ['--vs-width-sm']: sm?.toString() }),
             ...(md && { ['--vs-width-md']: md?.toString() }),
             ...(lg && { ['--vs-width-lg']: lg?.toString() }),
@@ -47,10 +47,10 @@ export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid
             return [];
         }
 
-        const { xs, sm, md, lg, xl } = responsiveWidth.value;
+        const { base = '100%', sm, md, lg, xl } = responsiveWidth.value;
 
         return [
-            ...(xs ? ['vs-width-xs'] : []),
+            ...(base ? ['vs-width-base'] : []),
             ...(sm ? ['vs-width-sm'] : []),
             ...(md ? ['vs-width-md'] : []),
             ...(lg ? ['vs-width-lg'] : []),
