@@ -129,10 +129,127 @@ describe('vs-checkbox', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0]).toEqual(['B']);
         });
+
+        it('object 타입 true-value, false-value를 설정할 수 있다', () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: { id: 'A' },
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: { id: 'A' },
+                    falseValue: { id: 'B' },
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+    });
+
+    describe('v-model ( array )', () => {
+        it('array 타입 modelValue의 초깃값을 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+
+        it('array 타입 modelValue를 업데이트 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue(true);
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([['A']]);
+        });
+
+        it('array 타입 modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                },
+            });
+
+            // when
+            await wrapper.setProps({ modelValue: ['A'] });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+
+        it('object의 array 타입 modelValue의 초깃값을 설정할 수 있다', () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: [{ id: 'A' }],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: { id: 'A' },
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+
+        it('object의 array 타입 modelValue를 업데이트 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: { id: 'A' },
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue(true);
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([[{ id: 'A' }]]);
+        });
+
+        it('object의 array 타입 modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: { id: 'A' },
+                },
+            });
+
+            // when
+            await wrapper.setProps({ modelValue: [{ id: 'A' }] });
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
     });
 
     describe('clear', () => {
-        it('clear 함수를 호출하면 input 값을 초기화 할 수 있다', async () => {
+        it('clear 함수를 호출하면 false-value 값으로 업데이트 할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                 props: {
@@ -148,6 +265,25 @@ describe('vs-checkbox', () => {
             // then
             expect(wrapper.find('input').element.checked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
+        });
+
+        it('array 타입 v-model 일 때 clear 함수를 호출하면 true-value가 제외된 배열로 업데이트 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    modelValue: ['A', 'B'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'A',
+                },
+            });
+
+            // when
+            wrapper.vm.clear();
+            await nextTick();
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(false);
+            expect(wrapper.props('modelValue')).toEqual(['B']);
         });
     });
 
