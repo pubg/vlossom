@@ -21,7 +21,7 @@
                         type="checkbox"
                         :id="id"
                         :disabled="disabled || readonly"
-                        :name="name"
+                        :name="name || label"
                         :value="value"
                         :checked="isChecked"
                         @change="toggle"
@@ -29,7 +29,7 @@
                         @blur="onBlur"
                     />
                 </div>
-                <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
+                <label v-if="checkLabel || label" :for="id">{{ checkLabel || label }}</label>
             </div>
 
             <template #messages v-if="!noMsg">

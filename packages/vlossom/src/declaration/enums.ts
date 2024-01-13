@@ -1,6 +1,7 @@
 export enum VsComponent {
     VsButton = 'VsButton',
     VsCheckbox = 'VsCheckbox',
+    VsCheckboxSet = 'VsCheckboxSet',
     VsChip = 'VsChip',
     VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
