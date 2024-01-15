@@ -128,7 +128,7 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: 'red',
+            backgroundColor: '#81c798',
             border: '3px solid #81c798',
             borderRadius: '0.8rem',
             focusBoxShadow: '0 0 0 3px #81c798',

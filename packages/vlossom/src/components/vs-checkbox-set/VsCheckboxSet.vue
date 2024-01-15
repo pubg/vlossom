@@ -10,8 +10,8 @@
         >
             <div :class="['vs-checkbox-set', `vs-${computedColorScheme}`, { column }]" :style="customProperties">
                 <div
-                    v-for="(option, index) in options"
-                    :key="`${option}-${index}`"
+                    v-for="option in options"
+                    :key="`${id}-${getOptionValue(option)}`"
                     :class="['vs-checkbox', { ...classObj, checked: isChecked(option) }]"
                 >
                     <div class="checkbox-container">
@@ -20,7 +20,7 @@
                         </span>
                         <input
                             type="checkbox"
-                            :id="`${id}-${getOptionLabel(option)}`"
+                            :id="`${id}-${getOptionValue(option)}`"
                             :disabled="disabled || readonly"
                             :name="name || label"
                             :value="getOptionValue(option)"
@@ -30,7 +30,7 @@
                             @blur="onBlur(option)"
                         />
                     </div>
-                    <label :for="`${id}-${getOptionLabel(option)}`">{{ getOptionLabel(option) }}</label>
+                    <label :for="`${id}-${getOptionValue(option)}`">{{ getOptionLabel(option) }}</label>
                 </div>
             </div>
         </vs-input-wrapper>
@@ -58,7 +58,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
         beforeChange: {
-            type: Function as PropType<(value: any) => Promise<boolean> | null>,
+            type: Function as PropType<(value: any, target: any) => Promise<boolean> | null>,
             default: null,
         },
         column: { type: Boolean, default: false },
@@ -94,18 +94,18 @@ export default defineComponent({
 
         const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(VsComponent.VsCheckbox, styleSet);
 
-        const inputValue: Ref<any[]> = ref([...modelValue.value]);
-
-        function isChecked(option: any) {
-            return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
-        }
-
         const classObj = computed(() => ({
             disabled: disabled.value,
             readonly: readonly.value,
         }));
 
         const id = utils.string.createID();
+
+        const inputValue: Ref<any[]> = ref([...modelValue.value]);
+
+        function isChecked(option: any) {
+            return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
+        }
 
         function getOptionLabel(option: any) {
             if (typeof option === 'object') {
@@ -140,22 +140,21 @@ export default defineComponent({
         });
 
         async function toggle(e: Event, option: any) {
-            const value = getOptionValue(option);
-
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(value);
+                const result = await beforeChangeFn(inputValue.value, option);
                 if (!result) {
                     return;
                 }
             }
 
             const target = e.target as HTMLInputElement;
+            const targetValue = getOptionValue(option);
 
             if (target.checked) {
-                inputValue.value = [...inputValue.value, value];
+                inputValue.value = [...inputValue.value, targetValue];
             } else {
-                inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, value));
+                inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetValue));
             }
         }
 
@@ -176,11 +175,11 @@ export default defineComponent({
         });
 
         return {
-            id,
-            isChecked,
             classObj,
             computedColorScheme,
             customProperties,
+            id,
+            isChecked,
             getOptionLabel,
             getOptionValue,
             inputValue,
