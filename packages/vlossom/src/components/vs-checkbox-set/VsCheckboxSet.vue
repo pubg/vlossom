@@ -58,7 +58,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
         beforeChange: {
-            type: Function as PropType<(value: any, target: any) => Promise<boolean> | null>,
+            type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
             default: null,
         },
         column: { type: Boolean, default: false },
