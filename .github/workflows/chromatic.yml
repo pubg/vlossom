@@ -20,7 +20,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Checkout pull request
-              if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'chromatic build') }}
+              if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/chromatic build') }}
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
