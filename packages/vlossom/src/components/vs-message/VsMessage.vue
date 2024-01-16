@@ -1,7 +1,7 @@
 <template>
     <div class="vs-message">
         {{ message.state }}
-        <!-- <vn-icon class="icon" size="1.6rem">{{ icon }}</vn-icon> -->
+        <!-- TODO: Add message icon -->
         <span class="text">{{ message.message }}</span>
     </div>
 </template>

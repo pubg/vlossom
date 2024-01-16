@@ -37,7 +37,7 @@
                     :class="{ number: type === InputType.Number }"
                     @click.stop="clearWithFocus()"
                 >
-                    <close-icon class="clear-icon" />
+                    <close-icon :size="dense ? 16 : 20" />
                 </button>
             </div>
         </vs-input-wrapper>
