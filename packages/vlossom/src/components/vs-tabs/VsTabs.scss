@@ -1,0 +1,78 @@
+.vs-tabs {
+    overflow: auto hidden;
+    border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+
+    ul {
+        align-items: center;
+        display: inline-flex;
+        list-style: none;
+
+        button {
+            align-items: center;
+            background: transparent;
+            display: inline-flex;
+            height: var(--vs-tabs-height, 1.6rem);
+            justify-content: center;
+            overflow: hidden;
+            padding: var(--vs-tabs-padding, 0.8rem 1rem);
+            transition: color 0.1s;
+            width: var(--vs-tabs-tabWidth, auto);
+
+            &:not(:last-child) {
+                margin-right: var(--vs-tabs-gap, 0.3rem);
+            }
+
+            :deep(span) {
+                color: var(--vs-tabs-color, var(--vs-comp-color));
+                font-size: var(--vs-tabs-fontSize, 1rem);
+                font-weight: var(--vs-tabs-fontWeight, 400);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                word-break: break-word;
+            }
+
+            &:hover {
+                background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
+            }
+
+            &.primary {
+                border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));
+                font-weight: calc(var(--vs-tabs-fontWeight, 400) + 200);
+            }
+        }
+
+        button[disabled] {
+            opacity: 0.4;
+        }
+    }
+
+    &.dense {
+        button {
+            height: calc(var(--vs-tabs-height, 1.6rem) - 0.3rem);
+            padding: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .vs-tabs.mobile-full {
+        ul {
+            border: none;
+            flex-direction: column;
+            width: 100%;
+
+            li {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+
+                &:not(:last-child) {
+                    margin-bottom: var(--vs-tabs-gap, 0.5rem);
+                }
+            }
+        }
+    }
+}

@@ -29,4 +29,22 @@ describe('object util', () => {
             expect(result).toBe(true);
         });
     });
+
+    describe('isUniq', () => {
+        const { isUniq } = objectUtil;
+
+        it('배열에 중복된 값이 있는지 확인할 수 있다', () => {
+            // given
+            const uniqueArray = [1, 2, 3];
+            const duplicatedArray = [1, 2, 2, 3];
+
+            // when
+            const result1 = isUniq(uniqueArray);
+            const result2 = isUniq(duplicatedArray);
+
+            // then
+            expect(result1).toBe(true);
+            expect(result2).toBe(false);
+        });
+    });
 });

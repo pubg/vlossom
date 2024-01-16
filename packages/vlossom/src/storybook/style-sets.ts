@@ -11,6 +11,7 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsTabsStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
 
@@ -82,6 +83,18 @@ const vsSection: VsSectionStyleSet = {
     fontColor: 'white',
 };
 
+const vsTabs: VsTabsStyleSet = {
+    backgroundColor: '#008db2',
+    borderBottomColor: '#0288d1',
+    color: '#ff8919',
+    fontSize: '1rem',
+    fontWeight: '500',
+    gap: '2px',
+    height: '80px',
+    padding: '2%',
+    tabWidth: '400px',
+};
+
 const vsPage: VsPageStyleSet = {
     fontColor: '#ff90bc',
     padding: '0.8rem 1.5rem',
@@ -114,5 +127,6 @@ export const styleSet: StyleSet = {
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsTabs: { myStyleSet: vsTabs },
     VsValueTag: { myStyleSet: vsValueTag },
 };

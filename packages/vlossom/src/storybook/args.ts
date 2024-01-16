@@ -14,6 +14,13 @@ export function getColorSchemeTemplate(templateStr: string) {
     return COLORS.map((color) => templateStr.replace(/{{\s*color\s*}}/g, color)).join('\n');
 }
 
+export function numberArray(length: number, multiSelect: boolean = false) {
+    return {
+        control: multiSelect ? 'multi-select' : 'select',
+        options: Array.from({ length }, (_, i) => i),
+    };
+}
+
 export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
     const metaArgs: { [key: string]: any } = {};
     Object.keys(componentProps).forEach((prop) => {

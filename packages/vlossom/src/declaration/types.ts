@@ -16,6 +16,7 @@ import type {
 } from '@/components';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
+import { VsTabsStyleSet } from '@/components/vs-tabs/types';
 
 export type ColorScheme = (typeof COLORS)[number];
 
@@ -34,6 +35,7 @@ export interface StyleSet {
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsTabs?: { [key: string]: VsTabsStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
