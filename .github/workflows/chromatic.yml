@@ -33,5 +33,6 @@ jobs:
               uses: chromaui/action@latest
               with:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+                  branchName: ${{ github.head_ref }}
                   autoAcceptChanges: main
                   workingDir: ./packages/vlossom
