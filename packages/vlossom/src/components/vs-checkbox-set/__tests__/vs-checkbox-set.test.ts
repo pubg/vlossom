@@ -80,11 +80,15 @@ describe('vs-checkbox-set', () => {
         });
 
         describe('object options', () => {
-            const options = [
-                { label: 'A', value: 'a' },
-                { label: 'B', value: 'b' },
-                { label: 'C', value: 'c' },
-            ];
+            const optionProps = {
+                options: [
+                    { label: 'A', value: 'a' },
+                    { label: 'B', value: 'b' },
+                    { label: 'C', value: 'c' },
+                ],
+                optionLabel: 'label',
+                optionValue: 'value',
+            };
 
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
@@ -92,7 +96,7 @@ describe('vs-checkbox-set', () => {
                     props: {
                         modelValue: ['a'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options,
+                        ...optionProps,
                     },
                 });
 
@@ -108,7 +112,7 @@ describe('vs-checkbox-set', () => {
                     props: {
                         modelValue: ['a'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options,
+                        ...optionProps,
                     },
                 });
 
@@ -127,7 +131,7 @@ describe('vs-checkbox-set', () => {
                     props: {
                         modelValue: ['a'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options,
+                        ...optionProps,
                     },
                 });
 
@@ -140,123 +144,127 @@ describe('vs-checkbox-set', () => {
                 expect(checked[0].element.value).toBe('b');
             });
         });
+    });
 
-        describe('clear', () => {
-            it('clear 함수를 호출하면 modelValue를 빈 배열로 초기화 할 수 있다', async () => {
-                // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-                    props: {
-                        modelValue: ['A'],
-                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options: ['A', 'B', 'C'],
-                    },
-                });
-
-                // when
-                await wrapper.vm.clear();
-
-                // then
-                const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                expect(updateModelValueEvent).toHaveLength(1);
-                expect(updateModelValueEvent?.[0]).toEqual([[]]);
+    describe('clear', () => {
+        it('clear 함수를 호출하면 modelValue를 빈 배열로 초기화 할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                },
             });
+
+            // when
+            await wrapper.vm.clear();
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([[]]);
+        });
+    });
+
+    describe('rules', () => {
+        it('required 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    required: true,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input[value="A"]').setValue(false);
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('required');
+        });
+    });
+
+    describe('validate', () => {
+        it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    required: true,
+                },
+            });
+
+            // then
+            expect(wrapper.vm.validate()).toBe(true);
         });
 
-        describe('rules', () => {
-            it('required 체크가 가능하다', async () => {
-                // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-                    props: {
-                        modelValue: ['A'],
-                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options: ['A', 'B', 'C'],
-                        required: true,
-                    },
-                });
-
-                // when
-                await nextTick();
-                await wrapper.find('input[value="A"').setValue(false);
-
-                // then
-                expect(wrapper.vm.computedMessages).toHaveLength(1);
-                expect(wrapper.html()).toContain('required');
+        it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    required: true,
+                },
             });
+
+            // when
+            await nextTick();
+            await wrapper.find('input[value="A"]').setValue(false);
+
+            // then
+            expect(wrapper.vm.validate()).toBe(false);
+        });
+    });
+
+    describe('before change', () => {
+        it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    beforeChange: () => Promise.resolve(true),
+                },
+            });
+
+            // when
+            await wrapper.find('input[value="B"]').setValue(true);
+
+            // then
+            expect(wrapper.props('modelValue')).toEqual(['A', 'B']);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([['A', 'B']]);
         });
 
-        describe('validate', () => {
-            it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
-                // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-                    props: {
-                        modelValue: ['A'],
-                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options: ['A', 'B', 'C'],
-                        required: true,
-                    },
-                });
-
-                // then
-                expect(wrapper.vm.validate()).toBe(true);
+        it('beforeChange 함수가 Promise<false>를 리턴하면 값이 업데이트 되지 않는다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    beforeChange: () => Promise.resolve(false),
+                },
             });
 
-            it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
-                // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-                    props: {
-                        modelValue: ['A'],
-                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        options: ['A', 'B', 'C'],
-                        required: true,
-                    },
-                });
+            // when
+            await wrapper.find('input[value="B"]').setValue(true);
 
-                // when
-                await nextTick();
-                await wrapper.find('input[value="A"]').setValue(false);
-
-                // then
-                expect(wrapper.vm.validate()).toBe(false);
-            });
+            // then
+            expect(wrapper.props('modelValue')).toEqual(['A']);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toBeUndefined();
         });
-
-        // describe('before change', () => {
-        //     it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
-        //         // given
-        //         const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-        //             props: {
-        //                 modelValue: false,
-        //                 'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-        //                 beforeChange: () => Promise.resolve(true),
-        //             },
-        //         });
-
-        //         // when
-        //         await wrapper.find('input').setValue(true);
-
-        //         // then
-        //         const updateModelValueEvent = wrapper.emitted('update:modelValue');
-        //         expect(updateModelValueEvent).toHaveLength(1);
-        //         expect(updateModelValueEvent?.[0]).toEqual([true]);
-        //     });
-
-        //     it('beforeChange 함수가 Promise<false>를 리턴하면 값이 업데이트 되지 않는다', async () => {
-        //         // given
-        //         const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
-        //             props: {
-        //                 modelValue: false,
-        //                 'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-        //                 beforeChange: () => Promise.resolve(false),
-        //             },
-        //         });
-
-        //         // when
-        //         await wrapper.find('input').setValue(true);
-
-        //         // then
-        //         const updateModelValueEvent = wrapper.emitted('update:modelValue');
-        //         expect(updateModelValueEvent).toBeUndefined();
-        //     });
-        // });
     });
 });

@@ -64,8 +64,8 @@ export default defineComponent({
         column: { type: Boolean, default: false },
         name: { type: String, default: '' },
         options: { type: Array as PropType<any[]>, required: true },
-        optionLabel: { type: String, default: 'label' },
-        optionValue: { type: String, default: 'value' },
+        optionLabel: { type: String, default: '' },
+        optionValue: { type: String, default: '' },
         // v-model
         modelValue: { type: Array as PropType<any[]>, default: () => [] },
     },
@@ -109,14 +109,18 @@ export default defineComponent({
 
         function getOptionLabel(option: any) {
             if (typeof option === 'object') {
-                return option[optionLabel.value];
+                if (optionLabel.value) {
+                    return option[optionLabel.value];
+                } else {
+                    return JSON.stringify(option);
+                }
             }
 
             return option + '';
         }
 
         function getOptionValue(option: any) {
-            if (typeof option === 'object') {
+            if (typeof option === 'object' && optionValue.value) {
                 return option[optionValue.value];
             }
 
@@ -142,7 +146,7 @@ export default defineComponent({
         async function toggle(e: Event, option: any) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value, option);
+                const result = await beforeChangeFn(isChecked(option), option);
                 if (!result) {
                     return;
                 }
