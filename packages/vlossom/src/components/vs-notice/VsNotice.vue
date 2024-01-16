@@ -22,13 +22,14 @@ import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { CloseIcon } from '@/icons';
+import VsDivider from '../vs-divider/VsDivider.vue';
 
 import type { VsNoticeStyleSet } from './types';
 
 const name = VsComponent.VsNotice;
 export default defineComponent({
     name,
-    components: { CloseIcon },
+    components: { VsDivider, CloseIcon },
     props: {
         title: { type: String, default: 'Notice' },
         colorScheme: { type: String as PropType<ColorScheme> },
