@@ -241,7 +241,9 @@ describe('vs-checkbox-set', () => {
             await wrapper.find('input[value="B"]').setValue(true);
 
             // then
-            expect(wrapper.props('modelValue')).toEqual(['A', 'B']);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([['A', 'B']]);
         });
 
         it('beforeChange 함수가 Promise<false>를 리턴하면 값이 업데이트 되지 않는다', async () => {
@@ -259,7 +261,8 @@ describe('vs-checkbox-set', () => {
             await wrapper.find('input[value="B"]').setValue(true);
 
             // then
-            expect(wrapper.props('modelValue')).toEqual(['A']);
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toBeUndefined();
         });
     });
 });

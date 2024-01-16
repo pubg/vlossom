@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
@@ -101,7 +101,7 @@ export default defineComponent({
 
         const id = utils.string.createID();
 
-        const inputValue: Ref<any[]> = ref([...modelValue.value]);
+        const inputValue = ref(modelValue.value);
 
         function isChecked(option: any) {
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));

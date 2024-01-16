@@ -97,7 +97,7 @@ export default defineComponent({
 
         const isArrayValue = computed(() => Array.isArray(modelValue.value));
 
-        const inputValue = ref(isArrayValue.value ? [...modelValue.value] : modelValue.value);
+        const inputValue = ref(modelValue.value);
 
         const isChecked = computed(() => {
             if (isArrayValue.value) {
