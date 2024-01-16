@@ -10,6 +10,7 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
 import type { Ref } from 'vue';
@@ -31,6 +32,7 @@ export interface StyleSet {
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
@@ -96,3 +98,27 @@ export type TextAlign =
     | 'justify-all'
     | 'match-parent'
     | 'inherit';
+
+export enum Direction {
+    Top = 'top',
+    Right = 'right',
+    Bottom = 'bottom',
+    Left = 'left',
+}
+
+export enum Align {
+    Top = 'top',
+    Right = 'right',
+    Center = 'center',
+    Bottom = 'bottom',
+    Left = 'left',
+}
+
+export interface AttachInfo {
+    position?: Direction | string;
+    align?: Align | string;
+    margin?: number;
+    followWidth?: boolean;
+    minWidth?: number;
+    maxWidth?: number;
+}
