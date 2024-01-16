@@ -2,19 +2,29 @@ name: Chromatic
 
 on:
     pull_request:
-        types: [opened, synchronize]
+        types: [opened]
     push:
         branches:
             - main
+    issue_comment:
+        types: [created]
 
 jobs:
-    chromatic:
+    chromatic-build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
+              if: ${{ !github.event.issue.pull_request }}
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
+
+            - name: Checkout pull request
+              if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'chromatic build') }}
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  ref: refs/pull/${{ github.event.issue.number }}/head
 
             - name: Install dependencies
               run: yarn install --immutable --immutable-cache --check-cache
