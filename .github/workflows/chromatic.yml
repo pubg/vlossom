@@ -8,16 +8,21 @@ on:
             - main
 
 jobs:
-    chromatic-build:
+    check-commit:
+        if: ${{ github.event.action == 'synchronize' }}
         runs-on: ubuntu-latest
+        outputs:
+            message: ${{ steps.commit_message.outputs.message }}
         steps:
             - name: Get Commit message
               id: commit_message
-              run: echo ::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.head_commit }})
+              run: echo "message=${{ github.event.head_commit }}" >> "$GITHUB_OUTPUT"
 
-            - if: ${{ github.event.action == 'synchronize' && !contains(steps.commit_message.outputs.message , 'chromatic build') }}
-              run: exit 0
-
+    chromatic-build:
+        needs: check-commit
+        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit.outputs.message , 'chromatic build') }}
+        runs-on: ubuntu-latest
+        steps:
             - name: Checkout code
               uses: actions/checkout@v4
               with:
