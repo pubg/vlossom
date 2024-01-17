@@ -37,7 +37,7 @@ export default defineComponent({
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, large, mobileFull, outline, primary } = toRefs(props);
+        const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -46,7 +46,7 @@ export default defineComponent({
         const classObj = computed(() => ({
             dense: dense.value,
             large: large.value,
-            // loading: loading.value,
+            loading: loading.value,
             'mobile-full': mobileFull.value,
             outline: outline.value,
             primary: primary.value,
