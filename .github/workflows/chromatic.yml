@@ -8,19 +8,23 @@ on:
             - main
 
 jobs:
-    check-commit:
+    check-commit-message:
         if: ${{ github.event.action == 'synchronize' }}
         runs-on: ubuntu-latest
         outputs:
-            message: ${{ steps.commit_message.outputs.message }}
+            message: ${{ steps.get_head_commit_message.outputs.message }}
         steps:
-            - name: Get Commit message
-              id: commit_message
-              run: echo "message=${{ github.event.head_commit }}" >> "$GITHUB_OUTPUT"
+            - name: Get repo
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+            - name: Get Head Commit message
+              id: get_head_commit_message
+              run: echo "message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
 
     chromatic-build:
-        needs: check-commit
-        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit.outputs.message , 'chromatic build') }}
+        needs: check-commit-message
+        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit-message.outputs.message , 'chromatic build') }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
