@@ -9,7 +9,6 @@ on:
 
 jobs:
     check-commit-message:
-        if: ${{ github.event.action == 'synchronize' }}
         runs-on: ubuntu-latest
         outputs:
             message: ${{ steps.get_commit_message.outputs.message }}
@@ -24,7 +23,7 @@ jobs:
 
     chromatic-build:
         needs: check-commit-message
-        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit-message.outputs.message , 'chromatic build') }}
+        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit-message.outputs.message, 'chromatic build') }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
