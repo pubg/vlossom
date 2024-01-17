@@ -2,29 +2,26 @@ name: Chromatic
 
 on:
     pull_request:
-        types: [opened]
+        types: [opened, synchronize]
     push:
         branches:
             - main
-    issue_comment:
-        types: [created]
 
 jobs:
     chromatic-build:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout code
-              if: ${{ github.event_name != 'issue_comment' || !github.event.issue.pull_request }}
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
+            - name: Get Commit message
+              id: commit_message
+              run: echo ::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.head_commit }})
 
-            - name: Checkout pull request
-              if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/chromatic build') }}
+            - if: ${{ github.event.action == 'synchronize' && !contains(steps.commit_message.outputs.message , 'chromatic build') }}
+              run: exit 0
+
+            - name: Checkout code
               uses: actions/checkout@v4
               with:
                   fetch-depth: 0
-                  ref: refs/pull/${{ github.event.issue.number }}/head
 
             - name: Install dependencies
               run: yarn install --immutable --immutable-cache --check-cache
@@ -33,6 +30,5 @@ jobs:
               uses: chromaui/action@latest
               with:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-                  branchName: ci/chromatic-build
                   autoAcceptChanges: main
                   workingDir: ./packages/vlossom
