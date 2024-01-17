@@ -103,7 +103,7 @@ export const Width: Story = {
         `,
     }),
     args: {
-        width: { md: '500px', lg: '600px' },
+        width: { md: '300px', lg: '400px' },
     },
 };
 
