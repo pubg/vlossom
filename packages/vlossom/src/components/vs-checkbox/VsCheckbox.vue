@@ -60,7 +60,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
         beforeChange: {
-            type: Function as PropType<(checked: boolean) => Promise<boolean> | null>,
+            type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
         },
         checkLabel: { type: String, default: '' },
@@ -143,7 +143,7 @@ export default defineComponent({
         async function toggle(e: Event) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(isChecked.value);
+                const result = await beforeChangeFn(inputValue.value);
                 if (!result) {
                     return;
                 }
