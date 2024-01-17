@@ -50,7 +50,7 @@
                 "ignoreComments": true,
                 "ignoreTrailingComments": true,
                 "ignoreUrls": true,
-                "ignorePattern": "(<.+)|(d=\"([\\s\\S]*?)\")",
+                "ignorePattern": "(d=\"([\\s\\S]*?)\")|(<.+)",
                 "ignoreRegExpLiterals": true
             }
         ],
