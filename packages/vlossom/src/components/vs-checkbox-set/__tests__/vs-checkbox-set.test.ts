@@ -9,7 +9,7 @@ function mountComponent() {
 
 describe('vs-checkbox-set', () => {
     describe('options', () => {
-        it('options를 설정할 수 있다', async () => {
+        it('primitive options를 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
                 props: {
@@ -19,6 +19,30 @@ describe('vs-checkbox-set', () => {
 
             // then
             expect(wrapper.findAll('input')).toHaveLength(3);
+            expect(wrapper.html()).toContain('A');
+            expect(wrapper.html()).toContain('B');
+            expect(wrapper.html()).toContain('C');
+        });
+
+        it('object options를 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    options: [
+                        { label: 'A', value: 'a' },
+                        { label: 'B', value: 'b' },
+                        { label: 'C', value: 'c' },
+                    ],
+                    optionLabel: 'label',
+                    optionValue: 'value',
+                },
+            });
+
+            // then
+            expect(wrapper.findAll('input')).toHaveLength(3);
+            expect(wrapper.html()).toContain('A');
+            expect(wrapper.html()).toContain('B');
+            expect(wrapper.html()).toContain('C');
         });
     });
 
