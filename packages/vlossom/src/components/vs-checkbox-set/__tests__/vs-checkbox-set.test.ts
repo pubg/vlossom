@@ -44,6 +44,25 @@ describe('vs-checkbox-set', () => {
             expect(wrapper.html()).toContain('B');
             expect(wrapper.html()).toContain('C');
         });
+
+        it('options가 변경되면 checkbox set value가 초기화 된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.setProps({ options: ['A', 'B', 'C', 'D'] });
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([[]]);
+        });
     });
 
     describe('v-model', () => {
