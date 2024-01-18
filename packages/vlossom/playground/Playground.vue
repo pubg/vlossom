@@ -2,7 +2,7 @@
     <vs-page>
         <template #title>Vlossom Playground</template>
 
-        Hello World
+        Hello Vlossom!
     </vs-page>
 </template>
 

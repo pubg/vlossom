@@ -4,12 +4,15 @@
         :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]"
         :style="customProperties"
     >
-        <strong class="sub-title">Notice</strong>
-        <p>
-            <slot />
-        </p>
+        <div class="vs-notice-contents">
+            <strong class="sub-title">{{ title }}</strong>
+            <vs-divider :color-scheme="colorScheme" :style-set="{ lineColor: primary ? 'white' : '' }" vertical />
+            <p>
+                <slot />
+            </p>
+        </div>
         <button type="button" class="vs-notice-close" @click.stop="closeNotice()">
-            <close-icon aria-label="close" class="close-icon" />
+            <close-icon aria-label="close" size="20" />
         </button>
     </div>
 </template>
@@ -19,14 +22,16 @@ import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { CloseIcon } from '@/icons';
+import VsDivider from '../vs-divider/VsDivider.vue';
 
 import type { VsNoticeStyleSet } from './types';
 
 const name = VsComponent.VsNotice;
 export default defineComponent({
     name,
-    components: { CloseIcon },
+    components: { VsDivider, CloseIcon },
     props: {
+        title: { type: String, default: 'Notice' },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet>, default: '' },
         primary: { type: Boolean, default: false },
