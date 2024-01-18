@@ -52,6 +52,7 @@ declare module 'vue' {
     interface GlobalComponents {
         VsButton: typeof import('./')['VsButton'];
         VsCheckbox: typeof import('./')['VsCheckbox'];
+        VsCheckboxSet: typeof import('./')['VsCheckboxSet'];
         VsChip: typeof import('./')['VsChip'];
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];
