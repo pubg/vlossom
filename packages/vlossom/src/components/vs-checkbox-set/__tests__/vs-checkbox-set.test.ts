@@ -63,6 +63,23 @@ describe('vs-checkbox-set', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0]).toEqual([[]]);
         });
+
+        it('options가 변경되어도 이전 값과 deep equal 하면 checkbox set value가 그대로 유지된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: ['A'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.setProps({ options: ['A', 'B', 'C'] });
+
+            // then
+            expect(wrapper.emitted('update:modelValue')).toBeUndefined();
+        });
     });
 
     describe('v-model', () => {
@@ -306,6 +323,42 @@ describe('vs-checkbox-set', () => {
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toBeUndefined();
+        });
+    });
+
+    describe('focus / blur', () => {
+        it('focus 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.find('input[value="A"]').trigger('focus');
+
+            // then
+            const focusEvent = wrapper.emitted('focus');
+            expect(focusEvent).toHaveLength(1);
+            expect(focusEvent?.[0]).toEqual(['A']);
+        });
+
+        it('blur 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.find('input[value="A"]').trigger('blur');
+
+            // then
+            const blurEvent = wrapper.emitted('blur');
+            expect(blurEvent).toHaveLength(1);
+            expect(blurEvent?.[0]).toEqual(['A']);
         });
     });
 });
