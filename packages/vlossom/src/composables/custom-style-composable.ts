@@ -1,8 +1,7 @@
-import { computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, Ref } from 'vue';
 import { utils } from '@/utils';
 import { store } from '@/store';
 
-import type { Ref } from 'vue';
 import type { VsComponent } from '@/declaration';
 
 export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {

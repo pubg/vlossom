@@ -1,0 +1,26 @@
+.vs-header {
+    background-color: var(--vs-header-backgroundColor, var(--vs-comp-backgroundColor));
+    bottom: var(--vs-header-bottom, auto);
+    box-shadow: var(--vs-header-boxShadow, none);
+    color: var(--vs-header-color, var(--vs-comp-color));
+    display: var(--vs-header-display, flex);
+    flex: var(--vs-header-flex, 1 1 auto);
+    height: var(--vs-header-height, auto);
+    left: var(--vs-header-left, auto);
+    padding: var(--vs-header-padding);
+    position: var(--vs-header-position, static);
+    right: var(--vs-header-right, auto);
+    top: var(--vs-header-top, auto);
+    width: var(--vs-header-width, auto);
+    z-index: var(--vs-header-zIndex, 1200);
+
+    &.primary {
+        background-color: var(--vs-header-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        color: var(--vs-header-color, var(--vs-comp-color-primary));
+    }
+
+    .vs-header-content {
+        text-align: var(--vs-header-textAlign, inherit);
+        width: 100%;
+    }
+}

@@ -14,3 +14,5 @@ export const COLORS = [
     'grey',
     'black',
 ] as const;
+
+export const CSS_POSITION  = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
