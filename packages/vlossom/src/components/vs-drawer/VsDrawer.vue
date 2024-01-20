@@ -1,7 +1,7 @@
 <template>
-    <teleport to="body">
+    <teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" class="modal-container">
+            <div v-if="isOpen" class="modal-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div class="dimmed" @click="isOpen = false" />
                 <div :class="['vs-drawer', `vs-${computedColorScheme}`, placement]">
                     <slot />
@@ -24,8 +24,9 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string>, default: '' },
-        placement: { type: String as PropType<Placement>, default: 'left' },
         closeOnEsc: { type: Boolean, default: true },
+        hasContainer: { type: Boolean, default: false },
+        placement: { type: String as PropType<Placement>, default: 'left' },
         // fixed: { type: Boolean, default: false },
         // hideScroll: { type: Boolean, default: false },
         // width: { type: String, default: '300px' },

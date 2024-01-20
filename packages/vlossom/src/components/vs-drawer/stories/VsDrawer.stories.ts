@@ -59,7 +59,7 @@ export const ColorScheme: Story = {
 				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" @click="setColorScheme(color)">
                     {{ color }}
 				</vs-button>
-                <vs-drawer v-model="isOpen" :color-scheme="currentColorScheme" v-bind="args">
+                <vs-drawer v-model="isOpen" :color-scheme="currentColorScheme">
                     Here is drawer content
                 </vs-drawer>
             </div>
@@ -92,7 +92,7 @@ export const Placement: Story = {
 				<vs-button v-for="placement in placements" :key="placement" @click="setPlacement(placement)">
                     {{ placement }}
 				</vs-button>
-                <vs-drawer v-model="isOpen" :placement="currentPlacement" v-bind="args">
+                <vs-drawer v-model="isOpen" :placement="currentPlacement">
                     Here is drawer content
                 </vs-drawer>
             </div>
@@ -102,16 +102,17 @@ export const Placement: Story = {
 
 const containerStyle = {
     position: 'relative',
-    width: '500px',
-    height: '800px',
     backgroundColor: 'rgba(0, 0, 0, 0.02)',
     border: '1px solid rgb(240, 240, 240)',
     borderRadius: '4px',
+    height: '800px',
+    overflow: 'hidden',
     padding: '2rem',
+    width: '600px',
 };
 
-export const Container: Story = {
-    render: () => ({
+export const HasContainer: Story = {
+    render: (args: any) => ({
         components: { VsDrawer },
         setup() {
             const isOpen = ref(false);
@@ -120,10 +121,11 @@ export const Container: Story = {
                 isOpen.value = true;
             }
 
-            return { open, isOpen, containerStyle };
+            return { args, open, isOpen, containerStyle };
         },
         template: `
             <div :style="containerStyle">
+                Render in this
                 <vs-button @click="open">Button</vs-button>
                 <vs-drawer v-model="isOpen" v-bind="args">
                     Here is drawer content
@@ -131,6 +133,9 @@ export const Container: Story = {
             </div>
         `,
     }),
+    args: {
+        hasContainer: true,
+    },
 };
 
 // export const StyleSet: Story = {
