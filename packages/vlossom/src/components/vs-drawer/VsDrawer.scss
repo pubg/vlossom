@@ -1,3 +1,19 @@
+$max-widths: (
+    xs: 18rem,
+    sm: 22rem,
+    md: 32rem,
+    lg: 42rem,
+    xl: 56rem,
+);
+
+$max-heights: (
+    xs: 12rem,
+    sm: 16rem,
+    md: 22rem,
+    lg: 28rem,
+    xl: 36rem,
+);
+
 .modal-container {
     position: fixed;
     top: 0;
@@ -18,11 +34,12 @@
 
     .vs-drawer {
         position: absolute;
-        width: 300px;
+        width: 100%;
         height: 100%;
         background-color: var(--vs-area-backgroundColor);
         z-index: var(--vs-drawer-z-index);
 
+        // placement
         &.left {
             top: 0;
             left: 0;
@@ -36,15 +53,30 @@
         &.top {
             top: 0;
             left: 0;
-            width: 100%;
-            height: 256px;
         }
 
         &.bottom {
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: 256px;
+        }
+
+        // size
+        &.left,
+        &.right {
+            @each $key, $value in $max-widths {
+                &.#{$key} {
+                    max-width: var(--vs-drawer-width, $value);
+                }
+            }
+        }
+
+        &.top,
+        &.bottom {
+            @each $key, $value in $max-heights {
+                &.#{$key} {
+                    max-height: var(--vs-drawer-height, $value);
+                }
+            }
         }
     }
 }

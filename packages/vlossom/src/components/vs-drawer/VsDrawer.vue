@@ -3,7 +3,7 @@
         <Transition :name="`slide-${placement}`" :duration="500">
             <div v-if="isOpen" class="modal-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div class="dimmed" @click="isOpen = false" />
-                <div :class="['vs-drawer', `vs-${computedColorScheme}`, placement]">
+                <div :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]" :style="customProperties">
                     <slot />
                 </div>
             </div>
@@ -12,24 +12,30 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, ref, toRefs, watch } from 'vue';
+import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement } from '@/declaration';
+import { VsComponent, type ColorScheme, type Placement, type Size } from '@/declaration';
 
-// import type { VsButtonStyleSet } from './types';
+import type { VsDrawerStyleSet } from './types';
+
+const placements: Placement[] = ['top', 'right', 'bottom', 'left'];
+const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 const name = VsComponent.VsDrawer;
 export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
         closeOnEsc: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
-        placement: { type: String as PropType<Placement>, default: 'left' },
-        // fixed: { type: Boolean, default: false },
+        placement: {
+            type: String as PropType<Placement>,
+            default: 'left',
+            validator: (val: Placement) => placements.includes(val),
+        },
+        size: { type: String as PropType<Size>, default: 'sm', validator: (val: Size) => sizes.includes(val) },
         // hideScroll: { type: Boolean, default: false },
-        // width: { type: String, default: '300px' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -39,7 +45,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        // const { customProperties } = useCustomStyle<VsButtonStyleSet>(name, styleSet);
+        const { customProperties } = useCustomStyle<VsDrawerStyleSet>(name, styleSet);
 
         const isOpen = ref(modelValue.value);
 
@@ -53,6 +59,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
+            customProperties,
             isOpen,
         };
     },

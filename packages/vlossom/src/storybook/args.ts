@@ -10,6 +10,16 @@ export const verticalAlign = {
     options: ['default', 'top', 'bottom'],
 };
 
+export const placement = {
+    control: 'select',
+    options: ['top', 'bottom', 'left', 'right'],
+};
+
+export const size = {
+    control: 'select',
+    options: ['xs', 'sm', 'md', 'lg', 'xl'],
+};
+
 export function getColorSchemeTemplate(templateStr: string) {
     return COLORS.map((color) => templateStr.replace(/{{\s*color\s*}}/g, color)).join('\n');
 }

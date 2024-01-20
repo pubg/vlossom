@@ -1,4 +1,4 @@
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, placement, size } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsDrawer from './../VsDrawer.vue';
 
@@ -29,6 +29,8 @@ const meta: Meta<typeof VsDrawer> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        placement,
+        size,
     },
 };
 
@@ -76,7 +78,7 @@ export const Placement: Story = {
         setup() {
             const isOpen = ref(false);
 
-            const placements = ['top', 'bottom', 'left', 'right'];
+            const placements = placement.options;
 
             const currentPlacement = ref('left');
 
@@ -93,6 +95,36 @@ export const Placement: Story = {
                     {{ placement }}
 				</vs-button>
                 <vs-drawer v-model="isOpen" :placement="currentPlacement">
+                    Here is drawer content
+                </vs-drawer>
+            </div>
+        `,
+    }),
+};
+
+export const Size: Story = {
+    render: () => ({
+        components: { VsDrawer },
+        setup() {
+            const isOpen = ref(false);
+
+            const sizes = size.options;
+
+            const currentSize = ref('sm');
+
+            function setSize(value: string) {
+                currentSize.value = value;
+                isOpen.value = true;
+            }
+
+            return { isOpen, sizes, currentSize, setSize };
+        },
+        template: `
+            <div>
+                <vs-button v-for="size in sizes" :key="size" @click="setSize(size)">
+                    {{ size }}
+                </vs-button>
+                <vs-drawer v-model="isOpen" :size="currentSize">
                     Here is drawer content
                 </vs-drawer>
             </div>
@@ -138,11 +170,11 @@ export const HasContainer: Story = {
     },
 };
 
-// export const StyleSet: Story = {
-//     args: {
-//         styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
-//     },
-// };
+export const StyleSet: Story = {
+    args: {
+        styleSet: { width: '300px' },
+    },
+};
 
 // export const PreDefinedStyleSet: Story = {
 //     args: {
