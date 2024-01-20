@@ -105,3 +105,5 @@ export type TextAlign =
     | 'inherit';
 
 export type CssPosition = (typeof CSS_POSITION)[number];
+
+export type Placement = 'top' | 'bottom' | 'left' | 'right';

@@ -14,6 +14,8 @@ export { default as VsContainer } from './vs-container/VsContainer.vue';
 export { type VsDividerStyleSet } from './vs-divider/types';
 export { default as VsDivider } from './vs-divider/VsDivider.vue';
 
+export { default as VsDrawer } from './vs-drawer/VsDrawer.vue';
+
 export { type VsFooterStyleSet } from './vs-footer/types';
 export { default as VsFooter } from './vs-footer/VsFooter.vue';
 
@@ -62,6 +64,7 @@ declare module 'vue' {
         VsChip: typeof import('./')['VsChip'];
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];
+        VsDrawer: typeof import('./')['VsDrawer'];
         VsFooter: typeof import('./')['VsFooter'];
         VsForm: typeof import('./')['VsForm'];
         VsHeader: typeof import('./')['VsHeader'];

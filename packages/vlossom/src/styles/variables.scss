@@ -1,0 +1,9 @@
+$variables: (
+    drawer-z-index: 1000,
+);
+
+:root {
+    @each $key, $value in $variables {
+        --vs-#{$key}: #{$value};
+    }
+}
