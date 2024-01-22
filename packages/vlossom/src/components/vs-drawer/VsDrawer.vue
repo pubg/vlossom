@@ -31,7 +31,6 @@
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Size } from '@/declaration';
-import * as _ from 'lodash-es';
 
 import type { VsDrawerStyleSet } from './types';
 import { onMounted } from 'vue';
