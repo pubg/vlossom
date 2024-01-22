@@ -124,9 +124,7 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
-                onClear: () => {
-                    inputValue.value = [];
-                },
+                onClear,
             },
         });
 
