@@ -112,7 +112,7 @@ export default defineComponent({
             inputValue.value = [];
         }
 
-        const { getOptionLabel, getOptionValue } = useInputOption(options, optionLabel, optionValue, onClear);
+        const { getOptionLabel, getOptionValue } = useInputOption(options, optionLabel, optionValue, { onClear });
 
         function requiredCheck() {
             return required.value && inputValue.value.length === 0 ? 'required' : '';
@@ -128,11 +128,11 @@ export default defineComponent({
             },
         });
 
-        function isChecked(option: { [key: string]: any }) {
+        function isChecked(option: any) {
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-        async function toggle(e: Event, option: { [key: string]: any }) {
+        async function toggle(e: Event, option: any) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -151,11 +151,11 @@ export default defineComponent({
             }
         }
 
-        function onFocus(option: { [key: string]: any }) {
+        function onFocus(option: any) {
             emit('focus', option);
         }
 
-        function onBlur(option: { [key: string]: any }) {
+        function onBlur(option: any) {
             emit('blur', option);
         }
 
