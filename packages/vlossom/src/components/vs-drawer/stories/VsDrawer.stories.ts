@@ -107,10 +107,10 @@ export const Dimmed: Story = {
     },
 };
 
-export const CloseOnDimmedClick: Story = {
+export const CloseOnOverlayClick: Story = {
     args: {
         dimmed: true,
-        closeOnDimmed: true,
+        closeOnOverlayClick: true,
     },
 };
 

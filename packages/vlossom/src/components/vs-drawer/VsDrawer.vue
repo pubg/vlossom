@@ -2,7 +2,7 @@
     <teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
             <div v-if="isOpen" class="modal-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
-                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click="close()" />
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickOverlay()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
                     :style="customProperties"
@@ -31,8 +31,11 @@
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Size } from '@/declaration';
+import * as _ from 'lodash-es';
 
 import type { VsDrawerStyleSet } from './types';
+import { onMounted } from 'vue';
+import { onBeforeUnmount } from 'vue';
 
 const placements: Placement[] = ['top', 'right', 'bottom', 'left'];
 const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl'];
@@ -44,8 +47,9 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
         closeOnEsc: { type: Boolean, default: true },
-        closeOnDimmed: { type: Boolean, default: false },
+        closeOnOverlayClick: { type: Boolean, default: false },
         dimmed: { type: Boolean, default: false },
+        // handleResize: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         placement: {
@@ -59,7 +63,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmed } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnEsc, closeOnOverlayClick } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -75,17 +79,35 @@ export default defineComponent({
             emit('update:modelValue', val);
         });
 
-        function close() {
-            if (closeOnDimmed.value) {
+        function clickOverlay() {
+            if (closeOnOverlayClick.value) {
                 isOpen.value = false;
             }
         }
+
+        function onKeyDown(event: KeyboardEvent) {
+            if (event.key === 'Escape') {
+                isOpen.value = false;
+            }
+        }
+
+        onMounted(() => {
+            if (closeOnEsc.value) {
+                document.addEventListener('keydown', onKeyDown);
+            }
+        });
+
+        onBeforeUnmount(() => {
+            if (closeOnEsc.value) {
+                document.removeEventListener('keydown', onKeyDown);
+            }
+        });
 
         return {
             computedColorScheme,
             customProperties,
             isOpen,
-            close,
+            clickOverlay,
         };
     },
 });
