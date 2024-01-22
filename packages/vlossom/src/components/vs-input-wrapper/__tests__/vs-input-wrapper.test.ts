@@ -26,7 +26,6 @@ describe('vs-input-wrapper', () => {
             // then
             const label = wrapper.find('.label');
             expect(label.exists()).toBe(true);
-            expect(label.isVisible()).toBe(false);
             expect(label.text()).toBe('');
         });
 
