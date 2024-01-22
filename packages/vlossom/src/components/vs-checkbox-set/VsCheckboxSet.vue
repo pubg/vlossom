@@ -69,7 +69,6 @@ export default defineComponent({
             default: null,
         },
         column: { type: Boolean, default: false },
-        name: { type: String, default: '' },
         options: { type: Array as PropType<any[]>, required: true },
         optionLabel: { type: String, default: '' },
         optionValue: { type: String, default: '' },
