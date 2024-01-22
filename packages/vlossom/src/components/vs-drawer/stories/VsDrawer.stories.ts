@@ -1,6 +1,7 @@
 import { colorScheme, placement, size } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsDrawer from './../VsDrawer.vue';
+import CloseIcon from '@/icons/CloseIcon.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
@@ -9,19 +10,16 @@ const meta: Meta<typeof VsDrawer> = {
     title: 'Components/Layout Components/VsDrawer',
     component: VsDrawer,
     render: (args: any) => ({
-        components: { VsDrawer },
+        components: { VsDrawer, CloseIcon },
         setup() {
             const isOpen = ref(false);
 
-            function open() {
-                isOpen.value = true;
-            }
-
-            return { args, isOpen, open };
+            return { args, isOpen };
         },
         template: `
-            <vs-button @click="open">Open Drawer</vs-button>
+            <vs-button @click="isOpen = true">Open Drawer</vs-button>
             <vs-drawer v-model="isOpen" v-bind="args">
+                <close-icon @click="isOpen = false" />
                 Here is drawer content
             </vs-drawer>
         `,
@@ -69,6 +67,51 @@ export const ColorScheme: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+};
+
+export const Dimmed: Story = {
+    render: (args: any) => ({
+        components: { VsDrawer },
+        setup() {
+            const isOpen = ref(false);
+
+            return { args, isOpen };
+        },
+        template: `
+            <div>
+                <vs-button @click="isOpen = true">Open Drawer</vs-button>
+                <vs-drawer v-model="isOpen" v-bind="args">
+                    Here is drawer content
+                </vs-drawer>
+            </div>
+        `,
+    }),
+    args: {
+        dimmed: true,
+    },
+};
+
+export const CloseOnDimmedClick: Story = {
+    render: (args: any) => ({
+        components: { VsDrawer },
+        setup() {
+            const isOpen = ref(false);
+
+            return { args, isOpen };
+        },
+        template: `
+            <div>
+                <vs-button @click="isOpen = true">Open Drawer</vs-button>
+                <vs-drawer v-model="isOpen" v-bind="args">
+                    Here is drawer content
+                </vs-drawer>
+            </div>
+        `,
+    }),
+    args: {
+        dimmed: true,
+        closeOnDimmed: true,
     },
 };
 
@@ -149,15 +192,11 @@ export const Header: Story = {
         setup() {
             const isOpen = ref(false);
 
-            function open() {
-                isOpen.value = true;
-            }
-
-            return { open, isOpen };
+            return { isOpen };
         },
         template: `
             <div>
-                <vs-button @click="open">Open Drawer</vs-button>
+                <vs-button @click="isOpen = true">Open Drawer</vs-button>
                 <vs-drawer v-model="isOpen">
                     <template #header>
                         <div style="padding: 1rem; border-bottom: 1px solid rgb(240, 240, 240);">Here is header</div>
@@ -176,15 +215,11 @@ export const Footer: Story = {
         setup() {
             const isOpen = ref(false);
 
-            function open() {
-                isOpen.value = true;
-            }
-
-            return { open, isOpen };
+            return { isOpen };
         },
         template: `
             <div>
-                <vs-button @click="open">Open Drawer</vs-button>
+                <vs-button @click="isOpen = true">Open Drawer</vs-button>
                 <vs-drawer v-model="isOpen">
                     Here is drawer content
 
@@ -203,16 +238,12 @@ export const HasContainer: Story = {
         setup() {
             const isOpen = ref(false);
 
-            function open() {
-                isOpen.value = true;
-            }
-
-            return { args, open, isOpen, containerStyle };
+            return { args, isOpen, containerStyle };
         },
         template: `
             <div :style="containerStyle">
                 Render in this
-                <vs-button @click="open">Button</vs-button>
+                <vs-button @click="isOpen = true">Button</vs-button>
                 <vs-drawer v-model="isOpen" v-bind="args">
                     Here is drawer content
                 </vs-drawer>

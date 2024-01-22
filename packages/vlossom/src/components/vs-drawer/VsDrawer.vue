@@ -2,7 +2,7 @@
     <teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
             <div v-if="isOpen" class="modal-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
-                <div class="dimmed" @click="isOpen = false" />
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click="close()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
                     :style="customProperties"
@@ -44,7 +44,8 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
         closeOnEsc: { type: Boolean, default: true },
-        // dimmed: { type: Boolean, default: false },
+        closeOnDimmed: { type: Boolean, default: false },
+        dimmed: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         placement: {
@@ -58,7 +59,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnDimmed } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -74,10 +75,17 @@ export default defineComponent({
             emit('update:modelValue', val);
         });
 
+        function close() {
+            if (closeOnDimmed.value) {
+                isOpen.value = false;
+            }
+        }
+
         return {
             computedColorScheme,
             customProperties,
             isOpen,
+            close,
         };
     },
 });
