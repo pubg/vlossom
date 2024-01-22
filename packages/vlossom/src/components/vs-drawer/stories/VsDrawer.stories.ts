@@ -20,7 +20,7 @@ const meta: Meta<typeof VsDrawer> = {
             return { args, isOpen, open };
         },
         template: `
-            <vs-button @click="open">Button</vs-button>
+            <vs-button @click="open">Open Drawer</vs-button>
             <vs-drawer v-model="isOpen" v-bind="args">
                 Here is drawer content
             </vs-drawer>
@@ -141,6 +141,60 @@ const containerStyle = {
     overflow: 'hidden',
     padding: '2rem',
     width: '600px',
+};
+
+export const Header: Story = {
+    render: () => ({
+        components: { VsDrawer },
+        setup() {
+            const isOpen = ref(false);
+
+            function open() {
+                isOpen.value = true;
+            }
+
+            return { open, isOpen };
+        },
+        template: `
+            <div>
+                <vs-button @click="open">Open Drawer</vs-button>
+                <vs-drawer v-model="isOpen">
+                    <template #header>
+                        <div style="padding: 1rem; border-bottom: 1px solid rgb(240, 240, 240);">Here is header</div>
+                    </template>
+
+                    Here is drawer content
+                </vs-drawer>
+            </div>
+        `,
+    }),
+};
+
+export const Footer: Story = {
+    render: () => ({
+        components: { VsDrawer },
+        setup() {
+            const isOpen = ref(false);
+
+            function open() {
+                isOpen.value = true;
+            }
+
+            return { open, isOpen };
+        },
+        template: `
+            <div>
+                <vs-button @click="open">Open Drawer</vs-button>
+                <vs-drawer v-model="isOpen">
+                    Here is drawer content
+
+                    <template #footer>
+                        <div style="padding: 1rem; border-top: 1px solid rgb(240, 240, 240);">Here is footer</div>
+                    </template>
+                </vs-drawer>
+            </div>
+        `,
+    }),
 };
 
 export const HasContainer: Story = {
