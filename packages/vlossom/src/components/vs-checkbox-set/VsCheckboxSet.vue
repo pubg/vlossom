@@ -46,6 +46,7 @@ import {
     getInputProps,
     useInput,
     useInputOption,
+    getInputOptionProps,
 } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
@@ -61,6 +62,7 @@ export default defineComponent({
     components: { VsInputWrapper, VsWrapper, CheckIcon },
     props: {
         ...getInputProps<any[]>(),
+        ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
@@ -69,9 +71,6 @@ export default defineComponent({
             default: null,
         },
         column: { type: Boolean, default: false },
-        options: { type: Array as PropType<any[]>, required: true },
-        optionLabel: { type: String, default: '' },
-        optionValue: { type: String, default: '' },
         // v-model
         modelValue: { type: Array as PropType<any[]>, default: () => [] },
     },
@@ -131,11 +130,11 @@ export default defineComponent({
             },
         });
 
-        function isChecked(option: any) {
+        function isChecked(option: { [key: string]: any }) {
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-        async function toggle(e: Event, option: any) {
+        async function toggle(e: Event, option: { [key: string]: any }) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -154,11 +153,11 @@ export default defineComponent({
             }
         }
 
-        function onFocus(option: any) {
+        function onFocus(option: { [key: string]: any }) {
             emit('focus', option);
         }
 
-        function onBlur(option: any) {
+        function onBlur(option: { [key: string]: any }) {
             emit('blur', option);
         }
 

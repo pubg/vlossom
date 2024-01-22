@@ -1,13 +1,21 @@
 import { utils } from '@/utils';
-import { Ref, watch } from 'vue';
+import { PropType, Ref, watch } from 'vue';
+
+export function getInputOptionProps() {
+    return {
+        options: { type: Array as PropType<{ [key: string]: any }[]>, required: true, default: () => [] },
+        optionLabel: { type: String, default: '' },
+        optionValue: { type: String, default: '' },
+    };
+}
 
 export function useInputOption(
-    options: Ref<any[]>,
+    options: Ref<{ [key: string]: any }[]>,
     optionLabel: Ref<string>,
     optionValue: Ref<string>,
     onClear: () => void,
 ) {
-    function getOptionLabel(option: any) {
+    function getOptionLabel(option: { [key: string]: any }) {
         if (typeof option === 'object') {
             if (optionLabel.value) {
                 return option[optionLabel.value];
@@ -19,7 +27,7 @@ export function useInputOption(
         return option + '';
     }
 
-    function getOptionValue(option: any) {
+    function getOptionValue(option: { [key: string]: any }) {
         if (typeof option === 'object' && optionValue.value) {
             return option[optionValue.value];
         }
