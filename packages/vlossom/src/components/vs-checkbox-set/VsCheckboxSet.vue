@@ -22,7 +22,7 @@
                             type="checkbox"
                             :id="`${id}-${getOptionValue(option)}`"
                             :disabled="disabled || readonly"
-                            :name="name || label"
+                            :name="name"
                             :value="getOptionValue(option)"
                             :checked="isChecked(option)"
                             @change="toggle($event, option)"
@@ -38,8 +38,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
-import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import {
+    useColorScheme,
+    useCustomStyle,
+    getResponsiveProps,
+    getInputProps,
+    useInput,
+    useInputOption,
+} from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -103,29 +110,11 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        function isChecked(option: any) {
-            return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
+        function onClear() {
+            inputValue.value = [];
         }
 
-        function getOptionLabel(option: any) {
-            if (typeof option === 'object') {
-                if (optionLabel.value) {
-                    return option[optionLabel.value];
-                } else {
-                    return JSON.stringify(option);
-                }
-            }
-
-            return option + '';
-        }
-
-        function getOptionValue(option: any) {
-            if (typeof option === 'object' && optionValue.value) {
-                return option[optionValue.value];
-            }
-
-            return option;
-        }
+        const { getOptionLabel, getOptionValue } = useInputOption(options, optionLabel, optionValue, onClear);
 
         function requiredCheck() {
             return required.value && inputValue.value.length === 0 ? 'required' : '';
@@ -142,6 +131,10 @@ export default defineComponent({
                 },
             },
         });
+
+        function isChecked(option: any) {
+            return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
+        }
 
         async function toggle(e: Event, option: any) {
             const beforeChangeFn = beforeChange.value;
@@ -169,14 +162,6 @@ export default defineComponent({
         function onBlur(option: any) {
             emit('blur', option);
         }
-
-        watch(options, (newOptions, oldOptions) => {
-            if (utils.object.isEqual(newOptions, oldOptions)) {
-                return;
-            }
-
-            inputValue.value = [];
-        });
 
         return {
             classObj,

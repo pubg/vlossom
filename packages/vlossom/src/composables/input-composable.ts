@@ -9,6 +9,7 @@ export function getInputProps<T = unknown>() {
         disabled: { type: Boolean, default: false },
         label: { type: String, default: '' },
         messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
+        name: { type: String, default: '' },
         noClear: { type: Boolean, default: false },
         noLabel: { type: Boolean, default: false },
         noMsg: { type: Boolean, default: false },

@@ -21,7 +21,7 @@
                         type="checkbox"
                         :id="id"
                         :disabled="disabled || readonly"
-                        :name="name || label"
+                        :name="name"
                         :value="value"
                         :checked="isChecked"
                         @change="toggle"
@@ -64,10 +64,9 @@ export default defineComponent({
             default: null,
         },
         checkLabel: { type: String, default: '' },
-        name: { type: String, default: '' },
-        value: { type: String, default: '' },
         trueValue: { type: null, default: true },
         falseValue: { type: null, default: false },
+        value: { type: String, default: '' },
         // v-model
         modelValue: { type: null, default: false },
     },
