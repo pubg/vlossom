@@ -71,8 +71,6 @@
         "axe-playwright": "^1.2.3",
         "chromatic": "^10.2.0",
         "jsdom": "^23.2.0",
-        "postcss": "^8.4.33",
-        "postcss-nested": "^6.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "ress": "^5.0.2",

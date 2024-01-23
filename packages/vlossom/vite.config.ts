@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
-import postcssNested from 'postcss-nested';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
@@ -12,7 +11,7 @@ export default defineConfig({
     plugins: [vue(), dts()],
     css: {
         postcss: {
-            plugins: [postcssNested, autoprefixer],
+            plugins: [autoprefixer],
         },
     },
     resolve: {
