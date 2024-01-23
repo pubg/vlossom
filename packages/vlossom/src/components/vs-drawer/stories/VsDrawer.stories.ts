@@ -1,10 +1,10 @@
 import { colorScheme, placement, size } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { userEvent, within } from '@storybook/testing-library';
+import { ref } from 'vue';
 import VsDrawer from './../VsDrawer.vue';
 import CloseIcon from '@/icons/CloseIcon.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { ref } from 'vue';
 
 const DrawerCloseButton = {
     components: { CloseIcon },
@@ -46,6 +46,11 @@ const meta: Meta<typeof VsDrawer> = {
         placement,
         size,
     },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+
+        await userEvent.click(canvas.getByRole('button'), { delay: 400 });
+    },
 };
 
 export default meta;
@@ -84,9 +89,7 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
+    play: () => {},
 };
 
 export const Dimmed: Story = {
@@ -152,6 +155,7 @@ export const Placement: Story = {
             </div>
         `,
     }),
+    play: () => {},
 };
 
 export const Size: Story = {
@@ -185,6 +189,7 @@ export const Size: Story = {
             </div>
         `,
     }),
+    play: () => {},
 };
 
 export const Header: Story = {
@@ -283,8 +288,8 @@ export const StyleSet: Story = {
     },
 };
 
-// export const PreDefinedStyleSet: Story = {
-//     args: {
-//         styleSet: 'myStyleSet',
-//     },
-// };
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
+};

@@ -50,10 +50,10 @@ export default defineComponent({
         hideScroll: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Placement>,
-            default: 'left',
+            default: Placement.Left,
             validator: (val: Placement) => placements.includes(val),
         },
-        size: { type: String as PropType<Size>, default: 'sm', validator: (val: Size) => sizes.includes(val) },
+        size: { type: String as PropType<Size>, default: Size.Sm, validator: (val: Size) => sizes.includes(val) },
         // v-model
         modelValue: { type: Boolean, default: false },
     },

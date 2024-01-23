@@ -23,7 +23,7 @@ $sizes: xs, sm, md, lg, xl;
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: var(--vs-modal-backgroundColor);
+        background-color: var(--vs-drawer-backgroundColor, var(--vs-modal-backgroundColor));
         z-index: var(--vs-modal-z-index);
         display: flex;
         flex-direction: column;
