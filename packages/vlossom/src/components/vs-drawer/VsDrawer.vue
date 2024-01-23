@@ -1,7 +1,7 @@
 <template>
     <teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" class="modal-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
+            <div v-if="isOpen" class="drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickOverlay()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
@@ -48,7 +48,6 @@ export default defineComponent({
         closeOnEsc: { type: Boolean, default: true },
         closeOnOverlayClick: { type: Boolean, default: false },
         dimmed: { type: Boolean, default: false },
-        // handleResize: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         placement: {

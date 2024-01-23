@@ -5,6 +5,7 @@ import type {
     VsCheckboxStyleSet,
     VsChipStyleSet,
     VsDividerStyleSet,
+    VsDrawerStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
     VsInputStyleSet,
@@ -29,6 +30,7 @@ export interface StyleSet {
     VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
+    VsDrawer?: { [key: string]: VsDrawerStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };
     VsHeader?: { [key: string]: VsHeaderStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };

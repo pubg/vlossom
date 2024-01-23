@@ -1,20 +1,6 @@
-$max-widths: (
-    xs: 18rem,
-    sm: 22rem,
-    md: 32rem,
-    lg: 42rem,
-    xl: 56rem,
-);
+$sizes: xs, sm, md, lg, xl;
 
-$max-heights: (
-    xs: 12rem,
-    sm: 16rem,
-    md: 22rem,
-    lg: 28rem,
-    xl: 36rem,
-);
-
-.modal-container {
+.drawer-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -80,18 +66,18 @@ $max-heights: (
         // size
         &.left,
         &.right {
-            @each $key, $value in $max-widths {
-                &.#{$key} {
-                    max-width: var(--vs-drawer-width, $value);
+            @each $size in $sizes {
+                &.#{$size} {
+                    max-width: var(--vs-drawer-width, var(--vs-drawer-width-#{$size}));
                 }
             }
         }
 
         &.top,
         &.bottom {
-            @each $key, $value in $max-heights {
-                &.#{$key} {
-                    max-height: var(--vs-drawer-height, $value);
+            @each $size in $sizes {
+                &.#{$size} {
+                    max-height: var(--vs-drawer-height, var(--vs-drawer-height-#{$size}));
                 }
             }
         }
@@ -107,7 +93,7 @@ $max-heights: (
 .slide-bottom-enter-active,
 .slide-bottom-leave-active {
     .vs-drawer {
-        transition: all 0.3s ease;
+        transition: all 0.3s;
     }
 
     .dimmed {

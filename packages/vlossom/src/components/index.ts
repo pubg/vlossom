@@ -14,6 +14,7 @@ export { default as VsContainer } from './vs-container/VsContainer.vue';
 export { type VsDividerStyleSet } from './vs-divider/types';
 export { default as VsDivider } from './vs-divider/VsDivider.vue';
 
+export { type VsDrawerStyleSet } from './vs-drawer/types';
 export { default as VsDrawer } from './vs-drawer/VsDrawer.vue';
 
 export { type VsFooterStyleSet } from './vs-footer/types';
