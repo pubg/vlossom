@@ -1,4 +1,4 @@
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
 import VsNotice from '../VsNotice.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -33,14 +33,9 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-notice color-scheme="red">Hello! This is red notice</vs-notice>
-                <vs-notice color-scheme="amber">Hello! This is amber notice</vs-notice>
-                <vs-notice color-scheme="green">Hello! This is green notice</vs-notice>
-                <vs-notice color-scheme="teal">Hello! This is teal notice</vs-notice>
-                <vs-notice color-scheme="blue">Hello! This is blue notice</vs-notice>
-                <vs-notice color-scheme="indigo">Hello! This is indigo notice</vs-notice>
-                <vs-notice color-scheme="purple">Hello! This is purple notice</vs-notice>
-                <vs-notice color-scheme="pink">Hello! This is pink notice</vs-notice>
+                ${getColorSchemeTemplate(`
+                    <vs-notice color-scheme="{{ color }}">Hello! This is Vlossom {{ color }} notice</vs-notice>
+                `)}
             </div>
         `,
     }),
@@ -57,14 +52,9 @@ export const Primary: Story = {
         },
         template: `
             <div>
-				<vs-notice color-scheme="red" primary>Hello! This is red notice</vs-notice>
-                <vs-notice color-scheme="amber" primary>Hello! This is amber notice</vs-notice>
-                <vs-notice color-scheme="green" primary>Hello! This is green notice</vs-notice>
-                <vs-notice color-scheme="teal" primary>Hello! This is teal notice</vs-notice>
-                <vs-notice color-scheme="blue" primary>Hello! This is blue notice</vs-notice>
-                <vs-notice color-scheme="indigo" primary>Hello! This is indigo notice</vs-notice>
-                <vs-notice color-scheme="purple" primary>Hello! This is purple notice</vs-notice>
-                <vs-notice color-scheme="pink" primary>Hello! This is pink notice</vs-notice>
+                ${getColorSchemeTemplate(`
+                    <vs-notice color-scheme="{{ color }}" primary>Hello! This is Vlossom {{ color }} notice</vs-notice>
+                `)}
             </div>
         `,
     }),

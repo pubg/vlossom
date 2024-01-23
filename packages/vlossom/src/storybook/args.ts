@@ -1,12 +1,18 @@
+import { COLORS } from '@/declaration';
+
 export const colorScheme = {
     control: 'select',
-    options: ['red', 'amber', 'green', 'teal', 'blue', 'indigo', 'purple', 'pink'],
+    options: COLORS,
 };
 
 export const verticalAlign = {
     control: 'select',
     options: ['default', 'top', 'bottom'],
 };
+
+export function getColorSchemeTemplate(templateStr: string) {
+    return COLORS.map((color) => templateStr.replace(/{{\s*color\s*}}/g, color)).join('\n');
+}
 
 export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
     const metaArgs: { [key: string]: any } = {};

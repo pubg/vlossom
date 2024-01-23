@@ -1,4 +1,4 @@
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
 import VsProgress from './../VsProgress.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -34,14 +34,9 @@ export const ColorScheme: Story = {
         components: { VsProgress },
         template: `
 			<div>
-				<vs-progress color-scheme="red" :value="10"/>
-				<vs-progress color-scheme="amber" :value="20"/>
-				<vs-progress color-scheme="green" :value="30"/>
-				<vs-progress color-scheme="teal" :value="40"/>
-				<vs-progress color-scheme="blue" :value="50"/>
-				<vs-progress color-scheme="indigo" :value="60"/>
-				<vs-progress color-scheme="purple" :value="70"/>
-				<vs-progress color-scheme="pink" :value="80"/>
+                ${getColorSchemeTemplate(`
+                    <vs-progress color-scheme="{{ color }}" :value="60"/>
+                `)}
 			</div>
 		`,
     }),
@@ -55,14 +50,9 @@ export const Primary: Story = {
         components: { VsProgress },
         template: `
 			<div>
-				<vs-progress color-scheme="red" primary :value="20" :max="200"/>
-				<vs-progress color-scheme="amber" primary :value="40" :max="200"/>
-				<vs-progress color-scheme="green" primary :value="60" :max="200"/>
-				<vs-progress color-scheme="teal" primary :value="80" :max="200"/>
-				<vs-progress color-scheme="blue" primary :value="100" :max="200"/>
-				<vs-progress color-scheme="indigo" primary :value="120" :max="200"/>
-				<vs-progress color-scheme="purple" primary :value="140" :max="200"/>
-				<vs-progress color-scheme="pink" primary :value="160" :max="200"/>
+                ${getColorSchemeTemplate(`
+                    <vs-progress color-scheme="{{ color }}" primary :value="60"/>
+                `)}
 			</div>
 		`,
     }),

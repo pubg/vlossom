@@ -21,15 +21,15 @@ $colorScheme-light: (
         line-color: #{$red-500},
         light-backgroundColor: transparentize($red-200, 0.8),
     ),
-    'amber': (
-        area-backgroundColor: transparentize($amber-50, 0.45),
-        comp-backgroundColor: #{$amber-200},
-        comp-color: #{$amber-800},
-        comp-backgroundColor-primary: #{$amber-600},
+    'yellow': (
+        area-backgroundColor: transparentize($yellow-50, 0.45),
+        comp-backgroundColor: #{$yellow-200},
+        comp-color: #{$yellow-800},
+        comp-backgroundColor-primary: #{$yellow-600},
         comp-color-primary: #{$grey-50},
-        comp-border-color: #{$amber-600},
-        line-color: #{$amber-500},
-        light-backgroundColor: transparentize($amber-200, 0.8),
+        comp-border-color: #{$yellow-600},
+        line-color: #{$yellow-500},
+        light-backgroundColor: transparentize($yellow-200, 0.8),
     ),
     'green': (
         area-backgroundColor: transparentize($green-50, 0.45),
@@ -76,11 +76,11 @@ $colorScheme-dark: (
         line-color: #{$red-300},
         light-backgroundColor: transparentize($red-300, 0.8),
     ),
-    'amber': (
-        area-backgroundColor: transparentize($amber-400, 0.9),
-        comp-border-color: #{$amber-500},
-        line-color: #{$amber-300},
-        light-backgroundColor: transparentize($amber-300, 0.5),
+    'yellow': (
+        area-backgroundColor: transparentize($yellow-400, 0.9),
+        comp-border-color: #{$yellow-500},
+        line-color: #{$yellow-300},
+        light-backgroundColor: transparentize($yellow-300, 0.5),
     ),
     'green': (
         area-backgroundColor: transparentize($green-400, 0.9),

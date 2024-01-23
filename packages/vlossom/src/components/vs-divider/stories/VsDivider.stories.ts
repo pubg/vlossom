@@ -1,6 +1,7 @@
 import VsDivider from '../VsDivider.vue';
 import { colorScheme } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
+import { getColorSchemeTemplate } from '@/storybook/args';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -36,15 +37,8 @@ export const ColorScheme: Story = {
             return { args };
         },
         template: `
-            <div>
-                <vs-divider v-bind="args" color-scheme="red"/>
-                <vs-divider v-bind="args" color-scheme="amber"/>
-                <vs-divider v-bind="args" color-scheme="green"/>
-                <vs-divider v-bind="args" color-scheme="teal"/>
-                <vs-divider v-bind="args" color-scheme="blue"/>
-                <vs-divider v-bind="args" color-scheme="indigo"/>
-                <vs-divider v-bind="args" color-scheme="purple"/>
-                <vs-divider v-bind="args" color-scheme="pink"/>
+            <div class="hello">
+                ${getColorSchemeTemplate('<vs-divider v-bind="args" color-scheme="{{ color }}" />')}
             </div>
         `,
     }),

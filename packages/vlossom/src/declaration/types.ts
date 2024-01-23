@@ -15,7 +15,20 @@ import type {
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 
-export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type ColorScheme =
+    | 'red'
+    | 'orange'
+    | 'yellow'
+    | 'yellow-green'
+    | 'green'
+    | 'teal'
+    | 'light-blue'
+    | 'blue'
+    | 'indigo'
+    | 'purple'
+    | 'pink'
+    | 'brown'
+    | 'grey';
 
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
