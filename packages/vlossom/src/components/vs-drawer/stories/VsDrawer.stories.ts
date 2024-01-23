@@ -248,6 +248,7 @@ const containerStyle = {
     overflow: 'hidden',
     padding: '2rem',
     width: '600px',
+    color: 'var(--vs-font-color)',
 };
 
 export const HasContainer: Story = {
