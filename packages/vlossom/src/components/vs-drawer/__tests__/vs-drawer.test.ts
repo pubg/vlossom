@@ -14,7 +14,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('.drawer-container').attributes().style).toBe('position: absolute;');
+            expect(wrapper.find('.vs-drawer-container').attributes().style).toBe('position: absolute;');
         });
     });
 

@@ -6,7 +6,7 @@ $sizes: xs, sm, md, lg, xl;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: var(--vs-drawer-z-index);
+    z-index: var(--vs-modal-z-index);
 
     .dimmed {
         position: absolute;
@@ -14,7 +14,7 @@ $sizes: xs, sm, md, lg, xl;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: var(--vs-drawer-z-index);
+        z-index: var(--vs-modal-z-index);
         transition: all 0.3s;
         background-color: var(--vs-dimmed-backgroundColor);
     }
@@ -23,8 +23,8 @@ $sizes: xs, sm, md, lg, xl;
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: var(--vs-area-backgroundColor);
-        z-index: var(--vs-drawer-z-index);
+        background-color: var(--vs-modal-backgroundColor);
+        z-index: var(--vs-modal-z-index);
         display: flex;
         flex-direction: column;
 
