@@ -31,3 +31,18 @@ export enum UIState {
     Warn = 'warn',
     Selected = 'selected',
 }
+
+export enum Placement {
+    Top = 'top',
+    Bottom = 'bottom',
+    Left = 'left',
+    Right = 'right',
+}
+
+export enum Size {
+    Xs = 'xs',
+    Sm = 'sm',
+    Md = 'md',
+    Lg = 'lg',
+    Xl = 'xl',
+}

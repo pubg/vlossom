@@ -1,4 +1,5 @@
 import { COLORS, CSS_POSITION } from '@/declaration';
+import { Placement, Size } from '@/declaration';
 
 export const colorScheme = {
     control: 'select',
@@ -12,12 +13,12 @@ export const verticalAlign = {
 
 export const placement = {
     control: 'select',
-    options: ['top', 'bottom', 'left', 'right'],
+    options: Object.values(Placement),
 };
 
 export const size = {
     control: 'select',
-    options: ['xs', 'sm', 'md', 'lg', 'xl'],
+    options: Object.values(Size),
 };
 
 export function getColorSchemeTemplate(templateStr: string) {

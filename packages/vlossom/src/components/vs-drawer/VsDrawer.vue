@@ -1,7 +1,7 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" class="drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
+            <div v-if="isOpen" class="vs-drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickOverlay()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
@@ -28,16 +28,14 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
+import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement, type Size } from '@/declaration';
+import { VsComponent, type ColorScheme, Placement, Size } from '@/declaration';
 
 import type { VsDrawerStyleSet } from './types';
-import { onMounted } from 'vue';
-import { onBeforeUnmount } from 'vue';
 
-const placements: Placement[] = ['top', 'right', 'bottom', 'left'];
-const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+const placements = Object.values(Placement);
+const sizes = Object.values(Size);
 
 const name = VsComponent.VsDrawer;
 export default defineComponent({
