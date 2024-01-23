@@ -1,5 +1,5 @@
 <template>
-    <teleport to="body" :disabled="hasContainer">
+    <Teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
             <div v-if="isOpen" class="drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickOverlay()" />
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </Transition>
-    </teleport>
+    </Teleport>
 </template>
 
 <script lang="ts">
