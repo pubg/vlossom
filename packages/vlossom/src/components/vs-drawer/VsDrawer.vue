@@ -2,7 +2,7 @@
     <Teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
             <div v-if="isOpen" class="vs-drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
-                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickOverlay()" />
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
                     :style="customProperties"
@@ -44,8 +44,8 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
+        closeOnDimmedClick: { type: Boolean, default: false },
         closeOnEsc: { type: Boolean, default: true },
-        closeOnOverlayClick: { type: Boolean, default: false },
         dimmed: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
@@ -60,7 +60,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnEsc, closeOnOverlayClick } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnEsc, closeOnDimmedClick } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -79,8 +79,8 @@ export default defineComponent({
         const hasHeader = computed(() => !!slots['header']);
         const hasFooter = computed(() => !!slots['footer']);
 
-        function clickOverlay() {
-            if (closeOnOverlayClick.value) {
+        function clickDimmed() {
+            if (closeOnDimmedClick.value) {
                 isOpen.value = false;
             }
         }
@@ -107,7 +107,7 @@ export default defineComponent({
             computedColorScheme,
             customProperties,
             isOpen,
-            clickOverlay,
+            clickDimmed,
             hasHeader,
             hasFooter,
         };

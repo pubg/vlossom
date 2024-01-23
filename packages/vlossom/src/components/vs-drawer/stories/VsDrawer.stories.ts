@@ -49,7 +49,7 @@ const meta: Meta<typeof VsDrawer> = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
-        await userEvent.click(canvas.getByRole('button'), { delay: 400 });
+        await userEvent.click(canvas.getByRole('button'), { delay: 300 });
     },
 };
 
@@ -120,7 +120,7 @@ export const Dimmed: Story = {
 export const CloseOnOverlayClick: Story = {
     args: {
         dimmed: true,
-        closeOnOverlayClick: true,
+        closeOnDimmedClick: true,
     },
 };
 
