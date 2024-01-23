@@ -9,8 +9,9 @@
                     role="dialog"
                     aria-labelledby="vs-drawer-title"
                     aria-describedby="vs-drawer-body"
+                    :aria-label="hasHeader ? '' : 'Dialog'"
                 >
-                    <header id="vs-drawer-title">
+                    <header v-if="hasHeader" id="vs-drawer-title">
                         <slot name="header" />
                     </header>
 
@@ -18,7 +19,7 @@
                         <slot />
                     </div>
 
-                    <footer>
+                    <footer v-if="hasFooter">
                         <slot name="footer" />
                     </footer>
                 </div>
@@ -28,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount } from 'vue';
+import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, Placement, Size } from '@/declaration';
 
@@ -58,7 +59,7 @@ export default defineComponent({
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
+    setup(props, { emit, slots }) {
         const { colorScheme, styleSet, modelValue, closeOnEsc, closeOnOverlayClick } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -74,6 +75,9 @@ export default defineComponent({
         watch(isOpen, (val) => {
             emit('update:modelValue', val);
         });
+
+        const hasHeader = computed(() => !!slots['header']);
+        const hasFooter = computed(() => !!slots['footer']);
 
         function clickOverlay() {
             if (closeOnOverlayClick.value) {
@@ -104,6 +108,8 @@ export default defineComponent({
             customProperties,
             isOpen,
             clickOverlay,
+            hasHeader,
+            hasFooter,
         };
     },
 });
