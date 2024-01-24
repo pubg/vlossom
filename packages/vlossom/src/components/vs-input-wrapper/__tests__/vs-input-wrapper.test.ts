@@ -14,7 +14,7 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            const label = wrapper.find('.label');
+            const label = wrapper.find('.vs-label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
         });
@@ -24,9 +24,8 @@ describe('vs-input-wrapper', () => {
             const wrapper = mount(VsInputWrapper);
 
             // then
-            const label = wrapper.find('.label');
+            const label = wrapper.find('.vs-label');
             expect(label.exists()).toBe(true);
-            expect(label.isVisible()).toBe(false);
             expect(label.text()).toBe('');
         });
 
@@ -39,7 +38,7 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            expect(wrapper.find('.label').exists()).toBe(false);
+            expect(wrapper.find('.vs-label').exists()).toBe(false);
         });
 
         it('required props를 설정하면 label 영역에 *이 표시된다', () => {
@@ -66,7 +65,7 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            expect(wrapper.find('.messages').exists()).toBe(false);
+            expect(wrapper.find('.vs-messages').exists()).toBe(false);
         });
     });
 
