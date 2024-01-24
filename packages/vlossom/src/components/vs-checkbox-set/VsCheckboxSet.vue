@@ -44,7 +44,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import VsCheckboxNode from '../vs-checkbox/VsCheckboxNode.vue';
+import VsCheckboxNode from '@/nodes/vs-checkbox-node/VsCheckboxNode.vue';
 
 import type { VsCheckboxStyleSet } from '../vs-checkbox/types';
 

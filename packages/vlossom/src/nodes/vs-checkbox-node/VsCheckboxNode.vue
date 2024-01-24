@@ -77,4 +77,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsCheckbox.scss" />
+<style lang="scss" scoped src="./VsCheckboxNode.scss" />
