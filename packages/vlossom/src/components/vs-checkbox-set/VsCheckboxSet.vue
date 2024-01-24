@@ -8,6 +8,10 @@
             :required="required"
             :shake="shake"
         >
+            <template #label v-if="!noLabel">
+                <slot name="label" />
+            </template>
+
             <div :class="['vs-checkbox-set', { column }]">
                 <vs-checkbox-node
                     v-for="option in options"
@@ -25,6 +29,10 @@
                     @blur="onBlur(option)"
                 />
             </div>
+
+            <template #messages v-if="!noMsg">
+                <slot name="messages" />
+            </template>
         </vs-input-wrapper>
     </vs-wrapper>
 </template>

@@ -46,7 +46,7 @@ export function useInputOption(
                 console.error(`optionValue: ${optionValue.value} is not found in option: ${JSON.stringify(option)}`);
             }
 
-            return _.at(option, [optionValue.value])[0];
+            return value;
         }
 
         return option;
