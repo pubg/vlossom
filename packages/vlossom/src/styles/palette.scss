@@ -1,302 +1,159 @@
-$red-50: #ffebee;
-$red-100: #ffcdd2;
-$red-200: #f5a7a7;
-$red-300: #e67e7e;
-$red-400: #ef5350;
-$red-500: #f44336;
-$red-600: #e53935;
-$red-700: #d32f2f;
-$red-800: #c62828;
-$red-900: #a31616;
-
-$orange-50: #fff3e0;
-$orange-100: #ffe0b2;
-$orange-200: #ffcc80;
-$orange-300: #ffb74d;
-$orange-400: #ffa726;
-$orange-500: #fb8c00;
-$orange-600: #f57c00;
-$orange-700: #ef6c00;
-$orange-800: #e65100;
-$orange-900: #d84315;
-
-$yellow-50: #faf7e8;
-$yellow-100: #f9f2d0;
-$yellow-200: #f8ebba;
-$yellow-300: #f7e4a4;
-$yellow-400: #f6dd8d;
-$yellow-500: #f5d677;
-$yellow-600: #f4cf60;
-$yellow-700: #f3c949;
-$yellow-800: #f2c233;
-$yellow-900: rgb(233, 177, 11);
-
-$yellow-green-50: #f0f5ea;
-$yellow-green-100: #e6f2c3;
-$yellow-green-200: #dcefa0;
-$yellow-green-300: #d3eb7d;
-$yellow-green-400: #c9e75a;
-$yellow-green-500: #bfe337;
-$yellow-green-600: #b5df14;
-$yellow-green-700: #abdb00;
-$yellow-green-800: #a1d800;
-$yellow-green-900: #8fc505;
-
-$green-50: #e2f5e4;
-$green-100: #b5e7be;
-$green-200: #88d8a8;
-$green-300: #5bc993;
-$green-400: #2ecb7d;
-$green-500: #01bd67;
-$green-600: #00a455;
-$green-700: #008742;
-$green-800: #006a2f;
-$green-900: #004d1b;
-
-$teal-50: #e7f8f7;
-$teal-100: #c0f3f0;
-$teal-200: #99edea;
-$teal-300: #72e8e4;
-$teal-400: #4be3de;
-$teal-500: #24ded8;
-$teal-600: #00d9d3;
-$teal-700: #00c3bd;
-$teal-800: #00aca7;
-$teal-900: #009691;
-
-$light-blue-50: #e8f8fd;
-$light-blue-100: #c4ebfc;
-$light-blue-200: #a0defa;
-$light-blue-300: #7cd2f9;
-$light-blue-400: #58c5f7;
-$light-blue-500: #34b8f6;
-$light-blue-600: #10abf4;
-$light-blue-700: #009bd9;
-$light-blue-800: #0086b6;
-$light-blue-900: #007193;
-
-$blue-50: #e1f5fe;
-$blue-100: #bee3f7;
-$blue-200: #9cc2f0;
-$blue-300: #7aa1e9;
-$blue-400: #587fe3;
-$blue-500: #366edb;
-$blue-600: #145dd4;
-$blue-700: #0052ba;
-$blue-800: #00468f;
-$blue-900: #003a65;
-
-$indigo-50: #eef1ff;
-$indigo-100: #d7dbf9;
-$indigo-200: #c1c5f2;
-$indigo-300: #abb0eb;
-$indigo-400: #959ade;
-$indigo-500: #7f86d7;
-$indigo-600: #6971d0;
-$indigo-700: #535ccb;
-$indigo-800: #3d47c4;
-$indigo-900: #2f37aa;
-
-$purple-50: #fff3fc;
-$purple-100: #e2c7f0;
-$purple-200: #cf9de8;
-$purple-300: #bc73e1;
-$purple-400: #a949da;
-$purple-500: #961fd3;
-$purple-600: #8400c1;
-$purple-700: #7300a9;
-$purple-800: #610091;
-$purple-900: #500079;
-
-$pink-50: #fff3fc;
-$pink-100: #f7c5f5;
-$pink-200: #f198ef;
-$pink-300: #e96be9;
-$pink-400: #e23ee3;
-$pink-500: #da11dd;
-$pink-600: #c80fbd;
-$pink-700: #b60d9d;
-$pink-800: #a30b7d;
-$pink-900: #91095e;
-
-$brown-50: #fff9f3;
-$brown-100: #e9d1b6;
-$brown-200: #d2a68e;
-$brown-300: #ba7b66;
-$brown-400: #a3533e;
-$brown-500: #8c2927;
-$brown-600: #751c1b;
-$brown-700: #5f100f;
-$brown-800: #490704;
-$brown-900: #330000;
-
-$grey-50: #fafafa;
-$grey-100: #e0e0e0;
-$grey-200: #c7c7c7;
-$grey-300: #adadad;
-$grey-400: #949494;
-$grey-500: #7a7a7a;
-$grey-600: #616161;
-$grey-700: #474747;
-$grey-800: #2e2e2e;
-$grey-900: #1f1f1f;
-
 $palette: (
     red: (
-        50: $red-50,
-        100: $red-100,
-        200: $red-200,
-        300: $red-300,
-        400: $red-400,
-        500: $red-500,
-        600: $red-600,
-        700: $red-700,
-        800: $red-800,
-        900: $red-900,
+        50: #ffebee,
+        100: #ffcdd2,
+        200: #f5a7a7,
+        300: #e67e7e,
+        400: #ef5350,
+        500: #f44336,
+        600: #e53935,
+        700: #d32f2f,
+        800: #c62828,
+        900: #a31616,
     ),
     orange: (
-        50: $orange-50,
-        100: $orange-100,
-        200: $orange-200,
-        300: $orange-300,
-        400: $orange-400,
-        500: $orange-500,
-        600: $orange-600,
-        700: $orange-700,
-        800: $orange-800,
-        900: $orange-900,
+        50: #fff3e0,
+        100: #ffe0b2,
+        200: #ffcc80,
+        300: #ffb74d,
+        400: #ffa726,
+        500: #fb8c00,
+        600: #f57c00,
+        700: #ef6c00,
+        800: #e65100,
+        900: #d84315,
     ),
     yellow: (
-        50: $yellow-50,
-        100: $yellow-100,
-        200: $yellow-200,
-        300: $yellow-300,
-        400: $yellow-400,
-        500: $yellow-500,
-        600: $yellow-600,
-        700: $yellow-700,
-        800: $yellow-800,
-        900: $yellow-900,
+        50: #faf7e8,
+        100: #f9f2d0,
+        200: #f8ebba,
+        300: #f7e4a4,
+        400: #f6dd8d,
+        500: #f5d677,
+        600: #f4cf60,
+        700: #f3c949,
+        800: #f2c233,
+        900: #e7ae04,
     ),
     yellow-green: (
-        50: $yellow-green-50,
-        100: $yellow-green-100,
-        200: $yellow-green-200,
-        300: $yellow-green-300,
-        400: $yellow-green-400,
-        500: $yellow-green-500,
-        600: $yellow-green-600,
-        700: $yellow-green-700,
-        800: $yellow-green-800,
-        900: $yellow-green-900,
+        50: #f0f5ea,
+        100: #e6f2c3,
+        200: #dcefa0,
+        300: #d3eb7d,
+        400: #c9e75a,
+        500: #bfe337,
+        600: #b5df14,
+        700: #abdb00,
+        800: #a1d800,
+        900: #8fc505,
     ),
     green: (
-        50: $green-50,
-        100: $green-100,
-        200: $green-200,
-        300: $green-300,
-        400: $green-400,
-        500: $green-500,
-        600: $green-600,
-        700: $green-700,
-        800: $green-800,
-        900: $green-900,
+        50: #e2f5e4,
+        100: #b5e7be,
+        200: #88d8a8,
+        300: #5bc993,
+        400: #2ecb7d,
+        500: #01bd67,
+        600: #00a455,
+        700: #008742,
+        800: #006a2f,
+        900: #004d1b,
     ),
     teal: (
-        50: $teal-50,
-        100: $teal-100,
-        200: $teal-200,
-        300: $teal-300,
-        400: $teal-400,
-        500: $teal-500,
-        600: $teal-600,
-        700: $teal-700,
-        800: $teal-800,
-        900: $teal-900,
+        50: #e7f8f7,
+        100: #c0f3f0,
+        200: #99edea,
+        300: #72e8e4,
+        400: #4be3de,
+        500: #24ded8,
+        600: #00d9d3,
+        700: #00c3bd,
+        800: #00aca7,
+        900: #009691,
     ),
     light-blue: (
-        50: $light-blue-50,
-        100: $light-blue-100,
-        200: $light-blue-200,
-        300: $light-blue-300,
-        400: $light-blue-400,
-        500: $light-blue-500,
-        600: $light-blue-600,
-        700: $light-blue-700,
-        800: $light-blue-800,
-        900: $light-blue-900,
+        50: #e8f8fd,
+        100: #c4ebfc,
+        200: #a0defa,
+        300: #7cd2f9,
+        400: #58c5f7,
+        500: #34b8f6,
+        600: #10abf4,
+        700: #009bd9,
+        800: #0086b6,
+        900: #007193,
     ),
     blue: (
-        50: $blue-50,
-        100: $blue-100,
-        200: $blue-200,
-        300: $blue-300,
-        400: $blue-400,
-        500: $blue-500,
-        600: $blue-600,
-        700: $blue-700,
-        800: $blue-800,
-        900: $blue-900,
+        50: #e1f5fe,
+        100: #bee3f7,
+        200: #9cc2f0,
+        300: #7aa1e9,
+        400: #587fe3,
+        500: #366edb,
+        600: #145dd4,
+        700: #0052ba,
+        800: #00468f,
+        900: #003a65,
     ),
     indigo: (
-        50: $indigo-50,
-        100: $indigo-100,
-        200: $indigo-200,
-        300: $indigo-300,
-        400: $indigo-400,
-        500: $indigo-500,
-        600: $indigo-600,
-        700: $indigo-700,
-        800: $indigo-800,
-        900: $indigo-900,
+        50: #eef1ff,
+        100: #d7dbf9,
+        200: #c1c5f2,
+        300: #abb0eb,
+        400: #959ade,
+        500: #7f86d7,
+        600: #6971d0,
+        700: #535ccb,
+        800: #3d47c4,
+        900: #2f37aa,
     ),
     purple: (
-        50: $purple-50,
-        100: $purple-100,
-        200: $purple-200,
-        300: $purple-300,
-        400: $purple-400,
-        500: $purple-500,
-        600: $purple-600,
-        700: $purple-700,
-        800: $purple-800,
-        900: $purple-900,
+        50: #fff3fc,
+        100: #e2c7f0,
+        200: #cf9de8,
+        300: #bc73e1,
+        400: #a949da,
+        500: #961fd3,
+        600: #8400c1,
+        700: #7300a9,
+        800: #610091,
+        900: #500079,
     ),
     pink: (
-        50: $pink-50,
-        100: $pink-100,
-        200: $pink-200,
-        300: $pink-300,
-        400: $pink-400,
-        500: $pink-500,
-        600: $pink-600,
-        700: $pink-700,
-        800: $pink-800,
-        900: $pink-900,
+        50: #fff3fc,
+        100: #f7c5f5,
+        200: #f198ef,
+        300: #e96be9,
+        400: #e23ee3,
+        500: #da11dd,
+        600: #c80fbd,
+        700: #b60d9d,
+        800: #a30b7d,
+        900: #91095e,
     ),
     brown: (
-        50: $brown-50,
-        100: $brown-100,
-        200: $brown-200,
-        300: $brown-300,
-        400: $brown-400,
-        500: $brown-500,
-        600: $brown-600,
-        700: $brown-700,
-        800: $brown-800,
-        900: $brown-900,
+        50: #fff9f3,
+        100: #e9d1b6,
+        200: #d2a68e,
+        300: #ba7b66,
+        400: #a3533e,
+        500: #8c2927,
+        600: #751c1b,
+        700: #5f100f,
+        800: #490704,
+        900: #330000,
     ),
     grey: (
-        50: $grey-50,
-        100: $grey-100,
-        200: $grey-200,
-        300: $grey-300,
-        400: $grey-400,
-        500: $grey-500,
-        600: $grey-600,
-        700: $grey-700,
-        800: $grey-800,
-        900: $grey-900,
+        50: #fafafa,
+        100: #e0e0e0,
+        200: #c7c7c7,
+        300: #adadad,
+        400: #949494,
+        500: #7a7a7a,
+        600: #616161,
+        700: #474747,
+        800: #2e2e2e,
+        900: #1f1f1f,
     ),
 );
 
