@@ -38,7 +38,7 @@ export const ColorScheme: Story = {
         },
         template: `
             <div class="hello">
-                ${getColorSchemeTemplate('<vs-divider v-bind="args" color-scheme="{{ color }}" />')}
+                ${getColorSchemeTemplate('{{color}}<vs-divider v-bind="args" color-scheme="{{ color }}" />')}
             </div>
         `,
     }),

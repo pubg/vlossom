@@ -32,7 +32,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-button color-scheme="{{ color }}">
+                    <vs-button color-scheme="{{ color }}" :style="{ marginBottom: '5px' }">
                         Button
                     </vs-button>
                 `)}
@@ -101,7 +101,7 @@ export const Outline: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-button color-scheme="{{ color }}" v-bind="args">
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }">
                         Button
                     </vs-button>
                 `)}
@@ -125,7 +125,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-button color-scheme="{{ color }}" v-bind="args">
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }">
                         Button
                     </vs-button>
                 `)}

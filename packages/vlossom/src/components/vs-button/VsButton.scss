@@ -5,11 +5,11 @@
     align-items: center;
     white-space: nowrap;
     max-height: var(--vs-button-maxHeight, 3rem);
-    padding: var(--vs-button-padding, 0.5rem 1.6rem);
+    padding: var(--vs-button-padding, 0.4rem 1.2rem);
     border: none;
     border-radius: var(--vs-button-borderRadius, 0.4rem);
     cursor: pointer;
-    font-size: var(--vs-button-fontSize, 1.4rem);
+    font-size: var(--vs-button-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
     background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
     color: var(--vs-button-color, var(--vs-comp-color));
@@ -56,16 +56,16 @@
 // size
 .vs-button {
     &.dense {
-        padding: var(--vs-button-padding, 0.3rem 1.2rem);
+        padding: var(--vs-button-padding, 0.2rem 0.8rem);
         border-radius: var(--vs-button-borderRadius, 0.4rem);
-        font-size: var(--vs-button-fontSize, 1.3rem);
+        font-size: var(--vs-button-fontSize, 1rem);
         max-height: var(--vs-button-maxHeight, 2.4rem);
     }
 
     &.large {
-        padding: var(--vs-button-padding, 0.8rem 2rem);
+        padding: var(--vs-button-padding, 0.6rem 1.4rem);
         border-radius: var(--vs-button-borderRadius, 0.6rem);
-        font-size: var(--vs-button-fontSize, 1.6rem);
+        font-size: var(--vs-button-fontSize, 1.2rem);
         max-height: var(--vs-button-maxHeight, 3.7rem);
     }
 }
