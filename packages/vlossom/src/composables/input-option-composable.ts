@@ -21,7 +21,15 @@ export function useInputOption(
     function getOptionLabel(option: any) {
         if (typeof option === 'object') {
             if (optionLabel.value) {
-                return _.at(option, [optionLabel.value])[0];
+                const label = _.at(option, [optionLabel.value])[0];
+
+                if (!label) {
+                    console.error(
+                        `optionLabel: ${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
+                    );
+                }
+
+                return label || '';
             } else {
                 return JSON.stringify(option);
             }
@@ -32,6 +40,12 @@ export function useInputOption(
 
     function getOptionValue(option: any) {
         if (typeof option === 'object' && optionValue.value) {
+            const value = _.at(option, [optionValue.value])[0];
+
+            if (!value) {
+                console.error(`optionValue: ${optionValue.value} is not found in option: ${JSON.stringify(option)}`);
+            }
+
             return _.at(option, [optionValue.value])[0];
         }
 

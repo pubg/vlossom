@@ -54,7 +54,7 @@ export default defineComponent({
             readonly: readonly.value,
         }));
 
-        async function toggle(e: Event) {
+        function toggle(e: Event) {
             emit('toggle', e);
         }
 
