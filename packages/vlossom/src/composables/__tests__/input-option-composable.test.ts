@@ -46,6 +46,17 @@ describe('input option composable', () => {
             // then
             expect(getOptionLabel(options.value[0])).toBe('{"label":"test"}');
         });
+
+        it('option이 object이고 optionLabel이 object path 형식일 때 해당하는 값을 반환한다', () => {
+            // given
+            const options = ref([{ label: { test: 'test' } }]);
+
+            // when
+            const { getOptionLabel } = useInputOption(options, ref('label.test'), ref(''), { onClear: onClearSpy });
+
+            // then
+            expect(getOptionLabel(options.value[0])).toBe('test');
+        });
     });
 
     describe('getOptionValue', () => {
@@ -66,6 +77,28 @@ describe('input option composable', () => {
 
             // when
             const { getOptionValue } = useInputOption(options, ref(''), ref('value'), { onClear: onClearSpy });
+
+            // then
+            expect(getOptionValue(options.value[0])).toBe('test-value');
+        });
+
+        it('option이 object이고 optionValue가 없으면 option 그대로 반환한다', () => {
+            // given
+            const options = ref([{ label: 'test' }]);
+
+            // when
+            const { getOptionValue } = useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
+
+            // then
+            expect(getOptionValue(options.value[0])).toBe(options.value[0]);
+        });
+
+        it('option이 object이고 optionValue가 object path 형식일 때 해당하는 값을 반환한다', () => {
+            // given
+            const options = ref([{ label: 'test', value: { test: 'test-value' } }]);
+
+            // when
+            const { getOptionValue } = useInputOption(options, ref(''), ref('value.test'), { onClear: onClearSpy });
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');

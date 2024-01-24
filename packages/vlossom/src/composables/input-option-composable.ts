@@ -1,5 +1,6 @@
 import { utils } from '@/utils';
 import { PropType, Ref, watch } from 'vue';
+import * as _ from 'lodash-es';
 
 export function getInputOptionProps() {
     return {
@@ -20,7 +21,7 @@ export function useInputOption(
     function getOptionLabel(option: any) {
         if (typeof option === 'object') {
             if (optionLabel.value) {
-                return option[optionLabel.value];
+                return _.at(option, [optionLabel.value])[0];
             } else {
                 return JSON.stringify(option);
             }
@@ -31,7 +32,7 @@ export function useInputOption(
 
     function getOptionValue(option: any) {
         if (typeof option === 'object' && optionValue.value) {
-            return option[optionValue.value];
+            return _.at(option, [optionValue.value])[0];
         }
 
         return option;
