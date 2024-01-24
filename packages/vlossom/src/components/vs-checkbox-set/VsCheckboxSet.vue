@@ -8,30 +8,22 @@
             :required="required"
             :shake="shake"
         >
-            <div :class="['vs-checkbox-set', `vs-${computedColorScheme}`, { column }]" :style="customProperties">
-                <div
+            <div :class="['vs-checkbox-set', { column }]">
+                <vs-checkbox-node
                     v-for="option in options"
-                    :key="`${id}-${getOptionValue(option)}`"
-                    :class="['vs-checkbox', { ...classObj, checked: isChecked(option) }]"
-                >
-                    <div class="checkbox-container">
-                        <span class="checkbox">
-                            <check-icon class="check-icon" />
-                        </span>
-                        <input
-                            type="checkbox"
-                            :id="`${id}-${getOptionValue(option)}`"
-                            :disabled="disabled || readonly"
-                            :name="name"
-                            :value="getOptionValue(option)"
-                            :checked="isChecked(option)"
-                            @change="toggle($event, option)"
-                            @focus="onFocus(option)"
-                            @blur="onBlur(option)"
-                        />
-                    </div>
-                    <label :for="`${id}-${getOptionValue(option)}`">{{ getOptionLabel(option) }}</label>
-                </div>
+                    :key="getOptionValue(option)"
+                    :colorScheme="computedColorScheme"
+                    :customProperties="customProperties"
+                    :checked="isChecked(option)"
+                    :disabled="disabled"
+                    :readonly="readonly"
+                    :name="name"
+                    :value="getOptionValue(option)"
+                    :check-label="getOptionLabel(option)"
+                    @toggle="onToggle($event, option)"
+                    @focus="onFocus(option)"
+                    @blur="onBlur(option)"
+                />
             </div>
         </vs-input-wrapper>
     </vs-wrapper>
@@ -52,14 +44,14 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { CheckIcon } from '@/icons';
+import VsCheckboxNode from '../vs-checkbox/VsCheckboxNode.vue';
 
 import type { VsCheckboxStyleSet } from '../vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, CheckIcon },
+    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any[]>(),
         ...getInputOptionProps(),
@@ -104,8 +96,6 @@ export default defineComponent({
             readonly: readonly.value,
         }));
 
-        const id = utils.string.createID();
-
         const inputValue = ref(modelValue.value);
 
         function onClear() {
@@ -132,7 +122,7 @@ export default defineComponent({
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-        async function toggle(e: Event, option: any) {
+        async function onToggle(e: Event, option: any) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -163,7 +153,6 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             customProperties,
-            id,
             isChecked,
             getOptionLabel,
             getOptionValue,
@@ -172,7 +161,7 @@ export default defineComponent({
             shake,
             validate,
             clear,
-            toggle,
+            onToggle,
             onFocus,
             onBlur,
         };

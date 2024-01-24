@@ -12,25 +12,19 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-checkbox', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
-                <div class="checkbox-container">
-                    <span class="checkbox">
-                        <check-icon class="check-icon" />
-                    </span>
-                    <input
-                        type="checkbox"
-                        :id="id"
-                        :disabled="disabled || readonly"
-                        :name="name"
-                        :value="value"
-                        :checked="isChecked"
-                        @change="toggle"
-                        @focus="onFocus"
-                        @blur="onBlur"
-                    />
-                </div>
-                <label v-if="checkLabel || label" :for="id">{{ checkLabel || label }}</label>
-            </div>
+            <vs-checkbox-node
+                :colorScheme="computedColorScheme"
+                :customProperties="customProperties"
+                :checked="isChecked"
+                :check-label="checkLabel || label"
+                :disabled="disabled"
+                :readonly="readonly"
+                :name="name"
+                :value="value"
+                @toggle="onToggle"
+                @focus="onFocus"
+                @blur="onBlur"
+            />
 
             <template #messages v-if="!noMsg">
                 <slot name="messages" />
@@ -46,14 +40,14 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { CheckIcon } from '@/icons';
+import VsCheckboxNode from './VsCheckboxNode.vue';
 
 import type { VsCheckboxStyleSet } from './types';
 
 const name = VsComponent.VsCheckbox;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, CheckIcon },
+    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any>(),
         ...getResponsiveProps(),
@@ -76,16 +70,14 @@ export default defineComponent({
         const {
             colorScheme,
             styleSet,
-            beforeChange,
-            disabled,
             label,
             modelValue,
             messages,
-            readonly,
             required,
             rules,
             trueValue,
             falseValue,
+            beforeChange,
         } = toRefs(props);
 
         const { emit } = context;
@@ -94,9 +86,9 @@ export default defineComponent({
 
         const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(name, styleSet);
 
-        const isArrayValue = computed(() => Array.isArray(modelValue.value));
-
         const inputValue = ref(modelValue.value);
+
+        const isArrayValue = computed(() => Array.isArray(modelValue.value));
 
         const isChecked = computed(() => {
             if (isArrayValue.value) {
@@ -105,14 +97,6 @@ export default defineComponent({
 
             return utils.object.isEqual(inputValue.value, trueValue.value);
         });
-
-        const classObj = computed(() => ({
-            checked: isChecked.value,
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
-
-        const id = utils.string.createID();
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';
@@ -139,7 +123,7 @@ export default defineComponent({
             },
         });
 
-        async function toggle(e: Event) {
+        async function onToggle(e: Event) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value);
@@ -171,21 +155,17 @@ export default defineComponent({
 
         return {
             isChecked,
-            classObj,
             computedColorScheme,
             customProperties,
-            id,
             inputValue,
             computedMessages,
             shake,
             validate,
             clear,
-            toggle,
+            onToggle,
             onFocus,
             onBlur,
         };
     },
 });
 </script>
-
-<style lang="scss" scoped src="./VsCheckbox.scss" />
