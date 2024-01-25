@@ -15,4 +15,8 @@ export const COLORS = [
     'black',
 ] as const;
 
-export const CSS_POSITION  = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
+export const CSS_POSITION = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
+
+export const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
+
+export const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;

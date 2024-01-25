@@ -8,6 +8,10 @@ $sizes: xs, sm, md, lg, xl;
     height: 100%;
     z-index: var(--vs-modal-z-index);
 
+    &.has-container {
+        position: absolute;
+    }
+
     .dimmed {
         position: absolute;
         top: 0;

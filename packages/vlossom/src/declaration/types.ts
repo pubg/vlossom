@@ -16,6 +16,7 @@ import type {
     VsSectionStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
+import { PLACEMENTS, SIZES } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 import { VsTabsStyleSet } from '@/components/vs-tabs/types';
@@ -108,6 +109,6 @@ export type TextAlign =
 
 export type CssPosition = (typeof CSS_POSITION)[number];
 
-export type Placement = 'top' | 'bottom' | 'left' | 'right';
+export type Placement = (typeof PLACEMENTS)[number];
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Size = (typeof SIZES)[number];

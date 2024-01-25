@@ -1,7 +1,7 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" class="vs-drawer-overlay" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
+            <div v-if="isOpen" :class="['vs-drawer-overlay', { 'has-container': hasContainer }]">
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
@@ -31,12 +31,9 @@
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, Placement, Size } from '@/declaration';
+import { VsComponent, type ColorScheme, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 
 import type { VsDrawerStyleSet } from './types';
-
-const placements = Object.values(Placement);
-const sizes = Object.values(Size);
 
 const name = VsComponent.VsDrawer;
 export default defineComponent({
@@ -51,10 +48,14 @@ export default defineComponent({
         hideScroll: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Placement>,
-            default: Placement.Left,
-            validator: (val: Placement) => placements.includes(val),
+            default: 'left',
+            validator: (val: Placement) => PLACEMENTS.includes(val),
         },
-        size: { type: String as PropType<Size>, default: Size.Sm, validator: (val: Size) => sizes.includes(val) },
+        size: {
+            type: String as PropType<Size>,
+            default: 'sm',
+            validator: (val: Size) => SIZES.includes(val),
+        },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
