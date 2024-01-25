@@ -1,13 +1,13 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
         <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" class="vs-drawer-container" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
+            <div v-if="isOpen" class="vs-drawer-overlay" :style="{ position: hasContainer ? 'absolute' : 'fixed' }">
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <div
                     :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
                     :style="customProperties"
                     role="dialog"
-                    aria-labelledby="vs-drawer-title"
+                    :aria-labelledby="hasHeader ? 'vs-drawer-title' : ''"
                     aria-describedby="vs-drawer-body"
                     :aria-label="hasHeader ? '' : 'Dialog'"
                 >
