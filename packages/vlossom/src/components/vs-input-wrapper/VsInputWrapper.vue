@@ -1,8 +1,8 @@
 <template>
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
-        <label v-if="!noLabel" v-show="label">
+        <label v-if="!noLabel">
             <slot name="label">
-                <span class="label">{{ label }}</span>
+                <span class="vs-label">{{ label }}</span>
             </slot>
             <i class="required-star" v-if="required">*</i>
         </label>
@@ -12,7 +12,7 @@
         </div>
 
         <slot name="messages">
-            <div class="messages" v-if="!noMsg">
+            <div class="vs-messages" v-if="!noMsg">
                 <vs-message
                     v-for="(message, index) in messages"
                     :key="`${index}-${message.message}`"
@@ -56,3 +56,5 @@ export default defineComponent({
     },
 });
 </script>
+
+<style lang="scss" scoped src="./VsInputWrapper.scss" />

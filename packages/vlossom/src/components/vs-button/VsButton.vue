@@ -9,7 +9,7 @@
             <slot />
         </span>
 
-        <rotate-right-icon v-if="loading" aria-label="loading" class="loading-icon" />
+        <rotate-right-icon v-if="loading" aria-label="loading" class="loading-icon" :size="dense ? 20 : 24" />
     </button>
 </template>
 

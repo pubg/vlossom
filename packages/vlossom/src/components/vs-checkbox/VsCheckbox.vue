@@ -8,6 +8,10 @@
             :required="required"
             :shake="shake"
         >
+            <template #label v-if="!noLabel">
+                <slot name="label" />
+            </template>
+
             <div :class="['vs-checkbox', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
                 <div class="checkbox-container">
                     <span class="checkbox">
@@ -27,6 +31,10 @@
                 </div>
                 <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
             </div>
+
+            <template #messages v-if="!noMsg">
+                <slot name="messages" />
+            </template>
         </vs-input-wrapper>
     </vs-wrapper>
 </template>

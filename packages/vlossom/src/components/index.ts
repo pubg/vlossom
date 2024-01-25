@@ -25,6 +25,8 @@ export { default as VsInputWrapper } from './vs-input-wrapper/VsInputWrapper.vue
 export { type VsLabelValueStyleSet } from './vs-label-value/types';
 export { default as VsLabelValue } from './vs-label-value/VsLabelValue.vue';
 
+export { default as VsMain } from './vs-main/VsMain.vue';
+
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
 export { type VsNoticeStyleSet } from './vs-notice/types';

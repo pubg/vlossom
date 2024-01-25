@@ -9,6 +9,7 @@ export enum VsComponent {
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
     VsLabelValue = 'VsLabelValue',
+    VsMain = 'VsMain',
     VsMessage = 'VsMessage',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',

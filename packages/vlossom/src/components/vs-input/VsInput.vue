@@ -8,6 +8,10 @@
             :required="required"
             :shake="shake"
         >
+            <template #label v-if="!noLabel">
+                <slot name="label" />
+            </template>
+
             <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
                 <button class="action-button prepend" v-if="hasPrepend" @click="$emit('prepend')">
                     <slot name="prepend-icon" />
@@ -37,9 +41,13 @@
                     :class="{ number: type === InputType.Number }"
                     @click.stop="clearWithFocus()"
                 >
-                    <close-icon class="clear-icon" />
+                    <close-icon :size="dense ? 16 : 20" />
                 </button>
             </div>
+
+            <template #messages v-if="!noMsg">
+                <slot name="messages" />
+            </template>
         </vs-input-wrapper>
     </vs-wrapper>
 </template>
