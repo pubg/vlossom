@@ -5,7 +5,17 @@ export const colorScheme = {
 
 export const verticalAlign = {
     control: 'select',
-    options: ['default', 'top', 'bottom'],
+    options: ['center', 'top', 'bottom'],
+};
+
+export const align = {
+    control: 'select',
+    options: ['center', 'top', 'bottom', 'right', 'left'],
+};
+
+export const position = {
+    control: 'select',
+    options: ['top', 'bottom', 'right', 'left'],
 };
 
 export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {

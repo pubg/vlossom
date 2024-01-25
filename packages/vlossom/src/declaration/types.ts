@@ -86,7 +86,11 @@ export interface VsFormProvide {
     removeFromForm: (id: string) => void;
 }
 
-export type VerticalAlign = 'top' | 'bottom' | '';
+export type Position = 'top' | 'right' | 'bottom' | 'left';
+
+export type Align = 'top' | 'bottom' | 'center' | 'right' | 'left';
+
+export type VerticalAlign = Extract<Align, 'top' | 'bottom' | 'center'>;
 
 export type TextAlign =
     | 'start'
@@ -99,24 +103,9 @@ export type TextAlign =
     | 'match-parent'
     | 'inherit';
 
-export enum Direction {
-    Top = 'top',
-    Right = 'right',
-    Bottom = 'bottom',
-    Left = 'left',
-}
-
-export enum Align {
-    Top = 'top',
-    Right = 'right',
-    Center = 'center',
-    Bottom = 'bottom',
-    Left = 'left',
-}
-
 export interface AttachInfo {
-    position?: Direction | string;
-    align?: Align | string;
+    position?: Position;
+    align?: Align;
     margin?: number;
     followWidth?: boolean;
     minWidth?: number;
