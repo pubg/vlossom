@@ -7,7 +7,7 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
     const attachedPosition: Ref<Position | null> = ref(null);
     let throttledSetPosition: ((...args: any) => any) | null = null;
 
-    const getX = (align: Align, left: number, right: number, width: number, attachmentWidth: number) => {
+    function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
             case 'left':
                 return left;
@@ -20,9 +20,9 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
             default:
                 throw Error('Align is Invalid Value');
         }
-    };
+    }
 
-    const getY = (align: Align, top: number, bottom: number, height: number, attachmentHeight: number) => {
+    function getY(align: Align, top: number, bottom: number, height: number, attachmentHeight: number) {
         switch (align) {
             case 'top':
                 return top;
@@ -35,9 +35,9 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
             default:
                 throw Error('Align is Invalid Value');
         }
-    };
+    }
 
-    const attachOverlay = () => {
+    function attachOverlay() {
         if (document.getElementById('vs-overlay')) {
             return;
         }
@@ -50,16 +50,16 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         overlay.style.zIndex = '10000';
 
         document.body.appendChild(overlay);
-    };
+    }
 
-    const setPosition = ({
+    function setPosition({
         position = 'top',
         align = 'center',
         margin = 2,
         followWidth = false,
         minWidth,
         maxWidth,
-    }: AttachInfo) => {
+    }: AttachInfo) {
         if (!target.value || !attachment.value) {
             return;
         }
@@ -125,9 +125,9 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
             resultWidth = Math.min(maxWidth, resultWidth);
         }
         attachment.value.style.width = `${resultWidth}px`;
-    };
+    }
 
-    const attach = (attachInfo: AttachInfo = {}) => {
+    function attach(attachInfo: AttachInfo = {}) {
         setTimeout(() => {
             setPosition(attachInfo);
             throttledSetPosition = utils.function.throttle(setPosition.bind(null, attachInfo), 30);
@@ -137,15 +137,15 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
 
         isAttached.value = true;
         attachment.value.style.opacity = '0';
-    };
+    }
 
-    const detach = () => {
+    function detach() {
         if (throttledSetPosition) {
             document.removeEventListener('scroll', throttledSetPosition, true);
             window.removeEventListener('resize', throttledSetPosition, true);
         }
         isAttached.value = false;
-    };
+    }
 
     onBeforeMount(() => {
         if (!useOverlay) {
