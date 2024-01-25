@@ -72,7 +72,7 @@ export default defineComponent({
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
 
-        let timeout: NodeJS.Timeout | null = null;
+        let timeout: any = null;
 
         const { isAttached, attachedPosition, attach, detach } = useDomAttach(
             triggerRef as Ref<HTMLElement>,
@@ -113,8 +113,8 @@ export default defineComponent({
                 return;
             }
 
-            if (timeout){
-                clearTimeout(timeout)
+            if (timeout) {
+                clearTimeout(timeout);
             }
 
             timeout = setTimeout(() => {
@@ -123,10 +123,10 @@ export default defineComponent({
         }
 
         function onTriggerLeave() {
-            if (timeout){
-                clearTimeout(timeout)
+            if (timeout) {
+                clearTimeout(timeout);
             }
-            
+
             timeout = setTimeout(() => {
                 triggerOver.value = false;
             }, leaveDelay.value);

@@ -41,7 +41,6 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         if (document.getElementById('vs-overlay')) {
             return;
         }
-        console.log('attachOverlay')
         const overlay = document.createElement('div');
         overlay.setAttribute('id', 'vs-overlay');
 
@@ -129,7 +128,6 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
     };
 
     const attach = (attachInfo: AttachInfo = {}) => {
-        console.log(attachment)
         setTimeout(() => {
             setPosition(attachInfo);
             throttledSetPosition = utils.function.throttle(setPosition.bind(null, attachInfo), 30);
@@ -150,7 +148,7 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
     };
 
     onBeforeMount(() => {
-        if (!useOverlay){
+        if (!useOverlay) {
             return;
         }
         attachOverlay();

@@ -35,13 +35,13 @@ describe('vs-tooltip', () => {
                     enterDelay: 0,
                     leaveDelay: 0,
                 },
-                attachTo: document.body
+                attachTo: document.body,
             });
 
             //when
             await wrapper.find('.tooltip-trigger').trigger('mouseenter');
             await nextTick();
-            
+
             //then
             expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
@@ -59,7 +59,7 @@ describe('vs-tooltip', () => {
                     enterDelay: 0,
                     leaveDelay: 0,
                 },
-                attachTo: document.body
+                attachTo: document.body,
             });
 
             //when

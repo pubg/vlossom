@@ -13,11 +13,8 @@ describe('dom-composable', () => {
             template: '<div ref="targetRef">target</div>',
             setup() {
                 const targetRef: Ref<HTMLElement | null> = ref(null);
-    
-                const { isAttached, attach, detach } = useDomAttach(
-                    targetRef as Ref<HTMLElement>,
-                    ref(attachment),
-                );
+
+                const { isAttached, attach, detach } = useDomAttach(targetRef as Ref<HTMLElement>, ref(attachment));
                 return { targetRef, isAttached, attach, detach };
             },
         });
@@ -34,7 +31,7 @@ describe('dom-composable', () => {
         });
 
         it('detach 호출 시 isAttached가 false가 된다', async () => {
-            // when 
+            // when
             wrapper.vm.detach();
             await nextTick();
 
@@ -60,7 +57,7 @@ describe('dom-composable', () => {
                 setup() {
                     const targetRef: Ref<HTMLElement | null> = ref(null);
                     const attachmentRef: Ref<HTMLElement | null> = ref(null);
-        
+
                     const { isAttached, attach, detach } = useDomAttach(
                         targetRef as Ref<HTMLElement>,
                         attachmentRef as Ref<HTMLElement>,
