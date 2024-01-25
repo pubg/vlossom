@@ -115,6 +115,7 @@ export default defineComponent({
 
             if (timeout) {
                 clearTimeout(timeout);
+                timeout = null;
             }
 
             timeout = setTimeout(() => {
@@ -125,6 +126,7 @@ export default defineComponent({
         function onTriggerLeave() {
             if (timeout) {
                 clearTimeout(timeout);
+                timeout = null;
             }
 
             timeout = setTimeout(() => {
