@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTooltip from '../VsTooltip.vue';
 import { nextTick } from 'vue';
@@ -9,6 +9,9 @@ function mountComponent() {
 
 describe('vs-tooltip', () => {
     describe('default', () => {
+        beforeEach(() => {
+            document.body.innerHTML = '';
+        });
         it('초기에는 trigger만 렌더되며 contents는 노출되지 않는다.', () => {
             //given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
@@ -37,10 +40,11 @@ describe('vs-tooltip', () => {
                 },
                 attachTo: document.body,
             });
+            vi.useFakeTimers();
 
             //when
             await wrapper.find('.tooltip-trigger').trigger('mouseenter');
-            await nextTick();
+            await vi.advanceTimersByTimeAsync(0);
 
             //then
             expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
@@ -64,13 +68,16 @@ describe('vs-tooltip', () => {
 
             //when
             wrapper.find('.tooltip-trigger').trigger('mouseenter');
-            await nextTick();
+            await vi.advanceTimersByTimeAsync(0);
+
             wrapper.find('.tooltip-trigger').trigger('mouseleave');
-            await nextTick();
+            await vi.advanceTimersByTimeAsync(200); // wait for animation end
 
             //then
             expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
+            expect(window.document.body.innerHTML).not.toContain('Tooltip');
+
         });
     });
 
