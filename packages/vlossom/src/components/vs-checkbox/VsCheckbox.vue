@@ -20,7 +20,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :name="name"
-                :value="value"
+                :value="trueValue"
                 @toggle="onToggle"
                 @focus="onFocus"
                 @blur="onBlur"
@@ -60,7 +60,6 @@ export default defineComponent({
         checkLabel: { type: String, default: '' },
         trueValue: { type: null, default: true },
         falseValue: { type: null, default: false },
-        value: { type: String, default: '' },
         // v-model
         modelValue: { type: null, default: false },
     },
