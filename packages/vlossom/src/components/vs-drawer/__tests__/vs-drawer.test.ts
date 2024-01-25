@@ -4,7 +4,7 @@ import VsDrawer from './../VsDrawer.vue';
 
 describe('vs-drawer', () => {
     describe('slot', () => {
-        it('default slot을 전달하면 body 영역에 slot이 렌더링 된다', () => {
+        it('default slot을 전달하면 slot이 렌더링 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -19,7 +19,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('#vs-drawer-body').text()).toBe('Content');
+            expect(wrapper.html()).toContain('Content');
         });
 
         it('header slot을 전달하면 header 영역에 slot이 렌더링 된다', () => {
@@ -61,8 +61,49 @@ describe('vs-drawer', () => {
         });
     });
 
+    describe('aria attributes', () => {
+        it('header slot이 있는 경우 aria-lablledby 속성 값이 <header> 의 id 가 된다', () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: true,
+                },
+                slots: {
+                    header: 'Header',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('[aria-labelledby]').exists()).toBe(true);
+            expect(wrapper.find('[aria-labelledby]').attributes('aria-labelledby')).toBe(
+                wrapper.find('header').attributes('id'),
+            );
+            expect(wrapper.find('[aria-label]').attributes('aria-label')).toBe('');
+        });
+
+        it('header slot이 없는 경우 aria-lablledby 속성 값이 없고 aria-label 값이 Dialog가 된다', () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('[aria-label]').exists()).toBe(true);
+            expect(wrapper.find('[aria-label]').attributes('aria-label')).toBe('Dialog');
+            expect(wrapper.find('[aria-labelledby]').attributes('aria-labelledby')).toBe('');
+        });
+    });
+
     describe('has container', () => {
-        it('has container prop을 전달하면 drawer의 가장 상위 element의 position은 absolute가 된다', () => {
+        it('has container prop을 전달하면 drawer 가장 상위 element에 클래스가 추가된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -72,7 +113,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('div').attributes().style).toBe('position: absolute;');
+            expect(wrapper.find('.has-container').exists()).toBe(true);
         });
     });
 
@@ -95,7 +136,7 @@ describe('vs-drawer', () => {
     });
 
     describe('dimmed click', () => {
-        it('dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
+        it('close-on-dimmed-click prop을 전달하고 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
