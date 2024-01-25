@@ -11,6 +11,7 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
 
@@ -77,11 +78,6 @@ const vsNotice: VsNoticeStyleSet = {
     subTitleFontWeight: '600',
 };
 
-const vsSection: VsSectionStyleSet = {
-    backgroundColor: '#90caf9',
-    fontColor: 'white',
-};
-
 const vsPage: VsPageStyleSet = {
     fontColor: '#ff90bc',
     padding: '0.8rem 1.5rem',
@@ -91,6 +87,20 @@ const vsProgress: VsProgressStyleSet = {
     borderRadius: '0.2rem',
     height: '0.5rem',
     width: '100%',
+};
+
+const vsSection: VsSectionStyleSet = {
+    backgroundColor: '#90caf9',
+    fontColor: 'white',
+};
+
+const vsTooltip: VsTooltipStyleSet = {
+    arrowColor: '#ffd1d1',
+    backgroundColor: '#ffe3e1',
+    borderColor: '#ffd1d1',
+    borderRadius: '0',
+    fontColor: '#ff9494',
+    padding: '1.2rem',
 };
 
 const vsValueTag: VsValueTagStyleSet = {
@@ -113,5 +123,6 @@ export const styleSet: StyleSet = {
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
 };
