@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref, Ref } from 'vue';
 import { useDomAttach } from '@/composables';
 
-describe('dom-composable', () => {
+describe('dom-attach-composable', () => {
     describe('attach, detach', async () => {
         // given
         const attachment = document.createElement('div');
