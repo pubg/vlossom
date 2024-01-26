@@ -29,7 +29,7 @@
 import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, Align, Position } from '@/declaration';
-import useDomAttach from '@/composables/dom-attach-composables';
+import useDomAttach from '@/composables/dom-attach-composable';
 
 import type { VsTooltipStyleSet } from './types';
 
