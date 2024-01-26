@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick } from 'vue';
+import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick, onBeforeUnmount } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, Align, Position } from '@/declaration';
 import useDomAttach from '@/composables/dom-attach-composable';
@@ -71,7 +71,6 @@ export default defineComponent({
         const tooltipOver = ref(false);
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
-
         let timeout: any = null;
 
         const { isAttached, attachedPosition, attach, detach } = useDomAttach(
@@ -82,13 +81,32 @@ export default defineComponent({
 
         const computedShow = computed(() => triggerOver.value || tooltipOver.value);
 
+        watch(computedShow, (show) => {
+            if (disabled.value) {
+                return;
+            }
+
+            if (show) {
+                nextTick(() => {
+                    attach({
+                        position: position.value,
+                        align: align.value,
+                    });
+                });
+            } else {
+                setTimeout(() => {
+                    detach();
+                }, 200); // for waiting animation end
+            }
+        });
+
         const animationClass = computed(() => {
             if (disableAnimation.value) {
                 return null;
             }
             const direction = computedShow.value ? 'in' : 'out';
             let animationStart = '';
-            switch (position.value) {
+            switch (attachedPosition.value) {
                 case 'top':
                     animationStart = 'bottom';
                     break;
@@ -102,7 +120,7 @@ export default defineComponent({
                     animationStart = 'right';
                     break;
                 default:
-                    break;
+                    return null;
             }
             const enterAnimation = `fade-${direction}-${animationStart}`;
             return [enterAnimation];
@@ -162,38 +180,8 @@ export default defineComponent({
             }, leaveDelay.value);
         }
 
-        function appendTooltip() {
-            if (disabled.value) {
-                return;
-            }
-
-            nextTick(() => {
-                attach({
-                    position: position.value,
-                    align: align.value,
-                });
-            });
-        }
-
-        function removeTooltip() {
-            if (disabled.value) {
-                return;
-            }
-
+        onBeforeUnmount(() => {
             detach();
-        }
-
-        watch(computedShow, (show) => {
-            if (show) {
-                appendTooltip();
-            } else {
-                // for waiting animation end
-                setTimeout(() => {
-                    if (computedShow.value === false) {
-                        removeTooltip();
-                    }
-                }, 200);
-            }
         });
 
         return {

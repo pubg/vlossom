@@ -374,7 +374,7 @@ describe('vs-tooltip', () => {
             it('trigger에 마우스를 올리면 fade in transition이 발생한다', async () => {
                 //when
                 await wrapper.find('.tooltip-trigger').trigger('mouseenter');
-                await vi.advanceTimersByTimeAsync(0);
+                await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
                 expect(wrapper.vm.animationClass).toContain('fade-in-bottom');
@@ -383,7 +383,7 @@ describe('vs-tooltip', () => {
             it('trigger에 마우스를 올렸다가 떼면 fade out transition이 발생한다', async () => {
                 //when
                 await wrapper.find('.tooltip-trigger').trigger('mouseenter');
-                await vi.advanceTimersByTimeAsync(0);
+                await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
@@ -417,7 +417,7 @@ describe('vs-tooltip', () => {
             it('trigger에 마우스를 올려도 fade in transition이 발생하지 않는다', async () => {
                 //when
                 await wrapper.find('.tooltip-trigger').trigger('mouseenter');
-                await vi.advanceTimersByTimeAsync(0);
+                await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
                 expect(wrapper.vm.animationClass).toBeNull;
@@ -426,7 +426,7 @@ describe('vs-tooltip', () => {
             it('trigger에 마우스를 올렸다가 떼도 fade out transition이 발생하지 않는다', async () => {
                 //when
                 await wrapper.find('.tooltip-trigger').trigger('mouseenter');
-                await vi.advanceTimersByTimeAsync(0);
+                await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
