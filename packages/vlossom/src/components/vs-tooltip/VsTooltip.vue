@@ -105,25 +105,18 @@ export default defineComponent({
                 return null;
             }
             const direction = computedShow.value ? 'in' : 'out';
-            let animationStart = '';
             switch (attachedPosition.value) {
                 case 'top':
-                    animationStart = 'bottom';
-                    break;
+                    return `fade-${direction}-bottom`;
                 case 'right':
-                    animationStart = 'left';
-                    break;
+                    return `fade-${direction}-left`;
                 case 'bottom':
-                    animationStart = 'top';
-                    break;
+                    return `fade-${direction}-top`;
                 case 'left':
-                    animationStart = 'right';
-                    break;
+                    return `fade-${direction}-right`;
                 default:
                     return null;
             }
-            const enterAnimation = `fade-${direction}-${animationStart}`;
-            return [enterAnimation];
         });
 
         function clearTimer() {
