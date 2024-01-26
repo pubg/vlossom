@@ -37,20 +37,6 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         }
     }
 
-    function attachOverlay() {
-        if (document.getElementById('vs-overlay')) {
-            return;
-        }
-        const overlay = document.createElement('div');
-        overlay.setAttribute('id', 'vs-overlay');
-
-        overlay.style.position = 'absolute';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.zIndex = '10000';
-
-        document.body.appendChild(overlay);
-    }
 
     function setPosition({
         position = 'top',
@@ -145,6 +131,21 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
             window.removeEventListener('resize', throttledSetPosition, true);
         }
         isAttached.value = false;
+    }
+
+    function attachOverlay() {
+        if (document.getElementById('vs-overlay')) {
+            return;
+        }
+        const overlay = document.createElement('div');
+        overlay.setAttribute('id', 'vs-overlay');
+
+        overlay.style.position = 'absolute';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.zIndex = '10000';
+
+        document.body.appendChild(overlay);
     }
 
     onBeforeMount(() => {
