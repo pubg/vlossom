@@ -5,7 +5,7 @@ import { utils } from '@/utils';
 export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLElement>, useOverlay = false) {
     const isAttached = ref(false);
     const attachedPosition: Ref<Position | null> = ref(null);
-    let throttledSetPosition: ((...args: any) => any) | null = null;
+    let throttledSetAttachment: ((...args: any) => any) | null = null;
 
     function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
@@ -37,8 +37,7 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         }
     }
 
-
-    function setPosition({
+    function setAttachment({
         position = 'top',
         align = 'center',
         margin = 2,
@@ -115,10 +114,10 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
 
     function attach(attachInfo: AttachInfo = {}) {
         setTimeout(() => {
-            setPosition(attachInfo);
-            throttledSetPosition = utils.function.throttle(setPosition.bind(null, attachInfo), 30);
-            document.addEventListener('scroll', throttledSetPosition, true);
-            window.addEventListener('resize', throttledSetPosition, true);
+            setAttachment(attachInfo);
+            throttledSetAttachment = utils.function.throttle(setAttachment.bind(null, attachInfo), 30);
+            document.addEventListener('scroll', throttledSetAttachment, true);
+            window.addEventListener('resize', throttledSetAttachment, true);
         }, 50);
 
         isAttached.value = true;
@@ -126,9 +125,9 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
     }
 
     function detach() {
-        if (throttledSetPosition) {
-            document.removeEventListener('scroll', throttledSetPosition, true);
-            window.removeEventListener('resize', throttledSetPosition, true);
+        if (throttledSetAttachment) {
+            document.removeEventListener('scroll', throttledSetAttachment, true);
+            window.removeEventListener('resize', throttledSetAttachment, true);
         }
         isAttached.value = false;
     }
