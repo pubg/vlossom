@@ -71,7 +71,7 @@ export default defineComponent({
         const tooltipOver = ref(false);
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
-        let timeout: any = null;
+        let timer: any = null;
 
         const { isAttached, attachedPosition, attach, detach } = useDomAttach(
             triggerRef as Ref<HTMLElement>,
@@ -126,28 +126,31 @@ export default defineComponent({
             return [enterAnimation];
         });
 
+        function clearTimer() {
+            clearTimeout(timer);
+            timer = null;
+        }
+
         function onTriggerEnter() {
             if (clickable.value) {
                 return;
             }
 
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
+            if (timer) {
+                clearTimer();
             }
 
-            timeout = setTimeout(() => {
+            timer = setTimeout(() => {
                 triggerOver.value = true;
             }, enterDelay.value);
         }
 
         function onTriggerLeave() {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
+            if (timer) {
+                clearTimer();
             }
 
-            timeout = setTimeout(() => {
+            timer = setTimeout(() => {
                 triggerOver.value = false;
             }, leaveDelay.value);
         }
@@ -182,6 +185,10 @@ export default defineComponent({
 
         onBeforeUnmount(() => {
             detach();
+
+            if (timer) {
+                clearTimer();
+            }
         });
 
         return {
