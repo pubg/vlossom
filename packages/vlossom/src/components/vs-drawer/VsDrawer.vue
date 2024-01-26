@@ -1,28 +1,34 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <Transition :name="`slide-${placement}`" :duration="500">
-            <div v-if="isOpen" :class="['vs-drawer-overlay', { 'has-container': hasContainer }]">
-                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-                <div
-                    :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size]"
-                    :style="customProperties"
-                    role="dialog"
-                    :aria-labelledby="hasHeader ? 'vs-drawer-title' : ''"
-                    aria-describedby="vs-drawer-body"
-                    :aria-label="hasHeader ? '' : 'Dialog'"
-                >
-                    <header v-if="hasHeader" id="vs-drawer-title">
-                        <slot name="header" />
-                    </header>
+        <Transition name="fade">
+            <div
+                v-if="isOpen && dimmed"
+                :class="['dimmed', { 'has-container': hasContainer }]"
+                aria-hidden="true"
+                @click.stop="clickDimmed()"
+            />
+        </Transition>
+        <Transition :name="`slide-${placement}`">
+            <div
+                v-if="isOpen"
+                :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size, { 'has-container': hasContainer }]"
+                :style="customProperties"
+                role="dialog"
+                :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
+                aria-describedby="vs-drawer-body"
+                :aria-label="hasHeader ? undefined : 'Dialog'"
+            >
+                <header v-if="hasHeader" id="vs-drawer-title">
+                    <slot name="header" />
+                </header>
 
-                    <div :class="['drawer-body', { 'hide-scroll': hideScroll }]" id="vs-drawer-body">
-                        <slot />
-                    </div>
-
-                    <footer v-if="hasFooter">
-                        <slot name="footer" />
-                    </footer>
+                <div :class="['drawer-body', { 'hide-scroll': hideScroll }]" id="vs-drawer-body">
+                    <slot />
                 </div>
+
+                <footer v-if="hasFooter">
+                    <slot name="footer" />
+                </footer>
             </div>
         </Transition>
     </Teleport>

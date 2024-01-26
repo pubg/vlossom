@@ -3,6 +3,41 @@ import { mount } from '@vue/test-utils';
 import VsDrawer from './../VsDrawer.vue';
 
 describe('vs-drawer', () => {
+    describe('v-model', () => {
+        it('modelValue가 false이면 drawer가 열리지 않는다', async () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: false,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+        });
+
+        it('modelValue가 true이면 drawer가 열린다', async () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: false,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // when
+            await wrapper.setProps({ modelValue: true });
+
+            // then
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(true);
+        });
+    });
+
     describe('slot', () => {
         it('default slot을 전달하면 slot이 렌더링 된다', () => {
             // given
@@ -62,7 +97,7 @@ describe('vs-drawer', () => {
     });
 
     describe('aria attributes', () => {
-        it('header slot이 있는 경우 aria-lablledby 속성 값이 <header> 의 id 가 된다', () => {
+        it('header slot이 있는 경우 aria-lablledby 속성 값이 <header>의 id 가 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -81,10 +116,10 @@ describe('vs-drawer', () => {
             expect(wrapper.find('[aria-labelledby]').attributes('aria-labelledby')).toBe(
                 wrapper.find('header').attributes('id'),
             );
-            expect(wrapper.find('[aria-label]').attributes('aria-label')).toBe('');
+            expect(wrapper.find('[aria-label]').exists()).toBe(false);
         });
 
-        it('header slot이 없는 경우 aria-lablledby 속성 값이 없고 aria-label 값이 Dialog가 된다', () => {
+        it('header slot이 없는 경우 aria-lablledby 속성이 없고 대신 aria-label 속성 값이 Dialog가 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -98,12 +133,12 @@ describe('vs-drawer', () => {
             // then
             expect(wrapper.find('[aria-label]').exists()).toBe(true);
             expect(wrapper.find('[aria-label]').attributes('aria-label')).toBe('Dialog');
-            expect(wrapper.find('[aria-labelledby]').attributes('aria-labelledby')).toBe('');
+            expect(wrapper.find('[aria-labelledby]').exists()).toBe(false);
         });
     });
 
     describe('has container', () => {
-        it('has container prop을 전달하면 drawer 가장 상위 element에 클래스가 추가된다', () => {
+        it('has container prop을 전달하면 클래스가 추가된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -133,9 +168,7 @@ describe('vs-drawer', () => {
             // then
             expect(wrapper.find('[aria-hidden="true"]').exists()).toBe(true);
         });
-    });
 
-    describe('dimmed click', () => {
         it('close-on-dimmed-click prop을 전달하고 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
             // given
             const wrapper = mount(VsDrawer, {
@@ -151,6 +184,29 @@ describe('vs-drawer', () => {
 
             // when
             await wrapper.find('[aria-hidden="true"]').trigger('click');
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([false]);
+        });
+    });
+
+    describe('close on esc key', () => {
+        it('esc key를 누르면 drawer가 닫힌다', async () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+                attachTo: document.body,
+            });
+
+            // when
+            await wrapper.trigger('keydown.Escape');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
