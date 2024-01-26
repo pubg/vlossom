@@ -21,6 +21,7 @@
                     ref="inputRef"
                     :type="type"
                     :value="inputValue"
+                    :name="name"
                     :disabled="disabled"
                     :readonly="readonly"
                     :placeholder="placeholder"

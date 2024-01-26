@@ -3,7 +3,7 @@
 .vs-checkbox {
     display: flex;
     align-items: center;
-    margin: 0.4rem 0.2rem;
+    margin: 0.4rem 0.2rem 0.4rem 0;
     user-select: none;
 
     .checkbox-container {
@@ -45,7 +45,7 @@
     }
 
     label {
-        margin-left: 0.8rem;
+        padding-left: 0.6rem;
         font-size: var(--vs-checkbox-fontSize, 1rem);
         color: var(--vs-checkbox-checkLabelColor, var(--vs-font-color));
         cursor: pointer;

@@ -4,6 +4,8 @@ export { default as VsButton } from './vs-button/VsButton.vue';
 export { type VsCheckboxStyleSet } from './vs-checkbox/types';
 export { default as VsCheckbox } from './vs-checkbox/VsCheckbox.vue';
 
+export { default as VsCheckboxSet } from './vs-checkbox-set/VsCheckboxSet.vue';
+
 export { type VsChipStyleSet } from './vs-chip/types';
 export { default as VsChip } from './vs-chip/VsChip.vue';
 
@@ -50,6 +52,7 @@ declare module 'vue' {
     interface GlobalComponents {
         VsButton: typeof import('./')['VsButton'];
         VsCheckbox: typeof import('./')['VsCheckbox'];
+        VsCheckboxSet: typeof import('./')['VsCheckboxSet'];
         VsChip: typeof import('./')['VsChip'];
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];

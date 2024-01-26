@@ -22,6 +22,7 @@ export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponen
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
+    VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };

@@ -104,6 +104,7 @@ const vsValueTag: VsValueTagStyleSet = {
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsCheckbox: { myStyleSet: vsCheckbox },
+    VsCheckboxSet: { myStyleSet: vsCheckbox },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsFooter: { myStyleSet: vsFooter },
