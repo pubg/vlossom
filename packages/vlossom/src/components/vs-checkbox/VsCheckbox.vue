@@ -16,7 +16,7 @@
                 :colorScheme="computedColorScheme"
                 :customProperties="customProperties"
                 :checked="isChecked"
-                :check-label="checkLabel || label"
+                :check-label="checkLabel"
                 :disabled="disabled"
                 :readonly="readonly"
                 :name="name"
