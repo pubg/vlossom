@@ -62,7 +62,7 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(0);
 
             wrapper.find('.tooltip-trigger').trigger('mouseleave');
-            await vi.advanceTimersByTimeAsync(200); // for weait animation end (200ms)
+            await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
             //then
             expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
@@ -282,7 +282,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(0);
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(200); // for weait animation end (200ms)
+                await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
                 expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
@@ -295,7 +295,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(0);
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(300); // for weait animation end (200ms) + leave delay (100ms)
+                await vi.advanceTimersByTimeAsync(300); // wait for animation end (200ms) + leave delay (100ms)
 
                 //then
                 expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
@@ -328,7 +328,7 @@ describe('vs-tooltip', () => {
                 await wrapper.find('.tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(200); // for weait animation end (200ms)
+                await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
                 expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
@@ -341,7 +341,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(0);
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(500); // for weait animation end (200ms) + leave delay (300ms)
+                await vi.advanceTimersByTimeAsync(500); // wait for animation end (200ms) + leave delay (300ms)
 
                 //then
                 expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
@@ -386,7 +386,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(0);
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(200); // for weait animation end (200ms)
+                await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
                 expect(wrapper.vm.animationClass).toContain('fade-out-bottom');
@@ -429,7 +429,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(0);
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(200); // for weait animation end (200ms)
+                await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
                 expect(wrapper.vm.animationClass).toBeNull;
