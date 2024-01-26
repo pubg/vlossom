@@ -12,4 +12,4 @@ export const COLORS = [
     'pink',
     'brown',
     'grey',
-];
+] as const;
