@@ -16,6 +16,7 @@ export enum VsComponent {
     VsPage = 'VsPage',
     VsProgress = 'VsProgress',
     VsSection = 'VsSection',
+    VsTabs = 'VsTabs',
     VsValueTag = 'VsValueTag',
     VsWrapper = 'VsWrapper',
 }

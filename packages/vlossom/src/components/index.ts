@@ -43,6 +43,9 @@ export { default as VsProgress } from './vs-progress/VsProgress.vue';
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
+export { type VsTabsStyleSet } from './vs-tabs/types';
+export { default as VsTabs } from './vs-tabs/VsTabs.vue';
+
 export { type VsValueTagStyleSet } from './vs-value-tag/types';
 export { default as VsValueTag } from './vs-value-tag/VsValueTag.vue';
 
@@ -66,6 +69,7 @@ declare module 'vue' {
         VsPage: typeof import('./')['VsPage'];
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
+        VsTabs: typeof import('./')['VsTabs'];
         VsValueTag: typeof import('./')['VsValueTag'];
         VsWrapper: typeof import('./')['VsWrapper'];
     }
