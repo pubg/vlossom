@@ -10,16 +10,16 @@ import {
     nextTick,
     type Ref,
     type ComponentPublicInstance,
+    type PropType,
 } from 'vue';
 
 export default defineComponent({
     props: {
-        initialFocusRef: { type: Object, default: null },
+        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
         modal: { type: Boolean, default: true },
-        returnFocusOnUnmount: { type: Boolean, default: true },
     },
     setup(props, { slots }) {
-        const { initialFocusRef, modal, returnFocusOnUnmount } = toRefs(props);
+        const { initialFocusRef, modal } = toRefs(props);
 
         const wrapperEl: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null);
 
@@ -114,7 +114,7 @@ export default defineComponent({
                 deactivateCycle();
             }
 
-            if (returnFocusOnUnmount.value && previousFocused?.focus) {
+            if (previousFocused?.focus) {
                 previousFocused.focus();
             }
         });

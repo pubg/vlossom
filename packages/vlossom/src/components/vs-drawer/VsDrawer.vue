@@ -12,13 +12,7 @@
             <Transition :name="`slide-${placement}`">
                 <focus-trap v-if="isOpen" :modal="dimmed" :initialFocusRef="initialFocusRef">
                     <div
-                        :class="[
-                            'vs-drawer-content',
-                            `vs-${computedColorScheme}`,
-                            placement,
-                            size,
-                            { 'has-container': hasContainer },
-                        ]"
+                        :class="['vs-drawer-content', placement, size, { 'has-container': hasContainer }]"
                         :style="customProperties"
                         role="dialog"
                         :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
@@ -46,8 +40,8 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount, computed } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
+import { useCustomStyle } from '@/composables';
+import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 import FocusTrap from '@/common/focus-trap/FocusTrap.vue';
 
 import type { VsDrawerStyleSet } from './types';
@@ -57,14 +51,13 @@ export default defineComponent({
     name,
     components: { FocusTrap },
     props: {
-        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
         closeOnDimmedClick: { type: Boolean, default: false },
         closeOnEsc: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
-        initialFocusRef: { type: Object, default: null },
+        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
@@ -80,9 +73,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnEsc, closeOnDimmedClick } = toRefs(props);
-
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { styleSet, modelValue, closeOnEsc, closeOnDimmedClick } = toRefs(props);
 
         const { customProperties } = useCustomStyle<VsDrawerStyleSet>(name, styleSet);
 
@@ -124,7 +115,6 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
             customProperties,
             isOpen,
             clickDimmed,

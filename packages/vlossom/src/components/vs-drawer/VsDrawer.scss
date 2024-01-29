@@ -19,8 +19,9 @@ $sizes: xs, sm, md, lg, xl;
         position: fixed;
         width: 100%;
         height: 100%;
-        background-color: var(--vs-drawer-backgroundColor, var(--vs-modal-backgroundColor));
         z-index: var(--vs-drawer-z-index);
+        background-color: var(--vs-drawer-backgroundColor, var(--vs-plain-backgroundColor));
+        color: var(--vs-drawer-color, var(--vs-font-color));
         display: flex;
         flex-direction: column;
 

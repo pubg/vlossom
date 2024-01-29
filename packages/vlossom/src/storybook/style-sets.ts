@@ -49,7 +49,7 @@ const vsDivider: VsDividerStyleSet = {
 };
 
 const vsDrawer: VsDrawerStyleSet = {
-    backgroundColor: '#74c0ff',
+    backgroundColor: '#D4F1F4',
     width: '100%',
 };
 
