@@ -33,7 +33,7 @@ export default defineComponent({
 
         let previousFocused: HTMLElement | null = null;
 
-        let focusables: HTMLElement[] | null = null;
+        let focusables;
         let firstFocusable: HTMLElement | null = null;
         let lastFocusable: HTMLElement | null = null;
 
