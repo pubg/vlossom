@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import VsTabs from '../VsTabs.vue';
-import { colorScheme, numberArray } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import { CheckIcon } from '@/icons';
 
@@ -42,12 +42,14 @@ export const ColorScheme: Story = {
             return { colorOptions, tabs };
         },
         template: `
-		    <div>
-				<div v-for="(color, index) in colorOptions" :key="index" style="margin-bottom:10px">
-					<vs-tabs :color-scheme="color" :tabs="tabs" />
-				</div>
-            </div>
-		`,
+			<div>
+				${getColorSchemeTemplate(`
+					<vs-tabs :tabs="tabs" color-scheme="{{ color }}" :style="{ marginBottom: '5px' }">
+						Button
+					</vs-tabs>
+				`)}
+			</div>
+			`,
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
