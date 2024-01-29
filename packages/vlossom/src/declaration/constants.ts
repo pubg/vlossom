@@ -12,4 +12,5 @@ export const COLORS = [
     'pink',
     'brown',
     'grey',
+    'black',
 ] as const;

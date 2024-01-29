@@ -136,11 +136,21 @@ $colorScheme-light: (
         area-backgroundColor: transparentize(map.get($palette, grey, 50), 0.45),
         comp-backgroundColor: var(--vs-grey-100),
         comp-color: var(--vs-grey-600),
-        comp-backgroundColor-primary: var(--vs-grey-700),
+        comp-backgroundColor-primary: var(--vs-grey-600),
         comp-color-primary: var(--vs-grey-50),
         comp-border-color: var(--vs-grey-600),
         line-color: var(--vs-grey-600),
         light-backgroundColor: transparentize(map.get($palette, grey, 200), 0.8),
+    ),
+    'black': (
+        area-backgroundColor: transparentize(map.get($palette, grey, 50), 0.45),
+        comp-backgroundColor: var(--vs-grey-300),
+        comp-color: black,
+        comp-backgroundColor-primary: black,
+        comp-color-primary: white,
+        comp-border-color: black,
+        line-color: black,
+        light-backgroundColor: transparentize(map.get($palette, grey, 50), 0.8),
     ),
 );
 
@@ -224,6 +234,12 @@ $colorScheme-dark: (
         light-backgroundColor: transparentize(map.get($palette, brown, 300), 0.8),
     ),
     'grey': (
+        area-backgroundColor: transparentize(map.get($palette, grey, 400), 0.9),
+        comp-border-color: var(--vs-grey-400),
+        line-color: var(--vs-grey-400),
+        light-backgroundColor: transparentize(map.get($palette, grey, 300), 0.8),
+    ),
+    'black': (
         area-backgroundColor: transparentize(map.get($palette, grey, 400), 0.9),
         comp-border-color: var(--vs-grey-400),
         line-color: var(--vs-grey-400),
