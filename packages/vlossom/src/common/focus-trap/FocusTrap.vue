@@ -33,7 +33,7 @@ export default defineComponent({
 
         let previousFocused: HTMLElement | null = null;
 
-        let focusables: NodeListOf<HTMLElement> | null = null;
+        let focusables: HTMLElement[] | null = null;
         let firstFocusable: HTMLElement | null = null;
         let lastFocusable: HTMLElement | null = null;
 
@@ -125,10 +125,10 @@ export default defineComponent({
         onBeforeUnmount(() => {
             if (active.value) {
                 deactivate();
-            }
 
-            if (returnFocusOnDeactivate.value && previousFocused?.focus) {
-                previousFocused.focus();
+                if (returnFocusOnDeactivate.value && previousFocused?.focus) {
+                    previousFocused.focus();
+                }
             }
         });
 
