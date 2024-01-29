@@ -3,26 +3,53 @@ import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
 
 import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
+import _ from 'lodash-es';
 
-export function getInputProps<T = unknown>() {
-    return {
-        disabled: { type: Boolean, default: false },
-        label: { type: String, default: '' },
-        messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
-        name: { type: String, default: '' },
-        noClear: { type: Boolean, default: false },
-        noLabel: { type: Boolean, default: false },
-        noMsg: { type: Boolean, default: false },
-        placeholder: { type: String, default: '' },
-        readonly: { type: Boolean, default: false },
-        required: { type: Boolean, default: false },
-        rules: { type: Array as PropType<Rule<T>[]>, default: () => [] },
-        visible: { type: Boolean, default: true },
+interface VsInputProps<T> {
+    disabled: { type: BooleanConstructor; default: boolean };
+    label: { type: StringConstructor; default: string };
+    messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
+    name: { type: StringConstructor; default: string };
+    noClear: { type: BooleanConstructor; default: boolean };
+    noLabel: { type: BooleanConstructor; default: boolean };
+    noMsg: { type: BooleanConstructor; default: boolean };
+    placeholder: { type: StringConstructor; default: string };
+    readonly: { type: BooleanConstructor; default: boolean };
+    required: { type: BooleanConstructor; default: boolean };
+    rules: { type: PropType<Rule<T>[]>; default: () => Rule<T>[] };
+    visible: { type: BooleanConstructor; default: boolean };
 
-        // v-model
-        changed: { type: Boolean, default: false },
-        valid: { type: Boolean, default: false },
-    };
+    // v-model
+    changed: { type: BooleanConstructor; default: boolean };
+    valid: { type: BooleanConstructor; default: boolean };
+}
+
+export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>> = Array<keyof VsInputProps<T>>>(
+    ...excludes: K
+): Omit<VsInputProps<T>, K[number]> {
+    const inputProps: Omit<VsInputProps<T>, K[number]> = Object.assign(
+        {},
+        {
+            disabled: { type: Boolean, default: false },
+            label: { type: String, default: '' },
+            messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
+            name: { type: String, default: '' },
+            noClear: { type: Boolean, default: false },
+            noLabel: { type: Boolean, default: false },
+            noMsg: { type: Boolean, default: false },
+            placeholder: { type: String, default: '' },
+            readonly: { type: Boolean, default: false },
+            required: { type: Boolean, default: false },
+            rules: { type: Array as PropType<Rule<T>[]>, default: () => [] },
+            visible: { type: Boolean, default: true },
+
+            // v-model
+            changed: { type: Boolean, default: false },
+            valid: { type: Boolean, default: false },
+        },
+    );
+
+    return _.omit(inputProps, excludes) as Omit<VsInputProps<T>, K[number]>;
 }
 
 export function useInput<T = unknown>(

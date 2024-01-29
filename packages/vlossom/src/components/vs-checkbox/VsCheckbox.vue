@@ -49,7 +49,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
-        ...getInputProps<any>(),
+        ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
