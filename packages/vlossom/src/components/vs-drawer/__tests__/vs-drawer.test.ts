@@ -30,6 +30,8 @@ describe('vs-drawer', () => {
                 },
             });
 
+            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+
             // when
             await wrapper.setProps({ modelValue: true });
 
@@ -39,7 +41,7 @@ describe('vs-drawer', () => {
     });
 
     describe('slot', () => {
-        it('default slot을 전달하면 slot이 렌더링 된다', () => {
+        it('default slot을 전달하면 slot 컨텐츠가 렌더링 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -57,7 +59,7 @@ describe('vs-drawer', () => {
             expect(wrapper.html()).toContain('Content');
         });
 
-        it('header slot을 전달하면 header 영역에 slot이 렌더링 된다', () => {
+        it('header slot을 전달하면 header 영역에 slot 컨텐츠가 렌더링 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -76,7 +78,7 @@ describe('vs-drawer', () => {
             expect(wrapper.find('header').text()).toBe('Header');
         });
 
-        it('footer slot을 전달하면 footer 영역에 slot이 렌더링 된다', () => {
+        it('footer slot을 전달하면 footer 영역에 slot 컨텐츠가 렌더링 된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -135,10 +137,27 @@ describe('vs-drawer', () => {
             expect(wrapper.find('[aria-label]').attributes('aria-label')).toBe('Dialog');
             expect(wrapper.find('[aria-labelledby]').exists()).toBe(false);
         });
+
+        it('dimmed 영역이 있는 경우 aria-modal 속성 값이 true가 된다', () => {
+            // given
+            const wrapper = mount(VsDrawer, {
+                props: {
+                    modelValue: true,
+                    dimmed: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('[aria-modal]').exists()).toBe(true);
+            expect(wrapper.find('[aria-modal]').attributes('aria-modal')).toBe('true');
+        });
     });
 
     describe('has container', () => {
-        it('has container prop을 전달하면 클래스가 추가된다', () => {
+        it('has container prop을 전달하면 teleport가 비활성화된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
@@ -148,7 +167,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('.has-container').exists()).toBe(true);
+            expect(wrapper.find('div').exists()).toBe(true);
         });
     });
 
@@ -166,7 +185,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('[aria-hidden="true"]').exists()).toBe(true);
+            expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(true);
         });
 
         it('close-on-dimmed-click prop을 전달하고 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
@@ -183,7 +202,7 @@ describe('vs-drawer', () => {
             });
 
             // when
-            await wrapper.find('[aria-hidden="true"]').trigger('click');
+            await wrapper.find('div[aria-hidden="true"]').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');

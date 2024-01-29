@@ -1,36 +1,46 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <Transition name="fade">
-            <div
-                v-if="isOpen && dimmed"
-                :class="['dimmed', { 'has-container': hasContainer }]"
-                aria-hidden="true"
-                @click.stop="clickDimmed()"
-            />
-        </Transition>
-        <Transition :name="`slide-${placement}`">
-            <div
-                v-if="isOpen"
-                :class="['vs-drawer', `vs-${computedColorScheme}`, placement, size, { 'has-container': hasContainer }]"
-                :style="customProperties"
-                role="dialog"
-                :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
-                aria-describedby="vs-drawer-body"
-                :aria-label="hasHeader ? undefined : 'Dialog'"
-            >
-                <header v-if="hasHeader" id="vs-drawer-title">
-                    <slot name="header" />
-                </header>
+        <div class="vs-drawer">
+            <Transition name="fade">
+                <div
+                    v-if="isOpen && dimmed"
+                    :class="['dimmed', { 'has-container': hasContainer }]"
+                    aria-hidden="true"
+                    @click.stop="clickDimmed()"
+                />
+            </Transition>
+            <Transition :name="`slide-${placement}`">
+                <focus-trap v-if="isOpen" :modal="dimmed" :initialFocusRef="initialFocusRef">
+                    <div
+                        :class="[
+                            'vs-drawer-content',
+                            `vs-${computedColorScheme}`,
+                            placement,
+                            size,
+                            { 'has-container': hasContainer },
+                        ]"
+                        :style="customProperties"
+                        role="dialog"
+                        :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
+                        aria-describedby="vs-drawer-body"
+                        :aria-label="hasHeader ? undefined : 'Dialog'"
+                        :aria-modal="dimmed"
+                    >
+                        <header v-if="hasHeader" id="vs-drawer-title">
+                            <slot name="header" />
+                        </header>
 
-                <div :class="['drawer-body', { 'hide-scroll': hideScroll }]" id="vs-drawer-body">
-                    <slot />
-                </div>
+                        <div :class="['drawer-body', { 'hide-scroll': hideScroll }]" id="vs-drawer-body">
+                            <slot />
+                        </div>
 
-                <footer v-if="hasFooter">
-                    <slot name="footer" />
-                </footer>
-            </div>
-        </Transition>
+                        <footer v-if="hasFooter">
+                            <slot name="footer" />
+                        </footer>
+                    </div>
+                </focus-trap>
+            </Transition>
+        </div>
     </Teleport>
 </template>
 
@@ -38,12 +48,14 @@
 import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
+import FocusTrap from '@/common/focus-trap/FocusTrap.vue';
 
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
 export default defineComponent({
     name,
+    components: { FocusTrap },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
@@ -52,6 +64,7 @@ export default defineComponent({
         dimmed: { type: Boolean, default: false },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
+        initialFocusRef: { type: Object, default: null },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',

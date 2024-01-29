@@ -6,7 +6,6 @@ import {
     cloneVNode,
     onMounted,
     onBeforeUnmount,
-    watch,
     computed,
     nextTick,
     type Ref,
@@ -15,11 +14,12 @@ import {
 
 export default defineComponent({
     props: {
-        active: { type: Boolean, default: false },
-        returnFocusOnDeactivate: { type: Boolean, default: true },
+        initialFocusRef: { type: Object, default: null },
+        modal: { type: Boolean, default: true },
+        returnFocusOnUnmount: { type: Boolean, default: true },
     },
     setup(props, { slots }) {
-        const { active, returnFocusOnDeactivate } = toRefs(props);
+        const { initialFocusRef, modal, returnFocusOnUnmount } = toRefs(props);
 
         const wrapperEl: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null);
 
@@ -37,7 +37,7 @@ export default defineComponent({
         let firstFocusable: HTMLElement | null = null;
         let lastFocusable: HTMLElement | null = null;
 
-        function trapTabKey(event: KeyboardEvent) {
+        function cycleTabKey(event: KeyboardEvent) {
             if (event.key !== 'Tab') {
                 return;
             }
@@ -55,25 +55,25 @@ export default defineComponent({
             }
         }
 
-        function addListeners() {
+        function activateCycle() {
             if (!firstFocusable || !lastFocusable) {
                 return;
             }
 
-            firstFocusable.addEventListener('keydown', trapTabKey);
-            lastFocusable.addEventListener('keydown', trapTabKey);
+            firstFocusable.addEventListener('keydown', cycleTabKey);
+            lastFocusable.addEventListener('keydown', cycleTabKey);
         }
 
-        function removeListeners() {
+        function deactivateCycle() {
             if (!firstFocusable || !lastFocusable) {
                 return;
             }
 
-            firstFocusable.removeEventListener('keydown', trapTabKey);
-            lastFocusable.removeEventListener('keydown', trapTabKey);
+            firstFocusable.removeEventListener('keydown', cycleTabKey);
+            lastFocusable.removeEventListener('keydown', cycleTabKey);
         }
 
-        function activate() {
+        function catchFocus() {
             if (!el.value) {
                 return;
             }
@@ -88,47 +88,34 @@ export default defineComponent({
             firstFocusable = focusables[0];
             lastFocusable = focusables[focusables.length - 1];
 
-            addListeners();
+            nextTick(() => {
+                if (initialFocusRef.value) {
+                    initialFocusRef.value.focus();
+                } else {
+                    firstFocusable?.focus();
+                }
+            });
         }
-
-        function deactivate() {
-            if (!el.value) {
-                return;
-            }
-
-            removeListeners();
-
-            firstFocusable = null;
-            lastFocusable = null;
-        }
-
-        watch(
-            active,
-            (val) => {
-                nextTick(() => {
-                    if (val) {
-                        activate();
-                    } else {
-                        deactivate();
-                    }
-                });
-            },
-            { immediate: true },
-        );
 
         onMounted(() => {
             if (document.activeElement) {
                 previousFocused = document.activeElement as HTMLElement;
             }
+
+            catchFocus();
+
+            if (modal.value) {
+                activateCycle();
+            }
         });
 
         onBeforeUnmount(() => {
-            if (active.value) {
-                deactivate();
+            if (modal.value) {
+                deactivateCycle();
+            }
 
-                if (returnFocusOnDeactivate.value && previousFocused?.focus) {
-                    previousFocused.focus();
-                }
+            if (returnFocusOnUnmount.value && previousFocused?.focus) {
+                previousFocused.focus();
             }
         });
 
