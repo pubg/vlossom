@@ -1,6 +1,6 @@
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { colorScheme, getMetaArguments } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
 import VsInput from '../VsInput.vue';
 import { InputType } from '../types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
@@ -47,14 +47,9 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-input v-bind="args" color-scheme="red" style="marginBottom: 10px"  />
-                <vs-input v-bind="args" color-scheme="amber" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="green" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="teal" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="blue" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="indigo" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="purple" style="marginBottom: 10px" />
-                <vs-input v-bind="args" color-scheme="pink" />
+                ${getColorSchemeTemplate(`
+                    <vs-input v-bind="args" color-scheme="{{ color }}" style="marginBottom: 10px" />
+                `)}
             </div>
         `,
     }),

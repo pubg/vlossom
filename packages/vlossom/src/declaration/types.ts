@@ -1,3 +1,5 @@
+import { COLORS } from './constants';
+
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -15,7 +17,7 @@ import type {
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 
-export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type ColorScheme = (typeof COLORS)[number];
 
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 

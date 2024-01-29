@@ -1,4 +1,4 @@
-import { colorScheme } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsButton from './../VsButton.vue';
 
@@ -29,15 +29,13 @@ export const Default: Story = {};
 export const ColorScheme: Story = {
     render: () => ({
         components: { VsButton },
-        setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions };
-        },
         template: `
             <div>
-				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color">
-					Button
-				</vs-button>
+                ${getColorSchemeTemplate(`
+                    <vs-button color-scheme="{{ color }}" :style="{ marginBottom: '5px' }">
+                        Button
+                    </vs-button>
+                `)}
             </div>
         `,
     }),
@@ -98,14 +96,15 @@ export const Outline: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions, args };
+            return { args };
         },
         template: `
             <div>
-				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
-					Button
-				</vs-button>
+                ${getColorSchemeTemplate(`
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }">
+                        Button
+                    </vs-button>
+                `)}
             </div>
         `,
     }),
@@ -121,14 +120,15 @@ export const Primary: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions, args };
+            return { args };
         },
         template: `
             <div>
-				<vs-button v-for="color in colorOptions" :key="color" :color-scheme="color" v-bind="args">
-					Button
-				</vs-button>
+                ${getColorSchemeTemplate(`
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }">
+                        Button
+                    </vs-button>
+                `)}
             </div>
         `,
     }),
