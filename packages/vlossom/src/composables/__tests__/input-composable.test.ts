@@ -18,7 +18,7 @@ describe('input composable', () => {
         render: () => null,
         props: {
             modelValue: { type: String, default: '' },
-            ...getInputProps<string, ['placeholder']>('placeholder'),
+            ...getInputProps<string, []>(),
         },
         setup(props, ctx) {
             const { modelValue, label, messages, rules } = toRefs(props);
