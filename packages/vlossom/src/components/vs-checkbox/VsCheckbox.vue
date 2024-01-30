@@ -20,7 +20,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :name="name"
-                :value="trueValue"
+                :value="convertValue(trueValue)"
                 @toggle="onToggle"
                 @focus="onFocus"
                 @blur="onBlur"
@@ -152,6 +152,14 @@ export default defineComponent({
             emit('blur');
         }
 
+        function convertValue(value: any) {
+            if (typeof value === 'string') {
+                return value;
+            }
+
+            return JSON.stringify(value);
+        }
+
         return {
             isChecked,
             computedColorScheme,
@@ -164,6 +172,7 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            convertValue,
         };
     },
 });
