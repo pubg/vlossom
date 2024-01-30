@@ -12,7 +12,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsTabsStyleSet,
-    VsTooltipStyleSet,    
+    VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
 

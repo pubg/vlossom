@@ -37,7 +37,7 @@ export interface StyleSet {
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
-    VsTooltip?: { [key: string]: VsTooltipStyleSet };    
+    VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
