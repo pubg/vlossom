@@ -1,12 +1,12 @@
 <template>
-    <div :class="['vs-chip', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
         <span v-if="hasLeadingIcon" class="vs-chip-icon vs-chip-leading-icon">
             <slot name="leading-icon" />
         </span>
 
-        <span class="vs-chip-content">
+        <div class="vs-chip-content">
             <slot />
-        </span>
+        </div>
 
         <button
             v-if="closable"
