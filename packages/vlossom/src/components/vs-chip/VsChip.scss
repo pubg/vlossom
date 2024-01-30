@@ -58,6 +58,7 @@
         display: inline-flex;
         justify-content: center;
         padding: 0 0.3rem;
+        white-space: nowrap;
     }
 
     &.noRound {
@@ -81,8 +82,4 @@
         background-color: var(--vs-chip-backgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-chip-color, var(--vs-comp-color-primary));
     }
-}
-
-.vs-chip + .vs-chip {
-    margin-left: 0.2rem;
 }

@@ -1,7 +1,7 @@
 <template>
     <button
         type="button"
-        :class="['vs-button', `vs-${computedColorScheme}`, { ...classObj }]"
+        :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]"
         :style="customProperties"
         :disabled="disabled"
     >
