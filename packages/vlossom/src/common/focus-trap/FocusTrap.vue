@@ -33,7 +33,6 @@ export default defineComponent({
 
         let previousFocused: HTMLElement | null = null;
 
-        let focusables;
         let firstFocusable: HTMLElement | null = null;
         let lastFocusable: HTMLElement | null = null;
 
@@ -73,12 +72,12 @@ export default defineComponent({
             lastFocusable.removeEventListener('keydown', cycleTabKey);
         }
 
-        function catchFocus() {
+        function catchFocusables() {
             if (!el.value) {
                 return;
             }
 
-            focusables = el.value.querySelectorAll<HTMLElement>(
+            const focusables = el.value.querySelectorAll<HTMLElement>(
                 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
             );
             if (!focusables.length) {
@@ -87,6 +86,12 @@ export default defineComponent({
 
             firstFocusable = focusables[0];
             lastFocusable = focusables[focusables.length - 1];
+        }
+
+        onMounted(() => {
+            if (document.activeElement) {
+                previousFocused = document.activeElement as HTMLElement;
+            }
 
             nextTick(() => {
                 if (initialFocusRef.value) {
@@ -95,24 +100,10 @@ export default defineComponent({
                     firstFocusable?.focus();
                 }
             });
-        }
-
-        onMounted(() => {
-            if (document.activeElement) {
-                previousFocused = document.activeElement as HTMLElement;
-            }
-
-            catchFocus();
-
-            if (modal.value) {
-                activateCycle();
-            }
         });
 
         onBeforeUnmount(() => {
-            if (modal.value) {
-                deactivateCycle();
-            }
+            deactivateCycle();
 
             if (previousFocused?.focus) {
                 previousFocused.focus();
@@ -130,6 +121,14 @@ export default defineComponent({
 
                 return vNodes;
             }
+
+            nextTick(() => {
+                deactivateCycle();
+                catchFocusables();
+                if (modal.value) {
+                    activateCycle();
+                }
+            });
 
             return cloneVNode(vNodes[0], { ref: wrapperEl });
         }
