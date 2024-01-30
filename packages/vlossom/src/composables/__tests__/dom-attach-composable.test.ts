@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref, Ref } from 'vue';
 import { useDomAttach } from '@/composables';
@@ -41,8 +41,8 @@ describe('dom-attach-composable', () => {
     });
 
     describe('attachOverlay', async () => {
-        it('default: vs-overlay가 존재하지 않는다.', async () => {
-            expect(document.getElementById('vs-overlay')).toBeNull();
+        beforeEach(() => {
+            document.body.innerHTML = '';
         });
 
         it('useOverlay:true일때 #vs-overlay를 document에 추가한다', async () => {
@@ -63,6 +63,7 @@ describe('dom-attach-composable', () => {
                         attachmentRef as Ref<HTMLElement>,
                         true,
                     );
+
                     return { targetRef, attachmentRef, isAttached, attach, detach };
                 },
             });
@@ -73,6 +74,35 @@ describe('dom-attach-composable', () => {
 
             // then
             expect(document.getElementById('vs-overlay')).not.toBeNull();
+        });
+
+        it('useOverlay:false일때 #vs-overlay를 document에 추가하지 않는다.', async () => {
+            // given
+            const TargetComponent = defineComponent({
+                template: `
+                    <div ref="targetRef">target</div>
+                    <div ref="attchmentRef">attachment</div>
+                `,
+                setup() {
+                    const targetRef: Ref<HTMLElement | null> = ref(null);
+                    const attachmentRef: Ref<HTMLElement | null> = ref(null);
+
+                    const { isAttached, attach, detach } = useDomAttach(
+                        targetRef as Ref<HTMLElement>,
+                        attachmentRef as Ref<HTMLElement>,
+                        false,
+                    );
+
+                    return { targetRef, attachmentRef, isAttached, attach, detach };
+                },
+            });
+            mount(TargetComponent);
+
+            // when
+            await nextTick();
+
+            // then
+            expect(document.getElementById('vs-overlay')).toBeNull();
         });
     });
 });
