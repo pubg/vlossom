@@ -83,13 +83,13 @@ https://www.conventionalcommits.org/ or check out the
 If you are updating features, you must consider updating tests.
 
 ```sh
-`npm run test`
+npm run test
 ```
 
 If you are updating component or style system, you have to consider updating related story in stories folder.
 
 ```sh
-`npm run storybook`
+npm run storybook
 ```
 
 ### PR Required Status Checks
