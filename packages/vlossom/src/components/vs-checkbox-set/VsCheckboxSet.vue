@@ -57,11 +57,12 @@ import VsCheckboxNode from '@/nodes/vs-checkbox-node/VsCheckboxNode.vue';
 import type { VsCheckboxStyleSet } from '../vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
+
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
-        ...getInputProps<any[]>(),
+        ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

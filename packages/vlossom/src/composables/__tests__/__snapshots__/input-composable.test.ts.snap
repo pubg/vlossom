@@ -1,0 +1,115 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getInputProps > input component에 필요한 props들을 가져올 수 있다 1`] = `
+{
+  "changed": {
+    "default": false,
+    "type": [Function],
+  },
+  "disabled": {
+    "default": false,
+    "type": [Function],
+  },
+  "label": {
+    "default": "",
+    "type": [Function],
+  },
+  "messages": {
+    "default": [Function],
+    "type": [Function],
+  },
+  "name": {
+    "default": "",
+    "type": [Function],
+  },
+  "noClear": {
+    "default": false,
+    "type": [Function],
+  },
+  "noLabel": {
+    "default": false,
+    "type": [Function],
+  },
+  "noMsg": {
+    "default": false,
+    "type": [Function],
+  },
+  "placeholder": {
+    "default": "",
+    "type": [Function],
+  },
+  "readonly": {
+    "default": false,
+    "type": [Function],
+  },
+  "required": {
+    "default": false,
+    "type": [Function],
+  },
+  "rules": {
+    "default": [Function],
+    "type": [Function],
+  },
+  "valid": {
+    "default": false,
+    "type": [Function],
+  },
+  "visible": {
+    "default": true,
+    "type": [Function],
+  },
+}
+`;
+
+exports[`getInputProps > input props 중 제외할 props를 정할 수 있다 1`] = `
+{
+  "changed": {
+    "default": false,
+    "type": [Function],
+  },
+  "disabled": {
+    "default": false,
+    "type": [Function],
+  },
+  "name": {
+    "default": "",
+    "type": [Function],
+  },
+  "noClear": {
+    "default": false,
+    "type": [Function],
+  },
+  "noLabel": {
+    "default": false,
+    "type": [Function],
+  },
+  "noMsg": {
+    "default": false,
+    "type": [Function],
+  },
+  "placeholder": {
+    "default": "",
+    "type": [Function],
+  },
+  "readonly": {
+    "default": false,
+    "type": [Function],
+  },
+  "required": {
+    "default": false,
+    "type": [Function],
+  },
+  "rules": {
+    "default": [Function],
+    "type": [Function],
+  },
+  "valid": {
+    "default": false,
+    "type": [Function],
+  },
+  "visible": {
+    "default": true,
+    "type": [Function],
+  },
+}
+`;
