@@ -1,9 +1,9 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
+import * as _ from 'lodash-es';
 import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
 
 import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
-import _ from 'lodash-es';
 
 interface VsInputProps<T> {
     disabled: { type: BooleanConstructor; default: boolean };
