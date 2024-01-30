@@ -19,7 +19,7 @@ npm run storybook
 ### Tooling
 
 -   [NPM](https://www.npmjs.com/) to manage packages and dependencies
--   [Vite](https://tsup.egoist.dev/) to run dev server and bundle packages
+-   [Vite](https://vitejs.dev/) to run dev server and bundle packages
 -   [Vitest](https://vitest.dev/) and [Vue Test Utils](https://test-utils.vuejs.org/) for test
 -   [Storybook](https://storybook.js.org/) for UI component development and test
 -   [Chromatic](https://www.chromatic.com/) for UI test and review
