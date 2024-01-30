@@ -376,4 +376,28 @@ describe('vs-checkbox', () => {
             expect(updateModelValueEvent).toBeUndefined();
         });
     });
+
+    describe('focus / blur', () => {
+        it('focus 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox);
+
+            // when
+            await wrapper.find('input').trigger('focus');
+
+            // then
+            expect(wrapper.emitted('focus')).toHaveLength(1);
+        });
+
+        it('blur 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox);
+
+            // when
+            await wrapper.find('input').trigger('blur');
+
+            // then
+            expect(wrapper.emitted('blur')).toHaveLength(1);
+        });
+    });
 });

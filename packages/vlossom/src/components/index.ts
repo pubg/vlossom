@@ -4,6 +4,8 @@ export { default as VsButton } from './vs-button/VsButton.vue';
 export { type VsCheckboxStyleSet } from './vs-checkbox/types';
 export { default as VsCheckbox } from './vs-checkbox/VsCheckbox.vue';
 
+export { default as VsCheckboxSet } from './vs-checkbox-set/VsCheckboxSet.vue';
+
 export { type VsChipStyleSet } from './vs-chip/types';
 export { default as VsChip } from './vs-chip/VsChip.vue';
 
@@ -41,6 +43,9 @@ export { default as VsProgress } from './vs-progress/VsProgress.vue';
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
+export { type VsTabsStyleSet } from './vs-tabs/types';
+export { default as VsTabs } from './vs-tabs/VsTabs.vue';
+
 export { type VsTooltipStyleSet } from './vs-tooltip/types';
 export { default as VsTooltip } from './vs-tooltip/VsTooltip.vue';
 
@@ -53,6 +58,7 @@ declare module 'vue' {
     interface GlobalComponents {
         VsButton: typeof import('./')['VsButton'];
         VsCheckbox: typeof import('./')['VsCheckbox'];
+        VsCheckboxSet: typeof import('./')['VsCheckboxSet'];
         VsChip: typeof import('./')['VsChip'];
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];
@@ -66,6 +72,7 @@ declare module 'vue' {
         VsPage: typeof import('./')['VsPage'];
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
+        VsTabs: typeof import('./')['VsTabs'];
         VsTooltip: typeof import('./')['VsTooltip'];
         VsValueTag: typeof import('./')['VsValueTag'];
         VsWrapper: typeof import('./')['VsWrapper'];

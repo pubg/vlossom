@@ -18,13 +18,13 @@ describe('useColorScheme composable', () => {
 
     it('use a global color scheme value of component if it exists', () => {
         // given
-        store.setGlobalColorScheme({ VsInput: 'amber' });
+        store.setGlobalColorScheme({ VsInput: 'yellow' });
 
         // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
 
         // then
-        expect(computedColorScheme.value).toBe('amber');
+        expect(computedColorScheme.value).toBe('yellow');
     });
 
     it('use a default global color scheme value if it exists', () => {

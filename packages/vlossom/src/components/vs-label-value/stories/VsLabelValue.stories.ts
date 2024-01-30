@@ -1,10 +1,10 @@
-import { colorScheme, verticalAlign } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, verticalAlign } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsLabelValue from '../VsLabelValue.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const value = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+const contents = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Possimus, voluptatem cum? Atque facilis mollitia distinctio
 perferendis sed voluptates omnis sit maxime ad! Porro incidunt
 voluptatem quaerat sint itaque, blanditiis excepturi!`;
@@ -17,7 +17,7 @@ const meta: Meta<typeof VsLabelValue> = {
         setup() {
             return { args };
         },
-        template: `<vs-label-value v-bind="args"><template #label>label</template><template #value>${value}</template></vs-label-value>`,
+        template: `<vs-label-value v-bind="args"><template #label>label</template><template #value>${contents}</template></vs-label-value>`,
     }),
     tags: ['autodocs'],
     argTypes: {
@@ -39,14 +39,9 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-label-value color-scheme="red"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="amber"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="green"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="teal"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="blue"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="indigo"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="purple"><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="pink"><template #label>label</template><template #value>${value}</template></vs-label-value>
+                ${getColorSchemeTemplate(`
+                    <vs-label-value color-scheme="{{ color }}"><template #label>label</template><template #value>${contents}</template></vs-label-value>
+                `)}
             </div>
         `,
     }),
@@ -63,14 +58,9 @@ export const Primary: Story = {
         },
         template: `
             <div>
-                <vs-label-value color-scheme="red" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="amber" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="green" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="teal" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="blue" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="indigo" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="purple" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
-                <vs-label-value color-scheme="pink" primary><template #label>label</template><template #value>${value}</template></vs-label-value>
+                ${getColorSchemeTemplate(`
+                    <vs-label-value color-scheme="{{ color }}" primary><template #label>label</template><template #value>${contents}</template></vs-label-value>
+                `)}
             </div>
         `,
     }),
@@ -88,7 +78,7 @@ export const HasActions: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${value}</template>
+            <template #value>${contents}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,
@@ -104,7 +94,7 @@ export const VerticalAlignTop: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${value}</template>
+            <template #value>${contents}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,
@@ -123,7 +113,7 @@ export const VerticalAlignBottom: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${value}</template>
+            <template #value>${contents}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,

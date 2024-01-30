@@ -25,6 +25,7 @@
         "test": "vitest run --reporter=verbose",
         "test:watch": "vitest --reporter=verbose",
         "test:coverage": "vitest run --coverage",
+        "test:snapshot": "vitest run --update",
         "lint": "eslint --ext .js,.ts,vue --ignore-path ../../.gitignore .",
         "lint:fix": "eslint --fix --ext .js,.ts,vue --ignore-path ../../.gitignore .",
         "storybook": "storybook dev -p 6006",

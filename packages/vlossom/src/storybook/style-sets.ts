@@ -11,7 +11,8 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
-    VsTooltipStyleSet,
+    VsTabsStyleSet,
+    VsTooltipStyleSet,    
     VsValueTagStyleSet,
 } from '@/components';
 
@@ -94,6 +95,18 @@ const vsSection: VsSectionStyleSet = {
     fontColor: 'white',
 };
 
+const vsTabs: VsTabsStyleSet = {
+    backgroundColor: '#008db2',
+    borderBottomColor: '#0288d1',
+    color: '#ff8919',
+    fontSize: '1rem',
+    fontWeight: '500',
+    gap: '2px',
+    height: '80px',
+    padding: '2%',
+    tabWidth: '400px',
+};
+
 const vsTooltip: VsTooltipStyleSet = {
     arrowColor: '#ffd1d1',
     backgroundColor: '#ffe3e1',
@@ -114,6 +127,7 @@ const vsValueTag: VsValueTagStyleSet = {
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsCheckbox: { myStyleSet: vsCheckbox },
+    VsCheckboxSet: { myStyleSet: vsCheckbox },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsFooter: { myStyleSet: vsFooter },
@@ -123,6 +137,7 @@ export const styleSet: StyleSet = {
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsTabs: { myStyleSet: vsTabs },
     VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
 };

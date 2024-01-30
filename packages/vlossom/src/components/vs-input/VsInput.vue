@@ -21,6 +21,7 @@
                     ref="inputRef"
                     :type="type"
                     :value="inputValue"
+                    :name="name"
                     :disabled="disabled"
                     :readonly="readonly"
                     :placeholder="placeholder"
@@ -71,7 +72,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, CloseIcon },
     props: {
-        ...getInputProps<string | number>(),
+        ...getInputProps<InputValue, []>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },

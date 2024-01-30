@@ -1,6 +1,7 @@
 export enum VsComponent {
     VsButton = 'VsButton',
     VsCheckbox = 'VsCheckbox',
+    VsCheckboxSet = 'VsCheckboxSet',
     VsChip = 'VsChip',
     VsContainer = 'VsContainer',
     VsDivider = 'VsDivider',
@@ -15,7 +16,8 @@ export enum VsComponent {
     VsPage = 'VsPage',
     VsProgress = 'VsProgress',
     VsSection = 'VsSection',
-    VsTooltip = 'VsTooltip',
+    VsTabs = 'VsTabs',
+    VsTooltip = 'VsTooltip',    
     VsValueTag = 'VsValueTag',
     VsWrapper = 'VsWrapper',
 }

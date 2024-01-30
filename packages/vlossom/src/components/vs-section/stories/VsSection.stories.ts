@@ -1,4 +1,4 @@
-import { colorScheme, getMetaArguments } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
 import VsSection from './../VsSection.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -34,14 +34,9 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-                <vs-section v-bind="args" color-scheme="red">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="amber">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="green">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="teal">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="blue">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="indigo">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="purple">This is Section Content</vs-section>
-                <vs-section v-bind="args" color-scheme="pink">This is Section Content</vs-section>
+                ${getColorSchemeTemplate(`
+                    <vs-section v-bind="args" color-scheme="{{ color }}">This is Section Contents</vs-section>
+                `)}
             </div>
         `,
     }),

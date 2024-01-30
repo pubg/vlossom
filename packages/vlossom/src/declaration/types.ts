@@ -1,3 +1,5 @@
+import { COLORS } from './constants';
+
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -15,14 +17,16 @@ import type {
 } from '@/components';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
+import { VsTabsStyleSet } from '@/components/vs-tabs/types';
 
-export type ColorScheme = 'red' | 'amber' | 'green' | 'teal' | 'blue' | 'indigo' | 'purple' | 'pink';
+export type ColorScheme = (typeof COLORS)[number];
 
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
+    VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };
@@ -32,7 +36,8 @@ export interface StyleSet {
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
-    VsTooltip?: { [key: string]: VsTooltipStyleSet };
+    VsTabs?: { [key: string]: VsTabsStyleSet };
+    VsTooltip?: { [key: string]: VsTooltipStyleSet };    
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
