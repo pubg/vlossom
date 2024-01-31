@@ -1,4 +1,4 @@
-import { colorScheme, getColorSchemeTemplate, verticalAlign } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, align } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsLabelValue from '../VsLabelValue.vue';
 
@@ -22,7 +22,7 @@ const meta: Meta<typeof VsLabelValue> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
-        verticalAlign,
+        verticalAlign: align,
     },
 };
 
@@ -100,7 +100,7 @@ export const VerticalAlignTop: Story = {
         `,
     }),
     args: {
-        verticalAlign: 'top',
+        verticalAlign: 'start',
     },
 };
 
@@ -119,7 +119,7 @@ export const VerticalAlignBottom: Story = {
         `,
     }),
     args: {
-        verticalAlign: 'bottom',
+        verticalAlign: 'end',
     },
 };
 

@@ -4,7 +4,7 @@ import { defineComponent, nextTick, ref, Ref } from 'vue';
 import { useDomAttach } from '@/composables';
 
 describe('dom-attach-composable', () => {
-    describe('attach, detach', async () => {
+    describe('useDomAttach', async () => {
         // given
         const attachment = document.createElement('div');
         document.body.appendChild(attachment);
@@ -40,7 +40,7 @@ describe('dom-attach-composable', () => {
         });
     });
 
-    describe('attachOverlay', async () => {
+    describe('useOverlay', async () => {
         beforeEach(() => {
             document.body.innerHTML = '';
         });
@@ -61,7 +61,6 @@ describe('dom-attach-composable', () => {
                     const { isAttached, attach, detach } = useDomAttach(
                         targetRef as Ref<HTMLElement>,
                         attachmentRef as Ref<HTMLElement>,
-                        true,
                     );
 
                     return { targetRef, attachmentRef, isAttached, attach, detach };
@@ -90,7 +89,6 @@ describe('dom-attach-composable', () => {
                     const { isAttached, attach, detach } = useDomAttach(
                         targetRef as Ref<HTMLElement>,
                         attachmentRef as Ref<HTMLElement>,
-                        false,
                     );
 
                     return { targetRef, attachmentRef, isAttached, attach, detach };

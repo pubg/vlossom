@@ -1,4 +1,4 @@
-import { colorScheme, verticalAlign, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
+import { colorScheme, align, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsFooter from './../VsFooter.vue';
 
@@ -27,7 +27,7 @@ const meta: Meta<typeof VsFooter> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
-        verticalAlign,
+        verticalAlign: align,
         position: cssPosition,
     },
 };
@@ -89,7 +89,7 @@ export const VerticalAlignTop: Story = {
 		`,
     }),
     args: {
-        verticalAlign: 'top',
+        verticalAlign: 'start',
     },
 };
 
@@ -107,7 +107,7 @@ export const VerticalAlignBottom: Story = {
 		`,
     }),
     args: {
-        verticalAlign: 'bottom',
+        verticalAlign: 'end',
     },
 };
 
