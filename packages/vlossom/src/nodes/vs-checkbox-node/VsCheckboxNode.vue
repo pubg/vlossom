@@ -38,7 +38,7 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         readonly: { type: Boolean, default: false },
         name: { type: String, default: '' },
-        value: { type: undefined, default: 'true' },
+        value: { type: null, default: 'true' },
     },
     emits: ['toggle', 'focus', 'blur'],
     setup(props, context) {
