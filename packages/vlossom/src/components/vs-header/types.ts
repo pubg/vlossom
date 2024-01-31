@@ -1,8 +1,9 @@
 import type { TextAlign, CssPosition } from '@/declaration';
 
-export interface VsFooterStyleSet {
+export interface VsHeaderStyleSet {
     backgroundColor?: string;
     bottom?: string | number;
+    boxShadow?: string;
     color?: string;
     display?: string;
     flex?: string;
@@ -14,4 +15,5 @@ export interface VsFooterStyleSet {
     right?: string | number;
     top?: string | number;
     width?: string;
+    zIndex?: number;
 }

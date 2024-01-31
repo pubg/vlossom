@@ -19,6 +19,9 @@ export { default as VsFooter } from './vs-footer/VsFooter.vue';
 
 export { default as VsForm } from './vs-form/VsForm.vue';
 
+export { type VsHeaderStyleSet } from './vs-header/types';
+export { default as VsHeader } from './vs-header/VsHeader.vue';
+
 export { InputType, type VsInputStyleSet } from './vs-input/types';
 export { default as VsInput } from './vs-input/VsInput.vue';
 
@@ -64,6 +67,7 @@ declare module 'vue' {
         VsDivider: typeof import('./')['VsDivider'];
         VsFooter: typeof import('./')['VsFooter'];
         VsForm: typeof import('./')['VsForm'];
+        VsHeader: typeof import('./')['VsHeader'];
         VsInput: typeof import('./')['VsInput'];
         VsInputWrapper: typeof import('./')['VsInputWrapper'];
         VsLabelValue: typeof import('./')['VsLabelValue'];

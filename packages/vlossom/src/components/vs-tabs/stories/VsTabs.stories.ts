@@ -38,15 +38,12 @@ export const ColorScheme: Story = {
     render: () => ({
         components: { VsTabs },
         setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions, tabs };
+            return { tabs };
         },
         template: `
 			<div>
 				${getColorSchemeTemplate(`
-					<vs-tabs :tabs="tabs" color-scheme="{{ color }}" :style="{ marginBottom: '5px' }">
-						Button
-					</vs-tabs>
+					<vs-tabs :tabs="tabs" color-scheme="{{ color }}" :style="{ marginBottom: '5px' }" />
 				`)}
 			</div>
 			`,
