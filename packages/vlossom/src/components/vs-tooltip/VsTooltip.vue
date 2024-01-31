@@ -29,7 +29,7 @@
 import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick, onBeforeUnmount } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, Placement, Align } from '@/declaration';
-import useDomAttach from '@/composables/dom-attach-composable';
+import { useDomAttach, useOverlay } from '@/composables/dom-attach-composable';
 
 import type { VsTooltipStyleSet } from './types';
 
@@ -67,17 +67,19 @@ export default defineComponent({
 
         const { customProperties } = useCustomStyle<VsTooltipStyleSet>(name, styleSet);
 
-        const triggerOver = ref(false);
-        const tooltipOver = ref(false);
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
-        let timer: any = null;
+
+        useOverlay();
 
         const { isAttached, attachedPlacement, attach, detach } = useDomAttach(
             triggerRef as Ref<HTMLElement>,
             tooltipRef as Ref<HTMLElement>,
-            true,
         );
+
+        const triggerOver = ref(false);
+        const tooltipOver = ref(false);
+        let timer: any = null;
 
         const computedShow = computed(() => !disabled.value && (triggerOver.value || tooltipOver.value));
 

@@ -2,7 +2,7 @@ import { Ref, onBeforeMount, ref } from 'vue';
 import { AttachInfo, Placement, Align } from '@/declaration/types';
 import { utils } from '@/utils';
 
-export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLElement>, useOverlay = false) {
+export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
     const isAttached = ref(false);
     const attachedPlacement: Ref<Placement | null> = ref(null);
     let throttledSetAttachment: ((...args: any) => any) | null = null;
@@ -126,7 +126,16 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         isAttached.value = false;
     }
 
-    function attachOverlay() {
+    return {
+        isAttached,
+        attachedPlacement,
+        attach,
+        detach,
+    };
+}
+
+export function useOverlay() {
+    onBeforeMount(() => {
         if (document.getElementById('vs-overlay')) {
             return;
         }
@@ -139,21 +148,5 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         overlay.style.zIndex = '10000';
 
         document.body.appendChild(overlay);
-    }
-
-    onBeforeMount(() => {
-        if (!useOverlay) {
-            return;
-        }
-        attachOverlay();
     });
-
-    return {
-        isAttached,
-        attachedPlacement,
-        attach,
-        detach,
-    };
 }
-
-export default useDomAttach;
