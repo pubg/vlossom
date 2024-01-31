@@ -9,7 +9,7 @@
                 :id="id"
                 :disabled="disabled || readonly"
                 :name="name"
-                :value="value"
+                :value="convertToString(value)"
                 :checked="checked"
                 @change="toggle"
                 @focus="onFocus"
@@ -38,7 +38,7 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         readonly: { type: Boolean, default: false },
         name: { type: String, default: '' },
-        value: { type: String, default: '' },
+        value: { type: undefined, default: '' },
     },
     emits: ['toggle', 'focus', 'blur'],
     setup(props, context) {
@@ -66,12 +66,21 @@ export default defineComponent({
             emit('blur');
         }
 
+        function convertToString(value: any) {
+            if (typeof value === 'string') {
+                return value;
+            }
+
+            return JSON.stringify(value);
+        }
+
         return {
             classObj,
             id,
             toggle,
             onFocus,
             onBlur,
+            convertToString,
         };
     },
 });

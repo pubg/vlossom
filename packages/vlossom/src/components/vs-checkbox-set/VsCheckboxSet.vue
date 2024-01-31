@@ -22,7 +22,7 @@
                     :disabled="disabled"
                     :readonly="readonly"
                     :name="name"
-                    :value="convertValue(getOptionValue(option))"
+                    :value="getOptionValue(option)"
                     :check-label="getOptionLabel(option)"
                     @toggle="onToggle($event, option)"
                     @focus="onFocus(option)"
@@ -158,14 +158,6 @@ export default defineComponent({
             emit('blur', option);
         }
 
-        function convertValue(value: any) {
-            if (typeof value === 'string') {
-                return value;
-            }
-
-            return JSON.stringify(value);
-        }
-
         return {
             classObj,
             computedColorScheme,
@@ -173,7 +165,6 @@ export default defineComponent({
             isChecked,
             getOptionLabel,
             getOptionValue,
-            convertValue,
             inputValue,
             computedMessages,
             shake,
