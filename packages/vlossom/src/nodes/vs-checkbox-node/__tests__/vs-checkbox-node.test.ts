@@ -10,7 +10,13 @@ describe('vs-checkbox-node', () => {
     describe('checked', () => {
         it('checked 속성을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
+                props: {
+                    colorScheme: 'default',
+                    customProperties: {},
+                    checked: false,
+                },
+            });
 
             // when
             await wrapper.setProps({ checked: true });
@@ -23,7 +29,13 @@ describe('vs-checkbox-node', () => {
     describe('events', () => {
         it('toggle 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
+                props: {
+                    colorScheme: 'default',
+                    customProperties: {},
+                    checked: false,
+                },
+            });
 
             // when
             await wrapper.find('input').trigger('change');
@@ -34,7 +46,13 @@ describe('vs-checkbox-node', () => {
 
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
+                props: {
+                    colorScheme: 'default',
+                    customProperties: {},
+                    checked: false,
+                },
+            });
 
             // when
             await wrapper.find('input').trigger('focus');
@@ -45,7 +63,13 @@ describe('vs-checkbox-node', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
+                props: {
+                    colorScheme: 'default',
+                    customProperties: {},
+                    checked: false,
+                },
+            });
 
             // when
             await wrapper.find('input').trigger('blur');
