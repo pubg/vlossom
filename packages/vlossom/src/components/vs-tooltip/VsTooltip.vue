@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick, onBeforeUnmount } from 'vue';
+import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, Placement, Align } from '@/declaration';
+import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { useDomAttach, useOverlay } from '@/composables/dom-attach-composable';
 
 import type { VsTooltipStyleSet } from './types';
