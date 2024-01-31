@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { colorScheme, align, position } from '@/storybook/args';
+import { colorScheme, align, placement } from '@/storybook/args';
 import VsTooltip from './../VsTooltip.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+import { PLACEMENTS, ALIGNS } from '@/declaration/constants';
 
 const meta: Meta<typeof VsTooltip> = {
     title: 'Components/Base Components/VsTooltip',
@@ -22,7 +23,7 @@ const meta: Meta<typeof VsTooltip> = {
     argTypes: {
         colorScheme,
         align,
-        position,
+        placement,
     },
 };
 
@@ -52,73 +53,20 @@ export const ColorScheme: Story = {
     },
 };
 
-export const Position: Story = {
-    render: (args: any) => ({
-        components: { VsTooltip },
-        setup() {
-            return { args };
-        },
-        template: `
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <vs-tooltip v-bind="args" position="top" style="margin: 0.1rem;">
-                <vs-button>Top</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" position="left" style="margin: 0.1rem;">
-                <vs-button>Left</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" position="right" style="margin: 0.1rem;">
-                <vs-button>Right</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" position="bottom" style="margin: 0.1rem;">
-                <vs-button>Bottom</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-        </div>
-        `,
-    }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
-};
 
-export const Align: Story = {
+export const PlacementAndAlign: Story = {
     render: (args: any) => ({
         components: { VsTooltip },
         setup() {
-            return { args };
+            return { args, PLACEMENTS, ALIGNS };
         },
         template: `
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <vs-tooltip v-bind="args" align="left" style="margin: 0.3rem;">
-                <vs-button>Left Align</vs-button>
+        <div v-for="placement in PLACEMENTS" :key="placement" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <vs-tooltip v-for="align in ALIGNS" :key="align" v-bind="args" :placement="placement" :align="align" style="margin: 0.3rem;">
+                <vs-button large style="width: 12rem;">placement: {{placement}} <br/> align: {{align}}</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
-            <vs-tooltip v-bind="args" align="center" style="margin: 0.3rem;">
-                <vs-button>Center Align</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" align="right" style="margin: 0.3rem;">
-                <vs-button>Right Align</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-        </div>
-        <vs-divider/>
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-            <vs-tooltip v-bind="args" align="top" position="right" style="margin: 0.3rem;">
-                <vs-button>Top Align</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" align="center" position="right" style="margin: 0.3rem;">
-                <vs-button>Center Align</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
-            <vs-tooltip v-bind="args" align="bottom" position="right" style="margin: 0.3rem;">
-                <vs-button>Bottom Align</vs-button>
-                <template #tooltip>Tooltip</template>
-            </vs-tooltip>
+            <vs-divider/>
         </div>
         `,
     }),

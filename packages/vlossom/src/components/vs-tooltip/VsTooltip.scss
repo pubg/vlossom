@@ -14,7 +14,9 @@
         font-size: var(--vs-tooltip-fontSize, 1rem);
         border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
         background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-backgroundColor));
-        box-shadow: var(--vs-tooltip-boxShadow, 0.18rem 0.15rem 0.15rem 0 rgba(#000, 0.25)), inset 0px 0px 0px var(--vs-tooltip-borderWeight, 0.18rem) var(--vs-tooltip-borderColor, var(--vs-comp-color));
+        box-shadow: var(--vs-tooltip-boxShadow, 0.18rem 0.15rem 0.15rem 0 rgba(#000, 0.25)),
+            inset 0px 0px 0px var(--vs-tooltip-borderWeight, 0.18rem)
+                var(--vs-tooltip-borderColor, var(--vs-comp-color));
         color: var(--vs-tooltip-fontColor, var(--vs-comp-color));
         white-space: nowrap;
 
@@ -28,40 +30,59 @@
         }
     }
 
-    &.position-top .tooltip-contents::after {
+    &.placement-top .tooltip-contents::after {
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 100%) rotate(180deg);
     }
 
-    &.position-right .tooltip-contents::after {
+    &.placement-top.align-start .tooltip-contents::after {
+        left: 20%;
+    }
+
+    &.placement-top.align-end .tooltip-contents::after {
+        left: 80%;
+    }
+
+    &.placement-right .tooltip-contents::after {
         top: 50%;
         left: 0;
         transform: translate(calc(-100%), -50%) rotate(270deg);
     }
 
-    &.position-bottom .tooltip-contents::after {
+    &.placement-right.align-start .tooltip-contents::after {
+        top: 20%;
+    }
+
+    &.placement-right.align-end .tooltip-contents::after {
+        top: 80%;
+    }
+
+    &.placement-bottom .tooltip-contents::after {
         top: 0;
         left: 50%;
         transform: translate(-50%, -100%) rotate(0deg);
     }
 
-    &.position-left .tooltip-contents::after {
+    &.placement-bottom.align-start .tooltip-contents::after {
+        left: 20%;
+    }
+
+    &.placement-bottom.align-end .tooltip-contents::after {
+        left: 80%;
+    }
+
+    &.placement-left .tooltip-contents::after {
         top: 50%;
         right: 0;
         transform: translate(calc(100%), -50%) rotate(90deg);
     }
 
-    &.align-left .tooltip-contents::after {
-        left: 20%;
-    }
-    &.align-right .tooltip-contents::after {
-        left: 80%;
-    }
-    &.align-top .tooltip-contents::after {
+    &.placement-left.align-start .tooltip-contents::after {
         top: 20%;
     }
-    &.align-bottom .tooltip-contents::after {
+
+    &.placement-left.align-end .tooltip-contents::after {
         top: 80%;
     }
 }

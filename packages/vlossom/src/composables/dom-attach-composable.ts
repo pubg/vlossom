@@ -1,44 +1,38 @@
 import { Ref, onBeforeMount, ref } from 'vue';
-import { AttachInfo, Align, Position } from '@/declaration/types';
+import { AttachInfo, Placement, Align } from '@/declaration/types';
 import { utils } from '@/utils';
 
 export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLElement>, useOverlay = false) {
     const isAttached = ref(false);
-    const attachedPosition: Ref<Position | null> = ref(null);
+    const attachedPlacement: Ref<Placement | null> = ref(null);
     let throttledSetAttachment: ((...args: any) => any) | null = null;
 
     function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
-            case 'left':
+            case 'start':
                 return left;
-            case 'right':
+            case 'end':
                 return right - attachmentWidth;
             case 'center':
-            case 'top':
-            case 'bottom':
-                return left + width / 2 - attachmentWidth / 2;
             default:
-                throw Error('Align is Invalid Value');
+                return left + width / 2 - attachmentWidth / 2;
         }
     }
 
     function getY(align: Align, top: number, bottom: number, height: number, attachmentHeight: number) {
         switch (align) {
-            case 'top':
+            case 'start':
                 return top;
-            case 'bottom':
+            case 'end':
                 return bottom - attachmentHeight;
             case 'center':
-            case 'left':
-            case 'right':
-                return top + height / 2 - attachmentHeight / 2;
             default:
-                throw Error('Align is Invalid Value');
+                return top + height / 2 - attachmentHeight / 2;
         }
     }
 
     function setAttachment({
-        position = 'top',
+        placement = 'top',
         align = 'center',
         margin = 2,
         followWidth = false,
@@ -52,23 +46,23 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         const { top, right, bottom, left, width, height } = utils.dom.getClientRect(target.value);
         const { width: attachmentWidth, height: attachmentHeight } = utils.dom.getClientRect(attachment.value);
 
-        attachedPosition.value = position;
-
-        // Change positions when there are no spaces in the viewport.
-        if (position === 'bottom' && bottom + attachmentHeight > window.innerHeight) {
-            attachedPosition.value = 'top';
-        } else if (position === 'top' && top - attachmentHeight < 0) {
-            attachedPosition.value = 'bottom';
-        } else if (position === 'left' && left - attachmentWidth < 0) {
-            attachedPosition.value = 'right';
-        } else if (position === 'right' && right + attachmentWidth > window.innerWidth) {
-            attachedPosition.value = 'left';
+        // Change placements when there are no spaces in the viewport.
+        if (placement === 'bottom' && bottom + attachmentHeight > window.innerHeight) {
+            attachedPlacement.value = 'top';
+        } else if (placement === 'top' && top - attachmentHeight < 0) {
+            attachedPlacement.value = 'bottom';
+        } else if (placement === 'left' && left - attachmentWidth < 0) {
+            attachedPlacement.value = 'right';
+        } else if (placement === 'right' && right + attachmentWidth > window.innerWidth) {
+            attachedPlacement.value = 'left';
+        } else {
+            attachedPlacement.value = placement;
         }
 
         let x: number;
         let y: number;
 
-        switch (attachedPosition.value) {
+        switch (attachedPlacement.value) {
             case 'top':
                 x = getX(align, left, right, width, attachmentWidth);
                 y = top - attachmentHeight - margin;
@@ -156,7 +150,7 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
 
     return {
         isAttached,
-        attachedPosition,
+        attachedPlacement,
         attach,
         detach,
     };

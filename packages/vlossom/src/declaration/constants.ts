@@ -1,3 +1,5 @@
+export const ALIGNS = ['start', 'center', 'end'] as const;
+
 export const COLORS = [
     'red',
     'orange',
@@ -14,3 +16,5 @@ export const COLORS = [
     'grey',
     'black',
 ] as const;
+
+export const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;

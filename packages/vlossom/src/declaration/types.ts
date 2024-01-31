@@ -1,4 +1,4 @@
-import { COLORS } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS } from './constants';
 
 import type {
     VsButtonStyleSet,
@@ -91,11 +91,7 @@ export interface VsFormProvide {
     removeFromForm: (id: string) => void;
 }
 
-export type Position = 'top' | 'right' | 'bottom' | 'left';
-
-export type Align = 'top' | 'bottom' | 'center' | 'right' | 'left';
-
-export type VerticalAlign = Extract<Align, 'top' | 'bottom' | 'center'>;
+export type Align = (typeof ALIGNS)[number];
 
 export type TextAlign =
     | 'start'
@@ -108,8 +104,10 @@ export type TextAlign =
     | 'match-parent'
     | 'inherit';
 
+export type Placement = (typeof PLACEMENTS)[number];
+
 export interface AttachInfo {
-    position?: Position;
+    placement?: Placement;
     align?: Align;
     margin?: number;
     followWidth?: boolean;

@@ -13,7 +13,7 @@
         <teleport to="#vs-overlay" v-if="computedShow || isAttached">
             <div
                 ref="tooltipRef"
-                :class="['tooltip', `vs-${computedColorScheme}`, `position-${attachedPosition}`, `align-${align}`]"
+                :class="['tooltip', `vs-${computedColorScheme}`, `placement-${attachedPlacement}`, `align-${align}`]"
                 @mouseenter="onTooltipEnter"
                 @mouseleave="onTooltipLeave"
             >
@@ -28,7 +28,7 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs, ref, computed, Ref, watch, nextTick, onBeforeUnmount } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, Align, Position } from '@/declaration';
+import { VsComponent, type ColorScheme, Placement, Align } from '@/declaration';
 import useDomAttach from '@/composables/dom-attach-composable';
 
 import type { VsTooltipStyleSet } from './types';
@@ -40,6 +40,7 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTooltipStyleSet>, default: '' },
+        placement: { type: String as PropType<Placement>, default: 'top' },
         align: { type: String as PropType<Align>, default: 'center' },
         clickable: { type: Boolean, default: false },
         contentsHover: { type: Boolean, default: false },
@@ -47,7 +48,6 @@ export default defineComponent({
         disableAnimation: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
-        position: { type: String as PropType<Position>, default: 'top' },
     },
     setup(props) {
         const {
@@ -60,7 +60,7 @@ export default defineComponent({
             disableAnimation,
             enterDelay,
             leaveDelay,
-            position,
+            placement,
         } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -73,27 +73,23 @@ export default defineComponent({
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
         let timer: any = null;
 
-        const { isAttached, attachedPosition, attach, detach } = useDomAttach(
+        const { isAttached, attachedPlacement, attach, detach } = useDomAttach(
             triggerRef as Ref<HTMLElement>,
             tooltipRef as Ref<HTMLElement>,
             true,
         );
 
-        const computedShow = computed(() => triggerOver.value || tooltipOver.value);
+        const computedShow = computed(() => !disabled.value && (triggerOver.value || tooltipOver.value));
 
         watch(computedShow, (show) => {
-            if (disabled.value) {
-                return;
-            }
-
             if (show) {
                 nextTick(() => {
                     attach({
-                        position: position.value,
-                        align: align.value,
+                        placement: placement.value,
+                        align: align.value ? align.value : 'center',
                     });
                 });
-            } else {
+            } else if (isAttached.value) {
                 setTimeout(() => {
                     detach();
                 }, 200); // for waiting animation end
@@ -105,7 +101,7 @@ export default defineComponent({
                 return null;
             }
             const direction = computedShow.value ? 'in' : 'out';
-            switch (attachedPosition.value) {
+            switch (attachedPlacement.value) {
                 case 'top':
                     return `fade-${direction}-bottom`;
                 case 'right':
@@ -192,7 +188,7 @@ export default defineComponent({
             tooltipRef,
             isAttached,
             computedShow,
-            attachedPosition,
+            attachedPlacement,
             onTriggerEnter,
             onTriggerLeave,
             onTriggerClick,
