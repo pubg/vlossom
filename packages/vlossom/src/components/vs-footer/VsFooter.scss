@@ -1,13 +1,24 @@
-footer {
+.vs-footer {
     background-color: var(--vs-footer-backgroundColor, var(--vs-comp-backgroundColor));
+    bottom: var(--vs-footer-bottom, auto);
     color: var(--vs-footer-color, var(--vs-comp-color));
-    flex: 1 1 auto;
+    display: var(--vs-footer-display, flex);
+    flex: var(--vs-footer-flex, 1 1 auto);
     height: var(--vs-footer-height, auto);
+    left: var(--vs-footer-left, auto);
     padding: var(--vs-footer-padding);
-    text-align: var(--vs-footer-textAlign, inherit);
+    position: var(--vs-footer-position, static);
+    right: var(--vs-footer-right, auto);
+    top: var(--vs-footer-top, auto);
+    width: var(--vs-footer-width, auto);
 
     &.primary {
         background-color: var(--vs-footer-backgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-footer-color, var(--vs-comp-color-primary));
+    }
+
+    .vs-footer-content {
+        text-align: var(--vs-footer-textAlign, inherit);
+        width: 100%;
     }
 }

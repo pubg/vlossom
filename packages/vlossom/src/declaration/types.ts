@@ -1,4 +1,4 @@
-import { COLORS } from './constants';
+import { COLORS, CSS_POSITION } from './constants';
 
 import type {
     VsButtonStyleSet,
@@ -6,6 +6,7 @@ import type {
     VsChipStyleSet,
     VsDividerStyleSet,
     VsFooterStyleSet,
+    VsHeaderStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsNoticeStyleSet,
@@ -29,6 +30,7 @@ export interface StyleSet {
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };
+    VsHeader?: { [key: string]: VsHeaderStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
@@ -101,3 +103,5 @@ export type TextAlign =
     | 'justify-all'
     | 'match-parent'
     | 'inherit';
+
+export type CssPosition = (typeof CSS_POSITION)[number];

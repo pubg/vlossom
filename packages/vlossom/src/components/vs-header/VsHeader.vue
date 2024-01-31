@@ -1,6 +1,6 @@
 <template>
-    <div :class="['vs-footer', `vs-${computedColorScheme}`, { ...classObj }]" :style="[computedStyle, alignStyle]">
-        <div class="vs-footer-content">
+    <div :class="['vs-header', `vs-${computedColorScheme}`, { ...classObj }]" :style="[computedStyle, alignStyle]">
+        <div class="vs-header-content">
             <slot />
         </div>
     </div>
@@ -11,14 +11,15 @@ import { PropType, defineComponent, toRefs, computed, ComputedRef } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { ColorScheme, VsComponent, VerticalAlign, CssPosition } from '@/declaration';
 
-import type { VsFooterStyleSet } from './types';
+import type { VsHeaderStyleSet } from './types';
 
-const name = VsComponent.VsFooter;
+const name = VsComponent.VsHeader;
+
 export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsFooterStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsHeaderStyleSet>, default: '' },
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
@@ -29,7 +30,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsFooterStyleSet>(name, styleSet);
+        const { customProperties } = useCustomStyle<VsHeaderStyleSet>(name, styleSet);
 
         const alignStyle: ComputedRef<{ alignItems: string }> = computed(() => {
             if (verticalAlign.value === 'top') {
@@ -47,14 +48,14 @@ export default defineComponent({
         const computedStyle = computed(() => {
             const style = { ...customProperties.value };
             if (height.value) {
-                style['--vs-footer-height'] = height.value;
+                style['--vs-header-height'] = height.value;
             }
             if (position.value) {
-                style['--vs-footer-position'] = position.value;
+                style['--vs-header-position'] = position.value;
 
                 if (position.value === 'absolute' || position.value === 'fixed') {
-                    style['--vs-footer-bottom'] = 0;
-                    style['--vs-footer-left'] = 0;
+                    style['--vs-header-top'] = 0;
+                    style['--vs-header-left'] = 0;
                 }
             }
             return style;
@@ -70,4 +71,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsFooter.scss" />
+<style lang="scss" scoped src="./VsHeader.scss" />

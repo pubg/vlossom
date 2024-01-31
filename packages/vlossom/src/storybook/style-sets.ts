@@ -5,6 +5,7 @@ import type {
     VsChipStyleSet,
     VsDividerStyleSet,
     VsFooterStyleSet,
+    VsHeaderStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsNoticeStyleSet,
@@ -47,11 +48,37 @@ const vsDivider: VsDividerStyleSet = {
 };
 
 const vsFooter: VsFooterStyleSet = {
-    backgroundColor: '#fff',
-    color: '#000',
-    height: '200px',
+    backgroundColor: 'grey',
+    bottom: 0,
+    color: '#fff',
+    display: 'flex',
+    flex: '1 1 auto',
+    height: '32px',
+    left: 0,
     padding: '2%',
+    position: 'absolute',
     textAlign: 'start',
+    right: 'auto',
+    top: 'auto',
+    width: '100%',
+};
+
+const vsHeader: VsHeaderStyleSet = {
+    backgroundColor: 'grey',
+    bottom: 'auto',
+    boxShadow: 'none',
+    color: '#fff',
+    display: 'flex',
+    flex: '1 1 auto',
+    height: '32px',
+    left: 'auto',
+    padding: '2%',
+    position: 'sticky',
+    textAlign: 'start',
+    right: 'auto',
+    top: '50%',
+    width: '100%',
+    zIndex: 9999,
 };
 
 const vsInput: VsInputStyleSet = {
@@ -121,6 +148,7 @@ export const styleSet: StyleSet = {
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsFooter: { myStyleSet: vsFooter },
+    VsHeader: { myStyleSet: vsHeader },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
     VsNotice: { myStyleSet: vsNotice },

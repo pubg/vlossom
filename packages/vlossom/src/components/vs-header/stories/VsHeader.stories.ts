@@ -1,14 +1,14 @@
 import { colorScheme, verticalAlign, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
-import VsFooter from './../VsFooter.vue';
+import VsHeader from './../VsHeader.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof VsFooter> = {
-    title: 'Components/Layout Components/VsFooter',
-    component: VsFooter,
+const meta: Meta<typeof VsHeader> = {
+    title: 'Components/Layout Components/VsHeader',
+    component: VsHeader,
     render: (args: any) => ({
-        components: { VsFooter },
+        components: { VsHeader },
         setup() {
             const content = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
 			Possimus, voluptatem cum? Atque facilis mollitia distinctio
@@ -19,7 +19,7 @@ const meta: Meta<typeof VsFooter> = {
         },
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
-				<vs-footer v-bind="args" > This is Footer Content </vs-footer>
+				<vs-header v-bind="args" > This is Header Content </vs-header>
 				{{content}}
 			</div>
 		`,
@@ -32,19 +32,19 @@ const meta: Meta<typeof VsFooter> = {
     },
 };
 export default meta;
-type Story = StoryObj<typeof VsFooter>;
+type Story = StoryObj<typeof VsHeader>;
 
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: () => ({
-        components: { VsFooter },
+        components: { VsHeader },
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-footer color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
-						This is Footer Content
-                    </vs-footer>
+                    <vs-header color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
+						This is Header Content
+                    </vs-header>
                 `)}
             </div>
 		`,
@@ -56,13 +56,13 @@ export const ColorScheme: Story = {
 
 export const Primary: Story = {
     render: () => ({
-        components: { VsFooter },
+        components: { VsHeader },
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-footer color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
-						This is Footer Content
-                    </vs-footer>
+                    <vs-header color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
+						This is Header Content
+                    </vs-header>
                 `)}
             </div>
 		`,
@@ -77,7 +77,7 @@ export const Primary: Story = {
 
 export const VerticalAlignTop: Story = {
     render: (args: any) => ({
-        components: { VsFooter },
+        components: { VsHeader },
         setup() {
             const styleSet = {
                 height: '200px',
@@ -85,7 +85,7 @@ export const VerticalAlignTop: Story = {
             return { args, styleSet };
         },
         template: `
-			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
+			<vs-header v-bind="args" :styleSet="styleSet" > This is Header Content </vs-header>
 		`,
     }),
     args: {
@@ -95,7 +95,7 @@ export const VerticalAlignTop: Story = {
 
 export const VerticalAlignBottom: Story = {
     render: (args: any) => ({
-        components: { VsFooter },
+        components: { VsHeader },
         setup() {
             const styleSet = {
                 height: '200px',
@@ -103,7 +103,7 @@ export const VerticalAlignBottom: Story = {
             return { args, styleSet };
         },
         template: `
-			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
+			<vs-header v-bind="args" :styleSet="styleSet" > This is Header Content </vs-header>
 		`,
     }),
     args: {
@@ -113,14 +113,7 @@ export const VerticalAlignBottom: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: {
-            backgroundColor: '#000',
-            color: '#fff',
-            height: '60px',
-            padding: '10px',
-            position: 'absolute',
-            textAlign: 'center',
-        },
+        styleSet: { backgroundColor: '#000', color: '#fff', height: '60px', padding: '10px', textAlign: 'center' },
     },
 };
 
