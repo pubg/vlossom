@@ -71,8 +71,8 @@ describe('vs-tooltip', () => {
         });
     });
 
-    describe('position', () => {
-        it('position을 설정하면 해당 position에 tooltip이 붙는다', async () => {
+    describe('placement', () => {
+        it('placement을 설정하면 해당 위치에 tooltip이 붙는다', async () => {
             //given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
                 slots: {
@@ -80,7 +80,7 @@ describe('vs-tooltip', () => {
                     tooltip: 'Tooltip',
                 },
                 props: {
-                    position: 'bottom',
+                    placement: 'bottom',
                     enterDelay: 0,
                     leaveDelay: 0,
                 },
@@ -92,13 +92,13 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
             //then
-            expect(wrapper.vm.attachedPosition).toBe('bottom');
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('position-bottom');
+            expect(wrapper.vm.attachedPlacement).toBe('bottom');
+            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('placement-bottom');
         });
     });
 
     describe('align', () => {
-        it('align을 설정하면 해당 align에 맞게 tooltip이 정렬된다', async () => {
+        it('align을 설정하면 이에 맞게 tooltip이 정렬된다', async () => {
             //given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
                 slots: {
@@ -106,7 +106,7 @@ describe('vs-tooltip', () => {
                     tooltip: 'Tooltip',
                 },
                 props: {
-                    align: 'right',
+                    align: 'end',
                     enterDelay: 0,
                     leaveDelay: 0,
                 },
@@ -118,7 +118,7 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('align-right');
+            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('align-end');
         });
     });
 
