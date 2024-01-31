@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, toRefs, computed, type PropType, type ComputedRef } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, type Align } from '@/declaration';
+import { VsComponent, type Align, type ColorScheme, type CssPosition } from '@/declaration';
 
 import type { VsFooterStyleSet } from './types';
 
