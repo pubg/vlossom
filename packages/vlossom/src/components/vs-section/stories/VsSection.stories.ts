@@ -1,4 +1,4 @@
-import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
 import VsSection from './../VsSection.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -20,7 +20,6 @@ const meta: Meta<typeof VsSection> = {
     },
 };
 
-meta.args = getMetaArguments(VsSection.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsSection>;
 
