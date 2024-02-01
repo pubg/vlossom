@@ -23,8 +23,8 @@
             position: absolute;
             width: 0;
             height: 0;
-            border: 0.4rem solid transparent;
-            border-bottom: 0.5rem solid var(--vs-tooltip-arrowColor, var(--vs-comp-color));
+            border: var(--vs-tooltip-arrowSize, 0.4rem) solid transparent;
+            border-bottom: var(--vs-tooltip-arrowSize, 0.4rem) solid var(--vs-tooltip-arrowColor, var(--vs-comp-color));
         }
     }
 

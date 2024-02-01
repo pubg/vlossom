@@ -1,5 +1,6 @@
 export interface VsTooltipStyleSet {
     arrowColor?: string;
+    arrowSize?: string;
     backgroundColor?: string;
     borderRadius?: string;
     borderColor?: string;
