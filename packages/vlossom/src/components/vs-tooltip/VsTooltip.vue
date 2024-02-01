@@ -28,9 +28,8 @@
 <script lang="ts">
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
+import { VsComponent, PLACEMENTS, ALIGNS, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
-
 import type { VsTooltipStyleSet } from './types';
 
 const name = VsComponent.VsTooltip;
@@ -40,8 +39,16 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTooltipStyleSet>, default: '' },
-        placement: { type: String as PropType<Placement>, default: 'top' },
-        align: { type: String as PropType<Align>, default: 'center' },
+        placement: {
+            type: String as PropType<Placement>,
+            default: 'top',
+            validator: (val: Placement) => PLACEMENTS.includes(val),
+        },
+        align: {
+            type: String as PropType<Align>,
+            default: 'center',
+            validator: (val: Align) => ALIGNS.includes(val),
+        },
         clickable: { type: Boolean, default: false },
         contentsHover: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
@@ -90,7 +97,7 @@ export default defineComponent({
                 nextTick(() => {
                     appear({
                         placement: placement.value,
-                        align: align.value ? align.value : 'center',
+                        align: align.value,
                         margin: margin.value,
                     });
                 });

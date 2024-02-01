@@ -14,8 +14,9 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
             case 'end':
                 return right - attachmentWidth;
             case 'center':
-            default:
                 return left + width / 2 - attachmentWidth / 2;
+            default:
+                throw Error('Align is Invalid Value');
         }
     }
 
@@ -26,8 +27,9 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
             case 'end':
                 return bottom - attachmentHeight;
             case 'center':
-            default:
                 return top + height / 2 - attachmentHeight / 2;
+            default:
+                throw Error('Align is Invalid Value');
         }
     }
 
@@ -73,7 +75,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
                 y = getY(align, top, bottom, height, attachmentHeight);
                 break;
             default:
-                throw Error('Direction is Invalid Value');
+                throw Error('Placement is Invalid Value');
         }
 
         const scrollLeft = window.scrollX || document.documentElement.scrollLeft || 0;
