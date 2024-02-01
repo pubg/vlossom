@@ -165,6 +165,24 @@ export const Disabled: Story = {
     },
 };
 
+export const Margin: Story = {
+    render: (args: any) => ({
+        components: { VsTooltip },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-tooltip v-bind="args" :margin=7>
+                <vs-button>margin = 7</vs-button>
+                <template #tooltip>Tooltip</template>
+            </vs-tooltip>
+        `,
+    }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
 export const StyleSet: Story = {
     args: {
         styleSet: {

@@ -92,7 +92,7 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
             //then
-            expect(wrapper.vm.attachedPlacement).toBe('bottom');
+            expect(wrapper.vm.computedPlacement).toBe('bottom');
             expect(window.document.body.querySelector('.tooltip')?.classList).toContain('placement-bottom');
         });
     });
