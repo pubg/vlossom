@@ -420,7 +420,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(wrapper.vm.animationClass).toBeNull;
+                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toBeNull;
             });
 
             it('trigger에 마우스를 올렸다가 떼도 fade out transition이 발생하지 않는다', async () => {
@@ -429,10 +429,10 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 await wrapper.find('.tooltip-trigger').trigger('mouseleave');
-                await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
+                await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(wrapper.vm.animationClass).toBeNull;
+                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toBeNull;
             });
         });
     });
