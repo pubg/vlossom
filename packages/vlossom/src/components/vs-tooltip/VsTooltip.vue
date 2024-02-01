@@ -92,9 +92,12 @@ export default defineComponent({
                     });
                 });
             } else if (isAttached.value) {
-                setTimeout(() => {
-                    detach();
-                }, 200); // for waiting animation end
+                setTimeout(
+                    () => {
+                        detach();
+                    },
+                    disableAnimation.value ? 0 : 200, // for waiting animation end
+                );
             }
         });
 
