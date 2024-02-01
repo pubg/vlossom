@@ -1,42 +1,42 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref, Ref } from 'vue';
-import { useDomAttach, useOverlay } from '@/composables';
+import { usePositioning, useOverlay } from '@/composables';
 
-describe('dom-attach-composable', () => {
+describe('anchor-positioning-composable', () => {
     describe('useDomAttach', async () => {
         // given
         const attachment = document.createElement('div');
         document.body.appendChild(attachment);
 
         const TargetComponent = defineComponent({
-            template: '<div ref="targetRef">target</div>',
+            template: '<div ref="anchorRef">anchor</div>',
             setup() {
-                const targetRef: Ref<HTMLElement | null> = ref(null);
+                const anchorRef: Ref<HTMLElement | null> = ref(null);
 
-                const { isAttached, attach, detach } = useDomAttach(targetRef as Ref<HTMLElement>, ref(attachment));
-                return { targetRef, isAttached, attach, detach };
+                const { isVisible, appear, disappear } = usePositioning(anchorRef as Ref<HTMLElement>, ref(attachment));
+                return { anchorRef, isVisible, appear, disappear };
             },
         });
 
         const wrapper = mount(TargetComponent);
 
-        it('attach 호출 시 isAttached가 true가 된다', async () => {
+        it('appear 호출 시 isVisible이 true가 된다', async () => {
             // when
-            wrapper.vm.attach();
+            wrapper.vm.appear();
             await nextTick();
 
             // then
-            expect(wrapper.vm.isAttached).toBe(true);
+            expect(wrapper.vm.isVisible).toBe(true);
         });
 
-        it('detach 호출 시 isAttached가 false가 된다', async () => {
+        it('disappear 호출 시 isVisible이 false가 된다', async () => {
             // when
-            wrapper.vm.detach();
+            wrapper.vm.disappear();
             await nextTick();
 
             // then
-            expect(wrapper.vm.isAttached).toBe(false);
+            expect(wrapper.vm.isVisible).toBe(false);
         });
     });
 
@@ -49,23 +49,23 @@ describe('dom-attach-composable', () => {
             // given
             const TargetComponent = defineComponent({
                 template: `
-                    <div ref="targetRef">target</div>
+                    <div ref="anchorRef">target</div>
                     <teleport to="vs-overlay">
                         <div ref="attchmentRef">attachment</div>
                     <teleport>
                 `,
                 setup() {
-                    const targetRef: Ref<HTMLElement | null> = ref(null);
+                    const anchorRef: Ref<HTMLElement | null> = ref(null);
                     const attachmentRef: Ref<HTMLElement | null> = ref(null);
 
                     useOverlay();
 
-                    const { isAttached, attach, detach } = useDomAttach(
-                        targetRef as Ref<HTMLElement>,
+                    const { isVisible, appear, disappear } = usePositioning(
+                        anchorRef as Ref<HTMLElement>,
                         attachmentRef as Ref<HTMLElement>,
                     );
 
-                    return { targetRef, attachmentRef, isAttached, attach, detach };
+                    return { anchorRef, attachmentRef, isVisible, appear, disappear };
                 },
             });
             mount(TargetComponent);
