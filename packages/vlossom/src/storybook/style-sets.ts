@@ -139,9 +139,9 @@ const vsTooltip: VsTooltipStyleSet = {
     arrowSize: '0.5rem',
     backgroundColor: '#ffe3e1',
     borderColor: '#ffd1d1',
-    borderWeight: '0.25rem',
+    borderWeight: '3.5px',
     borderRadius: '0',
-    fontColor: '#ff6677',
+    color: '#ff6677',
     fontSize: '1.1rem',
     padding: '0.9rem 0.8rem',
 };

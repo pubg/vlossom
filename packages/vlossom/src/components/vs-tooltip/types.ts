@@ -7,7 +7,6 @@ export interface VsTooltipStyleSet {
     borderWeight?: string;
     boxShadow?: string;
     color?: string;
-    fontColor?: string;
     fontSize?: string;
     padding?: string;
 }
