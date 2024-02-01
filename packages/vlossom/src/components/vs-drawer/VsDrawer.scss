@@ -44,7 +44,7 @@ $sizes: xs, sm, md, lg, xl;
         }
 
         // placement
-        &.left {
+        &.top {
             top: 0;
             left: 0;
         }
@@ -54,13 +54,13 @@ $sizes: xs, sm, md, lg, xl;
             right: 0;
         }
 
-        &.top {
-            top: 0;
+        &.bottom {
+            bottom: 0;
             left: 0;
         }
 
-        &.bottom {
-            bottom: 0;
+        &.left {
+            top: 0;
             left: 0;
         }
 
