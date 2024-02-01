@@ -2,7 +2,7 @@ import { Ref, onBeforeMount, ref } from 'vue';
 import { AttachInfo, Placement, Align } from '@/declaration/types';
 import { utils } from '@/utils';
 
-export function useAnchorPositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
+export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
     const isVisible = ref(false);
     const computedPlacement: Ref<Placement | null> = ref(null);
     let throttledComputePosition: ((...args: any) => any) | null = null;

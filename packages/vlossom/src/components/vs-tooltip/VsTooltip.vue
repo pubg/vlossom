@@ -29,7 +29,7 @@
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
-import { useAnchorPositioning, useOverlay } from '@/composables/anchor-positioning-composable';
+import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
 
 import type { VsTooltipStyleSet } from './types';
 
@@ -74,7 +74,7 @@ export default defineComponent({
 
         useOverlay();
 
-        const { isVisible, computedPlacement, appear, disappear } = useAnchorPositioning(
+        const { isVisible, computedPlacement, appear, disappear } = usePositioning(
             triggerRef as Ref<HTMLElement>,
             tooltipRef as Ref<HTMLElement>,
         );
