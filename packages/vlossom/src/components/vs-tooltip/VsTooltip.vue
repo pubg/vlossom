@@ -10,14 +10,14 @@
             <slot />
         </div>
 
-        <teleport to="#vs-overlay" v-if="computedShow || isAttached">
+        <teleport to="#vs-overlay" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
-                :class="['tooltip', `vs-${computedColorScheme}`, `placement-${attachedPlacement}`, `align-${align}`]"
+                :class="['tooltip', `vs-${computedColorScheme}`, `placement-${computedPlacement}`, `align-${align}`]"
                 @mouseenter="onTooltipEnter"
                 @mouseleave="onTooltipLeave"
             >
-                <div v-if="isAttached" class="tooltip-contents" :style="customProperties" :class="animationClass">
+                <div v-if="isVisible" class="tooltip-contents" :style="customProperties" :class="animationClass">
                     <slot name="tooltip" />
                 </div>
             </div>
@@ -29,7 +29,7 @@
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
-import { useDomAttach, useOverlay } from '@/composables/dom-attach-composable';
+import { useAnchorPositioning, useOverlay } from '@/composables/anchor-positioning-composable';
 
 import type { VsTooltipStyleSet } from './types';
 
@@ -48,19 +48,21 @@ export default defineComponent({
         disableAnimation: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
+        margin: { type: Number, default: 2 },
     },
     setup(props) {
         const {
             colorScheme,
             styleSet,
             align,
+            placement,
             clickable,
             contentsHover,
             disabled,
             disableAnimation,
             enterDelay,
             leaveDelay,
-            placement,
+            margin,
         } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -72,7 +74,7 @@ export default defineComponent({
 
         useOverlay();
 
-        const { isAttached, attachedPlacement, attach, detach } = useDomAttach(
+        const { isVisible, computedPlacement, appear, disappear } = useAnchorPositioning(
             triggerRef as Ref<HTMLElement>,
             tooltipRef as Ref<HTMLElement>,
         );
@@ -86,15 +88,16 @@ export default defineComponent({
         watch(computedShow, (show) => {
             if (show) {
                 nextTick(() => {
-                    attach({
+                    appear({
                         placement: placement.value,
                         align: align.value ? align.value : 'center',
+                        margin: margin.value,
                     });
                 });
-            } else if (isAttached.value) {
+            } else if (isVisible.value) {
                 setTimeout(
                     () => {
-                        detach();
+                        disappear();
                     },
                     disableAnimation.value ? 0 : 200, // for waiting animation end
                 );
@@ -106,7 +109,7 @@ export default defineComponent({
                 return null;
             }
             const direction = computedShow.value ? 'in' : 'out';
-            switch (attachedPlacement.value) {
+            switch (computedPlacement.value) {
                 case 'top':
                     return `fade-${direction}-bottom`;
                 case 'right':
@@ -154,7 +157,7 @@ export default defineComponent({
                 return;
             }
 
-            if (isAttached.value) {
+            if (isVisible.value) {
                 triggerOver.value = false;
             } else {
                 triggerOver.value = true;
@@ -178,7 +181,7 @@ export default defineComponent({
         }
 
         onBeforeUnmount(() => {
-            detach();
+            disappear();
 
             if (timer) {
                 clearTimer();
@@ -191,9 +194,9 @@ export default defineComponent({
             animationClass,
             triggerRef,
             tooltipRef,
-            isAttached,
+            isVisible,
             computedShow,
-            attachedPlacement,
+            computedPlacement,
             onTriggerEnter,
             onTriggerLeave,
             onTriggerClick,

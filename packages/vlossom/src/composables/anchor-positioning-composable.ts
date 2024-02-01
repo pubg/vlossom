@@ -2,10 +2,10 @@ import { Ref, onBeforeMount, ref } from 'vue';
 import { AttachInfo, Placement, Align } from '@/declaration/types';
 import { utils } from '@/utils';
 
-export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
-    const isAttached = ref(false);
-    const attachedPlacement: Ref<Placement | null> = ref(null);
-    let throttledSetAttachment: ((...args: any) => any) | null = null;
+export function useAnchorPositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
+    const isVisible = ref(false);
+    const computedPlacement: Ref<Placement | null> = ref(null);
+    let throttledComputePosition: ((...args: any) => any) | null = null;
 
     function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
@@ -31,38 +31,31 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         }
     }
 
-    function setAttachment({
-        placement = 'top',
-        align = 'center',
-        margin = 2,
-        followWidth = false,
-        minWidth,
-        maxWidth,
-    }: AttachInfo) {
-        if (!target.value || !attachment.value) {
+    function computePosition({ placement = 'top', align = 'center', margin = 0 }: AttachInfo) {
+        if (!anchor.value || !attachment.value) {
             return;
         }
 
-        const { top, right, bottom, left, width, height } = utils.dom.getClientRect(target.value);
+        const { top, right, bottom, left, width, height } = utils.dom.getClientRect(anchor.value);
         const { width: attachmentWidth, height: attachmentHeight } = utils.dom.getClientRect(attachment.value);
 
         // Change placements when there are no spaces in the viewport.
         if (placement === 'bottom' && bottom + attachmentHeight > window.innerHeight) {
-            attachedPlacement.value = 'top';
+            computedPlacement.value = 'top';
         } else if (placement === 'top' && top - attachmentHeight < 0) {
-            attachedPlacement.value = 'bottom';
+            computedPlacement.value = 'bottom';
         } else if (placement === 'left' && left - attachmentWidth < 0) {
-            attachedPlacement.value = 'right';
+            computedPlacement.value = 'right';
         } else if (placement === 'right' && right + attachmentWidth > window.innerWidth) {
-            attachedPlacement.value = 'left';
+            computedPlacement.value = 'left';
         } else {
-            attachedPlacement.value = placement;
+            computedPlacement.value = placement;
         }
 
         let x: number;
         let y: number;
 
-        switch (attachedPlacement.value) {
+        switch (computedPlacement.value) {
             case 'top':
                 x = getX(align, left, right, width, attachmentWidth);
                 y = top - attachmentHeight - margin;
@@ -86,51 +79,39 @@ export function useDomAttach(target: Ref<HTMLElement>, attachment: Ref<HTMLEleme
         const scrollLeft = window.scrollX || document.documentElement.scrollLeft || 0;
         const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
 
-        attachment.value.style.display = 'block';
-        attachment.value.style.opacity = '1';
-        attachment.value.style.position = 'absolute';
         attachment.value.style.left = `${x + scrollLeft}px`;
         attachment.value.style.top = `${y + scrollTop}px`;
-
-        // refine width
-        let resultWidth = attachmentWidth;
-        if (followWidth) {
-            resultWidth = width;
-        }
-        if (minWidth) {
-            resultWidth = Math.max(minWidth, resultWidth);
-        }
-        if (maxWidth) {
-            resultWidth = Math.min(maxWidth, resultWidth);
-        }
-        attachment.value.style.width = `${resultWidth}px`;
     }
 
-    function attach(attachInfo: AttachInfo = {}) {
-        setTimeout(() => {
-            setAttachment(attachInfo);
-            throttledSetAttachment = utils.function.throttle(setAttachment.bind(null, attachInfo), 30);
-            document.addEventListener('scroll', throttledSetAttachment, true);
-            window.addEventListener('resize', throttledSetAttachment, true);
-        }, 50);
-
-        isAttached.value = true;
+    function appear(attachInfo: AttachInfo = {}) {
+        isVisible.value = true;
+        attachment.value.style.display = 'block';
+        attachment.value.style.position = 'absolute';
         attachment.value.style.opacity = '0';
+
+        setTimeout(() => {
+            computePosition(attachInfo);
+            attachment.value.style.opacity = '1';
+
+            throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
+            document.addEventListener('scroll', throttledComputePosition, true);
+            window.addEventListener('resize', throttledComputePosition, true);
+        }, 50);
     }
 
-    function detach() {
-        if (throttledSetAttachment) {
-            document.removeEventListener('scroll', throttledSetAttachment, true);
-            window.removeEventListener('resize', throttledSetAttachment, true);
+    function disappear() {
+        if (throttledComputePosition) {
+            document.removeEventListener('scroll', throttledComputePosition, true);
+            window.removeEventListener('resize', throttledComputePosition, true);
         }
-        isAttached.value = false;
+        isVisible.value = false;
     }
 
     return {
-        isAttached,
-        attachedPlacement,
-        attach,
-        detach,
+        isVisible,
+        computedPlacement,
+        appear,
+        disappear,
     };
 }
 

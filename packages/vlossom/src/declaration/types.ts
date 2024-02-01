@@ -112,9 +112,6 @@ export interface AttachInfo {
     placement?: Placement;
     align?: Align;
     margin?: number;
-    followWidth?: boolean;
-    minWidth?: number;
-    maxWidth?: number;
 }
 
 export type CssPosition = (typeof CSS_POSITION)[number];
