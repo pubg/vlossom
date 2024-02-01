@@ -7,10 +7,10 @@
     -   [Tooling](#tooling)
     -   [Commands](#commands)
 -   [Pull Request](#pull-request)
--   [Commit Convention](#commit-convention)
--   [Steps to PR](#steps-to-pr)
--   [PR Required Status Checks](#pr-required-status-checks)
--   [PR Title](#pr-title)
+    -   [Commit Convention](#commit-convention)
+    -   [Steps to PR](#steps-to-pr)
+    -   [PR Required Status Checks](#pr-required-status-checks)
+    -   [PR Title](#pr-title)
 -   [License](#license)
 
 ## Setup
