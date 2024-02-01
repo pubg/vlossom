@@ -137,10 +137,10 @@ const vsTabs: VsTabsStyleSet = {
 const vsTooltip: VsTooltipStyleSet = {
     arrowColor: '#ffd1d1',
     backgroundColor: '#ffe3e1',
-    borderColor: '#ffd1d1',
+    border: '0.2rem solid #ffd1d1',
     borderRadius: '0',
     fontColor: '#ff9494',
-    padding: '1.2rem',
+    padding: '0.7rem 0.8rem',
 };
 
 const vsValueTag: VsValueTagStyleSet = {

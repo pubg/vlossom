@@ -170,12 +170,12 @@ export const StyleSet: Story = {
         styleSet: {
             arrowColor: 'rgba(0, 0, 0, 0)',
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            borderColor: 'rgba(0, 0, 0, 0.6)',
-            borderRadius: '0.6rem',
+            border: 'none',
+            borderRadius: '0.3rem',
             boxShadow: 'none',
             fontColor: 'white',
-            fontSize: '1.1rem',
-            padding: '0.8rem',
+            fontSize: '0.9rem',
+            padding: '0.5rem 0.4rem',
         },
     },
 };

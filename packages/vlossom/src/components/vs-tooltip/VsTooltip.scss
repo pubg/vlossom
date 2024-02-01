@@ -10,13 +10,12 @@
 
     .tooltip-contents {
         position: relative;
-        padding: var(--vs-tooltip-padding, 0.8rem);
+        padding: var(--vs-tooltip-padding, 0.45rem 0.55rem);
         font-size: var(--vs-tooltip-fontSize, 1rem);
-        border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
         background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-backgroundColor));
-        box-shadow: var(--vs-tooltip-boxShadow, 0.18rem 0.15rem 0.15rem 0 rgba(#000, 0.25)),
-            inset 0px 0px 0px var(--vs-tooltip-borderWeight, 0.18rem)
-                var(--vs-tooltip-borderColor, var(--vs-comp-color));
+        border: var(--vs-tooltip-border, 0.18rem solid var(--vs-comp-color));
+        border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
+        box-shadow: var(--vs-tooltip-boxShadow, 0.18rem 0.15rem 0.15rem 0 rgba(#000, 0.25));
         color: var(--vs-tooltip-fontColor, var(--vs-comp-color));
         white-space: nowrap;
 
