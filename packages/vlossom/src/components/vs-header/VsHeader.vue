@@ -1,22 +1,29 @@
 <template>
-    <div :class="['vs-header', `vs-${computedColorScheme}`, { ...classObj }]" :style="[computedStyle, alignStyle]">
-        <div class="vs-header-content">
-            <slot />
-        </div>
-    </div>
+    <vs-bar-node
+        :colorScheme="computedColorScheme"
+        :customProperties="{ ...defaultInsetStyle, ...customProperties }"
+        :height="height"
+        :position="position"
+        :primary="primary"
+        :verticalAlign="verticalAlign"
+    >
+        <slot />
+    </vs-bar-node>
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs, computed, ComputedRef } from 'vue';
+import { defineComponent, toRefs, computed, type PropType } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent, Align, CssPosition } from '@/declaration';
+import { VsBarNode } from '@/nodes';
+import { VsComponent } from '@/declaration';
 
+import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsHeaderStyleSet } from './types';
 
 const name = VsComponent.VsHeader;
-
 export default defineComponent({
     name,
+    components: { VsBarNode },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsHeaderStyleSet>, default: '' },
@@ -26,49 +33,28 @@ export default defineComponent({
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { colorScheme, styleSet, height, position, primary, verticalAlign } = toRefs(props);
+        const { colorScheme, styleSet, position } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { customProperties } = useCustomStyle<VsHeaderStyleSet>(name, styleSet);
 
-        const alignStyle: ComputedRef<{ alignItems: string }> = computed(() => {
-            if (verticalAlign.value === 'start') {
-                return { alignItems: 'flex-start' };
-            } else if (verticalAlign.value === 'end') {
-                return { alignItems: 'flex-end' };
-            }
-            return { alignItems: 'center' };
-        });
+        const defaultInsetStyle = computed(() => {
+            const style: { [ley: string]: any } = {};
 
-        const classObj = computed(() => ({
-            primary: primary.value,
-        }));
-
-        const computedStyle = computed(() => {
-            const style = { ...customProperties.value };
-            if (height.value) {
-                style['--vs-header-height'] = height.value;
+            if (position.value === 'absolute' || position.value === 'fixed') {
+                style['--vs-header-top'] = 0;
+                style['--vs-header-left'] = 0;
             }
-            if (position.value) {
-                style['--vs-header-position'] = position.value;
 
-                if (position.value === 'absolute' || position.value === 'fixed') {
-                    style['--vs-header-top'] = 0;
-                    style['--vs-header-left'] = 0;
-                }
-            }
             return style;
         });
 
         return {
             computedColorScheme,
-            computedStyle,
-            classObj,
-            alignStyle,
+            customProperties,
+            defaultInsetStyle,
         };
     },
 });
 </script>
-
-<style lang="scss" scoped src="./VsHeader.scss" />
