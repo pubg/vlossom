@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
-import { colorScheme, align, placement } from '@/storybook/args';
+import { colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook/args';
 import VsTooltip from './../VsTooltip.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 import { PLACEMENTS, ALIGNS } from '@/declaration/constants';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsTooltip> = {
     title: 'Components/Base Components/VsTooltip',
@@ -41,10 +41,12 @@ export const ColorScheme: Story = {
         },
         template: `
             <div style="display: flex; flex-wrap: wrap;">
-                <vs-tooltip v-for="color in colorOptions" :key="color" :color-scheme="color" style="margin: 0.3rem;">
-                    <vs-button :color-scheme="color">HOVER</vs-button>
+                ${getColorSchemeTemplate(`
+                <vs-tooltip color-scheme="{{ color }}" style="margin: 0.3rem;">
+                    <vs-button color-scheme="{{ color }}">HOVER</vs-button>
                     <template #tooltip>Tooltip</template>
                 </vs-tooltip>
+                `)}
             </div>
         `,
     }),
@@ -52,7 +54,6 @@ export const ColorScheme: Story = {
         chromatic: chromaticParameters.theme,
     },
 };
-
 
 export const PlacementAndAlign: Story = {
     render: (args: any) => ({
@@ -82,7 +83,7 @@ export const Clickable: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" clickable>
+            <vs-tooltip v-bind="args">
                 <vs-button>Clickable</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -90,6 +91,9 @@ export const Clickable: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        clickable: true,
     },
 };
 
@@ -100,7 +104,7 @@ export const ContentsHover: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" contents-hover>
+            <vs-tooltip v-bind="args">
                 <vs-button>Contents Hover</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -108,6 +112,9 @@ export const ContentsHover: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        contentsHover: true,
     },
 };
 
@@ -118,7 +125,7 @@ export const EnterDelayAndLeaveDelay: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" :enter-delay=500 :leave-delay=500>
+            <vs-tooltip v-bind="args">
                 <vs-button>500ms, 500ms</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -126,6 +133,10 @@ export const EnterDelayAndLeaveDelay: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        enterDelay: 500,
+        leaveDelay: 500,
     },
 };
 
@@ -136,7 +147,7 @@ export const DisableAnimation: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" disable-animation>
+            <vs-tooltip v-bind="args">
                 <vs-button>Disable Animation</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -144,6 +155,9 @@ export const DisableAnimation: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        disableAnimation: true,
     },
 };
 
@@ -154,7 +168,7 @@ export const Disabled: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" disabled>
+            <vs-tooltip v-bind="args">
                 <vs-button>Disabled</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -162,6 +176,9 @@ export const Disabled: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        disabled: true,
     },
 };
 
@@ -172,7 +189,7 @@ export const Margin: Story = {
             return { args };
         },
         template: `
-            <vs-tooltip v-bind="args" :margin=7>
+            <vs-tooltip v-bind="args">
                 <vs-button>margin = 7</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
@@ -180,6 +197,9 @@ export const Margin: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+    args: {
+        margin: 7,
     },
 };
 
