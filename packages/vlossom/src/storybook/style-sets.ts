@@ -138,9 +138,10 @@ const vsTooltip: VsTooltipStyleSet = {
     arrowColor: '#ffd1d1',
     backgroundColor: '#ffe3e1',
     borderColor: '#ffd1d1',
+    borderWeight: '0.25rem',
     borderRadius: '0',
     fontColor: '#ff9494',
-    padding: '1.2rem',
+    padding: '0.8rem 0.7rem',
 };
 
 const vsValueTag: VsValueTagStyleSet = {

@@ -3,6 +3,7 @@ export interface VsTooltipStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     borderColor?: string;
+    borderWeight?: string;
     boxShadow?: string;
     color?: string;
     fontColor?: string;
