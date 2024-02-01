@@ -1,3 +1,18 @@
+# CONTRIBUTING ✨
+
+## Table Of Contents
+
+-   [Setup](#setup)
+-   [Development](#development)
+    -   [Tooling](#tooling)
+    -   [Commands](#commands)
+-   [Pull Request](#pull-request)
+-   [Commit Convention](#commit-convention)
+-   [Steps to PR](#steps-to-pr)
+-   [PR Required Status Checks](#pr-required-status-checks)
+-   [PR Title](#pr-title)
+-   [License](#license)
+
 ## Setup
 
 1. Fork the repo
@@ -40,7 +55,7 @@ npm run storybook
 
 ## Pull Request
 
-Our protection branch is `main` and we make release from `main` branch.
+Our protected branch is `main` and we make release from `main` branch.
 
 Pull requests need approvals of two or more collaborators to be merged.
 
@@ -51,7 +66,9 @@ And all required status checks must pass before merging.
 Before you create a Pull Request, please check whether your commits comply with
 the commit conventions used in this repository.
 
-`category(scope or module): message`
+`type(scope or module): message`
+
+Type must be one of the following:
 
 -   `feat`: all changes that introduce completely new code or new features
 -   `fix`: changes that fix a bug (ideally you will additionally reference an issue if present)
@@ -108,4 +125,9 @@ It will trigger chromatic build job.
 
 ### PR Title
 
-`category(scope or module): short description`
+`type(scope or module): short description`
+
+## License
+
+By contributing your code to the [vlossom](https://github.com/pubg/vlossom) GitHub repository,
+you agree to license your contribution under the [MIT license](/LICENSE).
