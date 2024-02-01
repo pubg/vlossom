@@ -1,24 +1,12 @@
 import * as _ from 'lodash-es';
-
-// https://lodash.com/docs/#debounce
-export interface DebounceOptions {
-    leading?: boolean;
-    maxWait?: number;
-    trailing?: boolean;
-}
-
-// https://lodash.com/docs/#throttle
-export interface ThrottleOptions {
-    leading?: boolean;
-    trailing?: boolean;
-}
+import { type DebounceSettings, type ThrottleSettings } from 'lodash-es';
 
 export const functionUtil = {
-    debounce(func: (...args: any) => any, wait: number = 0, options?: DebounceOptions): (...args: any) => any {
+    debounce(func: (...args: any) => any, wait: number = 0, options?: DebounceSettings): (...args: any) => any {
         return _.debounce(func, wait, options);
     },
 
-    throttle(func: (...args: any) => any, wait: number = 0, options?: ThrottleOptions): (...args: any) => any {
+    throttle(func: (...args: any) => any, wait: number = 0, options?: ThrottleSettings): (...args: any) => any {
         return _.throttle(func, wait, options);
     },
 };
