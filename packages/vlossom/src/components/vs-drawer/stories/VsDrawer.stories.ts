@@ -20,15 +20,15 @@ const contentStyle = {
 };
 
 const containerStyle = {
-    position: 'relative',
     backgroundColor: 'rgba(0, 0, 0, 0.02)',
     border: '1px solid rgb(240, 240, 240)',
     borderRadius: '4px',
+    color: 'var(--vs-font-color)',
     height: '800px',
     overflow: 'hidden',
+    position: 'relative',
     padding: '2rem',
     width: '600px',
-    color: 'var(--vs-font-color)',
 };
 
 const meta: Meta<typeof VsDrawer> = {
@@ -67,19 +67,6 @@ export default meta;
 type Story = StoryObj<typeof VsDrawer>;
 
 export const Default: Story = {};
-
-export const Dimmed: Story = {
-    args: {
-        dimmed: true,
-    },
-};
-
-export const CloseOnDimmedClick: Story = {
-    args: {
-        dimmed: true,
-        closeOnDimmedClick: true,
-    },
-};
 
 export const Placement: Story = {
     render: () => ({
@@ -276,7 +263,7 @@ export const InitialFocusRef: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { width: '300px', backgroundColor: '#FBE7C6' },
+        styleSet: { backgroundColor: '#FBE7C6', height: '500px', width: '200px' },
     },
 };
 

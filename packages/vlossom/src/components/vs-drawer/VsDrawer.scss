@@ -67,18 +67,24 @@ $sizes: xs, sm, md, lg, xl;
         // size
         &.left,
         &.right {
+            max-width: var(--vs-drawer-width, var(--vs-drawer-width-sm));
+            max-height: var(--vs-drawer-height);
+
             @each $size in $sizes {
                 &.#{$size} {
-                    max-width: var(--vs-drawer-width, var(--vs-drawer-width-#{$size}));
+                    max-width: var(--vs-drawer-width-#{$size});
                 }
             }
         }
 
         &.top,
         &.bottom {
+            max-width: var(--vs-drawer-width);
+            max-height: var(--vs-drawer-height, var(--vs-drawer-height-sm));
+
             @each $size in $sizes {
                 &.#{$size} {
-                    max-height: var(--vs-drawer-height, var(--vs-drawer-height-#{$size}));
+                    max-height: var(--vs-drawer-height-#{$size});
                 }
             }
         }

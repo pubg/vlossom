@@ -10,17 +10,22 @@
                 />
             </Transition>
             <Transition :name="`slide-${placement}`">
-                <focus-trap v-if="isOpen" :modal="dimmed" :initialFocusRef="initialFocusRef">
+                <vs-focus-trap v-if="isOpen" :focus-lock="dimmed" :initialFocusRef="initialFocusRef">
                     <div
-                        :class="['vs-drawer-content', placement, size, { 'has-container': hasContainer }]"
-                        :style="customProperties"
+                        :class="[
+                            'vs-drawer-content',
+                            placement,
+                            hasSpecifiedSize ? '' : size,
+                            { 'has-container': hasContainer },
+                        ]"
+                        :style="{ ...customProperties, ...sizeProperty }"
                         role="dialog"
                         :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
                         aria-describedby="vs-drawer-body"
                         :aria-label="hasHeader ? undefined : 'Dialog'"
                         :aria-modal="dimmed"
                     >
-                        <header v-if="hasHeader" id="vs-drawer-title">
+                        <header v-if="hasHeader" id="vs-drawer-title" aria-label="Dialog Header">
                             <slot name="header" />
                         </header>
 
@@ -28,33 +33,33 @@
                             <slot />
                         </div>
 
-                        <footer v-if="hasFooter">
+                        <footer v-if="hasFooter" aria-label="Dialog Footer">
                             <slot name="footer" />
                         </footer>
                     </div>
-                </focus-trap>
+                </vs-focus-trap>
             </Transition>
         </div>
     </Teleport>
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, ref, toRefs, watch, onMounted, onBeforeUnmount, computed } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed, onMounted, onBeforeUnmount, type PropType } from 'vue';
 import { useCustomStyle } from '@/composables';
 import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
-import FocusTrap from '@/common/focus-trap/FocusTrap.vue';
+import { VsFocusTrap } from '@/components';
 
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
 export default defineComponent({
     name,
-    components: { FocusTrap },
+    components: { VsFocusTrap },
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
-        closeOnDimmedClick: { type: Boolean, default: false },
+        closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
-        dimmed: { type: Boolean, default: false },
+        dimmed: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
@@ -63,19 +68,34 @@ export default defineComponent({
             default: 'left',
             validator: (val: Placement) => PLACEMENTS.includes(val),
         },
-        size: {
-            type: String as PropType<Size>,
-            default: 'sm',
-            validator: (val: Size) => SIZES.includes(val),
-        },
+        size: { type: String as PropType<Size | string>, default: '' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnEsc, closeOnDimmedClick } = toRefs(props);
+        const { styleSet, modelValue, closeOnEsc, closeOnDimmedClick, placement, size } = toRefs(props);
 
         const { customProperties } = useCustomStyle<VsDrawerStyleSet>(name, styleSet);
+
+        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
+
+        const sizeProperty = computed(() => {
+            if (hasSpecifiedSize.value) {
+                if (placement.value === 'top' || placement.value === 'bottom') {
+                    return { '--vs-drawer-height': size.value };
+                }
+
+                if (placement.value === 'left' || placement.value === 'right') {
+                    return { '--vs-drawer-width': size.value };
+                }
+            }
+
+            return {};
+        });
+
+        const hasHeader = computed(() => !!slots['header']);
+        const hasFooter = computed(() => !!slots['footer']);
 
         const isOpen = ref(modelValue.value);
 
@@ -83,39 +103,44 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        watch(isOpen, (val) => {
-            emit('update:modelValue', val);
-        });
-
-        const hasHeader = computed(() => !!slots['header']);
-        const hasFooter = computed(() => !!slots['footer']);
-
         function clickDimmed() {
             if (closeOnDimmedClick.value) {
                 isOpen.value = false;
             }
         }
 
-        function onKeyDown(event: KeyboardEvent) {
+        function onPressEsc(event: KeyboardEvent) {
             if (event.key === 'Escape') {
                 isOpen.value = false;
             }
         }
 
-        onMounted(() => {
+        watch(isOpen, (val) => {
             if (closeOnEsc.value) {
-                document.addEventListener('keydown', onKeyDown);
+                if (val) {
+                    document.addEventListener('keydown', onPressEsc);
+                } else {
+                    document.removeEventListener('keydown', onPressEsc);
+                }
+            }
+
+            emit('update:modelValue', val);
+        });
+
+        onMounted(() => {
+            if (isOpen.value && closeOnEsc.value) {
+                document.addEventListener('keydown', onPressEsc);
             }
         });
 
         onBeforeUnmount(() => {
-            if (closeOnEsc.value) {
-                document.removeEventListener('keydown', onKeyDown);
-            }
+            document.removeEventListener('keydown', onPressEsc);
         });
 
         return {
             customProperties,
+            hasSpecifiedSize,
+            sizeProperty,
             isOpen,
             clickDimmed,
             hasHeader,

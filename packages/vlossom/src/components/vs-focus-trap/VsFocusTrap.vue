@@ -15,20 +15,20 @@ import {
 
 export default defineComponent({
     props: {
+        focusLock: { type: Boolean, default: true },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
-        modal: { type: Boolean, default: true },
     },
     setup(props, { slots }) {
-        const { initialFocusRef, modal } = toRefs(props);
+        const { focusLock, initialFocusRef } = toRefs(props);
 
-        const wrapperEl: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null);
+        const wrapperRef: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null);
 
-        const el = computed(() => {
-            if (!wrapperEl.value) {
+        const wrapperElement = computed(() => {
+            if (!wrapperRef.value) {
                 return null;
             }
 
-            return wrapperEl.value instanceof HTMLElement ? wrapperEl.value : (wrapperEl.value.$el as HTMLElement);
+            return wrapperRef.value instanceof HTMLElement ? wrapperRef.value : (wrapperRef.value.$el as HTMLElement);
         });
 
         let previousFocused: HTMLElement | null = null;
@@ -73,11 +73,11 @@ export default defineComponent({
         }
 
         function catchFocusables() {
-            if (!el.value) {
+            if (!wrapperElement.value) {
                 return;
             }
 
-            const focusables = el.value.querySelectorAll<HTMLElement>(
+            const focusables = wrapperElement.value.querySelectorAll<HTMLElement>(
                 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
             );
             if (!focusables.length) {
@@ -125,12 +125,12 @@ export default defineComponent({
             nextTick(() => {
                 deactivateCycle();
                 catchFocusables();
-                if (modal.value) {
+                if (focusLock.value) {
                     activateCycle();
                 }
             });
 
-            return cloneVNode(vNodes[0], { ref: wrapperEl });
+            return cloneVNode(vNodes[0], { ref: wrapperRef });
         }
 
         return () => render();

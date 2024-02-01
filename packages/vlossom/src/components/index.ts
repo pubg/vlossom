@@ -17,6 +17,8 @@ export { default as VsDivider } from './vs-divider/VsDivider.vue';
 export { type VsDrawerStyleSet } from './vs-drawer/types';
 export { default as VsDrawer } from './vs-drawer/VsDrawer.vue';
 
+export { default as VsFocusTrap } from './vs-focus-trap/VsFocusTrap.vue';
+
 export { type VsFooterStyleSet } from './vs-footer/types';
 export { default as VsFooter } from './vs-footer/VsFooter.vue';
 
