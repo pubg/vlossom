@@ -68,6 +68,7 @@ declare module 'vue' {
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];
         VsDrawer: typeof import('./')['VsDrawer'];
+        VsFocusTrap: typeof import('./')['VsFocusTrap'];
         VsFooter: typeof import('./')['VsFooter'];
         VsForm: typeof import('./')['VsForm'];
         VsHeader: typeof import('./')['VsHeader'];
