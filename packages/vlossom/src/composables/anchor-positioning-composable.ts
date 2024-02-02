@@ -1,6 +1,6 @@
 import { Ref, onBeforeMount, ref } from 'vue';
-import { AttachInfo, Placement, Align } from '@/declaration/types';
 import { utils } from '@/utils';
+import type { AttachInfo, Placement, Align } from '@/declaration';
 
 export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
     const isVisible = ref(false);

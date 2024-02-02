@@ -1,5 +1,5 @@
 import * as _ from 'lodash-es';
-import { type DebounceSettings, type ThrottleSettings } from 'lodash-es';
+import type { DebounceSettings, ThrottleSettings } from 'lodash-es';
 
 export const functionUtil = {
     debounce(func: (...args: any) => any, wait: number = 0, options?: DebounceSettings): (...args: any) => any {
