@@ -5,9 +5,9 @@ export const colorScheme = {
     options: COLORS,
 };
 
-export const verticalAlign = {
+export const align = {
     control: 'select',
-    options: ['default', 'top', 'bottom'],
+    options: ['center', 'start', 'end'],
 };
 
 export const placement = {

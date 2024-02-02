@@ -1,5 +1,3 @@
-import { COLORS, CSS_POSITION } from './constants';
-
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -14,12 +12,13 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsTabsStyleSet,
+    VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
-import { PLACEMENTS, SIZES } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
-import { VsTabsStyleSet } from '@/components/vs-tabs/types';
 
 export type ColorScheme = (typeof COLORS)[number];
 
@@ -41,6 +40,7 @@ export interface StyleSet {
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
+    VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
@@ -94,7 +94,7 @@ export interface VsFormProvide {
     removeFromForm: (id: string) => void;
 }
 
-export type VerticalAlign = 'top' | 'bottom' | '';
+export type Align = (typeof ALIGNS)[number];
 
 export type TextAlign =
     | 'start'
@@ -106,6 +106,12 @@ export type TextAlign =
     | 'justify-all'
     | 'match-parent'
     | 'inherit';
+
+export interface AttachInfo {
+    placement?: Placement;
+    align?: Align;
+    margin?: number;
+}
 
 export type CssPosition = (typeof CSS_POSITION)[number];
 

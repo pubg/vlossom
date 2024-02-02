@@ -1,0 +1,86 @@
+.vs-tooltip {
+    display: inline-flex;
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 1000;
+    padding: 0.2rem;
+
+    .tooltip-contents {
+        position: relative;
+        padding: var(--vs-tooltip-padding, 0.8rem);
+        font-size: var(--vs-tooltip-fontSize, 1rem);
+        border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
+        background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-backgroundColor));
+        box-shadow: inset 0px 0px 0px var(--vs-tooltip-borderWeight, 0.15rem) var(--vs-tooltip-borderColor, var(--vs-comp-color));
+        color: var(--vs-tooltip-color, var(--vs-comp-color));
+        white-space: nowrap;
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: var(--vs-tooltip-arrowSize, 0.4rem) solid transparent;
+            border-bottom: var(--vs-tooltip-arrowSize, 0.4rem) solid var(--vs-tooltip-arrowColor, var(--vs-comp-color));
+        }
+    }
+
+    &.placement-top .tooltip-contents::after {
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%) rotate(180deg);
+    }
+
+    &.placement-top.align-start .tooltip-contents::after {
+        left: 20%;
+    }
+
+    &.placement-top.align-end .tooltip-contents::after {
+        left: 80%;
+    }
+
+    &.placement-right .tooltip-contents::after {
+        top: 50%;
+        left: 0;
+        transform: translate(calc(-100%), -50%) rotate(270deg);
+    }
+
+    &.placement-right.align-start .tooltip-contents::after {
+        top: 20%;
+    }
+
+    &.placement-right.align-end .tooltip-contents::after {
+        top: 80%;
+    }
+
+    &.placement-bottom .tooltip-contents::after {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -100%) rotate(0deg);
+    }
+
+    &.placement-bottom.align-start .tooltip-contents::after {
+        left: 20%;
+    }
+
+    &.placement-bottom.align-end .tooltip-contents::after {
+        left: 80%;
+    }
+
+    &.placement-left .tooltip-contents::after {
+        top: 50%;
+        right: 0;
+        transform: translate(calc(100%), -50%) rotate(90deg);
+    }
+
+    &.placement-left.align-start .tooltip-contents::after {
+        top: 20%;
+    }
+
+    &.placement-left.align-end .tooltip-contents::after {
+        top: 80%;
+    }
+}

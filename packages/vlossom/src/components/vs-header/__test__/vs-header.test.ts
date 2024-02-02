@@ -19,11 +19,11 @@ describe('vs-header', () => {
     });
 
     describe('verticalAlign', () => {
-        it('props verticalAlign:top일 때, header의 스타일에 align-items: flex-start;가 적용된다 ', () => {
+        it('props verticalAlign:start일 때, header의 스타일에 align-items: flex-start;가 적용된다 ', () => {
             //given
             const wrapper = mount(VsHeader, {
                 props: {
-                    verticalAlign: 'top',
+                    verticalAlign: 'start',
                 },
             });
 
@@ -31,11 +31,11 @@ describe('vs-header', () => {
             expect(wrapper.attributes().style.includes('align-items: flex-start;')).toBe(true);
         });
 
-        it('props verticalAlign:bottom일 때, header의 스타일에 align-items: flex-end;가 적용된다 ', () => {
+        it('props verticalAlign:end일 때, header의 스타일에 align-items: flex-end;가 적용된다 ', () => {
             //given
             const wrapper = mount(VsHeader, {
                 props: {
-                    verticalAlign: 'bottom',
+                    verticalAlign: 'end',
                 },
             });
 

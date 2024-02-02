@@ -9,7 +9,7 @@
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed, ComputedRef } from 'vue';
 import { useColorScheme, useCustomStyle } from '@/composables';
-import { ColorScheme, VsComponent, VerticalAlign, CssPosition } from '@/declaration';
+import { ColorScheme, VsComponent, Align, CssPosition } from '@/declaration';
 
 import type { VsHeaderStyleSet } from './types';
 
@@ -23,7 +23,7 @@ export default defineComponent({
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<VerticalAlign>, default: '' },
+        verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
         const { colorScheme, styleSet, height, position, primary, verticalAlign } = toRefs(props);
@@ -33,9 +33,9 @@ export default defineComponent({
         const { customProperties } = useCustomStyle<VsHeaderStyleSet>(name, styleSet);
 
         const alignStyle: ComputedRef<{ alignItems: string }> = computed(() => {
-            if (verticalAlign.value === 'top') {
+            if (verticalAlign.value === 'start') {
                 return { alignItems: 'flex-start' };
-            } else if (verticalAlign.value === 'bottom') {
+            } else if (verticalAlign.value === 'end') {
                 return { alignItems: 'flex-end' };
             }
             return { alignItems: 'center' };

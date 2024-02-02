@@ -1,4 +1,4 @@
-import { colorScheme, verticalAlign, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
+import { colorScheme, align, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsHeader from './../VsHeader.vue';
 
@@ -27,7 +27,7 @@ const meta: Meta<typeof VsHeader> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
-        verticalAlign,
+        verticalAlign: align,
         position: cssPosition,
     },
 };
@@ -75,7 +75,7 @@ export const Primary: Story = {
     },
 };
 
-export const VerticalAlignTop: Story = {
+export const VerticalAlignStart: Story = {
     render: (args: any) => ({
         components: { VsHeader },
         setup() {
@@ -89,11 +89,11 @@ export const VerticalAlignTop: Story = {
 		`,
     }),
     args: {
-        verticalAlign: 'top',
+        verticalAlign: 'start',
     },
 };
 
-export const VerticalAlignBottom: Story = {
+export const VerticalAlignEnd: Story = {
     render: (args: any) => ({
         components: { VsHeader },
         setup() {
@@ -107,7 +107,7 @@ export const VerticalAlignBottom: Story = {
 		`,
     }),
     args: {
-        verticalAlign: 'bottom',
+        verticalAlign: 'end',
     },
 };
 
