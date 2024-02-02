@@ -1,4 +1,4 @@
-import { COLORS, CSS_POSITION, PLACEMENTS } from '@/declaration';
+import { COLORS, CSS_POSITION, PLACEMENTS, SIZES } from '@/declaration';
 
 export const colorScheme = {
     control: 'select',
@@ -13,6 +13,16 @@ export const align = {
 export const placement = {
     control: 'select',
     options: PLACEMENTS,
+};
+
+export const placement = {
+    control: 'select',
+    options: PLACEMENTS,
+};
+
+export const size = {
+    control: 'select',
+    options: SIZES,
 };
 
 export function getColorSchemeTemplate(templateStr: string) {

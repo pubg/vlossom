@@ -4,6 +4,7 @@ import type {
     VsCheckboxStyleSet,
     VsChipStyleSet,
     VsDividerStyleSet,
+    VsDrawerStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
     VsInputStyleSet,
@@ -46,6 +47,11 @@ const vsDivider: VsDividerStyleSet = {
     lineColor: '#7071e8',
     lineStyle: 'double',
     lineWidth: '3px',
+};
+
+const vsDrawer: VsDrawerStyleSet = {
+    backgroundColor: '#D4F1F4',
+    width: '100%',
 };
 
 const vsFooter: VsFooterStyleSet = {
@@ -160,6 +166,7 @@ export const styleSet: StyleSet = {
     VsCheckboxSet: { myStyleSet: vsCheckbox },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
+    VsDrawer: { myStyleSet: vsDrawer },
     VsFooter: { myStyleSet: vsFooter },
     VsHeader: { myStyleSet: vsHeader },
     VsInput: { myStyleSet: vsInput },
