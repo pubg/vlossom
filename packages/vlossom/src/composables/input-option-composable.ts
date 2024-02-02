@@ -11,12 +11,10 @@ export function getInputOptionProps() {
 }
 
 export function useInputOption(
+    inputValue: Ref<any>,
     options: Ref<any[]>,
     optionLabel: Ref<string>,
     optionValue: Ref<string>,
-    callbacks: {
-        onClear: () => void;
-    },
 ) {
     function getOptionLabel(option: any) {
         if (typeof option === 'object') {
@@ -57,7 +55,21 @@ export function useInputOption(
             return;
         }
 
-        callbacks.onClear();
+        if (Array.isArray(inputValue.value)) {
+            inputValue.value = inputValue.value.filter((value) => {
+                return newOptions.some((o) => {
+                    return getOptionValue(o) === value;
+                });
+            });
+        } else {
+            const option = newOptions.find((o) => {
+                return getOptionValue(o) === inputValue.value;
+            });
+
+            if (!option) {
+                inputValue.value = null;
+            }
+        }
     });
 
     return {
