@@ -132,6 +132,7 @@ export const StyleSet: Story = {
             border: '3px solid #81c798',
             borderRadius: '0.8rem',
             focusBoxShadow: '0 0 0 3px #81c798',
+            checkboxMargin: '3rem',
         },
     },
 };

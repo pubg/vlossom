@@ -2,6 +2,7 @@ import type { StyleSet } from '@/declaration';
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
+    VsCheckboxSetStyleSet,
     VsChipStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
@@ -32,6 +33,18 @@ const vsCheckbox: VsCheckboxStyleSet = {
     height: '1.4rem',
     iconColor: '#ffb300',
     width: '1.4rem',
+};
+
+const vsCheckboxSet: VsCheckboxSetStyleSet = {
+    backgroundColor: '#0288d1',
+    border: '2px solid #0288d1',
+    borderRadius: '0.4rem',
+    checkLabelColor: '#0288d1',
+    fontSize: '1.2rem',
+    height: '1.4rem',
+    iconColor: '#ffb300',
+    width: '1.4rem',
+    checkboxMargin: '6rem',
 };
 
 const vsChip: VsChipStyleSet = {
@@ -163,7 +176,7 @@ const vsValueTag: VsValueTagStyleSet = {
 export const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
     VsCheckbox: { myStyleSet: vsCheckbox },
-    VsCheckboxSet: { myStyleSet: vsCheckbox },
+    VsCheckboxSet: { myStyleSet: vsCheckboxSet },
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsDrawer: { myStyleSet: vsDrawer },

@@ -4,6 +4,7 @@ export { default as VsButton } from './vs-button/VsButton.vue';
 export { type VsCheckboxStyleSet } from './vs-checkbox/types';
 export { default as VsCheckbox } from './vs-checkbox/VsCheckbox.vue';
 
+export { type VsCheckboxSetStyleSet } from './vs-checkbox-set/types';
 export { default as VsCheckboxSet } from './vs-checkbox-set/VsCheckboxSet.vue';
 
 export { type VsChipStyleSet } from './vs-chip/types';
