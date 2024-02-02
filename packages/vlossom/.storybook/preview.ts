@@ -20,9 +20,7 @@ const decorators = [
         if (backgrounds) {
             if (backgrounds.value === '#f8f8f8') {
                 document.body.classList.remove('vs-dark');
-                document.body.classList.add('vs-light');
             } else {
-                document.body.classList.remove('vs-light');
                 document.body.classList.add('vs-dark');
             }
         }

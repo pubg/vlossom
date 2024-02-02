@@ -16,6 +16,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsTabsStyleSet,
+    VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
@@ -171,6 +172,13 @@ const vsTooltip: VsTooltipStyleSet = {
     padding: '0.9rem 0.8rem',
 };
 
+const vsThemeButton: VsThemeButtonStyleSet = {
+    backgroundColor: '#BACC81',
+    color: '#013A20',
+    hoverBackgroundColor: '#478C5C',
+    width: '2rem',
+};
+
 const vsValueTag: VsValueTagStyleSet = {
     backgroundColor: '#b6c4b6',
     color: '#304d30',
@@ -196,6 +204,7 @@ export const styleSet: StyleSet = {
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
     VsTabs: { myStyleSet: vsTabs },
+    VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
 };

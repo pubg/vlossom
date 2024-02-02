@@ -4,6 +4,7 @@ $theme-light: (
     dimmed-backgroundColor: rgba(0, 0, 0, 0.45),
     area-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16),
     area-backgroundColor: #ffffff,
+    area-hover-backgroundColor: var(--vs-grey-100),
 );
 
 $theme-dark: (
@@ -12,6 +13,7 @@ $theme-dark: (
     dimmed-backgroundColor: rgba(0, 0, 0, 0.6),
     area-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 0.16),
     area-backgroundColor: #14151f,
+    area-hover-backgroundColor: var(--vs-grey-700),
 );
 
 :root {

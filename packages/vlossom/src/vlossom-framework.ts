@@ -1,13 +1,30 @@
 import { store } from './store';
+import { reactive, type App } from 'vue';
 
-import type { App } from 'vue';
 import type { VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
+    private _theme: 'light' | 'dark';
+
     constructor(options?: VlossomOptions) {
-        const { colorScheme = {}, styleSet = {} } = options || {};
+        const { colorScheme = {}, styleSet = {}, theme = 'light' } = options || {};
+
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
+
+        this._theme = theme;
+    }
+
+    get theme() {
+        return this._theme;
+    }
+
+    set theme(value) {
+        this._theme = value;
+
+        localStorage.setItem('vlossom:theme', value);
+
+        document.body.classList.toggle('vs-dark', value === 'dark');
     }
 }
 
@@ -36,8 +53,8 @@ function createVlossom(options?: VlossomOptions) {
     };
 }
 
-function getVlossom() {
-    return vlossom;
+function useVlossom() {
+    return reactive(vlossom);
 }
 
-export { createVlossom, getVlossom };
+export { createVlossom, useVlossom };
