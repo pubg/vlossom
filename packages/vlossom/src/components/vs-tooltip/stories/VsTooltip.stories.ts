@@ -35,10 +35,6 @@ export const Default: Story = {};
 export const ColorScheme: Story = {
     render: () => ({
         components: { VsTooltip },
-        setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions };
-        },
         template: `
             <div style="display: flex; flex-wrap: wrap;">
                 ${getColorSchemeTemplate(`
