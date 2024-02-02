@@ -1,5 +1,3 @@
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION } from './constants';
-
 import type {
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -14,13 +12,13 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsTabsStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
-import { PLACEMENTS, SIZES } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
-import { VsTabsStyleSet } from '@/components/vs-tabs/types';
 
 export type ColorScheme = (typeof COLORS)[number];
 
@@ -108,8 +106,6 @@ export type TextAlign =
     | 'justify-all'
     | 'match-parent'
     | 'inherit';
-
-export type Placement = (typeof PLACEMENTS)[number];
 
 export interface AttachInfo {
     placement?: Placement;

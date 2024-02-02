@@ -15,11 +15,6 @@ export const placement = {
     options: PLACEMENTS,
 };
 
-export const placement = {
-    control: 'select',
-    options: PLACEMENTS,
-};
-
 export const size = {
     control: 'select',
     options: SIZES,
