@@ -12,7 +12,7 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+            <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
                 <button class="action-button prepend" v-if="hasPrepend" @click="$emit('prepend')">
                     <slot name="prepend-icon" />
                 </button>
@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -125,7 +125,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsInputStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
         function convertValue(v: InputValue | null | undefined): InputValue {
             if (!v) {
@@ -228,7 +228,7 @@ export default defineComponent({
         return {
             classObj,
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             InputType,
             inputValue,
             updateValue,

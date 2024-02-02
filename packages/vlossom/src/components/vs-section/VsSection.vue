@@ -1,5 +1,5 @@
 <template>
-    <section :class="['vs-section', `vs-${computedColorScheme}`]" :style="customProperties">
+    <section :class="['vs-section', `vs-${computedColorScheme}`]" :style="computedStyleSet">
         <div class="section-title" v-if="hasTitle">
             <h3>
                 <slot name="title" />
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsSectionStyleSet } from './types';
@@ -28,13 +28,13 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsSectionStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsSectionStyleSet>(name, styleSet);
 
         const hasTitle = computed(() => !!slots.title);
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             hasTitle,
         };
     },

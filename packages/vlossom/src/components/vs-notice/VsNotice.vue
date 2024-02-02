@@ -2,7 +2,7 @@
     <div
         v-if="isVisible"
         :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]"
-        :style="customProperties"
+        :style="computedStyleSet"
     >
         <div class="vs-notice-contents">
             <strong class="sub-title">{{ title }}</strong>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { CloseIcon } from '@/icons';
 import VsDivider from '../vs-divider/VsDivider.vue';
@@ -42,7 +42,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, primary } = toRefs(props);
         const { computedColorScheme } = useColorScheme(name, colorScheme);
-        const { customProperties } = useCustomStyle<VsNoticeStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsNoticeStyleSet>(name, styleSet);
 
         const isVisible = ref(true);
 
@@ -65,7 +65,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             isVisible,
             closeNotice,
             classObj,

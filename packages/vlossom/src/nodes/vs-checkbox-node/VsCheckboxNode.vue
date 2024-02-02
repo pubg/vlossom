@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-checkbox', `vs-${colorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-checkbox', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
         <div class="checkbox-container">
             <span class="checkbox">
                 <check-icon class="check-icon" />
@@ -32,7 +32,7 @@ export default defineComponent({
     components: { CheckIcon },
     props: {
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
-        customProperties: { type: Object as PropType<{ [key: string]: any }>, required: true },
+        styleSet: { type: Object as PropType<{ [key: string]: any }>, required: true },
         checked: { type: Boolean, default: false, required: true },
         checkLabel: { type: String, default: '' },
         disabled: { type: Boolean, default: false },

@@ -1,11 +1,11 @@
 <template>
     <vs-bar-node
-        :colorScheme="computedColorScheme"
-        :customProperties="{ ...defaultInsetStyle, ...customProperties }"
+        :color-scheme="computedColorScheme"
+        :style-set="{ ...defaultInsetStyle, ...computedStyleSet }"
         :height="height"
         :position="position"
         :primary="primary"
-        :verticalAlign="verticalAlign"
+        :vertical-align="verticalAlign"
     >
         <slot />
     </vs-bar-node>
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, computed, type PropType } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
 import { VsComponent } from '@/declaration';
 
@@ -37,7 +37,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsFooterStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
 
         const defaultInsetStyle = computed(() => {
             const style: { [ley: string]: any } = {};
@@ -52,7 +52,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             defaultInsetStyle,
         };
     },

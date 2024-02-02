@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-page" :style="customProperties">
+    <div class="vs-page" :style="computedStyleSet">
         <div class="page-header" v-if="hasTitle || hasDescription">
             <h2 class="page-title" v-if="hasTitle">
                 <slot name="title" />
@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useCustomStyle } from '@/composables';
+import { useStyleSet } from '@/composables';
 import { VsComponent } from '@/declaration';
 
 import type { VsPageStyleSet } from './types';
@@ -28,13 +28,13 @@ export default defineComponent({
     setup(props, { slots }) {
         const { styleSet } = toRefs(props);
 
-        const { customProperties } = useCustomStyle<VsPageStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsPageStyleSet>(name, styleSet);
 
         const hasTitle = computed((): boolean => !!slots['title']);
         const hasDescription = computed((): boolean => !!slots['description']);
 
         return {
-            customProperties,
+            computedStyleSet,
             hasTitle,
             hasDescription,
         };

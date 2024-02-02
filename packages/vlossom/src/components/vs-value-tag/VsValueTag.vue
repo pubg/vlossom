@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-value-tag', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-value-tag', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
         <div v-if="hasLabel" class="label">
             <slot name="label" />
         </div>
@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsValueTagStyleSet } from './types';
@@ -28,7 +28,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsValueTagStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsValueTagStyleSet>(name, styleSet);
 
         const hasLabel = computed((): boolean => !!slots['label']);
 
@@ -38,7 +38,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             hasLabel,
             classObj,
         };

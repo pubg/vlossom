@@ -3,13 +3,13 @@
         :value="value"
         :max="max"
         :class="['vs-progress', `vs-${computedColorScheme}`, { ...classObj }]"
-        :style="customProperties"
+        :style="computedStyleSet"
     />
 </template>
 
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsProgressStyleSet } from './types';
@@ -29,7 +29,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsProgressStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsProgressStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             primary: primary.value,
@@ -37,7 +37,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             classObj,
         };
     },

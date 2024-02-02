@@ -13,7 +13,7 @@ describe('vs-checkbox-node', () => {
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {},
+                    styleSet: {},
                     checked: false,
                 },
             });
@@ -32,7 +32,7 @@ describe('vs-checkbox-node', () => {
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {},
+                    styleSet: {},
                     checked: false,
                 },
             });
@@ -49,7 +49,7 @@ describe('vs-checkbox-node', () => {
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {},
+                    styleSet: {},
                     checked: false,
                 },
             });
@@ -66,7 +66,7 @@ describe('vs-checkbox-node', () => {
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {},
+                    styleSet: {},
                     checked: false,
                 },
             });

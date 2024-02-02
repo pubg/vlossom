@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { VsComponent } from '@/declaration';
-import { useCustomStyle } from '../custom-style-composable';
+import { useStyleSet } from '../style-set-composable';
 import { store } from '@/store';
 
 import type { VsButtonStyleSet } from '@/components';
@@ -16,25 +16,25 @@ const styleSet: StyleSet = {
     VsButton: { myStyleSet: vsButton },
 };
 
-describe('useCustomStyle composable', () => {
+describe('useStyleSet composable', () => {
     beforeEach(() => {
         store.registerStyleSet(styleSet);
     });
 
     it('parse styleSet object and return custom properties successfully', () => {
         const myStyleSet = { backgroundColor: '#a5d6ad', fontSize: '2rem' };
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(VsComponent.VsButton, ref(myStyleSet));
+        const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(VsComponent.VsButton, ref(myStyleSet));
 
-        expect(customProperties.value).toEqual({
+        expect(computedStyleSet.value).toEqual({
             '--vs-button-backgroundColor': '#a5d6ad',
             '--vs-button-fontSize': '2rem',
         });
     });
 
     it('find pre-defined styleSet and return custom properties successfully', () => {
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(VsComponent.VsButton, ref('myStyleSet'));
+        const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(VsComponent.VsButton, ref('myStyleSet'));
 
-        expect(customProperties.value).toEqual({
+        expect(computedStyleSet.value).toEqual({
             '--vs-button-backgroundColor': '#1e88e5',
             '--vs-button-color': 'white',
         });

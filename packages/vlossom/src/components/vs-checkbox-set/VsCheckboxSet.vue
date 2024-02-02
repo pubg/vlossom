@@ -17,7 +17,7 @@
                     v-for="option in options"
                     :key="getOptionValue(option)"
                     :colorScheme="computedColorScheme"
-                    :customProperties="customProperties"
+                    :styleSet="computedStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :readonly="readonly"
@@ -41,7 +41,7 @@
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import {
     useColorScheme,
-    useCustomStyle,
+    useStyleSet,
     getResponsiveProps,
     getInputProps,
     useInput,
@@ -98,7 +98,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(VsComponent.VsCheckbox, styleSet);
+        const { computedStyleSet } = useStyleSet<VsCheckboxStyleSet>(VsComponent.VsCheckbox, styleSet);
 
         const classObj = computed(() => ({
             disabled: disabled.value,
@@ -161,7 +161,7 @@ export default defineComponent({
         return {
             classObj,
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             isChecked,
             getOptionLabel,
             getOptionValue,

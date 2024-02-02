@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
         <span v-if="hasLeadingIcon" class="vs-chip-icon vs-chip-leading-icon">
             <slot name="leading-icon" />
         </span>
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs, useAttrs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { CloseIcon } from '@/icons';
 
@@ -48,7 +48,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsChipStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsChipStyleSet>(name, styleSet);
 
         const hasLeadingIcon = computed((): boolean => !!slots['leading-icon']);
 
@@ -63,7 +63,7 @@ export default defineComponent({
         return {
             hasLeadingIcon,
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             classObj,
         };
     },
