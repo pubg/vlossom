@@ -30,6 +30,7 @@ import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmoun
 import { useColorScheme, useCustomStyle } from '@/composables';
 import { VsComponent, PLACEMENTS, ALIGNS, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
+
 import type { VsTooltipStyleSet } from './types';
 
 const name = VsComponent.VsTooltip;
