@@ -19,12 +19,14 @@ import type {
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
+import { VsBlockStyleSet } from '@/components/vs-block/types';
 
 export type ColorScheme = (typeof COLORS)[number];
 
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
+    VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
     VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };

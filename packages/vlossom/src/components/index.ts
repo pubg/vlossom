@@ -1,3 +1,6 @@
+export { type VsBlockStyleSet } from './vs-block/types';
+export { default as VsBlock } from './vs-block/VsBlock.vue';
+
 export { type VsButtonStyleSet } from './vs-button/types';
 export { default as VsButton } from './vs-button/VsButton.vue';
 

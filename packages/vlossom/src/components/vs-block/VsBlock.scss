@@ -1,0 +1,65 @@
+$borderWidth: var(--vs-block-borderWidth, 1px);
+$borderStyle: var(--vs-block-borderStyle, solid);
+$borderColor: var(--vs-block-borderColor, var(--vs-block-headerColor, var(--vs-line-color)));
+
+.vs-block {
+    border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
+    border-radius: var(--vs-block-borderRadius, 0.4rem);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    .block-header {
+        background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-backgroundColor));
+        border-bottom: $borderWidth $borderStyle $borderColor;
+        color: var(--vs-block-headerColor, var(--vs-block-color, var(--vs-comp-color)));
+        font-weight: var(--vs-block-headerFontWeight, 500);
+        padding: var(--vs-block-headerPadding, 0.8rem 2rem);
+        position: relative;
+        width: 100%;
+    }
+
+    .block-content {
+        background-color: var(--vs-block-backgroundColor, var(--vs-plain-backgroundColor));
+        color: var(--vs-block-color, var(--vs-font-color));
+        font-weight: var(--vs-block-fontWeight, 400);
+        padding: var(--vs-block-padding, 1.6rem 2rem);
+    }
+}
+
+.vs-block + .vs-block {
+    margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 992px) {
+    .vn-block {
+        .block-header {
+            padding: 0.8rem 1.6rem;
+        }
+        .block-content {
+            padding: 1.4rem 1.6rem;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .vn-block {
+        .block-header {
+            padding: 0.8rem 1.2rem;
+        }
+        .block-content {
+            padding: 1.2rem 1.2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .vn-block {
+        .block-header {
+            padding: 0.8rem 0.8rem;
+        }
+        .block-content {
+            padding: 1rem 0.8rem;
+        }
+    }
+}

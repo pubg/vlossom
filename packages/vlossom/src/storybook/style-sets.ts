@@ -1,5 +1,6 @@
 import type { StyleSet } from '@/declaration';
 import type {
+    VsBlockStyleSet,
     VsButtonStyleSet,
     VsCheckboxStyleSet,
     VsCheckboxSetStyleSet,
@@ -18,6 +19,11 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
+
+const vsBlock: VsBlockStyleSet = {
+    backgroundColor: '#000',
+    color: '#fff',
+};
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
@@ -174,6 +180,7 @@ const vsValueTag: VsValueTagStyleSet = {
 };
 
 export const styleSet: StyleSet = {
+    VsBlock: { myStyleSet: vsBlock },
     VsButton: { myStyleSet: vsButton },
     VsCheckbox: { myStyleSet: vsCheckbox },
     VsCheckboxSet: { myStyleSet: vsCheckboxSet },
