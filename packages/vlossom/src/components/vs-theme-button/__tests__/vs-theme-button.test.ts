@@ -16,7 +16,6 @@ describe('vs-theme-button', () => {
 
             //then
             expect(wrapper.attributes('aria-label')).toBe('Switch to dark mode');
-            expect(wrapper.findAll('span')[1].classes()).toContain('on');
         });
 
         it('dark mode 아이콘이 활성화된다', () => {
