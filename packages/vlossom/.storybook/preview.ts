@@ -1,5 +1,5 @@
 import { setup } from '@storybook/vue3';
-import { createVlossom } from '../src';
+import { createVlossom, useVlossom } from '../src';
 import { styleSet } from '../src/storybook/style-sets';
 import './../src/styles/index.scss';
 
@@ -19,9 +19,9 @@ const decorators = [
 
         if (backgrounds) {
             if (backgrounds.value === '#f8f8f8') {
-                document.body.classList.remove('vs-dark');
+                useVlossom().theme = 'light';
             } else {
-                document.body.classList.add('vs-dark');
+                useVlossom().theme = 'dark';
             }
         }
 

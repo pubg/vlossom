@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, type PropType, toRefs } from 'vue';
+import { defineComponent, computed, toRefs, type PropType } from 'vue';
 import { useCustomStyle } from '@/composables';
 import { VsComponent } from '@/declaration';
 import { DarkModeIcon, LightModeIcon } from '@/icons';
