@@ -5,11 +5,11 @@
         :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
         @click.stop="toggleTheme()"
     >
-        <span class="icon" :class="{ on: isDarkTheme }">
+        <span class="icon light-mode" :class="{ on: isDarkTheme }">
             <light-mode-icon size="20" />
         </span>
 
-        <span class="icon" :class="{ on: !isDarkTheme }">
+        <span class="icon dark-mode" :class="{ on: !isDarkTheme }">
             <dark-mode-icon size="20" />
         </span>
     </button>
