@@ -12,7 +12,19 @@ export class Vlossom {
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
 
-        this._theme = theme;
+        this._theme = this.getDefaultTheme(options) || theme;
+    }
+
+    private getDefaultTheme(options?: VlossomOptions) {
+        const savedTheme = localStorage.getItem('vlossom:theme');
+        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        if (savedTheme) {
+            return savedTheme as 'light' | 'dark';
+        } else if (options?.detectOSTheme && mediaQueryList.matches) {
+            return 'dark';
+        }
+
+        return '';
     }
 
     get theme() {
