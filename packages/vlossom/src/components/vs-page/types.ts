@@ -1,5 +1,5 @@
 export interface VsPageStyleSet {
-    fontColor?: string;
+    color?: string;
     headerMargin?: string;
     padding?: string;
 }

@@ -113,7 +113,7 @@ const vsNotice: VsNoticeStyleSet = {
 };
 
 const vsPage: VsPageStyleSet = {
-    fontColor: '#ff90bc',
+    color: '#ff90bc',
     padding: '0.8rem 1.5rem',
 };
 
@@ -125,7 +125,7 @@ const vsProgress: VsProgressStyleSet = {
 
 const vsSection: VsSectionStyleSet = {
     backgroundColor: '#90caf9',
-    fontColor: 'white',
+    color: 'white',
 };
 
 const vsTabs: VsTabsStyleSet = {

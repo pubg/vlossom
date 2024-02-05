@@ -1,10 +1,10 @@
 .vs-section {
-    position: relative;
-    padding: var(--vs-section-padding, 2.8rem 3.2rem);
     background-color: var(--vs-section-backgroundColor, var(--vs-area-backgroundColor));
-    color: var(--vs-section-fontColor, var(--vs-font-color));
     border-radius: var(--vs-section-borderRadius, 0.4rem);
     box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow));
+    color: var(--vs-section-color, var(--vs-font-color));
+    padding: var(--vs-section-padding, 2.8rem 3.2rem);
+    position: relative;
 
     .section-title {
         margin: var(--vs-section-titleMargin, 0 0 1.2rem 0);
