@@ -8,9 +8,11 @@
                     :disabled="isDisabled(index)"
                     @click.stop="selectTab(index)"
                 >
-                    <slot :name="tab">
-                        {{ tab }}
-                    </slot>
+                    <div class="vs-tabs-content">
+                        <slot :name="tab">
+                            {{ tab }}
+                        </slot>
+                    </div>
                 </button>
             </li>
         </ul>
