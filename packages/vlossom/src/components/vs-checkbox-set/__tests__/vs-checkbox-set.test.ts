@@ -45,26 +45,26 @@ describe('vs-checkbox-set', () => {
             expect(wrapper.html()).toContain('C');
         });
 
-        it('options가 변경되면 checkbox set value가 초기화 된다', async () => {
+        it('options가 변경되면 checkbox-set value 중 일치하는 값은 남는다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
                 props: {
-                    modelValue: ['A'],
+                    modelValue: ['B', 'C'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
                     options: ['A', 'B', 'C'],
                 },
             });
 
             // when
-            await wrapper.setProps({ options: ['A', 'B', 'C', 'D'] });
+            await wrapper.setProps({ options: ['C', 'D', 'E'] });
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([[]]);
+            expect(updateModelValueEvent?.[0]).toEqual([['C']]);
         });
 
-        it('options가 변경되어도 이전 값과 deep equal 하면 checkbox set value가 그대로 유지된다', async () => {
+        it('options가 변경되어도 이전 값과 deep equal 하면 checkbox-set value가 그대로 유지된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
                 props: {

@@ -1,25 +1,15 @@
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { nextTick, ref } from 'vue';
 import { useInputOption } from '@/composables';
 
 describe('input option composable', () => {
-    let onClearSpy = vi.fn();
-
-    beforeEach(() => {
-        onClearSpy = vi.fn();
-    });
-
-    afterEach(() => {
-        vi.restoreAllMocks();
-    });
-
     describe('getOptionLabel', () => {
         it('option이 string이면 option 그대로 반환한다', () => {
             // given
             const options = ref(['test']);
 
             // when
-            const { getOptionLabel } = useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -30,7 +20,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(options, ref('label'), ref(''), { onClear: onClearSpy });
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label'), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -41,7 +31,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('{"label":"test"}');
@@ -52,7 +42,7 @@ describe('input option composable', () => {
             const options = ref([{ label: { test: 'test' } }]);
 
             // when
-            const { getOptionLabel } = useInputOption(options, ref('label.test'), ref(''), { onClear: onClearSpy });
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label.test'), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -65,7 +55,7 @@ describe('input option composable', () => {
             const options = ref(['test']);
 
             // when
-            const { getOptionValue } = useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test');
@@ -76,7 +66,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: 'test-value' }]);
 
             // when
-            const { getOptionValue } = useInputOption(options, ref(''), ref('value'), { onClear: onClearSpy });
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value'));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
@@ -87,7 +77,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionValue } = useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionValue(options.value[0])).toBe(options.value[0]);
@@ -98,25 +88,72 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: { test: 'test-value' } }]);
 
             // when
-            const { getOptionValue } = useInputOption(options, ref(''), ref('value.test'), { onClear: onClearSpy });
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value.test'));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
         });
     });
 
-    describe('onClear', () => {
-        it('options가 변경되면 onClear callback이 실행된다', async () => {
-            // given
-            const options = ref(['test']);
+    describe('options 변경 시', () => {
+        describe('inputValue가 array인 경우', () => {
+            it('빈 array인 경우 그대로 빈 array 값이 유지된다', async () => {
+                // given
+                const inputValue = ref([]);
+                const options = ref(['test1', 'test2', 'test3']);
 
-            // when
-            useInputOption(options, ref(''), ref(''), { onClear: onClearSpy });
-            options.value = ['test2'];
-            await nextTick();
+                // when
+                useInputOption(inputValue, options, ref(''), ref(''));
+                options.value = ['new-test1', 'new-test2', 'new-test3'];
+                await nextTick();
 
-            // then
-            expect(onClearSpy).toHaveBeenCalledTimes(1);
+                // then
+                expect(inputValue.value).toEqual([]);
+            });
+
+            it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
+                // given
+                const inputValue = ref(['test1', 'test2']);
+                const options = ref(['test1', 'test2', 'test3']);
+
+                // when
+                useInputOption(inputValue, options, ref(''), ref(''));
+                options.value = ['test1', 'new-test2', 'new-test3'];
+                await nextTick();
+
+                // then
+                expect(inputValue.value).toEqual(['test1']);
+            });
+        });
+
+        describe('inputValue가 array가 아닌 경우', () => {
+            it('바뀐 options 중에 inputValue 값이 있다면 유지한다', async () => {
+                // given
+                const inputValue = ref('test1');
+                const options = ref(['test1', 'test2', 'test3']);
+
+                // when
+                useInputOption(inputValue, options, ref(''), ref(''));
+                options.value = ['test1', 'new-test2', 'new-test3'];
+                await nextTick();
+
+                // then
+                expect(inputValue.value).toBe('test1');
+            });
+
+            it('바뀐 options 중에 inputValue 값이 없다면 null을 할당한다', async () => {
+                // given
+                const inputValue = ref('test1');
+                const options = ref(['test1', 'test2', 'test3']);
+
+                // when
+                useInputOption(inputValue, options, ref(''), ref(''));
+                options.value = ['new-test1', 'new-test2', 'new-test3'];
+                await nextTick();
+
+                // then
+                expect(inputValue.value).toBe(null);
+            });
         });
     });
 });
