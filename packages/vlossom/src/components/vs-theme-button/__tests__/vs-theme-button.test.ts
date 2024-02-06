@@ -10,14 +10,6 @@ function mountComponent() {
 
 describe('vs-theme-button', () => {
     describe('light mode', () => {
-        it('aria-label이 `Switch to dark mode` 이다', () => {
-            //given
-            const wrapper = mount(VsThemeButton);
-
-            //then
-            expect(wrapper.attributes('aria-label')).toBe('Switch to dark mode');
-        });
-
         it('theme dark 아이콘이 활성화된다', () => {
             //given
             const wrapper = mount(VsThemeButton);
@@ -26,7 +18,7 @@ describe('vs-theme-button', () => {
             expect(wrapper.find('span.theme-dark').classes()).toContain('on');
         });
 
-        it('클릭하면 dark mode로 변경한다', async () => {
+        it('클릭하면 dark mode로 변경되어 theme light 아이콘이 활성화된다', async () => {
             //given
             const wrapper = mount(VsThemeButton);
 
@@ -34,7 +26,7 @@ describe('vs-theme-button', () => {
             await wrapper.trigger('click');
 
             //then
-            expect(wrapper.attributes('aria-label')).toBe('Switch to light mode');
+            expect(wrapper.find('span.theme-light').classes()).toContain('on');
         });
     });
 
@@ -46,16 +38,6 @@ describe('vs-theme-button', () => {
             useVlossom().theme = 'dark';
         });
 
-        it('aria-label이 `Switch to light mode` 이다', async () => {
-            //when
-            await nextTick();
-
-            //then
-            expect(wrapper.attributes('aria-label')).toBe('Switch to light mode');
-
-            expect(wrapper.find('span').classes()).toContain('on');
-        });
-
         it('theme light 아이콘이 활성화된다', async () => {
             //when
             await nextTick();
@@ -64,12 +46,12 @@ describe('vs-theme-button', () => {
             expect(wrapper.find('span.theme-light').classes()).toContain('on');
         });
 
-        it('클릭하면 light mode로 변경한다', async () => {
+        it('클릭하면 light mode로 변경되어 theme dark 아이콘이 활성화된다', async () => {
             //when
             await wrapper.trigger('click');
 
             //then
-            expect(wrapper.attributes('aria-label')).toBe('Switch to dark mode');
+            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
         });
     });
 });

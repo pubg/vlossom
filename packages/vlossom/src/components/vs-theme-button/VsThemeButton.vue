@@ -1,16 +1,11 @@
 <template>
-    <button
-        class="vs-theme-button"
-        :style="customProperties"
-        :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
-        @click.stop="toggleTheme()"
-    >
+    <button class="vs-theme-button" :style="customProperties" @click.stop="toggleTheme()">
         <span class="icon theme-light" :class="{ on: isDarkTheme }">
-            <theme-light-icon size="20" />
+            <theme-light-icon aria-label="Switch to light mode" size="20" />
         </span>
 
         <span class="icon theme-dark" :class="{ on: !isDarkTheme }">
-            <theme-dark-icon size="20" />
+            <theme-dark-icon aria-label="Switch to dark mode" size="20" />
         </span>
     </button>
 </template>
@@ -20,7 +15,7 @@ import { defineComponent, computed, toRefs, type PropType } from 'vue';
 import { useCustomStyle } from '@/composables';
 import { VsComponent } from '@/declaration';
 import { ThemeDarkIcon, ThemeLightIcon } from '@/icons';
-import { useVlossom } from '@/index';
+import { useVlossom } from '@/vlossom-framework';
 
 import type { VsThemeButtonStyleSet } from './types';
 
