@@ -1,17 +1,3 @@
-import type { TextAlign, CssPosition } from '@/declaration';
+import type { VsBarNodeStyleSet } from '@/nodes';
 
-export interface VsFooterStyleSet {
-    backgroundColor?: string;
-    bottom?: string | number;
-    color?: string;
-    display?: string;
-    flex?: string;
-    height?: string;
-    left?: string | number;
-    padding?: string;
-    position?: CssPosition;
-    textAlign?: TextAlign;
-    right?: string | number;
-    top?: string | number;
-    width?: string;
-}
+export interface VsFooterStyleSet extends VsBarNodeStyleSet {}

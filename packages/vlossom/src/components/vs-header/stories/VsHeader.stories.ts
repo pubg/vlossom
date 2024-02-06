@@ -113,7 +113,14 @@ export const VerticalAlignEnd: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#000', color: '#fff', height: '60px', padding: '10px', textAlign: 'center' },
+        styleSet: {
+            backgroundColor: '#000',
+            color: '#fff',
+            height: '60px',
+            padding: '10px',
+            textAlign: 'center',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 1)',
+        },
     },
 };
 
