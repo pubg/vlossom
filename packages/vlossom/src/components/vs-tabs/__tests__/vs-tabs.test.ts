@@ -68,7 +68,7 @@ describe('VsTabs', () => {
             });
 
             // when
-            await wrapper.findAll('button')[1].trigger('click');
+            await wrapper.findAll('.tab')[1].trigger('click');
 
             // then
             expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
@@ -87,7 +87,7 @@ describe('VsTabs', () => {
             });
 
             // when
-            await wrapper.findAll('button')[1].trigger('click');
+            await wrapper.findAll('.tab')[1].trigger('click');
             await wrapper.findAll('li')[0].trigger('click');
 
             // then
