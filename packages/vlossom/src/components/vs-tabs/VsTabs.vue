@@ -5,6 +5,7 @@
                 <div
                     :class="['tab', { primary: selectedIdx === index, disabled: isDisabled(index) }]"
                     @click.stop="selectTab(index)"
+                    tabindex="0"
                 >
                     <div class="tab-content">
                         <slot :name="tab">
