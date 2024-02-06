@@ -6,11 +6,11 @@
         @click.stop="toggleTheme()"
     >
         <span class="icon light-mode" :class="{ on: isDarkTheme }">
-            <light-mode-icon size="20" />
+            <theme-light-icon size="20" />
         </span>
 
         <span class="icon dark-mode" :class="{ on: !isDarkTheme }">
-            <dark-mode-icon size="20" />
+            <theme-dark-icon size="20" />
         </span>
     </button>
 </template>
@@ -19,7 +19,7 @@
 import { defineComponent, computed, toRefs, type PropType } from 'vue';
 import { useCustomStyle } from '@/composables';
 import { VsComponent } from '@/declaration';
-import { DarkModeIcon, LightModeIcon } from '@/icons';
+import { ThemeDarkIcon, ThemeLightIcon } from '@/icons';
 import { useVlossom } from '@/index';
 
 import type { VsThemeButtonStyleSet } from './types';
@@ -28,7 +28,7 @@ const name = VsComponent.VsThemeButton;
 
 export default defineComponent({
     name,
-    components: { DarkModeIcon, LightModeIcon },
+    components: { ThemeDarkIcon, ThemeLightIcon },
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsThemeButtonStyleSet>, default: '' },
     },
@@ -42,7 +42,7 @@ export default defineComponent({
         const isDarkTheme = computed(() => vlossom.theme === 'dark');
 
         function toggleTheme() {
-            vlossom.theme = isDarkTheme.value ? 'light' : 'dark';
+            vlossom.toggleTheme();
         }
 
         return {

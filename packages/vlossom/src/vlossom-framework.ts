@@ -12,14 +12,14 @@ export class Vlossom {
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
 
-        this._theme = this.getDefaultTheme(options) || theme;
+        this._theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
     }
 
     private getDefaultTheme(options?: VlossomOptions) {
         const savedTheme = localStorage.getItem('vlossom:theme');
         const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         if (savedTheme) {
-            return savedTheme as 'light' | 'dark';
+            return savedTheme;
         } else if (options?.detectOSTheme && mediaQueryList.matches) {
             return 'dark';
         }
@@ -37,6 +37,10 @@ export class Vlossom {
         localStorage.setItem('vlossom:theme', value);
 
         document.body.classList.toggle('vs-dark', value === 'dark');
+    }
+
+    toggleTheme() {
+        this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
 }
 
