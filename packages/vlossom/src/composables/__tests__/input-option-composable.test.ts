@@ -111,7 +111,7 @@ describe('input option composable', () => {
                 expect(inputValue.value).toEqual([]);
             });
 
-            it('바뀐 options 중에 inputValue 값이 있다면 유지하고 없으면 제거한다', async () => {
+            it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
                 // given
                 const inputValue = ref(['test1', 'test2']);
                 const options = ref(['test1', 'test2', 'test3']);
