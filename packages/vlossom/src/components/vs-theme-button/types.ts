@@ -1,8 +1,8 @@
 export interface VsThemeButtonStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
-    hoverBackgroundColor?: string;
     color?: string;
     height?: string;
+    hoverBackgroundColor?: string;
     width?: string;
 }
