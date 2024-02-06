@@ -8,6 +8,6 @@
     }
 
     :deep(.vs-checkbox:not(:last-child)) {
-        margin-right: 1.2rem;
+        margin-right: var(--vs-checkbox-set-checkboxMargin, 2rem);
     }
 }

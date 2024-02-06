@@ -17,7 +17,7 @@
                 @mouseenter="onTooltipEnter"
                 @mouseleave="onTooltipLeave"
             >
-                <div v-if="isVisible" class="tooltip-contents" :style="customProperties" :class="animationClass">
+                <div v-if="isVisible" class="tooltip-contents" :style="computedStyleSet" :class="animationClass">
                     <slot name="tooltip" />
                 </div>
             </div>
@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, PLACEMENTS, ALIGNS, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
 
@@ -75,7 +75,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsTooltipStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsTooltipStyleSet>(name, styleSet);
 
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
@@ -198,7 +198,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             animationClass,
             triggerRef,
             tooltipRef,

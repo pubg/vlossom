@@ -14,7 +14,7 @@
 
             <vs-checkbox-node
                 :colorScheme="computedColorScheme"
-                :customProperties="customProperties"
+                :styleSet="computedStyleSet"
                 :checked="isChecked"
                 :check-label="checkLabel"
                 :disabled="disabled"
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -83,7 +83,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsCheckboxStyleSet>(name, styleSet);
 
         const inputValue = ref(modelValue.value);
 
@@ -155,7 +155,7 @@ export default defineComponent({
         return {
             isChecked,
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             inputValue,
             computedMessages,
             shake,

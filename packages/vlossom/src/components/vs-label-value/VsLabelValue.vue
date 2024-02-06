@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-label-value', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-label-value', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
         <div v-if="hasLabel" class="cell label" :style="align">
             <slot name="label" />
         </div>
@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Align } from '@/declaration';
 
 import type { VsLabelValueStyleSet } from './types';
@@ -32,7 +32,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsLabelValueStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsLabelValueStyleSet>(name, styleSet);
 
         const hasLabel = computed((): boolean => !!slots['label']);
         const hasValue = computed((): boolean => !!slots['value']);
@@ -55,7 +55,7 @@ export default defineComponent({
             align,
             computedColorScheme,
             classObj,
-            customProperties,
+            computedStyleSet,
             hasLabel,
             hasValue,
             hasActions,

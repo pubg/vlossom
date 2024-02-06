@@ -13,17 +13,17 @@ import type { Align, ColorScheme, CssPosition } from '@/declaration';
 export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
-        customProperties: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
+        styleSet: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { customProperties, height, position, primary, verticalAlign } = toRefs(props);
+        const { styleSet, height, position, primary, verticalAlign } = toRefs(props);
 
         const convertedProperties = computed(() => {
-            return Object.entries(customProperties.value).reduce((acc, [key, value]) => {
+            return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
                 const propName = key.split('-').pop();
                 acc[`--vs-bar-node-${propName}`] = value;
                 return acc;

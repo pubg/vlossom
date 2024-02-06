@@ -4,7 +4,7 @@ import { store } from '@/store';
 
 import type { VsComponent } from '@/declaration';
 
-export function useCustomStyle<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
+export function useStyleSet<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
     const styles: ComputedRef<T> = computed(() => {
         if (!styleSet.value) {
             return {} as T;
@@ -17,7 +17,7 @@ export function useCustomStyle<T extends { [key: string]: any }>(component: VsCo
         return styleSet.value;
     });
 
-    const customProperties = computed(() =>
+    const computedStyleSet = computed(() =>
         Object.entries(styles.value).reduce((acc, [key, value]) => {
             acc[`--${utils.string.pascalToKebab(component)}-${key}`] = value;
             return acc;
@@ -25,6 +25,6 @@ export function useCustomStyle<T extends { [key: string]: any }>(component: VsCo
     );
 
     return {
-        customProperties,
+        computedStyleSet,
     };
 }

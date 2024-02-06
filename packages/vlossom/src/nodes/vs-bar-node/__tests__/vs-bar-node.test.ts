@@ -18,13 +18,13 @@ describe('vs-bar-node', () => {
     });
 
     describe('height', () => {
-        it('props height와 customProperties height가 둘다 있을 때, props height가 우선한다', () => {
+        it('props height와 styleSet height가 둘다 있을 때, props height가 우선한다', () => {
             // given
             const wrapper = mount(VsBarNode, {
                 props: {
                     colorScheme: 'default',
                     height: '100px',
-                    customProperties: {
+                    styleSet: {
                         '--vs-header-height': '200px',
                     },
                 },
@@ -34,12 +34,12 @@ describe('vs-bar-node', () => {
             expect(wrapper.attributes().style.includes('height: 100px;')).toBe(true);
         });
 
-        it('props height가 없고 customProperties height가 있을 때, height는 customProperties height로 적용된다', () => {
+        it('props height가 없고 styleSet height가 있을 때, height는 styleSet height로 적용된다', () => {
             // given
             const wrapper = mount(VsBarNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {
+                    styleSet: {
                         '--vs-header-height': '200px',
                     },
                 },
@@ -50,13 +50,13 @@ describe('vs-bar-node', () => {
     });
 
     describe('position', () => {
-        it('props position과 customProperties position이 둘다 있을 때, props position이 우선한다', () => {
+        it('props position과 styleSet position이 둘다 있을 때, props position이 우선한다', () => {
             // given
             const wrapper = mount(VsBarNode, {
                 props: {
                     colorScheme: 'default',
                     position: 'absolute',
-                    customProperties: {
+                    styleSet: {
                         '--vs-footer-position': 'relative',
                     },
                 },
@@ -66,12 +66,12 @@ describe('vs-bar-node', () => {
             expect(wrapper.attributes().style.includes('position: absolute;')).toBe(true);
         });
 
-        it('props position이 없고 customProperties position이 있을 때, position은 customProperties Position으로 적용된다', () => {
+        it('props position이 없고 styleSet position이 있을 때, position은 styleSet Position으로 적용된다', () => {
             // given
             const wrapper = mount(VsBarNode, {
                 props: {
                     colorScheme: 'default',
-                    customProperties: {
+                    styleSet: {
                         '--vs-footer-position': 'relative',
                     },
                 },

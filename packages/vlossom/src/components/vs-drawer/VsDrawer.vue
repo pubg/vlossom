@@ -18,7 +18,7 @@
                             hasSpecifiedSize ? '' : size,
                             { 'has-container': hasContainer },
                         ]"
-                        :style="{ ...customProperties, ...sizeProperty }"
+                        :style="{ ...computedStyleSet, ...sizeProperty }"
                         role="dialog"
                         :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
                         aria-describedby="vs-drawer-body"
@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, onMounted, onBeforeUnmount, type PropType } from 'vue';
-import { useCustomStyle } from '@/composables';
+import { useStyleSet } from '@/composables';
 import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 import { VsFocusTrap } from '@/components';
 
@@ -76,7 +76,7 @@ export default defineComponent({
     setup(props, { emit, slots }) {
         const { styleSet, modelValue, closeOnEsc, closeOnDimmedClick, placement, size } = toRefs(props);
 
-        const { customProperties } = useCustomStyle<VsDrawerStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
@@ -138,7 +138,7 @@ export default defineComponent({
         });
 
         return {
-            customProperties,
+            computedStyleSet,
             hasSpecifiedSize,
             sizeProperty,
             isOpen,

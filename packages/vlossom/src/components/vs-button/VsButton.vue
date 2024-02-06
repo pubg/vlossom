@@ -2,7 +2,7 @@
     <button
         type="button"
         :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]"
-        :style="customProperties"
+        :style="computedStyleSet"
         :disabled="disabled"
     >
         <span v-if="!loading" class="content">
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { RotateRightIcon } from '@/icons';
 
@@ -41,7 +41,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsButtonStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -54,7 +54,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             classObj,
         };
     },

@@ -1,10 +1,10 @@
 <template>
-    <div class="vs-divider" :class="[`vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties" />
+    <div class="vs-divider" :class="[`vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet" />
 </template>
 
 <script lang="ts">
 import { PropType, defineComponent, toRefs, computed } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsDividerStyleSet } from './types';
@@ -23,7 +23,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsDividerStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsDividerStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             horizontal: !vertical.value,
@@ -33,7 +33,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             classObj,
         };
     },

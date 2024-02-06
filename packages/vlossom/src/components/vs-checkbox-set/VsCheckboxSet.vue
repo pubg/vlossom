@@ -12,12 +12,12 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-checkbox-set', { column }]">
+            <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
                 <vs-checkbox-node
                     v-for="option in options"
                     :key="getOptionValue(option)"
                     :colorScheme="computedColorScheme"
-                    :customProperties="customProperties"
+                    :styleSet="checkboxStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :readonly="readonly"
@@ -41,7 +41,7 @@
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import {
     useColorScheme,
-    useCustomStyle,
+    useStyleSet,
     getResponsiveProps,
     getInputProps,
     useInput,
@@ -54,7 +54,8 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
 
-import type { VsCheckboxStyleSet } from '../vs-checkbox/types';
+import type { VsCheckboxSetStyleSet } from './types';
+import { VsCheckboxStyleSet } from '../vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
 
@@ -66,7 +67,7 @@ export default defineComponent({
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsCheckboxSetStyleSet>, default: '' },
         beforeChange: {
             type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
             default: null,
@@ -98,7 +99,14 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { customProperties } = useCustomStyle<VsCheckboxStyleSet>(VsComponent.VsCheckbox, styleSet);
+        const { computedStyleSet: checkboxStyleSet } = useStyleSet<VsCheckboxStyleSet>(
+            VsComponent.VsCheckbox,
+            styleSet,
+        );
+        const { computedStyleSet: checkboxSetStyleSet } = useStyleSet<VsCheckboxSetStyleSet>(
+            VsComponent.VsCheckboxSet,
+            styleSet,
+        );
 
         const classObj = computed(() => ({
             disabled: disabled.value,
@@ -161,7 +169,8 @@ export default defineComponent({
         return {
             classObj,
             computedColorScheme,
-            customProperties,
+            checkboxStyleSet,
+            checkboxSetStyleSet,
             isChecked,
             getOptionLabel,
             getOptionValue,

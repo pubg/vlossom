@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="customProperties">
+    <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
         <ul>
             <li v-for="(tab, index) in tabs" :key="tab">
                 <button
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, ref, watch } from 'vue';
-import { useColorScheme, useCustomStyle } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
 
@@ -49,7 +49,7 @@ export default defineComponent({
         const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
-        const { customProperties } = useCustomStyle<VsTabsStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -92,7 +92,7 @@ export default defineComponent({
 
         return {
             computedColorScheme,
-            customProperties,
+            computedStyleSet,
             classObj,
             isDisabled,
             selectedIdx,
