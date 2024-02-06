@@ -1,11 +1,7 @@
 import { store } from './store';
 import { shallowReactive, type App } from 'vue';
 
-import type { VlossomOptions, VsComponent } from '@/declaration';
-
-interface VlossomState {
-    theme: 'light' | 'dark';
-}
+import type { VlossomState, VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
     private _state = shallowReactive<VlossomState>({

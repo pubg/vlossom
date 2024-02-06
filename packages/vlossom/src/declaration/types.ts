@@ -53,6 +53,10 @@ export interface VlossomStore {
     styleSets: StyleSet;
 }
 
+export interface VlossomState {
+    theme: 'light' | 'dark';
+}
+
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
