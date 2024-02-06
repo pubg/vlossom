@@ -64,7 +64,7 @@ describe('vs-checkbox-set', () => {
             expect(updateModelValueEvent?.[0]).toEqual([['C']]);
         });
 
-        it('options가 변경되어도 이전 값과 deep equal 하면 checkbox set value가 그대로 유지된다', async () => {
+        it('options가 변경되어도 이전 값과 deep equal 하면 checkbox-set value가 그대로 유지된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
                 props: {
