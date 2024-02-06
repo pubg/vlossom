@@ -18,12 +18,12 @@ describe('vs-theme-button', () => {
             expect(wrapper.attributes('aria-label')).toBe('Switch to dark mode');
         });
 
-        it('dark mode 아이콘이 활성화된다', () => {
+        it('theme dark 아이콘이 활성화된다', () => {
             //given
             const wrapper = mount(VsThemeButton);
 
             //then
-            expect(wrapper.find('span.dark-mode').classes()).toContain('on');
+            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
         });
 
         it('클릭하면 dark mode로 변경한다', async () => {
@@ -56,12 +56,12 @@ describe('vs-theme-button', () => {
             expect(wrapper.find('span').classes()).toContain('on');
         });
 
-        it('light mode 아이콘이 활성화된다', async () => {
+        it('theme light 아이콘이 활성화된다', async () => {
             //when
             await nextTick();
 
             //then
-            expect(wrapper.find('span.light-mode').classes()).toContain('on');
+            expect(wrapper.find('span.theme-light').classes()).toContain('on');
         });
 
         it('클릭하면 light mode로 변경한다', async () => {
