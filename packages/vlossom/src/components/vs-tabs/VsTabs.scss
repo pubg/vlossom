@@ -17,7 +17,7 @@
             overflow: hidden;
             padding: var(--vs-tabs-padding, 0.8rem 1rem);
             transition: color 0.1s;
-            max-width: 100%;
+            width: var(--vs-tabs-tabWidth, auto);
 
             &:not(:last-child) {
                 margin-right: var(--vs-tabs-gap, 0.3rem);
@@ -28,9 +28,10 @@
                 font-size: var(--vs-tabs-fontSize, 1rem);
                 font-weight: var(--vs-tabs-fontWeight, 400);
                 overflow: hidden;
+                text-align: center;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: var(--vs-tabs-tabWidth, auto);
+                width: 100%;
                 word-break: break-word;
             }
 
