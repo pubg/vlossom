@@ -1,17 +1,17 @@
 <template>
     <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
         <ul>
-            <li v-for="(tab, index) in tabs" :key="tab">
-                <div
-                    :class="['tab', { primary: selectedIdx === index, disabled: isDisabled(index) }]"
-                    @click.stop="selectTab(index)"
-                    tabindex="0"
-                >
-                    <div class="tab-content">
-                        <slot :name="tab">
-                            {{ tab }}
-                        </slot>
-                    </div>
+            <li
+                v-for="(tab, index) in tabs"
+                :key="tab"
+                :class="['tab', { primary: selectedIdx === index, disabled: isDisabled(index) }]"
+                @click.stop="selectTab(index)"
+                tabindex="0"
+            >
+                <div class="tab-content">
+                    <slot :name="tab">
+                        {{ tab }}
+                    </slot>
                 </div>
             </li>
         </ul>
