@@ -135,14 +135,14 @@ export const LeadingIcon: Story = {
             <div>
 				<vs-chip>
 					<template #leading-icon>
-						<vs-icon aria-label="check" icon="check" size="16px"/>
+						<vs-icon icon="check" size="16px"/>
 					</template>
 					Chip
 				</vs-chip>
 
 				<vs-chip>
 					<template #leading-icon>
-						<vs-icon aria-label="close" icon="close" size="16px" />
+						<vs-icon icon="close" size="16px" />
 					</template>
 					Chip
 				</vs-chip>
@@ -175,7 +175,7 @@ export const ClickEventWithPrimary: Story = {
                 ${getColorSchemeTemplate(`
                     <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')">
                         <template #leading-icon>
-                            <vs-icon v-if="isSelected('{{ color }}')" aria-label="check" icon="check" size="16px" />
+                            <vs-icon v-if="isSelected('{{ color }}')" icon="check" size="16px" />
                         </template>
                         {{color}}
                     </vs-chip>

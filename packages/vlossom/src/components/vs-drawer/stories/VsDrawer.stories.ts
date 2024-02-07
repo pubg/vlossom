@@ -9,7 +9,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 const DrawerCloseButton = {
     components: { VsIcon },
     template: `
-        <vs-icon aria-label="close" icon="close" style="cursor: pointer" />
+        <vs-icon icon="close" style="cursor: pointer" />
     `,
 };
 

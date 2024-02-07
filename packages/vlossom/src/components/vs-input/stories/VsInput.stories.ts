@@ -161,7 +161,7 @@ export const Append: Story = {
         template: `
             <vs-input v-bind="args">
                 <template #append-icon>
-                    <vs-icon aria-label="check" icon="check" />
+                    <vs-icon icon="check" />
                 </template>
             </vs-input>
         `,
