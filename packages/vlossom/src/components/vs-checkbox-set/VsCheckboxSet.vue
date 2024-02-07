@@ -168,7 +168,7 @@ export default defineComponent({
             emit('blur', option);
         }
 
-        const optionIds = options.value.map(() => utils.string.createID());
+        const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
             id,
