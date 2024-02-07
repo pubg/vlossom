@@ -23,7 +23,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
-import { utils } from '@/utils';
 import { CheckIcon } from '@/icons';
 
 const name = VsComponent.VsCheckbox;
@@ -31,6 +30,7 @@ export default defineComponent({
     name,
     components: { CheckIcon },
     props: {
+        id: { type: String, default: '' },
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
         styleSet: { type: Object as PropType<{ [key: string]: any }>, required: true },
         checked: { type: Boolean, default: false, required: true },
@@ -45,8 +45,6 @@ export default defineComponent({
         const { checked, disabled, readonly } = toRefs(props);
 
         const { emit } = context;
-
-        const id = utils.string.createID();
 
         const classObj = computed(() => ({
             checked: checked.value,
@@ -76,7 +74,6 @@ export default defineComponent({
 
         return {
             classObj,
-            id,
             toggle,
             onFocus,
             onBlur,

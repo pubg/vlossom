@@ -1,6 +1,6 @@
 <template>
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
-        <label v-if="!noLabel">
+        <label v-if="!noLabel" :for="id">
             <slot name="label">
                 <span class="vs-label">{{ label }}</span>
             </slot>
@@ -32,6 +32,7 @@ export default defineComponent({
     name: VsComponent.VsInputWrapper,
     components: { VsMessage },
     props: {
+        id: { type: String, default: '' },
         label: { type: String, default: '' },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
         noLabel: { type: Boolean, default: false },

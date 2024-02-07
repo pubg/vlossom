@@ -16,6 +16,7 @@
                 <vs-checkbox-node
                     v-for="option in options"
                     :key="getOptionValue(option)"
+                    :id="`${id}-${getOptionValue(option)}`"
                     :colorScheme="computedColorScheme"
                     :styleSet="checkboxStyleSet"
                     :checked="isChecked(option)"
@@ -127,7 +128,7 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear } = useInput(inputValue, modelValue, context, label, {
+        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
@@ -167,6 +168,7 @@ export default defineComponent({
         }
 
         return {
+            id,
             classObj,
             computedColorScheme,
             checkboxStyleSet,

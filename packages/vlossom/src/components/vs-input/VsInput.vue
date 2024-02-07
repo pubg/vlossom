@@ -1,6 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
+            :id="id"
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
@@ -19,11 +20,13 @@
 
                 <input
                     ref="inputRef"
+                    :id="id"
                     :type="type"
                     :value="inputValue"
                     :name="name"
                     :disabled="disabled"
                     :readonly="readonly"
+                    :required="required"
                     :placeholder="placeholder"
                     @input="updateValue($event)"
                     @focus="onFocus"
@@ -150,7 +153,7 @@ export default defineComponent({
             inputValue.value = emptyValue;
         }
 
-        const { computedMessages, shake, validate, clear } = useInput(inputValue, modelValue, context, label, {
+        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
@@ -226,6 +229,7 @@ export default defineComponent({
         }
 
         return {
+            id,
             classObj,
             computedColorScheme,
             computedStyleSet,

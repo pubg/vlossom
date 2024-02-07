@@ -202,7 +202,7 @@ export function useInput<T = unknown>(
         });
     }
 
-    useInputForm(label, changed, valid, validate, clear);
+    const { id } = useInputForm(label, changed, valid, validate, clear);
 
     return {
         changed,
@@ -212,5 +212,6 @@ export function useInput<T = unknown>(
         showRuleMessages,
         validate,
         clear,
+        id,
     };
 }
