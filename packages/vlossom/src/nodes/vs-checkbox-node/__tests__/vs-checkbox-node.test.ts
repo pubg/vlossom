@@ -15,6 +15,7 @@ describe('vs-checkbox-node', () => {
                     colorScheme: 'default',
                     styleSet: {},
                     checked: false,
+                    id: 'test',
                 },
             });
 
@@ -34,6 +35,7 @@ describe('vs-checkbox-node', () => {
                     colorScheme: 'default',
                     styleSet: {},
                     checked: false,
+                    id: 'test',
                 },
             });
 
@@ -51,6 +53,7 @@ describe('vs-checkbox-node', () => {
                     colorScheme: 'default',
                     styleSet: {},
                     checked: false,
+                    id: 'test',
                 },
             });
 
@@ -68,6 +71,7 @@ describe('vs-checkbox-node', () => {
                     colorScheme: 'default',
                     styleSet: {},
                     checked: false,
+                    id: 'test',
                 },
             });
 
