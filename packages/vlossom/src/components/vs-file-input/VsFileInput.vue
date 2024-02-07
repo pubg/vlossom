@@ -1,0 +1,202 @@
+<template>
+    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+        <vs-input-wrapper
+            :label="label"
+            :messages="computedMessages"
+            :no-label="noLabel"
+            :no-msg="noMsg"
+            :required="required"
+            :shake="shake"
+        >
+            <template #label v-if="!noLabel">
+                <slot name="label" />
+            </template>
+
+            <div
+                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
+                :style="computedStyleSet"
+                tabindex="0"
+            >
+                <div class="attach-file-icon">
+                    <attach-file-icon :size="dense ? 16 : 20" />
+                </div>
+
+                <div class="label-box">
+                    <span v-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
+                    <span v-if="hasValue" class="file-label">{{ fileLabel }}</span>
+                </div>
+
+                <input
+                    ref="fileInputRef"
+                    :id="id"
+                    type="file"
+                    :name="name"
+                    :disabled="disabled"
+                    :readonly="readonly"
+                    :required="required"
+                    :multiple="multiple"
+                    :accept="accept"
+                    @change="updateValue($event)"
+                />
+
+                <button
+                    v-if="!noClear && hasValue && !readonly && !disabled"
+                    class="clear-button"
+                    @click.stop="onClear()"
+                >
+                    <close-icon :size="dense ? 16 : 20" />
+                </button>
+            </div>
+
+            <template #messages v-if="!noMsg">
+                <slot name="messages" />
+            </template>
+        </vs-input-wrapper>
+    </vs-wrapper>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import { AttachFileIcon, CloseIcon } from '@/icons';
+
+import type { VsFileInputStyleSet } from './types';
+
+export type InputValue = File | File[] | null;
+
+const name = VsComponent.VsFileInput;
+
+export default defineComponent({
+    name,
+    components: { VsInputWrapper, VsWrapper, AttachFileIcon, CloseIcon },
+    props: {
+        ...getInputProps<InputValue, []>(),
+        ...getResponsiveProps(),
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet>, default: '' },
+        accept: { type: String, default: '' },
+        dense: { type: Boolean, default: false },
+        multiple: { type: Boolean, default: false },
+        // v-model
+        modelValue: { type: [Object, Array] as PropType<InputValue>, default: null },
+    },
+    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change'],
+    expose: ['clear', 'validate'],
+    setup(props, context) {
+        const {
+            colorScheme,
+            styleSet,
+            dense,
+            disabled,
+            label,
+            messages,
+            modelValue,
+            multiple,
+            readonly,
+            required,
+            rules,
+        } = toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: disabled.value,
+            readonly: readonly.value,
+        }));
+
+        const inputValue = ref(modelValue.value);
+
+        const hasValue = computed(() => {
+            if (Array.isArray(inputValue.value)) {
+                return inputValue.value.length > 0;
+            } else {
+                return !!inputValue.value;
+            }
+        });
+
+        const fileLabel = computed((): string => {
+            if (!hasValue.value) {
+                return '';
+            }
+
+            const firstFileName = Array.isArray(inputValue.value)
+                ? inputValue.value[0].name
+                : inputValue.value?.name || '';
+            return Array.isArray(inputValue.value)
+                ? `${firstFileName} (+ ${inputValue.value.length - 1} files)`
+                : firstFileName;
+        });
+
+        function requiredCheck() {
+            return required.value && !hasValue.value ? 'required' : '';
+        }
+
+        const allRules = computed(() => [...rules.value, requiredCheck]);
+
+        const fileInputRef = ref<HTMLInputElement | null>(null);
+
+        function onClear() {
+            if (fileInputRef.value) {
+                fileInputRef.value.value = '';
+            }
+
+            if (multiple.value) {
+                inputValue.value = [];
+            } else {
+                inputValue.value = null;
+            }
+        }
+
+        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
+            messages,
+            rules: allRules,
+            callbacks: {
+                onMounted: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    } else if (!multiple.value && (inputValue.value !== null || typeof inputValue.value !== 'object')) {
+                        inputValue.value = null;
+                    }
+                },
+                onClear,
+            },
+        });
+
+        function updateValue(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            if (multiple.value) {
+                inputValue.value = targetValue;
+            } else {
+                inputValue.value = targetValue[0] || null;
+            }
+        }
+
+        return {
+            id,
+            classObj,
+            computedColorScheme,
+            computedStyleSet,
+            fileInputRef,
+            inputValue,
+            fileLabel,
+            updateValue,
+            hasValue,
+            computedMessages,
+            shake,
+            onClear,
+            clear,
+            validate,
+        };
+    },
+});
+</script>
+
+<style lang="scss" scoped src="./VsFileInput.scss" />

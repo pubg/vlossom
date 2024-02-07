@@ -21,6 +21,9 @@ export { default as VsDivider } from './vs-divider/VsDivider.vue';
 export { type VsDrawerStyleSet } from './vs-drawer/types';
 export { default as VsDrawer } from './vs-drawer/VsDrawer.vue';
 
+export { type VsFileInputStyleSet } from './vs-file-input/types';
+export { default as VsFileInput } from './vs-file-input/VsFileInput.vue';
+
 export { default as VsFocusTrap } from './vs-focus-trap/VsFocusTrap.vue';
 
 export { type VsFooterStyleSet } from './vs-footer/types';
@@ -81,6 +84,7 @@ declare module 'vue' {
         VsContainer: typeof import('./')['VsContainer'];
         VsDivider: typeof import('./')['VsDivider'];
         VsDrawer: typeof import('./')['VsDrawer'];
+        VsFileInput: typeof import('./')['VsFileInput'];
         VsFocusTrap: typeof import('./')['VsFocusTrap'];
         VsFooter: typeof import('./')['VsFooter'];
         VsForm: typeof import('./')['VsForm'];
