@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import VsTabs from '../VsTabs.vue';
 import { colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook/args';
 import { chromaticParameters } from '@/storybook/parameters';
-import { CheckIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -79,7 +79,7 @@ export const MobileFull: Story = {
 
 export const TabSlot: Story = {
     render: () => ({
-        components: { VsTabs, CheckIcon },
+        components: { VsTabs, VsIcon },
         setup() {
             const selectedIdx = ref(0);
             return { tabs, selectedIdx };
@@ -88,19 +88,19 @@ export const TabSlot: Story = {
 			<vs-tabs :tabs="tabs" v-model="selectedIdx">
 				<template #tab1>
 					<span style="display:flex; align-items:center;">
-						<check-icon v-if="selectedIdx === 0" aria-label="check" width="16px" height="16px"/>
+						<vs-icon v-if="selectedIdx === 0" aria-label="check" icon="check" size="16px" />
 						<span style="margin-left:5px">ITEM ONE</span>
 					</span>
 				</template>
 				<template #tab2>
 					<span style="display:flex; align-items:center;">
-						<check-icon v-if="selectedIdx === 1" aria-label="check" width="16px" height="16px"/>
+						<vs-icon v-if="selectedIdx === 1" aria-label="check" icon="check" size="16px" />
 						<span style="margin-left:5px">ITEM TWO</span>
 					</span>
 				</template>
 				<template #tab3>
 					<span style="display:flex; align-items:center;">
-						<check-icon v-if="selectedIdx === 2" aria-label="check" width="16px" height="16px"/>
+						<vs-icon v-if="selectedIdx === 2" aria-label="check" icon="check" size="16px" />
 						<span style="margin-left:5px">ITEM THREE</span>
 					</span>
 				</template>

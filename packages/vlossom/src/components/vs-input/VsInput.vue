@@ -45,7 +45,7 @@
                     :class="{ number: type === InputType.Number }"
                     @click.stop="clearWithFocus()"
                 >
-                    <close-icon :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 16 : 20" />
                 </button>
             </div>
 
@@ -63,7 +63,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { CloseIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 import { InputType } from './types';
 
 import type { VsInputStyleSet } from './types';
@@ -73,7 +73,7 @@ export type InputValue = string | number;
 const name = VsComponent.VsInput;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, CloseIcon },
+    components: { VsInputWrapper, VsWrapper, VsIcon },
     props: {
         ...getInputProps<InputValue, []>(),
         ...getResponsiveProps(),
