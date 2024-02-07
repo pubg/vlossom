@@ -11,6 +11,7 @@
                 :name="name"
                 :value="convertToString(value)"
                 :checked="checked"
+                :required="required"
                 @change="toggle"
                 @focus="onFocus"
                 @blur="onBlur"
@@ -30,13 +31,14 @@ export default defineComponent({
     name,
     components: { CheckIcon },
     props: {
-        id: { type: String, default: '' },
+        id: { type: String, required: true },
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
         styleSet: { type: Object as PropType<{ [key: string]: any }>, required: true },
         checked: { type: Boolean, default: false, required: true },
         checkLabel: { type: String, default: '' },
         disabled: { type: Boolean, default: false },
         readonly: { type: Boolean, default: false },
+        required: { type: Boolean, default: false },
         name: { type: String, default: '' },
         value: { type: null, default: 'true' },
     },

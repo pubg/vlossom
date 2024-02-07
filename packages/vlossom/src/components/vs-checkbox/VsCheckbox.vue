@@ -21,6 +21,7 @@
                 :check-label="checkLabel"
                 :disabled="disabled"
                 :readonly="readonly"
+                :required="required"
                 :name="name"
                 :value="trueValue"
                 @toggle="onToggle"
