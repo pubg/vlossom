@@ -14,7 +14,12 @@
             </template>
 
             <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-                <button class="action-button prepend" v-if="hasPrepend" @click="$emit('prepend')">
+                <button
+                    class="action-button prepend"
+                    v-if="hasPrepend"
+                    @click="$emit('prepend')"
+                    aria-label="prepend-action"
+                >
                     <slot name="prepend-icon" />
                 </button>
 
@@ -35,7 +40,12 @@
                     @change.stop
                 />
 
-                <button class="action-button append" v-if="hasAppend" @click="$emit('append')">
+                <button
+                    class="action-button append"
+                    v-if="hasAppend"
+                    @click="$emit('append')"
+                    aria-label="append-action"
+                >
                     <slot name="append-icon" />
                 </button>
 
@@ -43,6 +53,7 @@
                     v-if="!noClear && inputValue && !readonly && !disabled"
                     class="clear-button"
                     :class="{ number: type === InputType.Number }"
+                    aria-label="clear"
                     @click.stop="clearWithFocus()"
                 >
                     <vs-icon icon="close" :size="dense ? 16 : 20" />

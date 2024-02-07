@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-icon" :style="computedSize" v-html="iconSvgs[icon]" />
+    <i class="vs-icon" :style="computedSize" v-html="iconSvgs[icon]" />
 </template>
 
 <script lang="ts">

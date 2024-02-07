@@ -11,8 +11,8 @@
                 <slot />
             </p>
         </div>
-        <button type="button" class="vs-notice-close" @click.stop="closeNotice()">
-            <vs-icon aria-label="close" icon="close" size="20" />
+        <button type="button" class="vs-notice-close" @click.stop="closeNotice()" aria-label="close">
+            <vs-icon icon="close" size="20" />
         </button>
     </div>
 </template>

@@ -12,9 +12,10 @@
             v-if="closable"
             type="button"
             :class="['vs-chip-icon', 'vs-chip-close', { primary }]"
+            aria-label="close"
             @click.stop="$emit('close')"
         >
-            <vs-icon aria-label="close" class="close-icon" icon="close" />
+            <vs-icon class="close-icon" icon="close" />
         </button>
     </div>
 </template>

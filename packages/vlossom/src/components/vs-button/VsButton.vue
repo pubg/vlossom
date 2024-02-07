@@ -4,12 +4,13 @@
         :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]"
         :style="computedStyleSet"
         :disabled="disabled"
+        :aria-label="loading ? 'loading' : ''"
     >
         <span v-if="!loading" class="content">
             <slot />
         </span>
 
-        <vs-icon v-if="loading" aria-label="loading" class="loading-icon" icon="rotateRight" :size="dense ? 20 : 24" />
+        <vs-icon v-if="loading" class="loading-icon" icon="rotateRight" :size="dense ? 20 : 24" />
     </button>
 </template>
 
