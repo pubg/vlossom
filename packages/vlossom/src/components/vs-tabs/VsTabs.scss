@@ -10,29 +10,23 @@
         .tab {
             align-items: center;
             background: transparent;
+            color: var(--vs-tabs-color, var(--vs-comp-color));
             cursor: pointer;
             display: inline-flex;
+            font-size: var(--vs-tabs-fontSize, 1rem);
+            font-weight: var(--vs-tabs-fontWeight, 400);
             height: var(--vs-tabs-height, 1.6rem);
             justify-content: center;
             overflow: hidden;
             padding: var(--vs-tabs-padding, 0.8rem 1rem);
+            text-align: center;
             transition: color 0.1s;
+            white-space: nowrap;
             width: var(--vs-tabs-tabWidth, auto);
+            word-break: break-word;
 
             &:not(:last-child) {
                 margin-right: var(--vs-tabs-gap, 0.3rem);
-            }
-
-            .tab-content {
-                color: var(--vs-tabs-color, var(--vs-comp-color));
-                font-size: var(--vs-tabs-fontSize, 1rem);
-                font-weight: var(--vs-tabs-fontWeight, 400);
-                overflow: hidden;
-                text-align: center;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                width: 100%;
-                word-break: break-word;
             }
 
             &:hover {

@@ -10,11 +10,9 @@
                 :tabindex="isSelected(index) ? 0 : -1"
                 @click.stop="selectTab(index)"
             >
-                <div class="tab-content">
-                    <slot :name="tab">
-                        {{ tab }}
-                    </slot>
-                </div>
+                <slot :name="tab">
+                    {{ tab }}
+                </slot>
             </li>
         </ul>
     </div>
