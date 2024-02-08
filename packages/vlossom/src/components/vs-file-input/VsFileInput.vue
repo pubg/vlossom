@@ -16,6 +16,7 @@
                 :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
                 :style="computedStyleSet"
                 tabindex="0"
+                @click="openFileDialog()"
             >
                 <div class="attach-file-icon">
                     <attach-file-icon :size="dense ? 16 : 20" />
@@ -120,26 +121,35 @@ export default defineComponent({
             }
         });
 
-        const fileLabel = computed((): string => {
+        const fileLabel = computed(() => {
             if (!hasValue.value) {
                 return '';
             }
 
-            const firstFileName = Array.isArray(inputValue.value)
-                ? inputValue.value[0].name
-                : inputValue.value?.name || '';
+            const firstFileName = Array.isArray(inputValue.value) ? inputValue.value[0].name : inputValue.value?.name;
+
+            if (!firstFileName) {
+                return '';
+            }
+
             return Array.isArray(inputValue.value)
                 ? `${firstFileName} (+ ${inputValue.value.length - 1} files)`
                 : firstFileName;
         });
+
+        const fileInputRef = ref<HTMLInputElement | null>(null);
+
+        function openFileDialog() {
+            if (fileInputRef.value) {
+                fileInputRef.value.click();
+            }
+        }
 
         function requiredCheck() {
             return required.value && !hasValue.value ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const fileInputRef = ref<HTMLInputElement | null>(null);
 
         function onClear() {
             if (fileInputRef.value) {
@@ -160,7 +170,7 @@ export default defineComponent({
                 onMounted: () => {
                     if (multiple.value && !Array.isArray(inputValue.value)) {
                         inputValue.value = [];
-                    } else if (!multiple.value && (inputValue.value !== null || typeof inputValue.value !== 'object')) {
+                    } else if (!multiple.value && Array.isArray(inputValue.value)) {
                         inputValue.value = null;
                     }
                 },
@@ -184,9 +194,10 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedStyleSet,
-            fileInputRef,
             inputValue,
             fileLabel,
+            fileInputRef,
+            openFileDialog,
             updateValue,
             hasValue,
             computedMessages,
