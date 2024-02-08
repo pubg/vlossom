@@ -5,7 +5,7 @@ import VsTabs from '../VsTabs.vue';
 function mountComponent() {
     return mount(VsTabs);
 }
-describe('VsTabs', () => {
+describe('vs-tabs', () => {
     describe('props & slots', () => {
         it('props tabs에 string 배열을 전달하면, 그 길이만큼 tab이 생기고 배열의 각 요소가 tab의 이름으로 지정된다', () => {
             // given
@@ -68,7 +68,7 @@ describe('VsTabs', () => {
             });
 
             // when
-            await wrapper.findAll('.tab')[1].trigger('click');
+            await wrapper.findAll('li[role=tab]')[1].trigger('click');
 
             // then
             expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
@@ -87,8 +87,9 @@ describe('VsTabs', () => {
             });
 
             // when
-            await wrapper.findAll('.tab')[1].trigger('click');
-            await wrapper.findAll('li')[0].trigger('click');
+            const tabs = wrapper.findAll('li[role=tab]');
+            await tabs[1].trigger('click');
+            await tabs[0].trigger('click');
 
             // then
             expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
