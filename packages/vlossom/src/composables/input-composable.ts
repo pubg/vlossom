@@ -171,12 +171,12 @@ export function useInput<T = unknown>(
 
     onMounted(() => {
         inputValue.value = modelValue.value;
-        checkMessages();
-        checkRules();
-
         if (options?.callbacks?.onMounted) {
             options.callbacks?.onMounted();
         }
+        checkMessages();
+        checkRules();
+
         nextTick(() => {
             isInitialized.value = true;
         });

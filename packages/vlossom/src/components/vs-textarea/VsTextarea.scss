@@ -1,0 +1,30 @@
+@use '@/styles/mixin' as *;
+
+.vs-textarea {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    background-color: var(--vs-textarea-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-textarea-border, solid 1px var(--vs-comp-border-color));
+    border-radius: var(--vs-textarea-borderRadius, 0.4rem);
+    height: var(--vs-textarea-height, 10rem);
+
+    textarea {
+        width: 100%;
+        padding: 0.6rem;
+        border: none;
+        outline: none;
+        font-size: var(--vs-textarea-fontSize, 1rem);
+        background-color: transparent;
+        color: var(--vs-textarea-color, var(--vs-font-color));
+        resize: none;
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &:focus-within {
+        @include focus-shadow;
+    }
+}

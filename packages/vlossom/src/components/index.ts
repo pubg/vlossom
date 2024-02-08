@@ -58,6 +58,9 @@ export { default as VsSection } from './vs-section/VsSection.vue';
 export { type VsTabsStyleSet } from './vs-tabs/types';
 export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 
+export { type VsTextareaStyleSet } from './vs-textarea/types';
+export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
+
 export { type VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
 
@@ -91,6 +94,7 @@ declare module 'vue' {
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
         VsTabs: typeof import('./')['VsTabs'];
+        VsTextarea: typeof import('./')['VsTextarea'];
         VsThemeButton: typeof import('./')['VsThemeButton'];
         VsTooltip: typeof import('./')['VsTooltip'];
         VsValueTag: typeof import('./')['VsValueTag'];
