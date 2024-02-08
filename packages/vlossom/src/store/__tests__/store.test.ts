@@ -12,8 +12,22 @@ describe('vlossom store', () => {
 
         // then
         expect(result).toEqual({
+            theme: 'light',
             globalColorScheme: {},
             styleSets: {},
+        });
+    });
+
+    describe('theme', () => {
+        it('theme을 설정할 수 있다', () => {
+            // given
+            const store = new VsStore();
+
+            // when
+            store.setTheme('dark');
+
+            // then
+            expect(store.getStore().theme).toEqual('dark');
         });
     });
 
