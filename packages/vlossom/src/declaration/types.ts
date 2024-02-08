@@ -1,4 +1,5 @@
 import type {
+    VsBlockStyleSet,
     VsButtonStyleSet,
     VsCheckboxStyleSet,
     VsChipStyleSet,
@@ -19,7 +20,6 @@ import type {
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
-import { VsBlockStyleSet } from '@/components/vs-block/types';
 
 export type ColorScheme = (typeof COLORS)[number];
 
