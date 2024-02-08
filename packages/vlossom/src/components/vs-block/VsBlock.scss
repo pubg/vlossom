@@ -1,6 +1,6 @@
 $borderWidth: var(--vs-block-borderWidth, 1px);
 $borderStyle: var(--vs-block-borderStyle, solid);
-$borderColor: var(--vs-block-borderColor, var(--vs-block-headerColor, var(--vs-line-color)));
+$borderColor: var(--vs-block-borderColor, var(--vs-line-color));
 
 .vs-block {
     border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
