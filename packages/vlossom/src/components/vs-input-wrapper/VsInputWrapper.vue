@@ -1,6 +1,6 @@
 <template>
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
-        <label v-if="!noLabel" :for="id">
+        <label v-if="!noLabel" :for="id || undefined">
             <slot name="label">
                 <span class="vs-label">{{ label }}</span>
             </slot>
