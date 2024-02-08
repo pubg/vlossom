@@ -5,9 +5,53 @@ import type { VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
-        const { colorScheme = {}, styleSet = {} } = options || {};
+        const { colorScheme = {}, styleSet = {}, theme = 'light' } = options || {};
+
+        this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
+
+        if (options?.detectOSTheme) {
+            const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQueryList.addEventListener('change', (event) => {
+                this.theme = event.matches ? 'dark' : 'light';
+            });
+        }
+    }
+
+    private getDefaultTheme(options?: VlossomOptions) {
+        const savedTheme = localStorage.getItem('vlossom:theme');
+        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        if (savedTheme) {
+            return savedTheme;
+        } else if (options?.detectOSTheme && mediaQueryList.matches) {
+            return 'dark';
+        }
+
+        return '';
+    }
+
+    get theme() {
+        return store.getStore().theme;
+    }
+
+    set theme(value) {
+        store.setTheme(value);
+
+        localStorage.setItem('vlossom:theme', value);
+        document.body.classList.toggle('vs-dark', value === 'dark');
+    }
+
+    get globalColorScheme() {
+        return store.getStore().globalColorScheme;
+    }
+
+    get styleSets() {
+        return store.getStore().styleSets;
+    }
+
+    toggleTheme() {
+        this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
 }
 
@@ -36,8 +80,8 @@ function createVlossom(options?: VlossomOptions) {
     };
 }
 
-function getVlossom() {
+function useVlossom() {
     return vlossom;
 }
 
-export { createVlossom, getVlossom };
+export { createVlossom, useVlossom };

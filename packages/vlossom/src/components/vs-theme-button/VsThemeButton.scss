@@ -1,0 +1,39 @@
+$vs-theme-button-width: 2rem;
+$vs-theme-button-height: 2rem;
+
+.vs-theme-button {
+    position: relative;
+    min-width: $vs-theme-button-width;
+    min-height: $vs-theme-button-height;
+    width: var(--vs-theme-button-width, $vs-theme-button-width);
+    height: var(--vs-theme-button-height, $vs-theme-button-height);
+    border-radius: var(--vs-theme-button-borderRadius, 50%);
+    background-color: var(--vs-theme-button-backgroundColor, none);
+    transition: all 0.2s ease-out;
+
+    &:hover {
+        background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-area-hover-backgroundColor));
+    }
+
+    .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: $vs-theme-button-width;
+        min-height: $vs-theme-button-height;
+        width: var(--vs-theme-button-width, $vs-theme-button-width);
+        height: var(--vs-theme-button-height, $vs-theme-button-height);
+        opacity: 0;
+        transform: scale(0.4) rotate(270deg);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        color: var(--vs-theme-button-color, var(--vs-orange-500));
+
+        &.on {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+    }
+}

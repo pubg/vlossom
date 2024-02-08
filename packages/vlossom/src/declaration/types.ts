@@ -14,6 +14,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsTabsStyleSet,
+    VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
@@ -42,11 +43,13 @@ export interface StyleSet {
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
+    VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
 export interface VlossomStore {
+    theme: 'light' | 'dark';
     globalColorScheme: GlobalColorScheme;
     styleSets: StyleSet;
 }
@@ -56,6 +59,7 @@ export interface VlossomOptions {
     components?: VsComponent[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
+    detectOSTheme?: boolean;
 }
 
 export interface Breakpoints {
