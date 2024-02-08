@@ -4,7 +4,7 @@
         :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]"
         :style="computedStyleSet"
         :disabled="disabled"
-        :aria-label="loading ? 'loading' : ''"
+        :aria-label="loading ? 'loading' : undefined"
     >
         <span v-if="!loading" class="content">
             <slot />
