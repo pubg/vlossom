@@ -1,17 +1,18 @@
 <template>
     <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <ul>
-            <li v-for="(tab, index) in tabs" :key="tab">
-                <button
-                    type="button"
-                    :class="{ primary: selectedIdx === index }"
-                    :disabled="isDisabled(index)"
-                    @click.stop="selectTab(index)"
-                >
-                    <slot :name="tab">
-                        {{ tab }}
-                    </slot>
-                </button>
+        <ul role="tablist">
+            <li
+                v-for="(tab, index) in tabs"
+                :key="tab"
+                :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
+                role="tab"
+                :aria-selected="isSelected(index)"
+                :tabindex="isSelected(index) ? 0 : -1"
+                @click.stop="selectTab(index)"
+            >
+                <slot :name="tab">
+                    {{ tab }}
+                </slot>
             </li>
         </ul>
     </div>
@@ -56,6 +57,10 @@ export default defineComponent({
             'mobile-full': mobileFull.value,
         }));
 
+        function isSelected(index: number) {
+            return selectedIdx.value === index;
+        }
+
         function isDisabled(index: number) {
             return disabled.value?.includes(index);
         }
@@ -94,6 +99,7 @@ export default defineComponent({
             computedColorScheme,
             computedStyleSet,
             classObj,
+            isSelected,
             isDisabled,
             selectedIdx,
             selectTab,

@@ -1,3 +1,5 @@
+$fontWeight: var(--vs-tabs-fontWeight, 400);
+
 .vs-tabs {
     overflow: auto hidden;
     border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
@@ -7,29 +9,24 @@
         display: inline-flex;
         list-style: none;
 
-        button {
+        .tab {
             align-items: center;
             background: transparent;
+            color: var(--vs-tabs-color, var(--vs-comp-color));
+            cursor: pointer;
             display: inline-flex;
-            height: var(--vs-tabs-height, 1.6rem);
+            font-size: var(--vs-tabs-fontSize, 1rem);
+            font-weight: $fontWeight;
+            height: var(--vs-tabs-height, auto);
             justify-content: center;
             overflow: hidden;
-            padding: var(--vs-tabs-padding, 0.8rem 1rem);
+            padding: var(--vs-tabs-padding, 0.2rem 1rem);
+            text-align: center;
             transition: color 0.1s;
             width: var(--vs-tabs-tabWidth, auto);
 
             &:not(:last-child) {
                 margin-right: var(--vs-tabs-gap, 0.3rem);
-            }
-
-            :deep(span) {
-                color: var(--vs-tabs-color, var(--vs-comp-color));
-                font-size: var(--vs-tabs-fontSize, 1rem);
-                font-weight: var(--vs-tabs-fontWeight, 400);
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                word-break: break-word;
             }
 
             &:hover {
@@ -38,19 +35,18 @@
 
             &.primary {
                 border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));
-                font-weight: calc(var(--vs-tabs-fontWeight, 400) + 200);
+                font-weight: calc($fontWeight + 200);
             }
-        }
 
-        button[disabled] {
-            opacity: 0.4;
+            &.disabled {
+                opacity: 0.4;
+            }
         }
     }
 
     &.dense {
-        button {
-            height: calc(var(--vs-tabs-height, 1.6rem) - 0.3rem);
-            padding: 0;
+        .tab {
+            padding: var(--vs-tabs-padding, 0.2rem);
         }
     }
 }
@@ -62,11 +58,7 @@
             flex-direction: column;
             width: 100%;
 
-            li {
-                width: 100%;
-            }
-
-            button {
+            .tab {
                 width: 100%;
 
                 &:not(:last-child) {
