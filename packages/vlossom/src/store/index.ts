@@ -4,12 +4,17 @@ import type { GlobalColorScheme, StyleSet, VlossomStore, VsComponent } from '@/d
 
 export class VsStore {
     private store: VlossomStore = reactive({
+        theme: 'light',
         globalColorScheme: {},
         styleSets: {},
     });
 
     getStore() {
         return this.store;
+    }
+
+    setTheme(theme: 'light' | 'dark') {
+        this.store.theme = theme;
     }
 
     setGlobalColorScheme(colorScheme: GlobalColorScheme) {

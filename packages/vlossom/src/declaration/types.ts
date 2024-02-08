@@ -49,12 +49,9 @@ export interface StyleSet {
 }
 
 export interface VlossomStore {
+    theme: 'light' | 'dark';
     globalColorScheme: GlobalColorScheme;
     styleSets: StyleSet;
-}
-
-export interface VlossomState {
-    theme: 'light' | 'dark';
 }
 
 export interface VlossomOptions {

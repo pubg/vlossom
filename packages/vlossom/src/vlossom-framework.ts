@@ -1,20 +1,15 @@
 import { store } from './store';
-import { shallowReactive, type App } from 'vue';
+import { type App } from 'vue';
 
-import type { VlossomState, VlossomOptions, VsComponent } from '@/declaration';
+import type { VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
-    private _state = shallowReactive<VlossomState>({
-        theme: 'light',
-    });
-
     constructor(options?: VlossomOptions) {
         const { colorScheme = {}, styleSet = {}, theme = 'light' } = options || {};
 
+        this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
-
-        this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
     }
 
     private getDefaultTheme(options?: VlossomOptions) {
@@ -30,17 +25,26 @@ export class Vlossom {
     }
 
     get theme() {
-        return this._state.theme;
+        return store.getStore().theme;
     }
 
     set theme(value) {
-        this._state.theme = value;
+        store.setTheme(value);
+
         localStorage.setItem('vlossom:theme', value);
         document.body.classList.toggle('vs-dark', value === 'dark');
     }
 
     toggleTheme() {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    get globalColorScheme() {
+        return store.getStore().globalColorScheme;
+    }
+
+    get styleSets() {
+        return store.getStore().styleSets;
     }
 }
 
