@@ -27,10 +27,6 @@ $borderColor: var(--vs-block-borderColor, var(--vs-block-headerColor, var(--vs-l
     }
 }
 
-.vs-block + .vs-block {
-    margin-top: 1.5rem;
-}
-
 @media screen and (max-width: 992px) {
     .vn-block {
         .block-header {
