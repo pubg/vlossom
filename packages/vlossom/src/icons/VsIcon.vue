@@ -14,7 +14,7 @@ export default defineComponent({
         },
         size: {
             type: [Number, String],
-            default: 0, // 0 means inherit from the parent
+            default: 0,
         },
     },
     setup(props) {
