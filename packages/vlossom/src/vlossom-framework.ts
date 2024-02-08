@@ -1,6 +1,6 @@
 import { store } from './store';
-import { type App } from 'vue';
 
+import type { App } from 'vue';
 import type { VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
@@ -35,16 +35,16 @@ export class Vlossom {
         document.body.classList.toggle('vs-dark', value === 'dark');
     }
 
-    toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark';
-    }
-
     get globalColorScheme() {
         return store.getStore().globalColorScheme;
     }
 
     get styleSets() {
         return store.getStore().styleSets;
+    }
+
+    toggleTheme() {
+        this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
 }
 
