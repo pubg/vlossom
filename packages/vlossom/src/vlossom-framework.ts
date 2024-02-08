@@ -10,6 +10,13 @@ export class Vlossom {
         this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
         store.setGlobalColorScheme(colorScheme);
         store.registerStyleSet(styleSet);
+
+        if (options?.detectOSTheme) {
+            const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQueryList.addEventListener('change', (event) => {
+                this.theme = event.matches ? 'dark' : 'light';
+            });
+        }
     }
 
     private getDefaultTheme(options?: VlossomOptions) {
