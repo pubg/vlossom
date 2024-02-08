@@ -24,7 +24,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
-import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
 
 const name = VsComponent.VsCheckbox;
