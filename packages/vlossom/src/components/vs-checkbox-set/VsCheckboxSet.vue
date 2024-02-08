@@ -14,13 +14,15 @@
 
             <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
                 <vs-checkbox-node
-                    v-for="option in options"
+                    v-for="(option, index) in options"
                     :key="getOptionValue(option)"
+                    :id="`${id}-${optionIds[index]}`"
                     :colorScheme="computedColorScheme"
                     :styleSet="checkboxStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :readonly="readonly"
+                    :required="required"
                     :name="name"
                     :value="getOptionValue(option)"
                     :check-label="getOptionLabel(option)"
@@ -127,7 +129,7 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear } = useInput(inputValue, modelValue, context, label, {
+        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
@@ -166,7 +168,11 @@ export default defineComponent({
             emit('blur', option);
         }
 
+        const optionIds = computed(() => options.value.map(() => utils.string.createID()));
+
         return {
+            id,
+            optionIds,
             classObj,
             computedColorScheme,
             checkboxStyleSet,

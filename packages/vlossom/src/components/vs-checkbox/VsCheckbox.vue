@@ -1,6 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
+            :id="checkLabel ? '' : id"
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
@@ -13,12 +14,14 @@
             </template>
 
             <vs-checkbox-node
+                :id="id"
                 :colorScheme="computedColorScheme"
                 :styleSet="computedStyleSet"
                 :checked="isChecked"
                 :check-label="checkLabel"
                 :disabled="disabled"
                 :readonly="readonly"
+                :required="required"
                 :name="name"
                 :value="trueValue"
                 @toggle="onToggle"
@@ -103,7 +106,7 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear } = useInput(inputValue, modelValue, context, label, {
+        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
@@ -153,6 +156,7 @@ export default defineComponent({
         }
 
         return {
+            id,
             isChecked,
             computedColorScheme,
             computedStyleSet,
