@@ -2,14 +2,14 @@ import { placement, size } from '@/storybook/args';
 import { userEvent, within } from '@storybook/testing-library';
 import { ref } from 'vue';
 import VsDrawer from './../VsDrawer.vue';
-import CloseIcon from '@/icons/CloseIcon.vue';
+import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const DrawerCloseButton = {
-    components: { CloseIcon },
+    components: { VsIcon },
     template: `
-        <close-icon aria-label="close" style="cursor: pointer" />
+        <vs-icon icon="close" style="cursor: pointer" />
     `,
 };
 

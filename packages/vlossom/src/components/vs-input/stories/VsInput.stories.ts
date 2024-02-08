@@ -6,7 +6,7 @@ import { InputType } from '../types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 import { UIState } from '@/declaration';
-import { SearchIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -154,14 +154,14 @@ export const Prepend: Story = {
 
 export const Append: Story = {
     render: (args: any) => ({
-        components: { VsInput, SearchIcon },
+        components: { VsInput, VsIcon },
         setup() {
             return { args };
         },
         template: `
             <vs-input v-bind="args">
                 <template #append-icon>
-                    <search-icon aria-label="search" />
+                    <vs-icon icon="check" />
                 </template>
             </vs-input>
         `,

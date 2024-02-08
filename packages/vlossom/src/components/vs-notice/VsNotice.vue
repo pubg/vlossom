@@ -11,8 +11,8 @@
                 <slot />
             </p>
         </div>
-        <button type="button" class="vs-notice-close" @click.stop="closeNotice()">
-            <close-icon aria-label="close" size="20" />
+        <button type="button" class="vs-notice-close" @click.stop="closeNotice()" aria-label="close">
+            <vs-icon icon="close" size="20" />
         </button>
     </div>
 </template>
@@ -21,7 +21,7 @@
 import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import { CloseIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 import VsDivider from '../vs-divider/VsDivider.vue';
 
 import type { VsNoticeStyleSet } from './types';
@@ -29,7 +29,7 @@ import type { VsNoticeStyleSet } from './types';
 const name = VsComponent.VsNotice;
 export default defineComponent({
     name,
-    components: { VsDivider, CloseIcon },
+    components: { VsDivider, VsIcon },
     props: {
         title: { type: String, default: 'Notice' },
         colorScheme: { type: String as PropType<ColorScheme> },

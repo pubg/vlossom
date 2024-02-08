@@ -2,7 +2,7 @@
     <div :class="['vs-checkbox', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
         <div class="checkbox-container">
             <span class="checkbox">
-                <check-icon class="check-icon" />
+                <vs-icon class="check-icon" icon="check" />
             </span>
             <input
                 type="checkbox"
@@ -24,12 +24,12 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
-import { CheckIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 
 const name = VsComponent.VsCheckbox;
 export default defineComponent({
     name,
-    components: { CheckIcon },
+    components: { VsIcon },
     props: {
         id: { type: String, required: true },
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },

@@ -12,9 +12,10 @@
             v-if="closable"
             type="button"
             :class="['vs-chip-icon', 'vs-chip-close', { primary }]"
+            aria-label="close"
             @click.stop="$emit('close')"
         >
-            <close-icon aria-label="close" class="close-icon" />
+            <vs-icon class="close-icon" icon="close" />
         </button>
     </div>
 </template>
@@ -23,7 +24,7 @@
 import { PropType, computed, defineComponent, toRefs, useAttrs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import { CloseIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 
 import type { VsChipStyleSet } from './types';
 
@@ -34,7 +35,7 @@ interface SetupContextAttrs {
 const name = VsComponent.VsChip;
 export default defineComponent({
     name,
-    components: { CloseIcon },
+    components: { VsIcon },
     props: {
         closable: { type: Boolean, default: false },
         colorScheme: { type: String as PropType<ColorScheme> },

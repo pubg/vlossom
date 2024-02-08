@@ -1,7 +1,7 @@
 import { ref, type Ref } from 'vue';
 import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
 import VsChip from './../VsChip.vue';
-import { CheckIcon, PersonIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 import { userEvent, within } from '@storybook/testing-library';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -130,19 +130,19 @@ export const PreDefinedStyleSet: Story = {
 
 export const LeadingIcon: Story = {
     render: () => ({
-        components: { VsChip, CheckIcon, PersonIcon },
+        components: { VsChip, VsIcon },
         template: `
             <div>
 				<vs-chip>
 					<template #leading-icon>
-						<check-icon aria-label="check" width="16px" height="16px"/>
+						<vs-icon icon="check" size="16px"/>
 					</template>
 					Chip
 				</vs-chip>
 
 				<vs-chip>
 					<template #leading-icon>
-						<person-icon aria-label="person" width="16px" height="16px"/>
+						<vs-icon icon="close" size="16px" />
 					</template>
 					Chip
 				</vs-chip>
@@ -153,7 +153,7 @@ export const LeadingIcon: Story = {
 
 export const ClickEventWithPrimary: Story = {
     render: () => ({
-        components: { VsChip, CheckIcon },
+        components: { VsChip, VsIcon },
         setup() {
             const selected: Ref<string[]> = ref([]);
             function onClick(color: string) {
@@ -175,7 +175,7 @@ export const ClickEventWithPrimary: Story = {
                 ${getColorSchemeTemplate(`
                     <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')">
                         <template #leading-icon>
-                            <check-icon v-if="isSelected('{{ color }}')" aria-label="check" width="16px" height="16px"/>
+                            <vs-icon v-if="isSelected('{{ color }}')" icon="check" size="16px" />
                         </template>
                         {{color}}
                     </vs-chip>
