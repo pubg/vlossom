@@ -49,7 +49,9 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-block v-bind="args" color-scheme="{{ color }}">This is {{ color }} block contents</vs-block>
+                    <vs-block v-bind="args" color-scheme="{{ color }}" style="margin-bottom:1rem">
+						This is {{ color }} block contents
+					</vs-block>
 			   `)}
             </div>
         `,
@@ -68,7 +70,7 @@ export const ColorSchemeWithHeader: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-block v-bind="args" color-scheme="{{ color }}">
+                    <vs-block v-bind="args" color-scheme="{{ color }}" style="margin-bottom:1rem">
 						<template #title>This is {{ color }} block title</template>
 						This is {{ color }} block contents
 					</vs-block>
