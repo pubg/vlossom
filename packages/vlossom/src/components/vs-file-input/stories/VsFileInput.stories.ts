@@ -52,6 +52,13 @@ export const ColorScheme: Story = {
     },
 };
 
+export const Accept: Story = {
+    args: {
+        accept: '.png',
+        placeholder: 'upload png image here...',
+    },
+};
+
 export const Dense: Story = {
     args: {
         dense: true,
@@ -76,6 +83,12 @@ export const Label: Story = {
 export const Messages: Story = {
     args: {
         messages: [{ state: UIState.Success, message: 'This is success message' }],
+    },
+};
+
+export const multiple: Story = {
+    args: {
+        multiple: true,
     },
 };
 
@@ -106,8 +119,8 @@ export const Width: Story = {
         },
         template: `
             <vs-container>
-                <vs-input v-bind="args" />
-                <vs-input v-bind="args" />
+                <vs-file-input v-bind="args" />
+                <vs-file-input v-bind="args" />
             </vs-container>
         `,
     }),
@@ -124,8 +137,8 @@ export const Grid: Story = {
         },
         template: `
             <vs-container>
-                <vs-input v-bind="args" />
-                <vs-input v-bind="args" />
+                <vs-file-input v-bind="args" />
+                <vs-file-input v-bind="args" />
             </vs-container>
         `,
     }),

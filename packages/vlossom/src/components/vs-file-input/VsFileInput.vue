@@ -20,6 +20,18 @@
                 @dragleave="dragging = false"
                 @drop="dragging = false"
             >
+                <div class="file-input-container">
+                    <div class="attach-file-icon">
+                        <attach-file-icon :size="dense ? 16 : 20" />
+                    </div>
+
+                    <div class="label-box">
+                        <span v-if="dragging">{{ dropPlaceholder }}</span>
+                        <span v-else-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
+                        <span v-else-if="hasValue" class="file-label">{{ fileLabel }}</span>
+                    </div>
+                </div>
+
                 <input
                     ref="fileInputRef"
                     :id="id"
@@ -32,18 +44,6 @@
                     :accept="accept"
                     @change="updateValue($event)"
                 />
-
-                <div class="file-input-container">
-                    <div class="attach-file-icon">
-                        <attach-file-icon :size="dense ? 16 : 20" />
-                    </div>
-
-                    <div class="label-box">
-                        <span v-if="dragging">{{ dropPlaceholder }}</span>
-                        <span v-else-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
-                        <span v-else-if="hasValue" class="file-label">{{ fileLabel }}</span>
-                    </div>
-                </div>
 
                 <button
                     v-if="!noClear && hasValue && !readonly && !disabled"
