@@ -75,6 +75,12 @@ export const Disabled: Story = {
     },
 };
 
+export const Label: Story = {
+    args: {
+        label: 'Custom Label',
+    },
+};
+
 export const Messages: Story = {
     args: {
         messages: [{ state: UIState.Success, message: 'This is success message' }],
