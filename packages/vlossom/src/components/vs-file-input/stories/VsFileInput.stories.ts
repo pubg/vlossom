@@ -19,6 +19,7 @@ const meta: Meta<typeof VsFileInput> = {
     tags: ['autodocs'],
     args: {
         placeholder: 'this is placeholder',
+        label: 'File Input',
     },
     argTypes: {
         colorScheme,
@@ -71,12 +72,6 @@ export const Disabled: Story = {
     },
     parameters: {
         chromatic: chromaticParameters.theme,
-    },
-};
-
-export const Label: Story = {
-    args: {
-        label: 'Label',
     },
 };
 

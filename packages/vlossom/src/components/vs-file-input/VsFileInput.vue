@@ -22,7 +22,7 @@
             >
                 <div class="file-input-container">
                     <div class="attach-file-icon">
-                        <attach-file-icon :size="dense ? 16 : 20" />
+                        <vs-icon icon="attachFile" :size="dense ? 16 : 20" />
                     </div>
 
                     <div class="label-box">
@@ -50,7 +50,7 @@
                     class="clear-button"
                     @click.stop="onClear()"
                 >
-                    <close-icon :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 16 : 20" />
                 </button>
             </div>
 
@@ -67,7 +67,7 @@ import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInpu
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { AttachFileIcon, CloseIcon } from '@/icons';
+import { VsIcon } from '@/icons';
 
 import type { VsFileInputStyleSet } from './types';
 
@@ -77,7 +77,7 @@ const name = VsComponent.VsFileInput;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, AttachFileIcon, CloseIcon },
+    components: { VsInputWrapper, VsWrapper, VsIcon },
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
