@@ -1,6 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
+            :id="id"
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
@@ -12,21 +13,7 @@
                 <slot name="label" />
             </template>
 
-            <div
-                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
-                :style="computedStyleSet"
-                tabindex="0"
-                @click="openFileDialog()"
-            >
-                <div class="attach-file-icon">
-                    <attach-file-icon :size="dense ? 16 : 20" />
-                </div>
-
-                <div class="label-box">
-                    <span v-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
-                    <span v-if="hasValue" class="file-label">{{ fileLabel }}</span>
-                </div>
-
+            <div :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
                 <input
                     ref="fileInputRef"
                     :id="id"
@@ -39,6 +26,17 @@
                     :accept="accept"
                     @change="updateValue($event)"
                 />
+
+                <div class="file-input-container">
+                    <div class="attach-file-icon">
+                        <attach-file-icon :size="dense ? 16 : 20" />
+                    </div>
+
+                    <div class="label-box">
+                        <span v-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
+                        <span v-if="hasValue" class="file-label">{{ fileLabel }}</span>
+                    </div>
+                </div>
 
                 <button
                     v-if="!noClear && hasValue && !readonly && !disabled"
