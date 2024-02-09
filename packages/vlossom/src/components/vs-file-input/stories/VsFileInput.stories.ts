@@ -141,6 +141,7 @@ export const StyleSet: Story = {
             backgroundColor: '#ffe0b2',
             color: '#d84315',
             clearButtonColor: '#FC6736',
+            dragBackgroundColor: '#ffcc80',
             fontSize: '1.3rem',
             prependBackgroundColor: '#ef6c00',
         },

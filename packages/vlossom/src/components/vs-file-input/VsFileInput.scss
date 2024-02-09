@@ -72,18 +72,20 @@
         }
     }
 
+    &.dense {
+        height: var(--vs-file-input-height, 2.2rem);
+        font-size: var(--vs-file-input-fontSize, 0.9rem);
+    }
+
     &.disabled {
         @include disabled;
     }
 
+    &.dragging {
+        background-color: var(--vs-file-input-dragBackgroundColor, var(--vs-light-backgroundColor));
+    }
+
     &.readonly {
         pointer-events: none;
-    }
-}
-
-.vs-file-input {
-    &.dense {
-        height: var(--vs-file-input-height, 2.2rem);
-        font-size: var(--vs-file-input-fontSize, 0.9rem);
     }
 }

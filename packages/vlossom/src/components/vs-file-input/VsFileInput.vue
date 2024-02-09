@@ -13,7 +13,13 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+            <div
+                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
+                :style="computedStyleSet"
+                @dragenter="dragging = true"
+                @dragleave="dragging = false"
+                @drop="dragging = false"
+            >
                 <input
                     ref="fileInputRef"
                     :id="id"
@@ -33,8 +39,9 @@
                     </div>
 
                     <div class="label-box">
-                        <span v-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
-                        <span v-if="hasValue" class="file-label">{{ fileLabel }}</span>
+                        <span v-if="dragging">{{ dropPlaceholder }}</span>
+                        <span v-else-if="placeholder && !hasValue" class="placeholder">{{ placeholder }}</span>
+                        <span v-else-if="hasValue" class="file-label">{{ fileLabel }}</span>
                     </div>
                 </div>
 
@@ -64,7 +71,7 @@ import { AttachFileIcon, CloseIcon } from '@/icons';
 
 import type { VsFileInputStyleSet } from './types';
 
-export type InputValue = File | File[] | null;
+export type InputValueType = File | File[] | null;
 
 const name = VsComponent.VsFileInput;
 
@@ -72,15 +79,16 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, AttachFileIcon, CloseIcon },
     props: {
-        ...getInputProps<InputValue, []>(),
+        ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet>, default: '' },
         accept: { type: String, default: '' },
         dense: { type: Boolean, default: false },
+        dropPlaceholder: { type: String, default: 'Drop file here...' },
         multiple: { type: Boolean, default: false },
         // v-model
-        modelValue: { type: [Object, Array] as PropType<InputValue>, default: null },
+        modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change'],
     expose: ['clear', 'validate'],
@@ -106,6 +114,7 @@ export default defineComponent({
         const classObj = computed(() => ({
             dense: dense.value,
             disabled: disabled.value,
+            dragging: dragging.value,
             readonly: readonly.value,
         }));
 
@@ -187,6 +196,8 @@ export default defineComponent({
             }
         }
 
+        const dragging = ref(false);
+
         return {
             id,
             classObj,
@@ -203,6 +214,7 @@ export default defineComponent({
             onClear,
             clear,
             validate,
+            dragging,
         };
     },
 });
