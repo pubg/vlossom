@@ -13,23 +13,23 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-                <textarea
-                    ref="textareaRef"
-                    :id="id"
-                    :value="inputValue"
-                    :name="name"
-                    :disabled="disabled"
-                    :readonly="readonly"
-                    :required="required"
-                    :placeholder="placeholder"
-                    @input="updateValue($event)"
-                    @focus="onFocus"
-                    @blur="onBlur"
-                    @keyup.enter="onEnter"
-                    @change.stop
-                />
-            </div>
+            <textarea
+                ref="textareaRef"
+                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }]"
+                :style="computedStyleSet"
+                :id="id"
+                :value="inputValue"
+                :name="name"
+                :disabled="disabled"
+                :readonly="readonly"
+                :required="required"
+                :placeholder="placeholder"
+                @input="updateValue($event)"
+                @focus="onFocus"
+                @blur="onBlur"
+                @keyup.enter="onEnter"
+                @change.stop
+            />
 
             <template #messages v-if="!noMsg">
                 <slot name="messages" />
