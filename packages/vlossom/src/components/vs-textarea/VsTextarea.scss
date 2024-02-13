@@ -4,22 +4,16 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    background-color: var(--vs-textarea-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-textarea-border, solid 1px var(--vs-comp-border-color));
-    border-radius: var(--vs-textarea-borderRadius, 0.4rem);
     width: 100%;
     height: var(--vs-textarea-height, 10rem);
-
-    textarea {
-        width: 100%;
-        padding: 0.6rem;
-        border: none;
-        outline: none;
-        font-size: var(--vs-textarea-fontSize, 1rem);
-        background-color: transparent;
-        color: var(--vs-textarea-color, var(--vs-font-color));
-        resize: vertical;
-    }
+    background-color: var(--vs-textarea-backgroundColor, var(--vs-plain-backgroundColor));
+    color: var(--vs-textarea-color, var(--vs-font-color));
+    font-size: var(--vs-textarea-fontSize, 1rem);
+    border: var(--vs-textarea-border, solid 1px var(--vs-comp-border-color));
+    border-radius: var(--vs-textarea-borderRadius, 0.4rem);
+    padding: 0.6rem;
+    outline: none;
+    resize: vertical;
 
     &.disabled {
         @include disabled;
