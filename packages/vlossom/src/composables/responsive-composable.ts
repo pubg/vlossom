@@ -24,16 +24,14 @@ export function useResponsive(width: Ref<string | Breakpoints | null>, grid: Ref
             classes.push(...widthClasses);
         }
 
-        if (grid.value) {
-            const { sm, md, lg, xl } = grid.value;
-            const gridClasses = [
-                ...(sm ? ['vs-grid-sm'] : []),
-                ...(md ? ['vs-grid-md'] : []),
-                ...(lg ? ['vs-grid-lg'] : []),
-                ...(xl ? ['vs-grid-xl'] : []),
-            ];
-            classes.push(...gridClasses);
-        }
+        const { sm, md, lg, xl } = grid.value;
+        const gridClasses = [
+            ...(sm ? ['vs-grid-sm'] : []),
+            ...(md ? ['vs-grid-md'] : []),
+            ...(lg ? ['vs-grid-lg'] : []),
+            ...(xl ? ['vs-grid-xl'] : []),
+        ];
+        classes.push(...gridClasses);
 
         return classes;
     });
@@ -55,17 +53,15 @@ export function useResponsive(width: Ref<string | Breakpoints | null>, grid: Ref
             styles['width'] = width.value;
         }
 
-        if (grid.value) {
-            const { base, sm, md, lg, xl } = grid.value;
-            const gridStyles = {
-                ...(base && { ['--vs-grid-base']: base?.toString() }),
-                ...(sm && { ['--vs-grid-sm']: sm?.toString() }),
-                ...(md && { ['--vs-grid-md']: md?.toString() }),
-                ...(lg && { ['--vs-grid-lg']: lg?.toString() }),
-                ...(xl && { ['--vs-grid-xl']: xl?.toString() }),
-            };
-            Object.assign(styles, gridStyles);
-        }
+        const { base, sm, md, lg, xl } = grid.value;
+        const gridStyles = {
+            ...(base && { ['--vs-grid-base']: base?.toString() }),
+            ...(sm && { ['--vs-grid-sm']: sm?.toString() }),
+            ...(md && { ['--vs-grid-md']: md?.toString() }),
+            ...(lg && { ['--vs-grid-lg']: lg?.toString() }),
+            ...(xl && { ['--vs-grid-xl']: xl?.toString() }),
+        };
+        Object.assign(styles, gridStyles);
 
         return styles;
     });
