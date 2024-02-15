@@ -142,19 +142,13 @@ export default defineComponent({
                 : firstFileName;
         });
 
-        const fileInputRef = ref<HTMLInputElement | null>(null);
-
-        function openFileDialog() {
-            if (fileInputRef.value) {
-                fileInputRef.value.click();
-            }
-        }
-
         function requiredCheck() {
             return required.value && !hasValue.value ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
+
+        const fileInputRef = ref<HTMLInputElement | null>(null);
 
         function onClear() {
             if (fileInputRef.value) {
@@ -208,7 +202,6 @@ export default defineComponent({
             inputValue,
             fileLabel,
             fileInputRef,
-            openFileDialog,
             updateValue,
             hasValue,
             computedMessages,
