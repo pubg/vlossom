@@ -1,7 +1,7 @@
 @import '@/styles/mixin.scss';
 
-@include responsive_width;
+@include responsive;
 
 .vs-wrapper {
-    display: inline-block;
+    position: relative;
 }
