@@ -1,3 +1,5 @@
+export type InputValueType = string | number;
+
 export interface VsInputStyleSet {
     appendBackgroundColor?: string;
     appendColor?: string;

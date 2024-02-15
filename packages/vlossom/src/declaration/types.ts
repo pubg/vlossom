@@ -14,6 +14,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsTabsStyleSet,
+    VsTextareaStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
@@ -43,6 +44,7 @@ export interface StyleSet {
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
+    VsTextarea?: { [key: string]: VsTextareaStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
@@ -86,6 +88,12 @@ export interface InputComponentOptions<T = unknown> {
         onMounted?: () => void;
         onClear?: () => void;
     };
+}
+
+export interface StringModifiers {
+    capitalize?: boolean;
+    lower?: boolean;
+    upper?: boolean;
 }
 
 export interface VsFormProvide {

@@ -69,24 +69,29 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import {
+    useColorScheme,
+    useStyleSet,
+    getResponsiveProps,
+    getInputProps,
+    useInput,
+    useStringModifier,
+} from '@/composables';
+import { VsComponent, type ColorScheme, StringModifiers } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { InputType } from './types';
 
-import type { VsInputStyleSet } from './types';
-
-export type InputValue = string | number;
+import type { InputValueType, VsInputStyleSet } from './types';
 
 const name = VsComponent.VsInput;
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsIcon },
     props: {
-        ...getInputProps<InputValue, []>(),
+        ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
@@ -97,7 +102,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: [String, Number], default: '' },
         modelModifiers: {
-            type: Object as PropType<{ capitalize?: boolean; lower?: boolean; upper?: boolean }>,
+            type: Object as PropType<StringModifiers>,
             default: () => ({}),
         },
     },
@@ -132,16 +137,19 @@ export default defineComponent({
 
         const { slots, emit } = context;
 
+        const inputValue: Ref<InputValueType> = ref(modelValue.value);
+
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
+        const { modifyStringValue } = useStringModifier(modelModifiers);
+        const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
+
         const classObj = computed(() => ({
             dense: dense.value,
             disabled: disabled.value,
         }));
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
-
-        const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
-
-        function convertValue(v: InputValue | null | undefined): InputValue {
+        function convertValue(v: InputValueType | null | undefined): InputValueType {
             if (!v) {
                 return type.value === InputType.Text ? '' : 0;
             }
@@ -152,10 +160,6 @@ export default defineComponent({
                 return Number(v);
             }
         }
-
-        const inputValue: Ref<InputValue> = ref(modelValue.value);
-
-        const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
@@ -180,18 +184,8 @@ export default defineComponent({
             const targetValue = target.value || '';
             let converted = convertValue(targetValue);
 
-            if (typeof converted === 'string' && Object.keys(modelModifiers.value).length > 0) {
-                if (modelModifiers.value.capitalize) {
-                    converted = converted.charAt(0).toUpperCase() + converted.slice(1);
-                }
-
-                if (modelModifiers.value.lower) {
-                    converted = converted.toLowerCase();
-                }
-
-                if (modelModifiers.value.upper) {
-                    converted = converted.toUpperCase();
-                }
+            if (typeof converted === 'string') {
+                converted = modifyStringValue(converted);
             }
 
             inputValue.value = converted;

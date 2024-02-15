@@ -16,6 +16,7 @@ import type {
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsTabsStyleSet,
+    VsTextareaStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
@@ -160,6 +161,11 @@ const vsTabs: VsTabsStyleSet = {
     tabWidth: '400px',
 };
 
+const vsTextarea: VsTextareaStyleSet = {
+    border: 'solid 1px #1e88e5',
+    color: '#1e88e5',
+};
+
 const vsTooltip: VsTooltipStyleSet = {
     arrowColor: '#ffd1d1',
     arrowSize: '0.5rem',
@@ -204,6 +210,7 @@ export const styleSet: StyleSet = {
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
     VsTabs: { myStyleSet: vsTabs },
+    VsTextarea: { myStyleSet: vsTextarea },
     VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
