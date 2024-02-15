@@ -7,7 +7,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
-            group
+            group-label
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />

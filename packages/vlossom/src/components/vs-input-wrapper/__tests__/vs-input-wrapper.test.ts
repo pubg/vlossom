@@ -59,13 +59,13 @@ describe('vs-input-wrapper', () => {
             });
         });
 
-        describe('group', () => {
+        describe('group-label', () => {
             it('label을 설정할 수 있다', () => {
                 // given
                 const wrapper = mount(VsInputWrapper, {
                     props: {
                         label: 'My Group',
-                        group: true,
+                        groupLabel: true,
                     },
                 });
 
@@ -80,7 +80,7 @@ describe('vs-input-wrapper', () => {
                 // given
                 const wrapper = mount(VsInputWrapper, {
                     props: {
-                        group: true,
+                        groupLabel: true,
                     },
                 });
 
@@ -97,7 +97,7 @@ describe('vs-input-wrapper', () => {
                 const wrapper = mount(VsInputWrapper, {
                     props: {
                         noLabel: true,
-                        group: true,
+                        groupLabel: true,
                     },
                 });
 
@@ -111,7 +111,7 @@ describe('vs-input-wrapper', () => {
                     props: {
                         label: 'My Label',
                         required: true,
-                        group: true,
+                        groupLabel: true,
                     },
                 });
 
