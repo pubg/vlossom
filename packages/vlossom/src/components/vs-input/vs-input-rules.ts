@@ -1,5 +1,4 @@
 import { Ref } from 'vue';
-import {} from './VsInput.vue';
 import { InputType, InputValueType } from './types';
 
 export function useVsInputRules(

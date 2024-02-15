@@ -68,8 +68,6 @@ describe('vs-textarea', () => {
 
             // when
             await nextTick();
-            await nextTick();
-            await nextTick();
 
             // then
             expect(wrapper.find('textarea').element.value).toBe('');
