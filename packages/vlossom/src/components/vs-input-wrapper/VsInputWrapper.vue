@@ -17,11 +17,7 @@
 
         <slot name="messages">
             <div class="vs-messages" v-if="!noMsg">
-                <vs-message
-                    v-for="(message, index) in messages"
-                    :key="`${index}-${message.message}`"
-                    :message="message"
-                />
+                <vs-message v-for="(message, index) in messages" :key="`${index}-${message.text}`" :message="message" />
             </div>
         </slot>
     </div>

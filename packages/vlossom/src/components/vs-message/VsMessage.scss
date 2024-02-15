@@ -1,0 +1,11 @@
+.vs-message {
+    display: flex;
+    align-items: center;
+    color: var(--vs-line-color);
+
+    .message-icon {
+        position: relative;
+        top: 0.1rem;
+        margin-right: 0.4rem;
+    }
+}

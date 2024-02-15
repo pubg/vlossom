@@ -105,7 +105,7 @@ export function useInput<T = unknown>(
             if (result instanceof Promise) {
                 pendingRules.push(result);
             } else {
-                ruleMessages.value.push({ state: UIState.Danger, message: result as string });
+                ruleMessages.value.push({ state: UIState.Error, text: result as string });
             }
         });
 
@@ -115,8 +115,8 @@ export function useInput<T = unknown>(
         const resolvedMessages = (await Promise.all(pendingRules)).reduce((acc: StateMessage[], resolved) => {
             if (resolved) {
                 acc.push({
-                    state: UIState.Danger,
-                    message: resolved,
+                    state: UIState.Error,
+                    text: resolved,
                 });
             }
 

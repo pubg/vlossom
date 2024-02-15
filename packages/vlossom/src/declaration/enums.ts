@@ -33,7 +33,7 @@ export enum UIState {
     Idle = 'idle',
     Success = 'success',
     Info = 'info',
-    Danger = 'danger',
-    Warn = 'warn',
+    Error = 'error',
+    Warning = 'warning',
     Selected = 'selected',
 }

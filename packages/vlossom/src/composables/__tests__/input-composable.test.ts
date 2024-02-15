@@ -168,9 +168,9 @@ describe('useInput composable', () => {
             const wrapper = mount(InputComponent, {
                 props: {
                     messages: [
-                        { state: UIState.Info, message: 'info message' },
-                        { state: UIState.Success, message: 'success message' },
-                        { state: UIState.Warn, message: 'warning message' },
+                        { state: UIState.Info, text: 'info message' },
+                        { state: UIState.Success, text: 'success message' },
+                        { state: UIState.Warning, text: 'warning message' },
                     ],
                 },
             });
@@ -178,7 +178,7 @@ describe('useInput composable', () => {
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
             expect(wrapper.vm.computedMessages[0].state).toBe(UIState.Info);
-            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
+            expect(wrapper.vm.computedMessages[0].text).toBe('info message');
         });
 
         it('messages를 함수로 전달할 수 있다', () => {
@@ -186,9 +186,9 @@ describe('useInput composable', () => {
             const wrapper = mount(InputComponent, {
                 props: {
                     messages: [
-                        () => ({ state: UIState.Info, message: 'info message' }),
-                        () => ({ state: UIState.Success, message: 'success message' }),
-                        () => ({ state: UIState.Warn, message: 'warning message' }),
+                        () => ({ state: UIState.Info, text: 'info message' }),
+                        () => ({ state: UIState.Success, text: 'success message' }),
+                        () => ({ state: UIState.Warning, text: 'warning message' }),
                     ],
                 },
             });
@@ -196,7 +196,7 @@ describe('useInput composable', () => {
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
             expect(wrapper.vm.computedMessages[0].state).toBe(UIState.Info);
-            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
+            expect(wrapper.vm.computedMessages[0].text).toBe('info message');
         });
 
         it('messages를 PromiseLike를 반환하는 함수로도 전달할 수 있다', async () => {
@@ -204,9 +204,9 @@ describe('useInput composable', () => {
             const wrapper = mount(InputComponent, {
                 props: {
                     messages: [
-                        () => Promise.resolve({ state: UIState.Info, message: 'info message' }),
-                        () => Promise.resolve({ state: UIState.Success, message: 'success message' }),
-                        () => Promise.resolve({ state: UIState.Warn, message: 'warning message' }),
+                        () => Promise.resolve({ state: UIState.Info, text: 'info message' }),
+                        () => Promise.resolve({ state: UIState.Success, text: 'success message' }),
+                        () => Promise.resolve({ state: UIState.Warning, text: 'warning message' }),
                     ],
                 },
             });
@@ -218,7 +218,7 @@ describe('useInput composable', () => {
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(3);
             expect(wrapper.vm.computedMessages[0].state).toBe(UIState.Info);
-            expect(wrapper.vm.computedMessages[0].message).toBe('info message');
+            expect(wrapper.vm.computedMessages[0].text).toBe('info message');
         });
 
         it('messages가 바뀌면 바뀐 message를 반영할 수 있다', async () => {
@@ -226,21 +226,21 @@ describe('useInput composable', () => {
             const wrapper = mount(InputComponent, {
                 props: {
                     messages: [
-                        { state: UIState.Info, message: 'info message' },
-                        { state: UIState.Success, message: 'success message' },
-                        { state: UIState.Warn, message: 'warning message' },
+                        { state: UIState.Info, text: 'info message' },
+                        { state: UIState.Success, text: 'success message' },
+                        { state: UIState.Warning, text: 'warning message' },
                     ],
                 },
             });
 
             await wrapper.setProps({
-                messages: [{ state: UIState.Danger, message: 'changed message' }],
+                messages: [{ state: UIState.Error, text: 'changed message' }],
             });
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toBe(UIState.Danger);
-            expect(wrapper.vm.computedMessages[0].message).toBe('changed message');
+            expect(wrapper.vm.computedMessages[0].state).toBe(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toBe('changed message');
         });
     });
 
@@ -299,7 +299,7 @@ describe('useInput composable', () => {
             expect(wrapper.vm.valid).toBe(false);
             expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Danger, message: 'required' }]);
+            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Error, text: 'required' }]);
         });
 
         it('PromiseLike의 rule도 체크할 수 있다', async () => {
@@ -326,12 +326,12 @@ describe('useInput composable', () => {
             expect(wrapper.vm.valid).toBe(false);
             expect(wrapper.vm.changed).toBe(true);
             expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Danger, message: 'required' }]);
+            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Error, text: 'required' }]);
         });
 
         it('기존 message가 있으면 rule 체크 결과를 danger 타입으로 추가한다', async () => {
             // given
-            const infoMsg: StateMessage = { state: UIState.Info, message: 'info message' };
+            const infoMsg: StateMessage = { state: UIState.Info, text: 'info message' };
             const wrapper = mount(InputComponent, {
                 props: {
                     messages: [infoMsg],
@@ -352,7 +352,7 @@ describe('useInput composable', () => {
             expect(wrapper.vm.showRuleMessages).toBe(true);
             expect(wrapper.vm.computedMessages).toHaveLength(2);
             expect(wrapper.vm.computedMessages[0]).toEqual(infoMsg);
-            expect(wrapper.vm.computedMessages[1]).toEqual({ state: UIState.Danger, message: 'required' });
+            expect(wrapper.vm.computedMessages[1]).toEqual({ state: UIState.Error, text: 'required' });
         });
     });
 
@@ -374,7 +374,7 @@ describe('useInput composable', () => {
             expect(wrapper.vm.valid).toBe(false);
             expect(wrapper.vm.changed).toBe(false);
             expect(wrapper.vm.showRuleMessages).toBe(true);
-            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Danger, message: 'required' }]);
+            expect(wrapper.vm.computedMessages).toEqual([{ state: UIState.Error, text: 'required' }]);
         });
 
         describe('shake', () => {

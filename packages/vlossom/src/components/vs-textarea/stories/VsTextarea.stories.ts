@@ -70,7 +70,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, message: 'This is success message' }],
+        messages: [{ state: UIState.Success, text: 'This is success message' }],
     },
 };
 

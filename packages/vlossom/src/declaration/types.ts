@@ -76,7 +76,7 @@ export interface Breakpoints {
 
 export interface StateMessage {
     state: UIState;
-    message: string;
+    text: string;
 }
 
 export type Rule<T = any> = ((v: T) => string) | ((v: T) => PromiseLike<string>);
