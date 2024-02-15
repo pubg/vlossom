@@ -60,7 +60,7 @@ export const Disabled: Story = {
 
 export const Label: Story = {
     args: {
-        label: 'Label',
+        label: 'Choose your favorite(s)',
     },
 };
 
@@ -78,7 +78,7 @@ export const Readonly: Story = {
 
 export const Required: Story = {
     args: {
-        label: 'Label',
+        label: 'Choose your favorite(s)',
         required: true,
     },
 };

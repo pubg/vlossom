@@ -15,8 +15,8 @@
 
             <vs-checkbox-node
                 :id="id"
-                :colorScheme="computedColorScheme"
-                :styleSet="computedStyleSet"
+                :color-scheme="computedColorScheme"
+                :style-set="computedStyleSet"
                 :checked="isChecked"
                 :check-label="checkLabel"
                 :disabled="disabled"

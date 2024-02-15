@@ -5,53 +5,121 @@ import VsInputWrapper from '../VsInputWrapper.vue';
 
 describe('vs-input-wrapper', () => {
     describe('label', () => {
-        it('label을 설정할 수 있다', () => {
-            // given
-            const wrapper = mount(VsInputWrapper, {
-                props: {
-                    label: 'My Label',
-                },
+        describe('default', () => {
+            it('label을 설정할 수 있다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        label: 'My Label',
+                    },
+                });
+
+                // then
+                const label = wrapper.find('label');
+                expect(label.exists()).toBe(true);
+                expect(label.isVisible()).toBe(true);
+                expect(label.text()).toBe('My Label');
             });
 
-            // then
-            const label = wrapper.find('.vs-label');
-            expect(label.exists()).toBe(true);
-            expect(label.isVisible()).toBe(true);
-        });
+            it('label을 설정하지 않아도 label 영역이 있다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper);
 
-        it('label을 설정하지 않아도 label 영역이 있다', () => {
-            // given
-            const wrapper = mount(VsInputWrapper);
-
-            // then
-            const label = wrapper.find('.vs-label');
-            expect(label.exists()).toBe(true);
-            expect(label.text()).toBe('');
-        });
-
-        it('noLabel props를 설정하면 label 영역이 없다', () => {
-            // given
-            const wrapper = mount(VsInputWrapper, {
-                props: {
-                    noLabel: true,
-                },
+                // then
+                const label = wrapper.find('label');
+                expect(label.exists()).toBe(true);
+                expect(label.text()).toBe('');
             });
 
-            // then
-            expect(wrapper.find('.vs-label').exists()).toBe(false);
-        });
+            it('noLabel props를 설정하면 label 영역이 없다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        noLabel: true,
+                    },
+                });
 
-        it('required props를 설정하면 label 영역에 *이 표시된다', () => {
-            // given
-            const wrapper = mount(VsInputWrapper, {
-                props: {
-                    label: 'My Label',
-                    required: true,
-                },
+                // then
+                expect(wrapper.find('label').exists()).toBe(false);
             });
 
-            // then
-            expect(wrapper.find('.required-star').exists()).toBe(true);
+            it('required props를 설정하면 label 영역에 *이 표시된다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        label: 'My Label',
+                        required: true,
+                    },
+                });
+
+                // then
+                const requiredStar = wrapper.find('i.required-star');
+                expect(requiredStar.exists()).toBe(true);
+                expect(requiredStar.text()).toBe('*');
+            });
+        });
+
+        describe('group', () => {
+            it('label을 설정할 수 있다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        label: 'My Group',
+                        group: true,
+                    },
+                });
+
+                // then
+                const fieldset = wrapper.find('fieldset');
+                const legend = fieldset.find('legend');
+                expect(fieldset.exists()).toBe(true);
+                expect(legend.text()).toBe('My Group');
+            });
+
+            it('label을 설정하지 않아도 label 영역이 있다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        group: true,
+                    },
+                });
+
+                // then
+                const fieldset = wrapper.find('fieldset');
+                const legend = fieldset.find('legend');
+                expect(fieldset.exists()).toBe(true);
+                expect(legend.exists()).toBe(true);
+                expect(legend.text()).toBe('');
+            });
+
+            it('noLabel props를 설정하면 label 영역이 없다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        noLabel: true,
+                        group: true,
+                    },
+                });
+
+                // then
+                expect(wrapper.find('legend').exists()).toBe(false);
+            });
+
+            it('required props를 설정하면 label 영역에 *이 표시된다', () => {
+                // given
+                const wrapper = mount(VsInputWrapper, {
+                    props: {
+                        label: 'My Label',
+                        required: true,
+                        group: true,
+                    },
+                });
+
+                // then
+                const requiredStar = wrapper.find('i.required-star');
+                expect(requiredStar.exists()).toBe(true);
+                expect(requiredStar.text()).toBe('*');
+            });
         });
     });
 
