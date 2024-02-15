@@ -16,9 +16,9 @@
             <div
                 :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
                 :style="computedStyleSet"
-                @dragenter="dragging = true"
-                @dragleave="dragging = false"
-                @drop="dragging = false"
+                @dragenter="setDragging(true)"
+                @dragleave="setDragging(false)"
+                @drop="setDragging(false)"
             >
                 <div class="file-input-container">
                     <div class="attach-file-icon">
@@ -196,6 +196,10 @@ export default defineComponent({
 
         const dragging = ref(false);
 
+        function setDragging(value: boolean) {
+            dragging.value = value;
+        }
+
         return {
             id,
             classObj,
@@ -213,6 +217,7 @@ export default defineComponent({
             clear,
             validate,
             dragging,
+            setDragging,
         };
     },
 });
