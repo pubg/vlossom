@@ -69,9 +69,7 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 
-import type { VsFileInputStyleSet } from './types';
-
-export type InputValueType = File | File[] | null;
+import type { InputValueType, VsFileInputStyleSet } from './types';
 
 const name = VsComponent.VsFileInput;
 

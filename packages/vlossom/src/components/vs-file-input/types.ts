@@ -1,3 +1,5 @@
+export type InputValueType = File | File[] | null;
+
 export interface VsFileInputStyleSet {
     backgroundColor?: string;
     border?: string;
