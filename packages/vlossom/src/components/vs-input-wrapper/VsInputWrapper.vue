@@ -1,26 +1,19 @@
 <template>
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
-        <fieldset v-if="groupLabel">
-            <legend v-if="!noLabel">
+        <component :is="groupLabel ? 'fieldset' : 'div'">
+            <component
+                :is="groupLabel ? 'legend' : 'label'"
+                v-if="!noLabel"
+                :for="groupLabel ? undefined : id || undefined"
+            >
                 <slot name="label">
                     <span class="vs-label">{{ label }}</span>
                 </slot>
                 <i class="required-star" v-if="required">*</i>
-            </legend>
+            </component>
 
             <slot />
-        </fieldset>
-
-        <template v-else>
-            <label v-if="!noLabel" :for="id || undefined">
-                <slot name="label">
-                    <span class="vs-label">{{ label }}</span>
-                </slot>
-                <i class="required-star" v-if="required">*</i>
-            </label>
-
-            <slot />
-        </template>
+        </component>
 
         <slot name="messages">
             <div class="vs-messages" v-if="!noMsg">
