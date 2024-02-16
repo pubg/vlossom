@@ -103,10 +103,20 @@ export const NoClear: Story = {
     },
 };
 
-export const NumberType: Story = {
-    args: {
-        type: 'number',
-    },
+export const Type: Story = {
+    render: () => ({
+        components: { VsInput },
+        setup() {
+            const types = Object.values(InputType);
+
+            return { types };
+        },
+        template: `
+            <div>
+                <vs-input v-for="type in types" :key="type" :type="type" :placeholder="type" style="marginBottom: 10px" />
+            </div>
+        `,
+    }),
 };
 
 export const Placeholder: Story = {
@@ -128,7 +138,7 @@ export const Required: Story = {
     },
 };
 
-export const Prepend: Story = {
+export const PrependButton: Story = {
     render: (args: any) => ({
         components: { VsInput },
         setup() {
@@ -136,8 +146,8 @@ export const Prepend: Story = {
         },
         template: `
             <vs-input v-bind="args">
-                <template #prepend-icon>
-                    <svg aria-label="edit" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <template #prepend-button>
+                    <svg aria-label="edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
                         <path fill="currentColor" d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/>
                     </svg>
                 </template>
@@ -152,7 +162,7 @@ export const Prepend: Story = {
     },
 };
 
-export const Append: Story = {
+export const AppendButton: Story = {
     render: (args: any) => ({
         components: { VsInput, VsIcon },
         setup() {
@@ -160,8 +170,52 @@ export const Append: Story = {
         },
         template: `
             <vs-input v-bind="args">
-                <template #append-icon>
+                <template #append-button>
                     <vs-icon icon="check" />
+                </template>
+            </vs-input>
+        `,
+    }),
+    args: {
+        placeholder: 'email',
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
+export const PrependContent: Story = {
+    render: (args: any) => ({
+        components: { VsInput },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-input v-bind="args">
+                <template #prepend-content>
+                    <div style="padding: 3px">prepend</div>
+                </template>
+            </vs-input>
+        `,
+    }),
+    args: {
+        placeholder: 'email',
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
+export const AppendContent: Story = {
+    render: (args: any) => ({
+        components: { VsInput, VsIcon },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-input v-bind="args">
+                <template #append-content>
+                    <div style="padding: 3px">append</div>
                 </template>
             </vs-input>
         `,
