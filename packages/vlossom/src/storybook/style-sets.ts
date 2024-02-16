@@ -77,7 +77,9 @@ const vsDrawer: VsDrawerStyleSet = {
 };
 
 const vsFileInput: VsFileInputStyleSet = {
-    border: '1px solid #D4E7C5',
+    borderColor: '#D4E7C5',
+    borderWidth: '1px',
+    borderStyle: 'solid',
     backgroundColor: '#D4E7C5',
     color: '#99BC85',
     clearButtonColor: '#436850',

@@ -43,6 +43,8 @@
                     :multiple="multiple"
                     :accept="accept"
                     @change="updateValue($event)"
+                    @focus="onFocus"
+                    @blur="onBlur"
                 />
 
                 <button
@@ -88,7 +90,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
     },
-    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change'],
+    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
         const {
@@ -104,6 +106,8 @@ export default defineComponent({
             required,
             rules,
         } = toRefs(props);
+
+        const { emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -188,6 +192,14 @@ export default defineComponent({
             }
         }
 
+        function onFocus() {
+            emit('focus');
+        }
+
+        function onBlur() {
+            emit('blur');
+        }
+
         const dragging = ref(false);
 
         function setDragging(value: boolean) {
@@ -209,6 +221,8 @@ export default defineComponent({
             onClear,
             clear,
             validate,
+            onFocus,
+            onBlur,
             dragging,
             setDragging,
         };
