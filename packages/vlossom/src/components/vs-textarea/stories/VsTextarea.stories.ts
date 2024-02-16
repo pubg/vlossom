@@ -2,7 +2,7 @@ import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybo
 import { chromaticParameters } from '@/storybook/parameters';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsTextarea from '../VsTextarea.vue';
+import VsTextarea from './../VsTextarea.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
