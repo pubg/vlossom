@@ -7,6 +7,7 @@ import type {
     VsChipStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
+    VsFileInputStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
     VsInputStyleSet,
@@ -73,6 +74,17 @@ const vsDivider: VsDividerStyleSet = {
 const vsDrawer: VsDrawerStyleSet = {
     backgroundColor: '#D4F1F4',
     width: '100%',
+};
+
+const vsFileInput: VsFileInputStyleSet = {
+    borderColor: '#D4E7C5',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    backgroundColor: '#D4E7C5',
+    color: '#99BC85',
+    clearButtonColor: '#436850',
+    fontSize: '0.8rem',
+    prependBackgroundColor: '#86A789',
 };
 
 const vsFooter: VsFooterStyleSet = {
@@ -201,6 +213,7 @@ export const styleSet: StyleSet = {
     VsChip: { myStyleSet: vsChip },
     VsDivider: { myStyleSet: vsDivider },
     VsDrawer: { myStyleSet: vsDrawer },
+    VsFileInput: { myStyleSet: vsFileInput },
     VsFooter: { myStyleSet: vsFooter },
     VsHeader: { myStyleSet: vsHeader },
     VsInput: { myStyleSet: vsInput },

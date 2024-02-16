@@ -5,6 +5,7 @@ import type {
     VsChipStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
+    VsFileInputStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
     VsInputStyleSet,
@@ -35,6 +36,7 @@ export interface StyleSet {
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsDrawer?: { [key: string]: VsDrawerStyleSet };
+    VsFileInput?: { [key: string]: VsFileInputStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };
     VsHeader?: { [key: string]: VsHeaderStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
