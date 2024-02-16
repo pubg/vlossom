@@ -1,3 +1,6 @@
+export { type VsAvatarStyleSet } from './vs-avatar/types';
+export { default as VsAvatar } from './vs-avatar/VsAvatar.vue';
+
 export { type VsBlockStyleSet } from './vs-block/types';
 export { default as VsBlock } from './vs-block/VsBlock.vue';
 
