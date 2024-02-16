@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsInput from '../VsInput.vue';
-import { InputType } from '../types';
 import { nextTick } from 'vue';
+import { UIState } from '@/declaration';
+import { InputType } from '../types';
+import VsInput from '../VsInput.vue';
 
 function mountComponent() {
     return mount(VsInput);
@@ -408,7 +409,8 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('required');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
         it('type이 string 일 때 max 체크가 가능하다', async () => {
@@ -427,7 +429,8 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('max length: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
         it('type이 number 일 때 max 체크가 가능하다', async () => {
@@ -447,7 +450,8 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('max value: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('max value: 3');
         });
 
         it('type이 string 일 때 min 체크가 가능하다', async () => {
@@ -466,7 +470,8 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('min length: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
         });
 
         it('type이 number 일 때 min 체크가 가능하다', async () => {
@@ -486,7 +491,8 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('min value: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('min value: 3');
         });
     });
 

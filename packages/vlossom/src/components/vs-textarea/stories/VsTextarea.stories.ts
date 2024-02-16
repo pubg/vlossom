@@ -2,7 +2,7 @@ import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybo
 import { chromaticParameters } from '@/storybook/parameters';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsTextarea from '../VsTextarea.vue';
+import VsTextarea from './../VsTextarea.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -70,7 +70,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, message: 'This is success message' }],
+        messages: [{ state: UIState.Success, text: 'This is success message' }],
     },
 };
 

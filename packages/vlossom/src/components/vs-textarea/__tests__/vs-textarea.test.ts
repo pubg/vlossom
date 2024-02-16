@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { UIState } from '@/declaration';
 import VsTextarea from '../VsTextarea.vue';
 
 function mountComponent() {
@@ -207,7 +208,8 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('required');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
         it('max 체크가 가능하다', async () => {
@@ -226,7 +228,8 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('max length: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
         it('min 체크가 가능하다', async () => {
@@ -245,7 +248,8 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('min length: 3');
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
         });
     });
 

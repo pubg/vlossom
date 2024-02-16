@@ -1,4 +1,4 @@
-import VsThemeButton from '../VsThemeButton.vue';
+import VsThemeButton from './../VsThemeButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
