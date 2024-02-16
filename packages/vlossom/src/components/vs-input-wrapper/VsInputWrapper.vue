@@ -1,15 +1,19 @@
 <template>
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
-        <label v-if="!noLabel" :for="id || undefined">
-            <slot name="label">
-                <span class="vs-label">{{ label }}</span>
-            </slot>
-            <i class="required-star" v-if="required">*</i>
-        </label>
+        <component :is="groupLabel ? 'fieldset' : 'div'">
+            <component
+                :is="groupLabel ? 'legend' : 'label'"
+                v-if="!noLabel"
+                :for="groupLabel ? undefined : id || undefined"
+            >
+                <slot name="label">
+                    <span class="vs-label">{{ label }}</span>
+                </slot>
+                <i class="required-star" v-if="required">*</i>
+            </component>
 
-        <div>
             <slot />
-        </div>
+        </component>
 
         <slot name="messages">
             <div class="vs-messages" v-if="!noMsg">
@@ -32,6 +36,7 @@ export default defineComponent({
     name: VsComponent.VsInputWrapper,
     components: { VsMessage },
     props: {
+        groupLabel: { type: Boolean, default: false },
         id: { type: String, default: '' },
         label: { type: String, default: '' },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },

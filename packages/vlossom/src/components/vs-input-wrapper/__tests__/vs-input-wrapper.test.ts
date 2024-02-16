@@ -14,9 +14,10 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            const label = wrapper.find('.vs-label');
+            const label = wrapper.find('label');
             expect(label.exists()).toBe(true);
             expect(label.isVisible()).toBe(true);
+            expect(label.text()).toBe('My Label');
         });
 
         it('label을 설정하지 않아도 label 영역이 있다', () => {
@@ -24,7 +25,7 @@ describe('vs-input-wrapper', () => {
             const wrapper = mount(VsInputWrapper);
 
             // then
-            const label = wrapper.find('.vs-label');
+            const label = wrapper.find('label');
             expect(label.exists()).toBe(true);
             expect(label.text()).toBe('');
         });
@@ -38,7 +39,7 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            expect(wrapper.find('.vs-label').exists()).toBe(false);
+            expect(wrapper.find('label').exists()).toBe(false);
         });
 
         it('required props를 설정하면 label 영역에 *이 표시된다', () => {
@@ -51,7 +52,25 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            expect(wrapper.find('.required-star').exists()).toBe(true);
+            const requiredStar = wrapper.find('i.required-star');
+            expect(requiredStar.exists()).toBe(true);
+            expect(requiredStar.text()).toBe('*');
+        });
+
+        it('group label을 설정할 수 있다', () => {
+            // given
+            const wrapper = mount(VsInputWrapper, {
+                props: {
+                    label: 'My Group',
+                    groupLabel: true,
+                },
+            });
+
+            // then
+            const fieldset = wrapper.find('fieldset');
+            const legend = fieldset.find('legend');
+            expect(fieldset.exists()).toBe(true);
+            expect(legend.text()).toBe('My Group');
         });
     });
 

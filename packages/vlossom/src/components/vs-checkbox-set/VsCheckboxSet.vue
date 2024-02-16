@@ -7,6 +7,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            group-label
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -17,8 +18,8 @@
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
                     :id="`${id}-${optionIds[index]}`"
-                    :colorScheme="computedColorScheme"
-                    :styleSet="checkboxStyleSet"
+                    :color-scheme="computedColorScheme"
+                    :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :readonly="readonly"
