@@ -37,7 +37,7 @@ export default defineComponent({
         mobileFull: { type: Boolean, default: false },
         tabs: {
             type: Array as PropType<string[]>,
-            default: () => [],
+            required: true,
             validator(prop: string[]) {
                 return objectUtil.isUniq(prop);
             },
@@ -45,7 +45,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Number, default: 0 },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
 
@@ -74,6 +74,7 @@ export default defineComponent({
         watch(selectedIdx, (index: number) => {
             if (index !== modelValue.value) {
                 emit('update:modelValue', index);
+                emit('change', index);
             }
         });
 

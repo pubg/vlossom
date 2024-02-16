@@ -67,6 +67,9 @@ export { default as VsProgress } from './vs-progress/VsProgress.vue';
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
+export { type VsStepperStyleSet } from './vs-stepper/types';
+export { default as VsStepper } from './vs-stepper/VsStepper.vue';
+
 export { type VsTabsStyleSet } from './vs-tabs/types';
 export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 
@@ -113,6 +116,7 @@ declare module 'vue' {
         VsPage: typeof import('./')['VsPage'];
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
+        VsStepper: typeof import('./')['VsStepper'];
         VsTabs: typeof import('./')['VsTabs'];
         VsTextarea: typeof import('./')['VsTextarea'];
         VsTextWrap: typeof import('./')['VsTextWrap'];

@@ -1,0 +1,123 @@
+$activeColor: var(--vs-stepper-activeColor, var(--vs-comp-color));
+$activeBackgroundColor: var(--vs-stepper-activeBackgroundColor, var(--vs-comp-backgroundColor));
+$fontSize: var(--vs-stepper-fontSize, 1rem);
+$stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
+
+.vs-stepper {
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+
+    .step-line {
+        background-color: var(--vs-grey-300);
+        height: 0.1rem;
+        left: $stepButtonW;
+        right: $stepButtonW;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    ul {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        list-style: none;
+        margin-bottom: 4rem;
+
+        .step {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            position: relative;
+
+            .step-value {
+                align-items: center;
+                background-color: var(--vs-grey-300);
+                border-radius: 50%;
+                color: var(--vs-grey-50);
+                display: flex;
+                font-size: $fontSize;
+                font-weight: 600;
+                height: $stepButtonW;
+                justify-content: center;
+                width: $stepButtonW;
+
+                &:after {
+                    border-radius: 50%;
+                    content: '';
+                    display: block;
+                    height: 100%;
+                    left: 50%;
+                    position: absolute;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100%;
+                }
+            }
+
+            .step-label {
+                color: var(--vs-stepper-labelColor, auto);
+                font-size: $fontSize;
+                font-weight: 500;
+                left: 50%;
+                position: absolute;
+                top: 140%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+
+            &.completed {
+                .step-value {
+                    background-color: $activeBackgroundColor;
+                    color: $activeColor;
+                }
+
+                .step-label {
+                    color: var(--vs-stepper-labelColor, $activeColor);
+                }
+            }
+
+            &.selected {
+                .step-value {
+                    background-color: $activeBackgroundColor;
+                    border: solid 0.2rem $activeColor;
+                    color: $activeColor;
+                }
+
+                .step-label {
+                    color: var(--vs-stepper-labelColor, $activeColor);
+                    font-weight: 600;
+                }
+            }
+
+            &.disabled {
+                cursor: default;
+
+                .step-value {
+                    background-color: var(--vs-grey-200);
+                }
+
+                .step-label {
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+
+    &.linear {
+        .step-line {
+            height: 0.2rem;
+
+            .progress-line {
+                background-color: $activeColor;
+                height: 100%;
+                opacity: 0.8;
+                transition: width 0.2s;
+            }
+        }
+    }
+}
