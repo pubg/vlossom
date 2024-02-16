@@ -1,15 +1,17 @@
 $variables: (
-    drawer-z-index: 1000,
-    drawer-width-xs: 10%,
-    drawer-width-sm: 16%,
-    drawer-width-md: 32%,
-    drawer-width-lg: 60%,
-    drawer-width-xl: 80%,
     drawer-height-xs: 12%,
     drawer-height-sm: 20%,
     drawer-height-md: 32%,
     drawer-height-lg: 60%,
     drawer-height-xl: 80%,
+    drawer-width-xs: 10%,
+    drawer-width-sm: 16%,
+    drawer-width-md: 32%,
+    drawer-width-lg: 60%,
+    drawer-width-xl: 80%,
+    drawer-z-index: 1000,
+    grid-base: 12,
+    width-base: 100%,
 );
 
 :root {

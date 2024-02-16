@@ -9,69 +9,65 @@ export function getResponsiveProps() {
     };
 }
 
-export function useResponsiveWidth(width: Ref<string | Breakpoints | null>, grid: Ref<Breakpoints>) {
-    const responsiveWidth: ComputedRef<Breakpoints | string> = computed(() => {
-        if (typeof width.value === 'string') {
-            return width.value;
+export function useResponsive(width: Ref<string | Breakpoints | null>, grid: Ref<Breakpoints>) {
+    const responsiveClasses: ComputedRef<string[]> = computed(() => {
+        const classes: string[] = ['vs-responsive'];
+
+        if (width.value && typeof width.value === 'object') {
+            const { sm, md, lg, xl } = width.value;
+            const widthClasses = [
+                ...(sm ? ['vs-width-sm'] : []),
+                ...(md ? ['vs-width-md'] : []),
+                ...(lg ? ['vs-width-lg'] : []),
+                ...(xl ? ['vs-width-xl'] : []),
+            ];
+            classes.push(...widthClasses);
         }
 
-        if (Object.keys(grid.value).length > 0) {
-            return Object.entries(grid.value).reduce((acc, [key, value]) => {
-                return {
-                    ...acc,
-                    [key]: `calc(${value}/12 * 100%)`,
-                };
-            }, {} as Breakpoints);
-        }
-
-        return width.value ?? '100%';
-    });
-
-    const widthVariables: ComputedRef<Record<string, string>> = computed(() => {
-        if (typeof responsiveWidth.value === 'string') {
-            return {};
-        }
-
-        const { base = '100%', sm, md, lg, xl } = responsiveWidth.value;
-
-        return {
-            ...(base && { ['--vs-width-base']: base?.toString() }),
-            ...(sm && { ['--vs-width-sm']: sm?.toString() }),
-            ...(md && { ['--vs-width-md']: md?.toString() }),
-            ...(lg && { ['--vs-width-lg']: lg?.toString() }),
-            ...(xl && { ['--vs-width-xl']: xl?.toString() }),
-        };
-    });
-
-    const widthClasses: ComputedRef<string[]> = computed(() => {
-        if (typeof responsiveWidth.value === 'string') {
-            return [];
-        }
-
-        const { base = '100%', sm, md, lg, xl } = responsiveWidth.value;
-
-        return [
-            ...(base ? ['vs-width-base'] : []),
-            ...(sm ? ['vs-width-sm'] : []),
-            ...(md ? ['vs-width-md'] : []),
-            ...(lg ? ['vs-width-lg'] : []),
-            ...(xl ? ['vs-width-xl'] : []),
+        const { sm, md, lg, xl } = grid.value;
+        const gridClasses = [
+            ...(sm ? ['vs-grid-sm'] : []),
+            ...(md ? ['vs-grid-md'] : []),
+            ...(lg ? ['vs-grid-lg'] : []),
+            ...(xl ? ['vs-grid-xl'] : []),
         ];
+        classes.push(...gridClasses);
+
+        return classes;
     });
 
-    const widthProperties: ComputedRef<Record<string, string>> = computed(() => {
-        if (typeof responsiveWidth.value === 'string') {
-            return {
-                width: responsiveWidth.value,
+    const responsiveStyles: ComputedRef<Record<string, string>> = computed(() => {
+        const styles: Record<string, string> = {};
+
+        if (width.value && typeof width.value === 'object') {
+            const { base, sm, md, lg, xl } = width.value;
+            const widthStyles = {
+                ...(base && { ['--vs-width-base']: base?.toString() }),
+                ...(sm && { ['--vs-width-sm']: sm?.toString() }),
+                ...(md && { ['--vs-width-md']: md?.toString() }),
+                ...(lg && { ['--vs-width-lg']: lg?.toString() }),
+                ...(xl && { ['--vs-width-xl']: xl?.toString() }),
             };
+            Object.assign(styles, widthStyles);
+        } else if (typeof width.value === 'string') {
+            styles['width'] = width.value;
         }
 
-        return widthVariables.value;
+        const { base, sm, md, lg, xl } = grid.value;
+        const gridStyles = {
+            ...(base && { ['--vs-grid-base']: base?.toString() }),
+            ...(sm && { ['--vs-grid-sm']: sm?.toString() }),
+            ...(md && { ['--vs-grid-md']: md?.toString() }),
+            ...(lg && { ['--vs-grid-lg']: lg?.toString() }),
+            ...(xl && { ['--vs-grid-xl']: xl?.toString() }),
+        };
+        Object.assign(styles, gridStyles);
+
+        return styles;
     });
 
     return {
-        widthVariables,
-        widthClasses,
-        widthProperties,
+        responsiveClasses,
+        responsiveStyles,
     };
 }

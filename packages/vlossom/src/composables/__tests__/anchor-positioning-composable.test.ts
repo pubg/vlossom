@@ -50,9 +50,9 @@ describe('anchor-positioning-composable', () => {
             const TargetComponent = defineComponent({
                 template: `
                     <div ref="anchorRef">target</div>
-                    <teleport to="vs-overlay">
+                    <Teleport to="vs-overlay">
                         <div ref="attchmentRef">attachment</div>
-                    <teleport>
+                    </Teleport>
                 `,
                 setup() {
                     const anchorRef: Ref<HTMLElement | null> = ref(null);
