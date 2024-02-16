@@ -1,15 +1,18 @@
 @use '@/styles/mixin' as *;
 
+$borderWidth: var(--vs-file-input-borderWidth, 0.0625rem);
+$borderStyle: var(--vs-file-input-borderStyle, solid);
+$borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
+
 .vs-file-input {
     position: relative;
     background-color: var(--vs-file-input-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-file-input-border, solid 1px var(--vs-comp-border-color));
+    border: $borderWidth $borderStyle $borderColor;
     border-radius: var(--vs-file-input-borderRadius, 0.4rem);
     height: var(--vs-file-input-height, 2.5rem);
     outline: none;
     font-size: var(--vs-file-input-fontSize, 1rem);
     color: var(--vs-file-input-color, var(--vs-font-color));
-    overflow: hidden;
 
     input[type='file'] {
         position: absolute;
@@ -26,12 +29,14 @@
 
         .attach-file-icon {
             width: 2.5rem;
+            border-radius: var(--vs-file-input-borderRadius, 0.4rem) 0 0 var(--vs-file-input-borderRadius, 0.4rem);
             background-color: var(--vs-file-input-prependBackgroundColor, var(--vs-comp-border-color));
             color: var(--vs-file-input-prependColor, var(--vs-comp-color-primary));
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            margin-left: calc(-1 * $borderWidth);
         }
 
         .label-box {

@@ -151,7 +151,9 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            border: '1px solid orange',
+            borderColor: 'orange',
+            borderWidth: '1px',
+            borderStyle: 'solid',
             backgroundColor: '#ffe0b2',
             color: '#d84315',
             clearButtonColor: '#FC6736',
