@@ -64,6 +64,9 @@ export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 export { type VsTextareaStyleSet } from './vs-textarea/types';
 export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
 
+export { type VsTextWrapStyleSet } from './vs-text-wrap/types';
+export { default as VsTextWrap } from './vs-text-wrap/VsTextWrap.vue';
+
 export { type VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
 

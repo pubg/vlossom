@@ -18,6 +18,7 @@ import type {
     VsSectionStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
+    VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
@@ -178,6 +179,11 @@ const vsTextarea: VsTextareaStyleSet = {
     color: '#1e88e5',
 };
 
+const vsTextWrap: VsTextWrapStyleSet = {
+    copyIconColor: '#d14d72',
+    linkIconColor: '#643843',
+};
+
 const vsTooltip: VsTooltipStyleSet = {
     arrowColor: '#ffd1d1',
     arrowSize: '0.5rem',
@@ -224,6 +230,7 @@ export const styleSet: StyleSet = {
     VsSection: { myStyleSet: vsSection },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
+    VsTextWrap: { myStyleSet: vsTextWrap },
     VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
