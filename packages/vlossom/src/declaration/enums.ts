@@ -1,4 +1,5 @@
 export enum VsComponent {
+    VsAvatar = 'VsAvatar',
     VsBlock = 'VsBlock',
     VsButton = 'VsButton',
     VsCheckbox = 'VsCheckbox',

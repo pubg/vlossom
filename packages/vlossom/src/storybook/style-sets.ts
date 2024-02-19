@@ -1,5 +1,6 @@
 import type { StyleSet } from '@/declaration';
 import type {
+    VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -22,6 +23,16 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
+
+const vsAvatar: VsAvatarStyleSet = {
+    backgroundColor: '#1e88e5',
+    borderRadius: '50%',
+    color: '#fff',
+    fontSize: '1.5rem',
+    fontWeight: '600',
+    height: '5rem',
+    width: '5rem',
+};
 
 const vsBlock: VsBlockStyleSet = {
     backgroundColor: '#000',
@@ -206,6 +217,7 @@ const vsValueTag: VsValueTagStyleSet = {
 };
 
 export const styleSet: StyleSet = {
+    VsAvatar: { myStyleSet: vsAvatar },
     VsBlock: { myStyleSet: vsBlock },
     VsButton: { myStyleSet: vsButton },
     VsCheckbox: { myStyleSet: vsCheckbox },

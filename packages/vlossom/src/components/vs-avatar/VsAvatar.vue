@@ -1,0 +1,38 @@
+<template>
+    <div :class="['vs-avatar', 'vs-inline-gap', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+        <slot />
+    </div>
+</template>
+
+<script lang="ts">
+import { PropType, defineComponent, toRefs } from 'vue';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsAvatarStyleSet } from './types';
+
+const name = VsComponent.VsAvatar;
+export default defineComponent({
+    name,
+    props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: {
+            type: [String, Object] as PropType<string | VsAvatarStyleSet>,
+            default: '',
+        },
+    },
+    setup(props) {
+        const { colorScheme, styleSet } = toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet<VsAvatarStyleSet>(name, styleSet);
+
+        return {
+            computedColorScheme,
+            computedStyleSet,
+        };
+    },
+});
+</script>
+
+<style lang="scss" scoped src="./VsAvatar.scss" />
