@@ -117,7 +117,6 @@ describe('vs-input', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
-                    // @ts-expect-error: for null test
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
                 },
