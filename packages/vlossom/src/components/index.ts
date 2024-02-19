@@ -80,6 +80,8 @@ export { default as VsWrapper } from './vs-wrapper/VsWrapper.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
+        VsAvatar: typeof import('./')['VsAvatar'];
+        VsBlock: typeof import('./')['VsBlock'];
         VsButton: typeof import('./')['VsButton'];
         VsCheckbox: typeof import('./')['VsCheckbox'];
         VsCheckboxSet: typeof import('./')['VsCheckboxSet'];

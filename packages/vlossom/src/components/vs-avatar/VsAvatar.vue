@@ -12,7 +12,7 @@ import { VsAvatarStyleSet } from './types';
 
 const name = VsComponent.VsAvatar;
 export default defineComponent({
-    name: 'vn-avatar',
+    name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: {
