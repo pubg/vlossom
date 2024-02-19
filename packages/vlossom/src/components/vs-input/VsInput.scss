@@ -81,14 +81,9 @@
     }
 }
 
-/* clears the ‘X’ from Internet Explorer */
+/* clears the ‘X’ */
 input[type='search']::-ms-clear,
-input[type='search']::-ms-reveal {
-    display: none;
-    width: 0;
-    height: 0;
-}
-/* clears the ‘X’ from Chrome */
+input[type='search']::-ms-reveal,
 input[type='search']::-webkit-search-decoration,
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-results-button,
