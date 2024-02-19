@@ -66,7 +66,7 @@ export default defineComponent({
     },
     emits: ['copied'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, align, placement, link, noTooltip, width } = toRefs(props);
+        const { colorScheme, styleSet, link } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -92,10 +92,6 @@ export default defineComponent({
         return {
             computedColorScheme,
             computedStyleSet,
-            align,
-            placement,
-            noTooltip,
-            width,
             contentsRef,
             copyInnerText,
             openLink,
