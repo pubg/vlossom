@@ -72,7 +72,7 @@ describe('vs-input', () => {
             expect(wrapper.find('input').element.value).toBe('test');
         });
 
-        it('type이 number가 아닐 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
+        it('input type이 number가 아닐 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -92,7 +92,7 @@ describe('vs-input', () => {
             expect(updateModelValueEvent?.[0]).toEqual(['123']);
         });
 
-        it('type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
+        it('input type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -113,7 +113,7 @@ describe('vs-input', () => {
             expect(updateModelValueEvent?.[0]).toEqual([123]);
         });
 
-        it('modelValue가 null이고 type이 number가 아니면 빈 문자열로 가공해준다', async () => {
+        it('modelValue가 null이고 input type이 number가 아니면 빈 문자열로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -384,8 +384,8 @@ describe('vs-input', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'prepend-button': '<div class="prepend-button"></div>',
-                    'append-button': '<div class="append-button"></div>',
+                    'prepend-button': 'this is button content',
+                    'append-button': 'this is button content',
                 },
             });
 
@@ -420,7 +420,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
-        it('type이 number가 아닐 때 max 길이 체크가 가능하다', async () => {
+        it('input type이 number가 아닐 때 max 길이 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -440,7 +440,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
-        it('type이 number가 아닐 때 min 길이 체크가 가능하다', async () => {
+        it('input type이 number가 아닐 때 min 길이 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -460,7 +460,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
         });
 
-        it('type이 number 일 때 max 값 체크가 가능하다', async () => {
+        it('input type이 number 일 때 max 값 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -481,7 +481,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('max value: 3');
         });
 
-        it('type이 number 일 때 min 값 체크가 가능하다', async () => {
+        it('input type이 number 일 때 min 값 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
