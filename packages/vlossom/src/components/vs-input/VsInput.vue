@@ -37,6 +37,10 @@
                     :readonly="readonly"
                     :required="required"
                     :placeholder="placeholder"
+                    :max="isNumberInput ? max : undefined"
+                    :min="isNumberInput ? min : undefined"
+                    :max-length="!isNumberInput ? max : undefined"
+                    :min-length="!isNumberInput ? min : undefined"
                     @input="updateValue($event)"
                     @focus="onFocus"
                     @blur="onBlur"
@@ -109,7 +113,7 @@ export default defineComponent({
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model
-        modelValue: { type: [String, Number, Object] as PropType<InputValueType>, default: '' },
+        modelValue: { type: [String, Number] as PropType<InputValueType>, default: '' },
         modelModifiers: {
             type: Object as PropType<StringModifiers>,
             default: () => ({}),
@@ -158,12 +162,14 @@ export default defineComponent({
             disabled: disabled.value,
         }));
 
+        const isNumberInput = computed(() => type.value === InputType.Number);
+
         function convertValue(v: InputValueType | undefined): InputValueType {
             if (!v) {
-                return type.value === InputType.Number ? null : '';
+                return isNumberInput.value ? null : '';
             }
 
-            if (type.value === InputType.Number) {
+            if (isNumberInput.value) {
                 return Number(v);
             }
 
@@ -200,6 +206,12 @@ export default defineComponent({
             inputValue.value = converted;
         }
 
+        const hasPrependButton = computed(() => !!slots['prepend-button']);
+        const hasAppendButton = computed(() => !!slots['append-button']);
+
+        const hasPrependContent = computed(() => !!slots['prepend-content']);
+        const hasAppendContent = computed(() => !!slots['append-content']);
+
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
         function focus() {
@@ -213,12 +225,6 @@ export default defineComponent({
         function select() {
             inputRef.value?.select();
         }
-
-        const hasPrependButton = computed(() => !!slots['prepend-button']);
-        const hasAppendButton = computed(() => !!slots['append-button']);
-
-        const hasPrependContent = computed(() => !!slots['prepend-content']);
-        const hasAppendContent = computed(() => !!slots['append-content']);
 
         function onFocus() {
             emit('focus');
@@ -251,6 +257,7 @@ export default defineComponent({
             computedColorScheme,
             computedStyleSet,
             InputType,
+            isNumberInput,
             inputValue,
             updateValue,
             inputRef,
