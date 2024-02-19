@@ -28,7 +28,7 @@ const meta: Meta<typeof VsInput> = {
         colorScheme,
         type: {
             control: 'radio',
-            options: [InputType.Text, InputType.Number],
+            options: Object.values(InputType),
         },
     },
 };
