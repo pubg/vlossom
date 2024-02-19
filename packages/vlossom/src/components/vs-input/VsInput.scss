@@ -25,20 +25,21 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-        &.button {
-            width: 2.5rem;
-            border: none;
-            border-radius: 0;
-        }
     }
 
-    .prepend.button {
+    button.prepend,
+    button.append {
+        width: 2.5rem;
+        border: none;
+        border-radius: 0;
+    }
+
+    button.prepend {
         background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-input-prependColor, var(--vs-comp-color-primary));
     }
 
-    .append.button {
+    button.append {
         background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-input-appendColor, var(--vs-comp-color-primary));
     }

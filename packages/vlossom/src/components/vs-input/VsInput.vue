@@ -14,12 +14,7 @@
             </template>
 
             <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-                <button
-                    v-if="hasPrependButton"
-                    class="prepend button"
-                    @click="$emit('prepend')"
-                    aria-label="prepend-action"
-                >
+                <button v-if="hasPrependButton" class="prepend" @click="$emit('prepend')" aria-label="prepend-action">
                     <slot name="prepend-button" />
                 </button>
 
@@ -39,8 +34,8 @@
                     :placeholder="placeholder"
                     :max="isNumberInput ? max : undefined"
                     :min="isNumberInput ? min : undefined"
-                    :max-length="!isNumberInput ? max : undefined"
-                    :min-length="!isNumberInput ? min : undefined"
+                    :maxlength="!isNumberInput ? max : undefined"
+                    :minlength="!isNumberInput ? min : undefined"
                     @input="updateValue($event)"
                     @focus="onFocus"
                     @blur="onBlur"
@@ -63,12 +58,7 @@
                     <slot name="append-content" />
                 </div>
 
-                <button
-                    v-if="hasAppendButton"
-                    class="append button"
-                    @click="$emit('append')"
-                    aria-label="append-action"
-                >
+                <button v-if="hasAppendButton" class="append" @click="$emit('append')" aria-label="append-action">
                     <slot name="append-button" />
                 </button>
             </div>
