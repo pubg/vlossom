@@ -104,7 +104,7 @@ export default defineComponent({
         });
 
         watch(steps, () => {
-            selectStep(0);
+            selected.value = modelValue.value;
         });
 
         watch(selected, (index: number) => {
@@ -117,13 +117,7 @@ export default defineComponent({
         watch(
             modelValue,
             (index: number) => {
-                if (index < 0) {
-                    selectStep(0);
-                } else if (index > stepLength.value - 1) {
-                    selectStep(stepLength.value - 1);
-                } else {
-                    selectStep(index);
-                }
+                selectStep(index);
             },
             { immediate: true },
         );
@@ -160,6 +154,10 @@ export default defineComponent({
         }
 
         function selectStep(index: number) {
+            if (index < 0 || index > stepLength.value - 1) {
+                return;
+            }
+
             if (!isClickable(index)) {
                 return;
             }
