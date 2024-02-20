@@ -141,27 +141,4 @@ describe('vs-stepper', () => {
             expect(wrapper.vm.fixedWidth).toEqual({ width: '600px' });
         });
     });
-
-    describe('linear', () => {
-        it('linear prop이 true이면, 바로 앞 단계까지 모두 완료된 step만 선택할 수 있다', async () => {
-            // given
-            const wrapper = mount(VsStepper, {
-                props: {
-                    steps: ['step1', 'step2', 'step3'],
-                    completed: [0],
-                    linear: true,
-                },
-            });
-
-            // when
-            const steps = wrapper.findAll('li[role=tab]');
-            await steps[1].trigger('click');
-            await steps[2].trigger('click');
-
-            // then
-            expect(wrapper.emitted('change')?.[0]).toEqual([1]);
-            expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
-            expect(wrapper.vm.selected).toEqual(1);
-        });
-    });
 });

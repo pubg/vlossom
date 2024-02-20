@@ -1,9 +1,6 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
-        <div
-            :class="['vs-stepper', `vs-${computedColorScheme}`, { linear }]"
-            :style="{ ...computedStyleSet, ...fixedWidth }"
-        >
+        <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
             <div class="step-line absolute">
                 <div class="progress-line" :style="progressWidth" />
             </div>
@@ -60,7 +57,6 @@ export default defineComponent({
         completed: { type: Array as PropType<number[]>, default: () => [] },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         gap: { type: [String, Number], default: '' },
-        linear: { type: Boolean, default: false },
         steps: {
             type: Array as PropType<string[]>,
             required: true,
@@ -73,7 +69,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, completed, disabled, gap, linear, steps, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, completed, disabled, gap, steps, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
@@ -145,7 +141,7 @@ export default defineComponent({
                 return false;
             }
 
-            if (!linear.value || index === 0) {
+            if (index === 0) {
                 return true;
             }
 

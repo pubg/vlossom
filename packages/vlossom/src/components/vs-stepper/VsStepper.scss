@@ -9,12 +9,19 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
 
     .step-line {
         background-color: var(--vs-grey-300);
-        height: 0.1rem;
+        height: 0.2rem;
         left: $stepButtonW;
         right: $stepButtonW;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+
+        .progress-line {
+            background-color: $activeColor;
+            height: 100%;
+            opacity: 0.8;
+            transition: width 0.2s;
+        }
     }
 
     ul {
@@ -104,19 +111,6 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 .step-label {
                     opacity: 0.4;
                 }
-            }
-        }
-    }
-
-    &.linear {
-        .step-line {
-            height: 0.2rem;
-
-            .progress-line {
-                background-color: $activeColor;
-                height: 100%;
-                opacity: 0.8;
-                transition: width 0.2s;
             }
         }
     }
