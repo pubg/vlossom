@@ -6,8 +6,8 @@
             </div>
             <ul role="tablist">
                 <li
-                    v-for="(label, index) in steps"
-                    :key="label"
+                    v-for="(step, index) in steps"
+                    :key="step"
                     :class="[
                         'step',
                         {
@@ -23,11 +23,11 @@
                     @click.stop="selectStep(index)"
                 >
                     <div class="step-value">
-                        <slot :name="`${label}-value`"> {{ index + 1 }} </slot>
+                        <slot :name="`${step}-value`"> {{ index + 1 }} </slot>
                     </div>
                     <div class="step-label">
-                        <slot :name="`${label}-label`">
-                            {{ label }}
+                        <slot :name="`${step}-label`">
+                            {{ step }}
                         </slot>
                     </div>
                 </li>
@@ -77,12 +77,6 @@ export default defineComponent({
         const fixedWidth = computed(() => {
             if (!gap.value) {
                 return { width: 'auto' };
-            }
-
-            if (typeof gap.value === 'number') {
-                return {
-                    width: `${gapCount.value * gap.value}px`,
-                };
             }
 
             const { value, unit } = stringUtil.parseUnit(gap.value);

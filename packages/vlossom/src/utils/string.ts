@@ -14,7 +14,16 @@ export const stringUtil = {
             .join('-');
     },
 
-    parseUnit(str: string): { value: number; unit: string } {
+    parseUnit(str: string | number): { value: number; unit: string } {
+        const numValue = Number(str);
+
+        if (typeof str === 'number' || !isNaN(numValue)) {
+            return {
+                value: numValue,
+                unit: 'px',
+            };
+        }
+
         const match = str.match(/(\d+)(\w+|%)/);
 
         if (match) {

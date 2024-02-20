@@ -8,7 +8,7 @@ function mountComponent() {
 
 describe('vs-stepper', () => {
     describe('props & slots', () => {
-        it('props stebs에 string 배열을 전달하면, 그 길이만큼 steps가 생기고 배열의 각 요소가 steps의 이름으로 지정된다', () => {
+        it('props stebs에 string 배열을 전달하면, 그 길이만큼 steps가 생기고 배열의 각 요소가 steps의 라벨로 지정된다', () => {
             // given
             const steps = ['step1', 'step2', 'step3'];
             const wrapper = mount(VsStepper, {
@@ -43,9 +43,9 @@ describe('vs-stepper', () => {
                     steps: ['step1', 'step2', 'step3'],
                 },
                 slots: {
-                    step1: 'label1',
-                    step2: 'label2',
-                    step3: 'label3',
+                    'step1-label': 'label1',
+                    'step2-label': 'label2',
+                    'step3-label': 'label3',
                 },
             });
 
@@ -53,6 +53,24 @@ describe('vs-stepper', () => {
             expect(wrapper.html()).toContain('label1');
             expect(wrapper.html()).toContain('label2');
             expect(wrapper.html()).toContain('label3');
+        });
+
+        it('각 step의 value slot을 통해 step의 값을 커스터마이징할 수 있다', () => {
+            const wrapper = mount(VsStepper, {
+                props: {
+                    steps: ['step1', 'step2', 'step3'],
+                },
+                slots: {
+                    'step1-value': 'value1',
+                    'step2-value': 'value2',
+                    'step3-value': 'value3',
+                },
+            });
+
+            // then
+            expect(wrapper.html()).toContain('value1');
+            expect(wrapper.html()).toContain('value2');
+            expect(wrapper.html()).toContain('value3');
         });
     });
 
@@ -100,7 +118,7 @@ describe('vs-stepper', () => {
     });
 
     describe('gap', () => {
-        it('gap이 지정되지 않으면 width는 auto이다', () => {
+        it('gap prop이 없으면 width는 auto이다', () => {
             // given
             const wrapper = mount(VsStepper, {
                 props: {
@@ -112,33 +130,34 @@ describe('vs-stepper', () => {
             expect(wrapper.vm.fixedWidth).toEqual({ width: 'auto' });
         });
 
-        it('gap이 있는 경우, px로 끝나는 string값이 아니면 validator가 false를 리턴한다', () => {
-            // given
-            const gap = '300';
-            const wrapper = mount(VsStepper, {
-                props: {
-                    steps: ['step1', 'step2', 'step3'],
-                    gap: gap,
-                },
+        describe('gap prop이 있는 경우', () => {
+            it('gap의 타입이 number인 경우, (전체 step의 개수 - 1)과 gap을 곱한 값이 width가 되고 단위는 px이다 ', () => {
+                // given
+                const gap = 300;
+                const wrapper = mount(VsStepper, {
+                    props: {
+                        steps: ['step1', 'step2', 'step3'],
+                        gap,
+                    },
+                });
+
+                // then
+                expect(wrapper.vm.fixedWidth).toEqual({ width: '600px' });
             });
 
-            // then
-            expect(wrapper.vm.$options.props.gap.validator?.(gap)).toBe(false);
-        });
+            it('gap의 타입이 string인 경우, (전체 step의 개수 - 1)과 gap을 곱한 값이 width가 되고 단위는 string에 포함된 단위이다 ', () => {
+                // given
+                const gap = '300px';
+                const wrapper = mount(VsStepper, {
+                    props: {
+                        steps: ['step1', 'step2', 'step3'],
+                        gap,
+                    },
+                });
 
-        it('gap이 있으면 width는 전체 step의 길이와 gap의 길이를 고려해서 설정된다', () => {
-            // given
-            const gap = '300px';
-            const wrapper = mount(VsStepper, {
-                props: {
-                    steps: ['step1', 'step2', 'step3'],
-                    gap: '300px',
-                },
+                // then
+                expect(wrapper.vm.fixedWidth).toEqual({ width: '600px' });
             });
-
-            // then
-            expect(wrapper.vm.$options.props.gap.validator?.(gap)).toBe(true);
-            expect(wrapper.vm.fixedWidth).toEqual({ width: '600px' });
         });
     });
 });
