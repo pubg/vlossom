@@ -18,6 +18,7 @@
                     ]"
                     role="tab"
                     :aria-selected="isSelected(index)"
+                    :aria-disabled="isDisabled(index)"
                     :tabindex="isSelected(index) ? 0 : -1"
                     @click.stop="selectStep(index)"
                 >

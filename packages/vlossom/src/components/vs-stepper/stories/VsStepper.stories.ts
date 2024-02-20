@@ -203,9 +203,9 @@ export const CustomSlots: Story = {
 					</template>
 				</vs-stepper>
 				<div style="display:flex; justify-content:space-between;">
-					<vs-button @click="goPrev()" :disabled="selectedIdx === 0">Prev Step</vs-button>
-					<vs-button v-if="isLastStep" @click="reset()">Reset</vs-button>
-					<vs-button v-else @click="goNext()">Next Step</vs-button>
+					<vs-button @click="goPrev()" :disabled="isSelected(0)">Reset Current Step</vs-button>
+					<vs-button v-if="isLastStep" @click="reset()">Reset All</vs-button>
+					<vs-button v-else @click="goNext()">Complete Current Step</vs-button>
 				</div>
 			</div>
 		`,

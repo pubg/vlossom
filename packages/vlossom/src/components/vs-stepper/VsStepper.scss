@@ -103,11 +103,13 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 cursor: default;
 
                 .step-value {
-                    background-color: var(--vs-grey-200);
+                    background-color: var(--vs-grey-100);
+                    color: transparentize(#adadad, 0.6);
                 }
 
                 .step-label {
-                    opacity: 0.4;
+                    color: var(--vs-grey-200);
+                    opacity: 0.6;
                 }
             }
         }
