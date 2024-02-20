@@ -102,6 +102,7 @@ declare module 'vue' {
         VsSection: typeof import('./')['VsSection'];
         VsTabs: typeof import('./')['VsTabs'];
         VsTextarea: typeof import('./')['VsTextarea'];
+        VsTextWrap: typeof import('./')['VsTextWrap'];
         VsThemeButton: typeof import('./')['VsThemeButton'];
         VsTooltip: typeof import('./')['VsTooltip'];
         VsValueTag: typeof import('./')['VsValueTag'];

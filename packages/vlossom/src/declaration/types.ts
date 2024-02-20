@@ -16,6 +16,7 @@ import type {
     VsSectionStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
+    VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
@@ -47,7 +48,7 @@ export interface StyleSet {
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };
-    VsTextWrap?: { [key: string]: VsTextareaStyleSet };
+    VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
