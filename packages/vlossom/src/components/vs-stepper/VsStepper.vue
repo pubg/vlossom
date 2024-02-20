@@ -44,6 +44,7 @@ import { computed, defineComponent, toRefs, ref, watch, type PropType } from 'vu
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
+import { stringUtil } from '@/utils/string';
 import { VsIcon } from '@/icons';
 
 import type { VsStepperStyleSet } from './types';
@@ -58,16 +59,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsStepperStyleSet>, default: '' },
         completed: { type: Array as PropType<number[]>, default: () => [] },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
-        gap: {
-            type: String,
-            default: '',
-            validator(prop: string) {
-                if (!prop) {
-                    return true;
-                }
-                return prop.endsWith('px');
-            },
-        },
+        gap: { type: [String, Number], default: '' },
         linear: { type: Boolean, default: false },
         steps: {
             type: Array as PropType<string[]>,
@@ -88,18 +80,26 @@ export default defineComponent({
 
         const selected = ref(modelValue.value);
 
-        const stepLength = computed(() => steps.value.length);
+        const gapCount = computed(() => steps.value.length - 1);
         const fixedWidth = computed(() => {
             if (!gap.value) {
                 return { width: 'auto' };
             }
+
+            if (typeof gap.value === 'number') {
+                return {
+                    width: `${gapCount.value * gap.value}px`,
+                };
+            }
+
+            const { value, unit } = stringUtil.parseUnit(gap.value);
             return {
-                width: (stepLength.value - 1) * Number(gap.value.split('px')[0] || 0) + 'px',
+                width: `${gapCount.value * value}${unit}`,
             };
         });
         const progressWidth = computed(() => {
             return {
-                width: (selected.value / (stepLength.value - 1)) * 100 + '%',
+                width: (selected.value / gapCount.value) * 100 + '%',
             };
         });
 
@@ -154,7 +154,7 @@ export default defineComponent({
         }
 
         function selectStep(index: number) {
-            if (index < 0 || index > stepLength.value - 1) {
+            if (index < 0 || index > gapCount.value) {
                 return;
             }
 
