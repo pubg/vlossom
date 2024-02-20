@@ -5,7 +5,7 @@
 .text-wrap {
     display: inline-flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
 
     .text-wrap-contents {
         position: relative;
@@ -17,13 +17,7 @@
     }
 
     .text-wrap-buttons {
-        display: flex;
-        align-items: center;
-
         > button {
-            display: flex;
-            align-items: center;
-
             &.copy-button {
                 color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo-500));
             }
