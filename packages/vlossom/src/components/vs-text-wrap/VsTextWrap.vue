@@ -16,7 +16,7 @@
                 <div class="text-wrap-buttons" v-if="copy || link || $slots['actions']">
                     <slot name="actions" />
                     <button type="button" v-if="copy" class="copy-button" @click.stop="copyInnerText">
-                        <vs-icon size="1.5rem" icon="contentCopy" />
+                        <vs-icon size="1.5rem" icon="copy" />
                     </button>
 
                     <button type="button" v-if="link" class="link-button" @click.stop="openLink">
