@@ -243,7 +243,6 @@ export default defineComponent({
             computedColorScheme,
             computedStyleSet,
             InputType,
-            isNumberInput,
             inputValue,
             updateValue,
             inputRef,
