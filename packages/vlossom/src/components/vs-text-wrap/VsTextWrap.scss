@@ -8,6 +8,7 @@
     align-items: center;
 
     .text-wrap-contents {
+        color: var(--vs-font-color);
         position: relative;
         overflow: hidden;
         text-overflow: ellipsis;
