@@ -15,11 +15,11 @@
 
                 <div class="text-wrap-buttons" v-if="copy || link || $slots['actions']">
                     <slot name="actions" />
-                    <button type="button" v-if="copy" class="copy-button" @click.stop="copyInnerText">
+                    <button type="button" v-if="copy" class="copy-button" aria-label="copy" @click.stop="copyInnerText">
                         <vs-icon size="1.5rem" icon="copy" />
                     </button>
 
-                    <button type="button" v-if="link" class="link-button" @click.stop="openLink">
+                    <button type="button" v-if="link" class="link-button" aria-label="link"  @click.stop="openLink">
                         <vs-icon size="1.5rem" icon="link" />
                     </button>
                 </div>
