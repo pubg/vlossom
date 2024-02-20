@@ -26,9 +26,7 @@
                         <slot :name="`${step}-value`"> {{ index + 1 }} </slot>
                     </div>
                     <div class="step-label">
-                        <slot :name="`${step}-label`">
-                            {{ step }}
-                        </slot>
+                        <slot :name="`${step}-label`"> {{ step }} </slot>
                     </div>
                 </li>
             </ul>
