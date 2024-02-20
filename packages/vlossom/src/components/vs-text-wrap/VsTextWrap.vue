@@ -100,4 +100,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsTextWrap.scss" scoped />
+<style lang="scss" scoped src="./VsTextWrap.scss" />
