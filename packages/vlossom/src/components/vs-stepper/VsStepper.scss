@@ -77,7 +77,8 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 white-space: nowrap;
             }
 
-            &.completed {
+            &.previous,
+            &.selected {
                 .step-value {
                     background-color: $activeBackgroundColor;
                     color: $activeColor;
@@ -90,13 +91,10 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
 
             &.selected {
                 .step-value {
-                    background-color: $activeBackgroundColor;
                     border: solid 0.2rem $activeColor;
-                    color: $activeColor;
                 }
 
                 .step-label {
-                    color: var(--vs-stepper-labelColor, $activeColor);
                     font-weight: 600;
                 }
             }

@@ -68,7 +68,7 @@ export default defineComponent({
         const selectedIdx = ref(modelValue.value);
 
         watch(tabs, () => {
-            selectedIdx.value = modelValue.value;
+            selectTab(modelValue.value);
         });
 
         watch(selectedIdx, (index: number) => {

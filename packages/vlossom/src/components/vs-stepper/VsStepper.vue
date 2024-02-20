@@ -11,8 +11,8 @@
                     :class="[
                         'step',
                         {
-                            completed: isCompleted(index) && !isSelected(index),
-                            disabled: !isClickable(index),
+                            previous: isPrevious(index),
+                            disabled: isDisabled(index),
                             selected: isSelected(index),
                         },
                     ]"
@@ -22,11 +22,10 @@
                     @click.stop="selectStep(index)"
                 >
                     <div class="step-value">
-                        <vs-icon v-if="isCompleted(index) && !isSelected(index)" icon="check" />
-                        <span v-else>{{ index + 1 }}</span>
+                        <slot :name="`${label}-value`"> {{ index + 1 }} </slot>
                     </div>
                     <div class="step-label">
-                        <slot :name="label">
+                        <slot :name="`${label}-label`">
                             {{ label }}
                         </slot>
                     </div>
@@ -42,19 +41,16 @@ import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
 import { stringUtil } from '@/utils/string';
-import { VsIcon } from '@/icons';
 
 import type { VsStepperStyleSet } from './types';
 
 const name = VsComponent.VsStepper;
 export default defineComponent({
     name,
-    components: { VsIcon },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsStepperStyleSet>, default: '' },
-        completed: { type: Array as PropType<number[]>, default: () => [] },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         gap: { type: [String, Number], default: '' },
         steps: {
@@ -69,7 +65,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, completed, disabled, gap, steps, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, disabled, gap, steps, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
@@ -101,6 +97,7 @@ export default defineComponent({
 
         watch(steps, () => {
             selected.value = modelValue.value;
+            selectStep(modelValue.value);
         });
 
         watch(selected, (index: number) => {
@@ -122,6 +119,13 @@ export default defineComponent({
             return disabled.value.includes(index);
         }
 
+        function isPrevious(index: number) {
+            if (isDisabled(index)) {
+                return false;
+            }
+            return index < selected.value;
+        }
+
         function isSelected(index: number) {
             if (isDisabled(index)) {
                 return false;
@@ -129,33 +133,13 @@ export default defineComponent({
             return index === selected.value;
         }
 
-        function isCompleted(index: number) {
-            if (isDisabled(index)) {
-                return false;
-            }
-            return completed.value.includes(index);
-        }
-
-        function isClickable(index: number) {
-            if (isDisabled(index)) {
-                return false;
-            }
-
-            if (index === 0) {
-                return true;
-            }
-
-            const prevSteps = Array.from({ length: index }, (_, i) => i);
-            return prevSteps.every((step) => completed.value.includes(step));
-        }
-
         function selectStep(index: number) {
             if (index < 0 || index > gapCount.value) {
                 return;
             }
 
-            if (!isClickable(index)) {
-                return;
+            if (isDisabled(index)) {
+                return false;
             }
 
             selected.value = index;
@@ -168,10 +152,9 @@ export default defineComponent({
             fixedWidth,
             selected,
             selectStep,
+            isPrevious,
             isSelected,
-            isCompleted,
             isDisabled,
-            isClickable,
         };
     },
 });
