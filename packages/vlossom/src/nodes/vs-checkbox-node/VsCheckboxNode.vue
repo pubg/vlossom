@@ -11,7 +11,7 @@
                 :name="name"
                 :value="convertToString(value)"
                 :checked="checked"
-                :required="required"
+                :aria-required="required"
                 @change="toggle"
                 @focus="onFocus"
                 @blur="onBlur"

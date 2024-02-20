@@ -72,7 +72,7 @@ describe('vs-input', () => {
             expect(wrapper.find('input').element.value).toBe('test');
         });
 
-        it('type이 string 일 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
+        it('input type이 number가 아닐 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -92,7 +92,7 @@ describe('vs-input', () => {
             expect(updateModelValueEvent?.[0]).toEqual(['123']);
         });
 
-        it('type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
+        it('input type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -113,11 +113,10 @@ describe('vs-input', () => {
             expect(updateModelValueEvent?.[0]).toEqual([123]);
         });
 
-        it('modelValue가 null이고 타입이 string이면 빈 문자열로 가공해준다', async () => {
+        it('modelValue가 null이고 input type이 number가 아니면 빈 문자열로 가공해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
-                    // @ts-expect-error: for null test
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
                 },
@@ -129,25 +128,6 @@ describe('vs-input', () => {
             // then
             expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.props('modelValue')).toBe('');
-        });
-
-        it('modelValue가 null이고 타입이 number이면 0으로 가공해준다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    // @ts-expect-error: for null test
-                    modelValue: null,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.Number,
-                },
-            });
-
-            // when
-            await nextTick();
-
-            // then
-            expect(wrapper.find('input').element.value).toBe('0');
-            expect(wrapper.props('modelValue')).toBe(0);
         });
     });
 
@@ -211,7 +191,7 @@ describe('vs-input', () => {
     });
 
     describe('clear', () => {
-        it('input 영역을 mouse over 하면 clear 버튼이 나타난다', async () => {
+        it('value가 있으면 clear 버튼이 활성화된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -220,14 +200,13 @@ describe('vs-input', () => {
                 },
             });
 
-            // when
-            await wrapper.find('.vs-input').trigger('mouseover');
-
             // then
-            expect(wrapper.find('button').exists()).toBe(true);
+            const clearButton = wrapper.find<HTMLButtonElement>('button.clear-button');
+            expect(clearButton.element.disabled).toBeFalsy();
+            expect(clearButton.classes()).toContain('show');
         });
 
-        it('value가 없으면 input 영역을 mouse over 하여도 clear 버튼이 나타나지 않는다', async () => {
+        it('value가 없으면 clear 버튼이 활성화되지 않는다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -240,7 +219,9 @@ describe('vs-input', () => {
             await wrapper.find('.vs-input').trigger('mouseover');
 
             // then
-            expect(wrapper.find('button').exists()).toBe(false);
+            const clearButton = wrapper.find<HTMLButtonElement>('button.clear-button');
+            expect(clearButton.element.disabled).toBeTruthy();
+            expect(clearButton.classes()).not.toContain('show');
         });
 
         it('clear 버튼을 누르면 input 값을 초기화 할 수 있다', async () => {
@@ -280,60 +261,86 @@ describe('vs-input', () => {
     });
 
     describe('prepend / append', () => {
-        it('prepend를 설정할 수 있다', async () => {
+        it('prepend button slot을 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'prepend-icon': '<div class="prepend-icon"></div>',
+                    'prepend-button': 'this is button content',
                 },
             });
 
             // then
-            expect(wrapper.find('button').exists()).toBe(true);
-            expect(wrapper.html()).toContain('prepend-icon');
+            expect(wrapper.find('button.prepend').exists()).toBe(true);
+            expect(wrapper.html()).toContain('this is button content');
         });
 
-        it('append를 설정할 수 있다', async () => {
+        it('append button slot을 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'append-icon': '<div class="append-icon"></div>',
+                    'append-button': 'this is button content',
                 },
             });
 
             // then
-            expect(wrapper.find('button').exists()).toBe(true);
-            expect(wrapper.html()).toContain('append-icon');
+            expect(wrapper.find('button.append').exists()).toBe(true);
+            expect(wrapper.html()).toContain('this is button content');
         });
 
-        it('prepend를 클릭하면 prepend 이벤트를 발생시킨다', async () => {
+        it('prepend button을 클릭하면 prepend 이벤트를 발생시킨다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'prepend-icon': '<div class="prepend-icon"></div>',
+                    'prepend-button': 'this is button content',
                 },
             });
 
             // when
-            await wrapper.find('button').trigger('click');
+            await wrapper.find('button.prepend').trigger('click');
 
             // then
             expect(wrapper.emitted('prepend')).toHaveLength(1);
         });
 
-        it('append를 클릭하면 append 이벤트를 발생시킨다', async () => {
+        it('append button을 클릭하면 append 이벤트를 발생시킨다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'append-icon': '<div class="append-icon"></div>',
+                    'append-button': 'this is button content',
                 },
             });
 
             // when
-            await wrapper.find('button').trigger('click');
+            await wrapper.find('button.append').trigger('click');
 
             // then
             expect(wrapper.emitted('append')).toHaveLength(1);
+        });
+
+        it('prepend content slot을 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                slots: {
+                    'prepend-content': 'this is content',
+                },
+            });
+
+            // then
+            expect(wrapper.find('div.prepend').exists()).toBe(true);
+            expect(wrapper.html()).toContain('this is content');
+        });
+
+        it('append content slot을 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                slots: {
+                    'append-content': 'this is content',
+                },
+            });
+
+            // then
+            expect(wrapper.find('div.append').exists()).toBe(true);
+            expect(wrapper.html()).toContain('this is content');
         });
     });
 
@@ -373,12 +380,12 @@ describe('vs-input', () => {
             expect(wrapper.emitted('enter')).toHaveLength(1);
         });
 
-        it('prepend와 append가 있을 경우 prepend, append 이벤트도 함께 발생시킨다', async () => {
+        it('prepend button과 append button이 있을 경우 prepend, append 이벤트도 함께 발생시킨다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'prepend-icon': '<div class="prepend-icon"></div>',
-                    'append-icon': '<div class="append-icon"></div>',
+                    'prepend-button': 'this is button content',
+                    'append-button': 'this is button content',
                 },
             });
 
@@ -413,7 +420,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
-        it('type이 string 일 때 max 체크가 가능하다', async () => {
+        it('input type이 number가 아닐 때 max 길이 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -433,7 +440,27 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
-        it('type이 number 일 때 max 체크가 가능하다', async () => {
+        it('input type이 number가 아닐 때 min 길이 체크가 가능하다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    modelValue: 'test',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    min: 3,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input').setValue('te');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
+        });
+
+        it('input type이 number 일 때 max 값 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
@@ -454,27 +481,7 @@ describe('vs-input', () => {
             expect(wrapper.vm.computedMessages[0].text).toEqual('max value: 3');
         });
 
-        it('type이 string 일 때 min 체크가 가능하다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: 'test',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    min: 3,
-                },
-            });
-
-            // when
-            await nextTick();
-            await wrapper.find('input').setValue('te');
-
-            // then
-            expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
-            expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
-        });
-
-        it('type이 number 일 때 min 체크가 가능하다', async () => {
+        it('input type이 number 일 때 min 값 체크가 가능하다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 props: {
