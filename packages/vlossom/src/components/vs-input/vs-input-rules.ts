@@ -18,7 +18,7 @@ export function useVsInputRules(
     function maxCheck(v: InputValueType) {
         const limit = Number(max.value);
 
-        if (max.value === null || isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
+        if (isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
             return '';
         }
 
@@ -36,7 +36,7 @@ export function useVsInputRules(
     function minCheck(v: InputValueType) {
         const limit = Number(min.value);
 
-        if (min.value === null || isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
+        if (isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
             return '';
         }
 
