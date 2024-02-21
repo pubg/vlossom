@@ -116,9 +116,6 @@ export default defineComponent({
         }
 
         function isPrevious(index: number) {
-            if (isDisabled(index)) {
-                return false;
-            }
             return index < selected.value;
         }
 
