@@ -1,6 +1,6 @@
 <template>
     <vs-wrapper class="vs-accordion" :width="width" :grid="grid">
-        <details :class="`vs-${computedColorScheme}`" :style="computedStyleSet" :open="open" @toggle.stop="onToggle">
+        <details :class="`vs-${computedColorScheme}`" :style="computedStyleSet" :open="isOpen" @toggle.stop="onToggle">
             <summary>
                 <slot name="title" />
             </summary>
@@ -12,11 +12,11 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs } from 'vue';
+import type { VsAccordionStyleSet } from './types';
+import { PropType, defineComponent, ref, toRefs } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-
-import type { VsAccordionStyleSet } from './types';
+import { watch } from 'vue';
 
 const name = VsComponent.VsAccordion;
 export default defineComponent({
@@ -33,18 +33,29 @@ export default defineComponent({
     },
     emits: ['update:open', 'toggle'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet } = toRefs(props);
+        const { colorScheme, styleSet, open: modelOpen } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet<VsAccordionStyleSet>(name, styleSet);
 
+        const isOpen = ref(modelOpen.value);
+
         function onToggle(event: Event) {
             const { open } = event.target as HTMLDetailsElement;
-            emit('update:open', open);
-            emit('toggle', open);
+            isOpen.value = open;
         }
 
+        watch(modelOpen, (o) => {
+            isOpen.value = o;
+        });
+
+        watch(isOpen, (o) => {
+            emit('update:open', o);
+            emit('toggle', o);
+        });
+
         return {
+            isOpen,
             computedColorScheme,
             computedStyleSet,
             onToggle,

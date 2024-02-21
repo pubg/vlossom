@@ -50,6 +50,8 @@ describe('vs-accordion', () => {
 
             // then;
             expect(wrapper.find('details').attributes('open')).exist;
+            expect(wrapper.emitted('update:open')).toEqual([[true]]);
+            expect(wrapper.emitted('toggle')).toEqual([[true]]);
         });
     });
 });
