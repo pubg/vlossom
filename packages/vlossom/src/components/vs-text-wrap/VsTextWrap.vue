@@ -89,7 +89,6 @@ export default defineComponent({
             }
             window.open(link.value, '_blank');
         }
-        
         return {
             computedColorScheme,
             computedStyleSet,
