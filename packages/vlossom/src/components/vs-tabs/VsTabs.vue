@@ -68,6 +68,16 @@ export default defineComponent({
 
         const selectedIdx = ref(modelValue.value);
 
+        function selectTab(index: number) {
+            if (index < 0 || index > tabs.value.length - 1) {
+                return;
+            }
+            if (isDisabled(index)) {
+                return;
+            }
+            selectedIdx.value = index;
+        }
+
         watch(tabs, () => {
             selectTab(modelValue.value);
         });
@@ -78,16 +88,6 @@ export default defineComponent({
                 emit('change', index);
             }
         });
-
-        function selectTab(index: number) {
-            if (index < 0 || index > tabs.value.length - 1) {
-                return;
-            }
-            if (isDisabled(index)) {
-                return;
-            }
-            selectedIdx.value = index;
-        }
 
         watch(
             modelValue,

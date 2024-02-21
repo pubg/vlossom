@@ -112,8 +112,34 @@ export default defineComponent({
             };
         });
 
+        function isDisabled(index: number) {
+            return disabled.value.includes(index);
+        }
+
+        function isPrevious(index: number) {
+            if (isDisabled(index)) {
+                return false;
+            }
+            return index < selected.value;
+        }
+
+        function isSelected(index: number) {
+            return selected.value === index;
+        }
+
+        function selectStep(index: number) {
+            if (index < 0 || index > gapCount.value) {
+                return;
+            }
+
+            if (isDisabled(index)) {
+                return;
+            }
+
+            selected.value = index;
+        }
+
         watch(steps, () => {
-            selected.value = modelValue.value;
             selectStep(modelValue.value);
         });
 
@@ -131,36 +157,6 @@ export default defineComponent({
             },
             { immediate: true },
         );
-
-        function isDisabled(index: number) {
-            return disabled.value.includes(index);
-        }
-
-        function isPrevious(index: number) {
-            if (isDisabled(index)) {
-                return false;
-            }
-            return index < selected.value;
-        }
-
-        function isSelected(index: number) {
-            if (isDisabled(index)) {
-                return false;
-            }
-            return index === selected.value;
-        }
-
-        function selectStep(index: number) {
-            if (index < 0 || index > gapCount.value) {
-                return;
-            }
-
-            if (isDisabled(index)) {
-                return;
-            }
-
-            selected.value = index;
-        }
 
         return {
             computedColorScheme,
