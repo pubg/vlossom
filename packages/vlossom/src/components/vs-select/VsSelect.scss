@@ -1,0 +1,143 @@
+@use '@/styles/mixin' as *;
+
+.vs-select {
+    display: flex;
+    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    border-radius: var(--vs-select-borderRadius, 0.4rem);
+    height: var(--vs-select-height, 2.5rem);
+    font-size: var(--vs-select-fontSize, 1rem);
+
+    .multiple-chips {
+        display: flex;
+
+        .collapse-chips {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .chip-others {
+                display: flex;
+                align-items: center;
+                height: 2.4rem;
+                margin-left: 2px;
+                padding: 0 0.8rem;
+                border-radius: 1.2rem;
+                color: var(--vs-grey-50);
+                background: var(--vs-light-blue-400);
+            }
+        }
+    }
+
+    input {
+        flex: 1;
+        padding: 0 1rem;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: var(--vs-select-color, var(--vs-font-color));
+        cursor: pointer;
+
+        &.autocomplete {
+            cursor: default;
+        }
+    }
+
+    .clear-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.4s;
+        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    &:hover {
+        .clear-button {
+            opacity: 1;
+        }
+    }
+
+    &.dense {
+        height: var(--vs-select-height, 2.2rem);
+        font-size: var(--vs-select-fontSize, 0.9rem);
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        @include readonly;
+    }
+
+    &.open {
+        @include focus-shadow;
+    }
+}
+
+.options {
+    z-index: 1000;
+    max-height: 30rem;
+    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    border-radius: var(--vs-select-borderRadius, 0.4rem);
+    list-style-type: none;
+
+    li {
+        padding: 0 1.2rem;
+        min-height: var(--vs-select-height, 2.5rem);
+        line-height: var(--vs-select-height, 2.5rem);
+        cursor: pointer;
+        user-select: none;
+
+        &.selected {
+            background-color: var(--vs-comp-backgroundColor);
+            color: var(--vs-comp-border-color);
+            font-weight: 600;
+        }
+
+        &:not(.selected):hover {
+            background-color: var(--vs-light-backgroundColor);
+            span {
+                color: var(--vs-comp-border-color);
+            }
+        }
+
+        &.select-all {
+            height: auto;
+            line-height: auto;
+            padding: 0.4rem 0.4rem;
+            span {
+                display: flex;
+                align-items: center;
+                height: 3.2rem;
+                padding: 0 0.8rem;
+                border-radius: 0.4rem;
+                background-color: var(--light-bg);
+            }
+
+            &.selected-option {
+                span {
+                    color: var(--comp-bg-font);
+                    background-color: var(--comp-bg);
+                    &:hover {
+                        color: var(--comp-bg-font);
+                        background-color: var(--comp-bg);
+                    }
+                }
+            }
+        }
+    }
+
+    &.dense {
+        li {
+            min-height: var(--vs-select-height, 2.2rem);
+            line-height: var(--vs-select-height, 2.2rem);
+            font-size: var(--vs-select-fontSize, 0.9rem);
+        }
+    }
+}

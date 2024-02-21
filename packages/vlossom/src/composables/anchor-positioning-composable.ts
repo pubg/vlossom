@@ -1,4 +1,4 @@
-import { Ref, onBeforeMount, ref } from 'vue';
+import { Ref, onBeforeMount, ref, nextTick } from 'vue';
 import { utils } from '@/utils';
 import type { AttachInfo, Placement, Align } from '@/declaration';
 
@@ -33,7 +33,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         }
     }
 
-    function computePosition({ placement = 'top', align = 'center', margin = 0 }: AttachInfo) {
+    function computePosition({ placement = 'top', align = 'center', margin = 0, followWidth = false }: AttachInfo) {
         if (!anchor.value || !attachment.value) {
             return;
         }
@@ -83,6 +83,10 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
 
         attachment.value.style.left = `${x + scrollLeft}px`;
         attachment.value.style.top = `${y + scrollTop}px`;
+
+        if (followWidth) {
+            attachment.value.style.width = `${width}px`;
+        }
     }
 
     function appear(attachInfo: AttachInfo = {}) {
@@ -91,14 +95,14 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         attachment.value.style.position = 'absolute';
         attachment.value.style.opacity = '0';
 
-        setTimeout(() => {
+        nextTick(() => {
             computePosition(attachInfo);
             attachment.value.style.opacity = '1';
 
             throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
             document.addEventListener('scroll', throttledComputePosition, true);
             window.addEventListener('resize', throttledComputePosition, true);
-        }, 50);
+        });
     }
 
     function disappear() {
