@@ -37,8 +37,8 @@ const meta: Meta<typeof VsIndexView> = {
 			<div :key="!args.keepAlive && compKey">   <!-- Force re-render of the component (Only in Storybook, Except KeepAlive mode) -->
 				<vs-tabs :tabs="tabs" @update:modelValue="updateModel" v-bind="args"/>
 				<vs-index-view v-bind="args" >
-					<vs-index-item key="A"> <CompA /></vs-index-item>
-					<vs-index-item key="B"> This is the content of Component B </vs-index-item>
+					<vs-index-item> <CompA /></vs-index-item>
+					<vs-index-item> This is the content of Component B </vs-index-item>
 				</vs-index-view>
 			</div>
 		`,
