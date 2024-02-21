@@ -37,40 +37,40 @@ describe('vs-stepper', () => {
             expect(wrapper.vm.$options.props.steps.validator?.(steps)).toBe(false);
         });
 
-        it('각 step의 label slot을 통해 step의 라벨을 커스터마이징할 수 있다', () => {
+        it('각 스텝의 step slot을 통해 step에서 표시할 내용을 커스터마이징할 수 있다', () => {
             const wrapper = mount(VsStepper, {
                 props: {
-                    steps: ['step1', 'step2', 'step3'],
+                    steps: ['A', 'B', 'C'],
                 },
                 slots: {
-                    'step1-label': 'label1',
-                    'step2-label': 'label2',
-                    'step3-label': 'label3',
+                    'A-step': 'step1',
+                    'B-step': 'step2',
+                    'C-step': 'step3',
                 },
             });
 
             // then
-            expect(wrapper.html()).toContain('label1');
-            expect(wrapper.html()).toContain('label2');
-            expect(wrapper.html()).toContain('label3');
+            expect(wrapper.html()).toContain('step1');
+            expect(wrapper.html()).toContain('step2');
+            expect(wrapper.html()).toContain('step3');
         });
 
-        it('각 step의 value slot을 통해 step의 값을 커스터마이징할 수 있다', () => {
+        it('각 스텝의 name slot을 통해 step 하단에 표시할 이름을 커스터마이징할 수 있다', () => {
             const wrapper = mount(VsStepper, {
                 props: {
-                    steps: ['step1', 'step2', 'step3'],
+                    steps: ['A', 'B', 'C'],
                 },
                 slots: {
-                    'step1-value': 'value1',
-                    'step2-value': 'value2',
-                    'step3-value': 'value3',
+                    'A-name': 'name1',
+                    'B-name': 'name2',
+                    'C-name': 'name3',
                 },
             });
 
             // then
-            expect(wrapper.html()).toContain('value1');
-            expect(wrapper.html()).toContain('value2');
-            expect(wrapper.html()).toContain('value3');
+            expect(wrapper.html()).toContain('name1');
+            expect(wrapper.html()).toContain('name2');
+            expect(wrapper.html()).toContain('name3');
         });
     });
 
