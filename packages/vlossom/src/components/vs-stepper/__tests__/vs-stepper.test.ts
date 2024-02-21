@@ -132,8 +132,8 @@ describe('vs-stepper', () => {
             expect(wrapper.vm.fixedWidth).toEqual({ width: 'auto' });
         });
 
-        describe('gap prop이 있는 경우', () => {
-            it('gap의 타입이 number인 경우, (전체 step의 개수 - 1)과 gap을 곱한 값이 width가 되고 단위는 px이다 ', () => {
+        describe('gap 타입이 number인 경우', () => {
+            it('gap과 (전체 step의 개수 - 1)을 곱한 값이 width가 되고 단위는 px로 지정된다 ', () => {
                 // given
                 const gap = 300;
                 const wrapper = mount(VsStepper, {
@@ -146,10 +146,26 @@ describe('vs-stepper', () => {
                 // then
                 expect(wrapper.vm.fixedWidth).toEqual({ width: '600px' });
             });
+        });
 
-            it('gap의 타입이 string인 경우, (전체 step의 개수 - 1)과 gap을 곱한 값이 width가 되고 단위는 string에 포함된 단위이다 ', () => {
+        describe('gap 타입이 string인 경우', () => {
+            it('gap 에 단위가 포함되어 있다면 단위를 제외한 값과 (전체 step의 개수 - 1)을 곱한 값이 width가 되고 단위는 string에 포함된 단위로 지정된다 ', () => {
                 // given
-                const gap = '300px';
+                const gap = '300%';
+                const wrapper = mount(VsStepper, {
+                    props: {
+                        steps: ['step1', 'step2', 'step3'],
+                        gap,
+                    },
+                });
+
+                // then
+                expect(wrapper.vm.fixedWidth).toEqual({ width: '600%' });
+            });
+
+            it('gap 에 단위가 없다면 gap과 (전체 step의 개수 - 1)을 곱한 값이 width가 되고 단위는 px로 지정된다 ', () => {
+                // given
+                const gap = '300';
                 const wrapper = mount(VsStepper, {
                     props: {
                         steps: ['step1', 'step2', 'step3'],

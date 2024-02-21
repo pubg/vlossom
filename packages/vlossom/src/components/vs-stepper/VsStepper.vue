@@ -39,7 +39,6 @@ import { computed, defineComponent, toRefs, ref, watch, type PropType } from 'vu
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
-import { stringUtil } from '@/utils/string';
 
 import type { VsStepperStyleSet } from './types';
 
@@ -72,12 +71,37 @@ export default defineComponent({
         const selected = ref(modelValue.value);
 
         const gapCount = computed(() => steps.value.length - 1);
+
+        function parseUnit(str: string | number): { value: number; unit: string } {
+            const numValue = Number(str);
+
+            if (typeof str === 'number' || !isNaN(numValue)) {
+                return {
+                    value: numValue,
+                    unit: 'px',
+                };
+            }
+
+            const match = str.match(/(\d+)(\w+|%)/);
+
+            if (match) {
+                return {
+                    value: Number(match[1]),
+                    unit: match[2],
+                };
+            }
+            return {
+                value: 0,
+                unit: '',
+            };
+        }
+
         const fixedWidth = computed(() => {
             if (!gap.value) {
                 return { width: 'auto' };
             }
 
-            const { value, unit } = stringUtil.parseUnit(gap.value);
+            const { value, unit } = parseUnit(gap.value);
             return {
                 width: `${gapCount.value * value}${unit}`,
             };

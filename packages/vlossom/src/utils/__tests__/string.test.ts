@@ -41,45 +41,4 @@ describe('string util', () => {
             expect(result).toBe('pascal-case');
         });
     });
-
-    describe('parseUnit', () => {
-        const { parseUnit } = stringUtil;
-
-        it('패러미터로 받은 문자열을 값과 단위를 속성으로 갖는 객체로 변환할 수 있다', () => {
-            // given
-            const str1 = '200';
-            const str2 = '200px';
-            const str3 = '200%';
-            const str4 = '1rem';
-            const str5 = '2em';
-            const InvalidStr = 'abc';
-
-            // when
-            const result1 = parseUnit(str1);
-            const result2 = parseUnit(str2);
-            const result3 = parseUnit(str3);
-            const result4 = parseUnit(str4);
-            const result5 = parseUnit(str5);
-            const result6 = parseUnit(InvalidStr);
-
-            // then
-            expect(result1).toEqual({ value: 200, unit: 'px' });
-            expect(result2).toEqual({ value: 200, unit: 'px' });
-            expect(result3).toEqual({ value: 200, unit: '%' });
-            expect(result4).toEqual({ value: 1, unit: 'rem' });
-            expect(result5).toEqual({ value: 2, unit: 'em' });
-            expect(result6).toEqual({ value: 0, unit: '' });
-        });
-
-        it('패러미터로 받은 숫자를 값과 단위를 속성으로 갖는 객체로 변환할 수 있다', () => {
-            // given
-            const str = 200;
-
-            // when
-            const result = parseUnit(str);
-
-            // then
-            expect(result).toEqual({ value: 200, unit: 'px' });
-        });
-    });
 });
