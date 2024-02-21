@@ -1,4 +1,5 @@
 import type {
+    VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
     VsCheckboxStyleSet,
@@ -30,6 +31,7 @@ export type ColorScheme = (typeof COLORS)[number];
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
+    VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };

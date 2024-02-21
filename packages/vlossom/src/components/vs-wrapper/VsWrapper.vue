@@ -1,12 +1,12 @@
 <template>
-    <div class="vs-wrapper" :style="widthProperties" :class="widthClasses">
+    <div class="vs-wrapper" :class="responsiveClasses" :style="responsiveStyles">
         <slot />
     </div>
 </template>
 
 <script lang="ts">
 import { PropType, defineComponent, toRefs } from 'vue';
-import { useResponsiveWidth } from '@/composables';
+import { useResponsive } from '@/composables';
 import { VsComponent, type Breakpoints } from '@/declaration';
 
 export default defineComponent({
@@ -18,11 +18,11 @@ export default defineComponent({
     setup(props) {
         const { width, grid } = toRefs(props);
 
-        const { widthProperties, widthClasses } = useResponsiveWidth(width, grid);
+        const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
         return {
-            widthProperties,
-            widthClasses,
+            responsiveClasses,
+            responsiveStyles,
         };
     },
 });

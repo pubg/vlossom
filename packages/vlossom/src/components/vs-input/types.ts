@@ -1,4 +1,14 @@
-export type InputValueType = string | number;
+export type InputValueType = string | number | null;
+
+export enum InputType {
+    Email = 'email',
+    Number = 'number',
+    Password = 'password',
+    Search = 'search',
+    Tel = 'tel',
+    Text = 'text',
+    Url = 'url',
+}
 
 export interface VsInputStyleSet {
     appendBackgroundColor?: string;
@@ -12,9 +22,4 @@ export interface VsInputStyleSet {
     height?: string;
     prependBackgroundColor?: string;
     prependColor?: string;
-}
-
-export enum InputType {
-    Text = 'text',
-    Number = 'number',
 }

@@ -14,14 +14,13 @@
             </template>
 
             <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-                <button
-                    class="action-button prepend"
-                    v-if="hasPrepend"
-                    @click="$emit('prepend')"
-                    aria-label="prepend-action"
-                >
-                    <slot name="prepend-icon" />
+                <button v-if="hasPrependButton" class="prepend" @click="$emit('prepend')" aria-label="prepend-action">
+                    <slot name="prepend-button" />
                 </button>
+
+                <div v-if="hasPrependContent" class="prepend">
+                    <slot name="prepend-content" />
+                </div>
 
                 <input
                     ref="inputRef"
@@ -31,7 +30,7 @@
                     :name="name"
                     :disabled="disabled"
                     :readonly="readonly"
-                    :required="required"
+                    :aria-required="required"
                     :placeholder="placeholder"
                     @input="updateValue($event)"
                     @focus="onFocus"
@@ -41,22 +40,22 @@
                 />
 
                 <button
-                    class="action-button append"
-                    v-if="hasAppend"
-                    @click="$emit('append')"
-                    aria-label="append-action"
-                >
-                    <slot name="append-icon" />
-                </button>
-
-                <button
-                    v-if="!noClear && inputValue && !readonly && !disabled"
+                    v-if="!noClear && !readonly && !disabled"
                     class="clear-button"
-                    :class="{ number: type === InputType.Number }"
+                    :class="{ show: inputValue }"
+                    :disabled="!inputValue"
                     aria-label="clear"
                     @click.stop="clearWithFocus()"
                 >
                     <vs-icon icon="close" :size="dense ? 16 : 20" />
+                </button>
+
+                <div v-if="hasAppendContent" class="append">
+                    <slot name="append-content" />
+                </div>
+
+                <button v-if="hasAppendButton" class="append" @click="$emit('append')" aria-label="append-action">
+                    <slot name="append-button" />
                 </button>
             </div>
 
@@ -96,11 +95,11 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
-        type: { type: String as PropType<InputType | string>, default: InputType.Text },
+        type: { type: String as PropType<InputType>, default: InputType.Text },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model
-        modelValue: { type: [String, Number], default: '' },
+        modelValue: { type: [String, Number] as PropType<InputValueType>, default: '' },
         modelModifiers: {
             type: Object as PropType<StringModifiers>,
             default: () => ({}),
@@ -149,16 +148,18 @@ export default defineComponent({
             disabled: disabled.value,
         }));
 
-        function convertValue(v: InputValueType | null | undefined): InputValueType {
+        const isNumberInput = computed(() => type.value === InputType.Number);
+
+        function convertValue(v: InputValueType | undefined): InputValueType {
             if (!v) {
-                return type.value === InputType.Text ? '' : 0;
+                return isNumberInput.value ? null : '';
             }
 
-            if (type.value === InputType.Text) {
-                return v.toString();
-            } else {
+            if (isNumberInput.value) {
                 return Number(v);
             }
+
+            return v.toString();
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
@@ -191,6 +192,12 @@ export default defineComponent({
             inputValue.value = converted;
         }
 
+        const hasPrependButton = computed(() => !!slots['prepend-button']);
+        const hasAppendButton = computed(() => !!slots['append-button']);
+
+        const hasPrependContent = computed(() => !!slots['prepend-content']);
+        const hasAppendContent = computed(() => !!slots['append-content']);
+
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
         function focus() {
@@ -205,9 +212,6 @@ export default defineComponent({
             inputRef.value?.select();
         }
 
-        const hasPrepend = computed(() => !!slots['prepend-icon']);
-        const hasAppend = computed(() => !!slots['append-icon']);
-
         function onFocus() {
             emit('focus');
         }
@@ -219,11 +223,11 @@ export default defineComponent({
         function onEnter() {
             emit('enter');
 
-            if (hasPrepend.value) {
+            if (hasPrependButton.value) {
                 emit('prepend');
             }
 
-            if (hasAppend.value) {
+            if (hasAppendButton.value) {
                 emit('append');
             }
         }
@@ -242,8 +246,10 @@ export default defineComponent({
             inputValue,
             updateValue,
             inputRef,
-            hasPrepend,
-            hasAppend,
+            hasPrependButton,
+            hasAppendButton,
+            hasPrependContent,
+            hasAppendContent,
             computedMessages,
             shake,
             focus,

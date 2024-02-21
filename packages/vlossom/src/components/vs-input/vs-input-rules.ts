@@ -5,7 +5,7 @@ export function useVsInputRules(
     required: Ref<boolean>,
     max: Ref<number | string>,
     min: Ref<number | string>,
-    type: Ref<string>,
+    type: Ref<InputType>,
 ) {
     function requiredCheck(v: InputValueType) {
         if (required.value && v === '') {
@@ -22,12 +22,12 @@ export function useVsInputRules(
             return '';
         }
 
-        if (type.value === InputType.Text && typeof v === 'string' && v.length > limit) {
-            return 'max length: ' + max.value;
-        }
-
         if (type.value === InputType.Number && typeof v === 'number' && v > limit) {
             return 'max value: ' + max.value;
+        }
+
+        if (type.value !== InputType.Number && typeof v === 'string' && v.length > limit) {
+            return 'max length: ' + max.value;
         }
 
         return '';
@@ -40,12 +40,12 @@ export function useVsInputRules(
             return '';
         }
 
-        if (type.value === InputType.Text && typeof v === 'string' && v.length < limit) {
-            return 'min length: ' + min.value;
-        }
-
         if (type.value === InputType.Number && typeof v === 'number' && v < limit) {
             return 'min value: ' + min.value;
+        }
+
+        if (type.value !== InputType.Number && typeof v === 'string' && v.length < limit) {
+            return 'min length: ' + min.value;
         }
 
         return '';

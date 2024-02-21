@@ -22,7 +22,7 @@
                 :name="name"
                 :disabled="disabled"
                 :readonly="readonly"
-                :required="required"
+                :aria-required="required"
                 :placeholder="placeholder"
                 @input="updateValue($event)"
                 @focus="onFocus"

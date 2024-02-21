@@ -9,40 +9,57 @@
     pointer-events: none;
 }
 
-@mixin responsive_width {
-    $base: var(--vs-width-base);
-    $sm: var(--vs-width-sm);
-    $md: var(--vs-width-md);
-    $lg: var(--vs-width-lg);
-    $xl: var(--vs-width-xl);
+@mixin responsive {
+    $width-base: var(--vs-width-base);
+    $width-sm: var(--vs-width-sm);
+    $width-md: var(--vs-width-md);
+    $width-lg: var(--vs-width-lg);
+    $width-xl: var(--vs-width-xl);
+    $grid-base: var(--vs-grid-base);
+    $grid-sm: var(--vs-grid-sm);
+    $grid-md: var(--vs-grid-md);
+    $grid-lg: var(--vs-grid-lg);
+    $grid-xl: var(--vs-grid-xl);
 
-    .vs-width-base {
-        @container (min-width: 0px) {
-            width: $base;
+    .vs-responsive {
+        box-sizing: border-box;
+        width: $width-base;
+        grid-column-start: span $grid-base;
+    }
+
+    @container (min-width: 480px) {
+        .vs-width-sm {
+            width: $width-sm;
+        }
+        .vs-grid-sm {
+            grid-column-start: span $grid-sm;
         }
     }
 
-    .vs-width-sm {
-        @container (min-width: 480px) {
-            width: $sm;
+    @container (min-width: 768px) {
+        .vs-width-md {
+            width: $width-md;
+        }
+        .vs-grid-md {
+            grid-column-start: span $grid-md;
         }
     }
 
-    .vs-width-md {
-        @container (min-width: 768px) {
-            width: $md;
+    @container (min-width: 992px) {
+        .vs-width-lg {
+            width: $width-lg;
+        }
+        .vs-grid-lg {
+            grid-column-start: span $grid-lg;
         }
     }
 
-    .vs-width-lg {
-        @container (min-width: 992px) {
-            width: $lg;
+    @container (min-width: 1280px) {
+        .vs-width-xl {
+            width: $width-xl;
         }
-    }
-
-    .vs-width-xl {
-        @container (min-width: 1280px) {
-            width: $xl;
+        .vs-grid-xl {
+            grid-column-start: span $grid-xl;
         }
     }
 }
