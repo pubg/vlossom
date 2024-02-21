@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
         <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
-            <div class="step-line absolute">
+            <div class="step-line">
                 <div class="progress-line" :style="progressWidth" />
             </div>
             <ul role="tablist">

@@ -8,7 +8,7 @@ function mountComponent() {
 
 describe('vs-stepper', () => {
     describe('props & slots', () => {
-        it('props stebs에 string 배열을 전달하면, 그 길이만큼 steps가 생기고 배열의 각 요소가 steps의 라벨로 지정된다', () => {
+        it('props steps에 string 배열을 전달하면, 그 길이만큼 steps가 생기고 배열의 각 요소가 steps의 라벨로 지정된다', () => {
             // given
             const steps = ['step1', 'step2', 'step3'];
             const wrapper = mount(VsStepper, {
@@ -24,7 +24,7 @@ describe('vs-stepper', () => {
             expect(wrapper.vm.$options.props.steps.validator?.(steps)).toBe(true);
         });
 
-        it('props stebs에 전달된 string 배열이 중복되면 validator가 false를 리턴한다', () => {
+        it('props steps에 전달된 string 배열이 중복되면 validator가 false를 리턴한다', () => {
             // given
             const steps = ['step1', 'step1'];
             const wrapper = mount(VsStepper, {
