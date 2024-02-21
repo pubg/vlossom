@@ -86,12 +86,14 @@ describe('vs-stepper', () => {
             });
 
             // when
-            await wrapper.findAll('li[role=tab]')[1].trigger('click');
+            const target = wrapper.findAll('li[role=tab]')[1];
+            await target.trigger('click');
 
             // then
             expect(wrapper.emitted('change')?.[0]).toEqual([1]);
             expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
             expect(wrapper.vm.selected).toEqual(1);
+            expect(target.attributes('aria-selected')).toBe('true');
         });
 
         it('disabled 인 step은 click 이벤트가 발생하지 않는다', async () => {
