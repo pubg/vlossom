@@ -2,15 +2,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsIndexView from '../VsIndexView.vue';
 
-function mountComponent() {
-    return mount(VsIndexView);
-}
-
 describe('vs-index-view', () => {
     describe('slot', () => {
         it('Dynamic Component', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsIndexView, {
+            const wrapper = mount(VsIndexView, {
                 props: {
                     modelValue: 0,
                 },
