@@ -7,7 +7,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
     position: relative;
     -webkit-tap-highlight-color: transparent;
 
-    .step-line {
+    .item-line {
         background-color: var(--vs-grey-300);
         height: 0.2rem;
         left: $stepButtonW;
@@ -33,7 +33,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
         list-style: none;
         margin-bottom: 4rem;
 
-        .step {
+        li {
             align-items: center;
             cursor: pointer;
             display: flex;
@@ -41,7 +41,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
             justify-content: center;
             position: relative;
 
-            .step-value {
+            .item-step {
                 align-items: center;
                 background-color: var(--vs-grey-300);
                 border-radius: 50%;
@@ -66,7 +66,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 }
             }
 
-            .step-label {
+            .item-name {
                 color: var(--vs-stepper-labelColor, var(--vs-font-color));
                 font-size: $fontSize;
                 font-weight: 500;
@@ -79,22 +79,22 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
 
             &.previous,
             &.selected {
-                .step-value {
+                .item-step {
                     background-color: $activeBackgroundColor;
                     color: $activeColor;
                 }
 
-                .step-label {
+                .item-name {
                     color: var(--vs-stepper-labelColor, $activeColor);
                 }
             }
 
             &.selected {
-                .step-value {
+                .item-step {
                     border: solid 0.2rem $activeColor;
                 }
 
-                .step-label {
+                .item-name {
                     font-weight: 600;
                 }
             }
@@ -102,12 +102,12 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
             &.disabled {
                 cursor: default;
 
-                .step-value {
+                .item-step {
                     background-color: var(--vs-grey-100);
                     color: transparentize(#adadad, 0.6);
                 }
 
-                .step-label {
+                .item-name {
                     color: var(--vs-grey-200);
                     opacity: 0.6;
                 }

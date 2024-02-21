@@ -1,15 +1,14 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
         <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
-            <div class="step-line">
+            <div class="item-line">
                 <div class="progress-line" :style="progressWidth" />
             </div>
             <ul role="tablist">
                 <li
-                    v-for="(step, index) in steps"
-                    :key="step"
+                    v-for="(item, index) in steps"
+                    :key="item"
                     :class="[
-                        'step',
                         {
                             previous: isPrevious(index),
                             disabled: isDisabled(index),
@@ -22,11 +21,11 @@
                     :tabindex="isSelected(index) ? 0 : -1"
                     @click.stop="selectStep(index)"
                 >
-                    <div class="step-value">
-                        <slot :name="`${step}-value`" :index="index"> {{ index + 1 }} </slot>
+                    <div class="item-step">
+                        <slot :name="`${item}-step`" :index="index"> {{ index + 1 }} </slot>
                     </div>
-                    <div class="step-label">
-                        <slot :name="`${step}-label`" :index="index"> {{ step }} </slot>
+                    <div class="item-name">
+                        <slot :name="`${item}-name`" :index="index"> {{ item }} </slot>
                     </div>
                 </li>
             </ul>

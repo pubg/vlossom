@@ -171,28 +171,28 @@ export const CustomSlots: Story = {
         template: `
 			<div>
 				<vs-stepper v-bind="args" style="margin-left:50px;" v-model="selectedIdx" :steps="steps" :modelValue="selectedIdx" @update:modelValue="updateModel">
-					<template #step1-value>
+					<template #step1-step>
 						<vs-icon v-if="isCompleted(0) && !isSelected(0)" icon="check" />
 					</template>
-					<template #step1-label>
+					<template #step1-name>
 						<span style="display:flex; align-items:center;">
 							<vs-icon v-if="isSelected(0)" icon="check" size="16px" />
 							<span style="margin-left:5px">Select campaign settings</span>
 						</span>
 					</template>
-					<template #step2-value>
+					<template #step2-step>
 						<vs-icon v-if="isCompleted(1) && !isSelected(1)" icon="check" />
 					</template>
-					<template #step2-label>
+					<template #step2-name>
 						<span style="display:flex; align-items:center;">
 							<vs-icon v-if="isSelected(1)" icon="check" size="16px" />
 							<span style="margin-left:5px">Select group</span>
 						</span>
 					</template>
-					<template #step3-value>
+					<template #step3-step>
 						<vs-icon v-if="isCompleted(2) && !isSelected(2)" icon="check" />
 					</template>
-					<template #step3-label>
+					<template #step3-name>
 						<span style="display:flex; align-items:center;">
 							<vs-icon v-if="isSelected(2)" icon="check" size="16px" />
 							<div style="display:flex; flex-direction:column; align-items:center;">
