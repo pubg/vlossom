@@ -45,6 +45,9 @@ export { default as VsInputWrapper } from './vs-input-wrapper/VsInputWrapper.vue
 export { type VsLabelValueStyleSet } from './vs-label-value/types';
 export { default as VsLabelValue } from './vs-label-value/VsLabelValue.vue';
 
+export { type VsLoadingStyleSet } from './vs-loading/types';
+export { default as VsLoading } from './vs-loading/VsLoading.vue';
+
 export { default as VsMain } from './vs-main/VsMain.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
@@ -100,6 +103,7 @@ declare module 'vue' {
         VsInput: typeof import('./')['VsInput'];
         VsInputWrapper: typeof import('./')['VsInputWrapper'];
         VsLabelValue: typeof import('./')['VsLabelValue'];
+        VsLoading: typeof import('./')['VsLoading'];
         VsMessage: typeof import('./')['VsMessage'];
         VsNotice: typeof import('./')['VsNotice'];
         VsPage: typeof import('./')['VsPage'];

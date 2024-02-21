@@ -13,6 +13,7 @@ import type {
     VsHeaderStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
+    VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsProgressStyleSet,
@@ -148,6 +149,12 @@ const vsLabelValue: VsLabelValueStyleSet = {
     padding: '2rem',
 };
 
+const vsLoading: VsLoadingStyleSet = {
+    color: '#ff90bc',
+    height: '20rem',
+    width: '7rem',
+};
+
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
@@ -236,6 +243,7 @@ export const styleSet: StyleSet = {
     VsHeader: { myStyleSet: vsHeader },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
+    VsLoading: { myStyleSet: vsLoading },
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },

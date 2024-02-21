@@ -11,6 +11,7 @@ import type {
     VsHeaderStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
+    VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsProgressStyleSet,
@@ -44,6 +45,7 @@ export interface StyleSet {
     VsHeader?: { [key: string]: VsHeaderStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
+    VsLoading?: { [key: string]: VsLoadingStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
