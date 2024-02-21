@@ -156,7 +156,7 @@ export default defineComponent({
             }
 
             if (isDisabled(index)) {
-                return false;
+                return;
             }
 
             selected.value = index;
