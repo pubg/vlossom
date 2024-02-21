@@ -13,6 +13,7 @@ export enum VsComponent {
     VsFooter = 'VsFooter',
     VsForm = 'VsForm',
     VsHeader = 'VsHeader',
+    VsImage = 'VsImage',
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
     VsLabelValue = 'VsLabelValue',
