@@ -12,11 +12,11 @@
 </template>
 
 <script lang="ts">
-import type { VsAccordionStyleSet } from './types';
-import { PropType, defineComponent, ref, toRefs } from 'vue';
+import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import { watch } from 'vue';
+
+import type { VsAccordionStyleSet } from './types';
 
 const name = VsComponent.VsAccordion;
 export default defineComponent({
