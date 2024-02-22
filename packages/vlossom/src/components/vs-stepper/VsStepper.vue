@@ -22,10 +22,10 @@
                     @click.stop="selectStep(index)"
                 >
                     <div class="item-step">
-                        <slot :name="`${item}-step`" :index="index"> {{ index + 1 }} </slot>
+                        <slot :name="`${item}-step`" :item="item" :index="index"> {{ index + 1 }} </slot>
                     </div>
                     <div class="item-name">
-                        <slot :name="`${item}-name`" :index="index"> {{ item }} </slot>
+                        <slot :name="`${item}-name`" :item="item" :index="index"> {{ item }} </slot>
                     </div>
                 </li>
             </ul>
