@@ -1,4 +1,5 @@
 import type {
+    VsAccordionStyleSet,
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
@@ -32,6 +33,7 @@ export type ColorScheme = (typeof COLORS)[number];
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
+    VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };

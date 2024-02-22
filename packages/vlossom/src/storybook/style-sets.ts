@@ -1,5 +1,6 @@
 import type { StyleSet } from '@/declaration';
 import type {
+    VsAccordionStyleSet,
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
@@ -25,6 +26,17 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
+
+const vsAccordion: VsAccordionStyleSet = {
+    border: '1px solid #1e88e5',
+    borderRadius: '0.7rem',
+    titleColor: '#1e88e5',
+    titleBackgroundColor: '#f5f5f5',
+    titlePadding: '1rem',
+    contentsColor: '#1e88e5',
+    contentsBackgroundColor: '#f5f5f5',
+    contentsPadding: '0.2rem',
+};
 
 const vsAvatar: VsAvatarStyleSet = {
     backgroundColor: '#1e88e5',
@@ -231,6 +243,7 @@ const vsValueTag: VsValueTagStyleSet = {
 };
 
 export const styleSet: StyleSet = {
+    VsAccordion: { myStyleSet: vsAccordion },
     VsAvatar: { myStyleSet: vsAvatar },
     VsBlock: { myStyleSet: vsBlock },
     VsButton: { myStyleSet: vsButton },

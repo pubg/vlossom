@@ -1,8 +1,8 @@
-import { placement, size } from '@/storybook/args';
+import { placement, size } from '@/storybook';
 import { userEvent, within } from '@storybook/testing-library';
 import { ref } from 'vue';
-import VsDrawer from './../VsDrawer.vue';
 import { VsIcon } from '@/icons';
+import VsDrawer from './../VsDrawer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

@@ -1,3 +1,6 @@
+export { type VsAccordionStyleSet } from './vs-accordion/types';
+export { default as VsAccordion } from './vs-accordion/VsAccordion.vue';
+
 export { type VsAvatarStyleSet } from './vs-avatar/types';
 export { default as VsAvatar } from './vs-avatar/VsAvatar.vue';
 
@@ -86,6 +89,7 @@ export { default as VsWrapper } from './vs-wrapper/VsWrapper.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
+        VsAccordion: typeof import('./')['VsAccordion'];
         VsAvatar: typeof import('./')['VsAvatar'];
         VsBlock: typeof import('./')['VsBlock'];
         VsButton: typeof import('./')['VsButton'];

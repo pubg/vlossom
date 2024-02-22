@@ -1,13 +1,7 @@
-import { colorScheme, getColorSchemeTemplate, align } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, align, LOREM_IPSUM } from '@/storybook';
 import VsLabelValue from '../VsLabelValue.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const contents = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Possimus, voluptatem cum? Atque facilis mollitia distinctio
-perferendis sed voluptates omnis sit maxime ad! Porro incidunt
-voluptatem quaerat sint itaque, blanditiis excepturi!`;
 
 const meta: Meta<typeof VsLabelValue> = {
     title: 'Components/Base Components/VsLabelValue',
@@ -17,7 +11,7 @@ const meta: Meta<typeof VsLabelValue> = {
         setup() {
             return { args };
         },
-        template: `<vs-label-value v-bind="args"><template #label>label</template><template #value>${contents}</template></vs-label-value>`,
+        template: `<vs-label-value v-bind="args"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>`,
     }),
     tags: ['autodocs'],
     argTypes: {
@@ -40,7 +34,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-label-value color-scheme="{{ color }}"><template #label>label</template><template #value>${contents}</template></vs-label-value>
+                    <vs-label-value color-scheme="{{ color }}"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
                 `)}
             </div>
         `,
@@ -59,7 +53,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-label-value color-scheme="{{ color }}" primary><template #label>label</template><template #value>${contents}</template></vs-label-value>
+                    <vs-label-value color-scheme="{{ color }}" primary><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
                 `)}
             </div>
         `,
@@ -78,7 +72,7 @@ export const HasActions: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${contents}</template>
+            <template #value>${LOREM_IPSUM}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,
@@ -94,7 +88,7 @@ export const VerticalAlignTop: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${contents}</template>
+            <template #value>${LOREM_IPSUM}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,
@@ -113,7 +107,7 @@ export const VerticalAlignBottom: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${contents}</template>
+            <template #value>${LOREM_IPSUM}</template>
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,

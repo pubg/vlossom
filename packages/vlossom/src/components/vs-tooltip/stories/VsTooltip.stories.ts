@@ -1,7 +1,7 @@
-import { colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook/args';
+import { chromaticParameters, colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook';
+import { PLACEMENTS, ALIGNS } from '@/declaration';
 import VsTooltip from './../VsTooltip.vue';
-import { chromaticParameters } from '@/storybook/parameters';
-import { PLACEMENTS, ALIGNS } from '@/declaration/constants';
+
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta<typeof VsTooltip> = {

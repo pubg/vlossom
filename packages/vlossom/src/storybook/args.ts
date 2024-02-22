@@ -20,10 +20,6 @@ export const size = {
     options: SIZES,
 };
 
-export function getColorSchemeTemplate(templateStr: string) {
-    return COLORS.map((color) => templateStr.replace(/{{\s*color\s*}}/g, color)).join('\n');
-}
-
 export function numberArray(length: number, multiSelect: boolean = false) {
     return {
         control: multiSelect ? 'multi-select' : 'select',

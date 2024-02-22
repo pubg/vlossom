@@ -1,6 +1,5 @@
-import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, chromaticParameters } from '@/storybook';
 import VsAvatar from './../VsAvatar.vue';
-import { chromaticParameters } from '@/storybook/parameters';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
