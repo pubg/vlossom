@@ -1,12 +1,16 @@
 <template>
     <div class="vs-index-view">
         <template v-if="keepAlive">
-            <KeepAlive>
-                <component :is="selectedComponent" role="tabpanel" tabindex="0" />
-            </KeepAlive>
+            <Transition enter-active-class="fade-in-bottom">
+                <KeepAlive>
+                    <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+                </KeepAlive>
+            </Transition>
         </template>
         <template v-else>
-            <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+            <Transition enter-active-class="fade-in-bottom">
+                <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+            </Transition>
         </template>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-index-item , fade-in-bottom">
+    <div class="vs-index-item">
         <slot />
     </div>
 </template>

@@ -23,18 +23,19 @@ const meta: Meta<typeof VsIndexView> = {
     render: (args: any) => ({
         components: { CompA },
         setup() {
+            const selectedIndex = ref(0);
             function updateModel(value: number) {
                 // Manually update modelValue
-                args.modelValue = value;
+                selectedIndex.value = value;
             }
 
-            return { args, tabs, updateModel };
+            return { args, tabs, selectedIndex, updateModel };
         },
         template: `
 			<div>
-				<vs-tabs :tabs="tabs" @update:modelValue="updateModel" v-bind="args"/>
-				<vs-index-view v-bind="args" >
-					<vs-index-item> <CompA /></vs-index-item>
+				<vs-tabs :tabs="tabs" v-model="selectedIndex" @update:modelValue="updateModel" v-bind="args"/>
+				<vs-index-view v-model="selectedIndex" v-bind="args">
+					<vs-index-item> <CompA /> </vs-index-item>
 					<vs-index-item> This is the content of Component B </vs-index-item>
 				</vs-index-view>
 			</div>
