@@ -54,3 +54,29 @@ export const KeepAlive: Story = {
         keepAlive: true,
     },
 };
+
+const steps = ['step1', 'step2', 'step3'];
+
+export const WithStepper: Story = {
+    render: (args: any) => ({
+        setup() {
+            const selectedIndex = ref(0);
+            function updateModel(value: number) {
+                // Manually update modelValue
+                selectedIndex.value = value;
+            }
+
+            return { args, steps, selectedIndex, updateModel };
+        },
+        template: `
+			<div>
+				<vs-stepper v-model="selectedIndex" :steps="steps" @update:modelValue="updateModel" v-bind="args" />
+				<vs-index-view v-model="selectedIndex" v-bind="args">
+					<vs-index-item key="step1"> <h3> Step 1 Content </h3> </vs-index-item>
+					<vs-index-item key="step2"> <h3> Step 2 Content </h3> </vs-index-item>
+					<vs-index-item key="step3"> <h3> Step 3 Content </h3> </vs-index-item>
+				</vs-index-view>
+			</div>
+		`,
+    }),
+};
