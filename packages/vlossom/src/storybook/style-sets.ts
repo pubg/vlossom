@@ -19,6 +19,7 @@ import type {
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsStepperStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -193,6 +194,14 @@ const vsSection: VsSectionStyleSet = {
     color: 'white',
 };
 
+const vsStepper: VsStepperStyleSet = {
+    activeBackgroundColor: 'white',
+    activeColor: '#1e88e5',
+    fontSize: '1.2rem',
+    labelColor: '#90caf9',
+    stepSize: '2rem',
+};
+
 const vsTabs: VsTabsStyleSet = {
     backgroundColor: '#008db2',
     borderBottomColor: '#0288d1',
@@ -262,6 +271,7 @@ export const styleSet: StyleSet = {
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsStepper: { myStyleSet: vsStepper },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
     VsTextWrap: { myStyleSet: vsTextWrap },

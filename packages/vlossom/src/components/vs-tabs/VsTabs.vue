@@ -7,10 +7,11 @@
                 :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
                 role="tab"
                 :aria-selected="isSelected(index)"
+                :aria-disabled="isDisabled(index)"
                 :tabindex="isSelected(index) ? 0 : -1"
                 @click.stop="selectTab(index)"
             >
-                <slot :name="tab">
+                <slot :name="tab" :index="index">
                     {{ tab }}
                 </slot>
             </li>
@@ -37,7 +38,7 @@ export default defineComponent({
         mobileFull: { type: Boolean, default: false },
         tabs: {
             type: Array as PropType<string[]>,
-            default: () => [],
+            required: true,
             validator(prop: string[]) {
                 return objectUtil.isUniq(prop);
             },
@@ -45,7 +46,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Number, default: 0 },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
 
@@ -67,18 +68,9 @@ export default defineComponent({
 
         const selectedIdx = ref(modelValue.value);
 
-        watch(tabs, () => {
-            selectedIdx.value = modelValue.value;
-        });
-
-        watch(selectedIdx, (index: number) => {
-            if (index !== modelValue.value) {
-                emit('update:modelValue', index);
-            }
-        });
-
         function selectTab(index: number) {
             if (index < 0 || index > tabs.value.length - 1) {
+                selectedIdx.value = 0;
                 return;
             }
             if (isDisabled(index)) {
@@ -86,6 +78,17 @@ export default defineComponent({
             }
             selectedIdx.value = index;
         }
+
+        watch(tabs, () => {
+            selectTab(modelValue.value);
+        });
+
+        watch(selectedIdx, (index: number) => {
+            if (index !== modelValue.value) {
+                emit('update:modelValue', index);
+                emit('change', index);
+            }
+        });
 
         watch(
             modelValue,

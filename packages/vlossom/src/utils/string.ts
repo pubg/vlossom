@@ -6,6 +6,7 @@ export const stringUtil = {
         const nanoid = customAlphabet(chars, size);
         return nanoid();
     },
+
     pascalToKebab(str: string) {
         return str
             .split(/(?=[A-Z])/)
