@@ -1,6 +1,6 @@
 import { computed, ref, type Ref } from 'vue';
 import VsStepper from '../VsStepper.vue';
-import { colorScheme, getColorSchemeTemplate, getMetaArguments, numberArray } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, getMetaArguments, numberArray } from '@/storybook';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { VsIcon } from '@/icons';
