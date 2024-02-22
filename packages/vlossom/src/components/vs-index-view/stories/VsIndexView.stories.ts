@@ -23,18 +23,15 @@ const meta: Meta<typeof VsIndexView> = {
     render: (args: any) => ({
         components: { CompA },
         setup() {
-            const compKey = ref(0);
             function updateModel(value: number) {
                 // Manually update modelValue
                 args.modelValue = value;
-                // To forcefully re-render the component (Only in Storybook)
-                compKey.value++;
             }
 
-            return { args, tabs, compKey, updateModel };
+            return { args, tabs, updateModel };
         },
         template: `
-			<div :key="!args.keepAlive && compKey">   <!-- Force re-render of the component (Only in Storybook, Except KeepAlive mode) -->
+			<div>
 				<vs-tabs :tabs="tabs" @update:modelValue="updateModel" v-bind="args"/>
 				<vs-index-view v-bind="args" >
 					<vs-index-item> <CompA /></vs-index-item>
