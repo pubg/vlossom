@@ -1,9 +1,8 @@
 import { ref, type Ref } from 'vue';
-import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
-import VsChip from './../VsChip.vue';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
 import { VsIcon } from '@/icons';
 import { userEvent, within } from '@storybook/testing-library';
-import { chromaticParameters } from '@/storybook/parameters';
+import VsChip from './../VsChip.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { COLORS } from '@/declaration';

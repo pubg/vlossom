@@ -1,5 +1,4 @@
-import { colorScheme, align, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, align, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
 import VsFooter from './../VsFooter.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -10,17 +9,12 @@ const meta: Meta<typeof VsFooter> = {
     render: (args: any) => ({
         components: { VsFooter },
         setup() {
-            const content = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-			Possimus, voluptatem cum? Atque facilis mollitia distinctio
-			perferendis sed voluptates omnis sit maxime ad! Porro incidunt
-			voluptatem quaerat sint itaque, blanditiis excepturi!`;
-
-            return { content, args };
+            return { args };
         },
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
 				<vs-footer v-bind="args" > This is Footer Content </vs-footer>
-				{{content}}
+				${LOREM_IPSUM}
 			</div>
 		`,
     }),

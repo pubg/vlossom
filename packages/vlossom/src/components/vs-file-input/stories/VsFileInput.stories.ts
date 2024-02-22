@@ -1,10 +1,9 @@
-import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
-import VsFileInput from './../VsFileInput.vue';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
+import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
+import VsFileInput from './../VsFileInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { UIState } from '@/declaration';
 
 const meta: Meta<typeof VsFileInput> = {
     title: 'Components/Input Components/VsFileInput',

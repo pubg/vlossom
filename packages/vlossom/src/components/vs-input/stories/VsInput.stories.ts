@@ -1,12 +1,11 @@
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
-import VsInput from '../VsInput.vue';
-import { InputType } from '../types';
-import VsContainer from '@/components/vs-container/VsContainer.vue';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
+import { InputType } from '../types';
+import VsInput from '../VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

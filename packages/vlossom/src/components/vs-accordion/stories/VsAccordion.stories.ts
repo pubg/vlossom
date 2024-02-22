@@ -1,6 +1,5 @@
-import { colorScheme, getColorSchemeTemplate, loremIpsum } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, LOREM_IPSUM, chromaticParameters } from '@/storybook';
 import VsAccordion from './../VsAccordion.vue';
-import { chromaticParameters } from '@/storybook/parameters';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -15,7 +14,7 @@ const meta: Meta<typeof VsAccordion> = {
         template: `
             <vs-accordion v-bind="args">
                 <template #title>Hello, Vlossom!</template>
-                ${loremIpsum}
+                ${LOREM_IPSUM}
             </vs-accordion>`,
     }),
     tags: ['autodocs'],
@@ -46,7 +45,7 @@ export const ColorScheme: Story = {
                 ${getColorSchemeTemplate(`
                     <vs-accordion v-bind="args" color-scheme="{{ color }}" :style="{ marginBottom: '0.4rem' }">
                         <template #title>Hello, Vlossom!</template>
-                        ${loremIpsum}
+                        ${LOREM_IPSUM}
                     </vs-accordion>
 			   `)}
             </div>
