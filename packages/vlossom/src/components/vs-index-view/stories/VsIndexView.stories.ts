@@ -35,7 +35,7 @@ const meta: Meta<typeof VsIndexView> = {
 			<div>
 				<vs-tabs :tabs="tabs" v-model="selectedIndex" @update:modelValue="updateModel" v-bind="args"/>
 				<vs-index-view v-model="selectedIndex" v-bind="args">
-					<vs-index-item key="A"> <CompA /></vs-index-item>
+					<vs-index-item key="A"> <CompA /> </vs-index-item>
 					<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 				</vs-index-view>
 			</div>
