@@ -70,6 +70,7 @@ export default defineComponent({
 
         function selectTab(index: number) {
             if (index < 0 || index > tabs.value.length - 1) {
+                selectedIdx.value = 0;
                 return;
             }
             if (isDisabled(index)) {

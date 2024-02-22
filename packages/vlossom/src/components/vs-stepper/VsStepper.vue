@@ -125,6 +125,7 @@ export default defineComponent({
 
         function selectStep(index: number) {
             if (index < 0 || index > gapCount.value) {
+                selected.value = 0;
                 return;
             }
 
