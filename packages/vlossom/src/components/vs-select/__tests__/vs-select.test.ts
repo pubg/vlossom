@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsSelect from '../VsSelect.vue';
 import { nextTick } from 'vue';
@@ -225,6 +225,40 @@ describe('vs-select', () => {
                 // then
                 expect(wrapper.find('input').element.value).toBe('B');
             });
+        });
+    });
+
+    describe('autocomplete', () => {
+        beforeEach(() => {
+            vi.useFakeTimers();
+        });
+
+        afterEach(() => {
+            vi.clearAllTimers();
+        });
+
+        it('autocomplete을 true로 설정하면 자동완성 기능을 사용할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    autocomplete: true,
+                    options: ['apple', 'banana', 'carrot'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            await wrapper.find('input').setValue('ba');
+            await vi.advanceTimersByTime(500);
+
+            // then
+            expect(wrapper.findAll('li[role="option"]')).toHaveLength(1);
+            expect(wrapper.html()).toContain('banana');
         });
     });
 

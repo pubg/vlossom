@@ -35,7 +35,7 @@
                     <div v-else class="collapse-chips">
                         <vs-chip
                             v-for="option in selectedOptions"
-                            :key="`selected-${option.vlossomId}`"
+                            :key="`selected-${option.id}`"
                             :color-scheme="colorScheme"
                             :closable="closableChips"
                             primary
@@ -52,6 +52,9 @@
                     :placeholder="placeholder"
                     :readonly="readonly || !autocomplete"
                     :value="inputLabel"
+                    @input="updateAutocompleteText"
+                    @focus="onFocus"
+                    @blur="onBlur"
                 />
 
                 <button
@@ -74,23 +77,23 @@
                             <span>Select All</span>
                         </li>
                         <li
-                            v-for="(option, index) in options"
-                            :key="option.vlossomId"
+                            v-for="(option, index) in computedOptions"
+                            :key="option.id"
                             role="option"
-                            :class="{ selected: isSelectedOption(option) }"
-                            :aria-label="getOptionLabel(option)"
-                            :aria-selected="isSelectedOption(option)"
-                            @click.stop="selectOption(option)"
+                            :class="{ selected: isSelectedOption(option.value) }"
+                            :aria-label="getOptionLabel(option.value)"
+                            :aria-selected="isSelectedOption(option.value)"
+                            @click.stop="selectOption(option.value)"
                         >
                             <slot
                                 name="option"
                                 :optionIndex="index"
                                 :option="option"
-                                :label="getOptionLabel(option)"
-                                :value="getOptionValue(option)"
-                                :selected="isSelectedOption(option)"
+                                :label="getOptionLabel(option.value)"
+                                :value="getOptionValue(option.value)"
+                                :selected="isSelectedOption(option.value)"
                             >
-                                <span>{{ getOptionLabel(option) }}</span>
+                                <span>{{ getOptionLabel(option.value) }}</span>
                             </slot>
                         </li>
                         <li v-if="!options.length" @click.stop="closeOptions()">No Options</li>
@@ -106,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, ref, toRefs, watch, type PropType } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -116,7 +119,7 @@ import {
     getInputOptionProps,
     useInputOption,
 } from '@/composables';
-import { useSelectOption, useToggleOptions } from './composables';
+import { useAutocomplete, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -162,6 +165,7 @@ export default defineComponent({
         const {
             colorScheme,
             styleSet,
+            autocomplete,
             dense,
             disabled,
             modelValue,
@@ -191,23 +195,35 @@ export default defineComponent({
 
         const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions();
 
-        const computedOptions = computed(() =>
-            options.value.map((o) => ({ value: o, vlossomId: utils.string.createID() })),
+        const optionsWithId = computed(() =>
+            options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
+
+        const computedOptions = ref(optionsWithId.value);
+
+        watch(optionsWithId, () => {
+            computedOptions.value = optionsWithId.value;
+        });
 
         const { getOptionLabel, getOptionValue } = useInputOption(
             inputValue,
-            computed(() => computedOptions.value.map((o) => o.value)),
+            computed(() => computedOptions.value.map((option) => option.value)),
             optionLabel,
             optionValue,
         );
 
         const { selectOption, selectAllOptions, isSelectedOption, removeSelected, selectedOptions } = useSelectOption(
             inputValue,
-            getOptionValue,
             computedOptions,
+            getOptionValue,
             multiple,
             closeOptions,
+        );
+
+        const { autocompleteText, focusing, onFocus, onBlur, updateAutocompleteText } = useAutocomplete(
+            optionsWithId,
+            computedOptions,
+            getOptionLabel,
         );
 
         function requiredCheck() {
@@ -245,22 +261,16 @@ export default defineComponent({
             },
         });
 
-        const inputLabel = computed({
-            get(): string {
-                // if (isFocusing.value && autocomplete.value) {
-                //     return autocompleteText.value;
-                // }
+        const inputLabel = computed(() => {
+            if (focusing.value && autocomplete.value) {
+                return autocompleteText.value;
+            }
 
-                if (multiple.value) {
-                    return '';
-                }
+            if (multiple.value) {
+                return '';
+            }
 
-                return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
-            },
-            set(v: string) {
-                // for autocomplete
-                console.log(v);
-            },
+            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
         });
 
         return {
@@ -289,6 +299,9 @@ export default defineComponent({
             onClear,
             clear,
             validate,
+            onFocus,
+            onBlur,
+            updateAutocompleteText,
             // focus,
             // blur,
             // select,

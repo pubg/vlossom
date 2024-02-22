@@ -18,6 +18,7 @@ const meta: Meta<typeof VsSelect> = {
         colorScheme,
     },
     args: {
+        label: 'Select',
         options: ['apple', 'banana', 'carrot'],
     },
 };

@@ -1,10 +1,10 @@
-import { ComputedRef, Ref, computed } from 'vue';
+import { computed, type Ref } from 'vue';
 import { utils } from '@/utils';
 
 export function useSelectOption(
     inputValue: Ref<any>,
+    computedOptions: Ref<{ id: string; value: any }[]>,
     getOptionValue: (option: any) => any,
-    computedOptions: ComputedRef<{ value: any; vlossomId: string }[]>,
     multiple: Ref<boolean>,
     closeOptions: () => void,
 ) {
@@ -30,7 +30,7 @@ export function useSelectOption(
     }
 
     function selectAllOptions() {
-        inputValue.value = computedOptions.value.map((o) => getOptionValue(o.value));
+        inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
     }
 
     function removeSelected(option: any) {
@@ -43,12 +43,12 @@ export function useSelectOption(
 
     const selectedOptions = computed(() => {
         if (multiple.value) {
-            return computedOptions.value.filter((o) =>
-                inputValue.value?.find((v: any) => utils.object.isEqual(v, getOptionValue(o.value))),
+            return computedOptions.value.filter((option) =>
+                inputValue.value?.find((v: any) => utils.object.isEqual(v, getOptionValue(option.value))),
             );
         } else {
-            const selected = computedOptions.value.find((o) =>
-                utils.object.isEqual(inputValue.value, getOptionValue(o.value)),
+            const selected = computedOptions.value.find((option) =>
+                utils.object.isEqual(inputValue.value, getOptionValue(option.value)),
             );
             return selected ? [selected] : [];
         }

@@ -1,4 +1,4 @@
-import { Ref, nextTick, ref, watch } from 'vue';
+import { nextTick, ref, watch, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
 export function useToggleOptions() {
