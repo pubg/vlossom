@@ -77,7 +77,7 @@
                             <span>Select All</span>
                         </li>
                         <li
-                            v-for="(option, index) in computedOptions"
+                            v-for="(option, index) in loadedOptions"
                             :key="option.id"
                             role="option"
                             :class="{ selected: isSelectedOption(option.value) }"
@@ -109,7 +109,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, watch, type PropType } from 'vue';
+import { computed, defineComponent, ref, toRefs, type PropType } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -119,7 +119,7 @@ import {
     getInputOptionProps,
     useInputOption,
 } from '@/composables';
-import { useAutocomplete, useSelectOption, useToggleOptions } from './composables';
+import { useAutocomplete, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -143,13 +143,13 @@ export default defineComponent({
         closableChips: { type: Boolean, default: false },
         collapseChips: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
-        infiniteLoad: {
+        loadNumber: {
             type: Number,
             default: 100,
             validator: (value: number) => {
                 const isValid = value >= 10;
                 if (!isValid) {
-                    console.error('[Venus] prop infiniteLoad must be 10 or more');
+                    console.error('[Vlossom] vs-select prop loadNumber must be 10 or more');
                 }
                 return isValid;
             },
@@ -170,6 +170,7 @@ export default defineComponent({
             disabled,
             modelValue,
             label,
+            loadNumber,
             messages,
             multiple,
             options,
@@ -193,17 +194,9 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions();
-
-        const optionsWithId = computed(() =>
+        const computedOptions = computed(() =>
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
-
-        const computedOptions = ref(optionsWithId.value);
-
-        watch(optionsWithId, () => {
-            computedOptions.value = optionsWithId.value;
-        });
 
         const { getOptionLabel, getOptionValue } = useInputOption(
             inputValue,
@@ -212,18 +205,25 @@ export default defineComponent({
             optionValue,
         );
 
+        const { autocompleteText, focusing, filteredOptions, onFocus, onBlur, updateAutocompleteText } =
+            useAutocomplete(computedOptions, getOptionLabel);
+
+        const { loadedOptions, addInfiniteScroll, removeInfiniteScroll } = useInfiniteScroll(
+            filteredOptions,
+            loadNumber,
+        );
+
+        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions(
+            addInfiniteScroll,
+            removeInfiniteScroll,
+        );
+
         const { selectOption, selectAllOptions, isSelectedOption, removeSelected, selectedOptions } = useSelectOption(
             inputValue,
             computedOptions,
             getOptionValue,
             multiple,
             closeOptions,
-        );
-
-        const { autocompleteText, focusing, onFocus, onBlur, updateAutocompleteText } = useAutocomplete(
-            optionsWithId,
-            computedOptions,
-            getOptionLabel,
         );
 
         function requiredCheck() {
@@ -274,7 +274,6 @@ export default defineComponent({
         });
 
         return {
-            computedOptions,
             id,
             classObj,
             computedColorScheme,
@@ -289,6 +288,7 @@ export default defineComponent({
             isOpen,
             toggleOptions,
             closeOptions,
+            loadedOptions,
             getOptionLabel,
             getOptionValue,
             removeSelected,

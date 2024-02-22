@@ -1,7 +1,10 @@
 import { nextTick, ref, watch, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
-export function useToggleOptions() {
+export function useToggleOptions(
+    addInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
+    removeInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
+) {
     const isOpen = ref(false);
 
     function toggleOptions() {
@@ -30,12 +33,15 @@ export function useToggleOptions() {
                     placement: 'bottom',
                     followWidth: true,
                 });
+
+                addInfiniteScroll(optionsRef);
             });
         } else {
             // setTimeout(() => {
             //     disappear();
             // }, 200);
             disappear();
+            removeInfiniteScroll(optionsRef);
         }
     });
 

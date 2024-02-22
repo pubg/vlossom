@@ -80,8 +80,9 @@
 }
 
 .options {
-    z-index: 1000;
-    max-height: 30rem;
+    z-index: 900;
+    max-height: 25rem;
+    overflow: auto;
     background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
