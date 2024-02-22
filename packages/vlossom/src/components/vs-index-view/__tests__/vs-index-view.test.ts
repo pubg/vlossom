@@ -12,8 +12,8 @@ describe('vs-index-view', () => {
                 },
                 slots: {
                     default: `
-						<div>A Component</div>
-						<div>B Component</div>
+						<div key="A">A Component</div>
+						<div key="B">B Component</div>
 					`,
                 },
             });

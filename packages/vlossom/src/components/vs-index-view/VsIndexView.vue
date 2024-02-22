@@ -16,7 +16,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs } from 'vue';
+import {
+    defineComponent,
+    watch,
+    computed,
+    toRefs,
+    ref,
+    type ComputedRef,
+    type VNode,
+    type VNodeArrayChildren,
+} from 'vue';
 import { VsComponent } from '@/declaration';
 
 const name = VsComponent.VsIndexView;
@@ -31,15 +40,57 @@ export default defineComponent({
     setup(props, { slots }) {
         const { modelValue } = toRefs(props);
 
+        const selectedKey = ref('');
+
         const selectedComponent = computed(() => {
             if (!slots.default) {
                 return null;
             }
 
-            return slots.default()[modelValue.value];
+            return slots.default().find((item: VNode) => item.key === selectedKey.value);
+        });
+
+        const computedKeys: ComputedRef<string[]> = computed(() => {
+            if (!slots.default) {
+                return [];
+            }
+
+            const keys = slots.default();
+            return keys
+                .reduce((acc: string[], item: VNode) => {
+                    if (!item.key && item.children && Array.isArray(item.children)) {
+                        acc = acc.concat((item.children as VNodeArrayChildren).map((child: any) => child.key) || '');
+                    } else if (item.key) {
+                        acc.push(item.key.toString());
+                    }
+
+                    return acc;
+                }, [])
+                .filter((k) => k);
+        });
+
+        function changeKey(index: number) {
+            if (index < 0 || index >= computedKeys.value.length) {
+                return;
+            }
+            const newKey = computedKeys.value[index] || '';
+            selectedKey.value = newKey;
+        }
+
+        watch(
+            computedKeys,
+            () => {
+                changeKey(modelValue.value);
+            },
+            { immediate: true },
+        );
+
+        watch(modelValue, (index: number) => {
+            changeKey(index);
         });
 
         return {
+            selectedKey,
             selectedComponent,
         };
     },
