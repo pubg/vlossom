@@ -1,0 +1,50 @@
+@use 'sass:math';
+
+$barWidth: var(--vs-loading-barWidth, 11.11%);
+
+.vs-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--vs-loading-width, 6rem);
+    height: var(--vs-loading-height, 8rem);
+    margin: auto;
+
+    [class^='rect'] {
+        display: inline-block;
+        width: $barWidth;
+        height: 100%;
+        background-color: var(--vs-loading-color, var(--vs-comp-backgroundColor));
+        animation: vs-loading 1s infinite cubic-bezier(0.25, 0.25, 0.75, 0.75);
+    }
+
+    .rect2 {
+        animation-delay: -0.9s;
+    }
+    .rect3 {
+        animation-delay: -0.8s;
+    }
+    .rect4 {
+        animation-delay: -0.7s;
+    }
+    .rect5 {
+        animation-delay: -0.6s;
+    }
+
+    > div ~ div {
+        margin-left: calc((100% - ($barWidth * 5)) / 4);
+    }
+
+    @keyframes vs-loading {
+        0%,
+        40%,
+        100% {
+            transform: scaleY(0.4);
+            opacity: 0.3;
+        }
+        20% {
+            transform: scaleY(0.8);
+            opacity: 1;
+        }
+    }
+}
