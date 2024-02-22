@@ -153,6 +153,7 @@ const vsLoading: VsLoadingStyleSet = {
     color: '#ff90bc',
     height: '20rem',
     width: '7rem',
+    barWidth: '16%',
 };
 
 const vsNotice: VsNoticeStyleSet = {

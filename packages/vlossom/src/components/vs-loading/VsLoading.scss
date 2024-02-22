@@ -1,3 +1,7 @@
+@use 'sass:math';
+
+$barWidth: var(--vs-loading-barWidth, 11.11%);
+
 .vs-loading {
     display: flex;
     justify-content: center;
@@ -8,7 +12,7 @@
 
     [class^='rect'] {
         display: inline-block;
-        width: 11.11%;
+        width: $barWidth;
         height: 100%;
         background-color: var(--vs-loading-color, var(--vs-comp-backgroundColor));
         animation: vs-loading 1s infinite cubic-bezier(0.25, 0.25, 0.75, 0.75);
@@ -28,7 +32,7 @@
     }
 
     > div ~ div {
-        margin-left: 11.11%;
+        margin-left: calc((100% - ($barWidth * 5)) / 4);
     }
 
     @keyframes vs-loading {
