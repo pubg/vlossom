@@ -10,7 +10,7 @@ export function useSelectOption(
 ) {
     function isSelectedOption(option: any) {
         if (multiple.value) {
-            return !!inputValue.value.find((v: any) => utils.object.isEqual(v, getOptionValue(option)));
+            return inputValue.value.find((v: any) => utils.object.isEqual(v, getOptionValue(option))) !== undefined;
         } else {
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
@@ -21,7 +21,7 @@ export function useSelectOption(
             if (isSelectedOption(option)) {
                 removeSelected(option);
             } else {
-                inputValue.value.push(getOptionValue(option));
+                inputValue.value = [...inputValue.value, getOptionValue(option)];
             }
         } else {
             inputValue.value = getOptionValue(option);
@@ -32,6 +32,10 @@ export function useSelectOption(
     function selectAllOptions() {
         inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
     }
+
+    const isAllSelected = computed(() => {
+        return computedOptions.value.length === inputValue.value.length;
+    });
 
     function removeSelected(option: any) {
         if (!multiple.value) {
@@ -58,6 +62,7 @@ export function useSelectOption(
         selectOption,
         selectAllOptions,
         isSelectedOption,
+        isAllSelected,
         removeSelected,
         selectedOptions,
     };

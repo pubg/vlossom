@@ -16,7 +16,7 @@
             <div
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }]"
-                @click.stop="toggleOptions()"
+                @click="toggleOptions()"
             >
                 <div v-if="multiple" class="multiple-chips">
                     <div v-if="collapseChips && selectedOptions.length" class="collapse-chips">
@@ -78,8 +78,25 @@
                         role="listbox"
                         :aria-multi-selectable="multiple"
                         :class="['options', `vs-${computedColorScheme}`, { dense: dense }]"
+                        tabindex="-1"
+                        @keydown="onKeyDown"
                     >
-                        <li v-if="selectAll && multiple" class="select-all" @click.stop="selectAllOptions()">
+                        <li
+                            v-if="selectAll && multiple"
+                            role="option"
+                            aria-label="select all"
+                            :aria-selected="multiple ? undefined : isAllSelected"
+                            :aria-checked="multiple ? isAllSelected : undefined"
+                            :class="[
+                                'select-all',
+                                {
+                                    selected: isAllSelected,
+                                    hovered: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
+                                },
+                            ]"
+                            @mousemove="onMouseMove('all')"
+                            @click.stop="selectAllOptions()"
+                        >
                             <span>Select All</span>
                         </li>
                         <li
@@ -90,7 +107,11 @@
                             :aria-label="getOptionLabel(option.value)"
                             :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
                             :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
-                            :class="{ selected: isSelectedOption(option.value), hovered: focusedIndex === index }"
+                            :class="{
+                                selected: isSelectedOption(option.value),
+                                hovered:
+                                    (chasingMouse ? hoveredIndex : focusedIndex) === (selectAll ? index + 1 : index),
+                            }"
                             @mousemove="onMouseMove(option)"
                             @click.stop="selectOption(option.value)"
                         >
@@ -188,6 +209,7 @@ export default defineComponent({
             readonly,
             required,
             rules,
+            selectAll,
         } = toRefs(props);
 
         const { emit } = context;
@@ -230,18 +252,15 @@ export default defineComponent({
             removeInfiniteScroll,
         );
 
-        const { selectOption, selectAllOptions, isSelectedOption, removeSelected, selectedOptions } = useSelectOption(
-            inputValue,
-            computedOptions,
-            getOptionValue,
-            multiple,
-            closeOptions,
-        );
+        const { selectOption, selectAllOptions, isSelectedOption, isAllSelected, removeSelected, selectedOptions } =
+            useSelectOption(inputValue, computedOptions, getOptionValue, multiple, closeOptions);
 
-        const { focusedIndex, onKeyDown, onMouseMove } = useFocus(
+        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove } = useFocus(
             disabled,
             readonly,
             isOpen,
+            selectAll,
+            isAllSelected,
             selectedOptions,
             loadedOptions,
             selectOption,
@@ -338,12 +357,15 @@ export default defineComponent({
             selectOption,
             selectAllOptions,
             isSelectedOption,
+            isAllSelected,
             selectedOptions,
             onClear,
             clear,
             validate,
             updateAutocompleteText,
             focusedIndex,
+            hoveredIndex,
+            chasingMouse,
             onKeyDown,
             onMouseMove,
             onFocus,
@@ -351,7 +373,6 @@ export default defineComponent({
             inputRef,
             focus,
             blur,
-            // select,
         };
     },
 });

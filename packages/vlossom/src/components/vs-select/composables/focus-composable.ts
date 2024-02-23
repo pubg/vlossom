@@ -5,14 +5,18 @@ export function useFocus(
     disabled: Ref<boolean>,
     readonly: Ref<boolean>,
     isOpen: Ref<boolean>,
+    selectAll: Ref<boolean>,
+    isAllSelected: ComputedRef<boolean>,
     selectedOptions: ComputedRef<{ id: string; value: any }[]>,
     loadedOptions: Ref<{ id: string; value: any }[]>,
     selectOption: (option: any) => void,
 ) {
     const focusedIndex = ref(-1);
+    const hoveredIndex = ref(-1);
+    const chasingMouse = ref(false);
 
     function onArrowDownKey(event: KeyboardEvent) {
-        if (focusedIndex.value < loadedOptions.value.length - 1) {
+        if (focusedIndex.value < (selectAll.value ? 1 : 0) + loadedOptions.value.length) {
             focusedIndex.value += 1;
         }
 
@@ -29,11 +33,13 @@ export function useFocus(
 
     function onEnterKey(event: KeyboardEvent) {
         if (!isOpen.value) {
-            focusedIndex.value = 0;
             isOpen.value = true;
-        } else if (focusedIndex.value !== -1) {
-            selectOption(loadedOptions.value[focusedIndex.value].value);
-            isOpen.value = false;
+        } else {
+            if (focusedIndex.value !== -1) {
+                selectOption(loadedOptions.value[focusedIndex.value - (selectAll.value ? 1 : 0)].value);
+            } else {
+                isOpen.value = false;
+            }
         }
 
         event.preventDefault();
@@ -42,6 +48,11 @@ export function useFocus(
     function onKeyDown(event: KeyboardEvent) {
         if (disabled.value || readonly.value) {
             return;
+        }
+
+        if (chasingMouse.value) {
+            focusedIndex.value = hoveredIndex.value;
+            chasingMouse.value = false;
         }
 
         switch (event.code) {
@@ -61,7 +72,13 @@ export function useFocus(
     }
 
     const onMouseMove = utils.function.throttle((option: any) => {
-        focusedIndex.value = loadedOptions.value.findIndex((o) => o.id === option.id);
+        chasingMouse.value = true;
+
+        if (!option.id && option === 'all') {
+            hoveredIndex.value = 0;
+        } else {
+            hoveredIndex.value = loadedOptions.value.findIndex((o) => o.id === option.id) + (selectAll.value ? 1 : 0);
+        }
     }, 50);
 
     function scrollIntoView() {
@@ -78,25 +95,32 @@ export function useFocus(
         });
     });
 
-    watch(isOpen, () => {
-        if (isOpen.value) {
+    watch(isOpen, (value) => {
+        if (value) {
             const firstSelected = selectedOptions.value[0];
             if (firstSelected) {
-                focusedIndex.value = loadedOptions.value.findIndex((option) => option.id === firstSelected.id);
-            } else {
-                focusedIndex.value = -1;
+                focusedIndex.value = isAllSelected.value
+                    ? 0
+                    : loadedOptions.value.findIndex((option) => option.id === firstSelected.id) +
+                      (selectAll.value ? 1 : 0);
             }
         } else {
             focusedIndex.value = -1;
+            hoveredIndex.value = -1;
+            chasingMouse.value = false;
         }
     });
 
     watch(loadedOptions, () => {
         focusedIndex.value = -1;
+        hoveredIndex.value = -1;
+        chasingMouse.value = false;
     });
 
     return {
         focusedIndex,
+        hoveredIndex,
+        chasingMouse,
         onKeyDown,
         onMouseMove,
     };

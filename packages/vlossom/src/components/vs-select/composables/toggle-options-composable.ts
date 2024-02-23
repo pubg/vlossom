@@ -40,21 +40,23 @@ export function useToggleOptions(
                     followWidth: true,
                 });
 
-                addInfiniteScroll(optionsRef);
-                document.addEventListener('click', onOutsideClick);
+                setTimeout(() => {
+                    addInfiniteScroll(optionsRef);
+                    document.body.addEventListener('click', onOutsideClick);
+                });
             });
         } else {
             // setTimeout(() => {
             //     disappear();
             // }, 200);
             removeInfiniteScroll(optionsRef);
-            document.removeEventListener('click', onOutsideClick);
+            document.body.removeEventListener('click', onOutsideClick);
             disappear();
         }
     });
 
     onBeforeUnmount(() => {
-        document.removeEventListener('click', onOutsideClick);
+        document.body.removeEventListener('click', onOutsideClick);
     });
 
     return { isOpen, isVisible, toggleOptions, closeOptions, triggerRef, optionsRef };

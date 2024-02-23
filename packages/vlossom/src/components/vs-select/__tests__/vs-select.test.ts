@@ -226,6 +226,257 @@ describe('vs-select', () => {
                 expect(wrapper.find('input').element.value).toBe('B');
             });
         });
+
+        describe('multiple with primitive options', () => {
+            it('modelValue의 초깃값을 설정할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                    props: {
+                        modelValue: ['A', 'B'],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                        multiple: true,
+                    },
+                });
+
+                // then
+                expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(2);
+                expect(wrapper.findAllComponents({ name: 'VsChip' })[0].html()).toContain('A');
+                expect(wrapper.findAllComponents({ name: 'VsChip' })[1].html()).toContain('B');
+                expect(wrapper.find('input').element.value).toBe('');
+            });
+
+            it('modelValue를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                    props: {
+                        modelValue: ['A', 'B'],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                        multiple: true,
+                    },
+                    global: {
+                        stubs: {
+                            teleport: true,
+                        },
+                    },
+                });
+
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.findAll('li[role="option"]')[2].trigger('click');
+
+                // then
+                const updateModelValueEvent = wrapper.emitted('update:modelValue');
+                expect(updateModelValueEvent).toHaveLength(1);
+                expect(updateModelValueEvent?.[0]).toEqual([['A', 'B', 'C']]);
+            });
+
+            it('modelValue를 바꿔서 select 값을 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                    props: {
+                        modelValue: ['A', 'B'],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                        multiple: true,
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: ['B', 'C'] });
+
+                // then
+                expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(2);
+                expect(wrapper.findAllComponents({ name: 'VsChip' })[0].html()).toContain('B');
+                expect(wrapper.findAllComponents({ name: 'VsChip' })[1].html()).toContain('C');
+            });
+        });
+    });
+
+    describe('select option(s) behavior', () => {
+        it('옵션을 선택하면 선택된 옵션 값이 보여지고 옵션 리스트 창은 닫힌다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+
+            // then
+            expect(wrapper.find('input').element.value).toBe('B');
+            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+        });
+
+        it('multiple이 true일 때 옵션을 선택하면 선택한 옵션 값이 chip 형태로 보여지고 옵션 리스트 창은 여전히 존재한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+
+            // then
+            expect(wrapper.find('input').element.value).toBe('');
+            expect(wrapper.findComponent({ name: 'VsChip' }).exists()).toBe(true);
+            expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('B');
+            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+        });
+
+        it('multiple이 true일 때 선택된 옵션을 다시 선택하면 선택한 옵션 값이 chip 리스트에서 사라지고 옵션 리스트 창은 여전히 존재한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: ['A', 'B'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+
+            // then
+            expect(wrapper.find('input').element.value).toBe('');
+            expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(1);
+            expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('A');
+            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+        });
+
+        it('selectAll이 true일 때 모든 옵션을 선택할 수 있는 옵션을 제공한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                    selectAll: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            // then
+            expect(wrapper.find('ul[role="listbox"]').html()).toContain('Select All');
+
+            // when
+            await wrapper.find('li[role="option"]').trigger('click');
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([['A', 'B', 'C']]);
+        });
+    });
+
+    describe('click outside', () => {
+        it('옵션 리스트가 열려있는 상태에서 외부를 클릭하면 옵션 리스트가 닫힌다', async () => {
+            // given
+            vi.useFakeTimers();
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+                attachTo: document.body,
+            });
+
+            // when
+            await wrapper.find('input').trigger('click');
+            await vi.advanceTimersByTime(0);
+            document.body.dispatchEvent(new Event('click'));
+            await nextTick();
+
+            // then
+            expect(document.body.querySelector('ul[role="listbox"]')).toBeNull();
+        });
+    });
+
+    describe('closableChips', () => {
+        it('closableChips이 true일 때 각 chip들에 x 버튼이 추가되어 삭제할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: ['A', 'B', 'C'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                    closableChips: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.findComponent({ name: 'VsChip' }).find('button').trigger('click');
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:modelValue');
+            expect(updateModelValueEvent).toHaveLength(1);
+            expect(updateModelValueEvent?.[0]).toEqual([['B', 'C']]);
+        });
+    });
+
+    describe('collapseChips', () => {
+        it('collapseChips이 true일 때 chip 리스트는 + n-1 형태로 요약돼서 보여진다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: ['A', 'B', 'C'],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                    collapseChips: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // then
+            expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(1);
+            expect(wrapper.html()).toContain('+ 2');
+        });
     });
 
     describe('autocomplete', () => {
@@ -329,7 +580,7 @@ describe('vs-select', () => {
         });
 
         describe('mouse event', () => {
-            it('옵션 리스트에서 mouse move event가 발생되면 mouse가 올라가 있는 옵션 기준으로 focus가 이동한다', async () => {
+            it('옵션 리스트에서 mouse move event가 발생되면 mouse가 올라가 있던 옵션 기준으로 focus가 이동한다', async () => {
                 // when
                 await wrapper.find('input').trigger('click');
                 await wrapper.findAll('li[role="option"]')[1].trigger('mousemove');
@@ -340,19 +591,6 @@ describe('vs-select', () => {
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['C']);
                 expect(wrapper.find('input').element.value).toBe('C');
-            });
-        });
-
-        describe('click outside', () => {
-            it('옵션 리스트가 열려있는 상태에서 외부를 클릭하면 옵션 리스트가 닫힌다', async () => {
-                // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
-                document.body.dispatchEvent(new Event('click'));
-
-                // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
             });
         });
     });

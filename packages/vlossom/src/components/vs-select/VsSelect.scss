@@ -87,6 +87,7 @@
     border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
     list-style-type: none;
+    outline: none;
 
     li {
         padding: 0 1.2rem;
@@ -95,9 +96,14 @@
         cursor: pointer;
         user-select: none;
 
-        &.selected,
-        &:not(.selected).hovered {
+        &.selected {
             background-color: var(--vs-comp-backgroundColor);
+            color: var(--vs-comp-border-color);
+            font-weight: 600;
+        }
+
+        &:not(.selected).hovered {
+            background-color: var(--vs-light-backgroundColor);
             color: var(--vs-comp-border-color);
             font-weight: 600;
         }
