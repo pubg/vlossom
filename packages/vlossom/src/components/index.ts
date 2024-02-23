@@ -126,6 +126,7 @@ declare module 'vue' {
         VsMessage: typeof import('./')['VsMessage'];
         VsNotice: typeof import('./')['VsNotice'];
         VsPage: typeof import('./')['VsPage'];
+        VsPagination: typeof import('./')['VsPagination'];
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
         VsStepper: typeof import('./')['VsStepper'];
