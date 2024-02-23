@@ -119,6 +119,7 @@ export const CustomSlots: Story = {
         setup() {
             const selectedIdx = ref(0);
             function updateModel(value: number) {
+                // Manually update modelValue
                 selectedIdx.value = value;
             }
 
@@ -170,7 +171,7 @@ export const CustomSlots: Story = {
         },
         template: `
 			<div>
-				<vs-stepper v-bind="args" style="margin-left:50px;" v-model="selectedIdx" :steps="steps" :modelValue="selectedIdx" @update:modelValue="updateModel">
+				<vs-stepper style="margin-left:50px;" v-model="selectedIdx" :steps="steps" @update:modelValue="updateModel" v-bind="args">
 					<template #step1-step>
 						<vs-icon v-if="isCompleted(0) && !isSelected(0)" icon="check" />
 					</template>

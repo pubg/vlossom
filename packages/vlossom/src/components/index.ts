@@ -43,6 +43,9 @@ export { default as VsHeader } from './vs-header/VsHeader.vue';
 export { type VsImageStyleSet } from './vs-image/types';
 export { default as VsImage } from './vs-image/VsImage.vue';
 
+export { default as VsIndexView } from './vs-index-view/VsIndexView.vue';
+export { default as VsIndexItem } from './vs-index-view/VsIndexItem.vue';
+
 export { InputType, type VsInputStyleSet } from './vs-input/types';
 export { default as VsInput } from './vs-input/VsInput.vue';
 
@@ -111,6 +114,8 @@ declare module 'vue' {
         VsForm: typeof import('./')['VsForm'];
         VsHeader: typeof import('./')['VsHeader'];
         VsImage: typeof import('./')['VsImage'];
+        VsIndexView: typeof import('./')['VsIndexView'];
+        VsIndexItem: typeof import('./')['VsIndexItem'];
         VsInput: typeof import('./')['VsInput'];
         VsInputWrapper: typeof import('./')['VsInputWrapper'];
         VsLabelValue: typeof import('./')['VsLabelValue'];
