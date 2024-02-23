@@ -18,6 +18,7 @@ import type {
     VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
+    VsPaginationStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsStepperStyleSet,
@@ -191,6 +192,25 @@ const vsPage: VsPageStyleSet = {
     padding: '0.8rem 1.5rem',
 };
 
+const vsPagination: VsPaginationStyleSet = {
+    backgroundColor: '#1e88e5',
+    borderRadius: '0.2rem',
+    buttonHeight: '1.2rem',
+    buttonWidth: '1.6rem',
+    color: '#fff',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    gap: '0.5rem',
+    hoverBackgroundColor: '#5d4aa7',
+    hoverColor: '#1e88e5',
+    hoverFontSize: '1rem',
+    hoverFontWeight: '600',
+    selectedBackgroundColor: '#add8e6',
+    selectedColor: '#1e88e5',
+    selectedFontSize: '1.2rem',
+    selectedFontWeight: '600',
+};
+
 const vsProgress: VsProgressStyleSet = {
     borderRadius: '0.2rem',
     height: '0.5rem',
@@ -279,6 +299,7 @@ export const styleSet: StyleSet = {
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
+    VsPagination: { myStyleSet: vsPagination },
     VsSection: { myStyleSet: vsSection },
     VsStepper: { myStyleSet: vsStepper },
     VsTabs: { myStyleSet: vsTabs },

@@ -67,6 +67,9 @@ export { default as VsNotice } from './vs-notice/VsNotice.vue';
 export { type VsPageStyleSet } from './vs-page/types';
 export { default as VsPage } from './vs-page/VsPage.vue';
 
+export { type VsPaginationStyleSet } from './vs-pagination/types';
+export { default as VsPagination } from './vs-pagination/VsPagination.vue';
+
 export { type VsProgressStyleSet } from './vs-progress/types';
 export { default as VsProgress } from './vs-progress/VsProgress.vue';
 

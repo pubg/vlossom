@@ -16,6 +16,7 @@ import type {
     VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
+    VsPaginationStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
     VsStepperStyleSet,
@@ -53,6 +54,7 @@ export interface StyleSet {
     VsLoading?: { [key: string]: VsLoadingStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
+    VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsStepper?: { [key: string]: VsStepperStyleSet };
