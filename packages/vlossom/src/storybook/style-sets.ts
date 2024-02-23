@@ -12,6 +12,7 @@ import type {
     VsFileInputStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
+    VsImageStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
@@ -26,7 +27,6 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
-    VsImageStyleSet,
 } from '@/components';
 
 const vsAccordion: VsAccordionStyleSet = {
@@ -148,7 +148,12 @@ const vsHeader: VsHeaderStyleSet = {
     zIndex: 9999,
 };
 
-const vsImage: VsImageStyleSet = {};
+const vsImage: VsImageStyleSet = {
+    border: '5px solid red',
+    width: '400px',
+    height: 'auto',
+    objectFit: 'contain',
+};
 
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',

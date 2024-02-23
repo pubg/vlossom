@@ -95,3 +95,9 @@ export const StyleSet: Story = {
         },
     },
 };
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+    },
+};

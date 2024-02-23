@@ -6,7 +6,7 @@
         width: var(--vs-image-width, 100%);
         height: var(--vs-image-height, 100%);
         border: var(--vs-image-border);
-        border-radius: var(--vs-image-borderRadius);
+        border-radius: var(--vs-image-borderRadius, 0);
         object-fit: var(--vs-image-objectFit, contain);
     }
 
