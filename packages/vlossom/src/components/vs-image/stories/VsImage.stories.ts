@@ -15,7 +15,7 @@ const meta: Meta<typeof VsImage> = {
         setup() {
             return { args };
         },
-        template: `<vs-image v-bind="args"/>`,
+        template: '<vs-image v-bind="args"/>',
     }),
     args: {
         src,
@@ -39,7 +39,7 @@ export const Fallback: Story = {
         setup() {
             return { args };
         },
-        template: `<vs-image v-bind="args"/>`,
+        template: '<vs-image v-bind="args"/>',
     }),
     args: {
         src: '',
@@ -56,7 +56,7 @@ export const Alt: Story = {
         setup() {
             return { args };
         },
-        template: `<vs-image v-bind="args"/>`,
+        template: '<vs-image v-bind="args"/>',
     }),
     args: {
         src: '',
@@ -73,7 +73,7 @@ export const Lazy: Story = {
         setup() {
             return { args };
         },
-        template: `<vs-image v-bind="args"/>`,
+        template: '<vs-image v-bind="args"/>',
     }),
     args: {
         src: lazy,
