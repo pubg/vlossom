@@ -47,6 +47,9 @@
                 </div>
 
                 <input
+                    :id="id"
+                    role="combobox"
+                    :aria-expanded="isOpen || isVisible"
                     :class="{ autocomplete: autocomplete }"
                     :disabled="disabled"
                     :placeholder="placeholder"
@@ -71,6 +74,7 @@
                     <ul
                         ref="optionsRef"
                         role="listbox"
+                        :aria-multi-selectable="multiple"
                         :class="['options', `vs-${computedColorScheme}`, { dense: dense }]"
                     >
                         <li v-if="selectAll && multiple" class="select-all" @click.stop="selectAllOptions()">
@@ -80,9 +84,10 @@
                             v-for="(option, index) in loadedOptions"
                             :key="option.id"
                             role="option"
-                            :class="{ selected: isSelectedOption(option.value) }"
                             :aria-label="getOptionLabel(option.value)"
-                            :aria-selected="isSelectedOption(option.value)"
+                            :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
+                            :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
+                            :class="{ selected: isSelectedOption(option.value) }"
                             @click.stop="selectOption(option.value)"
                         >
                             <slot
