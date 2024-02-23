@@ -262,6 +262,101 @@ describe('vs-select', () => {
         });
     });
 
+    describe('focus management', () => {
+        let wrapper: ReturnType<typeof mountComponent>;
+
+        beforeEach(() => {
+            wrapper = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+        });
+
+        describe('keyboard event', () => {
+            it('focus를 받은 상태에서 Enter 키, Space 바를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
+                // when
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+
+                // when
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+
+                // when
+                await wrapper.find('input').trigger('keydown', { code: 'Space' });
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+
+                // when
+                await wrapper.find('input').trigger('keydown', { code: 'Space' });
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+            });
+
+            it('Arrow Down 키를 누르면 밑에 있는 옵션으로 이동하고 Enter 키를 누르면 그 옵션이 선택된다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+
+                // then
+                expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+                expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['B']);
+                expect(wrapper.find('input').element.value).toBe('B');
+            });
+
+            it('Arrow Up 키를 누르면 위에 있는 옵션으로 이동하고 Space 바를 누르면 그 옵션이 선택된다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowUp' });
+                await wrapper.find('input').trigger('keydown', { code: 'Space' });
+
+                // then
+                expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+                expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['A']);
+                expect(wrapper.find('input').element.value).toBe('A');
+            });
+        });
+
+        describe('mouse event', () => {
+            it('옵션 리스트에서 mouse move event가 발생되면 mouse가 올라가 있는 옵션 기준으로 focus가 이동한다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.findAll('li[role="option"]')[1].trigger('mousemove');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+
+                // then
+                expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+                expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['C']);
+                expect(wrapper.find('input').element.value).toBe('C');
+            });
+        });
+
+        describe('click outside', () => {
+            it('옵션 리스트가 열려있는 상태에서 외부를 클릭하면 옵션 리스트가 닫힌다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                document.body.dispatchEvent(new Event('click'));
+
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+            });
+        });
+    });
+
     describe('clear', () => {
         it('clear 함수를 호출하면 modelValue를 null로 초기화 할 수 있다', async () => {
             // given
