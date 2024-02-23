@@ -90,7 +90,7 @@ export default defineComponent({
         );
 
         watch(
-             lazy,
+            lazy,
             () => {
                 if (hasIntersectionObserver && lazy.value) {
                     resume();
