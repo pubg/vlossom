@@ -1,6 +1,5 @@
+import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
 import VsValueTag from '../VsValueTag.vue';
-import { colorScheme, getColorSchemeTemplate } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

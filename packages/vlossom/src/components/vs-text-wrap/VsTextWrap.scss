@@ -1,0 +1,39 @@
+.vs-text-wrap {
+    overflow-x: auto;
+}
+
+.text-wrap {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .text-wrap-contents {
+        color: var(--vs-font-color);
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-line-clamp: 1;
+    }
+
+    .text-wrap-buttons {
+        > button {
+            &.copy-button {
+                color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo-500));
+            }
+
+            &.link-button {
+                color: var(--vs-text-wrap-linkIconColor, var(--vs-light-blue-700));
+            }
+        }
+
+        button + button {
+            margin-left: 0.1rem;
+        }
+    }
+
+    .text-wrap-contents + .text-wrap-buttons {
+        margin-left: 0.6rem;
+    }
+}

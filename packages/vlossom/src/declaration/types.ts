@@ -1,4 +1,5 @@
 import type {
+    VsAccordionStyleSet,
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
@@ -12,12 +13,15 @@ import type {
     VsImageStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
+    VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsStepperStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
+    VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
@@ -31,6 +35,7 @@ export type ColorScheme = (typeof COLORS)[number];
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
+    VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
@@ -45,12 +50,15 @@ export interface StyleSet {
     VsImage?: { [key: string]: VsImageStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
+    VsLoading?: { [key: string]: VsLoadingStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsStepper?: { [key: string]: VsStepperStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };
+    VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };

@@ -1,8 +1,7 @@
-import { colorScheme, getMetaArguments } from '@/storybook/args';
-import VsCheckbox from '../VsCheckbox.vue';
+import { chromaticParameters, colorScheme, getMetaArguments } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import { chromaticParameters } from '@/storybook/parameters';
+import VsCheckbox from '../VsCheckbox.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

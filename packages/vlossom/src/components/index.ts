@@ -1,3 +1,6 @@
+export { type VsAccordionStyleSet } from './vs-accordion/types';
+export { default as VsAccordion } from './vs-accordion/VsAccordion.vue';
+
 export { type VsAvatarStyleSet } from './vs-avatar/types';
 export { default as VsAvatar } from './vs-avatar/VsAvatar.vue';
 
@@ -48,6 +51,9 @@ export { default as VsInputWrapper } from './vs-input-wrapper/VsInputWrapper.vue
 export { type VsLabelValueStyleSet } from './vs-label-value/types';
 export { default as VsLabelValue } from './vs-label-value/VsLabelValue.vue';
 
+export { type VsLoadingStyleSet } from './vs-loading/types';
+export { default as VsLoading } from './vs-loading/VsLoading.vue';
+
 export { default as VsMain } from './vs-main/VsMain.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
@@ -64,11 +70,17 @@ export { default as VsProgress } from './vs-progress/VsProgress.vue';
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
+export { type VsStepperStyleSet } from './vs-stepper/types';
+export { default as VsStepper } from './vs-stepper/VsStepper.vue';
+
 export { type VsTabsStyleSet } from './vs-tabs/types';
 export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 
 export { type VsTextareaStyleSet } from './vs-textarea/types';
 export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
+
+export { type VsTextWrapStyleSet } from './vs-text-wrap/types';
+export { default as VsTextWrap } from './vs-text-wrap/VsTextWrap.vue';
 
 export { type VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
@@ -83,6 +95,7 @@ export { default as VsWrapper } from './vs-wrapper/VsWrapper.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
+        VsAccordion: typeof import('./')['VsAccordion'];
         VsAvatar: typeof import('./')['VsAvatar'];
         VsBlock: typeof import('./')['VsBlock'];
         VsButton: typeof import('./')['VsButton'];
@@ -101,13 +114,16 @@ declare module 'vue' {
         VsInput: typeof import('./')['VsInput'];
         VsInputWrapper: typeof import('./')['VsInputWrapper'];
         VsLabelValue: typeof import('./')['VsLabelValue'];
+        VsLoading: typeof import('./')['VsLoading'];
         VsMessage: typeof import('./')['VsMessage'];
         VsNotice: typeof import('./')['VsNotice'];
         VsPage: typeof import('./')['VsPage'];
         VsProgress: typeof import('./')['VsProgress'];
         VsSection: typeof import('./')['VsSection'];
+        VsStepper: typeof import('./')['VsStepper'];
         VsTabs: typeof import('./')['VsTabs'];
         VsTextarea: typeof import('./')['VsTextarea'];
+        VsTextWrap: typeof import('./')['VsTextWrap'];
         VsThemeButton: typeof import('./')['VsThemeButton'];
         VsTooltip: typeof import('./')['VsTooltip'];
         VsValueTag: typeof import('./')['VsValueTag'];

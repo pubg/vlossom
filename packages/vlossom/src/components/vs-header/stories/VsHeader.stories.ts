@@ -1,5 +1,4 @@
-import { colorScheme, align, getColorSchemeTemplate, cssPosition } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, align, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
 import VsHeader from './../VsHeader.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -10,17 +9,12 @@ const meta: Meta<typeof VsHeader> = {
     render: (args: any) => ({
         components: { VsHeader },
         setup() {
-            const content = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-			Possimus, voluptatem cum? Atque facilis mollitia distinctio
-			perferendis sed voluptates omnis sit maxime ad! Porro incidunt
-			voluptatem quaerat sint itaque, blanditiis excepturi!`;
-
-            return { content, args };
+            return { args };
         },
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
 				<vs-header v-bind="args" > This is Header Content </vs-header>
-				{{content}}
+				${LOREM_IPSUM}
 			</div>
 		`,
     }),

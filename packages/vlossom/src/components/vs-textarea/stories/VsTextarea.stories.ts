@@ -1,5 +1,4 @@
-import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsTextarea from './../VsTextarea.vue';

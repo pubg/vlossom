@@ -1,8 +1,7 @@
 import { ref } from 'vue';
-import VsTabs from '../VsTabs.vue';
-import { colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook';
 import { VsIcon } from '@/icons';
+import VsTabs from '../VsTabs.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

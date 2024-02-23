@@ -1,5 +1,6 @@
 import type { StyleSet } from '@/declaration';
 import type {
+    VsAccordionStyleSet,
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
@@ -13,17 +14,31 @@ import type {
     VsHeaderStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
+    VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsStepperStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
+    VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
     VsValueTagStyleSet,
     VsImageStyleSet,
 } from '@/components';
+
+const vsAccordion: VsAccordionStyleSet = {
+    border: '1px solid #1e88e5',
+    borderRadius: '0.7rem',
+    titleColor: '#1e88e5',
+    titleBackgroundColor: '#f5f5f5',
+    titlePadding: '1rem',
+    contentsColor: '#1e88e5',
+    contentsBackgroundColor: '#f5f5f5',
+    contentsPadding: '0.2rem',
+};
 
 const vsAvatar: VsAvatarStyleSet = {
     backgroundColor: '#1e88e5',
@@ -150,6 +165,13 @@ const vsLabelValue: VsLabelValueStyleSet = {
     padding: '2rem',
 };
 
+const vsLoading: VsLoadingStyleSet = {
+    color: '#ff90bc',
+    height: '20rem',
+    width: '7rem',
+    barWidth: '16%',
+};
+
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
@@ -175,6 +197,14 @@ const vsSection: VsSectionStyleSet = {
     color: 'white',
 };
 
+const vsStepper: VsStepperStyleSet = {
+    activeBackgroundColor: 'white',
+    activeColor: '#1e88e5',
+    fontSize: '1.2rem',
+    labelColor: '#90caf9',
+    stepSize: '2rem',
+};
+
 const vsTabs: VsTabsStyleSet = {
     backgroundColor: '#008db2',
     borderBottomColor: '#0288d1',
@@ -190,6 +220,11 @@ const vsTabs: VsTabsStyleSet = {
 const vsTextarea: VsTextareaStyleSet = {
     border: 'solid 1px #1e88e5',
     color: '#1e88e5',
+};
+
+const vsTextWrap: VsTextWrapStyleSet = {
+    copyIconColor: '#d14d72',
+    linkIconColor: '#643843',
 };
 
 const vsTooltip: VsTooltipStyleSet = {
@@ -220,6 +255,7 @@ const vsValueTag: VsValueTagStyleSet = {
 };
 
 export const styleSet: StyleSet = {
+    VsAccordion: { myStyleSet: vsAccordion },
     VsAvatar: { myStyleSet: vsAvatar },
     VsBlock: { myStyleSet: vsBlock },
     VsButton: { myStyleSet: vsButton },
@@ -234,12 +270,15 @@ export const styleSet: StyleSet = {
     VsImage: { myStyleSet: vsImage },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
+    VsLoading: { myStyleSet: vsLoading },
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsStepper: { myStyleSet: vsStepper },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
+    VsTextWrap: { myStyleSet: vsTextWrap },
     VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
     VsValueTag: { myStyleSet: vsValueTag },
