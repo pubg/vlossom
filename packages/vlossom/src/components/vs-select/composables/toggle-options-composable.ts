@@ -1,4 +1,4 @@
-import { nextTick, ref, watch, type Ref } from 'vue';
+import { nextTick, ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
 export function useToggleOptions(
@@ -25,6 +25,12 @@ export function useToggleOptions(
         optionsRef as Ref<HTMLElement>,
     );
 
+    function onOutsideClick() {
+        if (isOpen.value) {
+            closeOptions();
+        }
+    }
+
     watch(isOpen, (newValue) => {
         if (newValue) {
             nextTick(() => {
@@ -35,14 +41,20 @@ export function useToggleOptions(
                 });
 
                 addInfiniteScroll(optionsRef);
+                document.addEventListener('click', onOutsideClick);
             });
         } else {
             // setTimeout(() => {
             //     disappear();
             // }, 200);
-            disappear();
             removeInfiniteScroll(optionsRef);
+            document.removeEventListener('click', onOutsideClick);
+            disappear();
         }
+    });
+
+    onBeforeUnmount(() => {
+        document.removeEventListener('click', onOutsideClick);
     });
 
     return { isOpen, isVisible, toggleOptions, closeOptions, triggerRef, optionsRef };
