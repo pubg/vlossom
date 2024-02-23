@@ -1,11 +1,17 @@
 <template>
     <div :class="['vs-pagination', `vs-${computedColorScheme}`, disabled ? 'disabled' : '']" :style="computedStyleSet">
-        <button v-if="edgeButtons" class="page-button" :disabled="selected <= 1" @click.stop="goFirst">
+        <button
+            v-if="edgeButtons"
+            class="page-button"
+            :disabled="selected <= 1"
+            @click.stop="goFirst"
+            aria-label="go to first page"
+        >
             <slot name="first">
                 <vs-icon icon="goFirst" />
             </slot>
         </button>
-        <button class="page-button" :disabled="selected <= 1" @click.stop="goPrev">
+        <button class="page-button" :disabled="selected <= 1" @click.stop="goPrev" aria-label="go to previous page">
             <slot name="prev">
                 <vs-icon icon="goPrev" />
             </slot>
@@ -15,6 +21,7 @@
                 v-for="page in pages"
                 :key="page"
                 :class="{ 'page-button': true, selected: page === selected }"
+                :aria-label="`go to page ${page}`"
                 @click="setPage(page)"
             >
                 <slot name="page" :page="page">
@@ -22,12 +29,18 @@
                 </slot>
             </button>
         </div>
-        <button class="page-button" :disabled="selected >= length" @click.stop="goNext">
+        <button class="page-button" :disabled="selected >= length" @click.stop="goNext" aria-label="go to next page">
             <slot name="next">
                 <vs-icon icon="goNext" />
             </slot>
         </button>
-        <button v-if="edgeButtons" class="page-button" :disabled="selected >= length" @click.stop="goLast">
+        <button
+            v-if="edgeButtons"
+            class="page-button"
+            :disabled="selected >= length"
+            @click.stop="goLast"
+            aria-label="go to last page"
+        >
             <slot name="last">
                 <vs-icon icon="goLast" />
             </slot>
