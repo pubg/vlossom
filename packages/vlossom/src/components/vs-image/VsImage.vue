@@ -33,7 +33,9 @@ export default defineComponent({
 
         const vsImageRef = ref(null);
 
-        const isLoaded = ref(lazy.value ? false : true);
+        const hasIntersectionObserver = computed(() => window && window.IntersectionObserver !== undefined);
+
+        const isLoaded = ref(hasIntersectionObserver.value && lazy.value ? false : true);
         const isFallback = ref(false);
         const isNoImage = ref(false);
 
@@ -71,7 +73,6 @@ export default defineComponent({
         }
 
         // Use Intersection Observer for Lazy Load
-        const hasIntersectionObserver = computed(() => window && window.IntersectionObserver !== undefined);
         const {
             isActive: isLazyLoadActive,
             pause,
@@ -88,14 +89,8 @@ export default defineComponent({
             { immediate: false },
         );
 
-        watch(hasIntersectionObserver, () => {
-            if (!hasIntersectionObserver.value) {
-                stop();
-            }
-        });
-
         watch(
-            lazy,
+            [hasIntersectionObserver, lazy],
             () => {
                 if (hasIntersectionObserver.value && lazy.value) {
                     resume();
