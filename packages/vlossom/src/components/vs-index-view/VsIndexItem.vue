@@ -16,7 +16,7 @@ export default defineComponent({
         const instance = getCurrentInstance();
         const key = instance?.vnode.key;
         if (!key) {
-            console.error('[vs-index-item] error: key is required');
+            console.warn('[vs-index-item] error: key is required');
         }
     },
 });
