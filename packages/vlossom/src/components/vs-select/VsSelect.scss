@@ -41,6 +41,10 @@
         &.autocomplete {
             cursor: default;
         }
+
+        &:focus-visible {
+            @include focus-shadow;
+        }
     }
 
     .clear-button {
@@ -73,10 +77,6 @@
     &.readonly {
         @include readonly;
     }
-
-    &.open {
-        @include focus-shadow;
-    }
 }
 
 .options {
@@ -95,17 +95,11 @@
         cursor: pointer;
         user-select: none;
 
-        &.selected {
+        &.selected,
+        &:not(.selected).hovered {
             background-color: var(--vs-comp-backgroundColor);
             color: var(--vs-comp-border-color);
             font-weight: 600;
-        }
-
-        &:not(.selected):hover {
-            background-color: var(--vs-light-backgroundColor);
-            span {
-                color: var(--vs-comp-border-color);
-            }
         }
 
         &.select-all {

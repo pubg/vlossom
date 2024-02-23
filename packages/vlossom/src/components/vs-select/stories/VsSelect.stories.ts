@@ -19,7 +19,8 @@ const meta: Meta<typeof VsSelect> = {
     },
     args: {
         label: 'Select',
-        options: ['apple', 'banana', 'carrot'],
+        // options: ['apple', 'banana', 'carrot', 'eggplant', 'fish', 'grape', 'honeydew', 'ice cream', 'jelly'],
+        options: [...Array(200).keys()],
     },
 };
 
@@ -52,6 +53,19 @@ export const CollapseChips: Story = {
 export const Dense: Story = {
     args: {
         dense: true,
+    },
+};
+
+export const Disabled: Story = {
+    args: {
+        disabled: true,
+    },
+};
+
+export const InfiniteScrolling15: Story = {
+    args: {
+        loadNumber: 15,
+        label: 'Infinite Scrolling (Load Number : 15)',
     },
 };
 

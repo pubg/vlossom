@@ -58,6 +58,7 @@
                     @input="updateAutocompleteText"
                     @focus="onFocus"
                     @blur="onBlur"
+                    @keydown="onKeyDown"
                 />
 
                 <button
@@ -83,11 +84,13 @@
                         <li
                             v-for="(option, index) in loadedOptions"
                             :key="option.id"
+                            :id="option.id"
                             role="option"
                             :aria-label="getOptionLabel(option.value)"
                             :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
                             :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
-                            :class="{ selected: isSelectedOption(option.value) }"
+                            :class="{ selected: isSelectedOption(option.value), hovered: focusedIndex === index }"
+                            @mousemove="onMouseMove(option)"
                             @click.stop="selectOption(option.value)"
                         >
                             <slot
@@ -124,7 +127,7 @@ import {
     getInputOptionProps,
     useInputOption,
 } from '@/composables';
-import { useAutocomplete, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
+import { useAutocomplete, useFocus, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -189,7 +192,6 @@ export default defineComponent({
         const classObj = computed(() => ({
             dense: dense.value,
             disabled: disabled.value,
-            open: isOpen.value,
             readonly: readonly.value,
         }));
 
@@ -231,6 +233,27 @@ export default defineComponent({
             closeOptions,
         );
 
+        const { focusedIndex, onKeyDown, onMouseMove } = useFocus(
+            disabled,
+            readonly,
+            isOpen,
+            selectedOptions,
+            loadedOptions,
+            selectOption,
+        );
+
+        const inputLabel = computed(() => {
+            if (focusing.value && autocomplete.value) {
+                return autocompleteText.value;
+            }
+
+            if (multiple.value) {
+                return '';
+            }
+
+            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
+        });
+
         function requiredCheck() {
             if (!required.value) {
                 return '';
@@ -266,18 +289,6 @@ export default defineComponent({
             },
         });
 
-        const inputLabel = computed(() => {
-            if (focusing.value && autocomplete.value) {
-                return autocompleteText.value;
-            }
-
-            if (multiple.value) {
-                return '';
-            }
-
-            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
-        });
-
         return {
             id,
             classObj,
@@ -307,6 +318,9 @@ export default defineComponent({
             onFocus,
             onBlur,
             updateAutocompleteText,
+            focusedIndex,
+            onKeyDown,
+            onMouseMove,
             // focus,
             // blur,
             // select,
