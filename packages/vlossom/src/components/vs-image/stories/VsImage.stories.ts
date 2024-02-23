@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 
 const src = 'https://cdn.pixabay.com/photo/2022/04/06/14/26/ornamental-plum-7115659_1280.jpg';
 const fallback = 'https://cdn.pixabay.com/photo/2019/04/19/07/24/blossom-4138763_1280.jpg';
-const lazy = 'https://cdn.pixabay.com/photo/2017/04/07/14/25/cat-2211076_1280.jpg'
+const lazy = 'https://cdn.pixabay.com/photo/2017/04/07/14/25/cat-2211076_1280.jpg';
 
 const meta: Meta<typeof VsImage> = {
     title: 'Components/Base Components/VsImage',
@@ -18,7 +18,7 @@ const meta: Meta<typeof VsImage> = {
         template: `<vs-image v-bind="args"/>`,
     }),
     args: {
-        src
+        src,
     },
     tags: ['autodocs'],
     argTypes: {},
@@ -32,7 +32,6 @@ export const Default: Story = {
         chromatic: chromaticParameters.theme,
     },
 };
-
 
 export const Fallback: Story = {
     render: (args: any) => ({
@@ -61,7 +60,7 @@ export const Alt: Story = {
     }),
     args: {
         src: '',
-        alt: 'alternative text'
+        alt: 'alternative text',
     },
     parameters: {
         chromatic: chromaticParameters.theme,

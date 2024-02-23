@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsImage from './../VsImage.vue';
@@ -73,7 +73,7 @@ describe('vs-image', () => {
 
     describe('lazy', () => {
         const mockIntersectionObserver = class IntersectionObserver {
-            constructor() {};
+            constructor() {}
             observe = () => null;
         };
         const originalIntersectionObserver = window.IntersectionObserver;
