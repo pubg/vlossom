@@ -47,6 +47,7 @@
                 </div>
 
                 <input
+                    ref="inputRef"
                     :id="id"
                     role="combobox"
                     :aria-expanded="isOpen || isVisible"
@@ -189,6 +190,8 @@ export default defineComponent({
             rules,
         } = toRefs(props);
 
+        const { emit } = context;
+
         const classObj = computed(() => ({
             dense: dense.value,
             disabled: disabled.value,
@@ -212,8 +215,10 @@ export default defineComponent({
             optionValue,
         );
 
-        const { autocompleteText, focusing, filteredOptions, onFocus, onBlur, updateAutocompleteText } =
-            useAutocomplete(computedOptions, getOptionLabel);
+        const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            computedOptions,
+            getOptionLabel,
+        );
 
         const { loadedOptions, addInfiniteScroll, removeInfiniteScroll } = useInfiniteScroll(
             filteredOptions,
@@ -241,18 +246,6 @@ export default defineComponent({
             loadedOptions,
             selectOption,
         );
-
-        const inputLabel = computed(() => {
-            if (focusing.value && autocomplete.value) {
-                return autocompleteText.value;
-            }
-
-            if (multiple.value) {
-                return '';
-            }
-
-            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
-        });
 
         function requiredCheck() {
             if (!required.value) {
@@ -289,6 +282,40 @@ export default defineComponent({
             },
         });
 
+        const focusing = ref(false);
+
+        function onFocus() {
+            focusing.value = true;
+            emit('focus');
+        }
+
+        function onBlur() {
+            focusing.value = false;
+            emit('blur');
+        }
+
+        const inputLabel = computed(() => {
+            if (focusing.value && autocomplete.value) {
+                return autocompleteText.value;
+            }
+
+            if (multiple.value) {
+                return '';
+            }
+
+            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
+        });
+
+        const inputRef = ref<HTMLInputElement | null>(null);
+
+        function focus() {
+            inputRef.value?.focus();
+        }
+
+        function blur() {
+            inputRef.value?.blur();
+        }
+
         return {
             id,
             classObj,
@@ -315,18 +342,16 @@ export default defineComponent({
             onClear,
             clear,
             validate,
-            onFocus,
-            onBlur,
             updateAutocompleteText,
             focusedIndex,
             onKeyDown,
             onMouseMove,
-            // focus,
-            // blur,
+            onFocus,
+            onBlur,
+            inputRef,
+            focus,
+            blur,
             // select,
-            // onFocus,
-            // onBlur,
-            // onEnter,
         };
     },
 });

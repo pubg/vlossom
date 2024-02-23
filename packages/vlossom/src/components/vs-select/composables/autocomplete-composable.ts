@@ -6,16 +6,7 @@ export function useAutocomplete(
     getOptionLabel: (option: any) => string,
 ) {
     const autocompleteText = ref('');
-    const focusing = ref(false);
     const filteredOptions: Ref<{ id: string; value: any }[]> = ref([...computedOptions.value]);
-
-    function onFocus() {
-        focusing.value = true;
-    }
-
-    function onBlur() {
-        focusing.value = false;
-    }
 
     function updateAutocompleteText(event: Event) {
         const target = event.target as HTMLInputElement;
@@ -39,10 +30,7 @@ export function useAutocomplete(
 
     return {
         autocompleteText,
-        focusing,
         filteredOptions,
-        onFocus,
-        onBlur,
         updateAutocompleteText,
     };
 }

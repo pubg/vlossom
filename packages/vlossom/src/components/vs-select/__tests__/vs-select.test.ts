@@ -303,6 +303,38 @@ describe('vs-select', () => {
         });
     });
 
+    describe('focus / blur', () => {
+        it('focus 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('focus');
+
+            // then
+            expect(wrapper.emitted('focus')).toHaveLength(1);
+        });
+
+        it('blur 이벤트를 발생시킬 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+            });
+
+            // when
+            await wrapper.find('input').trigger('blur');
+
+            // then
+            expect(wrapper.emitted('blur')).toHaveLength(1);
+        });
+    });
+
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
@@ -356,40 +388,4 @@ describe('vs-select', () => {
             expect(wrapper.vm.validate()).toBe(false);
         });
     });
-
-    // describe('focus / blur', () => {
-    //     it('focus 이벤트를 발생시킬 수 있다', async () => {
-    //         // given
-    //         const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
-    //             props: {
-    //                 options: ['A', 'B', 'C'],
-    //             },
-    //         });
-
-    //         // when
-    //         await wrapper.find('input[value="A"]').trigger('focus');
-
-    //         // then
-    //         const focusEvent = wrapper.emitted('focus');
-    //         expect(focusEvent).toHaveLength(1);
-    //         expect(focusEvent?.[0]).toEqual(['A']);
-    //     });
-
-    //     it('blur 이벤트를 발생시킬 수 있다', async () => {
-    //         // given
-    //         const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
-    //             props: {
-    //                 options: ['A', 'B', 'C'],
-    //             },
-    //         });
-
-    //         // when
-    //         await wrapper.find('input[value="A"]').trigger('blur');
-
-    //         // then
-    //         const blurEvent = wrapper.emitted('blur');
-    //         expect(blurEvent).toHaveLength(1);
-    //         expect(blurEvent?.[0]).toEqual(['A']);
-    //     });
-    // });
 });
