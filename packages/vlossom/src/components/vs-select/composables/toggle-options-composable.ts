@@ -2,16 +2,26 @@ import { nextTick, ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
 export function useToggleOptions(
+    disabled: Ref<boolean>,
+    readonly: Ref<boolean>,
     addInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
     removeInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
 ) {
     const isOpen = ref(false);
 
     function toggleOptions() {
+        if (disabled.value || readonly.value) {
+            return;
+        }
+
         isOpen.value = !isOpen.value;
     }
 
     function closeOptions() {
+        if (disabled.value || readonly.value) {
+            return;
+        }
+
         isOpen.value = false;
     }
 

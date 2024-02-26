@@ -45,6 +45,14 @@ export function useSelectOption(
         inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, getOptionValue(option)));
     }
 
+    function removeChip() {
+        if (!multiple.value) {
+            return;
+        }
+
+        inputValue.value.splice(inputValue.value.length - 1, 1);
+    }
+
     const selectedOptions = computed(() => {
         if (multiple.value) {
             return computedOptions.value.filter((option) =>
@@ -64,6 +72,7 @@ export function useSelectOption(
         isSelectedOption,
         isAllSelected,
         removeSelected,
+        removeChip,
         selectedOptions,
     };
 }

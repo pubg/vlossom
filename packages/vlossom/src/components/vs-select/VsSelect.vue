@@ -60,6 +60,8 @@
                     @focus="onFocus"
                     @blur="onBlur"
                     @keydown="onKeyDown"
+                    @keydown.delete="removeChip"
+                    @keydown.esc.prevent="closeOptions"
                 />
 
                 <button
@@ -80,6 +82,7 @@
                         :class="['options', `vs-${computedColorScheme}`, { dense: dense }]"
                         tabindex="-1"
                         @keydown="onKeyDown"
+                        @keydown.esc.prevent="closeOptions"
                     >
                         <li
                             v-if="selectAll && multiple"
@@ -126,7 +129,10 @@
                                 <span>{{ getOptionLabel(option.value) }}</span>
                             </slot>
                         </li>
-                        <li v-if="!options.length" @click.stop="closeOptions()">No Options</li>
+                        <li v-if="!loadedOptions.length" @click.stop="closeOptions()">No Options</li>
+                        <li v-if="$slots['add-option']">
+                            <slot name="add-option" />
+                        </li>
                     </ul>
                 </Teleport>
             </div>
@@ -248,12 +254,21 @@ export default defineComponent({
         );
 
         const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions(
+            disabled,
+            readonly,
             addInfiniteScroll,
             removeInfiniteScroll,
         );
 
-        const { selectOption, selectAllOptions, isSelectedOption, isAllSelected, removeSelected, selectedOptions } =
-            useSelectOption(inputValue, computedOptions, getOptionValue, multiple, closeOptions);
+        const {
+            selectOption,
+            selectAllOptions,
+            isSelectedOption,
+            isAllSelected,
+            removeSelected,
+            removeChip,
+            selectedOptions,
+        } = useSelectOption(inputValue, computedOptions, getOptionValue, multiple, closeOptions);
 
         const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove } = useFocus(
             disabled,
@@ -354,6 +369,7 @@ export default defineComponent({
             getOptionLabel,
             getOptionValue,
             removeSelected,
+            removeChip,
             selectOption,
             selectAllOptions,
             isSelectedOption,
