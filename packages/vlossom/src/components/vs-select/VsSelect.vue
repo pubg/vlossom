@@ -179,7 +179,7 @@ export default defineComponent({
             validator: (value: number) => {
                 const isValid = value >= 10;
                 if (!isValid) {
-                    console.error('[Vlossom] vs-select prop loadNumber must be 10 or more');
+                    console.error('[vs-select] prop loadNumber must be 10 or more');
                 }
                 return isValid;
             },

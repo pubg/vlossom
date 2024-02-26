@@ -42,7 +42,7 @@ export function useToggleOptions(
 
                 setTimeout(() => {
                     addInfiniteScroll(optionsRef);
-                    document.body.addEventListener('click', onOutsideClick);
+                    document.addEventListener('click', onOutsideClick);
                 });
             });
         } else {
@@ -50,13 +50,13 @@ export function useToggleOptions(
             //     disappear();
             // }, 200);
             removeInfiniteScroll(optionsRef);
-            document.body.removeEventListener('click', onOutsideClick);
+            document.removeEventListener('click', onOutsideClick);
             disappear();
         }
     });
 
     onBeforeUnmount(() => {
-        document.body.removeEventListener('click', onOutsideClick);
+        document.removeEventListener('click', onOutsideClick);
     });
 
     return { isOpen, isVisible, toggleOptions, closeOptions, triggerRef, optionsRef };

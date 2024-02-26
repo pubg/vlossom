@@ -419,7 +419,7 @@ describe('vs-select', () => {
             // when
             await wrapper.find('input').trigger('click');
             await vi.advanceTimersByTime(0);
-            document.body.dispatchEvent(new Event('click'));
+            document.dispatchEvent(new Event('click'));
             await nextTick();
 
             // then
