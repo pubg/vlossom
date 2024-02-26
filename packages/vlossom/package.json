@@ -85,6 +85,7 @@
         "vue-tsc": "^1.8.27"
     },
     "dependencies": {
+        "@vueuse/core": "^10.8.0",
         "lodash-es": "^4.17.21",
         "nanoid": "^5.0.4"
     }

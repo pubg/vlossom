@@ -12,6 +12,7 @@ import type {
     VsFileInputStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
+    VsImageStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
@@ -147,6 +148,13 @@ const vsHeader: VsHeaderStyleSet = {
     zIndex: 9999,
 };
 
+const vsImage: VsImageStyleSet = {
+    border: '5px solid red',
+    width: '400px',
+    height: 'auto',
+    objectFit: 'contain',
+};
+
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',
     color: '#1e88e5',
@@ -264,6 +272,7 @@ export const styleSet: StyleSet = {
     VsFileInput: { myStyleSet: vsFileInput },
     VsFooter: { myStyleSet: vsFooter },
     VsHeader: { myStyleSet: vsHeader },
+    VsImage: { myStyleSet: vsImage },
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
     VsLoading: { myStyleSet: vsLoading },

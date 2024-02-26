@@ -40,6 +40,9 @@ export { default as VsForm } from './vs-form/VsForm.vue';
 export { type VsHeaderStyleSet } from './vs-header/types';
 export { default as VsHeader } from './vs-header/VsHeader.vue';
 
+export { type VsImageStyleSet } from './vs-image/types';
+export { default as VsImage } from './vs-image/VsImage.vue';
+
 export { default as VsIndexView } from './vs-index-view/VsIndexView.vue';
 export { default as VsIndexItem } from './vs-index-view/VsIndexItem.vue';
 
@@ -110,6 +113,7 @@ declare module 'vue' {
         VsFooter: typeof import('./')['VsFooter'];
         VsForm: typeof import('./')['VsForm'];
         VsHeader: typeof import('./')['VsHeader'];
+        VsImage: typeof import('./')['VsImage'];
         VsIndexView: typeof import('./')['VsIndexView'];
         VsIndexItem: typeof import('./')['VsIndexItem'];
         VsInput: typeof import('./')['VsInput'];

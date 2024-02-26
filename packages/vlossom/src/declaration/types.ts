@@ -10,6 +10,7 @@ import type {
     VsFileInputStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
+    VsImageStyleSet,
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
@@ -46,6 +47,7 @@ export interface StyleSet {
     VsFileInput?: { [key: string]: VsFileInputStyleSet };
     VsFooter?: { [key: string]: VsFooterStyleSet };
     VsHeader?: { [key: string]: VsHeaderStyleSet };
+    VsImage?: { [key: string]: VsImageStyleSet };
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
