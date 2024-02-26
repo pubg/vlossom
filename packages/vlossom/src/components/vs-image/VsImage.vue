@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, computed, defineComponent, onBeforeUnmount, ref, toRefs, watch } from 'vue';
+import { ComputedRef, PropType, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { useStyleSet } from '@/composables';
 import { useIntersectionObserver } from '@vueuse/core';
 import { VsComponent } from '@/declaration';
@@ -72,25 +72,15 @@ export default defineComponent({
             isNoImage.value = true;
         }
 
-        let cleanUpObserver: null | Function = null;
-
         if (hasIntersectionObserver && lazy.value) {
             // Use Intersection Observer for Lazy Load
-            const { pause, stop } = useIntersectionObserver(vsImageRef, ([{ isIntersecting }]) => {
+            const { pause } = useIntersectionObserver(vsImageRef, ([{ isIntersecting }]) => {
                 if (isIntersecting) {
                     isLoaded.value = true;
                     pause();
                 }
             });
-
-            cleanUpObserver = stop;
         }
-
-        onBeforeUnmount(() => {
-            if (cleanUpObserver) {
-                cleanUpObserver();
-            }
-        });
 
         return { computedStyleSet, computedSrc, vsImageRef, isNoImage, onImageError };
     },
