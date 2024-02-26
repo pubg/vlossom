@@ -9,9 +9,10 @@ const meta: Meta<typeof VsPagination> = {
     render: (args: any) => ({
         components: { VsPagination },
         setup() {
-            return { args };
+            const length = 20;
+            return { args, length };
         },
-        template: '<vs-pagination v-bind="args" :length="10" />',
+        template: '<vs-pagination v-bind="args" :length="length" />',
     }),
     tags: ['autodocs'],
     argTypes: {
@@ -73,6 +74,7 @@ export const ColorScheme: Story = {
 
 export const StyleSet: Story = {
     args: {
+        length: 20,
         styleSet: {
             backgroundColor: '#4e28e5',
             borderRadius: '0.4rem',
@@ -91,6 +93,7 @@ export const StyleSet: Story = {
 
 export const PreDefinedStyleSet: Story = {
     args: {
+        length: 20,
         styleSet: 'myStyleSet',
     },
 };
