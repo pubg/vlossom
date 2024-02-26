@@ -78,7 +78,7 @@ describe('vs-image', () => {
         };
         const originalIntersectionObserver = window.IntersectionObserver;
 
-        it('lazy:true일 때, IntersectionObserver가 존재하면 lazy load 모드가 활성화된다', () => {
+        it('lazy:true일 때, IntersectionObserver가 존재하면 image를 lazy loading 한다', () => {
             // given
             window.IntersectionObserver = mockIntersectionObserver as any;
 
@@ -90,11 +90,10 @@ describe('vs-image', () => {
             });
 
             // then
-            expect(wrapper.vm.isLazyLoadActive).toBe(true);
             expect(wrapper.html()).not.toContain('image-src');
         });
 
-        it('lazy:true일 때, IntersectionObserver가 없으면 lazy load 모드가 활성화되지 않는다.', () => {
+        it('lazy:true일 때, IntersectionObserver가 없으면 image를 eager loading 한다', () => {
             // given
             window.IntersectionObserver = undefined as any;
 
@@ -106,7 +105,6 @@ describe('vs-image', () => {
             });
 
             // then
-            expect(wrapper.vm.isLazyLoadActive).toBe(false);
             expect(wrapper.html()).toContain('image-src');
         });
 

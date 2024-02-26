@@ -72,40 +72,27 @@ export default defineComponent({
             isNoImage.value = true;
         }
 
-        // Use Intersection Observer for Lazy Load
-        const {
-            isActive: isLazyLoadActive,
-            pause,
-            resume,
-            stop,
-        } = useIntersectionObserver(
-            vsImageRef,
-            ([{ isIntersecting }]) => {
+        let cleanUpObserver: null | Function = null;
+
+        if (hasIntersectionObserver && lazy.value) {
+            // Use Intersection Observer for Lazy Load
+            const { pause, stop } = useIntersectionObserver(vsImageRef, ([{ isIntersecting }]) => {
                 if (isIntersecting) {
                     isLoaded.value = true;
                     pause();
                 }
-            },
-            { immediate: false },
-        );
+            });
 
-        watch(
-            lazy,
-            () => {
-                if (hasIntersectionObserver && lazy.value) {
-                    resume();
-                } else {
-                    pause();
-                }
-            },
-            { immediate: true },
-        );
+            cleanUpObserver = stop;
+        }
 
         onBeforeUnmount(() => {
-            stop();
+            if (cleanUpObserver) {
+                cleanUpObserver();
+            }
         });
 
-        return { computedStyleSet, computedSrc, vsImageRef, isNoImage, isLazyLoadActive, onImageError };
+        return { computedStyleSet, computedSrc, vsImageRef, isNoImage, onImageError };
     },
 });
 </script>
