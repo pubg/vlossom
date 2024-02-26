@@ -1,0 +1,57 @@
+.vs-pagination {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .page-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow-x: auto;
+    }
+
+    .page-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: var(--vs-pagination-buttonWidth, 2rem);
+        height: var(--vs-pagination-buttonHeight, 2rem);
+        line-height: var(--vs-pagination-buttonHeight, 2rem);
+        margin: var(--vs-pagination-gap, 0.2rem);
+        border-radius: var(--vs-pagination-borderRadius, 0.4rem);
+        color: var(--vs-pagination-color, var(--vs-comp-color));
+        background-color: var(--vs-pagination-backgroundColor, var(--vs-comp-backgroundColor));
+        font-size: var(--vs-pagination-fontSize, 0.8rem);
+        font-weight: var(--vs-pagination-fontWeight, 400);
+        user-select: none;
+
+        &[disabled] {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        &:hover {
+            color: var(--vs-pagination-hoverColor, var(--vs-pagination-color, var(--vs-comp-color)));
+            background-color: var(
+                --vs-pagination-hoverBackgroundColor,
+                var(--vs-pagination-backgroundColor, var(--vs-light-backgroundColor))
+            );
+            font-size: var(--vs-pagination-hoverFontSize, var(--vs-pagination-fontSize, 0.8rem));
+            font-weight: var(--vs-pagination-hoverFontWeight, var(--vs-pagination-fontWeight, 400));
+        }
+        &.selected {
+            color: var(--vs-pagination-selectedColor, var(--vs-comp-color-primary));
+            background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-comp-backgroundColor-primary));
+            font-size: var(--vs-pagination-selectedFontSize, 0.9rem);
+            font-weight: var(--vs-pagination-selectedFontWeight, 600);
+            pointer-events: none;
+        }
+    }
+
+    &.disabled {
+        .page-button {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    }
+}
