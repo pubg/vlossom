@@ -1,7 +1,11 @@
-import { colorScheme, getMetaArguments } from '@/storybook/args';
+import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
+import { chromaticParameters } from '@/storybook/parameters';
 import VsSelect from '../VsSelect.vue';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
+
+const options = [...Array(200).keys()];
 
 const meta: Meta<typeof VsSelect> = {
     title: 'Components/Input Components/VsSelect',
@@ -85,5 +89,69 @@ export const SelectAll: Story = {
     args: {
         multiple: true,
         selectAll: true,
+    },
+};
+
+export const Width: Story = {
+    render: (args: any) => ({
+        components: { VsSelect, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container>
+                <vs-select v-bind="args" />
+                <vs-select v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        options,
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+    },
+};
+
+export const Grid: Story = {
+    render: (args: any) => ({
+        components: { VsSelect, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container>
+                <vs-select v-bind="args" />
+                <vs-select v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        options,
+        grid: { sm: 6, md: 4, lg: 3 },
+    },
+};
+
+export const StyleSet: Story = {
+    args: {
+        multiple: true,
+        collapseChips: true,
+        styleSet: {
+            backgroundColor: '#ADBC9F',
+            color: '#12372A',
+            border: '1px solid #12372A',
+            chipBackgroundColor: '#9B4444',
+            chipColor: '#EEEEEE',
+            collapseChipBackgroundColor: '#12372A',
+            collapseChipColor: '#EEEEEE',
+            hoverOptionBackgroundColor: '#12372A',
+            hoverOptionColor: '#EEEEEE',
+            selectedOptionBackgroundColor: '#12372A',
+            selectedOptionColor: '#EEEEEE',
+        },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
     },
 };

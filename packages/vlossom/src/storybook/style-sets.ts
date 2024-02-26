@@ -21,6 +21,7 @@ import type {
     VsPaginationStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsSelectStyleSet,
     VsStepperStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
@@ -222,6 +223,17 @@ const vsSection: VsSectionStyleSet = {
     color: 'white',
 };
 
+const vsSelect: VsSelectStyleSet = {
+    backgroundColor: '#FFF3CF',
+    border: '1px solid #637A9F',
+    color: '#637A9F',
+    fontSize: '1rem',
+    hoverOptionBackgroundColor: '#C9D7DD',
+    hoverOptionColor: '#637A9F',
+    selectedOptionBackgroundColor: '#637A9F',
+    selectedOptionColor: '#FFF3CF',
+};
+
 const vsStepper: VsStepperStyleSet = {
     activeBackgroundColor: 'white',
     activeColor: '#1e88e5',
@@ -301,6 +313,7 @@ export const styleSet: StyleSet = {
     VsPagination: { myStyleSet: vsPagination },
     VsProgress: { myStyleSet: vsProgress },
     VsSection: { myStyleSet: vsSection },
+    VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },

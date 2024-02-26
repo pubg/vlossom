@@ -16,27 +16,36 @@
             <div
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }]"
+                :style="computedStyleSet"
                 @click="toggleOptions()"
             >
-                <div v-if="multiple" class="multiple-chips">
-                    <div v-if="collapseChips && selectedOptions.length" class="collapse-chips">
+                <div v-if="multiple && selectedOptions.length" class="multiple-chips">
+                    <div v-if="collapseChips" class="chips">
                         <vs-chip
                             :color-scheme="colorScheme"
+                            :style-set="chipStyleSets"
                             :closable="closableChips"
                             primary
                             @close="removeSelected(selectedOptions[0].value)"
                         >
                             {{ getOptionLabel(selectedOptions[0].value) }}
                         </vs-chip>
-                        <span v-if="selectedOptions.length > 1" class="chip-others">
+                        <vs-chip
+                            v-if="selectedOptions.length > 1"
+                            class="chip-others"
+                            color-scheme="light-blue"
+                            :style-set="collapseChipStyleSets"
+                            primary
+                        >
                             + {{ selectedOptions.length - 1 }}
-                        </span>
+                        </vs-chip>
                     </div>
-                    <div v-else class="collapse-chips">
+                    <div v-else class="chips">
                         <vs-chip
                             v-for="option in selectedOptions"
                             :key="`selected-${option.id}`"
                             :color-scheme="colorScheme"
+                            :style-set="chipStyleSets"
                             :closable="closableChips"
                             primary
                             @close="removeSelected(option.value)"
@@ -80,6 +89,7 @@
                         role="listbox"
                         :aria-multi-selectable="multiple"
                         :class="['options', `vs-${computedColorScheme}`, { dense: dense }]"
+                        :style="computedStyleSet"
                         tabindex="-1"
                         @keydown="onKeyDown"
                         @keydown.esc.prevent="closeOptions"
@@ -229,6 +239,14 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSelectStyleSet>(name, styleSet);
+        const chipStyleSets = computed(() => ({
+            backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'],
+            color: computedStyleSet.value['--vs-select-chipColor'],
+        }));
+        const collapseChipStyleSets = computed(() => ({
+            backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'],
+            color: computedStyleSet.value['--vs-select-collapseChipColor'],
+        }));
 
         const inputValue = ref(modelValue.value);
 
@@ -355,6 +373,8 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedStyleSet,
+            chipStyleSets,
+            collapseChipStyleSets,
             inputValue,
             computedMessages,
             shake,

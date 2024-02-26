@@ -10,21 +10,16 @@
 
     .multiple-chips {
         display: flex;
+        padding: 0 0.6rem;
 
-        .collapse-chips {
+        .chips {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
 
             .chip-others {
-                display: flex;
-                align-items: center;
-                height: 2.4rem;
-                margin-left: 2px;
+                margin-left: 0.2rem;
                 padding: 0 0.8rem;
-                border-radius: 1.2rem;
-                color: var(--vs-grey-50);
-                background: var(--vs-light-blue-400);
             }
         }
     }
@@ -41,16 +36,13 @@
         &.autocomplete {
             cursor: default;
         }
-
-        &:focus-visible {
-            @include focus-shadow;
-        }
     }
 
     .clear-button {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-right: 0.6rem;
         opacity: 0;
         transition: opacity 0.4s;
         color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
@@ -77,6 +69,10 @@
     &.readonly {
         @include readonly;
     }
+
+    &:has(input:focus-visible) {
+        @include focus-shadow;
+    }
 }
 
 .options {
@@ -97,40 +93,23 @@
         user-select: none;
 
         &.selected {
-            background-color: var(--vs-comp-backgroundColor);
-            color: var(--vs-comp-border-color);
+            background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
+            color: var(--vs-select-selectedOptionColor, var(--vs-comp-border-color));
             font-weight: 600;
         }
 
         &:not(.selected).hovered {
-            background-color: var(--vs-light-backgroundColor);
-            color: var(--vs-comp-border-color);
+            background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
+            color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
             font-weight: 600;
         }
 
         &.select-all {
-            height: auto;
-            line-height: auto;
-            padding: 0.4rem 0.4rem;
-            span {
-                display: flex;
-                align-items: center;
-                height: 3.2rem;
-                padding: 0 0.8rem;
-                border-radius: 0.4rem;
-                background-color: var(--light-bg);
-            }
-
-            &.selected-option {
-                span {
-                    color: var(--comp-bg-font);
-                    background-color: var(--comp-bg);
-                    &:hover {
-                        color: var(--comp-bg-font);
-                        background-color: var(--comp-bg);
-                    }
-                }
-            }
+            background-color: var(--vs-light-backgroundColor);
+            padding: 0.4 0.4rem;
+            height: 3.2rem;
+            display: flex;
+            align-items: center;
         }
     }
 

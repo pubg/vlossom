@@ -19,6 +19,7 @@ import type {
     VsPaginationStyleSet,
     VsProgressStyleSet,
     VsSectionStyleSet,
+    VsSelectStyleSet,
     VsStepperStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
@@ -57,6 +58,7 @@ export interface StyleSet {
     VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
+    VsSelect?: { [key: string]: VsSelectStyleSet };
     VsStepper?: { [key: string]: VsStepperStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };

@@ -55,8 +55,10 @@ export function useSelectOption(
 
     const selectedOptions = computed(() => {
         if (multiple.value) {
-            return computedOptions.value.filter((option) =>
-                inputValue.value?.find((v: any) => utils.object.isEqual(v, getOptionValue(option.value))),
+            return computedOptions.value.filter(
+                (option) =>
+                    inputValue.value?.find((v: any) => utils.object.isEqual(v, getOptionValue(option.value))) !==
+                    undefined,
             );
         } else {
             const selected = computedOptions.value.find((option) =>
