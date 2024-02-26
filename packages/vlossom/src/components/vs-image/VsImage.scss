@@ -1,11 +1,10 @@
 .vs-image {
     position: relative;
-    display: inline-block;
     
     img {
         width: var(--vs-image-width, 100%);
         height: var(--vs-image-height, 100%);
-        border: var(--vs-image-border, 'none');
+        border: var(--vs-image-border, none);
         border-radius: var(--vs-image-borderRadius, 0);
         object-fit: var(--vs-image-objectFit, contain);
     }
