@@ -82,7 +82,7 @@ describe('vs-pagination', () => {
     });
 
     describe('length', () => {
-        it('10 이하의 length를 설정하면 length만큼 페이지 버튼이 생긴다', () => {
+        it('10 이하의 length를 설정하면 length만큼 페이지 버튼이 생긴다 (showingLength 를 변경하지 않았을 때)', () => {
             // given
             const length = 5;
 
