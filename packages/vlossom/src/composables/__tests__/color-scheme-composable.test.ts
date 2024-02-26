@@ -7,7 +7,7 @@ import { useColorScheme } from '../color-scheme-composable';
 describe('useColorScheme composable', () => {
     it('use colorScheme prop first if it exists', () => {
         // given
-        store.setGlobalColorScheme({ VsButton: 'red' });
+        store.option.setGlobalColorScheme({ VsButton: 'red' });
 
         // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsButton, ref('green'));
@@ -18,7 +18,7 @@ describe('useColorScheme composable', () => {
 
     it('use a global color scheme value of component if it exists', () => {
         // given
-        store.setGlobalColorScheme({ VsInput: 'yellow' });
+        store.option.setGlobalColorScheme({ VsInput: 'yellow' });
 
         // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
@@ -29,7 +29,7 @@ describe('useColorScheme composable', () => {
 
     it('use a default global color scheme value if it exists', () => {
         // given
-        store.setGlobalColorScheme({ default: 'blue' });
+        store.option.setGlobalColorScheme({ default: 'blue' });
 
         // when
         const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));

@@ -66,12 +66,6 @@ export interface StyleSet {
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
-export interface VlossomStore {
-    theme: 'light' | 'dark';
-    globalColorScheme: GlobalColorScheme;
-    styleSets: StyleSet;
-}
-
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
