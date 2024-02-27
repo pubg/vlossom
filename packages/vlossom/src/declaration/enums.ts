@@ -28,6 +28,7 @@ export enum VsComponent {
     VsProgress = 'VsProgress',
     VsSection = 'VsSection',
     VsStepper = 'VsStepper',
+    VsTable = 'VsTable',
     VsTabs = 'VsTabs',
     VsTextarea = 'VsTextarea',
     VsTextWrap = 'VsTextWrap',
