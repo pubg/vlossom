@@ -18,7 +18,7 @@ const styleSet: StyleSet = {
 
 describe('useStyleSet composable', () => {
     beforeEach(() => {
-        store.registerStyleSet(styleSet);
+        store.option.registerStyleSet(styleSet);
     });
 
     it('parse styleSet object and return custom properties successfully', () => {
