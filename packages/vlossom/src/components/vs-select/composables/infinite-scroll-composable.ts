@@ -1,5 +1,5 @@
 import { ref, watch, nextTick, type Ref } from 'vue';
-import { utils } from '@/utils';
+import { useInfiniteScroll as useVueUseInfiniteScroll } from '@vueuse/core';
 
 export function useInfiniteScroll(
     filteredOptions: Ref<{ id: string; value: any }[]>,
@@ -17,37 +17,11 @@ export function useInfiniteScroll(
         loadedOptions.value = filteredOptions.value.slice(0, endIndex);
     }
 
-    const infiniteScrollHandler = utils.function.throttle((event: InputEvent) => {
-        const element = event.target as HTMLInputElement;
-
-        if (element.scrollTop + element.offsetHeight >= element.scrollHeight - 200) {
-            if (loadedOptions.value.length === filteredOptions.value.length) {
-                return;
-            }
-
-            loadMore();
-        }
-    }, 500);
-
-    function addInfiniteScroll() {
-        if (optionsRef.value) {
-            optionsRef.value.addEventListener('scroll', infiniteScrollHandler);
-        }
-    }
-
-    function removeInfiniteScroll() {
-        if (optionsRef.value) {
-            optionsRef.value.removeEventListener('scroll', infiniteScrollHandler);
-        }
-    }
-
     watch(isOpen, (newValue) => {
         if (newValue) {
             nextTick(() => {
-                addInfiniteScroll();
+                useVueUseInfiniteScroll(optionsRef, loadMore, { distance: 20 });
             });
-        } else {
-            removeInfiniteScroll();
         }
     });
 
@@ -58,7 +32,5 @@ export function useInfiniteScroll(
 
     return {
         loadedOptions,
-        addInfiniteScroll,
-        removeInfiniteScroll,
     };
 }

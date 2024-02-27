@@ -1,5 +1,4 @@
-import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook/args';
-import { chromaticParameters } from '@/storybook/parameters';
+import { colorScheme, getColorSchemeTemplate, chromaticParameters, getMetaArguments } from '@/storybook';
 import VsSelect from '../VsSelect.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
@@ -23,8 +22,7 @@ const meta: Meta<typeof VsSelect> = {
     },
     args: {
         label: 'Select',
-        // options: ['apple', 'banana', 'carrot', 'eggplant', 'fish', 'grape', 'honeydew', 'ice cream', 'jelly'],
-        options: [...Array(200).keys()],
+        options,
     },
 };
 
@@ -33,6 +31,29 @@ export default meta;
 type Story = StoryObj<typeof VsSelect>;
 
 export const Default: Story = {};
+
+export const ColorScheme: Story = {
+    render: (args: any) => ({
+        components: { VsSelect },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getColorSchemeTemplate(`
+                    <vs-select v-bind="args" color-scheme="{{ color }}" style="marginBottom: 20px" />
+                `)}
+            </div>
+        `,
+    }),
+    args: {
+        label: 'Select',
+        options,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
 
 export const Autocomplete: Story = {
     args: {
@@ -52,6 +73,9 @@ export const CollapseChips: Story = {
         multiple: true,
         collapseChips: true,
     },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Dense: Story = {
@@ -63,6 +87,9 @@ export const Dense: Story = {
 export const Disabled: Story = {
     args: {
         disabled: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 
