@@ -69,7 +69,6 @@
                     @focus="onFocus"
                     @blur="onBlur"
                     @keydown="onKeyDown"
-                    @keydown.delete="removeChip"
                     @keydown.esc.prevent="closeOptions"
                 />
 
@@ -261,22 +260,18 @@ export default defineComponent({
             optionValue,
         );
 
-        const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
-            computedOptions,
-            getOptionLabel,
-        );
-
-        const { loadedOptions, addInfiniteScroll, removeInfiniteScroll } = useInfiniteScroll(
-            filteredOptions,
-            loadNumber,
-        );
-
         const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions(
             disabled,
             readonly,
-            addInfiniteScroll,
-            removeInfiniteScroll,
         );
+
+        const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            computedOptions,
+            getOptionLabel,
+            isOpen,
+        );
+
+        const { loadedOptions } = useInfiniteScroll(filteredOptions, loadNumber, isOpen, optionsRef);
 
         const {
             selectOption,

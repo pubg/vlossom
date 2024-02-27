@@ -1,12 +1,7 @@
 import { nextTick, ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
-export function useToggleOptions(
-    disabled: Ref<boolean>,
-    readonly: Ref<boolean>,
-    addInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
-    removeInfiniteScroll: (optionsRef: Ref<HTMLElement | null>) => void,
-) {
+export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>) {
     const isOpen = ref(false);
 
     function toggleOptions() {
@@ -51,7 +46,6 @@ export function useToggleOptions(
                 });
 
                 setTimeout(() => {
-                    addInfiniteScroll(optionsRef);
                     document.addEventListener('click', onOutsideClick);
                 });
             });
@@ -59,7 +53,6 @@ export function useToggleOptions(
             // setTimeout(() => {
             //     disappear();
             // }, 200);
-            removeInfiniteScroll(optionsRef);
             document.removeEventListener('click', onOutsideClick);
             disappear();
         }

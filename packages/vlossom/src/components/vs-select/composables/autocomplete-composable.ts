@@ -4,6 +4,7 @@ import { utils } from '@/utils';
 export function useAutocomplete(
     computedOptions: Ref<{ id: string; value: any }[]>,
     getOptionLabel: (option: any) => string,
+    isOpen: Ref<boolean>,
 ) {
     const autocompleteText = ref('');
     const filteredOptions: Ref<{ id: string; value: any }[]> = ref([...computedOptions.value]);
@@ -21,6 +22,10 @@ export function useAutocomplete(
                 const label = getOptionLabel(option.value);
                 return label.toLowerCase().includes(lower);
             });
+
+            if (!isOpen.value) {
+                isOpen.value = true;
+            }
         }, 300),
     );
 

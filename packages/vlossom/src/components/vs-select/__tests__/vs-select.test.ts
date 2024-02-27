@@ -474,8 +474,8 @@ describe('vs-select', () => {
             });
 
             // then
-            expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(1);
-            expect(wrapper.html()).toContain('+ 2');
+            expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(2);
+            expect(wrapper.findAllComponents({ name: 'VsChip' })[1].html()).toContain('+ 2');
         });
     });
 

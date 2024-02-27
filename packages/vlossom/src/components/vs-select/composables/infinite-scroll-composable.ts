@@ -1,7 +1,12 @@
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, nextTick, type Ref } from 'vue';
 import { utils } from '@/utils';
 
-export function useInfiniteScroll(filteredOptions: Ref<{ id: string; value: any }[]>, loadNumber: Ref<number>) {
+export function useInfiniteScroll(
+    filteredOptions: Ref<{ id: string; value: any }[]>,
+    loadNumber: Ref<number>,
+    isOpen: Ref<boolean>,
+    optionsRef: Ref<HTMLElement | null>,
+) {
     const optionPageIndex = ref(1);
     const loadedOptions: Ref<{ id: string; value: any }[]> = ref(filteredOptions.value.slice(0, loadNumber.value));
 
@@ -24,17 +29,27 @@ export function useInfiniteScroll(filteredOptions: Ref<{ id: string; value: any 
         }
     }, 500);
 
-    function addInfiniteScroll(optionsRef: Ref<HTMLElement | null>) {
+    function addInfiniteScroll() {
         if (optionsRef.value) {
             optionsRef.value.addEventListener('scroll', infiniteScrollHandler);
         }
     }
 
-    function removeInfiniteScroll(optionsRef: Ref<HTMLElement | null>) {
+    function removeInfiniteScroll() {
         if (optionsRef.value) {
             optionsRef.value.removeEventListener('scroll', infiniteScrollHandler);
         }
     }
+
+    watch(isOpen, (newValue) => {
+        if (newValue) {
+            nextTick(() => {
+                addInfiniteScroll();
+            });
+        } else {
+            removeInfiniteScroll();
+        }
+    });
 
     watch(filteredOptions, () => {
         optionPageIndex.value = 1;
