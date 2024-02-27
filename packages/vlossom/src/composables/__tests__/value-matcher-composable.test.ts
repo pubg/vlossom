@@ -167,7 +167,7 @@ describe('value-matcher-composable', () => {
         });
     });
 
-    describe('getChangedValue', () => {
+    describe('getUpdatedValue', () => {
         describe('modelValue가 array 타입이고 multiple이 true일 때', () => {
             it('toggled가 true이면 trueValue를 추가한 배열을 반환하고, false이면 trueValue를 제거한 배열을 반환한다', () => {
                 // given
@@ -180,11 +180,11 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { getChangedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getUpdatedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(getChangedValue(true, value)).toEqual([1, 2, 3, 1]);
-                expect(getChangedValue(false, value)).toEqual([2, 3]);
+                expect(getUpdatedValue(true, value)).toEqual([1, 2, 3, 1]);
+                expect(getUpdatedValue(false, value)).toEqual([2, 3]);
             });
         });
 
@@ -200,11 +200,11 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { getChangedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getUpdatedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(getChangedValue(true, value)).toBe(1);
-                expect(getChangedValue(false, value)).toBe('falseValue');
+                expect(getUpdatedValue(true, value)).toBe(1);
+                expect(getUpdatedValue(false, value)).toBe('falseValue');
             });
         });
 
@@ -220,11 +220,11 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { getChangedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getUpdatedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(getChangedValue(true, value)).toBe(1);
-                expect(getChangedValue(false, value)).toBe('falseValue');
+                expect(getUpdatedValue(true, value)).toBe(1);
+                expect(getUpdatedValue(false, value)).toBe('falseValue');
             });
         });
     });

@@ -102,7 +102,7 @@ export default defineComponent({
             isMatched: isChecked,
             getInitialValue,
             getClearedValue,
-            getChangedValue,
+            getUpdatedValue,
         } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
@@ -134,7 +134,7 @@ export default defineComponent({
             }
 
             const target = e.target as HTMLInputElement;
-            inputValue.value = getChangedValue(target.checked, inputValue.value);
+            inputValue.value = getUpdatedValue(target.checked, inputValue.value);
         }
 
         function onFocus() {
