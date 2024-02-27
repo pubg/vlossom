@@ -12,15 +12,11 @@ export function useValueMatcher(
     const isMultipleValue = computed(() => multiple.value && isArrayValue.value);
 
     const isMatched: ComputedRef<boolean> = computed(() => {
-        if (utils.object.isEqual(inputValue.value, trueValue.value)) {
-            return true;
-        }
-
         if (isMultipleValue.value) {
             return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
         }
 
-        return false;
+        return utils.object.isEqual(inputValue.value, trueValue.value);
     });
 
     function getInitialValue() {
