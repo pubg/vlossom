@@ -96,7 +96,7 @@
                         ref="optionsRef"
                         role="listbox"
                         :aria-multi-selectable="multiple"
-                        :class="['options', `vs-${computedColorScheme}`, { dense: dense }]"
+                        :class="['options', `vs-${computedColorScheme}`, { dense: dense }, animationClass]"
                         :style="computedStyleSet"
                         tabindex="-1"
                         @keydown="onKeyDown"
@@ -269,10 +269,8 @@ export default defineComponent({
             optionValue,
         );
 
-        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible } = useToggleOptions(
-            disabled,
-            readonly,
-        );
+        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
+            useToggleOptions(disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
             computedOptions,
@@ -372,6 +370,22 @@ export default defineComponent({
             inputRef.value?.blur();
         }
 
+        const animationClass = computed(() => {
+            if (isOpen.value) {
+                if (computedPlacement.value === 'top') {
+                    return 'fade-enter-bottom';
+                } else {
+                    return 'fade-enter-top';
+                }
+            } else {
+                if (computedPlacement.value === 'top') {
+                    return 'fade-leave-bottom';
+                } else {
+                    return 'fade-leave-top';
+                }
+            }
+        });
+
         return {
             id,
             classObj,
@@ -379,6 +393,7 @@ export default defineComponent({
             computedStyleSet,
             chipStyleSets,
             collapseChipStyleSets,
+            animationClass,
             inputValue,
             computedMessages,
             shake,

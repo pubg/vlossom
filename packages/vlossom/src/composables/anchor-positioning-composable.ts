@@ -91,11 +91,11 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
 
     function appear(attachInfo: AttachInfo = {}) {
         isVisible.value = true;
-        attachment.value.style.display = 'block';
-        attachment.value.style.position = 'absolute';
-        attachment.value.style.opacity = '0';
 
         nextTick(() => {
+            attachment.value.style.display = 'block';
+            attachment.value.style.position = 'absolute';
+            attachment.value.style.opacity = '0';
             computePosition(attachInfo);
             attachment.value.style.opacity = '1';
 

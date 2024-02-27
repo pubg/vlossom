@@ -1,4 +1,4 @@
-import { nextTick, ref, watch, onBeforeUnmount, type Ref } from 'vue';
+import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
 export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>) {
@@ -25,7 +25,7 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
     const triggerRef: Ref<HTMLElement | null> = ref(null);
     const optionsRef: Ref<HTMLElement | null> = ref(null);
 
-    const { isVisible, appear, disappear } = usePositioning(
+    const { isVisible, computedPlacement, appear, disappear } = usePositioning(
         triggerRef as Ref<HTMLElement>,
         optionsRef as Ref<HTMLElement>,
     );
@@ -38,23 +38,20 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
 
     watch(isOpen, (newValue) => {
         if (newValue) {
-            nextTick(() => {
-                appear({
-                    align: 'start',
-                    placement: 'bottom',
-                    followWidth: true,
-                });
+            appear({
+                align: 'start',
+                placement: 'bottom',
+                followWidth: true,
+            });
 
-                setTimeout(() => {
-                    document.addEventListener('click', onOutsideClick);
-                });
+            setTimeout(() => {
+                document.addEventListener('click', onOutsideClick);
             });
         } else {
-            // setTimeout(() => {
-            //     disappear();
-            // }, 200);
             document.removeEventListener('click', onOutsideClick);
-            disappear();
+            setTimeout(() => {
+                disappear();
+            }, 500);
         }
     });
 
@@ -62,5 +59,5 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
         document.removeEventListener('click', onOutsideClick);
     });
 
-    return { isOpen, isVisible, toggleOptions, closeOptions, triggerRef, optionsRef };
+    return { isOpen, isVisible, computedPlacement, toggleOptions, closeOptions, triggerRef, optionsRef };
 }
