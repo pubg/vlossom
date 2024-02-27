@@ -38,9 +38,15 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import {
+    useColorScheme,
+    useStyleSet,
+    getResponsiveProps,
+    getInputProps,
+    useInput,
+    useValueMatcher,
+} from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
@@ -63,6 +69,7 @@ export default defineComponent({
         checkLabel: { type: String, default: '' },
         trueValue: { type: null, default: true },
         falseValue: { type: null, default: false },
+        multiple: { type: Boolean, default: false },
         // v-model
         modelValue: { type: null, default: false },
     },
@@ -79,6 +86,7 @@ export default defineComponent({
             rules,
             trueValue,
             falseValue,
+            multiple,
             beforeChange,
         } = toRefs(props);
 
@@ -90,15 +98,12 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        const isArrayValue = computed(() => Array.isArray(modelValue.value));
-
-        const isChecked = computed(() => {
-            if (isArrayValue.value) {
-                return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
-            }
-
-            return utils.object.isEqual(inputValue.value, trueValue.value);
-        });
+        const {
+            isMatched: isChecked,
+            initialValue,
+            clearedValue,
+            getChangedValue,
+        } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';
@@ -111,16 +116,10 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    if (isArrayValue.value) {
-                        return;
-                    }
-
-                    inputValue.value = modelValue.value === trueValue.value ? trueValue.value : falseValue.value;
+                    inputValue.value = initialValue.value;
                 },
                 onClear: () => {
-                    inputValue.value = isArrayValue.value
-                        ? inputValue.value.filter((v: any) => !utils.object.isEqual(v, trueValue.value))
-                        : falseValue.value;
+                    inputValue.value = clearedValue.value;
                 },
             },
         });
@@ -135,16 +134,7 @@ export default defineComponent({
             }
 
             const target = e.target as HTMLInputElement;
-
-            if (isArrayValue.value) {
-                if (target.checked) {
-                    inputValue.value = [...inputValue.value, trueValue.value];
-                } else {
-                    inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
-                }
-            } else {
-                inputValue.value = target.checked ? trueValue.value : falseValue.value;
-            }
+            inputValue.value = getChangedValue(target.checked, inputValue.value);
         }
 
         function onFocus() {
