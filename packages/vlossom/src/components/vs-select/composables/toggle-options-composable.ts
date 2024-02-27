@@ -49,6 +49,8 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
             });
         } else {
             document.removeEventListener('click', onOutsideClick);
+
+            // delay for animation
             setTimeout(() => {
                 disappear();
             }, 500);
