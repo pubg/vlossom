@@ -100,8 +100,8 @@ export default defineComponent({
 
         const {
             isMatched: isChecked,
-            initialValue,
-            clearedValue,
+            getInitialValue,
+            getClearedValue,
             getChangedValue,
         } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
@@ -116,10 +116,10 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = initialValue.value;
+                    inputValue.value = getInitialValue();
                 },
                 onClear: () => {
-                    inputValue.value = clearedValue.value;
+                    inputValue.value = getClearedValue();
                 },
             },
         });

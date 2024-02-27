@@ -79,10 +79,10 @@ describe('value-matcher-composable', () => {
             const falseValue = ref('falseValue');
 
             // when
-            const { initialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+            const { getInitialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
             // then
-            expect(initialValue.value).toEqual([1, 2, 3]);
+            expect(getInitialValue()).toEqual([1, 2, 3]);
         });
 
         describe('modelValue가 array 타입이 아니면', () => {
@@ -95,10 +95,10 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { initialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getInitialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(initialValue.value).toBe(1);
+                expect(getInitialValue()).toBe(1);
             });
 
             it('modelValue가 trueValue와 다르면 falseValue를 반환한다', () => {
@@ -110,10 +110,10 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { initialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getInitialValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(initialValue.value).toBe('falseValue');
+                expect(getInitialValue()).toBe('falseValue');
             });
         });
     });
@@ -129,10 +129,10 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { clearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getClearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(clearedValue.value).toEqual([2, 3]);
+                expect(getClearedValue()).toEqual([2, 3]);
             });
 
             it('multiple이 false이면 falseValue를 반환한다', () => {
@@ -144,10 +144,10 @@ describe('value-matcher-composable', () => {
                 const falseValue = ref('falseValue');
 
                 // when
-                const { clearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+                const { getClearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
                 // then
-                expect(clearedValue.value).toBe('falseValue');
+                expect(getClearedValue()).toBe('falseValue');
             });
         });
 
@@ -160,10 +160,10 @@ describe('value-matcher-composable', () => {
             const falseValue = ref('falseValue');
 
             // when
-            const { clearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+            const { getClearedValue } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
 
             // then
-            expect(clearedValue.value).toBe('falseValue');
+            expect(getClearedValue()).toBe('falseValue');
         });
     });
 
