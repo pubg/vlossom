@@ -11,6 +11,7 @@
     .multiple-chips {
         display: flex;
         padding: 0 0.6rem;
+        overflow: hidden;
 
         .chips {
             display: flex;
@@ -32,6 +33,7 @@
         background-color: transparent;
         color: var(--vs-select-color, var(--vs-font-color));
         cursor: pointer;
+        min-width: 2rem;
 
         &.autocomplete {
             cursor: default;

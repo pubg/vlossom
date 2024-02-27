@@ -8,6 +8,14 @@ function mountComponent() {
 }
 
 describe('vs-select', () => {
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+        vi.clearAllTimers();
+    });
+
     describe('options', () => {
         it('primitive options를 설정할 수 있다', async () => {
             // given
@@ -24,7 +32,6 @@ describe('vs-select', () => {
 
             //when
             await wrapper.find('input').trigger('click');
-            await nextTick();
 
             // then
             expect(wrapper.findAll('li[role="option"]')).toHaveLength(3);
@@ -311,6 +318,7 @@ describe('vs-select', () => {
             // when
             await wrapper.find('input').trigger('click');
             await wrapper.findAll('li[role="option"]')[1].trigger('click');
+            await vi.advanceTimersByTime(500);
 
             // then
             expect(wrapper.find('input').element.value).toBe('B');
@@ -403,7 +411,6 @@ describe('vs-select', () => {
     describe('click outside', () => {
         it('옵션 리스트가 열려있는 상태에서 외부를 클릭하면 옵션 리스트가 닫힌다', async () => {
             // given
-            vi.useFakeTimers();
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
@@ -421,6 +428,7 @@ describe('vs-select', () => {
             await vi.advanceTimersByTime(0);
             document.dispatchEvent(new Event('click'));
             await nextTick();
+            await vi.advanceTimersByTime(500);
 
             // then
             expect(document.body.querySelector('ul[role="listbox"]')).toBeNull();
@@ -480,14 +488,6 @@ describe('vs-select', () => {
     });
 
     describe('autocomplete', () => {
-        beforeEach(() => {
-            vi.useFakeTimers();
-        });
-
-        afterEach(() => {
-            vi.clearAllTimers();
-        });
-
         it('autocomplete을 true로 설정하면 자동완성 기능을 사용할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
@@ -538,6 +538,7 @@ describe('vs-select', () => {
 
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await vi.advanceTimersByTime(500);
                 // then
                 expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
 
@@ -548,6 +549,7 @@ describe('vs-select', () => {
 
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Space' });
+                await vi.advanceTimersByTime(500);
                 // then
                 expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
             });
