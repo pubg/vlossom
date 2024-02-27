@@ -51,6 +51,20 @@
         cursor: pointer;
     }
 
+    .arrow-box {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding-right: 0.6rem;
+
+        .arrow-icon {
+            transition: transform 0.3s ease-out;
+            &.arrow-up {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
     &:hover {
         .clear-button {
             opacity: 1;

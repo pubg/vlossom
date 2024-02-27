@@ -82,6 +82,15 @@
                     <vs-icon icon="close" :size="dense ? 16 : 20" />
                 </button>
 
+                <div class="arrow-box">
+                    <vs-icon
+                        icon="keyboardArrowDown"
+                        :size="dense ? 16 : 20"
+                        class="arrow-icon"
+                        :class="{ 'arrow-up': isOpen }"
+                    />
+                </div>
+
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
                     <ul
                         ref="optionsRef"
