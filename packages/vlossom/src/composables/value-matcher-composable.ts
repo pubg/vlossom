@@ -33,15 +33,15 @@ export function useValueMatcher(
         return falseValue.value;
     }
 
-    function getUpdatedValue(toggled: boolean, currentValue: any) {
+    function getUpdatedValue(isTruthy: boolean, currentValue: any) {
         if (isMultipleValue.value) {
-            if (toggled) {
+            if (isTruthy) {
                 return [...currentValue, trueValue.value];
             }
             return currentValue.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
         }
 
-        return toggled ? trueValue.value : falseValue.value;
+        return isTruthy ? trueValue.value : falseValue.value;
     }
 
     return {
