@@ -5,7 +5,22 @@ import { useValueMatcher } from '@/composables';
 describe('value-matcher-composable', () => {
     describe('isMatched', () => {
         describe('multiple 이 true 이고 modelValue 가 array 타입인 경우,', () => {
-            it('inputValue 중 하나라도 trueValue와 일치하는지 여부를 반환한다 ', () => {
+            it('inputValue 중 하나라도 trueValue와 일치하면 true를 반환한다 ', () => {
+                // given
+                const multiple = ref(true);
+                const modelValue = ref([1, 2, 3]);
+                const inputValue = ref([1, 2, 3]);
+                const trueValue = ref(1);
+                const falseValue = ref('falseValue');
+
+                // when
+                const { isMatched } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+
+                // then
+                expect(isMatched.value).toBe(true);
+            });
+
+            it('inputValue 중 일치하는 요소가 없으면 false를 반환한다 ', () => {
                 // given
                 const multiple = ref(true);
                 const modelValue = ref([1, 2, 3]);
@@ -21,7 +36,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('multiple 이 false 인 경우,', () => {
+        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
             it('inputValue 와 trueValue 가 같은 경우, true를 반환한다', () => {
                 // given
                 const multiple = ref(false);
@@ -52,7 +67,7 @@ describe('value-matcher-composable', () => {
                 expect(isMatched.value).toBe(false);
             });
         });
-        describe('modelValue 가 array 타입이 아닌 경우,', () => {
+        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
             it('inputValue 와 trueValue 가 같은 경우, true를 반환한다', () => {
                 // given
                 const multiple = ref(true);
@@ -103,7 +118,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('multiple 이 false 인 경우,', () => {
+        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
             it('modelValue가 trueValue와 같으면 trueValue를 반환한다', () => {
                 // given
                 const multiple = ref(false);
@@ -135,7 +150,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('modelValue 가 array 타입이 아닌 경우,', () => {
+        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
             it('modelValue가 trueValue와 같으면 trueValue를 반환한다', () => {
                 // given
                 const multiple = ref(true);
@@ -186,7 +201,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('multiple 이 false 인 경우,', () => {
+        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
             it('falseValue를 반환한다', () => {
                 // given
                 const multiple = ref(false);
@@ -203,7 +218,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('modelValue 가 array 타입이 아닌 경우,', () => {
+        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
             it('falseValue를 반환한다', () => {
                 // given
                 const multiple = ref(true);
@@ -242,7 +257,7 @@ describe('value-matcher-composable', () => {
             });
         });
 
-        describe('multiple 이 false 인 경우,', () => {
+        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
             it('toggled가 true이면 trueValue를 반환하고, false이면 falseValue를 반환한다', () => {
                 // given
                 const value = 0;
@@ -261,7 +276,7 @@ describe('value-matcher-composable', () => {
                 expect(getUpdatedValue(false, value)).toBe('falseValue');
             });
         });
-        describe('modelValue 가 array 타입이 아닌 경우,', () => {
+        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
             it('toggled가 true이면 trueValue를 반환하고, false이면 falseValue를 반환한다', () => {
                 // given
                 const value = 0;
