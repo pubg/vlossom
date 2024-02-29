@@ -21,6 +21,7 @@ import type {
     VsSectionStyleSet,
     VsSelectStyleSet,
     VsStepperStyleSet,
+    VsSwitchStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -60,6 +61,7 @@ export interface StyleSet {
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsSelect?: { [key: string]: VsSelectStyleSet };
     VsStepper?: { [key: string]: VsStepperStyleSet };
+    VsSwitch?: { [key: string]: VsSwitchStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
