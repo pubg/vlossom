@@ -1,10 +1,12 @@
-import { ref, watch, type Ref } from 'vue';
+import { ref, watch, nextTick, type Ref } from 'vue';
 import { utils } from '@/utils';
 
 export function useAutocomplete(
+    autocomplete: Ref<boolean>,
     computedOptions: Ref<{ id: string; value: any }[]>,
     getOptionLabel: (option: any) => string,
     isOpen: Ref<boolean>,
+    inputSelect: () => void,
 ) {
     const autocompleteText = ref('');
     const filteredOptions: Ref<{ id: string; value: any }[]> = ref([...computedOptions.value]);
@@ -22,12 +24,16 @@ export function useAutocomplete(
                 const label = getOptionLabel(option.value);
                 return label.toLowerCase().includes(lower);
             });
-
-            if (!isOpen.value) {
-                isOpen.value = true;
-            }
         }, 300),
     );
+
+    watch(isOpen, () => {
+        if (isOpen.value && autocomplete.value) {
+            nextTick(() => {
+                inputSelect();
+            });
+        }
+    });
 
     watch(computedOptions, () => {
         autocompleteText.value = '';

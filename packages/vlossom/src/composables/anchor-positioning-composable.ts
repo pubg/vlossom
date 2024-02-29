@@ -95,9 +95,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         nextTick(() => {
             attachment.value.style.display = 'block';
             attachment.value.style.position = 'absolute';
-            attachment.value.style.opacity = '0';
             computePosition(attachInfo);
-            attachment.value.style.opacity = '1';
 
             throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
             document.addEventListener('scroll', throttledComputePosition, true);

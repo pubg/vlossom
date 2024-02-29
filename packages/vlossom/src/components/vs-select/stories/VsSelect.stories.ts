@@ -93,9 +93,9 @@ export const Disabled: Story = {
     },
 };
 
-export const InfiniteScrolling15: Story = {
+export const InfiniteScrolling: Story = {
     args: {
-        loadNumber: 15,
+        lazyLoadNum: 15,
         label: 'Infinite Scrolling (Load Number : 15)',
     },
 };
@@ -103,6 +103,13 @@ export const InfiniteScrolling15: Story = {
 export const Multiple: Story = {
     args: {
         multiple: true,
+    },
+};
+
+export const MultipleWithAutocomplete: Story = {
+    args: {
+        multiple: true,
+        autocomplete: true,
     },
 };
 
@@ -116,6 +123,44 @@ export const SelectAll: Story = {
     args: {
         multiple: true,
         selectAll: true,
+    },
+};
+
+export const OptionsHeaderSlot: Story = {
+    render: (args: any) => ({
+        components: { VsSelect },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-select v-bind="args">
+                <template #options-header>
+                    <div style="padding: 1rem 1.2rem; background-color: #7f86d7; color: #EEEEEE">Options Header</div>
+                </template>
+            </vs-select>
+        `,
+    }),
+    args: {
+        options,
+    },
+};
+
+export const OptionsFooterSlot: Story = {
+    render: (args: any) => ({
+        components: { VsSelect },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-select v-bind="args">
+                <template #options-footer>
+                    <div style="padding: 1rem 1.2rem; background-color: #7f86d7; color: #EEEEEE">Options Footer</div>
+                </template>
+            </vs-select>
+        `,
+    }),
+    args: {
+        options,
     },
 };
 

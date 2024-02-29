@@ -92,41 +92,44 @@
     }
 }
 
-.options {
+.options-container {
     z-index: 900;
-    max-height: 25rem;
-    overflow: auto;
     background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
-    list-style-type: none;
-    outline: none;
 
-    li {
-        padding: 0 1.2rem;
-        min-height: var(--vs-select-height, 2.5rem);
-        line-height: var(--vs-select-height, 2.5rem);
-        cursor: pointer;
-        user-select: none;
+    .options {
+        max-height: 25rem;
+        overflow: auto;
+        list-style-type: none;
+        outline: none;
 
-        &.selected {
-            background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
-            color: var(--vs-select-selectedOptionColor, var(--vs-comp-border-color));
-            font-weight: 600;
-        }
+        li {
+            padding: 0 1.2rem;
+            min-height: var(--vs-select-height, 2.5rem);
+            line-height: var(--vs-select-height, 2.5rem);
+            cursor: pointer;
+            user-select: none;
 
-        &:not(.selected).hovered {
-            background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
-            color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
-            font-weight: 600;
-        }
+            &.selected {
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
+                color: var(--vs-select-selectedOptionColor, var(--vs-comp-border-color));
+                font-weight: 600;
+            }
 
-        &.select-all {
-            background-color: var(--vs-light-backgroundColor);
-            padding: 0.4 0.4rem;
-            height: 3.2rem;
-            display: flex;
-            align-items: center;
+            &:not(.selected).hovered {
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
+                color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
+                font-weight: 600;
+            }
+
+            &.select-all {
+                background-color: var(--vs-light-backgroundColor);
+                padding: 0.4 0.4rem;
+                height: 3.2rem;
+                display: flex;
+                align-items: center;
+            }
         }
     }
 

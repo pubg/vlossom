@@ -28,8 +28,8 @@
                     :value="getOptionValue(option)"
                     :check-label="getOptionLabel(option)"
                     @toggle="onToggle($event, option)"
-                    @focus="onFocus(option)"
-                    @blur="onBlur(option)"
+                    @focus="onFocus($event, option)"
+                    @blur="onBlur($event, option)"
                 />
             </div>
 
@@ -161,12 +161,12 @@ export default defineComponent({
             }
         }
 
-        function onFocus(option: any) {
-            emit('focus', option);
+        function onFocus(e: FocusEvent, option: any) {
+            emit('focus', e, option);
         }
 
-        function onBlur(option: any) {
-            emit('blur', option);
+        function onBlur(e: FocusEvent, option: any) {
+            emit('blur', e, option);
         }
 
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));

@@ -4,9 +4,12 @@ import { utils } from '@/utils';
 export function useSelectOption(
     inputValue: Ref<any>,
     computedOptions: Ref<{ id: string; value: any }[]>,
+    getOptionLabel: (option: any) => string,
     getOptionValue: (option: any) => any,
     multiple: Ref<boolean>,
     closeOptions: () => void,
+    autocomplete: Ref<boolean>,
+    autocompleteText: Ref<string>,
 ) {
     function isSelectedOption(option: any) {
         if (multiple.value) {
@@ -26,6 +29,10 @@ export function useSelectOption(
         } else {
             inputValue.value = getOptionValue(option);
             closeOptions();
+
+            if (autocomplete.value) {
+                autocompleteText.value = getOptionLabel(option);
+            }
         }
     }
 
@@ -45,20 +52,10 @@ export function useSelectOption(
         inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, getOptionValue(option)));
     }
 
-    function removeChip() {
-        if (!multiple.value) {
-            return;
-        }
-
-        inputValue.value.splice(inputValue.value.length - 1, 1);
-    }
-
     const selectedOptions = computed(() => {
         if (multiple.value) {
-            return computedOptions.value.filter(
-                (option) =>
-                    inputValue.value?.find((v: any) => utils.object.isEqual(v, getOptionValue(option.value))) !==
-                    undefined,
+            return (inputValue.value || []).map((v: any) =>
+                computedOptions.value.find((option) => utils.object.isEqual(v, getOptionValue(option.value))),
             );
         } else {
             const selected = computedOptions.value.find((option) =>
@@ -74,7 +71,6 @@ export function useSelectOption(
         isSelectedOption,
         isAllSelected,
         removeSelected,
-        removeChip,
         selectedOptions,
     };
 }

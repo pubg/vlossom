@@ -1,7 +1,7 @@
 import { ref, watch, nextTick, type Ref, type ComputedRef } from 'vue';
 import { utils } from '@/utils';
 
-export function useFocus(
+export function useFocusControl(
     disabled: Ref<boolean>,
     readonly: Ref<boolean>,
     isOpen: Ref<boolean>,
@@ -84,7 +84,7 @@ export function useFocus(
     function scrollIntoView() {
         const id = loadedOptions.value[focusedIndex.value]?.id;
         if (id) {
-            const element = document.querySelector('li[id="' + id + '"]');
+            const element = document.querySelector(`li[id="${id}"]`);
             element?.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }

@@ -92,66 +92,77 @@
                 </div>
 
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
-                    <ul
+                    <div
                         ref="optionsRef"
-                        role="listbox"
-                        :aria-multi-selectable="multiple"
-                        :class="['options', `vs-${computedColorScheme}`, { dense: dense }, animationClass]"
+                        :class="['options-container', `vs-${computedColorScheme}`, { dense: dense }, animationClass]"
                         :style="computedStyleSet"
-                        tabindex="-1"
-                        @keydown="onKeyDown"
-                        @keydown.esc.prevent="closeOptions"
                     >
-                        <li
-                            v-if="selectAll && multiple"
-                            role="option"
-                            aria-label="select all"
-                            :aria-selected="multiple ? undefined : isAllSelected"
-                            :aria-checked="multiple ? isAllSelected : undefined"
-                            :class="[
-                                'select-all',
-                                {
-                                    selected: isAllSelected,
-                                    hovered: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
-                                },
-                            ]"
-                            @mousemove="onMouseMove('all')"
-                            @click.stop="selectAllOptions()"
+                        <div v-if="$slots['options-header']" @click.stop>
+                            <slot name="options-header" />
+                        </div>
+                        <ul
+                            ref="listboxRef"
+                            role="listbox"
+                            :aria-multi-selectable="multiple"
+                            class="options"
+                            tabindex="-1"
+                            @keydown="onKeyDown"
+                            @keydown.esc.prevent="closeOptions"
                         >
-                            <span>Select All</span>
-                        </li>
-                        <li
-                            v-for="(option, index) in loadedOptions"
-                            :key="option.id"
-                            :id="option.id"
-                            role="option"
-                            :aria-label="getOptionLabel(option.value)"
-                            :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
-                            :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
-                            :class="{
-                                selected: isSelectedOption(option.value),
-                                hovered:
-                                    (chasingMouse ? hoveredIndex : focusedIndex) === (selectAll ? index + 1 : index),
-                            }"
-                            @mousemove="onMouseMove(option)"
-                            @click.stop="selectOption(option.value)"
-                        >
-                            <slot
-                                name="option"
-                                :optionIndex="index"
-                                :option="option"
-                                :label="getOptionLabel(option.value)"
-                                :value="getOptionValue(option.value)"
-                                :selected="isSelectedOption(option.value)"
+                            <li
+                                v-if="selectAll && multiple && loadedOptions.length"
+                                role="option"
+                                aria-label="select all"
+                                :aria-selected="multiple ? undefined : isAllSelected"
+                                :aria-checked="multiple ? isAllSelected : undefined"
+                                :class="[
+                                    'select-all',
+                                    {
+                                        selected: isAllSelected,
+                                        hovered: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
+                                    },
+                                ]"
+                                @mousemove="onMouseMove('all')"
+                                @click.stop="selectAllOptions()"
                             >
-                                <span>{{ getOptionLabel(option.value) }}</span>
-                            </slot>
-                        </li>
-                        <li v-if="!loadedOptions.length" @click.stop="closeOptions()">No Options</li>
-                        <li v-if="$slots['add-option']">
-                            <slot name="add-option" />
-                        </li>
-                    </ul>
+                                <slot name="select-all" :selected="isAllSelected">
+                                    <span>Select All</span>
+                                </slot>
+                            </li>
+                            <li
+                                v-for="(option, index) in loadedOptions"
+                                :key="option.id"
+                                :id="option.id"
+                                role="option"
+                                :aria-label="getOptionLabel(option.value)"
+                                :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
+                                :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
+                                :class="{
+                                    selected: isSelectedOption(option.value),
+                                    hovered:
+                                        (chasingMouse ? hoveredIndex : focusedIndex) ===
+                                        (selectAll ? index + 1 : index),
+                                }"
+                                @mousemove="onMouseMove(option)"
+                                @click.stop="selectOption(option.value)"
+                            >
+                                <slot
+                                    name="option"
+                                    :optionIndex="index"
+                                    :option="option.value"
+                                    :label="getOptionLabel(option.value)"
+                                    :value="getOptionValue(option.value)"
+                                    :selected="isSelectedOption(option.value)"
+                                >
+                                    <span>{{ getOptionLabel(option.value) }}</span>
+                                </slot>
+                            </li>
+                            <li v-if="!loadedOptions.length" @click.stop="closeOptions()">No Options</li>
+                        </ul>
+                        <div v-if="$slots['options-footer']" @click.stop>
+                            <slot name="options-footer" />
+                        </div>
+                    </div>
                 </Teleport>
             </div>
 
@@ -173,12 +184,12 @@ import {
     getInputOptionProps,
     useInputOption,
 } from '@/composables';
-import { useAutocomplete, useFocus, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
+import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import VsChip from '@/components/vs-chip/VsChip.vue';
+import { VsChip, VsChipStyleSet } from '@/components';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
 
@@ -197,13 +208,13 @@ export default defineComponent({
         closableChips: { type: Boolean, default: false },
         collapseChips: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
-        loadNumber: {
+        lazyLoadNum: {
             type: Number,
             default: 100,
             validator: (value: number) => {
                 const isValid = value >= 10;
                 if (!isValid) {
-                    console.error('[vs-select] prop loadNumber must be 10 or more');
+                    console.error('[vs-select] prop lazyLoadNum must be 10 or more');
                 }
                 return isValid;
             },
@@ -224,7 +235,7 @@ export default defineComponent({
             disabled,
             modelValue,
             label,
-            loadNumber,
+            lazyLoadNum,
             messages,
             multiple,
             options,
@@ -247,14 +258,18 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSelectStyleSet>(name, styleSet);
-        const chipStyleSets = computed(() => ({
-            backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'],
-            color: computedStyleSet.value['--vs-select-chipColor'],
-        }));
-        const collapseChipStyleSets = computed(() => ({
-            backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'],
-            color: computedStyleSet.value['--vs-select-collapseChipColor'],
-        }));
+        const chipStyleSets = computed(
+            (): VsChipStyleSet => ({
+                backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
+                color: computedStyleSet.value['--vs-select-chipColor'] as string,
+            }),
+        );
+        const collapseChipStyleSets = computed(
+            (): VsChipStyleSet => ({
+                backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
+                color: computedStyleSet.value['--vs-select-collapseChipColor'] as string,
+            }),
+        );
 
         const inputValue = ref(modelValue.value);
 
@@ -262,35 +277,34 @@ export default defineComponent({
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
 
-        const { getOptionLabel, getOptionValue } = useInputOption(
-            inputValue,
-            computed(() => computedOptions.value.map((option) => option.value)),
-            optionLabel,
-            optionValue,
-        );
+        const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
 
         const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            autocomplete,
             computedOptions,
             getOptionLabel,
             isOpen,
+            select,
         );
 
-        const { loadedOptions } = useInfiniteScroll(filteredOptions, loadNumber, isOpen, optionsRef);
+        const { listboxRef, loadedOptions } = useInfiniteScroll(filteredOptions, lazyLoadNum, isOpen);
 
-        const {
-            selectOption,
-            selectAllOptions,
-            isSelectedOption,
-            isAllSelected,
-            removeSelected,
-            removeChip,
-            selectedOptions,
-        } = useSelectOption(inputValue, computedOptions, getOptionValue, multiple, closeOptions);
+        const { selectOption, selectAllOptions, isSelectedOption, isAllSelected, removeSelected, selectedOptions } =
+            useSelectOption(
+                inputValue,
+                computedOptions,
+                getOptionLabel,
+                getOptionValue,
+                multiple,
+                closeOptions,
+                autocomplete,
+                autocompleteText,
+            );
 
-        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove } = useFocus(
+        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove } = useFocusControl(
             disabled,
             readonly,
             isOpen,
@@ -321,6 +335,10 @@ export default defineComponent({
             } else {
                 inputValue.value = null;
             }
+
+            if (autocomplete.value) {
+                autocompleteText.value = '';
+            }
         }
 
         const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
@@ -338,14 +356,14 @@ export default defineComponent({
 
         const focusing = ref(false);
 
-        function onFocus() {
+        function onFocus(e: FocusEvent) {
             focusing.value = true;
-            emit('focus');
+            emit('focus', e);
         }
 
-        function onBlur() {
+        function onBlur(e: FocusEvent) {
             focusing.value = false;
-            emit('blur');
+            emit('blur', e);
         }
 
         const inputLabel = computed(() => {
@@ -370,19 +388,15 @@ export default defineComponent({
             inputRef.value?.blur();
         }
 
+        function select() {
+            inputRef.value?.select();
+        }
+
         const animationClass = computed(() => {
             if (isOpen.value) {
-                if (computedPlacement.value === 'top') {
-                    return 'fade-enter-bottom';
-                } else {
-                    return 'fade-enter-top';
-                }
+                return computedPlacement.value === 'top' ? 'fade-enter-bottom' : 'fade-enter-top';
             } else {
-                if (computedPlacement.value === 'top') {
-                    return 'fade-leave-bottom';
-                } else {
-                    return 'fade-leave-top';
-                }
+                return computedPlacement.value === 'top' ? 'fade-leave-bottom' : 'fade-leave-top';
             }
         });
 
@@ -404,11 +418,11 @@ export default defineComponent({
             isOpen,
             toggleOptions,
             closeOptions,
+            listboxRef,
             loadedOptions,
             getOptionLabel,
             getOptionValue,
             removeSelected,
-            removeChip,
             selectOption,
             selectAllOptions,
             isSelectedOption,

@@ -219,12 +219,12 @@ export default defineComponent({
             inputRef.value?.select();
         }
 
-        function onFocus() {
-            emit('focus');
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur() {
-            emit('blur');
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         function onEnter() {

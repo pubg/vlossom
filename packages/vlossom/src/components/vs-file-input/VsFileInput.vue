@@ -192,12 +192,12 @@ export default defineComponent({
             }
         }
 
-        function onFocus() {
-            emit('focus');
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur() {
-            emit('blur');
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         const dragging = ref(false);
