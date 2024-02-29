@@ -60,10 +60,13 @@
                     :id="id"
                     role="combobox"
                     :aria-expanded="isOpen || isVisible"
+                    aria-controls="vs-select-options"
+                    :aria-autocomplete="autocomplete ? 'list' : undefined"
                     :class="{ autocomplete: autocomplete }"
                     :disabled="disabled"
                     :placeholder="placeholder"
                     :readonly="readonly || !autocomplete"
+                    :aria-required="required"
                     :value="inputLabel"
                     @input="updateAutocompleteText"
                     @focus="onFocus"
@@ -102,15 +105,18 @@
                         </div>
                         <ul
                             ref="listboxRef"
+                            id="vs-select-options"
                             role="listbox"
                             :aria-multi-selectable="multiple"
+                            :aria-activedescendant="focusedOptionId"
                             class="options"
-                            tabindex="-1"
+                            tabindex="0"
                             @keydown="onKeyDown"
                             @keydown.esc.prevent="closeOptions"
                         >
                             <li
                                 v-if="selectAll && multiple && loadedOptions.length"
+                                id="vs-select-all"
                                 role="option"
                                 aria-label="select all"
                                 :aria-selected="multiple ? undefined : isAllSelected"
@@ -261,13 +267,13 @@ export default defineComponent({
         const chipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
-                color: computedStyleSet.value['--vs-select-chipColor'] as string,
+                color: computedStyleSet.value['--vs-select-chipFontColor'] as string,
             }),
         );
         const collapseChipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
-                color: computedStyleSet.value['--vs-select-collapseChipColor'] as string,
+                color: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
             }),
         );
 
@@ -304,7 +310,7 @@ export default defineComponent({
                 autocompleteText,
             );
 
-        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove } = useFocusControl(
+        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, focusedOptionId } = useFocusControl(
             disabled,
             readonly,
             isOpen,
@@ -313,6 +319,7 @@ export default defineComponent({
             selectedOptions,
             loadedOptions,
             selectOption,
+            listboxRef,
         );
 
         function requiredCheck() {
@@ -437,6 +444,7 @@ export default defineComponent({
             chasingMouse,
             onKeyDown,
             onMouseMove,
+            focusedOptionId,
             onFocus,
             onBlur,
             inputRef,

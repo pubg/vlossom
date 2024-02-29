@@ -3,10 +3,10 @@ export interface VsSelectStyleSet {
     border?: string;
     borderRadius?: string;
     chipBackgroundColor?: string;
-    chipColor?: string;
+    chipFontColor?: string;
     color?: string;
     collapseChipBackgroundColor?: string;
-    collapseChipColor?: string;
+    collapseChipFontColor?: string;
     fontSize?: string;
     height?: string;
     hoverOptionBackgroundColor?: string;

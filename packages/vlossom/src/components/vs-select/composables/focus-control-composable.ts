@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, type Ref, type ComputedRef } from 'vue';
+import { ref, watch, nextTick, computed, type Ref, type ComputedRef } from 'vue';
 import { utils } from '@/utils';
 
 export function useFocusControl(
@@ -10,12 +10,18 @@ export function useFocusControl(
     selectedOptions: ComputedRef<{ id: string; value: any }[]>,
     loadedOptions: Ref<{ id: string; value: any }[]>,
     selectOption: (option: any) => void,
+    listboxRef: Ref<HTMLElement | null>,
 ) {
     const focusedIndex = ref(-1);
     const hoveredIndex = ref(-1);
     const chasingMouse = ref(false);
 
     function onArrowDownKey(event: KeyboardEvent) {
+        if (focusedIndex.value === -1) {
+            // move focus to listbox
+            listboxRef.value?.focus();
+        }
+
         if (focusedIndex.value < (selectAll.value ? 1 : 0) + loadedOptions.value.length) {
             focusedIndex.value += 1;
         }
@@ -117,11 +123,20 @@ export function useFocusControl(
         chasingMouse.value = false;
     });
 
+    const focusedOptionId = computed(() => {
+        if (selectAll.value) {
+            return focusedIndex.value === 0 ? 'vs-select-all2' : loadedOptions.value[focusedIndex.value - 1]?.id;
+        } else {
+            return loadedOptions.value[focusedIndex.value]?.id;
+        }
+    });
+
     return {
         focusedIndex,
         hoveredIndex,
         chasingMouse,
         onKeyDown,
         onMouseMove,
+        focusedOptionId,
     };
 }

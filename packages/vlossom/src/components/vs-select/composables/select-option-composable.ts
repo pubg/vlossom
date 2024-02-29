@@ -13,7 +13,9 @@ export function useSelectOption(
 ) {
     function isSelectedOption(option: any) {
         if (multiple.value) {
-            return inputValue.value.find((v: any) => utils.object.isEqual(v, getOptionValue(option))) !== undefined;
+            return (
+                (inputValue.value ?? []).find((v: any) => utils.object.isEqual(v, getOptionValue(option))) !== undefined
+            );
         } else {
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
