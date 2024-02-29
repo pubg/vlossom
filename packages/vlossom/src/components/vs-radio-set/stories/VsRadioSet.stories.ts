@@ -1,45 +1,52 @@
-import { chromaticParameters, colorScheme, getMetaArguments } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsCheckboxSet from '../VsCheckboxSet.vue';
+import VsRadioSet from '../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof VsCheckboxSet> = {
-    title: 'Components/Input Components/VsCheckboxSet',
-    component: VsCheckboxSet,
+const meta: Meta<typeof VsRadioSet> = {
+    title: 'Components/Input Components/VsRadioSet',
+    component: VsRadioSet,
     render: (args: any) => ({
-        components: { VsCheckboxSet },
+        components: { VsRadioSet },
         setup() {
             return { args };
         },
-        template: '<vs-checkbox-set v-bind="args"  />',
+        template: '<vs-radio-set v-bind="args"  />',
     }),
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },
     args: {
+        name: 'fruit',
         options: ['Apple', 'Banana', 'Carrot'],
     },
 };
 
-meta.args = getMetaArguments(VsCheckboxSet.props, meta.args);
+meta.args = getMetaArguments(VsRadioSet.props, meta.args);
 export default meta;
-type Story = StoryObj<typeof VsCheckboxSet>;
+type Story = StoryObj<typeof VsRadioSet>;
 
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet },
+        components: { VsRadioSet },
         setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions, args };
+            const options = ['Apple', 'Banana', 'Carrot'];
+            return { args, options };
         },
         template: `
             <div>
-				<vs-checkbox-set v-for="color in colorOptions" :key="color" v-bind="args" :color-scheme="color" />
+                ${getColorSchemeTemplate(`
+                    <vs-radio-set v-bind="args"
+                        color-scheme="{{ color }}"
+                        name="color"
+                        :options="options"
+                    />
+                `)}
             </div>
         `,
     }),
@@ -65,20 +72,13 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: UIState.Warning, text: 'This is warning message' }],
     },
 };
 
 export const Readonly: Story = {
     args: {
         readonly: true,
-    },
-};
-
-export const Required: Story = {
-    args: {
-        label: 'Choose your favorite(s)',
-        required: true,
     },
 };
 
@@ -90,14 +90,14 @@ export const Column: Story = {
 
 export const Width: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet, VsContainer },
+        components: { VsRadioSet, VsContainer },
         setup() {
             return { args };
         },
         template: `
             <vs-container>
-                <vs-checkbox-set v-bind="args" />
-                <vs-checkbox-set v-bind="args" />
+                <vs-radio-set v-bind="args" />
+                <vs-radio-set v-bind="args" />
             </vs-container>
         `,
     }),
@@ -108,14 +108,14 @@ export const Width: Story = {
 
 export const Grid: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet, VsContainer },
+        components: { VsRadioSet, VsContainer },
         setup() {
             return { args };
         },
         template: `
             <vs-container>
-                <vs-checkbox-set v-bind="args" />
-                <vs-checkbox-set v-bind="args" />
+                <vs-radio-set v-bind="args" />
+                <vs-radio-set v-bind="args" />
             </vs-container>
         `,
     }),
@@ -127,11 +127,11 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: '#81c798',
-            border: '3px solid #81c798',
-            borderRadius: '0.8rem',
-            focusBoxShadow: '0 0 0 3px #81c798',
-            checkboxMargin: '3rem',
+            labelColor: '#1e18e5',
+            labelFontSize: '1.2rem',
+            radioColor: '#18a865',
+            radioSize: '2.4rem',
+            radioMargin: '8rem',
         },
     },
 };

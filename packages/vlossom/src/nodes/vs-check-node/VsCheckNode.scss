@@ -1,0 +1,94 @@
+@use '@/styles/mixin' as *;
+
+.vs-check-node {
+    display: flex;
+    align-items: center;
+    user-select: none;
+
+    .input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .check-icon {
+            transition: all 0.2s ease;
+        }
+
+        input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+            appearance: none;
+        }
+    }
+
+    label {
+        padding-left: 0.5rem;
+        padding-bottom: 2px;
+        cursor: pointer;
+    }
+
+    &.checkbox {
+        .check-icon {
+            color: transparent;
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+            border: var(--vs-checkbox-border, 2px solid var(--vs-comp-border-color));
+            border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+        }
+
+        input[type='checkbox'] {
+            width: var(--vs-checkbox-width, 1.2rem);
+            height: var(--vs-checkbox-height, 1.2rem);
+
+            &:focus-visible {
+                border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
+                box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            }
+        }
+
+        label {
+            font-size: var(--vs-checkbox-fontSize, 1rem);
+            color: var(--vs-checkbox-checkLabelColor, var(--vs-font-color));
+        }
+
+        &.checked {
+            .check-icon {
+                color: var(--vs-checkbox-iconColor, var(--vs-plain-backgroundColor));
+                background-color: var(--vs-checkbox-backgroundColor, var(--vs-comp-border-color));
+            }
+        }
+    }
+
+    &.radio {
+        .check-icon {
+            width: var(--vs-radio-radioSize, 1.2rem);
+            height: var(--vs-radio-radioSize, 1.2rem);
+            color: var(--vs-radio-radioColor, var(--vs-comp-border-color));
+        }
+
+        input[type='radio'] {
+            width: var(--vs-radio-radioSize, 1.2rem);
+            height: var(--vs-radio-radioSize, 1.2rem);
+
+            &:focus-visible {
+                border-radius: 50%;
+                box-shadow: var(--vs-radio-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            }
+        }
+
+        label {
+            font-size: var(--vs-radio-labelFontSize, 1rem);
+            color: var(--vs-radio-labelColor, var(--vs-font-color));
+        }
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        pointer-events: none;
+    }
+}
