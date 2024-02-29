@@ -3,7 +3,7 @@ export interface VsSwitchStyleSet {
     falseBackgroundColor?: string;
     falseBorderColor?: string;
     falseBorderWidth?: string;
-    falseColor?: string;
+    falseFontColor?: string;
     falseHandleColor?: string;
     fontSize?: string;
     handleSize?: string;
@@ -11,7 +11,7 @@ export interface VsSwitchStyleSet {
     trueBackgroundColor?: string;
     trueBorderColor?: string;
     trueBorderWidth?: string;
-    trueColor?: string;
+    trueFontColor?: string;
     trueHandleColor?: string;
     width?: string;
 }

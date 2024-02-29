@@ -13,7 +13,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     border-radius: var(--vs-switch-borderRadius, 1rem);
     border-style: solid;
     border-width: var(--vs-switch-falseBorderWidth, 1px);
-    color: var(--vs-switch-falseColor, var(--vs-font-color));
+    color: var(--vs-switch-falseFontColor, var(--vs-font-color));
     cursor: pointer;
     display: flex;
     font-size: var(--vs-switch-fontSize, 1rem);
@@ -54,7 +54,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
         border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-color));
         border-style: solid;
         border-width: var(--vs-switch-trueBorderWidth, 0);
-        color: var(--vs-switch-trueColor, var(--vs-comp-color-primary));
+        color: var(--vs-switch-trueFontColor, var(--vs-comp-color-primary));
 
         &::before {
             left: calc(100% - ($switchSize + $switchGap));

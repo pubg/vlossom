@@ -248,7 +248,7 @@ const vsSwitch: VsSwitchStyleSet = {
     falseBackgroundColor: '#de1a24',
     falseBorderColor: '#000',
     falseBorderWidth: '0',
-    falseColor: '#fff',
+    falseFontColor: '#fff',
     falseHandleColor: '#fff',
     fontSize: '1.2rem',
     handleSize: '30px',
@@ -256,7 +256,7 @@ const vsSwitch: VsSwitchStyleSet = {
     trueBackgroundColor: '#056517',
     trueBorderColor: 'ivory',
     trueBorderWidth: '0',
-    trueColor: '#fff',
+    trueFontColor: '#fff',
     trueHandleColor: '#fff',
     width: '100px',
 };
