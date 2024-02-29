@@ -211,8 +211,28 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSelectStyleSet>, default: '' },
         autocomplete: { type: Boolean, default: false },
-        closableChips: { type: Boolean, default: false },
-        collapseChips: { type: Boolean, default: false },
+        closableChips: {
+            type: Boolean,
+            default: false,
+            validator: (value, props) => {
+                if (!props.multiple && value) {
+                    console.error('[vs-select] prop closableChips can only be used with multiple prop');
+                    return false;
+                }
+                return true;
+            },
+        },
+        collapseChips: {
+            type: Boolean,
+            default: false,
+            validator: (value, props) => {
+                if (!props.multiple && value) {
+                    console.error('[vs-select] prop collapseChips can only be used with multiple prop');
+                    return false;
+                }
+                return true;
+            },
+        },
         dense: { type: Boolean, default: false },
         lazyLoadNum: {
             type: Number,

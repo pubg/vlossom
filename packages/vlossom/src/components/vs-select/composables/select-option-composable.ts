@@ -14,7 +14,7 @@ export function useSelectOption(
     function isSelectedOption(option: any) {
         if (multiple.value) {
             return (
-                (inputValue.value ?? []).find((v: any) => utils.object.isEqual(v, getOptionValue(option))) !== undefined
+                (inputValue.value || []).find((v: any) => utils.object.isEqual(v, getOptionValue(option))) !== undefined
             );
         } else {
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
@@ -26,7 +26,7 @@ export function useSelectOption(
             if (isSelectedOption(option)) {
                 removeSelected(option);
             } else {
-                inputValue.value = [...inputValue.value, getOptionValue(option)];
+                inputValue.value = [...(inputValue.value || []), getOptionValue(option)];
             }
         } else {
             inputValue.value = getOptionValue(option);
@@ -43,7 +43,7 @@ export function useSelectOption(
     }
 
     const isAllSelected = computed(() => {
-        return computedOptions.value.length === inputValue.value.length;
+        return computedOptions.value.length === (inputValue.value || []).length;
     });
 
     function removeSelected(option: any) {
@@ -51,7 +51,9 @@ export function useSelectOption(
             return;
         }
 
-        inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, getOptionValue(option)));
+        inputValue.value = (inputValue.value || []).filter(
+            (v: any) => !utils.object.isEqual(v, getOptionValue(option)),
+        );
     }
 
     const selectedOptions = computed(() => {
