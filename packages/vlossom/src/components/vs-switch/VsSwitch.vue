@@ -160,12 +160,12 @@ export default defineComponent({
             inputValue.value = getUpdatedValue(!isChecked.value, inputValue.value);
         }
 
-        function onFocus() {
-            emit('focus');
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur() {
-            emit('blur');
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         return {
