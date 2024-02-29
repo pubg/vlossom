@@ -4,7 +4,22 @@ import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const options = [...Array(200).keys()];
+const options = [
+    'apple',
+    'banana',
+    'carrot',
+    'egg',
+    'fish',
+    'grape',
+    'lemon',
+    'strawberry',
+    'tomato',
+    'yogurt',
+    'watermelon',
+    'orange',
+    'pear',
+    'kiwi',
+];
 
 const meta: Meta<typeof VsSelect> = {
     title: 'Components/Input Components/VsSelect',
@@ -95,6 +110,7 @@ export const Disabled: Story = {
 
 export const InfiniteScrolling: Story = {
     args: {
+        options: [...Array(200).keys()],
         lazyLoadNum: 15,
         label: 'Infinite Scrolling (Load Number : 15)',
     },
