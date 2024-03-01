@@ -5,24 +5,39 @@ export function useFocusControl(
     disabled: Ref<boolean>,
     readonly: Ref<boolean>,
     isOpen: Ref<boolean>,
+    closeOptions: () => void,
     selectAll: Ref<boolean>,
     isAllSelected: ComputedRef<boolean>,
     selectedOptions: ComputedRef<{ id: string; value: any }[]>,
     loadedOptions: Ref<{ id: string; value: any }[]>,
     selectOption: (option: any) => void,
-    listboxRef: Ref<HTMLElement | null>,
+    selectAllOptions: () => void,
+    comboboxFocus: () => void,
 ) {
     const focusedIndex = ref(-1);
     const hoveredIndex = ref(-1);
     const chasingMouse = ref(false);
 
+    function resetFocusInfo() {
+        focusedIndex.value = -1;
+        hoveredIndex.value = -1;
+        chasingMouse.value = false;
+    }
+
+    function selectFousedOption() {
+        if (selectAll.value && focusedIndex.value === 0) {
+            selectAllOptions();
+        } else {
+            selectOption(loadedOptions.value[focusedIndex.value - (selectAll.value ? 1 : 0)].value);
+        }
+    }
+
     function onArrowDownKey(event: KeyboardEvent) {
-        if (focusedIndex.value === -1) {
-            // move focus to listbox
-            listboxRef.value?.focus();
+        if (!isOpen.value && focusedIndex.value === -1) {
+            isOpen.value = true;
         }
 
-        if (focusedIndex.value < (selectAll.value ? 1 : 0) + loadedOptions.value.length) {
+        if (focusedIndex.value < (selectAll.value ? 1 : 0) + loadedOptions.value.length - 1) {
             focusedIndex.value += 1;
         }
 
@@ -38,17 +53,34 @@ export function useFocusControl(
     }
 
     function onEnterKey(event: KeyboardEvent) {
-        if (!isOpen.value) {
-            isOpen.value = true;
-        } else {
+        if (isOpen.value) {
             if (focusedIndex.value !== -1) {
-                selectOption(loadedOptions.value[focusedIndex.value - (selectAll.value ? 1 : 0)].value);
+                selectFousedOption();
             } else {
-                isOpen.value = false;
+                closeOptions();
             }
+        } else {
+            isOpen.value = true;
         }
 
         event.preventDefault();
+    }
+
+    function onEscapeKey(event: KeyboardEvent) {
+        closeOptions();
+        comboboxFocus();
+
+        event.preventDefault();
+    }
+
+    function onTabKey() {
+        if (isOpen.value) {
+            if (focusedIndex.value !== -1) {
+                selectFousedOption();
+            }
+
+            closeOptions();
+        }
     }
 
     function onKeyDown(event: KeyboardEvent) {
@@ -71,6 +103,12 @@ export function useFocusControl(
             case 'Enter':
             case 'Space':
                 onEnterKey(event);
+                break;
+            case 'Escape':
+                onEscapeKey(event);
+                break;
+            case 'Tab':
+                onTabKey();
                 break;
             default:
                 break;
@@ -111,21 +149,15 @@ export function useFocusControl(
                       (selectAll.value ? 1 : 0);
             }
         } else {
-            focusedIndex.value = -1;
-            hoveredIndex.value = -1;
-            chasingMouse.value = false;
+            resetFocusInfo();
         }
     });
 
-    watch(loadedOptions, () => {
-        focusedIndex.value = -1;
-        hoveredIndex.value = -1;
-        chasingMouse.value = false;
-    });
+    watch(loadedOptions, resetFocusInfo);
 
     const focusedOptionId = computed(() => {
         if (selectAll.value) {
-            return focusedIndex.value === 0 ? 'vs-select-all2' : loadedOptions.value[focusedIndex.value - 1]?.id;
+            return focusedIndex.value === 0 ? 'vs-select-all' : loadedOptions.value[focusedIndex.value - 1]?.id;
         } else {
             return loadedOptions.value[focusedIndex.value]?.id;
         }

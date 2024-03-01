@@ -10,6 +10,7 @@ export function useSelectOption(
     closeOptions: () => void,
     autocomplete: Ref<boolean>,
     autocompleteText: Ref<string>,
+    comboboxFocus: () => void,
 ) {
     function isSelectedOption(option: any) {
         if (multiple.value) {
@@ -31,6 +32,7 @@ export function useSelectOption(
         } else {
             inputValue.value = getOptionValue(option);
             closeOptions();
+            comboboxFocus();
 
             if (autocomplete.value) {
                 autocompleteText.value = getOptionLabel(option);

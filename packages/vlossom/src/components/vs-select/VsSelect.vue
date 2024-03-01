@@ -62,6 +62,7 @@
                     :aria-expanded="isOpen || isVisible"
                     aria-controls="vs-select-options"
                     :aria-autocomplete="autocomplete ? 'list' : undefined"
+                    :aria-activedescendant="focusedOptionId"
                     :class="{ autocomplete: autocomplete }"
                     :disabled="disabled"
                     :placeholder="placeholder"
@@ -72,7 +73,6 @@
                     @focus="onFocus"
                     @blur="onBlur"
                     @keydown="onKeyDown"
-                    @keydown.esc.prevent="closeOptions"
                 />
 
                 <button
@@ -112,7 +112,6 @@
                             class="options"
                             tabindex="0"
                             @keydown="onKeyDown"
-                            @keydown.esc.prevent="closeOptions"
                         >
                             <li
                                 v-if="selectAll && multiple && loadedOptions.length"
@@ -121,6 +120,8 @@
                                 aria-label="select all"
                                 :aria-selected="multiple ? undefined : isAllSelected"
                                 :aria-checked="multiple ? isAllSelected : undefined"
+                                :aria-setsize="filteredOptions.length"
+                                :aria-posinset="1"
                                 :class="[
                                     'select-all',
                                     {
@@ -143,6 +144,8 @@
                                 :aria-label="getOptionLabel(option.value)"
                                 :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
                                 :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
+                                :aria-setsize="filteredOptions.length"
+                                :aria-posinset="(selectAll ? 2 : 1) + index"
                                 :class="{
                                     selected: isSelectedOption(option.value),
                                     hovered:
@@ -297,6 +300,20 @@ export default defineComponent({
             }),
         );
 
+        const inputRef = ref<HTMLInputElement | null>(null);
+
+        function focus() {
+            inputRef.value?.focus();
+        }
+
+        function blur() {
+            inputRef.value?.blur();
+        }
+
+        function select() {
+            inputRef.value?.select();
+        }
+
         const inputValue = ref(modelValue.value);
 
         const computedOptions = computed(() =>
@@ -328,18 +345,21 @@ export default defineComponent({
                 closeOptions,
                 autocomplete,
                 autocompleteText,
+                focus,
             );
 
         const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, focusedOptionId } = useFocusControl(
             disabled,
             readonly,
             isOpen,
+            closeOptions,
             selectAll,
             isAllSelected,
             selectedOptions,
             loadedOptions,
             selectOption,
-            listboxRef,
+            selectAllOptions,
+            focus,
         );
 
         function requiredCheck() {
@@ -405,20 +425,6 @@ export default defineComponent({
             return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
         });
 
-        const inputRef = ref<HTMLInputElement | null>(null);
-
-        function focus() {
-            inputRef.value?.focus();
-        }
-
-        function blur() {
-            inputRef.value?.blur();
-        }
-
-        function select() {
-            inputRef.value?.select();
-        }
-
         const animationClass = computed(() => {
             if (isOpen.value) {
                 return computedPlacement.value === 'top' ? 'fade-enter-bottom' : 'fade-enter-top';
@@ -446,6 +452,7 @@ export default defineComponent({
             toggleOptions,
             closeOptions,
             listboxRef,
+            filteredOptions,
             loadedOptions,
             getOptionLabel,
             getOptionValue,

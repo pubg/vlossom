@@ -105,6 +105,52 @@ describe('vs-select', () => {
             // then
             expect(wrapper.emitted('update:modelValue')).toBeUndefined();
         });
+
+        it('options-header slot을 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+                slots: {
+                    'options-header': '<div>header</div>',
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            //when
+            await wrapper.find('input').trigger('click');
+
+            // then
+            expect(wrapper.html()).toContain('header');
+        });
+
+        it('options-footer slot을 설정할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                },
+                slots: {
+                    'options-footer': '<div>footer</div>',
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            //when
+            await wrapper.find('input').trigger('click');
+
+            // then
+            expect(wrapper.html()).toContain('footer');
+        });
     });
 
     describe('v-model', () => {
@@ -526,11 +572,12 @@ describe('vs-select', () => {
                         teleport: true,
                     },
                 },
+                attachTo: document.body,
             });
         });
 
-        describe('keyboard event', () => {
-            it('focus를 받은 상태에서 Enter 키, Space 바를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
+        describe('keyboard interaction', () => {
+            it('combobox가 focus를 받은 상태에서 Enter 키, Space 바를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
                 // then
@@ -554,10 +601,26 @@ describe('vs-select', () => {
                 expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
             });
 
-            it('Arrow Down 키를 누르면 밑에 있는 옵션으로 이동하고 Enter 키를 누르면 그 옵션이 선택된다', async () => {
+            it('combobox가 focus를 받은 상태에서 Arrow Down 키를 누르면 옵션 리스트가 열리고 listbox의 첫번째 옵션으로 focus가 이동한다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+                const firstId = wrapper.find('ul[role="listbox"]').find('li').attributes('id');
+                expect(wrapper.find('ul[role="listbox"]').attributes('aria-activedescendant')).toBe(firstId);
+            });
+
+            it('옵션 리스트를 열고 Arrow Down 키를 누르면 listbox의 첫번째 옵션으로 focus가 이동하고 Enter 키를 누르면 그 옵션이 선택된다', async () => {
+                // when
+                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+
+                // then
+                const firstId = wrapper.find('ul[role="listbox"]').find('li').attributes('id');
+                expect(wrapper.find('input').attributes('aria-activedescendant')).toBe(firstId);
+
+                // when
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
 
@@ -571,6 +634,7 @@ describe('vs-select', () => {
                 // when
                 await wrapper.find('input').trigger('click');
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowUp' });
                 await wrapper.find('input').trigger('keydown', { code: 'Space' });
 
@@ -578,6 +642,49 @@ describe('vs-select', () => {
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['A']);
                 expect(wrapper.find('input').element.value).toBe('A');
+            });
+
+            it('Escape 키를 누르면 옵션 리스트가 닫힌다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'Escape' });
+                await vi.advanceTimersByTime(500);
+
+                // then
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+            });
+
+            it('Tab 키를 누르면 focus 중인 옵션이 선택되고 옵션 리스트가 닫힌다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'Tab' });
+                await vi.advanceTimersByTime(500);
+
+                // then
+                expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+                expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['B']);
+                expect(wrapper.find('input').element.value).toBe('B');
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+            });
+
+            it('multiple이 true일 때도 Tab 키를 누르면 focus 중인 옵션이 선택되고 옵션 리스트가 닫힌다', async () => {
+                // given
+                wrapper.setProps({ multiple: true });
+
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('input').trigger('keydown', { code: 'Tab' });
+                await vi.advanceTimersByTime(500);
+
+                // then
+                expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+                expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([['B']]);
+                expect(wrapper.find('input').element.value).toBe('');
+                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
             });
         });
 
@@ -593,6 +700,28 @@ describe('vs-select', () => {
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['C']);
                 expect(wrapper.find('input').element.value).toBe('C');
+            });
+        });
+
+        describe('combobox focus', () => {
+            it('옵션을 선택하고 옵션창이 닫히면 combobox로 focus가 간다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.findAll('li[role="option"]')[1].trigger('click');
+                await vi.advanceTimersByTime(500);
+
+                // then
+                expect(wrapper.find('input').element).toBe(document.activeElement);
+            });
+
+            it('Escape 키를 눌러서 옵션창이 닫히면 combobox로 focus가 간다', async () => {
+                // when
+                await wrapper.find('input').trigger('click');
+                await wrapper.find('input').trigger('keydown', { code: 'Escape' });
+                await vi.advanceTimersByTime(500);
+
+                // then
+                expect(wrapper.find('input').element).toBe(document.activeElement);
             });
         });
     });
