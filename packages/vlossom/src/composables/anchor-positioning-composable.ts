@@ -6,6 +6,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
     const isVisible = ref(false);
     const computedPlacement: Ref<Placement | null> = ref(null);
     let throttledComputePosition: ((...args: any) => any) | null = null;
+    let resizeObserver: ResizeObserver | null = null;
 
     function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
@@ -98,6 +99,8 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
             computePosition(attachInfo);
 
             throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
+            resizeObserver = new ResizeObserver(throttledComputePosition);
+            resizeObserver.observe(anchor.value);
             document.addEventListener('scroll', throttledComputePosition, true);
             window.addEventListener('resize', throttledComputePosition, true);
         });
@@ -105,6 +108,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
 
     function disappear() {
         if (throttledComputePosition) {
+            resizeObserver?.disconnect();
             document.removeEventListener('scroll', throttledComputePosition, true);
             window.removeEventListener('resize', throttledComputePosition, true);
         }

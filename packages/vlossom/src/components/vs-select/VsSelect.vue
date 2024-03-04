@@ -126,7 +126,7 @@
                                     'select-all',
                                     {
                                         selected: isAllSelected,
-                                        hovered: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
+                                        chased: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
                                     },
                                 ]"
                                 @mousemove="onMouseMove('all')"
@@ -148,9 +148,7 @@
                                 :aria-posinset="(selectAll ? 2 : 1) + index"
                                 :class="{
                                     selected: isSelectedOption(option.value),
-                                    hovered:
-                                        (chasingMouse ? hoveredIndex : focusedIndex) ===
-                                        (selectAll ? index + 1 : index),
+                                    chased: isChasedOption(index),
                                 }"
                                 @mousemove="onMouseMove(option)"
                                 @click.stop="selectOption(option.value)"
@@ -254,7 +252,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['focus', 'blur', 'select', 'clear', 'validate'],
+    expose: ['focus', 'blur', 'clear', 'validate'],
     setup(props, context) {
         const {
             colorScheme,
@@ -348,20 +346,21 @@ export default defineComponent({
                 focus,
             );
 
-        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, focusedOptionId } = useFocusControl(
-            disabled,
-            readonly,
-            isOpen,
-            closeOptions,
-            selectAll,
-            isAllSelected,
-            selectedOptions,
-            filteredOptions,
-            loadedOptions,
-            selectOption,
-            selectAllOptions,
-            focus,
-        );
+        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, isChasedOption, focusedOptionId } =
+            useFocusControl(
+                disabled,
+                readonly,
+                isOpen,
+                closeOptions,
+                selectAll,
+                isAllSelected,
+                selectedOptions,
+                filteredOptions,
+                loadedOptions,
+                selectOption,
+                selectAllOptions,
+                focus,
+            );
 
         function requiredCheck() {
             if (!required.value) {
@@ -472,6 +471,7 @@ export default defineComponent({
             chasingMouse,
             onKeyDown,
             onMouseMove,
+            isChasedOption,
             focusedOptionId,
             onFocus,
             onBlur,

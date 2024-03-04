@@ -27,9 +27,9 @@
                     :name="name"
                     :value="getOptionValue(option)"
                     :check-label="getOptionLabel(option)"
-                    @toggle="onToggle($event, option)"
-                    @focus="onFocus($event, option)"
-                    @blur="onBlur($event, option)"
+                    @toggle="onToggle(option, $event)"
+                    @focus="onFocus(option, $event)"
+                    @blur="onBlur(option, $event)"
                 />
             </div>
 
@@ -142,7 +142,7 @@ export default defineComponent({
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-        async function onToggle(e: Event, option: any) {
+        async function onToggle(option: any, e: Event) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -161,12 +161,12 @@ export default defineComponent({
             }
         }
 
-        function onFocus(e: FocusEvent, option: any) {
-            emit('focus', e, option);
+        function onFocus(option: any, e: FocusEvent) {
+            emit('focus', option, e);
         }
 
-        function onBlur(e: FocusEvent, option: any) {
-            emit('blur', e, option);
+        function onBlur(option: any, e: FocusEvent) {
+            emit('blur', option, e);
         }
 
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));

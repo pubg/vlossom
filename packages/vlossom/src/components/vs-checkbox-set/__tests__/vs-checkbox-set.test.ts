@@ -341,7 +341,7 @@ describe('vs-checkbox-set', () => {
             // then
             const focusEvent = wrapper.emitted('focus');
             expect(focusEvent).toHaveLength(1);
-            expect(focusEvent?.[0][1]).toEqual('A');
+            expect(focusEvent?.[0][0]).toEqual('A');
         });
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
@@ -358,7 +358,7 @@ describe('vs-checkbox-set', () => {
             // then
             const blurEvent = wrapper.emitted('blur');
             expect(blurEvent).toHaveLength(1);
-            expect(blurEvent?.[0][1]).toEqual('A');
+            expect(blurEvent?.[0][0]).toEqual('A');
         });
     });
 });

@@ -25,7 +25,7 @@ export function useFocusControl(
         chasingMouse.value = false;
     }
 
-    function selectFousedOption() {
+    function selectFocusedOption() {
         if (selectAll.value && focusedIndex.value === 0) {
             selectAllOptions();
         } else {
@@ -56,7 +56,7 @@ export function useFocusControl(
     function onEnterKey(event: KeyboardEvent) {
         if (isOpen.value) {
             if (focusedIndex.value !== -1) {
-                selectFousedOption();
+                selectFocusedOption();
             } else {
                 closeOptions();
             }
@@ -77,7 +77,7 @@ export function useFocusControl(
     function onTabKey() {
         if (isOpen.value) {
             if (focusedIndex.value !== -1) {
-                selectFousedOption();
+                selectFocusedOption();
             }
 
             closeOptions();
@@ -156,6 +156,13 @@ export function useFocusControl(
 
     watch(filteredOptions, resetFocusInfo);
 
+    function isChasedOption(optionIndex: number) {
+        return (
+            (chasingMouse.value ? hoveredIndex.value : focusedIndex.value) ===
+            (selectAll.value ? optionIndex + 1 : optionIndex)
+        );
+    }
+
     const focusedOptionId = computed(() => {
         if (selectAll.value) {
             return focusedIndex.value === 0 ? 'vs-select-all' : loadedOptions.value[focusedIndex.value - 1]?.id;
@@ -170,6 +177,7 @@ export function useFocusControl(
         chasingMouse,
         onKeyDown,
         onMouseMove,
+        isChasedOption,
         focusedOptionId,
     };
 }

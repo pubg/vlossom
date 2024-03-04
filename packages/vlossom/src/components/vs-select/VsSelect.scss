@@ -5,7 +5,8 @@
     background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
-    height: var(--vs-select-height, 2.5rem);
+    height: var(--vs-select-height, auto);
+    min-height: 2.5rem;
     font-size: var(--vs-select-fontSize, 1rem);
 
     .multiple-chips {
@@ -117,7 +118,7 @@
                 font-weight: 600;
             }
 
-            &:not(.selected).hovered {
+            &:not(.selected).chased {
                 background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
                 color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
                 font-weight: 600;
