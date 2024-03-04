@@ -69,13 +69,9 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
     &.disabled {
         @include disabled;
-        cursor: default;
     }
 
     &.readonly {
-        // TODO: 글로벌 스타일 적용
-        // @include readonly;
-        cursor: default;
-        pointer-events: none;
+        @include readonly;
     }
 }
