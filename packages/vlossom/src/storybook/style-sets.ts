@@ -23,6 +23,7 @@ import type {
     VsSectionStyleSet,
     VsSelectStyleSet,
     VsStepperStyleSet,
+    VsSwitchStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -242,6 +243,24 @@ const vsStepper: VsStepperStyleSet = {
     stepSize: '2rem',
 };
 
+const vsSwitch: VsSwitchStyleSet = {
+    borderRadius: '100px',
+    falseBackgroundColor: '#de1a24',
+    falseBorderColor: '#000',
+    falseBorderWidth: '0',
+    falseFontColor: '#fff',
+    falseHandleColor: '#fff',
+    fontSize: '1.2rem',
+    handleSize: '30px',
+    height: '50px',
+    trueBackgroundColor: '#056517',
+    trueBorderColor: 'ivory',
+    trueBorderWidth: '0',
+    trueFontColor: '#fff',
+    trueHandleColor: '#fff',
+    width: '100px',
+};
+
 const vsTabs: VsTabsStyleSet = {
     backgroundColor: '#008db2',
     borderBottomColor: '#0288d1',
@@ -315,6 +334,7 @@ export const styleSet: StyleSet = {
     VsSection: { myStyleSet: vsSection },
     VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },
+    VsSwitch: { myStyleSet: vsSwitch },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
     VsTextWrap: { myStyleSet: vsTextWrap },
