@@ -1,0 +1,203 @@
+@use '@/styles/mixin' as *;
+
+.vs-select {
+    display: flex;
+    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    border-radius: var(--vs-select-borderRadius, 0.4rem);
+    min-height: var(--vs-select-height, 2.5rem);
+    font-size: var(--vs-select-fontSize, 1rem);
+
+    .multiple-chips {
+        display: flex;
+        padding: 0 0.6rem;
+        overflow: hidden;
+
+        .chips {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .chip-others {
+                margin-left: 0.2rem;
+                padding: 0 0.8rem;
+            }
+        }
+    }
+
+    input {
+        flex: 1;
+        padding: 0 1rem;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: var(--vs-select-color, var(--vs-font-color));
+        cursor: pointer;
+        min-width: 2rem;
+
+        &.autocomplete {
+            cursor: default;
+        }
+    }
+
+    .clear-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 0.6rem;
+        opacity: 0;
+        transition: opacity 0.4s;
+        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .arrow-box {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding-right: 0.6rem;
+
+        .arrow-icon {
+            transition: transform 0.2s ease-out;
+
+            &.arrow-up {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &:hover {
+        .clear-button {
+            opacity: 1;
+        }
+    }
+
+    &.dense {
+        height: var(--vs-select-height, 2.2rem);
+        font-size: var(--vs-select-fontSize, 0.9rem);
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        @include readonly;
+    }
+
+    &:has(input:focus-visible) {
+        @include focus-shadow;
+    }
+}
+
+.options-container {
+    z-index: 900;
+    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    border-radius: var(--vs-select-borderRadius, 0.4rem);
+
+    .options {
+        max-height: 25rem;
+        overflow: auto;
+        list-style-type: none;
+        outline: none;
+
+        li {
+            padding: 0 1.2rem;
+            min-height: var(--vs-select-height, 2.5rem);
+            line-height: var(--vs-select-height, 2.5rem);
+            cursor: pointer;
+            user-select: none;
+
+            &.selected {
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
+                color: var(--vs-select-selectedOptionColor, var(--vs-comp-border-color));
+                font-weight: 600;
+            }
+
+            &:not(.selected).chased {
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
+                color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
+                font-weight: 600;
+            }
+
+            &.select-all {
+                background-color: var(--vs-light-backgroundColor);
+                padding: 0.4 0.4rem;
+                height: 3.2rem;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    &.dense {
+        li {
+            min-height: var(--vs-select-height, 2.2rem);
+            line-height: var(--vs-select-height, 2.2rem);
+            font-size: var(--vs-select-fontSize, 0.9rem);
+        }
+    }
+}
+
+@keyframes fade-in-top {
+    0% {
+        transform: translateY(-5px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out-top {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-5px);
+        opacity: 0;
+    }
+}
+
+.fade-enter-top {
+    animation: fade-in-top 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+}
+
+.fade-leave-top {
+    animation: fade-out-top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fade-in-bottom {
+    0% {
+        transform: translateY(5px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out-bottom {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(5px);
+        opacity: 0;
+    }
+}
+
+.fade-enter-bottom {
+    animation: fade-in-bottom 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+}
+
+.fade-leave-bottom {
+    animation: fade-out-bottom 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}

@@ -14,7 +14,13 @@
             </template>
 
             <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-                <button v-if="hasPrependButton" class="prepend" @click="$emit('prepend')" aria-label="prepend-action">
+                <button
+                    v-if="hasPrependButton"
+                    type="button"
+                    class="prepend"
+                    @click="$emit('prepend')"
+                    aria-label="prepend-action"
+                >
                     <slot name="prepend-button" />
                 </button>
 
@@ -41,6 +47,7 @@
 
                 <button
                     v-if="!noClear && !readonly && !disabled"
+                    type="button"
                     class="clear-button"
                     :class="{ show: inputValue }"
                     :disabled="!inputValue"
@@ -212,12 +219,12 @@ export default defineComponent({
             inputRef.value?.select();
         }
 
-        function onFocus() {
-            emit('focus');
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur() {
-            emit('blur');
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         function onEnter() {

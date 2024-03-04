@@ -28,3 +28,11 @@ const matchMediaMock = vi.fn((query) => ({
 }));
 
 vi.stubGlobal('matchMedia', matchMediaMock);
+
+const resizeObserverMock = vi.fn(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+}));
+
+vi.stubGlobal('ResizeObserver', resizeObserverMock);

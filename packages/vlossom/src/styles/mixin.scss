@@ -9,6 +9,10 @@
     pointer-events: none;
 }
 
+@mixin readonly {
+    pointer-events: none;
+}
+
 @mixin responsive {
     $width-base: var(--vs-width-base);
     $width-sm: var(--vs-width-sm);
