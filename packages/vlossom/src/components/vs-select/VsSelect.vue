@@ -356,6 +356,7 @@ export default defineComponent({
             selectAll,
             isAllSelected,
             selectedOptions,
+            filteredOptions,
             loadedOptions,
             selectOption,
             selectAllOptions,

@@ -9,6 +9,7 @@ export function useFocusControl(
     selectAll: Ref<boolean>,
     isAllSelected: ComputedRef<boolean>,
     selectedOptions: ComputedRef<{ id: string; value: any }[]>,
+    filteredOptions: Ref<{ id: string; value: any }[]>,
     loadedOptions: Ref<{ id: string; value: any }[]>,
     selectOption: (option: any) => void,
     selectAllOptions: () => void,
@@ -153,7 +154,7 @@ export function useFocusControl(
         }
     });
 
-    watch(loadedOptions, resetFocusInfo);
+    watch(filteredOptions, resetFocusInfo);
 
     const focusedOptionId = computed(() => {
         if (selectAll.value) {
