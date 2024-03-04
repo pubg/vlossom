@@ -153,3 +153,17 @@ export type CssPosition = (typeof CSS_POSITION)[number];
 export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
+
+export interface SnackbarInfo {
+    id: string;
+    text: any;
+    state: UIState;
+    duration: number;
+}
+
+export interface SnackbarPlugin {
+    info(text: any, timeout?: number): void;
+    success(text: any, timeout?: number): void;
+    warn(text: any, timeout?: number): void;
+    error(text: any, timeout?: number): void;
+}

@@ -1,7 +1,8 @@
 import { store } from './store';
+import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';
-import type { VlossomOptions, VsComponent } from '@/declaration';
+import type { SnackbarPlugin, VlossomOptions, VsComponent } from '@/declaration';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
@@ -53,6 +54,8 @@ export class Vlossom {
     toggleTheme() {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
+
+    public snackbar: SnackbarPlugin = vsPlugins.snackbar;
 }
 
 let vlossom: Vlossom;

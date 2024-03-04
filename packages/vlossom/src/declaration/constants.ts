@@ -23,3 +23,4 @@ export const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
 
 export const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
+export const DEFAULT_SNACKBAR_TIMEOUT = 3000;
