@@ -15,11 +15,7 @@
 
             <div
                 role="switch"
-                :class="[
-                    'vs-switch',
-                    `vs-${computedColorScheme}`,
-                    { checked: isChecked, disabled: disabled, readonly: readonly },
-                ]"
+                :class="['vs-switch', `vs-${computedColorScheme}`, { checked: isChecked, disabled, readonly }]"
                 :style="computedStyleSet"
                 :aria-checked="isChecked"
                 :aria-disabled="disabled"
