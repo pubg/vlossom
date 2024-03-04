@@ -230,6 +230,7 @@ export const StyleSet: Story = {
             chipFontColor: '#EEEEEE',
             collapseChipBackgroundColor: '#12372A',
             collapseChipFontColor: '#EEEEEE',
+            height: '3rem',
             hoverOptionBackgroundColor: '#12372A',
             hoverOptionColor: '#EEEEEE',
             selectedOptionBackgroundColor: '#12372A',
