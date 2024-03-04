@@ -28,11 +28,7 @@
                     :required="required"
                     :name="name"
                     :value="getOptionValue(option)"
-<<<<<<< HEAD
-                    :check-label="getOptionLabel(option)"
-=======
                     :label="getOptionLabel(option)"
->>>>>>> 2bd0d68 (feat(VsRadio,VsRadioSet): create VsRadio, VsRadioSet components)
                     @toggle="onToggle(option, $event)"
                     @focus="onFocus(option, $event)"
                     @blur="onBlur(option, $event)"
@@ -148,11 +144,7 @@ export default defineComponent({
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-<<<<<<< HEAD
-        async function onToggle(option: any, e: Event) {
-=======
         async function onToggle(option: any, checked: boolean) {
->>>>>>> 2bd0d68 (feat(VsRadio,VsRadioSet): create VsRadio, VsRadioSet components)
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -170,21 +162,12 @@ export default defineComponent({
             }
         }
 
-<<<<<<< HEAD
         function onFocus(option: any, e: FocusEvent) {
             emit('focus', option, e);
         }
 
         function onBlur(option: any, e: FocusEvent) {
             emit('blur', option, e);
-=======
-        function onFocus(option: any, event: Event) {
-            emit('focus', option, event);
-        }
-
-        function onBlur(option: any, event: Event) {
-            emit('blur', option, event);
->>>>>>> 2bd0d68 (feat(VsRadio,VsRadioSet): create VsRadio, VsRadioSet components)
         }
 
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
