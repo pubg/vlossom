@@ -18,12 +18,16 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     display: flex;
     font-size: var(--vs-switch-fontSize, 1rem);
     height: $height;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     position: relative;
     transition: all 0.4s, border 0s;
     width: $width;
 
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    &:focus-visible {
+        @include focus-shadow;
+        outline: none;
+    }
 
     .status-label {
         display: block;
