@@ -110,7 +110,7 @@
                             :aria-multi-selectable="multiple"
                             :aria-activedescendant="focusedOptionId"
                             class="options"
-                            tabindex="0"
+                            tabindex="-1"
                             @keydown="onKeyDown"
                         >
                             <li
