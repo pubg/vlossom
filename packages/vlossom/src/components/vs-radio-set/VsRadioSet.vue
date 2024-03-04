@@ -152,12 +152,12 @@ export default defineComponent({
             inputValue.value = getOptionValue(option);
         }
 
-        function onFocus(option: any, event: Event) {
-            emit('focus', option, event);
+        function onFocus(option: any, e: FocusEvent) {
+            emit('focus', option, e);
         }
 
-        function onBlur(option: any, event: Event) {
-            emit('blur', option, event);
+        function onBlur(option: any, e: FocusEvent) {
+            emit('blur', option, e);
         }
 
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));

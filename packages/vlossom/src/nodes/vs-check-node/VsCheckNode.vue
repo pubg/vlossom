@@ -75,12 +75,12 @@ export default defineComponent({
             emit('toggle', (event.target as HTMLInputElement).checked);
         }
 
-        function onFocus(event: Event) {
-            emit('focus', event);
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur(event: Event) {
-            emit('blur', event);
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         function convertToString(value: any) {

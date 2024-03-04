@@ -113,12 +113,12 @@ export default defineComponent({
             inputValue.value = checked ? radioValue.value : null;
         }
 
-        function onFocus(event: Event) {
-            emit('focus', event);
+        function onFocus(e: FocusEvent) {
+            emit('focus', e);
         }
 
-        function onBlur(event: Event) {
-            emit('blur', event);
+        function onBlur(e: FocusEvent) {
+            emit('blur', e);
         }
 
         return {
