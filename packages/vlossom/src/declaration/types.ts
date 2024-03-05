@@ -159,6 +159,7 @@ export interface ToastInfo {
     text: any;
     state: UIState;
     duration: number;
+    colorScheme: ColorScheme;
 }
 
 export interface ToastPlugin {

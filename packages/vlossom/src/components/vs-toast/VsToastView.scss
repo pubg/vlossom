@@ -13,11 +13,17 @@
 .vs-toast-item {
     width: fit-content;
     margin: 0.4rem 0;
-    padding: 1.4rem 4.5rem;
-    // border-radius: $global_radius;
-    color: var(--vs-font-color);
-    font-size: 1.5rem;
-    // box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
-    // background-image: var(--gradient-color);
-    border: solid 1px indigo;
+    padding: 1rem 4rem;
+    border-radius: 0.4rem;
+    color: #fff;
+    font-size: 1.1rem;
+    box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
+    background-image: var(--vs-gradient-color); //
+}
+
+.fade-enter-active {
+    animation: fade-in-top 0.5s both;
+}
+.fade-leave-active {
+    animation: fade-out-top 0.5s;
 }

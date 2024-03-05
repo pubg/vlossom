@@ -8,13 +8,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import VsToastItem from './VsToastItem.vue';
 import { store } from '@/store';
+import VsToastItem from './VsToastItem.vue';
 
 export default defineComponent({
     name: 'VsToastView',
     components: { VsToastItem },
     props: {
+        // TODO: ???
         hasContainer: { type: Boolean, default: false },
     },
     setup() {

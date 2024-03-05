@@ -9,6 +9,8 @@ $colorScheme-light: (
         comp-backgroundColor-primary: var(--vs-indigo-700),
         comp-color-primary: var(--vs-grey-50),
         comp-border-color: var(--vs-indigo-700),
+        // TEMP
+        gradient-color: linear-gradient(45deg, var(--vs-indigo-500) 0%, var(--vs-indigo-400) 100%),
         line-color: var(--vs-grey-700),
         light-backgroundColor: transparentize(map.get($palette, indigo, 100), 0.8),
     ),
@@ -19,6 +21,8 @@ $colorScheme-light: (
         comp-backgroundColor-primary: var(--vs-red-600),
         comp-color-primary: var(--vs-grey-50),
         comp-border-color: var(--vs-red-600),
+        // TEMP
+        gradient-color: linear-gradient(45deg, var(--vs-red-800) 0%, var(--vs-red-500) 100%),
         line-color: var(--vs-red-600),
         light-backgroundColor: transparentize(map.get($palette, red, 200), 0.8),
     ),
@@ -79,6 +83,8 @@ $colorScheme-light: (
         comp-backgroundColor-primary: var(--vs-light-blue-600),
         comp-color-primary: var(--vs-grey-50),
         comp-border-color: var(--vs-light-blue-600),
+        // TEMP
+        gradient-color: linear-gradient(45deg, var(--vs-light-blue-600) 0%, var(--vs-light-blue-400) 100%),
         line-color: var(--vs-light-blue-600),
         light-backgroundColor: transparentize(map.get($palette, light-blue, 200), 0.8),
     ),
