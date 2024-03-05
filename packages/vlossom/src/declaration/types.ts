@@ -162,8 +162,8 @@ export interface ToastInfo {
 }
 
 export interface ToastPlugin {
-    info(text: any, timeout?: number): void;
     success(text: any, timeout?: number): void;
-    warn(text: any, timeout?: number): void;
+    info(text: any, timeout?: number): void;
     error(text: any, timeout?: number): void;
+    warn(text: any, timeout?: number): void;
 }

@@ -5,14 +5,14 @@ import { ToastStore } from './toast-store';
 export class VsStore {
     public dialog = new DialogStore();
     public option = new OptionStore();
-    public _toast: ToastStore | null = null;
+    public _toastStore: ToastStore | null = null;
 
-    public get toast() {
-        if (!this._toast) {
+    public get toastStore() {
+        if (!this._toastStore) {
             console.log(1111111, 'created toast!');
-            this._toast = new ToastStore();
+            this._toastStore = new ToastStore();
         }
-        return this._toast;
+        return this._toastStore;
     }
 }
 

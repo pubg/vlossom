@@ -1,0 +1,23 @@
+#vs-toast-view {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 5%;
+    left: 50%;
+    z-index: 9999;
+    transform: translateX(-50%);
+    transition: all 0.5s ease;
+}
+
+.vs-toast-item {
+    width: fit-content;
+    margin: 0.4rem 0;
+    padding: 1.4rem 4.5rem;
+    // border-radius: $global_radius;
+    color: var(--vs-font-color);
+    font-size: 1.5rem;
+    // box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
+    // background-image: var(--gradient-color);
+    border: solid 1px indigo;
+}
