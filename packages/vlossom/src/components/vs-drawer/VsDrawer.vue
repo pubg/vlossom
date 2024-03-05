@@ -1,18 +1,16 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <div class="vs-drawer" :style="drawerCustomStyleSet">
-            <Transition name="fade">
+        <Transition name="drawer" :duration="300">
+            <div v-if="isOpen" class="vs-drawer" :style="drawerCustomStyleSet">
                 <div
-                    v-if="isOpen && dimmed"
+                    v-if="dimmed"
                     :class="['dimmed', { 'has-container': hasContainer }]"
                     aria-hidden="true"
                     @click.stop="clickDimmed()"
                 />
-            </Transition>
-            <Transition :name="`slide-${placement}`">
-                <vs-focus-trap v-if="isOpen" :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
+                <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="[placement, hasSpecifiedSize ? '' : size]"
+                        :class="[`slide-${placement}`, placement, hasSpecifiedSize ? '' : size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :has-container="hasContainer"
@@ -29,8 +27,8 @@
                         </template>
                     </vs-dialog-node>
                 </vs-focus-trap>
-            </Transition>
-        </div>
+            </div>
+        </Transition>
     </Teleport>
 </template>
 
