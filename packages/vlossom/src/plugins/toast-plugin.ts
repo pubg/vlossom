@@ -1,26 +1,26 @@
 import { store } from '@/store';
 import { utils } from '@/utils';
-import { UIState, SnackbarPlugin, DEFAULT_SNACKBAR_TIMEOUT } from '@/declaration';
+import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
 
-export const snackbar: SnackbarPlugin = {
-    info(text: any, timeout: number = DEFAULT_SNACKBAR_TIMEOUT) {
-        store.snackbar.addSnackbar({
+export const toast: ToastPlugin = {
+    info(text: any, timeout: number = DEFAULT_TOAST_TIMEOUT) {
+        store.toast.addToast({
             id: utils.string.createID(),
             text,
             state: UIState.Info,
             duration: timeout,
         });
     },
-    success(text: any, timeout: number = DEFAULT_SNACKBAR_TIMEOUT) {
-        store.snackbar.addSnackbar({
+    success(text: any, timeout: number = DEFAULT_TOAST_TIMEOUT) {
+        store.toast.addToast({
             id: utils.string.createID(),
             text,
             state: UIState.Success,
             duration: timeout,
         });
     },
-    warn(text: any, timeout: number = DEFAULT_SNACKBAR_TIMEOUT) {
-        store.snackbar.addSnackbar({
+    warn(text: any, timeout: number = DEFAULT_TOAST_TIMEOUT) {
+        store.toast.addToast({
             id: utils.string.createID(),
             text,
             state: UIState.Warning,
@@ -28,8 +28,8 @@ export const snackbar: SnackbarPlugin = {
         });
         console.warn(text);
     },
-    error(text: any, timeout: number = DEFAULT_SNACKBAR_TIMEOUT) {
-        store.snackbar.addSnackbar({
+    error(text: any, timeout: number = DEFAULT_TOAST_TIMEOUT) {
+        store.toast.addToast({
             id: utils.string.createID(),
             text,
             state: UIState.Error,

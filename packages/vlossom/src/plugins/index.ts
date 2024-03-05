@@ -1,1 +1,1 @@
-export { snackbar } from './snackbar-plugin';
+export { toast } from './toast-plugin';

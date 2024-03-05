@@ -154,14 +154,14 @@ export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
 
-export interface SnackbarInfo {
+export interface ToastInfo {
     id: string;
     text: any;
     state: UIState;
     duration: number;
 }
 
-export interface SnackbarPlugin {
+export interface ToastPlugin {
     info(text: any, timeout?: number): void;
     success(text: any, timeout?: number): void;
     warn(text: any, timeout?: number): void;

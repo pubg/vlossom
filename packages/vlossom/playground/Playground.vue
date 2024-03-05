@@ -6,14 +6,13 @@
 </template>
 
 <script lang="ts">
-import { getCurrentInstance } from 'vue';
 import { useVlossom } from '../src';
 
 export default {
     name: 'Playground',
     setup() {
         const vs = useVlossom();
-        vs.snackbar.info('Hello Vlossom!');
+        vs.toast.info('Hello Vlossom!');
     },
 };
 </script>
