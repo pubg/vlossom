@@ -1,13 +1,34 @@
-#vs-toast-view {
+.vs-toast-view {
     position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 9999;
+    transition: all 0.5s ease;
+}
+
+#vs-toast-view-top {
     top: 5%;
     left: 50%;
-    z-index: 9999;
     transform: translateX(-50%);
-    transition: all 0.5s ease;
+}
+
+#vs-toast-view-left {
+    top: 50%;
+    left: 0%;
+    transform: translateX(50%);
+}
+
+#vs-toast-view-right {
+    top: 50%;
+    left: 88%;
+    transform: translateX(-50%);
+}
+
+#vs-toast-view-bottom {
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .vs-toast-item {

@@ -165,9 +165,17 @@ export interface ToastInfo {
     // colorScheme: ColorScheme;
 }
 
+export interface ToastParams {
+    text: any;
+    autoClose?: boolean;
+    timeout?: number;
+    placement?: Placement;
+    align?: Align;
+}
+
 export interface ToastPlugin {
-    success(text: any, autoClose?: boolean, timeout?: number, placement?: Placement, align?: Align): void;
-    info(text: any, autoClose?: boolean, timeout?: number, placement?: Placement, align?: Align): void;
-    error(text: any, autoClose?: boolean, timeout?: number, placement?: Placement, align?: Align): void;
-    warn(text: any, autoClose?: boolean, timeout?: number, placement?: Placement, align?: Align): void;
+    success({ text, autoClose, timeout, placement, align }: ToastParams): void;
+    info({ text, autoClose, timeout, placement, align }: ToastParams): void;
+    error({ text, autoClose, timeout, placement, align }: ToastParams): void;
+    warn({ text, autoClose, timeout, placement, align }: ToastParams): void;
 }

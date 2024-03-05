@@ -19,7 +19,7 @@ export class ToastStore {
     }
 
     addToast(toastInfo: ToastInfo) {
-        console.log(222222, 'added toast!');
+        console.log(222222, 'toastInfo', toastInfo);
         this.state.toasts.unshift(toastInfo);
 
         if (toastInfo.autoClose) {
