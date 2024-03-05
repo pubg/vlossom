@@ -7,6 +7,7 @@
                 :row-index="index"
                 :draggable="canDrag"
                 :headers="headers"
+                @click="emitRowClick(element, index)"
             >
                 <template v-for="(_, name) in itemSlots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
@@ -36,7 +37,7 @@ export default defineComponent({
         VueDraggable,
         VsTableBodyRow,
     },
-    emits: ['sort', 'update:tableItems'],
+    emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit, slots }) {
         const { items, draggable, pagination } = toRefs(props);
 
@@ -69,9 +70,13 @@ export default defineComponent({
             { immediate: true },
         );
 
-        function emitTableItems(itemArr: TableItem[]) {
+        function emitUpdateTableItems(itemArr: TableItem[]) {
             const values = itemArr.map((i) => i.data);
             emit('update:tableItems', values);
+        }
+
+        function emitRowClick(rowItem: any, rowIndex: number) {
+            emit('rowClick', rowItem, rowIndex);
         }
 
         const computedItems: WritableComputedRef<TableItem[]> = computed({
@@ -80,7 +85,7 @@ export default defineComponent({
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                emitTableItems(itemArr);
+                emitUpdateTableItems(itemArr);
             },
         });
 
@@ -88,6 +93,7 @@ export default defineComponent({
             itemSlots,
             computedItems,
             canDrag,
+            emitRowClick,
         };
     },
 });
