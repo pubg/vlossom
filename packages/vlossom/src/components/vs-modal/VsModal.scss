@@ -1,0 +1,51 @@
+$sizes: xs, sm, md, lg, xl;
+
+.vs-modal {
+    .dimmed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: var(--vs-dialog-node-zIndex);
+        background-color: var(--vs-dimmed-backgroundColor);
+
+        &.has-container {
+            position: absolute;
+        }
+    }
+
+    :deep(.vs-dialog-content) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: var(--vs-modal-borderRadius, 0.6rem);
+        min-width: var(--vs-modal-width-xs);
+        min-height: var(--vs-modal-height-xs);
+
+        // size
+        @each $size in $sizes {
+            &.#{$size} {
+                width: var(--vs-modal-width-#{$size});
+                height: var(--vs-modal-height-#{$size});
+            }
+        }
+    }
+}
+
+.fade-enter-active,
+.fade-leave-active,
+.scale-enter-active,
+.scale-leave-active {
+    transition: all 0.3s;
+}
+
+.fade-enter-form,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.scale-enter-from,
+.scale-leave-to {
+    transform: scale(0.4);
+}

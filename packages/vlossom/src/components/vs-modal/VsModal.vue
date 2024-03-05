@@ -1,23 +1,22 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <div class="vs-drawer" :style="drawerCustomStyleSet">
+        <div class="vs-modal" :style="modalCustomStyleSet">
             <Transition name="fade">
                 <div
-                    v-if="isOpen && dimmed"
+                    v-if="isOpen"
                     :class="['dimmed', { 'has-container': hasContainer }]"
                     aria-hidden="true"
                     @click.stop="clickDimmed()"
                 />
             </Transition>
-            <Transition :name="`slide-${placement}`">
-                <vs-focus-trap v-if="isOpen" :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
+            <Transition name="scale">
+                <vs-focus-trap v-if="isOpen" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="[placement, hasSpecifiedSize ? '' : size]"
+                        :class="size"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :has-container="hasContainer"
                         :hide-scroll="hideScroll"
-                        :modal="dimmed"
                         @close="() => (isOpen = false)"
                     >
                         <template #header v-if="hasHeader">
@@ -37,56 +36,37 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useStyleSet } from '@/composables';
+import { VsComponent, Size } from '@/declaration';
 import { VsFocusTrap } from '@/components';
 import { VsDialogNode } from '@/nodes';
-import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 
-import type { VsDrawerStyleSet } from './types';
+import type { VsModalStyleSet } from './types';
 
-const name = VsComponent.VsDrawer;
+const name = VsComponent.VsModal;
 
 export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
     props: {
-        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet>, default: '' },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
-        dimmed: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
-        placement: {
-            type: String as PropType<Placement>,
-            default: 'left',
-            validator: (val: Placement) => PLACEMENTS.includes(val),
-        },
         size: { type: String as PropType<Size | string>, default: '' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnDimmedClick, placement, size } = toRefs(props);
+        const { styleSet, modelValue, closeOnDimmedClick } = toRefs(props);
 
-        const { computedStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
-        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
-
-        const drawerCustomStyleSet = computed(() => {
-            if (hasSpecifiedSize.value) {
-                if (placement.value === 'top' || placement.value === 'bottom') {
-                    return { '--vs-drawer-height': size.value };
-                }
-
-                if (placement.value === 'left' || placement.value === 'right') {
-                    return { '--vs-drawer-width': size.value };
-                }
-            }
-
+        const modalCustomStyleSet = computed(() => {
             return {
-                '--vs-drawer-height': computedStyleSet.value['--vs-drawer-height'] || '',
-                '--vs-drawer-width': computedStyleSet.value['--vs-drawer-width'] || '',
+                '--vs-modal-borderRadius': computedStyleSet.value['--vs-modal-borderRadius'] || undefined,
             };
         });
 
@@ -111,8 +91,7 @@ export default defineComponent({
 
         return {
             computedStyleSet,
-            hasSpecifiedSize,
-            drawerCustomStyleSet,
+            modalCustomStyleSet,
             isOpen,
             clickDimmed,
             hasHeader,
@@ -122,4 +101,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsDrawer.scss" />
+<style lang="scss" scoped src="./VsModal.scss" />

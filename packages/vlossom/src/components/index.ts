@@ -61,6 +61,9 @@ export { default as VsMain } from './vs-main/VsMain.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
+export { type VsModalStyleSet } from './vs-modal/types';
+export { default as VsModal } from './vs-modal/VsModal.vue';
+
 export { type VsNoticeStyleSet } from './vs-notice/types';
 export { default as VsNotice } from './vs-notice/VsNotice.vue';
 
@@ -136,6 +139,7 @@ declare module 'vue' {
         VsLabelValue: typeof import('./')['VsLabelValue'];
         VsLoading: typeof import('./')['VsLoading'];
         VsMessage: typeof import('./')['VsMessage'];
+        VsModal: typeof import('./')['VsModal'];
         VsNotice: typeof import('./')['VsNotice'];
         VsPage: typeof import('./')['VsPage'];
         VsPagination: typeof import('./')['VsPagination'];

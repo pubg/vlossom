@@ -16,6 +16,7 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
+    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -182,6 +183,13 @@ const vsLoading: VsLoadingStyleSet = {
     barWidth: '16%',
 };
 
+const vsModal: VsModalStyleSet = {
+    backgroundColor: '#FFF6E9',
+    color: '#0D9276',
+    headerFontColor: '#40A2E3',
+    padding: '3rem',
+};
+
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#1e88e5',
     color: 'white',
@@ -344,6 +352,7 @@ export const styleSet: StyleSet = {
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
     VsLoading: { myStyleSet: vsLoading },
+    VsModal: { myStyleSet: vsModal },
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
     VsPagination: { myStyleSet: vsPagination },

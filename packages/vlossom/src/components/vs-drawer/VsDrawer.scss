@@ -7,7 +7,7 @@ $sizes: xs, sm, md, lg, xl;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: var(--vs-drawer-z-index);
+        z-index: var(--vs-dialog-node-zIndex);
         background-color: var(--vs-dimmed-backgroundColor);
 
         &.has-container {
@@ -15,33 +15,9 @@ $sizes: xs, sm, md, lg, xl;
         }
     }
 
-    .vs-drawer-content {
-        position: fixed;
+    :deep(.vs-dialog-content) {
         width: 100%;
         height: 100%;
-        z-index: var(--vs-drawer-z-index);
-        background-color: var(--vs-drawer-backgroundColor, var(--vs-plain-backgroundColor));
-        color: var(--vs-drawer-color, var(--vs-font-color));
-        display: flex;
-        flex-direction: column;
-
-        &.has-container {
-            position: absolute;
-        }
-
-        .drawer-body {
-            overflow-y: auto;
-            flex: 1;
-
-            &.hide-scroll {
-                overflow: scroll;
-                -ms-overflow-style: none; /* IE and Edge */
-                scrollbar-width: none; /* Firefox */
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-            }
-        }
 
         // placement
         &.top {
