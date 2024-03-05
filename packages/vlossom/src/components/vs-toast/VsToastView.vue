@@ -7,19 +7,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import { store } from '@/store';
 import VsToastItem from './VsToastItem.vue';
 
 export default defineComponent({
     name: 'VsToastView',
     components: { VsToastItem },
-    props: {
-        // TODO: ???
-        hasContainer: { type: Boolean, default: false },
-    },
     setup() {
         console.log('Toast View Rendered', store.toastStore.toasts);
+
+        function onPressEsc(event: KeyboardEvent) {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                store.toastStore.removeOldest();
+            }
+        }
+
+        onMounted(() => {
+            document.addEventListener('keydown', onPressEsc);
+        });
+
         return {
             toasts: store.toastStore.toasts,
         };

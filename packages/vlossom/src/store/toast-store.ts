@@ -22,15 +22,22 @@ export class ToastStore {
         console.log(222222, 'added toast!');
         this.state.toasts.unshift(toastInfo);
 
-        setTimeout(() => {
-            const index = this.state.toasts.findIndex((snackbar: ToastInfo) => snackbar.id === toastInfo.id);
-            if (index !== -1) {
-                this.removeToast(index);
-            }
-        }, toastInfo.duration);
+        if (toastInfo.autoClose) {
+            setTimeout(() => {
+                this.removeToast(toastInfo.id);
+            }, toastInfo.duration);
+        }
     }
 
-    removeToast(index: number) {
-        this.state.toasts.splice(index, 1);
+    removeToast(targetId: string) {
+        const index = this.state.toasts.findIndex((snackbar: ToastInfo) => snackbar.id === targetId);
+        if (index !== -1) {
+            this.state.toasts.splice(index, 1);
+        }
+    }
+
+    removeOldest() {
+        console.log(222222, 'remove oldest', this.state.toasts);
+        this.state.toasts.pop();
     }
 }
