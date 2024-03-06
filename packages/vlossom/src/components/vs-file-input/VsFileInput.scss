@@ -92,6 +92,6 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
     }
 
     &.readonly {
-        pointer-events: none;
+        @include readonly;
     }
 }

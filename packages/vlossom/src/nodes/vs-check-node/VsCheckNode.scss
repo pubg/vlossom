@@ -89,6 +89,6 @@
     }
 
     &.readonly {
-        pointer-events: none;
+        @include readonly;
     }
 }
