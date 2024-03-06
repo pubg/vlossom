@@ -66,8 +66,6 @@ describe('toast-plugin', () => {
                 duration: 3000,
                 placement: 'top',
                 align: 'center',
-                colorScheme: undefined,
-                state: undefined,
             });
         });
     });
@@ -112,8 +110,6 @@ describe('toast-plugin', () => {
                 duration: 3000,
                 placement: 'top',
                 align: 'center',
-                colorScheme: undefined,
-                state: undefined,
             });
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });

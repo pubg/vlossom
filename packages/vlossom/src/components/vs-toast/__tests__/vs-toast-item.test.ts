@@ -12,6 +12,10 @@ describe('vs-toast-item', () => {
                     toastInfo: {
                         id: '1',
                         text: 'Hello',
+                        autoClose: true,
+                        duration: 3000,
+                        placement: 'top',
+                        align: 'center',
                     },
                 },
             });
@@ -28,6 +32,9 @@ describe('vs-toast-item', () => {
                             id: '1',
                             text: 'Hello',
                             autoClose: true,
+                            duration: 3000,
+                            placement: 'top',
+                            align: 'center',
                         },
                     },
                 });
@@ -42,6 +49,8 @@ describe('vs-toast-item', () => {
                             id: '1',
                             text: 'Hello',
                             autoClose: false,
+                            placement: 'top',
+                            align: 'center',
                         },
                     },
                 });
@@ -58,6 +67,10 @@ describe('vs-toast-item', () => {
                         toastInfo: {
                             id: '1',
                             text: 'Hello',
+                            autoClose: true,
+                            duration: 3000,
+                            placement: 'top',
+                            align: 'center',
                             colorScheme: 'red',
                         },
                     },
@@ -74,6 +87,10 @@ describe('vs-toast-item', () => {
                             toastInfo: {
                                 id: '1',
                                 text: 'Hello',
+                                autoClose: true,
+                                duration: 3000,
+                                placement: 'top',
+                                align: 'center',
                             },
                         },
                     });
@@ -88,6 +105,10 @@ describe('vs-toast-item', () => {
                             toastInfo: {
                                 id: '1',
                                 text: 'Hello',
+                                autoClose: true,
+                                duration: 3000,
+                                placement: 'top',
+                                align: 'center',
                                 state: UIState.Success,
                             },
                         },
@@ -102,6 +123,10 @@ describe('vs-toast-item', () => {
                             toastInfo: {
                                 id: '1',
                                 text: 'Hello',
+                                autoClose: true,
+                                duration: 3000,
+                                placement: 'top',
+                                align: 'center',
                                 state: UIState.Info,
                             },
                         },
@@ -116,6 +141,10 @@ describe('vs-toast-item', () => {
                             toastInfo: {
                                 id: '1',
                                 text: 'Hello',
+                                autoClose: true,
+                                duration: 3000,
+                                placement: 'top',
+                                align: 'center',
                                 state: UIState.Error,
                             },
                         },
@@ -130,6 +159,10 @@ describe('vs-toast-item', () => {
                             toastInfo: {
                                 id: '1',
                                 text: 'Hello',
+                                autoClose: true,
+                                duration: 3000,
+                                placement: 'top',
+                                align: 'center',
                                 state: UIState.Warning,
                             },
                         },
@@ -148,6 +181,9 @@ describe('vs-toast-item', () => {
                         toastInfo: {
                             id: '1',
                             text: 'Hello',
+                            autoClose: true,
+                            duration: 3000,
+                            placement: 'top',
                             align: 'start',
                         },
                     },
@@ -163,6 +199,9 @@ describe('vs-toast-item', () => {
                         toastInfo: {
                             id: '1',
                             text: 'Hello',
+                            autoClose: true,
+                            duration: 3000,
+                            placement: 'top',
                             align: 'end',
                         },
                     },
@@ -178,6 +217,9 @@ describe('vs-toast-item', () => {
                         toastInfo: {
                             id: '1',
                             text: 'Hello',
+                            autoClose: true,
+                            duration: 3000,
+                            placement: 'top',
                             align: 'center',
                         },
                     },
