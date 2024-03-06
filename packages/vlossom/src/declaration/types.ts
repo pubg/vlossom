@@ -159,7 +159,7 @@ export type Size = (typeof SIZES)[number];
 export interface ToastInfo {
     id: string;
     state: UIState;
-    text: any;
+    text: string;
     autoClose?: boolean;
     duration?: number;
     placement?: BinaryPlacement;
@@ -176,8 +176,8 @@ export type ToastOptions = {
 };
 
 export interface ToastPlugin {
-    success(text: any, toastOptions: ToastOptions): void;
-    info(text: any, toastOptions: ToastOptions): void;
-    error(text: any, toastOptions: ToastOptions): void;
-    warn(text: any, toastOptions: ToastOptions): void;
+    success(text: string, toastOptions: ToastOptions): void;
+    info(text: string, toastOptions: ToastOptions): void;
+    error(text: string, toastOptions: ToastOptions): void;
+    warn(text: string, toastOptions: ToastOptions): void;
 }

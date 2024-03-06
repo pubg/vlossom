@@ -18,12 +18,12 @@ export default defineComponent({
     name: 'VsToastView',
     components: { VsToastItem },
     setup() {
-        const directions = ['top-center', 'top-start', 'top-end', 'bottom-center', 'bottom-start', 'bottom-end'];
+        const positions = ['top-center', 'top-start', 'top-end', 'bottom-center', 'bottom-start', 'bottom-end'];
         const toastsGroups = computed(() => {
-            return directions.map((direction) => {
-                const [placement, align] = direction.split('-');
+            return positions.map((position) => {
+                const [placement, align] = position.split('-');
                 return {
-                    direction,
+                    position,
                     placement,
                     align,
                     toasts: store.toastStore.toasts.filter(

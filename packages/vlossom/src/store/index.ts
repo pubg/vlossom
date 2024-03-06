@@ -9,7 +9,6 @@ export class VsStore {
 
     public get toastStore() {
         if (!this._toastStore) {
-            console.log(1111111, 'created toast!');
             this._toastStore = new ToastStore();
         }
         return this._toastStore;

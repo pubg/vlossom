@@ -22,13 +22,13 @@ function attach() {
 
 function toastBody(
     state: UIState,
-    text: any,
+    text: string,
     {
         autoClose = true,
         timeout = DEFAULT_TOAST_TIMEOUT,
         placement = 'top',
         align = 'center',
-        colorScheme = 'indigo',
+        colorScheme,
     }: ToastOptions,
 ) {
     return {
@@ -44,23 +44,23 @@ function toastBody(
 }
 
 export const toast: ToastPlugin = {
-    success(text: any, toastOptions: ToastOptions) {
+    success(text: string, toastOptions: ToastOptions) {
         const toastInfo = toastBody(UIState.Success, text, toastOptions ?? {});
         store.toastStore.addToast(toastInfo);
         attach();
     },
-    info(text: any, toastOptions: ToastOptions) {
+    info(text: string, toastOptions: ToastOptions) {
         const toastInfo = toastBody(UIState.Info, text, toastOptions ?? {});
         store.toastStore.addToast(toastInfo);
         attach();
     },
-    error(text: any, toastOptions: ToastOptions) {
+    error(text: string, toastOptions: ToastOptions) {
         const toastInfo = toastBody(UIState.Error, text, toastOptions ?? {});
         store.toastStore.addToast(toastInfo);
         attach();
         console.error(text);
     },
-    warn(text: any, toastOptions: ToastOptions) {
+    warn(text: string, toastOptions: ToastOptions) {
         const toastInfo = toastBody(UIState.Warning, text, toastOptions ?? {});
         store.toastStore.addToast(toastInfo);
         attach();

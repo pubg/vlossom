@@ -4,9 +4,8 @@
         Hello Vlossom!
         <vs-button
             @click="
-                $vs.toast.info('This is Toast This is Toast Info!', {
+                $vs.toast.info('<h1>This is Toast This is Toast Info! 😀</h1>', {
                     autoClose: false,
-                    colorScheme: 'blue',
                 })
             "
             >TOP</vs-button

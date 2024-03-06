@@ -1,4 +1,4 @@
-import { COLORS, CSS_POSITION, PLACEMENTS, SIZES } from '@/declaration';
+import { COLORS, CSS_POSITION, PLACEMENTS, BINARY_PLACEMENTS, SIZES } from '@/declaration';
 
 export const colorScheme = {
     control: 'select',
@@ -13,6 +13,11 @@ export const align = {
 export const placement = {
     control: 'select',
     options: PLACEMENTS,
+};
+
+export const binaryPlacement = {
+    control: 'select',
+    options: BINARY_PLACEMENTS,
 };
 
 export const size = {
