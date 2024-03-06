@@ -44,13 +44,6 @@ type Story = StoryObj<{ text: string } | ToastOptions>;
 
 export const Default: Story = {};
 
-export const State: Story = {
-    render: () => ({
-        template: `${getPlacementTemplate()}
-		`,
-    }),
-};
-
 export const ColorScheme: Story = {
     render: (args: any) => ({
         setup() {
@@ -73,7 +66,7 @@ export const ColorScheme: Story = {
     },
 };
 
-export const ToastStates: Story = {
+export const State: Story = {
     render: () => ({
         template: `
 		<div>
