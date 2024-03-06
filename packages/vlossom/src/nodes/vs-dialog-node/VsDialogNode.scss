@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     z-index: var(--vs-dialog-node-zIndex);
-    background-color: var(--vs-dialog-node-backgroundColor, var(--vs-plain-backgroundColor));
+    background-color: var(--vs-dialog-node-backgroundColor, var(--vs-area-backgroundColor));
     color: var(--vs-dialog-node-color, var(--vs-font-color));
     border-radius: var(--vs-dialog-node-borderRadius, 0);
     width: var(--vs-dialog-node-width, auto);
