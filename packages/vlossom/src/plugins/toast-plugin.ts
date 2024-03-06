@@ -21,7 +21,6 @@ function attach() {
 }
 
 function toastBody(
-    state: UIState,
     text: string,
     {
         autoClose = true,
@@ -30,6 +29,7 @@ function toastBody(
         align = 'center',
         colorScheme,
     }: ToastOptions,
+    state?: Exclude<UIState, UIState.Idle | UIState.Selected>,
 ) {
     return {
         id: utils.string.createID(),
@@ -44,24 +44,29 @@ function toastBody(
 }
 
 export const toast: ToastPlugin = {
+    show(text: string, toastOptions: ToastOptions) {
+        const toastInfo = toastBody(text, toastOptions ?? {});
+        store.toastStore.addToast(toastInfo);
+        attach();
+    },
     success(text: string, toastOptions: ToastOptions) {
-        const toastInfo = toastBody(UIState.Success, text, toastOptions ?? {});
+        const toastInfo = toastBody(text, toastOptions ?? {}, UIState.Success);
         store.toastStore.addToast(toastInfo);
         attach();
     },
     info(text: string, toastOptions: ToastOptions) {
-        const toastInfo = toastBody(UIState.Info, text, toastOptions ?? {});
+        const toastInfo = toastBody(text, toastOptions ?? {}, UIState.Info);
         store.toastStore.addToast(toastInfo);
         attach();
     },
     error(text: string, toastOptions: ToastOptions) {
-        const toastInfo = toastBody(UIState.Error, text, toastOptions ?? {});
+        const toastInfo = toastBody(text, toastOptions ?? {}, UIState.Error);
         store.toastStore.addToast(toastInfo);
         attach();
         console.error(text);
     },
     warn(text: string, toastOptions: ToastOptions) {
-        const toastInfo = toastBody(UIState.Warning, text, toastOptions ?? {});
+        const toastInfo = toastBody(text, toastOptions ?? {}, UIState.Warning);
         store.toastStore.addToast(toastInfo);
         attach();
         console.warn(text);

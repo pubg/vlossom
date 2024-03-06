@@ -1,6 +1,6 @@
-import { ToastOptions } from '@/declaration';
-import { colorScheme, getColorSchemeTemplate, chromaticParameters, binaryPlacement, align } from '@/storybook';
+import { colorScheme, getColorSchemeTemplate, chromaticParameters, align } from '@/storybook';
 
+import type { ToastOptions } from '@/declaration';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta = {
@@ -10,7 +10,7 @@ const meta: Meta = {
             return { args };
         },
         template: `
-			<vs-button @click="$vs.toast.info(args.text, 
+			<vs-button @click="$vs.toast.show(args.text, 
 			{
 				autoClose: args.autoClose,
 				timeout: args.timeout,
@@ -30,7 +30,10 @@ const meta: Meta = {
     argTypes: {
         autoClose: { control: 'boolean' },
         timeout: { control: 'number' },
-        placement: binaryPlacement,
+        placement: {
+            control: 'select',
+            options: ['top', 'bottom'],
+        },
         align,
         colorScheme,
     },
@@ -41,6 +44,13 @@ type Story = StoryObj<{ text: string } | ToastOptions>;
 
 export const Default: Story = {};
 
+export const State: Story = {
+    render: () => ({
+        template: `${getPlacementTemplate()}
+		`,
+    }),
+};
+
 export const ColorScheme: Story = {
     render: (args: any) => ({
         setup() {
@@ -50,7 +60,7 @@ export const ColorScheme: Story = {
 			<div>
 				${getColorSchemeTemplate(`
 					<div>
-						<vs-button color-scheme={{ color }} @click="$vs.toast.info(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }"> 
+						<vs-button color-scheme={{ color }} @click="$vs.toast.show(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }"> 
 							Show Toast ( {{'{{ color }}'.toUpperCase()}} )
 						 </vs-button>
 					</div>
@@ -63,13 +73,26 @@ export const ColorScheme: Story = {
     },
 };
 
+export const ToastStates: Story = {
+    render: () => ({
+        template: `
+		<div>
+			<vs-button color-scheme="green" @click="$vs.toast.success('This is Toast Message!')"> toast.success </vs-button>
+			<vs-button color-scheme="light-blue" @click="$vs.toast.info('This is Toast Message!')"> toast.info </vs-button>
+			<vs-button color-scheme="red" @click="$vs.toast.error('This is Toast Message!')"> toast.error </vs-button>
+			<vs-button color-scheme="orange" @click="$vs.toast.warn('This is Toast Message!')"> toast.warn </vs-button>
+		</div>
+		`,
+    }),
+};
+
 export const HtmlText: Story = {
     render: (args: any) => ({
         setup() {
             return { args };
         },
         template: `
-			<vs-button @click="$vs.toast.info(args.text)">Show Toast</vs-button>
+			<vs-button @click="$vs.toast.show(args.text)">Show Toast</vs-button>
 		`,
     }),
     args: {
@@ -83,8 +106,8 @@ export const AutoClose: Story = {
             return { args };
         },
         template: `
-			<vs-button @click="$vs.toast.info(args.text, { timeout: args.timeout })">Auto Closing Toast (after {{args.timeout}}ms)</vs-button>
-			<vs-button @click="$vs.toast.info(args.text, { autoClose: false })">Manual Closing Show Toast</vs-button>
+			<vs-button @click="$vs.toast.show(args.text, { timeout: args.timeout })">Auto Closing Toast (after {{args.timeout}}ms)</vs-button>
+			<vs-button @click="$vs.toast.show(args.text, { autoClose: false })">Manual Closing Show Toast</vs-button>
 		`,
     }),
     args: {
@@ -96,7 +119,7 @@ const TOAST_POSITION = ['top-start', 'top-center', 'top-end', 'bottom-start', 'b
 function getPlacementTemplate() {
     return TOAST_POSITION.map((position) => {
         const [placement, alignedAt] = position.split('-');
-        return `<vs-button @click="$vs.toast.info('This is Toast Message!', { placement: '${placement}', align: '${alignedAt}' })">
+        return `<vs-button @click="$vs.toast.show('This is Toast Message!', { placement: '${placement}', align: '${alignedAt}' })">
 			${placement} ${alignedAt}
 		</vs-button>`;
     }).join('\n');
