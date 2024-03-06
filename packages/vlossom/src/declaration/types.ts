@@ -32,7 +32,7 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES, BINARY_ALIGNS } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES, BINARY_ALIGNS, BINARY_PLACEMENTS } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 
@@ -129,7 +129,6 @@ export interface VsFormProvide {
 }
 
 export type Align = (typeof ALIGNS)[number];
-export type BinaryAlign = (typeof BINARY_ALIGNS)[number];
 
 export type TextAlign =
     | 'start'
@@ -153,6 +152,8 @@ export type CssPosition = (typeof CSS_POSITION)[number];
 
 export type Placement = (typeof PLACEMENTS)[number];
 
+export type BinaryPlacement = (typeof BINARY_PLACEMENTS)[number];
+
 export type Size = (typeof SIZES)[number];
 
 export interface ToastInfo {
@@ -161,16 +162,16 @@ export interface ToastInfo {
     text: any;
     autoClose?: boolean;
     duration?: number;
-    placement?: Placement;
-    align?: BinaryAlign;
+    placement?: BinaryPlacement;
+    align?: Align;
     colorScheme?: ColorScheme;
 }
 
 export type ToastOptions = {
     autoClose?: boolean;
     timeout?: number;
-    placement?: Placement;
-    align?: BinaryAlign;
+    placement?: BinaryPlacement;
+    align?: Align;
     colorScheme?: ColorScheme;
 };
 

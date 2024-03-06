@@ -1,19 +1,19 @@
 import { render, h } from 'vue';
 import { store } from '@/store';
 import { utils } from '@/utils';
-import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT, Placement, Align } from '@/declaration';
+import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
+
 import type { ToastOptions } from '@/declaration';
 
-function attach(placement: Placement = 'top') {
+function attach() {
     const body = document?.body;
     if (!body) {
         console.error('body not found');
         return;
     }
 
-    const containerId = `vs-toast-view-${placement}`;
-    if (document.getElementById(containerId)) {
+    if (document.querySelector('.vs-toast-view')) {
         return;
     }
     const toastView = h(VsToastView);
@@ -23,7 +23,7 @@ function attach(placement: Placement = 'top') {
 function toastBody(
     state: UIState,
     text: any,
-    { autoClose = true, timeout = DEFAULT_TOAST_TIMEOUT, placement = 'top', align = 'start' }: ToastOptions,
+    { autoClose = true, timeout = DEFAULT_TOAST_TIMEOUT, placement = 'top', align = 'center' }: ToastOptions,
 ) {
     return {
         id: utils.string.createID(),
