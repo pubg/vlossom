@@ -5,13 +5,13 @@ import { ToastStore } from './toast-store';
 export class VsStore {
     public dialog = new DialogStore();
     public option = new OptionStore();
-    public _toastStore: ToastStore | null = null;
+    public _toast: ToastStore | null = null;
 
-    public get toastStore() {
-        if (!this._toastStore) {
-            this._toastStore = new ToastStore();
+    public get toast() {
+        if (!this._toast) {
+            this._toast = new ToastStore();
         }
-        return this._toastStore;
+        return this._toast;
     }
 }
 

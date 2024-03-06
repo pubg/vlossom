@@ -26,7 +26,7 @@ export default defineComponent({
                     position,
                     placement,
                     align,
-                    toasts: store.toastStore.toasts.filter(
+                    toasts: store.toast.toasts.filter(
                         (toast: ToastInfo) => toast.placement === placement && toast.align === align,
                     ),
                 };

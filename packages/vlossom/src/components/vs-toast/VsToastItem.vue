@@ -79,7 +79,7 @@ export default defineComponent({
         });
 
         function closeToast() {
-            store.toastStore.removeToast(toastInfo.value.id);
+            store.toast.removeToast(toastInfo.value.id);
         }
 
         return {

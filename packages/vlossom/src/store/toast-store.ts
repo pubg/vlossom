@@ -20,7 +20,6 @@ export class ToastStore {
 
     addToast(toastInfo: ToastInfo) {
         this.state.toasts.unshift(toastInfo);
-
         if (toastInfo.autoClose) {
             setTimeout(() => {
                 this.removeToast(toastInfo.id);
@@ -33,9 +32,5 @@ export class ToastStore {
         if (index !== -1) {
             this.state.toasts.splice(index, 1);
         }
-    }
-
-    removeOldest() {
-        this.state.toasts.pop();
     }
 }
