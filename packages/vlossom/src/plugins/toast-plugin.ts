@@ -3,7 +3,7 @@ import { store } from '@/store';
 import { utils } from '@/utils';
 import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT, Placement, Align } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
-import type { ToastParams } from '@/declaration';
+import type { ToastOptions } from '@/declaration';
 
 function attach(placement: Placement = 'top') {
     const body = document?.body;
@@ -20,18 +20,15 @@ function attach(placement: Placement = 'top') {
     render(toastView, document.body);
 }
 
-function toastInfo({
-    text,
-    state,
-    autoClose = true,
-    timeout = DEFAULT_TOAST_TIMEOUT,
-    placement = 'top',
-    align = 'center',
-}: ToastParams & { state: UIState }) {
+function toastBody(
+    state: UIState,
+    text: any,
+    { autoClose = true, timeout = DEFAULT_TOAST_TIMEOUT, placement = 'top', align = 'start' }: ToastOptions,
+) {
     return {
         id: utils.string.createID(),
-        text,
         state,
+        text,
         autoClose,
         duration: timeout,
         placement,
@@ -40,41 +37,26 @@ function toastInfo({
 }
 
 export const toast: ToastPlugin = {
-    success({ text, autoClose, timeout, placement, align }: ToastParams) {
-        store.toastStore.addToast(toastInfo({ text, state: UIState.Success, autoClose, timeout, placement, align }));
-        attach(placement);
+    success(text: any, toastOptions: ToastOptions) {
+        const toastInfo = toastBody(UIState.Success, text, toastOptions ?? {});
+        store.toastStore.addToast(toastInfo);
+        attach();
     },
-    info({
-        text,
-        autoClose = true,
-        timeout = DEFAULT_TOAST_TIMEOUT,
-        placement = 'top',
-        align = 'center',
-    }: ToastParams) {
-        store.toastStore.addToast(toastInfo({ text, state: UIState.Info, autoClose, timeout, placement, align }));
-        attach(placement);
+    info(text: any, toastOptions: ToastOptions) {
+        const toastInfo = toastBody(UIState.Info, text, toastOptions ?? {});
+        store.toastStore.addToast(toastInfo);
+        attach();
     },
-    error({
-        text,
-        autoClose = true,
-        timeout = DEFAULT_TOAST_TIMEOUT,
-        placement = 'top',
-        align = 'center',
-    }: ToastParams) {
-        store.toastStore.addToast(toastInfo({ text, state: UIState.Error, autoClose, timeout, placement, align }));
-        attach(placement);
+    error(text: any, toastOptions: ToastOptions) {
+        const toastInfo = toastBody(UIState.Error, text, toastOptions ?? {});
+        store.toastStore.addToast(toastInfo);
+        attach();
         console.error(text);
     },
-    warn({
-        text,
-        autoClose = true,
-        timeout = DEFAULT_TOAST_TIMEOUT,
-        placement = 'top',
-        align = 'center',
-    }: ToastParams) {
-        store.toastStore.addToast(toastInfo({ text, state: UIState.Warning, autoClose, timeout, placement, align }));
-
-        attach(placement);
+    warn(text: any, toastOptions: ToastOptions) {
+        const toastInfo = toastBody(UIState.Warning, text, toastOptions ?? {});
+        store.toastStore.addToast(toastInfo);
+        attach();
         console.warn(text);
     },
 };

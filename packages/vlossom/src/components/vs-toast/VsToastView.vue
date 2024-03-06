@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, toRef } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 import { store } from '@/store';
 import VsToastItem from './VsToastItem.vue';
 import { ToastInfo } from '@/declaration';

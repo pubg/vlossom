@@ -2,19 +2,10 @@
     <vs-page>
         <template #title>Vlossom Playground</template>
         Hello Vlossom!
-        <vs-button
+        <vs-button @click="$vs.toast.info('This is Toast Info!')">TOP</vs-button>
+        <!-- <vs-button
             @click="
-                $vs.toast.info({
-                    text: 'This is Toast Info!',
-                    autoClose: false,
-                })
-            "
-            >TOP</vs-button
-        >
-        <vs-button
-            @click="
-                $vs.toast.error({
-                    text: 'This is Toast Error!',
+                $vs.toast.error('This is Toast Error!', {
                     autoClose: false,
                     placement: 'bottom',
                 })
@@ -23,8 +14,7 @@
         >
         <vs-button
             @click="
-                $vs.toast.success({
-                    text: 'This is Toast Error!',
+                $vs.toast.success('This is Toast Success!', {
                     autoClose: false,
                     placement: 'left',
                 })
@@ -33,14 +23,13 @@
         >
         <vs-button
             @click="
-                $vs.toast.warn({
-                    text: 'This is Toast Error!',
+                $vs.toast.warn('This is Toast Warn!', {
                     autoClose: false,
                     placement: 'right',
                 })
             "
             >RIGHT</vs-button
-        >
+        > -->
     </vs-page>
 </template>
 

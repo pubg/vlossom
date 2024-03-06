@@ -1,5 +1,7 @@
 export const ALIGNS = ['start', 'center', 'end'] as const;
 
+export const BINARY_ALIGNS = ['start', 'end'] as const;
+
 export const COLORS = [
     'red',
     'orange',

@@ -32,7 +32,7 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES, BINARY_ALIGNS } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 
@@ -129,6 +129,7 @@ export interface VsFormProvide {
 }
 
 export type Align = (typeof ALIGNS)[number];
+export type BinaryAlign = (typeof BINARY_ALIGNS)[number];
 
 export type TextAlign =
     | 'start'
@@ -156,26 +157,26 @@ export type Size = (typeof SIZES)[number];
 
 export interface ToastInfo {
     id: string;
-    text: any;
     state: UIState;
+    text: any;
     autoClose?: boolean;
     duration?: number;
     placement?: Placement;
-    align?: Align;
-    // colorScheme: ColorScheme;
+    align?: BinaryAlign;
+    colorScheme?: ColorScheme;
 }
 
-export interface ToastParams {
-    text: any;
+export type ToastOptions = {
     autoClose?: boolean;
     timeout?: number;
     placement?: Placement;
-    align?: Align;
-}
+    align?: BinaryAlign;
+    colorScheme?: ColorScheme;
+};
 
 export interface ToastPlugin {
-    success({ text, autoClose, timeout, placement, align }: ToastParams): void;
-    info({ text, autoClose, timeout, placement, align }: ToastParams): void;
-    error({ text, autoClose, timeout, placement, align }: ToastParams): void;
-    warn({ text, autoClose, timeout, placement, align }: ToastParams): void;
+    success(text: any, toastOptions: ToastOptions): void;
+    info(text: any, toastOptions: ToastOptions): void;
+    error(text: any, toastOptions: ToastOptions): void;
+    warn(text: any, toastOptions: ToastOptions): void;
 }
