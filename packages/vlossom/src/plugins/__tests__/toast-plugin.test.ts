@@ -1,5 +1,5 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
-import { attach, toast, toastBody } from '../toast-plugin';
+import { attach, toast, getToastInfo } from '../toast-plugin';
 import { store } from '@/store';
 import { ToastInfo } from '@/declaration';
 
@@ -53,10 +53,10 @@ describe('toast-plugin', () => {
         });
     });
 
-    describe('toastBody', () => {
-        it('toastBody 를 생성할 수 있다', () => {
+    describe('getToastInfo', () => {
+        it('toastInfo 를 생성할 수 있다', () => {
             // when
-            const result = toastBody('Hello');
+            const result = getToastInfo('Hello');
 
             // then
             expect(result).toEqual({

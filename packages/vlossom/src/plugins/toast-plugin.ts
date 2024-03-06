@@ -20,7 +20,7 @@ export function attach() {
     render(toastView, document.body);
 }
 
-export function toastBody(
+export function getToastInfo(
     text: string,
     {
         autoClose = true,
@@ -31,42 +31,50 @@ export function toastBody(
     }: ToastOptions = {},
     state?: Exclude<UIState, UIState.Idle | UIState.Selected>,
 ) {
-    return {
+    const toastInfo = {
         id: utils.string.createID(),
         state,
         text,
         autoClose,
-        duration: timeout,
         placement,
         align,
         colorScheme,
+    };
+
+    if (autoClose) {
+        return toastInfo;
+    }
+
+    return {
+        ...toastInfo,
+        duration: timeout,
     };
 }
 
 export const toast: ToastPlugin = {
     show(text: string, toastOptions?: ToastOptions) {
-        const toastInfo = toastBody(text, toastOptions);
+        const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);
         attach();
     },
     success(text: string, toastOptions?: ToastOptions) {
-        const toastInfo = toastBody(text, toastOptions, UIState.Success);
+        const toastInfo = getToastInfo(text, toastOptions, UIState.Success);
         store.toast.addToast(toastInfo);
         attach();
     },
     info(text: string, toastOptions?: ToastOptions) {
-        const toastInfo = toastBody(text, toastOptions, UIState.Info);
+        const toastInfo = getToastInfo(text, toastOptions, UIState.Info);
         store.toast.addToast(toastInfo);
         attach();
     },
     error(text: string, toastOptions?: ToastOptions) {
-        const toastInfo = toastBody(text, toastOptions, UIState.Error);
+        const toastInfo = getToastInfo(text, toastOptions, UIState.Error);
         store.toast.addToast(toastInfo);
         attach();
         console.error(text);
     },
     warn(text: string, toastOptions?: ToastOptions) {
-        const toastInfo = toastBody(text, toastOptions, UIState.Warning);
+        const toastInfo = getToastInfo(text, toastOptions, UIState.Warning);
         store.toast.addToast(toastInfo);
         attach();
         console.warn(text);

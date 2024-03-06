@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ToastStore } from '../toast-store';
+import { Align, Placement } from '@/declaration';
 
 describe('toast store', () => {
     it('toast store의 상태를 가져올 수 있다', () => {
@@ -22,6 +23,9 @@ describe('toast store', () => {
             const toast = {
                 id: '1',
                 text: 'Hello',
+                autoClose: false,
+                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
+                align: 'center' as Align,
             };
 
             // when
@@ -41,6 +45,8 @@ describe('toast store', () => {
                 text: 'Hello',
                 autoClose: true,
                 duration,
+                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
+                align: 'center' as Align,
             };
 
             // when
@@ -67,6 +73,8 @@ describe('toast store', () => {
                 text: 'Hello',
                 autoClose: false,
                 duration,
+                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
+                align: 'center' as Align,
             };
 
             // when
@@ -91,6 +99,8 @@ describe('toast store', () => {
                 id: '1',
                 text: 'Hello',
                 autoClose: false,
+                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
+                align: 'center' as Align,
             };
             store.addToast(toast);
 

@@ -158,7 +158,7 @@ export interface ToastInfo {
     id: string;
     text: string;
     autoClose: boolean;
-    duration: number;
+    duration?: number;
     placement: Exclude<Placement, 'left' | 'right'>;
     align: Align;
     colorScheme?: ColorScheme;
