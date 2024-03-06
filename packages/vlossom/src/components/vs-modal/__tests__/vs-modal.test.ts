@@ -101,6 +101,7 @@ describe('vs-modal', () => {
     describe('has container', () => {
         it('has container prop을 전달하면 teleport가 비활성화된다', () => {
             // given
+            // stub teleport X
             const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
@@ -211,6 +212,23 @@ describe('vs-modal', () => {
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toBe(undefined);
+        });
+    });
+
+    describe('focus trap', () => {
+        it('focus trap이 적용되어 있다', async () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.findComponent({ name: 'VsFocusTrap' }).exists()).toBe(true);
         });
     });
 });

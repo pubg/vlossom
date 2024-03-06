@@ -42,8 +42,8 @@ $sizes: xs, sm, md, lg, xl;
 
 .modal-enter-active .dimmed,
 .modal-leave-active .dimmed,
-.modal-enter-active .scale,
-.modal-leave-active .scale {
+.modal-enter-active .modal-dialog,
+.modal-leave-active .modal-dialog {
     transition: all 0.2s;
 }
 
@@ -52,8 +52,8 @@ $sizes: xs, sm, md, lg, xl;
     opacity: 0;
 }
 
-.modal-enter-from .scale,
-.modal-leave-to .scale {
+.modal-enter-from .modal-dialog,
+.modal-leave-to .modal-dialog {
     transform: translate(-50%, -50%) scale(0.95);
     opacity: 0;
 }

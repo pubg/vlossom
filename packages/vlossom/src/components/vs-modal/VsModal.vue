@@ -5,10 +5,9 @@
                 <div class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="['modal-dialog', 'scale', size]"
+                        :class="['modal-dialog', size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
-                        :has-container="hasContainer"
                         :hide-scroll="hideScroll"
                         @close="() => (isOpen = false)"
                     >

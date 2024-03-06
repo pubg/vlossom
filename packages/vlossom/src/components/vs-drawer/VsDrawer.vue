@@ -5,7 +5,7 @@
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="['drawer-dialog', `slide-${placement}`, placement, hasSpecifiedSize ? '' : size]"
+                        :class="['drawer-dialog', placement, hasSpecifiedSize ? '' : size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :hide-scroll="hideScroll"

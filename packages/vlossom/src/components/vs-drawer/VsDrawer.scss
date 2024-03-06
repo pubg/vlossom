@@ -78,14 +78,8 @@ $sizes: xs, sm, md, lg, xl;
 
 .drawer-enter-active .dimmed,
 .drawer-leave-active .dimmed,
-.drawer-enter-active .slide-left,
-.drawer-leave-active .slide-left,
-.drawer-enter-active .slide-right,
-.drawer-leave-active .slide-right,
-.drawer-enter-active .slide-top,
-.drawer-leave-active .slide-top,
-.drawer-enter-active .slide-bottom,
-.drawer-leave-active .slide-bottom {
+.drawer-enter-active .drawer-dialog,
+.drawer-leave-active .drawer-dialog {
     transition: all 0.3s;
 }
 
@@ -94,22 +88,22 @@ $sizes: xs, sm, md, lg, xl;
     opacity: 0;
 }
 
-.drawer-enter-from .slide-left,
-.drawer-leave-to .slide-left {
+.drawer-enter-from .drawer-dialog.left,
+.drawer-leave-to .drawer-dialog.left {
     transform: translateX(-100%);
 }
 
-.drawer-enter-from .slide-right,
-.drawer-leave-to .slide-right {
+.drawer-enter-from .drawer-dialog.right,
+.drawer-leave-to .drawer-dialog.right {
     transform: translateX(100%);
 }
 
-.drawer-enter-from .slide-bottom,
-.drawer-leave-to .slide-bottom {
+.drawer-enter-from .drawer-dialog.bottom,
+.drawer-leave-to .drawer-dialog.bottom {
     transform: translateY(100%);
 }
 
-.drawer-enter-from .slide-top,
-.drawer-leave-to .slide-top {
+.drawer-enter-from .drawer-dialog.top,
+.drawer-leave-to .drawer-dialog.top {
     transform: translateY(-100%);
 }
