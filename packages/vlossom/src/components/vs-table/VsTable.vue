@@ -2,12 +2,18 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
-                <VsTableHeader :headers="headers">
+                <VsTableHeader :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
                 </VsTableHeader>
-                <VsTableBody :headers="headers" :items="items">
+                <VsTableBody
+                    :items="items"
+                    :headers="headers"
+                    :draggable="draggable"
+                    :loading="loading"
+                    :tr-style="trStyle"
+                >
                     <template v-for="(_, name) in $slots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
@@ -18,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, toRefs } from 'vue';
+import { ComputedRef, PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
@@ -38,13 +44,14 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
-        headers: { type: Array as PropType<TableHeader[]> },
+        draggable: { type: Boolean, default: false },
+        headers: { type: Array as PropType<TableHeader[]>, required: true },
         loading: { type: Boolean, default: false },
-        items: { type: Array as PropType<any[]>, default: () => [] as any[] },
+        items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         pagination: { type: Boolean, default: false },
     },
     setup(props, { slots }) {
-        const { colorScheme, styleSet } = toRefs(props);
+        const { colorScheme, styleSet, draggable, headers } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -59,11 +66,26 @@ export default defineComponent({
             }, {} as { [key: string]: any });
         });
 
+        const trStyle: ComputedRef<{ [key: string]: any }> = computed(() => {
+            if (!headers.value) {
+                return {};
+            }
+            const gridColumns = headers.value.map((h) => {
+                return h.width || 'minmax(20rem, 1fr)';
+            });
+
+            if (draggable.value) {
+                gridColumns.unshift('3rem');
+            }
+
+            return { gridTemplateColumns: gridColumns.join(' ') };
+        });
 
         return {
             computedColorScheme,
             computedStyleSet,
             headerSlots,
+            trStyle,
         };
     },
 });

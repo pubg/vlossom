@@ -1,7 +1,7 @@
 <template>
     <thead>
-        <tr>
-            <th class="draggable-th" v-if="draggable">[d]</th>
+        <tr :style="trStyle">
+            <th class="draggable-th" v-if="draggable"></th>
             <th class="selectable-th" v-if="selectable">[s]</th>
             <th
                 v-for="(header, index) in headers"
@@ -31,6 +31,10 @@ export default defineComponent({
         headers: { type: Array as PropType<TableHeader[]> },
         hasExpand: { type: Boolean, default: false },
         selectable: { type: Boolean, default: false },
+        trStyle: {
+            type: Object as PropType<{ [key: string]: any }>,
+            default: () => ({}),
+        },
     },
     emits: ['sort'],
     setup(_, { emit }) {

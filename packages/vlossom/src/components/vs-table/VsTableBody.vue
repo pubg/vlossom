@@ -1,12 +1,13 @@
 <template>
-    <vue-draggable tag="tbody" v-model="computedItems" item-key="id" :disabled="!canDrag || loading">
+    <vue-draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!canDrag || loading">
         <template #item="{ element, index }">
             <VsTableBodyRow
                 :item="element"
+                :headers="headers"
+                :draggable="canDrag"
                 :loading="loading"
                 :row-index="index"
-                :draggable="canDrag"
-                :headers="headers"
+                :tr-style="trStyle"
                 @click="emitRowClick(element, index)"
             >
                 <template v-for="(_, name) in itemSlots" #[name]="slotData">
@@ -15,6 +16,26 @@
             </VsTableBodyRow>
         </template>
     </vue-draggable>
+    <tbody v-if="loading && computedItems.length === 0">
+        <VsTableBodyRow
+            v-for="(dummy, index) in dummyTableItems"
+            :key="dummy.id"
+            :item="dummy"
+            :headers="headers"
+            :draggable="canDrag"
+            :loading="loading"
+            :row-index="index"
+            :tr-style="trStyle"
+        />
+    </tbody>
+    <tbody v-if="!loading && computedItems.length === 0">
+        <slot name="empty">
+            <div class="table-empty">
+                <vs-icon size="6rem" icon="noData"></vs-icon>
+                <p>NO DATA</p>
+            </div>
+        </slot>
+    </tbody>
 </template>
 
 <script lang="ts">
@@ -23,6 +44,7 @@ import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, wat
 import type { TableHeader, TableItem } from './types';
 
 import VsTableBodyRow from './VsTableBodyRow.vue';
+import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
 export default defineComponent({
@@ -32,10 +54,15 @@ export default defineComponent({
         headers: { type: Array as PropType<TableHeader[]> },
         items: { type: Array as PropType<any[]>, default: () => [] as any[] },
         pagination: { type: Boolean, default: false },
+        trStyle: {
+            type: Object as PropType<{ [key: string]: any }>,
+            default: () => ({}),
+        },
     },
     components: {
         VueDraggable,
         VsTableBodyRow,
+        VsIcon,
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit, slots }) {
@@ -89,10 +116,15 @@ export default defineComponent({
             },
         });
 
+        const dummyTableItems = new Array(4).fill({}).map((item) => {
+            return { id: stringUtil.createID(), data: item };
+        });
+
         return {
             itemSlots,
             computedItems,
             canDrag,
+            dummyTableItems,
             emitRowClick,
         };
     },

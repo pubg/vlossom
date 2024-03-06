@@ -1,34 +1,46 @@
 <template>
-    <tr>
-        <td v-if="draggable"></td>
+    <tr :style="trStyle" :class="{ skeleton: loading }">
+        <td class="draggable-td handle" v-if="draggable" data-label="draggable">
+            <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
+        </td>
         <td v-if="selectable"></td>
         <td class="table-td" v-for="(cell, index) in getRowData(item.data)" :key="`td-${index}`" :data-label="cell.key">
-            <slot :name="`item-${cell.key}`" :header="getHeader(cell.key)" :item="item.data" :value="cell.value">
-                {{ getTableData(cell.key, cell.value, item.data) }}
-            </slot>
+            <div v-if="loading" :class="['skeleton']"></div>
+            <div v-else :class="['table-data']">
+                <slot :name="`item-${cell.key}`" :header="getHeader(cell.key)" :item="item.data" :value="cell.value">
+                    {{ getTableData(cell.key, cell.value, item.data) }}
+                </slot>
+            </div>
         </td>
     </tr>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 import type { TableHeader, TableItem } from './types';
+import { VsIcon } from '@/icons';
 
 export default defineComponent({
+    components: { VsIcon },
     props: {
         loading: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
         hasExpand: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]> },
-        item: { type: Object as PropType<TableItem>, required: true }, // TODO
+        item: { type: Object as PropType<TableItem>, required: true }, 
         selectable: { type: Boolean, default: false },
+        trStyle: {
+            type: Object as PropType<{ [key: string]: any }>,
+            default: () => ({}),
+        },
     },
     setup(props) {
         const { headers, item } = toRefs(props);
 
-        // [TODO] Expand
-        // [TODO] Select
-        // [TODO] DummyRow
+        const isDummyRow = computed(() => {
+            return !Object.keys(item.value.data).length;
+        });
+
 
         function getRowData(row: { [key: string]: any }) {
             if (!headers.value) {
@@ -57,6 +69,7 @@ export default defineComponent({
         }
 
         return {
+            isDummyRow,
             getRowData,
             getHeader,
             getTableData,
@@ -64,3 +77,4 @@ export default defineComponent({
     },
 });
 </script>
+<style lang="scss" scoped src="./VsTable.scss" />
