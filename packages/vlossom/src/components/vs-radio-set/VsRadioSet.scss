@@ -1,4 +1,4 @@
-.vs-checkbox-set {
+.vs-radio-set {
     display: flex;
     align-items: center;
 
@@ -7,7 +7,7 @@
         align-items: flex-start;
     }
 
-    .vs-checkbox-item:not(:last-child) {
-        margin-right: var(--vs-checkbox-set-checkboxMargin, 2rem);
+    .vs-radio-item:not(:last-child) {
+        margin-right: var(--vs-radio-set-radioMargin, 2rem);
     }
 }

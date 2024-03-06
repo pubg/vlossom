@@ -20,6 +20,8 @@ import type {
     VsPageStyleSet,
     VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioStyleSet,
+    VsRadioSetStyleSet,
     VsSectionStyleSet,
     VsSelectStyleSet,
     VsStepperStyleSet,
@@ -219,6 +221,21 @@ const vsProgress: VsProgressStyleSet = {
     width: '100%',
 };
 
+const vsRadio: VsRadioStyleSet = {
+    labelColor: '#4e9865',
+    labelFontSize: '1.2rem',
+    radioColor: '#1e88e5',
+    radioSize: '1.6rem',
+};
+
+const vsRadioSet: VsRadioSetStyleSet = {
+    labelColor: '#1e88e5',
+    labelFontSize: '1.2rem',
+    radioColor: '#18e835',
+    radioSize: '1.8rem',
+    radioMargin: '4rem',
+};
+
 const vsSection: VsSectionStyleSet = {
     backgroundColor: '#90caf9',
     color: 'white',
@@ -331,6 +348,8 @@ export const styleSet: StyleSet = {
     VsPage: { myStyleSet: vsPage },
     VsPagination: { myStyleSet: vsPagination },
     VsProgress: { myStyleSet: vsProgress },
+    VsRadio: { myStyleSet: vsRadio },
+    VsRadioSet: { myStyleSet: vsRadioSet },
     VsSection: { myStyleSet: vsSection },
     VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },

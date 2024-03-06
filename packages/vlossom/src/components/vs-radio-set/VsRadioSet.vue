@@ -13,15 +13,15 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
+            <div :class="['vs-radio-set', { column }]" :style="radioSetStyleSet">
                 <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
-                    class="vs-checkbox-item"
-                    type="checkbox"
+                    class="vs-radio-item"
+                    type="radio"
                     :id="`${id}-${optionIds[index]}`"
                     :color-scheme="computedColorScheme"
-                    :style-set="checkboxStyleSet"
+                    :style-set="radioStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :readonly="readonly"
@@ -29,7 +29,7 @@
                     :name="name"
                     :value="getOptionValue(option)"
                     :label="getOptionLabel(option)"
-                    @toggle="onToggle(option, $event)"
+                    @toggle="onToggle(option)"
                     @focus="onFocus(option, $event)"
                     @blur="onBlur(option, $event)"
                 />
@@ -59,11 +59,10 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckNode } from '@/nodes';
 
-import type { VsCheckboxSetStyleSet } from './types';
-import { VsCheckboxStyleSet } from '../vs-checkbox/types';
+import type { VsRadioSetStyleSet } from './types';
+import type { VsRadioStyleSet } from './../vs-radio/types';
 
-const name = VsComponent.VsCheckboxSet;
-
+const name = VsComponent.VsRadioSet;
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsCheckNode },
@@ -72,14 +71,15 @@ export default defineComponent({
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsCheckboxSetStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioSetStyleSet>, default: '' },
         beforeChange: {
-            type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
+            type: Function as PropType<(option: any) => Promise<boolean> | null>,
             default: null,
         },
         column: { type: Boolean, default: false },
+        name: { type: String, required: true },
         // v-model
-        modelValue: { type: Array as PropType<any[]>, default: () => [] },
+        modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
@@ -104,12 +104,9 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: checkboxStyleSet } = useStyleSet<VsCheckboxStyleSet>(
-            VsComponent.VsCheckbox,
-            styleSet,
-        );
-        const { computedStyleSet: checkboxSetStyleSet } = useStyleSet<VsCheckboxSetStyleSet>(
-            VsComponent.VsCheckboxSet,
+        const { computedStyleSet: radioStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
+        const { computedStyleSet: radioSetStyleSet } = useStyleSet<VsRadioSetStyleSet>(
+            VsComponent.VsRadioSet,
             styleSet,
         );
 
@@ -120,14 +117,15 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        function onClear() {
-            inputValue.value = [];
-        }
-
         const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
 
         function requiredCheck() {
-            return required.value && inputValue.value.length === 0 ? 'required' : '';
+            const hasChecked = options.value.some((option) => isChecked(option));
+            return required.value && !hasChecked ? 'required' : '';
+        }
+
+        function isChecked(option: any) {
+            return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
@@ -136,30 +134,22 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
-                onClear,
+                onClear: () => {
+                    inputValue.value = null;
+                },
             },
         });
 
-        function isChecked(option: any) {
-            return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
-        }
-
-        async function onToggle(option: any, checked: boolean) {
+        async function onToggle(option: any) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(isChecked(option), option);
+                const result = await beforeChangeFn(option);
                 if (!result) {
                     return;
                 }
             }
 
-            const targetValue = getOptionValue(option);
-
-            if (checked) {
-                inputValue.value = [...inputValue.value, targetValue];
-            } else {
-                inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetValue));
-            }
+            inputValue.value = getOptionValue(option);
         }
 
         function onFocus(option: any, e: FocusEvent) {
@@ -177,8 +167,8 @@ export default defineComponent({
             optionIds,
             classObj,
             computedColorScheme,
-            checkboxStyleSet,
-            checkboxSetStyleSet,
+            radioStyleSet,
+            radioSetStyleSet,
             isChecked,
             getOptionLabel,
             getOptionValue,
@@ -195,4 +185,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsCheckboxSet.scss" />
+<style lang="scss" scoped src="./VsRadioSet.scss" />

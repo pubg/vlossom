@@ -1,11 +1,10 @@
 <template>
-    <div :class="['vs-checkbox', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
-        <div class="checkbox-container">
-            <span class="checkbox">
-                <vs-icon class="check-icon" icon="check" />
-            </span>
+    <div :class="['vs-check-node', type, `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
+        <div class="input-container">
+            <vs-icon class="check-icon" :icon="icon" />
             <input
-                type="checkbox"
+                class="check-input"
+                :type="type"
                 :id="id"
                 :disabled="disabled || readonly"
                 :name="name"
@@ -17,36 +16,46 @@
                 @blur="onBlur"
             />
         </div>
-        <label v-if="checkLabel" :for="id">{{ checkLabel }}</label>
+        <label v-if="label" :for="id">{{ label }}</label>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
-import { ColorScheme, VsComponent } from '@/declaration';
+import { ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
 
-const name = VsComponent.VsCheckbox;
+type CheckNodeType = 'radio' | 'checkbox';
+
 export default defineComponent({
-    name,
+    name: 'VsCheckNode',
     components: { VsIcon },
     props: {
         id: { type: String, required: true },
-        colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
-        styleSet: { type: Object as PropType<{ [key: string]: any }>, required: true },
-        checked: { type: Boolean, default: false, required: true },
-        checkLabel: { type: String, default: '' },
+        colorScheme: {
+            type: String as PropType<'default' | ColorScheme>,
+            required: true,
+        },
+        styleSet: {
+            type: Object as PropType<{ [key: string]: any }>,
+            required: true,
+        },
+        type: {
+            type: String as PropType<CheckNodeType>,
+            required: true,
+            default: 'checkbox',
+        },
+        checked: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
+        label: { type: String, default: '' },
+        name: { type: String, default: '' },
         readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
-        name: { type: String, default: '' },
         value: { type: null, default: 'true' },
     },
-    emits: ['toggle', 'focus', 'blur'],
-    setup(props, context) {
-        const { checked, disabled, readonly } = toRefs(props);
-
-        const { emit } = context;
+    emits: ['change', 'toggle', 'focus', 'blur'],
+    setup(props, { emit }) {
+        const { checked, disabled, readonly, type } = toRefs(props);
 
         const classObj = computed(() => ({
             checked: checked.value,
@@ -54,8 +63,16 @@ export default defineComponent({
             readonly: readonly.value,
         }));
 
-        function toggle(e: Event) {
-            emit('toggle', e);
+        const icon = computed(() => {
+            if (type.value === 'radio') {
+                return checked.value ? 'radioChecked' : 'radioUnchecked';
+            }
+            return 'check';
+        });
+
+        function toggle(event: Event) {
+            emit('change', event);
+            emit('toggle', (event.target as HTMLInputElement).checked);
         }
 
         function onFocus(e: FocusEvent) {
@@ -76,6 +93,7 @@ export default defineComponent({
 
         return {
             classObj,
+            icon,
             toggle,
             onFocus,
             onBlur,
@@ -85,4 +103,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsCheckboxNode.scss" />
+<style lang="scss" scoped src="./VsCheckNode.scss" />

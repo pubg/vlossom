@@ -18,6 +18,8 @@ import type {
     VsPageStyleSet,
     VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioStyleSet,
+    VsRadioSetStyleSet,
     VsSectionStyleSet,
     VsSelectStyleSet,
     VsStepperStyleSet,
@@ -58,6 +60,8 @@ export interface StyleSet {
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
+    VsRadio?: { [key: string]: VsRadioStyleSet };
+    VsRadioSet?: { [key: string]: VsRadioSetStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsSelect?: { [key: string]: VsSelectStyleSet };
     VsStepper?: { [key: string]: VsStepperStyleSet };

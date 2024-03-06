@@ -73,6 +73,12 @@ export { default as VsPagination } from './vs-pagination/VsPagination.vue';
 export { type VsProgressStyleSet } from './vs-progress/types';
 export { default as VsProgress } from './vs-progress/VsProgress.vue';
 
+export { type VsRadioStyleSet } from './vs-radio/types';
+export { default as VsRadio } from './vs-radio/VsRadio.vue';
+
+export { type VsRadioSetStyleSet } from './vs-radio-set/types';
+export { default as VsRadioSet } from './vs-radio-set/VsRadioSet.vue';
+
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
@@ -134,6 +140,8 @@ declare module 'vue' {
         VsPage: typeof import('./')['VsPage'];
         VsPagination: typeof import('./')['VsPagination'];
         VsProgress: typeof import('./')['VsProgress'];
+        VsRadio: typeof import('./')['VsRadio'];
+        VsRadioSet: typeof import('./')['VsRadioSet'];
         VsSection: typeof import('./')['VsSection'];
         VsSelect: typeof import('./')['VsSelect'];
         VsStepper: typeof import('./')['VsStepper'];

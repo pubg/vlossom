@@ -1,45 +1,55 @@
-import { chromaticParameters, colorScheme, getMetaArguments } from '@/storybook';
+import { chromaticParameters, colorScheme, getMetaArguments, getColorSchemeTemplate } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsCheckboxSet from '../VsCheckboxSet.vue';
+import VsRadio from './../VsRadio.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const meta: Meta<typeof VsCheckboxSet> = {
-    title: 'Components/Input Components/VsCheckboxSet',
-    component: VsCheckboxSet,
+const meta: Meta<typeof VsRadio> = {
+    title: 'Components/Input Components/VsRadio',
+    component: VsRadio,
     render: (args: any) => ({
-        components: { VsCheckboxSet },
+        components: { VsRadio },
         setup() {
             return { args };
         },
-        template: '<vs-checkbox-set v-bind="args"  />',
+        template: '<vs-radio v-bind="args" />',
     }),
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },
     args: {
-        options: ['Apple', 'Banana', 'Carrot'],
+        radioLabel: 'Radio Input',
+        noLabel: true,
+        noMsg: true,
+        name: 'test',
+        radioValue: 'test',
     },
 };
 
-meta.args = getMetaArguments(VsCheckboxSet.props, meta.args);
+meta.args = getMetaArguments(VsRadio.props, meta.args);
 export default meta;
-type Story = StoryObj<typeof VsCheckboxSet>;
+type Story = StoryObj<typeof VsRadio>;
 
 export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet },
+        components: { VsRadio },
         setup() {
-            const colorOptions = [...colorScheme.options];
-            return { colorOptions, args };
+            return { args };
         },
         template: `
             <div>
-				<vs-checkbox-set v-for="color in colorOptions" :key="color" v-bind="args" :color-scheme="color" />
+                ${getColorSchemeTemplate(`
+                    <vs-radio v-bind="args"
+                        color-scheme="{{ color }}"
+                        name="color"
+                        radio-value="{{ color }}"
+                        radio-label="Radio ({{ color }})"
+                    />
+                `)}
             </div>
         `,
     }),
@@ -59,13 +69,15 @@ export const Disabled: Story = {
 
 export const Label: Story = {
     args: {
-        label: 'Choose your favorite(s)',
+        label: 'Label',
+        noLabel: false,
     },
 };
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: UIState.Info, text: 'This is info message' }],
+        noMsg: false,
     },
 };
 
@@ -77,45 +89,39 @@ export const Readonly: Story = {
 
 export const Required: Story = {
     args: {
-        label: 'Choose your favorite(s)',
+        label: 'Label',
         required: true,
-    },
-};
-
-export const Column: Story = {
-    args: {
-        column: true,
     },
 };
 
 export const Width: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet, VsContainer },
+        components: { VsRadio, VsContainer },
         setup() {
             return { args };
         },
         template: `
             <vs-container>
-                <vs-checkbox-set v-bind="args" />
-                <vs-checkbox-set v-bind="args" />
+                <vs-radio v-bind="args" name="width" radio-value="test1" />
+                <vs-radio v-bind="args" name="width" radio-value="test2" />
             </vs-container>
         `,
     }),
     args: {
-        width: { md: '300px', lg: '400px' },
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
     },
 };
 
 export const Grid: Story = {
     render: (args: any) => ({
-        components: { VsCheckboxSet, VsContainer },
+        components: { VsRadio, VsContainer },
         setup() {
             return { args };
         },
         template: `
             <vs-container>
-                <vs-checkbox-set v-bind="args" />
-                <vs-checkbox-set v-bind="args" />
+                <vs-radio v-bind="args" name="grid" radio-value="test1" />
+                <vs-radio v-bind="args" name="grid" radio-value="test2" />
             </vs-container>
         `,
     }),
@@ -127,11 +133,11 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: '#81c798',
-            border: '3px solid #81c798',
-            borderRadius: '0.8rem',
             focusBoxShadow: '0 0 0 3px #81c798',
-            checkboxMargin: '3rem',
+            labelColor: '#ac77c8',
+            labelFontSize: '1.5rem',
+            radioColor: '#41c798',
+            radioSize: '2rem',
         },
     },
 };

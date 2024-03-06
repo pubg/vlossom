@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="checkLabel ? '' : id"
+            :id="radioLabel ? '' : id"
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
@@ -14,17 +14,17 @@
             </template>
 
             <vs-check-node
-                type="checkbox"
+                type="radio"
                 :id="id"
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :checked="isChecked"
-                :label="checkLabel"
+                :label="radioLabel"
                 :disabled="disabled"
                 :readonly="readonly"
                 :required="required"
                 :name="name"
-                :value="trueValue"
+                :value="radioValue"
                 @toggle="onToggle"
                 @focus="onFocus"
                 @blur="onBlur"
@@ -39,22 +39,16 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    getInputProps,
-    useInput,
-    useValueMatcher,
-} from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckNode } from '@/nodes';
 
-import type { VsCheckboxStyleSet } from './types';
+import type { VsRadioStyleSet } from './types';
 
-const name = VsComponent.VsCheckbox;
+const name = VsComponent.VsRadio;
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsCheckNode },
@@ -62,49 +56,34 @@ export default defineComponent({
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet>, default: '' },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
         },
-        checkLabel: { type: String, default: '' },
-        trueValue: { type: null, default: true },
-        falseValue: { type: null, default: false },
-        multiple: { type: Boolean, default: false },
+        name: { type: String, required: true },
+        radioValue: { type: null, required: true },
+        radioLabel: { type: String, default: '' },
         // v-model
-        modelValue: { type: null, default: false },
+        modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
-        const {
-            colorScheme,
-            styleSet,
-            label,
-            modelValue,
-            messages,
-            required,
-            rules,
-            trueValue,
-            falseValue,
-            multiple,
-            beforeChange,
-        } = toRefs(props);
+        const { beforeChange, colorScheme, styleSet, label, modelValue, messages, required, rules, radioValue } =
+            toRefs(props);
 
         const { emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsCheckboxStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(name, styleSet);
 
         const inputValue = ref(modelValue.value);
 
-        const {
-            isMatched: isChecked,
-            getInitialValue,
-            getClearedValue,
-            getUpdatedValue,
-        } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+        const isChecked = computed(() => {
+            return utils.object.isEqual(inputValue.value, radioValue.value);
+        });
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';
@@ -116,11 +95,8 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
-                onMounted: () => {
-                    inputValue.value = getInitialValue();
-                },
                 onClear: () => {
-                    inputValue.value = getClearedValue();
+                    inputValue.value = null;
                 },
             },
         });
@@ -134,7 +110,7 @@ export default defineComponent({
                 }
             }
 
-            inputValue.value = getUpdatedValue(checked, inputValue.value);
+            inputValue.value = checked ? radioValue.value : null;
         }
 
         function onFocus(e: FocusEvent) {
