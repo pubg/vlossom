@@ -41,7 +41,7 @@ export function getToastInfo(
         colorScheme,
     };
 
-    if (autoClose) {
+    if (!autoClose) {
         return toastInfo;
     }
 

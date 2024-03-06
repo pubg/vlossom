@@ -61,13 +61,13 @@ describe('toast-plugin', () => {
             // then
             expect(result).toEqual({
                 id: expect.any(String),
-                state: undefined,
                 text: 'Hello',
                 autoClose: true,
                 duration: 3000,
                 placement: 'top',
                 align: 'center',
                 colorScheme: undefined,
+                state: undefined,
             });
         });
     });
@@ -105,7 +105,16 @@ describe('toast-plugin', () => {
             toast.show('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalled();
+            expect(mockStore!.toast.addToast).toHaveBeenCalledWith({
+                id: expect.any(String),
+                text: 'Hello',
+                autoClose: true,
+                duration: 3000,
+                placement: 'top',
+                align: 'center',
+                colorScheme: undefined,
+                state: undefined,
+            });
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });
 
