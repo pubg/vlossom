@@ -97,19 +97,19 @@ describe('vs-dialog-node', () => {
         });
     });
 
-    describe('dialog stack store', () => {
-        it('mount 되면 dialog stack store에 dialog id를 push 한다', () => {
+    describe('dialog store', () => {
+        it('mount 되면 dialog store에 dialog id를 push 한다', () => {
             // given
-            const spy = vi.spyOn(store.dialogStack, 'push');
+            const spy = vi.spyOn(store.dialog, 'push');
             const wrapper = mount(VsDialogNode);
 
             // then
             expect(spy).toHaveBeenCalledWith(wrapper.vm.id);
         });
 
-        it('unmount 되면 dialog stack store에서 dialog id를 pop 한다', () => {
+        it('unmount 되면 dialog store에서 dialog id를 pop 한다', () => {
             // given
-            const spy = vi.spyOn(store.dialogStack, 'pop');
+            const spy = vi.spyOn(store.dialog, 'pop');
             const wrapper = mount(VsDialogNode);
 
             // when

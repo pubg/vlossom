@@ -54,20 +54,20 @@ export default defineComponent({
         const bodyId = `vs-dialog-body-${id}`;
 
         function onPressEsc(event: KeyboardEvent) {
-            if (event.key === 'Escape' && store.dialogStack.getTopId() === id) {
+            if (event.key === 'Escape' && store.dialog.getTopId() === id) {
                 emit('close');
             }
         }
 
         onMounted(() => {
-            store.dialogStack.push(id);
+            store.dialog.push(id);
             if (closeOnEsc.value) {
                 document.addEventListener('keydown', onPressEsc);
             }
         });
 
         onBeforeUnmount(() => {
-            store.dialogStack.pop();
+            store.dialog.pop();
             document.removeEventListener('keydown', onPressEsc);
         });
 

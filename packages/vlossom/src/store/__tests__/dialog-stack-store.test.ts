@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { DialogStackStore } from './../dialog-stack-store';
+import { DialogStore } from '../dialog-store';
 
-describe('dialog stack store', () => {
+describe('dialog store', () => {
     it('stack에서 가장 위에 있는 dialog id를 가져올 수 있다', () => {
         // given
-        const store = new DialogStackStore();
+        const store = new DialogStore();
         store.push('dialog1');
         store.push('dialog2');
 
