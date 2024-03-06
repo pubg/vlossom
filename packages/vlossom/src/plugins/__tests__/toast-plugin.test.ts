@@ -23,32 +23,38 @@ describe('toast-plugin', () => {
             });
 
             // when
-            attach();
+            attach('top', 'center');
 
             // then
             expect(consoleError).toBeCalledWith('body not found');
         });
 
         describe('body 가 있을 때', () => {
-            it('vs-toast-view 가 이미 있으면 즉시 리턴한다', () => {
+            it('placement 와 align 이 일치하는 node 가 이미 dom 에 attach 되어 있으면 추가로 attach 하지 않는다', () => {
                 // given
+                const placement = 'top';
+                const align = 'center';
+
                 const toastView = document.createElement('div');
-                toastView.className = 'vs-toast-view';
+                toastView.setAttribute('id', `vs-toast-view-${placement}-${align}`);
                 document.body.appendChild(toastView);
 
                 // when
-                attach();
+                attach(placement, align);
 
                 // then
-                expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
+                expect(document.querySelectorAll('#vs-toast-view-top-center').length).toBe(1);
             });
 
-            it('vs-toast-view 가 없으면 새로운 VsToastView 컴포넌트로 VNode를 생성해서 body의 하위노드로 렌더한다', () => {
+            it('placement 와 align 이 일치하는 node 가 없으면 새로운 VsToastView 컴포넌트로 VNode를 생성해서 body의 하위노드로 attach 한다', () => {
                 // when
-                attach();
+                const placement = 'bottom';
+                const align = 'start';
+
+                attach(placement, align);
 
                 // then
-                expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
+                expect(document.querySelectorAll('#vs-toast-view-bottom-start').length).toBe(1);
             });
         });
     });
@@ -73,8 +79,8 @@ describe('toast-plugin', () => {
     describe('toast', () => {
         let originalAddToast: (toastInfo: ToastInfo) => void = () => {};
         let mockStore: {
-            toasts: ToastInfo[];
             toast: {
+                toasts: ToastInfo[];
                 addToast: (toastInfo: ToastInfo) => void;
             };
         } | null = null;
@@ -84,8 +90,8 @@ describe('toast-plugin', () => {
             store.toast.addToast = vi.spyOn(store.toast, 'addToast').mockImplementation(() => undefined).mockClear;
 
             mockStore = {
-                toasts: [],
                 toast: {
+                    toasts: [],
                     addToast: vi.fn(),
                 },
             };

@@ -3,37 +3,31 @@ import { mount } from '@vue/test-utils';
 import VsToastView from '../VsToastView.vue';
 
 describe('vs-toast-view', () => {
-    describe('positions', () => {
-        it('위쪽에 3개의 토스트 그룹이 생성된다', () => {
+    describe('placement', () => {
+        it('placement가 top 인 컴포넌트를 렌더할 수 있다 ', () => {
             // given
             const wrapper = mount(VsToastView, {
                 props: {
-                    toasts: [
-                        { id: '1', text: 'Hello' },
-                        { id: '2', text: 'Hello' },
-                        { id: '3', text: 'Hello' },
-                    ],
+                    placement: 'top',
+                    align: 'center',
                 },
             });
 
             // then
-            expect(wrapper.findAll('.vs-toast-view-top').length).toBe(3);
+            expect(wrapper.find('div.vs-toast-view-top').exists()).toBe(true);
         });
 
-        it('아래쪽에 3개의 토스트 그룹이 생성된다', () => {
+        it('placement가 bottom 인 컴포넌트를 렌더할 수 있다 ', () => {
             // given
             const wrapper = mount(VsToastView, {
                 props: {
-                    toasts: [
-                        { id: '1', text: 'Hello', placement: 'bottom' },
-                        { id: '2', text: 'Hello', placement: 'bottom' },
-                        { id: '3', text: 'Hello', placement: 'bottom' },
-                    ],
+                    placement: 'bottom',
+                    align: 'center',
                 },
             });
 
             // then
-            expect(wrapper.findAll('.vs-toast-view-bottom').length).toBe(3);
+            expect(wrapper.find('div.vs-toast-view-bottom').exists()).toBe(true);
         });
     });
 });

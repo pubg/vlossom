@@ -33,4 +33,8 @@ export class ToastStore {
             this.state.toasts.splice(index, 1);
         }
     }
+
+    clearAll() {
+        this.state.toasts = [];
+    }
 }

@@ -114,4 +114,38 @@ describe('toast store', () => {
             expect(store.getState().toasts).toEqual([]);
         });
     });
+
+    describe('clearAll', () => {
+        it('모든 toast를 제거할 수 있다', () => {
+            // given
+            const store = new ToastStore();
+            const toast1 = {
+                id: '1',
+                text: 'Hello',
+                autoClose: false,
+                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
+                align: 'center' as Align,
+            };
+            const toast2 = {
+                id: '2',
+                text: 'Hello',
+                autoClose: false,
+                placement: 'bottom' as Exclude<Placement, 'left' | 'right'>,
+                align: 'end' as Align,
+            };
+
+            // when
+            store.addToast(toast1);
+            store.addToast(toast2);
+
+            // then
+            expect(store.getState().toasts).toEqual([toast2, toast1]);
+
+            // when
+            store.clearAll();
+
+            // then
+            expect(store.getState().toasts).toEqual([]);
+        });
+    });
 });

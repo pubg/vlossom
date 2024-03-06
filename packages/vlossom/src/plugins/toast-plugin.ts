@@ -4,20 +4,24 @@ import { utils } from '@/utils';
 import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
-import type { ToastOptions } from '@/declaration';
+import type { ToastInfo, ToastOptions, Placement, Align } from '@/declaration';
 
-export function attach() {
+export function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
     const body = document?.body;
     if (!body) {
         console.error('body not found');
         return;
     }
 
-    if (document.querySelector('.vs-toast-view')) {
-        return;
+    const targetId = `vs-toast-view-${placement}-${align}`;
+
+    if (!document.getElementById(targetId)) {
+        const toastView = h(VsToastView, { placement, align });
+        const toastViewRoot = document.createElement('div');
+        toastViewRoot.setAttribute('id', targetId);
+        render(toastView, toastViewRoot);
+        document.body.appendChild(toastViewRoot);
     }
-    const toastView = h(VsToastView);
-    render(toastView, document.body);
 }
 
 export function getToastInfo(
@@ -30,7 +34,7 @@ export function getToastInfo(
         colorScheme,
     }: ToastOptions = {},
     state?: Exclude<UIState, UIState.Idle | UIState.Selected>,
-) {
+): ToastInfo {
     const toastInfo = {
         id: utils.string.createID(),
         state,
@@ -55,28 +59,28 @@ export const toast: ToastPlugin = {
     show(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);
-        attach();
+        attach(toastInfo.placement, toastInfo.align);
     },
     success(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Success);
         store.toast.addToast(toastInfo);
-        attach();
+        attach(toastInfo.placement, toastInfo.align);
     },
     info(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Info);
         store.toast.addToast(toastInfo);
-        attach();
+        attach(toastInfo.placement, toastInfo.align);
     },
     error(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Error);
         store.toast.addToast(toastInfo);
-        attach();
+        attach(toastInfo.placement, toastInfo.align);
         console.error(text);
     },
     warn(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Warning);
         store.toast.addToast(toastInfo);
-        attach();
+        attach(toastInfo.placement, toastInfo.align);
         console.warn(text);
     },
 };
