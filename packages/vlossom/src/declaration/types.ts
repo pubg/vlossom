@@ -32,7 +32,7 @@ import type {
     VsTooltipStyleSet,
     VsValueTagStyleSet,
 } from '@/components';
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES, BINARY_ALIGNS, BINARY_PLACEMENTS } from './constants';
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES, BINARY_PLACEMENTS } from './constants';
 import type { Ref } from 'vue';
 import type { VsComponent, UIState } from './enums';
 

@@ -1,6 +1,4 @@
 <template>
-    <h1>toasts.length : {{ toasts.length }}</h1>
-    {{ toasts }}
     <template v-for="filteredToasts in toastsGroups" :key="filteredToasts.direction">
         <div :class="['vs-toast-view', `vs-toast-view-${filteredToasts.placement}`]">
             <TransitionGroup name="fade">
@@ -20,9 +18,6 @@ export default defineComponent({
     name: 'VsToastView',
     components: { VsToastItem },
     setup() {
-        console.log('Toast View Rendered', store.toastStore.toasts);
-
-        const { toasts } = store.toastStore;
         const directions = ['top-center', 'top-start', 'top-end', 'bottom-center', 'bottom-start', 'bottom-end'];
         const toastsGroups = computed(() => {
             return directions.map((direction) => {
@@ -31,13 +26,14 @@ export default defineComponent({
                     direction,
                     placement,
                     align,
-                    toasts: toasts.filter((toast: ToastInfo) => toast.placement === placement && toast.align === align),
+                    toasts: store.toastStore.toasts.filter(
+                        (toast: ToastInfo) => toast.placement === placement && toast.align === align,
+                    ),
                 };
             });
         });
 
         return {
-            toasts,
             toastsGroups,
         };
     },

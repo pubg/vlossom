@@ -23,20 +23,17 @@ export default defineComponent({
     name,
     components: { VsIcon },
     props: {
-        toastInfo: { type: Object as PropType<ToastInfo>, default: null },
+        toastInfo: { type: Object as PropType<ToastInfo>, required: true },
     },
     setup(props) {
-        console.log('Toast Item Rendered');
         const { toastInfo } = toRefs(props);
-
         const { computedColorScheme } = useColorScheme(name, toRef(toastInfo.value.colorScheme));
-
-        const { align } = toastInfo.value;
+        const text = computed(() => toastInfo.value.text);
 
         const computedStyle = computed(() => {
             const style: { [key: string]: any } = {};
 
-            switch (align) {
+            switch (toastInfo.value.align) {
                 case 'start':
                     style.alignSelf = 'flex-start';
                     break;
@@ -53,10 +50,7 @@ export default defineComponent({
             return style;
         });
 
-        const text = computed(() => toastInfo.value?.text ?? '');
-
         function closeToast() {
-            console.log('close', toastInfo.value.id);
             store.toastStore.removeToast(toastInfo.value.id);
         }
 

@@ -6,6 +6,7 @@
             @click="
                 $vs.toast.info('This is Toast This is Toast Info!', {
                     autoClose: false,
+                    colorScheme: 'blue',
                 })
             "
             >TOP</vs-button
@@ -15,6 +16,7 @@
                 $vs.toast.error('This is Toast Error This iis Toast Error This is Toast Error!', {
                     autoClose: false,
                     placement: 'bottom',
+                    colorScheme: 'red',
                 })
             "
             >BOTTOM</vs-button
@@ -25,6 +27,7 @@
                     autoClose: false,
                     placement: 'top',
                     align: 'start',
+                    colorScheme: 'green',
                 })
             "
             >LEFT</vs-button
@@ -35,6 +38,7 @@
                     autoClose: false,
                     placement: 'top',
                     align: 'end',
+                    colorScheme: 'orange',
                 })
             "
             >RIGHT</vs-button

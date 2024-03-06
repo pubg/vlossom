@@ -23,7 +23,13 @@ function attach() {
 function toastBody(
     state: UIState,
     text: any,
-    { autoClose = true, timeout = DEFAULT_TOAST_TIMEOUT, placement = 'top', align = 'center' }: ToastOptions,
+    {
+        autoClose = true,
+        timeout = DEFAULT_TOAST_TIMEOUT,
+        placement = 'top',
+        align = 'center',
+        colorScheme = 'indigo',
+    }: ToastOptions,
 ) {
     return {
         id: utils.string.createID(),
@@ -33,6 +39,7 @@ function toastBody(
         duration: timeout,
         placement,
         align,
+        colorScheme,
     };
 }
 

@@ -19,7 +19,6 @@ export class ToastStore {
     }
 
     addToast(toastInfo: ToastInfo) {
-        console.log(222222, 'toastInfo', toastInfo);
         this.state.toasts.unshift(toastInfo);
 
         if (toastInfo.autoClose) {
@@ -37,7 +36,6 @@ export class ToastStore {
     }
 
     removeOldest() {
-        console.log(222222, 'remove oldest', this.state.toasts);
         this.state.toasts.pop();
     }
 }
