@@ -11,14 +11,15 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRef, toRefs } from 'vue';
-import { UIState, VsComponent } from '@/declaration';
+import { UIState } from '@/declaration';
 import { useColorScheme } from '@/composables';
 import { ToastInfo } from '@/declaration';
 import { VsIcon } from '@/icons';
 import { store } from '@/store';
 
-const name = VsComponent.VsToastItem;
+import type { VsComponent } from '@/declaration';
 
+const name = 'VsToastItem';
 export default defineComponent({
     name,
     components: { VsIcon },
@@ -52,7 +53,7 @@ export default defineComponent({
             }
 
             if (toastInfo.value.colorScheme) {
-                const { computedColorScheme } = useColorScheme(name, toRef(toastInfo.value.colorScheme));
+                const { computedColorScheme } = useColorScheme(name as VsComponent, toRef(toastInfo.value.colorScheme));
                 color = computedColorScheme.value;
             }
             return color;
