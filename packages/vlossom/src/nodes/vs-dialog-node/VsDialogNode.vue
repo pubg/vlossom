@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="['vs-dialog-content', { 'has-container': hasContainer }]"
+        class="vs-dialog"
         :style="{ ...convertedStyleSet }"
         role="dialog"
         :aria-labelledby="hasHeader ? headerId : undefined"
@@ -31,7 +31,6 @@ export default defineComponent({
     props: {
         styleSet: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
         closeOnEsc: { type: Boolean, default: true },
-        hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         modal: { type: Boolean, default: true },
     },

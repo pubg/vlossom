@@ -1,18 +1,11 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <div class="vs-modal" :style="modalCustomStyleSet">
-            <Transition name="fade">
-                <div
-                    v-if="isOpen"
-                    :class="['dimmed', { 'has-container': hasContainer }]"
-                    aria-hidden="true"
-                    @click.stop="clickDimmed()"
-                />
-            </Transition>
-            <Transition name="scale">
-                <vs-focus-trap v-if="isOpen" :initial-focus-ref="initialFocusRef">
+        <Transition name="modal" :duration="200">
+            <div v-if="isOpen" :class="['vs-modal', { 'has-container': hasContainer }]" :style="computedStyleSet">
+                <div class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
+                <vs-focus-trap :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="size"
+                        :class="['modal-dialog', 'scale', size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :has-container="hasContainer"
@@ -28,8 +21,8 @@
                         </template>
                     </vs-dialog-node>
                 </vs-focus-trap>
-            </Transition>
-        </div>
+            </div>
+        </Transition>
     </Teleport>
 </template>
 
@@ -64,12 +57,6 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
-        const modalCustomStyleSet = computed(() => {
-            return {
-                '--vs-modal-borderRadius': computedStyleSet.value['--vs-modal-borderRadius'] || undefined,
-            };
-        });
-
         const hasHeader = computed(() => !!slots['header']);
         const hasFooter = computed(() => !!slots['footer']);
 
@@ -91,7 +78,6 @@ export default defineComponent({
 
         return {
             computedStyleSet,
-            modalCustomStyleSet,
             isOpen,
             clickDimmed,
             hasHeader,

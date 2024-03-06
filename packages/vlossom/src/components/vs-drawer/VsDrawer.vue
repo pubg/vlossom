@@ -1,19 +1,13 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
         <Transition name="drawer" :duration="300">
-            <div v-if="isOpen" class="vs-drawer" :style="drawerCustomStyleSet">
-                <div
-                    v-if="dimmed"
-                    :class="['dimmed', { 'has-container': hasContainer }]"
-                    aria-hidden="true"
-                    @click.stop="clickDimmed()"
-                />
+            <div v-if="isOpen" :class="['vs-drawer', { 'has-container': hasContainer }]" :style="computedStyleSet">
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="[`slide-${placement}`, placement, hasSpecifiedSize ? '' : size]"
+                        :class="['drawer-dialog', `slide-${placement}`, placement, hasSpecifiedSize ? '' : size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
-                        :has-container="hasContainer"
                         :hide-scroll="hideScroll"
                         :modal="dimmed"
                         @close="() => (isOpen = false)"
@@ -67,11 +61,11 @@ export default defineComponent({
     setup(props, { emit, slots }) {
         const { styleSet, modelValue, closeOnDimmedClick, placement, size } = toRefs(props);
 
-        const { computedStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
+        const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
-        const drawerCustomStyleSet = computed(() => {
+        const sizeStyleSet = computed(() => {
             if (hasSpecifiedSize.value) {
                 if (placement.value === 'top' || placement.value === 'bottom') {
                     return { '--vs-drawer-height': size.value };
@@ -82,9 +76,13 @@ export default defineComponent({
                 }
             }
 
+            return {};
+        });
+
+        const computedStyleSet = computed(() => {
             return {
-                '--vs-drawer-height': computedStyleSet.value['--vs-drawer-height'] || '',
-                '--vs-drawer-width': computedStyleSet.value['--vs-drawer-width'] || '',
+                ...drawerStyleSet.value,
+                ...sizeStyleSet.value,
             };
         });
 
@@ -110,7 +108,6 @@ export default defineComponent({
         return {
             computedStyleSet,
             hasSpecifiedSize,
-            drawerCustomStyleSet,
             isOpen,
             clickDimmed,
             hasHeader,

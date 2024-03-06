@@ -1,21 +1,30 @@
 $sizes: xs, sm, md, lg, xl;
 
 .vs-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--vs-dialog-node-zIndex);
+
+    &.has-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     .dimmed {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: var(--vs-dialog-node-zIndex);
         background-color: var(--vs-dimmed-backgroundColor);
-
-        &.has-container {
-            position: absolute;
-        }
     }
 
-    :deep(.vs-dialog-content) {
+    .drawer-dialog {
+        position: absolute;
         width: 100%;
         height: 100%;
 

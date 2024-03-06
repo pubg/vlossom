@@ -1,7 +1,6 @@
-.vs-dialog-content {
+.vs-dialog {
     display: flex;
     flex-direction: column;
-    position: fixed;
     z-index: var(--vs-dialog-node-zIndex);
     background-color: var(--vs-dialog-node-backgroundColor, var(--vs-plain-backgroundColor));
     color: var(--vs-dialog-node-color, var(--vs-font-color));
@@ -9,10 +8,6 @@
     width: var(--vs-dialog-node-width, auto);
     height: var(--vs-dialog-node-height, auto);
     font-size: var(--vs-dialog-node-fontSize, 1rem);
-
-    &.has-container {
-        position: absolute;
-    }
 
     .dialog-header,
     .dialog-body,
