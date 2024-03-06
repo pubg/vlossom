@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-toast-item', `vs-${computedColorScheme}`]" :style="computedStyle">
+    <div :class="['vs-toast-item', `vs-${computedColorScheme}`]" :style="computedStyle" role="alert">
         <button v-if="!toastInfo.autoClose" type="button" class="close-button" @click="closeToast">
             <vs-icon icon="close" style="color: #fff" size="20px" />
         </button>
