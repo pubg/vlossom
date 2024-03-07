@@ -252,7 +252,7 @@ describe('vs-toast-view', () => {
     });
 
     describe('handleKeyPress', () => {
-        it('tab 키가 눌리면 vs-toast-item 의 close-button이 focus 된다', async () => {
+        it('tab 키가 눌리면 가장 처음에 생성된 vs-toast-item 의 close-button 이 focus 된다', async () => {
             // given
             mockStore = {
                 toast: {
@@ -262,7 +262,14 @@ describe('vs-toast-view', () => {
                             text: 'Hello',
                             autoClose: false,
                             placement: 'top',
-                            align: 'start',
+                            align: 'center',
+                        },
+                        {
+                            id: '2',
+                            text: 'Hello',
+                            autoClose: false,
+                            placement: 'top',
+                            align: 'center',
                         },
                     ],
                 },
@@ -272,7 +279,7 @@ describe('vs-toast-view', () => {
             const toastViewWrapper = mount(VsToastView, {
                 props: {
                     placement: 'top',
-                    align: 'start',
+                    align: 'center',
                 },
                 attachTo: document.body,
             });
@@ -283,7 +290,8 @@ describe('vs-toast-view', () => {
 
             // then
             const closeButtonRefs = toastViewWrapper.findAll('button[aria-label="close"]');
-            expect(closeButtonRefs.length).toBe(1);
+            expect(closeButtonRefs.length).toBe(2);
+
             const targetButtonRef = closeButtonRefs[0];
             expect(targetButtonRef.isVisible()).toBe(true);
             expect(targetButtonRef.element).toEqual(document.activeElement);

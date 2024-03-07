@@ -41,14 +41,13 @@ export default defineComponent({
         const toastItemRefs: ShallowRef<(typeof VsToastItem)[]> = shallowRef([]);
 
         function handleKeyPress(event: KeyboardEvent) {
+            if (!toastItemRefs.value.length) {
+                return;
+            }
+
             if (event.key === 'Tab' && event.shiftKey === false) {
                 event.preventDefault();
-                toastItemRefs.value.forEach((toastItemRef) => {
-                    const closeBtnRef = toastItemRef.$refs.closeButtonRef;
-                    if (closeBtnRef) {
-                        closeBtnRef.focus();
-                    }
-                });
+                toastItemRefs.value[0].$refs.closeButtonRef.focus();
             }
         }
 
