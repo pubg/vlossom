@@ -1,13 +1,13 @@
 <template>
     <div :class="['vs-toast-view', `vs-toast-view-${placement}`]">
         <TransitionGroup name="fade">
-            <vs-toast-item v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
+            <vs-toast-item ref="toastItemRefs" v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
         </TransitionGroup>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, type PropType } from 'vue';
+import { computed, defineComponent, ref, toRefs, onBeforeUnmount, onMounted, type PropType, Ref } from 'vue';
 import { store } from '@/store';
 import VsToastItem from './VsToastItem.vue';
 import { ToastInfo } from '@/declaration';
@@ -29,8 +29,31 @@ export default defineComponent({
             );
         });
 
+        const toastItemRefs: Ref<(typeof VsToastItem)[]> = ref([]);
+
+        function handleKeyPress(event: KeyboardEvent) {
+            if (event.key === 'Tab' && event.shiftKey === false) {
+                event.preventDefault();
+                toastItemRefs.value.forEach((toastItemRef) => {
+                    const closeBtnRef = toastItemRef.$refs.closeButtonRef;
+                    if (closeBtnRef) {
+                        closeBtnRef.focus();
+                    }
+                });
+            }
+        }
+
+        onMounted(() => {
+            document.addEventListener('keydown', handleKeyPress);
+        });
+
+        onBeforeUnmount(() => {
+            document.removeEventListener('keydown', handleKeyPress);
+        });
+
         return {
             toasts,
+            toastItemRefs,
         };
     },
 });

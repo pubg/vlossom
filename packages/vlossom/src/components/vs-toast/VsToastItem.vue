@@ -1,6 +1,13 @@
 <template>
     <div :class="['vs-toast-item', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
-        <button v-if="!toastInfo.autoClose" type="button" class="close-button" @click="closeToast">
+        <button
+            ref="closeButtonRef"
+            v-if="!toastInfo.autoClose"
+            type="button"
+            class="close-button"
+            @click="closeToast"
+            aria-label="close"
+        >
             <vs-icon icon="close" style="color: #fff" size="20px" />
         </button>
         <div class="toast-content" :style="toastInfo.autoClose && { paddingTop: '1.4rem' }">
@@ -10,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, toRef, toRefs } from 'vue';
+import { PropType, computed, defineComponent, ref, toRef, toRefs } from 'vue';
 import { UIState } from '@/declaration';
 import { useColorScheme } from '@/composables';
 import { ToastInfo } from '@/declaration';
@@ -29,6 +36,7 @@ export default defineComponent({
     setup(props) {
         const { toastInfo } = toRefs(props);
         const text = computed(() => toastInfo.value.text);
+        const closeButtonRef = ref(null);
 
         function getColorScheme() {
             let color = 'indigo';
@@ -84,6 +92,7 @@ export default defineComponent({
         }
 
         return {
+            closeButtonRef,
             getColorScheme,
             text,
             computedStyle,
