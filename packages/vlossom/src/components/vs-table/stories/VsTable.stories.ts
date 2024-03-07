@@ -140,7 +140,7 @@ export const HeaderSlot: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
-}
+};
 
 export const ItemSlot: Story = {
     render: (args: any) => ({
@@ -164,4 +164,4 @@ export const ItemSlot: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
-}
+};
