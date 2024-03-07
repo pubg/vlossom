@@ -1,60 +1,45 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <div class="vs-drawer">
-            <Transition name="fade">
-                <div
-                    v-if="isOpen && dimmed"
-                    :class="['dimmed', { 'has-container': hasContainer }]"
-                    aria-hidden="true"
-                    @click.stop="clickDimmed()"
-                />
-            </Transition>
-            <Transition :name="`slide-${placement}`">
-                <vs-focus-trap v-if="isOpen" :focus-lock="dimmed" :initialFocusRef="initialFocusRef">
-                    <div
-                        :class="[
-                            'vs-drawer-content',
-                            placement,
-                            hasSpecifiedSize ? '' : size,
-                            { 'has-container': hasContainer },
-                        ]"
-                        :style="{ ...computedStyleSet, ...sizeProperty }"
-                        role="dialog"
-                        :aria-labelledby="hasHeader ? 'vs-drawer-title' : undefined"
-                        aria-describedby="vs-drawer-body"
-                        :aria-label="hasHeader ? undefined : 'Dialog'"
-                        :aria-modal="dimmed"
+        <Transition name="drawer" :duration="300">
+            <div v-if="isOpen" :class="['vs-drawer', { 'has-container': hasContainer }]" :style="computedStyleSet">
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
+                <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
+                    <vs-dialog-node
+                        :class="['drawer-dialog', placement, hasSpecifiedSize ? '' : size]"
+                        :style-set="computedStyleSet"
+                        :close-on-esc="closeOnEsc"
+                        :hide-scroll="hideScroll"
+                        :isModal="dimmed"
+                        @close="() => (isOpen = false)"
                     >
-                        <header v-if="hasHeader" id="vs-drawer-title" aria-label="Dialog Header">
+                        <template #header v-if="hasHeader">
                             <slot name="header" />
-                        </header>
-
-                        <div :class="['drawer-body', { 'hide-scroll': hideScroll }]" id="vs-drawer-body">
-                            <slot />
-                        </div>
-
-                        <footer v-if="hasFooter" aria-label="Dialog Footer">
+                        </template>
+                        <slot />
+                        <template #footer v-if="hasFooter">
                             <slot name="footer" />
-                        </footer>
-                    </div>
+                        </template>
+                    </vs-dialog-node>
                 </vs-focus-trap>
-            </Transition>
-        </div>
+            </div>
+        </Transition>
     </Teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, onMounted, onBeforeUnmount, type PropType } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useStyleSet } from '@/composables';
-import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 import { VsFocusTrap } from '@/components';
+import { VsDialogNode } from '@/nodes';
+import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
 
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
+
 export default defineComponent({
     name,
-    components: { VsFocusTrap },
+    components: { VsDialogNode, VsFocusTrap },
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
         closeOnDimmedClick: { type: Boolean, default: true },
@@ -74,13 +59,13 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnEsc, closeOnDimmedClick, placement, size } = toRefs(props);
+        const { styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } = toRefs(props);
 
-        const { computedStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
+        const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
-        const sizeProperty = computed(() => {
+        const sizeStyleSet = computed(() => {
             if (hasSpecifiedSize.value) {
                 if (placement.value === 'top' || placement.value === 'bottom') {
                     return { '--vs-drawer-height': size.value };
@@ -94,6 +79,13 @@ export default defineComponent({
             return {};
         });
 
+        const computedStyleSet = computed(() => {
+            return {
+                ...drawerStyleSet.value,
+                ...sizeStyleSet.value,
+            };
+        });
+
         const hasHeader = computed(() => !!slots['header']);
         const hasFooter = computed(() => !!slots['footer']);
 
@@ -103,44 +95,29 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        function clickDimmed() {
-            if (closeOnDimmedClick.value) {
-                isOpen.value = false;
-            }
-        }
-
-        function onPressEsc(event: KeyboardEvent) {
-            if (event.key === 'Escape') {
-                isOpen.value = false;
-            }
-        }
-
         watch(isOpen, (val) => {
-            if (closeOnEsc.value) {
-                if (val) {
-                    document.addEventListener('keydown', onPressEsc);
+            if (dimmed.value) {
+                if (val && !hasContainer.value) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.paddingRight = '15px';
                 } else {
-                    document.removeEventListener('keydown', onPressEsc);
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
                 }
             }
 
             emit('update:modelValue', val);
         });
 
-        onMounted(() => {
-            if (isOpen.value && closeOnEsc.value) {
-                document.addEventListener('keydown', onPressEsc);
+        function clickDimmed() {
+            if (closeOnDimmedClick.value) {
+                isOpen.value = false;
             }
-        });
-
-        onBeforeUnmount(() => {
-            document.removeEventListener('keydown', onPressEsc);
-        });
+        }
 
         return {
             computedStyleSet,
             hasSpecifiedSize,
-            sizeProperty,
             isOpen,
             clickDimmed,
             hasHeader,

@@ -1,5 +1,5 @@
 import { VsDialogNodeStyleSet } from '@/nodes';
 
-export interface VsDrawerStyleSet extends VsDialogNodeStyleSet {
+export interface VsModalStyleSet extends VsDialogNodeStyleSet {
     zIndex?: string;
 }

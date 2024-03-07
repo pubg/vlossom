@@ -8,7 +8,7 @@ describe('Vlossom store', () => {
         const store = new VsStore();
 
         // then
-        expect(Object.keys(store).length).toBe(1);
+        expect(Object.keys(store).length).toBe(2);
         expect(store.option).toBeInstanceOf(OptionStore);
     });
 });

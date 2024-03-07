@@ -105,7 +105,7 @@ export const Size: Story = {
         components: { VsDrawer, DrawerCloseButton },
         setup() {
             const isOpen = ref(false);
-            const sizes = size.options;
+            const sizes = [...size.options, '500px'];
             const currentSize = ref('sm');
 
             function setSize(value: string) {
@@ -209,6 +209,7 @@ export const HasContainer: Story = {
     }),
     args: {
         hasContainer: true,
+        size: 'md',
     },
 };
 

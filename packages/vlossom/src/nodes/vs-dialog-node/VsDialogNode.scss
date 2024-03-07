@@ -1,0 +1,42 @@
+.vs-dialog {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--vs-dialog-node-backgroundColor, var(--vs-area-backgroundColor));
+    color: var(--vs-dialog-node-color, var(--vs-font-color));
+    border-radius: var(--vs-dialog-node-borderRadius, 0);
+    width: var(--vs-dialog-node-width, auto);
+    height: var(--vs-dialog-node-height, auto);
+    font-size: var(--vs-dialog-node-fontSize, 1rem);
+
+    .dialog-header,
+    .dialog-body,
+    .dialog-footer {
+        padding: var(--vs-dialog-node-padding, 2rem);
+    }
+
+    .dialog-header {
+        color: var(--vs-dialog-node-headerFontColor, var(--vs-font-color));
+        font-size: var(--vs-dialog-node-headerFontSize, 1.25rem);
+        font-weight: var(--vs-dialog-node-headerFontWeight, 600);
+    }
+
+    .dialog-body {
+        overflow-y: auto;
+        flex: 1;
+
+        &.hide-scroll {
+            overflow: scroll;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
+    .dialog-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}

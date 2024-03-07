@@ -1,4 +1,6 @@
 $variables: (
+    dialog-z-index: 1000,
+    // drawer
     drawer-height-xs: 12%,
     drawer-height-sm: 20%,
     drawer-height-md: 32%,
@@ -9,7 +11,17 @@ $variables: (
     drawer-width-md: 32%,
     drawer-width-lg: 60%,
     drawer-width-xl: 80%,
-    drawer-z-index: 1000,
+    // modal
+    modal-height-xs: 20%,
+    modal-height-sm: 32%,
+    modal-height-md: 44%,
+    modal-height-lg: 64%,
+    modal-height-xl: 82%,
+    modal-width-xs: 16%,
+    modal-width-sm: 24%,
+    modal-width-md: 36%,
+    modal-width-lg: 60%,
+    modal-width-xl: 80%,
     grid-base: 12,
     width-base: 100%,
 );

@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsDrawer from './../VsDrawer.vue';
+import VsModal from './../VsModal.vue';
 
-describe('vs-drawer', () => {
+describe('vs-modal', () => {
     describe('v-model', () => {
-        it('modelValue가 false이면 drawer가 열리지 않는다', async () => {
+        it('modelValue가 false이면 modal이 열리지 않는다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: false,
                 },
@@ -19,9 +19,9 @@ describe('vs-drawer', () => {
             expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
         });
 
-        it('modelValue가 true이면 drawer가 열린다', async () => {
+        it('modelValue가 true이면 modal이 열린다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: false,
                 },
@@ -43,7 +43,7 @@ describe('vs-drawer', () => {
     describe('slot', () => {
         it('default slot을 전달하면 slot 컨텐츠가 렌더링 된다', () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -61,7 +61,7 @@ describe('vs-drawer', () => {
 
         it('header slot을 전달하면 header 영역에 slot 컨텐츠가 렌더링 된다', () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -80,7 +80,7 @@ describe('vs-drawer', () => {
 
         it('footer slot을 전달하면 footer 영역에 slot 컨텐츠가 렌더링 된다', () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -102,7 +102,7 @@ describe('vs-drawer', () => {
         it('has container prop을 전달하면 teleport가 비활성화된다', () => {
             // given
             // stub teleport X
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                     hasContainer: true,
@@ -115,9 +115,9 @@ describe('vs-drawer', () => {
     });
 
     describe('dimmed', () => {
-        it('기본적으로 dimmed 영역이 존재한다', () => {
+        it('dimmed 영역이 존재한다', () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -130,25 +130,9 @@ describe('vs-drawer', () => {
             expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(true);
         });
 
-        it('dimmed prop을 false로 전달하면 dimmed 영역이 존재하지 않는다', () => {
+        it('dimmed 영역 클릭 시 modal이 닫힌다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
-                props: {
-                    modelValue: true,
-                    dimmed: false,
-                },
-                global: {
-                    stubs: ['Teleport'],
-                },
-            });
-
-            // then
-            expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(false);
-        });
-
-        it('기본적으로 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
-            // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -166,9 +150,9 @@ describe('vs-drawer', () => {
             expect(updateModelValueEvent?.[0]).toEqual([false]);
         });
 
-        it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 drawer가 닫히지 않는다', async () => {
+        it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 modal이 닫히지 않는다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                     closeOnDimmedClick: false,
@@ -188,9 +172,9 @@ describe('vs-drawer', () => {
     });
 
     describe('close on esc key', () => {
-        it('esc key를 누르면 drawer가 닫힌다', async () => {
+        it('esc key를 누르면 modal이 닫힌다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -209,9 +193,9 @@ describe('vs-drawer', () => {
             expect(updateModelValueEvent?.[0]).toEqual([false]);
         });
 
-        it('close-on-esc-key prop을 false로 전달하면 esc key를 눌러도 drawer가 닫히지 않는다', async () => {
+        it('close-on-esc-key prop을 false로 전달하면 esc key를 눌러도 modal이 닫히지 않는다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                     closeOnEscKey: false,
@@ -234,7 +218,7 @@ describe('vs-drawer', () => {
     describe('focus trap', () => {
         it('focus trap이 적용되어 있다', async () => {
             // given
-            const wrapper = mount(VsDrawer, {
+            const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
                 },
@@ -245,45 +229,6 @@ describe('vs-drawer', () => {
 
             // then
             expect(wrapper.findComponent({ name: 'VsFocusTrap' }).exists()).toBe(true);
-        });
-    });
-
-    describe('size', () => {
-        describe('size prop이 style set 보다 우선된다', () => {
-            it('width', () => {
-                // given
-                const wrapper = mount(VsDrawer, {
-                    props: {
-                        modelValue: true,
-                        size: '270px',
-                        styleSet: { width: '320px' },
-                    },
-                    global: {
-                        stubs: ['Teleport'],
-                    },
-                });
-
-                // then
-                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-width: 270px;');
-            });
-
-            it('height', () => {
-                // given
-                const wrapper = mount(VsDrawer, {
-                    props: {
-                        modelValue: true,
-                        placement: 'top',
-                        size: '270px',
-                        styleSet: { height: '320px' },
-                    },
-                    global: {
-                        stubs: ['Teleport'],
-                    },
-                });
-
-                // then
-                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-height: 270px;');
-            });
         });
     });
 });

@@ -1,47 +1,32 @@
 $sizes: xs, sm, md, lg, xl;
 
 .vs-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--vs-drawer-zIndex, var(--vs-dialog-z-index));
+
+    &.has-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     .dimmed {
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: var(--vs-drawer-z-index);
         background-color: var(--vs-dimmed-backgroundColor);
-
-        &.has-container {
-            position: absolute;
-        }
     }
 
-    .vs-drawer-content {
-        position: fixed;
+    .drawer-dialog {
+        position: absolute;
         width: 100%;
         height: 100%;
-        z-index: var(--vs-drawer-z-index);
-        background-color: var(--vs-drawer-backgroundColor, var(--vs-plain-backgroundColor));
-        color: var(--vs-drawer-color, var(--vs-font-color));
-        display: flex;
-        flex-direction: column;
-
-        &.has-container {
-            position: absolute;
-        }
-
-        .drawer-body {
-            overflow-y: auto;
-            flex: 1;
-
-            &.hide-scroll {
-                overflow: scroll;
-                -ms-overflow-style: none; /* IE and Edge */
-                scrollbar-width: none; /* Firefox */
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-            }
-        }
 
         // placement
         &.top {
@@ -91,43 +76,34 @@ $sizes: xs, sm, md, lg, xl;
     }
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.drawer-enter-active .dimmed,
+.drawer-leave-active .dimmed,
+.drawer-enter-active .drawer-dialog,
+.drawer-leave-active .drawer-dialog {
     transition: all 0.3s;
 }
 
-.fade-enter-form,
-.fade-leave-to {
+.drawer-enter-from .dimmed,
+.drawer-leave-to .dimmed {
     opacity: 0;
 }
 
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active,
-.slide-top-enter-active,
-.slide-top-leave-active,
-.slide-bottom-enter-active,
-.slide-bottom-leave-active {
-    transition: all 0.3s;
-}
-
-.slide-left-enter-from,
-.slide-left-leave-to {
+.drawer-enter-from .drawer-dialog.left,
+.drawer-leave-to .drawer-dialog.left {
     transform: translateX(-100%);
 }
 
-.slide-right-enter-from,
-.slide-right-leave-to {
+.drawer-enter-from .drawer-dialog.right,
+.drawer-leave-to .drawer-dialog.right {
     transform: translateX(100%);
 }
 
-.slide-bottom-enter-from,
-.slide-bottom-leave-to {
+.drawer-enter-from .drawer-dialog.bottom,
+.drawer-leave-to .drawer-dialog.bottom {
     transform: translateY(100%);
 }
 
-.slide-top-enter-from,
-.slide-top-leave-to {
+.drawer-enter-from .drawer-dialog.top,
+.drawer-leave-to .drawer-dialog.top {
     transform: translateY(-100%);
 }

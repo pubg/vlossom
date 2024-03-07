@@ -16,6 +16,7 @@
     min-height: var(--vs-chip-minHeight, 1.4rem);
     padding: var(--vs-chip-padding, 0.2rem 0.6rem);
     position: relative;
+    overflow: hidden;
 
     &:after {
         background: #ffffff;
