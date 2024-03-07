@@ -19,12 +19,14 @@ import {
 } from 'vue';
 import { store } from '@/store';
 import VsToast from './VsToast.vue';
+import { VsComponent } from '@/declaration';
 
 import type { Placement, Align } from '@/declaration';
 import type { ToastInfo } from '@/plugins';
 
+const name = VsComponent.VsToastView;
 export default defineComponent({
-    name: 'VsToastView',
+    name,
     components: { VsToast },
     props: {
         placement: { type: String as PropType<Exclude<Placement, 'left' | 'right'>>, required: true },

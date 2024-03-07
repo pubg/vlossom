@@ -38,6 +38,8 @@ export enum VsComponent {
     VsTextarea = 'VsTextarea',
     VsTextWrap = 'VsTextWrap',
     VsThemeButton = 'VsThemeButton',
+    VsToast = 'VsToast',
+    VsToastView = 'VsToastView',
     VsTooltip = 'VsTooltip',
     VsValueTag = 'VsValueTag',
     VsWrapper = 'VsWrapper',
