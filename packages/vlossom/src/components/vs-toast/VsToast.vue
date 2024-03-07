@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-toast-item', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
+    <div :class="['vs-toast', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
         <button
             ref="closeButtonRef"
             v-if="!toastInfo.autoClose"
@@ -26,7 +26,7 @@ import { store } from '@/store';
 
 import type { VsComponent } from '@/declaration';
 
-const name = 'VsToastItem';
+const name = 'VsToast';
 export default defineComponent({
     name,
     components: { VsIcon },

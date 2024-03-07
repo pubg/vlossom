@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { UIState } from '@/declaration';
-import VsToastItem from '../VsToastItem.vue';
+import VsToast from '../VsToast.vue';
 
-describe('vs-toast-item', () => {
+describe('vs-toast', () => {
     describe('toastInfo', () => {
         it('text를 렌더할 수 있다', () => {
             // given
-            const wrapper = mount(VsToastItem, {
+            const wrapper = mount(VsToast, {
                 props: {
                     toastInfo: {
                         id: '1',
@@ -26,7 +26,7 @@ describe('vs-toast-item', () => {
         describe('autoClose', () => {
             it('autoClose 가 true 인 경우, close-button이 렌더되지 않는다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',
@@ -43,7 +43,7 @@ describe('vs-toast-item', () => {
             });
             it('autoClose 가 false 인 경우, close-button이 렌더된다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',
@@ -62,7 +62,7 @@ describe('vs-toast-item', () => {
         describe('colorScheme and state', () => {
             it('colorScheme이 주어진 경우, 해당 색상으로 렌더된다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',
@@ -82,7 +82,7 @@ describe('vs-toast-item', () => {
             describe('colorScheme이 주어지지 않은 경우', () => {
                 it('state가 없는 경우, color-scheme 은 indigo 이다', () => {
                     // given
-                    const wrapper = mount(VsToastItem, {
+                    const wrapper = mount(VsToast, {
                         props: {
                             toastInfo: {
                                 id: '1',
@@ -100,7 +100,7 @@ describe('vs-toast-item', () => {
 
                 it('state가 success 인 경우, color-scheme 은 green 이다', () => {
                     // given
-                    const wrapper = mount(VsToastItem, {
+                    const wrapper = mount(VsToast, {
                         props: {
                             toastInfo: {
                                 id: '1',
@@ -118,7 +118,7 @@ describe('vs-toast-item', () => {
                 });
                 it('state가 info 인 경우, color-scheme 은 light-blue 이다', () => {
                     // given
-                    const wrapper = mount(VsToastItem, {
+                    const wrapper = mount(VsToast, {
                         props: {
                             toastInfo: {
                                 id: '1',
@@ -136,7 +136,7 @@ describe('vs-toast-item', () => {
                 });
                 it('state가 error 인 경우, color-scheme 은 red 이다', () => {
                     // given
-                    const wrapper = mount(VsToastItem, {
+                    const wrapper = mount(VsToast, {
                         props: {
                             toastInfo: {
                                 id: '1',
@@ -154,7 +154,7 @@ describe('vs-toast-item', () => {
                 });
                 it('state가 warn 인 경우, color-scheme 은 orange 이다', () => {
                     // given
-                    const wrapper = mount(VsToastItem, {
+                    const wrapper = mount(VsToast, {
                         props: {
                             toastInfo: {
                                 id: '1',
@@ -176,7 +176,7 @@ describe('vs-toast-item', () => {
         describe('align', () => {
             it('align이 start인 경우, toast는 왼쪽으로 정렬된다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',
@@ -194,7 +194,7 @@ describe('vs-toast-item', () => {
 
             it('align이 end인 경우, toast는 오른쪽으로 정렬된다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',
@@ -212,7 +212,7 @@ describe('vs-toast-item', () => {
 
             it('align이 center인 경우, toast는 가운데로 정렬된다', () => {
                 // given
-                const wrapper = mount(VsToastItem, {
+                const wrapper = mount(VsToast, {
                     props: {
                         toastInfo: {
                             id: '1',

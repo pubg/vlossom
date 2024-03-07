@@ -252,7 +252,7 @@ describe('vs-toast-view', () => {
     });
 
     describe('handleKeyPress', () => {
-        it('tab 키가 눌리면 가장 처음에 생성된 vs-toast-item 의 close-button 이 focus 된다', async () => {
+        it('tab 키가 눌리면 가장 처음에 생성된 vs-toast 의 close-button 이 focus 된다', async () => {
             // given
             mockStore = {
                 toast: {

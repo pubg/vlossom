@@ -1,7 +1,7 @@
 <template>
     <div :class="['vs-toast-view', `vs-toast-view-${placement}`]">
         <TransitionGroup name="fade">
-            <vs-toast-item ref="toastItemRefs" v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
+            <vs-toast ref="toastRefs" v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
         </TransitionGroup>
     </div>
 </template>
@@ -18,14 +18,14 @@ import {
     type ShallowRef,
 } from 'vue';
 import { store } from '@/store';
-import VsToastItem from './VsToastItem.vue';
+import VsToast from './VsToast.vue';
 import { ToastInfo } from '@/declaration';
 
 import type { Placement, Align } from '@/declaration';
 
 export default defineComponent({
     name: 'VsToastView',
-    components: { VsToastItem },
+    components: { VsToast },
     props: {
         placement: { type: String as PropType<Exclude<Placement, 'left' | 'right'>>, required: true },
         align: { type: String as PropType<Align>, required: true },
@@ -38,16 +38,16 @@ export default defineComponent({
             );
         });
 
-        const toastItemRefs: ShallowRef<(typeof VsToastItem)[]> = shallowRef([]);
+        const toastRefs: ShallowRef<(typeof VsToast)[]> = shallowRef([]);
 
         function handleKeyPress(event: KeyboardEvent) {
-            if (!toastItemRefs.value.length) {
+            if (!toastRefs.value.length) {
                 return;
             }
 
             if (event.key === 'Tab' && event.shiftKey === false) {
                 event.preventDefault();
-                toastItemRefs.value[0].$refs.closeButtonRef?.focus();
+                toastRefs.value[0].$refs.closeButtonRef?.focus();
             }
         }
 
@@ -61,7 +61,7 @@ export default defineComponent({
 
         return {
             toasts,
-            toastItemRefs,
+            toastRefs,
         };
     },
 });
