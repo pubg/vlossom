@@ -11,7 +11,7 @@ export function useStyleSet<T extends { [key: string]: any }>(component: VsCompo
         }
 
         if (typeof styleSet.value === 'string') {
-            return (store.getStyleSet(component, styleSet.value) || {}) as T;
+            return (store.option.getStyleSet(component, styleSet.value) || {}) as T;
         }
 
         return styleSet.value;

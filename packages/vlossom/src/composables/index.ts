@@ -7,3 +7,4 @@ export * from './input-modifier-composable';
 export * from './input-option-composable';
 export * from './responsive-composable';
 export * from './style-set-composable';
+export * from './value-matcher-composable';

@@ -67,14 +67,29 @@ export { default as VsNotice } from './vs-notice/VsNotice.vue';
 export { type VsPageStyleSet } from './vs-page/types';
 export { default as VsPage } from './vs-page/VsPage.vue';
 
+export { type VsPaginationStyleSet } from './vs-pagination/types';
+export { default as VsPagination } from './vs-pagination/VsPagination.vue';
+
 export { type VsProgressStyleSet } from './vs-progress/types';
 export { default as VsProgress } from './vs-progress/VsProgress.vue';
+
+export { type VsRadioStyleSet } from './vs-radio/types';
+export { default as VsRadio } from './vs-radio/VsRadio.vue';
+
+export { type VsRadioSetStyleSet } from './vs-radio-set/types';
+export { default as VsRadioSet } from './vs-radio-set/VsRadioSet.vue';
 
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
+export { type VsSelectStyleSet } from './vs-select/types';
+export { default as VsSelect } from './vs-select/VsSelect.vue';
+
 export { type VsStepperStyleSet } from './vs-stepper/types';
 export { default as VsStepper } from './vs-stepper/VsStepper.vue';
+
+export { type VsSwitchStyleSet } from './vs-switch/types';
+export { default as VsSwitch } from './vs-switch/VsSwitch.vue';
 
 export { type VsTableStyleSet } from './vs-table/types';
 export { default as VsTable } from './vs-table/VsTable.vue';
@@ -126,9 +141,14 @@ declare module 'vue' {
         VsMessage: typeof import('./')['VsMessage'];
         VsNotice: typeof import('./')['VsNotice'];
         VsPage: typeof import('./')['VsPage'];
+        VsPagination: typeof import('./')['VsPagination'];
         VsProgress: typeof import('./')['VsProgress'];
+        VsRadio: typeof import('./')['VsRadio'];
+        VsRadioSet: typeof import('./')['VsRadioSet'];
         VsSection: typeof import('./')['VsSection'];
+        VsSelect: typeof import('./')['VsSelect'];
         VsStepper: typeof import('./')['VsStepper'];
+        VsSwitch: typeof import('./')['VsSwitch'];
         VsTable: typeof import('./')['VsTable'];
         VsTabs: typeof import('./')['VsTabs'];
         VsTextarea: typeof import('./')['VsTextarea'];

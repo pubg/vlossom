@@ -1,4 +1,4 @@
-import { Ref, onBeforeMount, ref } from 'vue';
+import { Ref, onBeforeMount, ref, nextTick } from 'vue';
 import { utils } from '@/utils';
 import type { AttachInfo, Placement, Align } from '@/declaration';
 
@@ -6,6 +6,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
     const isVisible = ref(false);
     const computedPlacement: Ref<Placement | null> = ref(null);
     let throttledComputePosition: ((...args: any) => any) | null = null;
+    let resizeObserver: ResizeObserver | null = null;
 
     function getX(align: Align, left: number, right: number, width: number, attachmentWidth: number) {
         switch (align) {
@@ -33,7 +34,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         }
     }
 
-    function computePosition({ placement = 'top', align = 'center', margin = 0 }: AttachInfo) {
+    function computePosition({ placement = 'top', align = 'center', margin = 0, followWidth = false }: AttachInfo) {
         if (!anchor.value || !attachment.value) {
             return;
         }
@@ -83,26 +84,31 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
 
         attachment.value.style.left = `${x + scrollLeft}px`;
         attachment.value.style.top = `${y + scrollTop}px`;
+
+        if (followWidth) {
+            attachment.value.style.width = `${width}px`;
+        }
     }
 
     function appear(attachInfo: AttachInfo = {}) {
         isVisible.value = true;
-        attachment.value.style.display = 'block';
-        attachment.value.style.position = 'absolute';
-        attachment.value.style.opacity = '0';
 
-        setTimeout(() => {
+        nextTick(() => {
+            attachment.value.style.display = 'block';
+            attachment.value.style.position = 'absolute';
             computePosition(attachInfo);
-            attachment.value.style.opacity = '1';
 
             throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
+            resizeObserver = new ResizeObserver(throttledComputePosition);
+            resizeObserver.observe(anchor.value);
             document.addEventListener('scroll', throttledComputePosition, true);
             window.addEventListener('resize', throttledComputePosition, true);
-        }, 50);
+        });
     }
 
     function disappear() {
         if (throttledComputePosition) {
+            resizeObserver?.disconnect();
             document.removeEventListener('scroll', throttledComputePosition, true);
             window.removeEventListener('resize', throttledComputePosition, true);
         }

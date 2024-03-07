@@ -14,9 +14,11 @@
             </template>
 
             <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
-                <vs-checkbox-node
+                <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
+                    class="vs-checkbox-item"
+                    type="checkbox"
                     :id="`${id}-${optionIds[index]}`"
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
@@ -26,10 +28,10 @@
                     :required="required"
                     :name="name"
                     :value="getOptionValue(option)"
-                    :check-label="getOptionLabel(option)"
-                    @toggle="onToggle($event, option)"
-                    @focus="onFocus(option)"
-                    @blur="onBlur(option)"
+                    :label="getOptionLabel(option)"
+                    @toggle="onToggle(option, $event)"
+                    @focus="onFocus(option, $event)"
+                    @blur="onBlur(option, $event)"
                 />
             </div>
 
@@ -55,7 +57,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckboxNode } from '@/nodes';
+import { VsCheckNode } from '@/nodes';
 
 import type { VsCheckboxSetStyleSet } from './types';
 import { VsCheckboxStyleSet } from '../vs-checkbox/types';
@@ -64,7 +66,7 @@ const name = VsComponent.VsCheckboxSet;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
+    components: { VsInputWrapper, VsWrapper, VsCheckNode },
     props: {
         ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getInputOptionProps(),
@@ -142,7 +144,7 @@ export default defineComponent({
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 
-        async function onToggle(e: Event, option: any) {
+        async function onToggle(option: any, checked: boolean) {
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(isChecked(option), option);
@@ -151,22 +153,21 @@ export default defineComponent({
                 }
             }
 
-            const target = e.target as HTMLInputElement;
             const targetValue = getOptionValue(option);
 
-            if (target.checked) {
+            if (checked) {
                 inputValue.value = [...inputValue.value, targetValue];
             } else {
                 inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetValue));
             }
         }
 
-        function onFocus(option: any) {
-            emit('focus', option);
+        function onFocus(option: any, e: FocusEvent) {
+            emit('focus', option, e);
         }
 
-        function onBlur(option: any) {
-            emit('blur', option);
+        function onBlur(option: any, e: FocusEvent) {
+            emit('blur', option, e);
         }
 
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));

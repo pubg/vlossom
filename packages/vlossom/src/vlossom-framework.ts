@@ -8,8 +8,8 @@ export class Vlossom {
         const { colorScheme = {}, styleSet = {}, theme = 'light' } = options || {};
 
         this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
-        store.setGlobalColorScheme(colorScheme);
-        store.registerStyleSet(styleSet);
+        store.option.setGlobalColorScheme(colorScheme);
+        store.option.registerStyleSet(styleSet);
 
         if (options?.detectOSTheme) {
             const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
@@ -32,22 +32,22 @@ export class Vlossom {
     }
 
     get theme() {
-        return store.getStore().theme;
+        return store.option.getState().theme;
     }
 
     set theme(value) {
-        store.setTheme(value);
+        store.option.setTheme(value);
 
         localStorage.setItem('vlossom:theme', value);
         document.body.classList.toggle('vs-dark', value === 'dark');
     }
 
     get globalColorScheme() {
-        return store.getStore().globalColorScheme;
+        return store.option.getState().globalColorScheme;
     }
 
     get styleSets() {
-        return store.getStore().styleSets;
+        return store.option.getState().styleSets;
     }
 
     toggleTheme() {

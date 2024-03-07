@@ -7,7 +7,7 @@
         align-items: flex-start;
     }
 
-    :deep(.vs-checkbox:not(:last-child)) {
+    .vs-checkbox-item:not(:last-child) {
         margin-right: var(--vs-checkbox-set-checkboxMargin, 2rem);
     }
 }

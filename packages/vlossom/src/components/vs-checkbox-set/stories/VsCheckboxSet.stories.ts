@@ -20,7 +20,7 @@ const meta: Meta<typeof VsCheckboxSet> = {
         colorScheme,
     },
     args: {
-        options: ['apple', 'banana', 'carrot'],
+        options: ['Apple', 'Banana', 'Carrot'],
     },
 };
 

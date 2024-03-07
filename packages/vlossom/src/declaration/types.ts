@@ -16,9 +16,14 @@ import type {
     VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
+    VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioStyleSet,
+    VsRadioSetStyleSet,
     VsSectionStyleSet,
+    VsSelectStyleSet,
     VsStepperStyleSet,
+    VsSwitchStyleSet,
     VsTableStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
@@ -54,9 +59,14 @@ export interface StyleSet {
     VsLoading?: { [key: string]: VsLoadingStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
+    VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
+    VsRadio?: { [key: string]: VsRadioStyleSet };
+    VsRadioSet?: { [key: string]: VsRadioSetStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
-    VsStepper?: { [key: string]: VsStepperStyleSet };
+    VsSelect?: { [key: string]: VsSelectStyleSet };
+    VsStepper?: { [key: string]: VsStepperStyleSet };    
+    VsSwitch?: { [key: string]: VsSwitchStyleSet };
     VsTable?: { [key: string]: VsTableStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };
@@ -64,12 +74,6 @@ export interface StyleSet {
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
     VsValueTag?: { [key: string]: VsValueTagStyleSet };
-}
-
-export interface VlossomStore {
-    theme: 'light' | 'dark';
-    globalColorScheme: GlobalColorScheme;
-    styleSets: StyleSet;
 }
 
 export interface VlossomOptions {
@@ -141,6 +145,7 @@ export interface AttachInfo {
     placement?: Placement;
     align?: Align;
     margin?: number;
+    followWidth?: boolean;
 }
 
 export type CssPosition = (typeof CSS_POSITION)[number];

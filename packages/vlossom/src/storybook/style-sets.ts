@@ -18,9 +18,14 @@ import type {
     VsLoadingStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
+    VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioStyleSet,
+    VsRadioSetStyleSet,
     VsSectionStyleSet,
+    VsSelectStyleSet,
     VsStepperStyleSet,
+    VsSwitchStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -191,15 +196,60 @@ const vsPage: VsPageStyleSet = {
     padding: '0.8rem 1.5rem',
 };
 
+const vsPagination: VsPaginationStyleSet = {
+    backgroundColor: '#1e88e5',
+    borderRadius: '0.2rem',
+    buttonHeight: '1.2rem',
+    buttonWidth: '1.6rem',
+    color: '#fff',
+    fontSize: '0.8rem',
+    fontWeight: '600',
+    gap: '0.5rem',
+    hoverBackgroundColor: '#5d4aa7',
+    hoverColor: '#1e88e5',
+    hoverFontSize: '1rem',
+    hoverFontWeight: '600',
+    selectedBackgroundColor: '#add8e6',
+    selectedColor: '#1e88e5',
+    selectedFontSize: '1.2rem',
+    selectedFontWeight: '600',
+};
+
 const vsProgress: VsProgressStyleSet = {
     borderRadius: '0.2rem',
     height: '0.5rem',
     width: '100%',
 };
 
+const vsRadio: VsRadioStyleSet = {
+    labelColor: '#4e9865',
+    labelFontSize: '1.2rem',
+    radioColor: '#1e88e5',
+    radioSize: '1.6rem',
+};
+
+const vsRadioSet: VsRadioSetStyleSet = {
+    labelColor: '#1e88e5',
+    labelFontSize: '1.2rem',
+    radioColor: '#18e835',
+    radioSize: '1.8rem',
+    radioMargin: '4rem',
+};
+
 const vsSection: VsSectionStyleSet = {
     backgroundColor: '#90caf9',
     color: 'white',
+};
+
+const vsSelect: VsSelectStyleSet = {
+    backgroundColor: '#FFF3CF',
+    border: '1px solid #637A9F',
+    color: '#637A9F',
+    fontSize: '1rem',
+    hoverOptionBackgroundColor: '#C9D7DD',
+    hoverOptionColor: '#637A9F',
+    selectedOptionBackgroundColor: '#637A9F',
+    selectedOptionColor: '#FFF3CF',
 };
 
 const vsStepper: VsStepperStyleSet = {
@@ -208,6 +258,24 @@ const vsStepper: VsStepperStyleSet = {
     fontSize: '1.2rem',
     labelColor: '#90caf9',
     stepSize: '2rem',
+};
+
+const vsSwitch: VsSwitchStyleSet = {
+    borderRadius: '100px',
+    falseBackgroundColor: '#de1a24',
+    falseBorderColor: '#000',
+    falseBorderWidth: '0',
+    falseFontColor: '#fff',
+    falseHandleColor: '#fff',
+    fontSize: '1.2rem',
+    handleSize: '30px',
+    height: '50px',
+    trueBackgroundColor: '#056517',
+    trueBorderColor: 'ivory',
+    trueBorderWidth: '0',
+    trueFontColor: '#fff',
+    trueHandleColor: '#fff',
+    width: '100px',
 };
 
 const vsTabs: VsTabsStyleSet = {
@@ -278,9 +346,14 @@ export const styleSet: StyleSet = {
     VsLoading: { myStyleSet: vsLoading },
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
+    VsPagination: { myStyleSet: vsPagination },
     VsProgress: { myStyleSet: vsProgress },
+    VsRadio: { myStyleSet: vsRadio },
+    VsRadioSet: { myStyleSet: vsRadioSet },
     VsSection: { myStyleSet: vsSection },
+    VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },
+    VsSwitch: { myStyleSet: vsSwitch },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
     VsTextWrap: { myStyleSet: vsTextWrap },
