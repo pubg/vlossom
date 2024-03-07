@@ -44,13 +44,13 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
 
         // Change placements when there are no spaces in the viewport.
         if (placement === 'bottom' && bottom + attachmentHeight > window.innerHeight) {
-            computedPlacement.value = 'top';
+            computedPlacement.value = window.innerHeight - bottom < top ? 'top' : 'bottom';
         } else if (placement === 'top' && top - attachmentHeight < 0) {
-            computedPlacement.value = 'bottom';
+            computedPlacement.value = window.innerHeight - bottom > top ? 'bottom' : 'top';
         } else if (placement === 'left' && left - attachmentWidth < 0) {
-            computedPlacement.value = 'right';
+            computedPlacement.value = window.innerWidth - right > left ? 'right' : 'left';
         } else if (placement === 'right' && right + attachmentWidth > window.innerWidth) {
-            computedPlacement.value = 'left';
+            computedPlacement.value = window.innerWidth - right < left ? 'left' : 'right';
         } else {
             computedPlacement.value = placement;
         }
