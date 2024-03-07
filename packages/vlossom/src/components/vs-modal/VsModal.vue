@@ -66,6 +66,14 @@ export default defineComponent({
         });
 
         watch(isOpen, (val) => {
+            if (val) {
+                document.body.style.overflow = 'hidden';
+                document.body.style.paddingRight = '15px';
+            } else {
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+            }
+
             emit('update:modelValue', val);
         });
 

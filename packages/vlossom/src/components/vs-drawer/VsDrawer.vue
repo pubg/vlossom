@@ -59,7 +59,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnDimmedClick, placement, size } = toRefs(props);
+        const { styleSet, modelValue, closeOnDimmedClick, dimmed, placement, size } = toRefs(props);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
@@ -96,6 +96,16 @@ export default defineComponent({
         });
 
         watch(isOpen, (val) => {
+            if (dimmed.value) {
+                if (val) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.paddingRight = '15px';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                }
+            }
+
             emit('update:modelValue', val);
         });
 
