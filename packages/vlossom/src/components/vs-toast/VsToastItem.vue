@@ -11,7 +11,7 @@
             <vs-icon icon="close" size="20px" />
         </button>
         <div class="toast-content" :style="toastInfo.autoClose && { paddingTop: '1.4rem' }">
-            <span v-html="text" />
+            <span v-html="toastInfo.text" />
         </div>
     </div>
 </template>
@@ -35,7 +35,6 @@ export default defineComponent({
     },
     setup(props) {
         const { toastInfo } = toRefs(props);
-        const text = computed(() => toastInfo.value.text);
         const closeButtonRef = ref(null);
 
         function getColorScheme() {
@@ -94,7 +93,6 @@ export default defineComponent({
         return {
             closeButtonRef,
             getColorScheme,
-            text,
             computedStyle,
             closeToast,
         };
