@@ -52,7 +52,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnDimmedClick } = toRefs(props);
+        const { styleSet, modelValue, closeOnDimmedClick, hasContainer } = toRefs(props);
 
         const { computedStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
@@ -66,7 +66,7 @@ export default defineComponent({
         });
 
         watch(isOpen, (val) => {
-            if (val) {
+            if (val && !hasContainer.value) {
                 document.body.style.overflow = 'hidden';
                 document.body.style.paddingRight = '15px';
             } else {
