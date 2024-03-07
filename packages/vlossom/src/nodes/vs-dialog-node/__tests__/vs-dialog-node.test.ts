@@ -82,7 +82,7 @@ describe('vs-dialog-node', () => {
             expect(dialog.attributes('aria-describedby')).toBe(wrapper.find('div.dialog-body').attributes('id'));
         });
 
-        it('modal prop 값이 dialog의 aria-modal 속성 값에 바인딩 된다', async () => {
+        it('isModal prop 값이 dialog의 aria-modal 속성 값에 바인딩 된다', async () => {
             // given
             const wrapper = mount(VsDialogNode, { modal: true });
 
@@ -91,7 +91,7 @@ describe('vs-dialog-node', () => {
             expect(dialog.attributes('aria-modal')).toBe('true');
 
             // when
-            await wrapper.setProps({ modal: false });
+            await wrapper.setProps({ isModal: false });
             // then
             expect(dialog.attributes('aria-modal')).toBe('false');
         });
