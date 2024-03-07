@@ -1,10 +1,10 @@
 <template>
     <tr :style="trStyle" :class="{ skeleton: loading }">
-        <td class="draggable-td handle" v-if="draggable" data-label="draggable">
+        <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
         </td>
         <td v-if="selectable"></td>
-        <td class="table-td" v-for="(cell, index) in getRowData(item.data)" :key="`td-${index}`" :data-label="cell.key">
+        <td class="table-td" v-for="(cell, index) in getRowData(item.data)" :key="`td-${index}`" :data-label="getHeader(cell.key)?.label">
             <div v-if="loading" :class="['skeleton']"></div>
             <div v-else :class="['table-data']">
                 <slot :name="`item-${cell.key}`" :header="getHeader(cell.key)" :item="item.data" :value="cell.value">
