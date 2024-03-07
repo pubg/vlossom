@@ -36,6 +36,7 @@ import { VsIcon } from '@/icons';
 import type { TableHeader, TableItem } from './types';
 
 export default defineComponent({
+    name: 'vs-table-body-row',
     components: { VsIcon },
     props: {
         loading: { type: Boolean, default: false },

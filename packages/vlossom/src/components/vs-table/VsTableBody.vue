@@ -1,5 +1,5 @@
 <template>
-    <vue-draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
         <template #item="{ element, index }">
             <VsTableBodyRow
                 :item="element"
@@ -15,7 +15,7 @@
                 </template>
             </VsTableBodyRow>
         </template>
-    </vue-draggable>
+    </draggable>
     <tbody v-if="loading && computedItems.length === 0">
         <VsTableBodyRow
             v-for="(dummy, index) in dummyTableItems"
@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import VueDraggable from 'vuedraggable/src/vuedraggable';
+import draggable from "vuedraggable";
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
 import { VsIcon } from '@/icons';
@@ -48,6 +48,7 @@ import { stringUtil } from '@/utils/string';
 import type { TableHeader, TableItem } from './types';
 
 export default defineComponent({
+    name: 'vs-table-body',
     props: {
         draggable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
@@ -59,7 +60,7 @@ export default defineComponent({
         },
     },
     components: {
-        VueDraggable,
+        draggable,
         VsTableBodyRow,
         VsIcon,
     },
