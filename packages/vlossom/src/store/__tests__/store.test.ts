@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { VsStore } from './../index';
 import { OptionStore } from './../option-store';
+import { DialogStore } from '../dialog-store';
 import { ToastStore } from './../toast-store';
 
 describe('Vlossom store', () => {
@@ -9,8 +10,9 @@ describe('Vlossom store', () => {
         const store = new VsStore();
 
         // then
-        expect(Object.keys(store).length).toBe(2);
+        expect(Object.keys(store).length).toBe(3);
         expect(store.option).toBeInstanceOf(OptionStore);
+        expect(store.dialog).toBeInstanceOf(DialogStore);
         expect(store.toast).toBeInstanceOf(ToastStore);
     });
 });
