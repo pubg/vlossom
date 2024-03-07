@@ -2,22 +2,21 @@
     <thead>
         <tr :style="trStyle">
             <th class="draggable-th" v-if="draggable"></th>
-            <th class="selectable-th" v-if="selectable">[s]</th>
+            <th class="selectable-th" v-if="selectable"> <!-- [TODO] select --></th>
             <th
                 v-for="(header, index) in headers"
+                :key="`th-${index}`"
                 :class="['table-th', { sortable: header.sortable }]"
                 :style="{ width: header.width }"
-                :key="`th-${index}`"
-                @click="emitSort(header)"
             >
                 <slot :name="`header-${header.key}`" :header="header">
                     {{ header.label }}
                 </slot>
                 <span v-if="header.sortable" class="sort-icon">
-                    <!-- [TODO] Icon -->
+                    <!-- [TODO] sort -->
                 </span>
             </th>
-            <th class="expandable-th" v-if="hasExpand">[e]</th>
+            <th class="expandable-th" v-if="expandable"></th>
         </tr>
     </thead>
 </template>
@@ -28,8 +27,8 @@ import type { TableHeader } from './types';
 export default defineComponent({
     props: {
         draggable: { type: Boolean, default: false },
+        expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]> },
-        hasExpand: { type: Boolean, default: false },
         selectable: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
@@ -37,13 +36,9 @@ export default defineComponent({
         },
     },
     emits: ['sort'],
-    setup(_, { emit }) {
-        function emitSort(header: TableHeader) {
-            emit('sort', header);
-        }
-
+    setup() {
+        // [TODO] sort
         return {
-            emitSort,
         };
     },
 });
