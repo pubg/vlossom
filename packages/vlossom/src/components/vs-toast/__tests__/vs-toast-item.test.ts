@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsToastItem from '../VsToastItem.vue';
 import { UIState } from '@/declaration';
+import VsToastItem from '../VsToastItem.vue';
 
 describe('vs-toast-item', () => {
     describe('toastInfo', () => {
