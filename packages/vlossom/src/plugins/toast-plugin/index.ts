@@ -1,7 +1,7 @@
 import { render, h } from 'vue';
 import { store } from '@/store';
 import { utils } from '@/utils';
-import { UIState, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
+import { UIState } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
 import type { ToastInfo, ToastOptions, ToastPlugin } from './types';
@@ -24,6 +24,8 @@ export function attach(placement: Exclude<Placement, 'left' | 'right'>, align: A
         document.body.appendChild(toastViewRoot);
     }
 }
+
+export const DEFAULT_TOAST_TIMEOUT = 3000;
 
 export function getToastInfo(
     text: string,
