@@ -1,1 +1,1 @@
-export { toast } from './toast-plugin';
+export { toastPlugin } from './toast-plugin';

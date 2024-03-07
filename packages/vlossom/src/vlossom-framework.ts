@@ -55,7 +55,7 @@ export class Vlossom {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
 
-    public toast: ToastPlugin = vsPlugins.toast;
+    public toast: ToastPlugin = vsPlugins.toastPlugin;
 }
 
 let vlossom: Vlossom;

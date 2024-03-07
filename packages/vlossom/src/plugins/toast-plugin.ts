@@ -55,7 +55,7 @@ export function getToastInfo(
     };
 }
 
-export const toast: ToastPlugin = {
+export const toastPlugin: ToastPlugin = {
     show(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);

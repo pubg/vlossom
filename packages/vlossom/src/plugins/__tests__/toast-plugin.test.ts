@@ -1,5 +1,5 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
-import { attach, toast, getToastInfo } from '../toast-plugin';
+import { attach, toastPlugin, getToastInfo } from '../toast-plugin';
 import { store } from '@/store';
 import { ToastInfo } from '@/declaration';
 
@@ -104,7 +104,7 @@ describe('toast-plugin', () => {
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
             // when
-            toast.show('Hello');
+            toastPlugin.show('Hello');
 
             // then
             expect(mockStore!.toast.addToast).toHaveBeenCalledWith({
@@ -123,7 +123,7 @@ describe('toast-plugin', () => {
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
             // when
-            toast.success('Hello');
+            toastPlugin.success('Hello');
 
             // then
             expect(mockStore!.toast.addToast).toHaveBeenCalled();
@@ -135,7 +135,7 @@ describe('toast-plugin', () => {
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
             // when
-            toast.info('Hello');
+            toastPlugin.info('Hello');
 
             // then
             expect(mockStore!.toast.addToast).toHaveBeenCalled();
@@ -147,7 +147,7 @@ describe('toast-plugin', () => {
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
             // when
-            toast.error('Hello');
+            toastPlugin.error('Hello');
 
             // then
             expect(mockStore!.toast.addToast).toHaveBeenCalled();
@@ -159,7 +159,7 @@ describe('toast-plugin', () => {
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
             // when
-            toast.warn('Hello');
+            toastPlugin.warn('Hello');
 
             // then
             expect(mockStore!.toast.addToast).toHaveBeenCalled();
