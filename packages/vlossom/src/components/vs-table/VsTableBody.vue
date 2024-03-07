@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
 import { VsIcon } from '@/icons';

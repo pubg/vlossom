@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+    <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense': '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <VsTableHeader :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
@@ -44,6 +44,7 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
+        dense: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },

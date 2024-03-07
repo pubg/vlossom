@@ -44,9 +44,9 @@
         tbody tr {
             position: relative;
             transition: background-color 0.2s;
-            border-bottom: 1px solid var(--vs-grey-100);
-            color: var(--vs-comp-color);
-            background-color: var(--vs-light-background);
+            border-bottom: 1px solid var(--vs-grey-200);
+            color: var(--vs-font-color);
+            background-color: var(--vs-plain-backgroundColord);
 
             td {
                 min-height: 4.8rem;
@@ -102,6 +102,27 @@
     }
 }
 
+.vs-table.dense .table-wrap table {
+    tr {
+        th,
+        td {
+            padding: 0.1rem 1.2rem;
+        }
+    }
+
+    thead tr {
+        th {
+            height: 3.2rem;
+        }
+    }
+
+    tbody tr {
+        td {
+            min-height: 3.2rem;
+        }
+    }
+}
+
 @media screen and (max-width: 576px) {
     .vs-table .table-wrap {
         table thead {
@@ -109,7 +130,7 @@
         }
 
         table tbody tr {
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             margin: 1rem 0 0 0;
             border: 1px solid var(--vs-line-color);
@@ -120,12 +141,13 @@
 
             td {
                 display: flex;
-                max-width: 100%;
                 justify-content: space-between;
+                padding: 0.8rem 1.2rem !important;
                 border-top: 1px dashed var(--vs-line-color);
 
                 &::before {
                     content: attr(data-label);
+                    color: var(--vs-comp-color);
                     display: block;
                     line-height: 3rem;
                     margin-right: 1.8rem;
@@ -137,10 +159,6 @@
                     border-top: none;
                 }
 
-                &.draggable-td {
-                    padding-right: 1.2rem;
-                }
-
                 .skeleton {
                     height: 2.8rem;
                 }
@@ -148,7 +166,7 @@
         }
 
         .table-empty {
-            border-top: 1px solid var(--vs-grey-500);
+            border-top: 1px solid var(--vs-grey-200);
         }
     }
 }
