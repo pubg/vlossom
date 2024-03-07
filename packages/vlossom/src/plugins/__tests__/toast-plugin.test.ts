@@ -80,7 +80,6 @@ describe('toast-plugin', () => {
         let originalAddToast: (toastInfo: ToastInfo) => void = () => {};
         let mockStore: {
             toast: {
-                toasts: ToastInfo[];
                 addToast: (toastInfo: ToastInfo) => void;
             };
         } | null = null;
@@ -91,7 +90,6 @@ describe('toast-plugin', () => {
 
             mockStore = {
                 toast: {
-                    toasts: [],
                     addToast: vi.fn(),
                 },
             };
