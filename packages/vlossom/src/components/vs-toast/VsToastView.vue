@@ -7,7 +7,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, onBeforeUnmount, onMounted, type PropType, Ref } from 'vue';
+import {
+    computed,
+    defineComponent,
+    toRefs,
+    onBeforeUnmount,
+    onMounted,
+    shallowRef,
+    type PropType,
+    type ShallowRef,
+} from 'vue';
 import { store } from '@/store';
 import VsToastItem from './VsToastItem.vue';
 import { ToastInfo } from '@/declaration';
@@ -29,7 +38,7 @@ export default defineComponent({
             );
         });
 
-        const toastItemRefs: Ref<(typeof VsToastItem)[]> = ref([]);
+        const toastItemRefs: ShallowRef<(typeof VsToastItem)[]> = shallowRef([]);
 
         function handleKeyPress(event: KeyboardEvent) {
             if (event.key === 'Tab' && event.shiftKey === false) {
