@@ -47,7 +47,7 @@ export default defineComponent({
 
             if (event.key === 'Tab' && event.shiftKey === false) {
                 event.preventDefault();
-                toastItemRefs.value[0].$refs.closeButtonRef.focus();
+                toastItemRefs.value[0].$refs.closeButtonRef?.focus();
             }
         }
 
