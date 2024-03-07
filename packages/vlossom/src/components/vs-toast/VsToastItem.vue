@@ -8,7 +8,7 @@
             @click="closeToast"
             aria-label="close"
         >
-            <vs-icon icon="close" style="color: #fff" size="20px" />
+            <vs-icon icon="close" size="20px" />
         </button>
         <div class="toast-content" :style="toastInfo.autoClose && { paddingTop: '1.4rem' }">
             <span v-html="text" />

@@ -120,7 +120,6 @@ function getPlacementTemplate() {
 
 export const Position: Story = {
     render: () => ({
-        template: `${getPlacementTemplate()}
-		`,
+        template: `${getPlacementTemplate()}`,
     }),
 };
