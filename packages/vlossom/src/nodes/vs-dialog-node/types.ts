@@ -9,5 +9,4 @@ export interface VsDialogNodeStyleSet {
     height?: string;
     width?: string;
     padding?: string;
-    zIndex?: string;
 }

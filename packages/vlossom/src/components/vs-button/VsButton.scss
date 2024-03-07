@@ -13,6 +13,7 @@
     font-weight: var(--vs-button-fontWeight, 400);
     background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
     color: var(--vs-button-color, var(--vs-comp-color));
+    overflow: hidden;
 
     .content {
         display: flex;

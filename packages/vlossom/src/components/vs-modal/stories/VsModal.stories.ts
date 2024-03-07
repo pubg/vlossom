@@ -103,7 +103,7 @@ export const Header: Story = {
                 <vs-button @click="isOpen = true">Open Modal</vs-button>
                 <vs-modal v-model="isOpen">
                     <template #header>
-                        <div style="padding: 1rem; border-bottom: 1px solid rgb(240, 240, 240); display:flex; justify-content: space-between">
+                        <div style="display:flex; justify-content: space-between">
                             Here is modal header
                         </div>
                     </template>
@@ -134,7 +134,7 @@ export const Footer: Story = {
                     Here is modal body
 
                     <template #footer>
-                        <div style="padding: 1rem; border-top: 1px solid rgb(240, 240, 240)">
+                        <div>
                             Here is modal footer
                             <modal-close-button @click="isOpen = false" />
                         </div>

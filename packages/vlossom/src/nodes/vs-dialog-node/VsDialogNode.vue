@@ -6,7 +6,7 @@
         :aria-labelledby="hasHeader ? headerId : undefined"
         :aria-describedby="bodyId"
         :aria-label="hasHeader ? undefined : 'Dialog'"
-        :aria-modal="modal"
+        :aria-modal="isModal"
     >
         <header v-if="hasHeader" class="dialog-header" aria-label="Dialog Header" :id="headerId">
             <slot name="header" />
@@ -32,7 +32,7 @@ export default defineComponent({
         styleSet: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
         closeOnEsc: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
-        modal: { type: Boolean, default: true },
+        isModal: { type: Boolean, default: true },
     },
     emits: ['close'],
     setup(props, { emit, slots }) {

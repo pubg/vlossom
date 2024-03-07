@@ -9,7 +9,7 @@
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :hide-scroll="hideScroll"
-                        :modal="dimmed"
+                        :isModal="dimmed"
                         @close="() => (isOpen = false)"
                     >
                         <template #header v-if="hasHeader">
