@@ -1,5 +1,4 @@
-import { chromaticParameters, colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook';
-import { PLACEMENTS, ALIGNS } from '@/declaration';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
 import VsTable from './../VsTable.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -69,3 +68,22 @@ export default meta;
 type Story = StoryObj<typeof VsTable>;
 
 export const Default: Story = {};
+
+export const ColorScheme: Story = {
+    render: (args: any) => ({
+        components: { VsTable },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getColorSchemeTemplate(`
+                    <vs-table v-bind="args" color-scheme="{{ color }}" />
+                `)}
+            </div>
+        `,
+    }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
