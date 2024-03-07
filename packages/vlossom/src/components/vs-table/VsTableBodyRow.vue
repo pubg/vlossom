@@ -3,31 +3,47 @@
         <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
         </td>
-        <td v-if="selectable"></td>
-        <td class="table-td" v-for="(cell, index) in getRowData(item.data)" :key="`td-${index}`" :data-label="getHeader(cell.key)?.label">
-            <div v-if="loading" :class="['skeleton']"></div>
-            <div v-else :class="['table-data']">
-                <slot :name="`item-${cell.key}`" :header="getHeader(cell.key)" :item="item.data" :value="cell.value">
+        <td class="selectable-td" v-if="selectable"><!-- [TODO] select --></td>
+        <td
+            class="table-td"
+            v-for="(cell, index) in getRowData(item.data)"
+            :key="`td-${index}`"
+            :data-label="getHeader(cell.key)?.label"
+        >
+            <div v-if="loading" class="skeleton"></div>
+            <div v-else class="table-data">
+                <slot
+                    :name="`item-${cell.key}`"
+                    :header="getHeader(cell.key)"
+                    :item="item.data"
+                    :value="cell.value"
+                    :itemIndex="rowIndex"
+                    :valueIndex="index"
+                >
                     {{ getTableData(cell.key, cell.value, item.data) }}
                 </slot>
             </div>
         </td>
+        <td class="expandable-td" v-if="expandable"><!-- [TODO] expansion --></td>
+        <td class="expanded-row-content" v-if="expandable"><!-- [TODO] expansion --></td>
     </tr>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
-import type { TableHeader, TableItem } from './types';
 import { VsIcon } from '@/icons';
+
+import type { TableHeader, TableItem } from './types';
 
 export default defineComponent({
     components: { VsIcon },
     props: {
         loading: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
-        hasExpand: { type: Boolean, default: false },
-        headers: { type: Array as PropType<TableHeader[]> },
-        item: { type: Object as PropType<TableItem>, required: true }, 
+        expandable: { type: Boolean, default: false },
+        headers: { type: Array as PropType<TableHeader[]>, required: true },
+        item: { type: Object as PropType<TableItem>, required: true },
+        rowIndex: { type: Number, required: true },
         selectable: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
@@ -36,11 +52,6 @@ export default defineComponent({
     },
     setup(props) {
         const { headers, item } = toRefs(props);
-
-        const isDummyRow = computed(() => {
-            return !Object.keys(item.value.data).length;
-        });
-
 
         function getRowData(row: { [key: string]: any }) {
             if (!headers.value) {
@@ -54,9 +65,6 @@ export default defineComponent({
         }
 
         function getHeader(key: string): TableHeader | undefined {
-            if (!headers.value) {
-                return undefined;
-            }
             return headers.value.find((header) => header.key === key);
         }
 
@@ -67,6 +75,10 @@ export default defineComponent({
             }
             return value;
         }
+
+        const isDummyRow = computed(() => {
+            return !Object.keys(item.value.data).length;
+        });
 
         return {
             isDummyRow,

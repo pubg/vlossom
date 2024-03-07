@@ -65,7 +65,7 @@ export interface StyleSet {
     VsRadioSet?: { [key: string]: VsRadioSetStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsSelect?: { [key: string]: VsSelectStyleSet };
-    VsStepper?: { [key: string]: VsStepperStyleSet };    
+    VsStepper?: { [key: string]: VsStepperStyleSet };
     VsSwitch?: { [key: string]: VsSwitchStyleSet };
     VsTable?: { [key: string]: VsTableStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };

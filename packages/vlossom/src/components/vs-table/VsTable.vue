@@ -48,7 +48,6 @@ export default defineComponent({
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
-        pagination: { type: Boolean, default: false },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, draggable, headers } = toRefs(props);
@@ -89,7 +88,6 @@ export default defineComponent({
 
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
-
 
         return {
             computedColorScheme,

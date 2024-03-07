@@ -41,11 +41,11 @@
 <script lang="ts">
 import VueDraggable from 'vuedraggable/src/vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
-import type { TableHeader, TableItem } from './types';
-
 import VsTableBodyRow from './VsTableBodyRow.vue';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
+
+import type { TableHeader, TableItem } from './types';
 
 export default defineComponent({
     props: {
@@ -102,6 +102,7 @@ export default defineComponent({
             },
         });
 
+        // for initial skeleton loading
         const dummyTableItems = new Array(4).fill({}).map((item) => {
             return { id: stringUtil.createID(), data: item };
         });
