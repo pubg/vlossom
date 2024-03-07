@@ -80,7 +80,7 @@ describe('vs-toast', () => {
             });
 
             describe('colorScheme이 주어지지 않은 경우', () => {
-                it('state가 없는 경우, color-scheme 은 indigo 이다', () => {
+                it('state가 없는 경우, color-scheme 은 default 이다', () => {
                     // given
                     const wrapper = mount(VsToast, {
                         props: {
@@ -95,7 +95,7 @@ describe('vs-toast', () => {
                         },
                     });
 
-                    expect(wrapper.classes()).toContain('vs-indigo');
+                    expect(wrapper.classes()).toContain('vs-default');
                 });
 
                 it('state가 success 인 경우, color-scheme 은 green 이다', () => {
