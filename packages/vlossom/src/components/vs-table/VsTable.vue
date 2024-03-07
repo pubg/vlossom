@@ -14,7 +14,7 @@
                     :loading="loading"
                     :tr-style="trStyle"
                 >
-                    <template v-for="(_, name) in $slots" #[name]="slotData">
+                    <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
                 </VsTableBody>
@@ -46,8 +46,8 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
         draggable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
-        loading: { type: Boolean, default: false },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
+        loading: { type: Boolean, default: false },
         pagination: { type: Boolean, default: false },
     },
     setup(props, { slots }) {
@@ -60,6 +60,15 @@ export default defineComponent({
         const headerSlots = computed(() => {
             return Object.keys(slots).reduce((acc, slotName) => {
                 if (slotName.startsWith('header-')) {
+                    acc[slotName] = slots[slotName];
+                }
+                return acc;
+            }, {} as { [key: string]: any });
+        });
+
+        const itemSlots = computed(() => {
+            return Object.keys(slots).reduce((acc, slotName) => {
+                if (slotName.startsWith('item-') || slotName === 'expand') {
                     acc[slotName] = slots[slotName];
                 }
                 return acc;
@@ -81,10 +90,12 @@ export default defineComponent({
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
 
+
         return {
             computedColorScheme,
             computedStyleSet,
             headerSlots,
+            itemSlots,
             trStyle,
         };
     },

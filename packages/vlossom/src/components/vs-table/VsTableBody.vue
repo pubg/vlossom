@@ -1,16 +1,16 @@
 <template>
-    <vue-draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!canDrag || loading">
+    <vue-draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
         <template #item="{ element, index }">
             <VsTableBodyRow
                 :item="element"
                 :headers="headers"
-                :draggable="canDrag"
+                :draggable="draggable"
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
                 @click="emitRowClick(element, index)"
             >
-                <template v-for="(_, name) in itemSlots" #[name]="slotData">
+                <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
                 </template>
             </VsTableBodyRow>
@@ -22,7 +22,7 @@
             :key="dummy.id"
             :item="dummy"
             :headers="headers"
-            :draggable="canDrag"
+            :draggable="draggable"
             :loading="loading"
             :row-index="index"
             :tr-style="trStyle"
@@ -50,10 +50,9 @@ import { stringUtil } from '@/utils/string';
 export default defineComponent({
     props: {
         draggable: { type: Boolean, default: false },
+        headers: { type: Array as PropType<TableHeader[]>, required: true },
+        items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
-        headers: { type: Array as PropType<TableHeader[]> },
-        items: { type: Array as PropType<any[]>, default: () => [] as any[] },
-        pagination: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
@@ -65,17 +64,8 @@ export default defineComponent({
         VsIcon,
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
-    setup(props, { emit, slots }) {
-        const { items, draggable, pagination } = toRefs(props);
-
-        const itemSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('item-') || slotName === 'expand') {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
-        });
+    setup(props, { emit }) {
+        const { items } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -83,10 +73,6 @@ export default defineComponent({
             return itemArr.map((item: any) => {
                 return { id: stringUtil.createID(), data: item };
             });
-        });
-
-        const canDrag = computed(() => {
-            return draggable.value && !pagination.value;
         });
 
         watch(
@@ -121,9 +107,7 @@ export default defineComponent({
         });
 
         return {
-            itemSlots,
             computedItems,
-            canDrag,
             dummyTableItems,
             emitRowClick,
         };
