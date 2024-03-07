@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ToastStore } from '../toast-store';
-import { Align, Placement } from '@/declaration';
+import type { Align, Placement } from '@/declaration';
 
 describe('toast store', () => {
     it('toast store의 상태를 가져올 수 있다', () => {

@@ -1,6 +1,6 @@
 import { colorScheme, getColorSchemeTemplate, chromaticParameters, align } from '@/storybook';
 
-import type { ToastOptions } from '@/declaration';
+import type { ToastOptions } from '@/plugins';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const meta: Meta = {

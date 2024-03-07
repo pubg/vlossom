@@ -1,10 +1,11 @@
 import { render, h } from 'vue';
 import { store } from '@/store';
 import { utils } from '@/utils';
-import { UIState, ToastPlugin, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
+import { UIState, DEFAULT_TOAST_TIMEOUT } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
-import type { ToastInfo, ToastOptions, Placement, Align } from '@/declaration';
+import type { ToastInfo, ToastOptions, ToastPlugin } from './types';
+import type { Placement, Align } from '@/declaration';
 
 export function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
     const body = document?.body;

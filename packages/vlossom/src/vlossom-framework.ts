@@ -2,7 +2,8 @@ import { store } from './store';
 import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';
-import type { ToastPlugin, VlossomOptions, VsComponent } from '@/declaration';
+import type { VlossomOptions, VsComponent } from '@/declaration';
+import type { ToastPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {

@@ -19,9 +19,9 @@ import {
 } from 'vue';
 import { store } from '@/store';
 import VsToast from './VsToast.vue';
-import { ToastInfo } from '@/declaration';
 
 import type { Placement, Align } from '@/declaration';
+import type { ToastInfo } from '@/plugins';
 
 export default defineComponent({
     name: 'VsToastView',

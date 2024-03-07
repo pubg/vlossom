@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { ToastInfo } from '..';
+import type { ToastInfo } from '@/plugins';
 
 interface ToastState {
     toasts: ToastInfo[];

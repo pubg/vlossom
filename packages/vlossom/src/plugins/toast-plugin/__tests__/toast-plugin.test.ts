@@ -1,7 +1,8 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
-import { attach, toastPlugin, getToastInfo } from '../toast-plugin';
+import { attach, toastPlugin, getToastInfo } from '..';
 import { store } from '@/store';
-import { ToastInfo } from '@/declaration';
+
+import type { ToastInfo } from '@/plugins';
 
 describe('toast-plugin', () => {
     describe('attach', () => {

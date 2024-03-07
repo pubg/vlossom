@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import { ToastInfo } from '@/declaration';
 import { store } from '@/store';
 import VsToastView from '../VsToastView.vue';
+
+import type { ToastInfo } from '@/plugins';
 
 describe('vs-toast-view', () => {
     let originalToasts: ToastInfo[] = [];
