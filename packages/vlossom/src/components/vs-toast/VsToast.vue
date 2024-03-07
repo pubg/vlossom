@@ -38,7 +38,7 @@ export default defineComponent({
         const closeButtonRef = ref(null);
 
         function getColorScheme() {
-            let color = 'indigo';
+            let color = 'default';
             if (toastInfo.value.state) {
                 switch (toastInfo.value.state) {
                     case UIState.Success:
