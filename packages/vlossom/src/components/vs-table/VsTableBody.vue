@@ -84,11 +84,6 @@ export default defineComponent({
             { immediate: true },
         );
 
-        function emitUpdateTableItems(itemArr: TableItem[]) {
-            const values = itemArr.map((i) => i.data);
-            emit('update:tableItems', values);
-        }
-
         function emitRowClick(rowItem: any, rowIndex: number) {
             emit('rowClick', rowItem, rowIndex);
         }
@@ -99,7 +94,7 @@ export default defineComponent({
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                emitUpdateTableItems(itemArr);
+                emit('update:tableItems', innerItems.value);
             },
         });
 
