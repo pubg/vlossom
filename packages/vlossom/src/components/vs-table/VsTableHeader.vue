@@ -22,13 +22,10 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { VsIcon } from '@/icons';
-
 import type { TableHeader } from './types';
 
 export default defineComponent({
     name: 'vs-table-header',
-    components: { VsIcon },
     props: {
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
