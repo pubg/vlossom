@@ -29,7 +29,7 @@ export default defineComponent({
     props: {
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
-        headers: { type: Array as PropType<TableHeader[]> },
+        headers: { type: Array as PropType<TableHeader[]>, required: true },
         selectable: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
