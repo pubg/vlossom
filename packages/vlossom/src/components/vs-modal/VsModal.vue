@@ -29,7 +29,7 @@
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useStyleSet } from '@/composables';
 import { VsComponent, Size } from '@/declaration';
-import { VsFocusTrap } from '@/components';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 
 import type { VsModalStyleSet } from './types';

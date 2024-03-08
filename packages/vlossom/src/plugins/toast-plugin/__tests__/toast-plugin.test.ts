@@ -1,11 +1,11 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
-import { attach, toastPlugin, getToastInfo } from '..';
+import { attachToast, toastPlugin, getToastInfo } from '..';
 import { store } from '@/store';
 
 import type { ToastInfo } from '@/plugins';
 
 describe('toast-plugin', () => {
-    describe('attach', () => {
+    describe('attachToast', () => {
         const originalDocumentBody = document.body;
 
         afterEach(() => {
@@ -24,7 +24,7 @@ describe('toast-plugin', () => {
             });
 
             // when
-            attach('top', 'center');
+            attachToast('top', 'center');
 
             // then
             expect(consoleError).toBeCalledWith('body not found');
@@ -41,7 +41,7 @@ describe('toast-plugin', () => {
                 document.body.appendChild(toastView);
 
                 // when
-                attach(placement, align);
+                attachToast(placement, align);
 
                 // then
                 expect(document.querySelectorAll('#vs-toast-view-top-center').length).toBe(1);
@@ -52,7 +52,7 @@ describe('toast-plugin', () => {
                 const placement = 'bottom';
                 const align = 'start';
 
-                attach(placement, align);
+                attachToast(placement, align);
 
                 // then
                 expect(document.querySelectorAll('#vs-toast-view-bottom-start').length).toBe(1);
@@ -77,7 +77,7 @@ describe('toast-plugin', () => {
         });
     });
 
-    describe('toast', () => {
+    describe('toastPlugin', () => {
         let originalAddToast: (toastInfo: ToastInfo) => void = () => {};
         let mockStore: {
             toast: {
@@ -127,7 +127,7 @@ describe('toast-plugin', () => {
             toastPlugin.success('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalled();
+            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });
 
@@ -139,7 +139,7 @@ describe('toast-plugin', () => {
             toastPlugin.info('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalled();
+            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });
 
@@ -152,7 +152,7 @@ describe('toast-plugin', () => {
             toastPlugin.error('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalled();
+            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
@@ -169,7 +169,7 @@ describe('toast-plugin', () => {
             toastPlugin.warn('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalled();
+            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 

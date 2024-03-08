@@ -33,10 +33,11 @@ export default defineComponent({
         closeOnEsc: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
         isModal: { type: Boolean, default: true },
+        id: { type: String, default: () => utils.string.createID() },
     },
     emits: ['close'],
     setup(props, { emit, slots }) {
-        const { styleSet, closeOnEsc } = toRefs(props);
+        const { styleSet, closeOnEsc, id } = toRefs(props);
 
         const convertedStyleSet = computed(() => {
             return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
@@ -49,18 +50,17 @@ export default defineComponent({
         const hasHeader = computed(() => !!slots['header']);
         const hasFooter = computed(() => !!slots['footer']);
 
-        const id = utils.string.createID();
-        const headerId = `vs-dialog-header-${id}`;
-        const bodyId = `vs-dialog-body-${id}`;
+        const headerId = `vs-dialog-header-${id.value}`;
+        const bodyId = `vs-dialog-body-${id.value}`;
 
         function onPressEsc(event: KeyboardEvent) {
-            if (event.key === 'Escape' && store.dialog.getTopId() === id) {
+            if (event.key === 'Escape' && store.dialog.getTopId() === id.value) {
                 emit('close');
             }
         }
 
         onMounted(() => {
-            store.dialog.push(id);
+            store.dialog.push(id.value);
             if (closeOnEsc.value) {
                 document.addEventListener('keydown', onPressEsc);
             }
@@ -72,7 +72,6 @@ export default defineComponent({
         });
 
         return {
-            id,
             headerId,
             bodyId,
             convertedStyleSet,
