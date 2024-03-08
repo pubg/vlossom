@@ -91,6 +91,9 @@ export { default as VsStepper } from './vs-stepper/VsStepper.vue';
 export { type VsSwitchStyleSet } from './vs-switch/types';
 export { default as VsSwitch } from './vs-switch/VsSwitch.vue';
 
+export { type VsTableStyleSet } from './vs-table/types';
+export { default as VsTable } from './vs-table/VsTable.vue';
+
 export { type VsTabsStyleSet } from './vs-tabs/types';
 export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 
@@ -146,6 +149,7 @@ declare module 'vue' {
         VsSelect: typeof import('./')['VsSelect'];
         VsStepper: typeof import('./')['VsStepper'];
         VsSwitch: typeof import('./')['VsSwitch'];
+        VsTable: typeof import('./')['VsTable'];
         VsTabs: typeof import('./')['VsTabs'];
         VsTextarea: typeof import('./')['VsTextarea'];
         VsTextWrap: typeof import('./')['VsTextWrap'];

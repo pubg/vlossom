@@ -33,6 +33,7 @@ export enum VsComponent {
     VsSelect = 'VsSelect',
     VsStepper = 'VsStepper',
     VsSwitch = 'VsSwitch',
+    VsTable = 'VsTable',
     VsTabs = 'VsTabs',
     VsTextarea = 'VsTextarea',
     VsTextWrap = 'VsTextWrap',

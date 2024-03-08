@@ -1,0 +1,189 @@
+ .vs-table .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+        min-width: 100%;
+
+        tr {
+            display: grid;
+            justify-content: flex-start;
+            overflow: hidden;
+
+            th,
+            td {
+                display: flex;
+                align-items: center;
+                padding: 0.4rem 1.2rem;
+                text-align: left;
+
+                .table-data {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        thead tr {
+            background-color: var(--vs-comp-backgroundColor);
+
+            th {
+                color: var(--vs-comp-color);
+                height: 3.6rem;
+                font-size: 1.1rem;
+                font-weight: 700;
+
+                &.draggable-th {
+                    visibility: hidden;
+                }
+
+                &.table-th:first-of-type {
+                    padding-left: 2rem;
+                }
+            }
+        }
+
+        tbody tr {
+            position: relative;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid var(--vs-grey-200);
+            color: var(--vs-font-color);
+            background-color: var(--vs-plain-backgroundColord);
+
+            td {
+                min-height: 4.8rem;
+                font-size: 1.1rem;
+
+                &.draggable-td {
+                    padding-right: 0;
+                }
+
+                &.table-td:first-of-type {
+                    padding-left: 2rem;
+                }
+
+                .skeleton {
+                    width: 95%;
+                    height: 60%;
+                    border-radius: 0.4rem;
+                    background-color: var(--vs-grey-200);
+                    animation: skeleton-loading 0.6s infinite alternate;
+                }
+            }
+        }
+
+        tbody tr:not(.skeleton) td.draggable-td {
+            cursor: grab;
+            &:active {
+                cursor: grabbing;
+            }
+        }
+
+        tbody tr:not(.skeleton):hover::after {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: var(--vs-area-backgroundColor);
+            pointer-events: none;
+        }
+
+        .table-empty {
+            border-bottom: 1px solid var(--vs-grey-200);
+            padding: 4.8rem 0;
+            font-weight: 400;
+            text-align: center;
+            opacity: 0.4;
+
+            p {
+                font-weight: 500;
+                font-size: 2rem;
+            }
+        }
+    }
+}
+
+.vs-table.dense .table-wrap table {
+    tr {
+        th,
+        td {
+            padding: 0.1rem 1.2rem;
+        }
+    }
+
+    thead tr {
+        th {
+            height: 3.2rem;
+        }
+    }
+
+    tbody tr {
+        td {
+            min-height: 3.2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .vs-table .table-wrap {
+        table thead {
+            display: none;
+        }
+
+        table tbody tr {
+            display: flex !important;
+            flex-direction: column;
+            margin: 1rem 0 0 0;
+            border: 1px solid var(--vs-line-color);
+
+            &:first-of-type {
+                margin-top: 0;
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.8rem 1.2rem !important;
+                border-top: 1px dashed var(--vs-line-color);
+
+                &::before {
+                    content: attr(data-label);
+                    color: var(--vs-comp-color);
+                    display: block;
+                    line-height: 3rem;
+                    margin-right: 1.8rem;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                }
+
+                &:first-child {
+                    border-top: none;
+                }
+
+                .skeleton {
+                    height: 2.8rem;
+                }
+            }
+        }
+
+        .table-empty {
+            border-top: 1px solid var(--vs-grey-200);
+        }
+    }
+}
+
+@keyframes skeleton-loading {
+    0% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+}
