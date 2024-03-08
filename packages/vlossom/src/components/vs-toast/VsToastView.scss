@@ -25,22 +25,21 @@
     background-image: var(--vs-gradient-color);
     box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
     display: flex;
+    justify-content: center;
     border-radius: 0.4rem;
     color: #fff;
-    flex-direction: column;
     font-size: 1.1rem;
     margin: 0.4rem 0;
     pointer-events: auto;
     width: fit-content;
 
-    .close-button {
-        align-self: flex-end;
-        color: #fff;
-        padding: 0.2rem 0.8rem 0 0.8rem;
+    .toast-content {
+        padding: 1rem 3rem 1rem 4rem;
     }
 
-    .toast-content {
-        padding: 0rem 4rem 1.4rem 4rem;
+    .close-button {
+        color: #fff;
+        padding-right: 0.8rem;
     }
 }
 

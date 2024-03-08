@@ -1,5 +1,8 @@
 <template>
     <div :class="['vs-toast', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
+        <div class="toast-content">
+            <span v-html="toastInfo.text" />
+        </div>
         <button
             ref="closeButtonRef"
             v-if="!toastInfo.autoClose"
@@ -10,9 +13,6 @@
         >
             <vs-icon icon="close" size="20px" />
         </button>
-        <div class="toast-content" :style="toastInfo.autoClose && { paddingTop: '1.4rem' }">
-            <span v-html="toastInfo.text" />
-        </div>
     </div>
 </template>
 
