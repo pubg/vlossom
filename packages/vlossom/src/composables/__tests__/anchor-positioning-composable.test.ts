@@ -1,21 +1,27 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { defineComponent, nextTick, ref, Ref } from 'vue';
+import { defineComponent, nextTick, ref, type Ref } from 'vue';
 import { usePositioning, useOverlay } from '@/composables';
 
 describe('anchor-positioning-composable', () => {
-    describe('useDomAttach', async () => {
+    describe('usePositioning', async () => {
         // given
-        const attachment = document.createElement('div');
-        document.body.appendChild(attachment);
 
         const TargetComponent = defineComponent({
-            template: '<div ref="anchorRef">anchor</div>',
+            template: `
+                <div ref="anchorRef">anchor</div>
+                <div ref="attachmentRef">attachment</div>
+            `,
             setup() {
                 const anchorRef: Ref<HTMLElement | null> = ref(null);
+                const attachmentRef: Ref<HTMLElement | null> = ref(null);
 
-                const { isVisible, appear, disappear } = usePositioning(anchorRef as Ref<HTMLElement>, ref(attachment));
-                return { anchorRef, isVisible, appear, disappear };
+                const { isVisible, appear, disappear } = usePositioning(
+                    anchorRef as Ref<HTMLElement>,
+                    attachmentRef as Ref<HTMLElement>,
+                );
+
+                return { anchorRef, attachmentRef, isVisible, appear, disappear };
             },
         });
 
@@ -24,7 +30,6 @@ describe('anchor-positioning-composable', () => {
         it('appear 호출 시 isVisible이 true가 된다', async () => {
             // when
             wrapper.vm.appear();
-            await nextTick();
 
             // then
             expect(wrapper.vm.isVisible).toBe(true);
@@ -33,7 +38,6 @@ describe('anchor-positioning-composable', () => {
         it('disappear 호출 시 isVisible이 false가 된다', async () => {
             // when
             wrapper.vm.disappear();
-            await nextTick();
 
             // then
             expect(wrapper.vm.isVisible).toBe(false);
@@ -47,28 +51,14 @@ describe('anchor-positioning-composable', () => {
 
         it('useOverlay를 호출하면 #vs-overlay를 document에 추가한다', async () => {
             // given
-            const TargetComponent = defineComponent({
-                template: `
-                    <div ref="anchorRef">target</div>
-                    <Teleport to="vs-overlay">
-                        <div ref="attchmentRef">attachment</div>
-                    </Teleport>
-                `,
+            const Component = defineComponent({
+                template: '<div></div>',
                 setup() {
-                    const anchorRef: Ref<HTMLElement | null> = ref(null);
-                    const attachmentRef: Ref<HTMLElement | null> = ref(null);
-
                     useOverlay();
-
-                    const { isVisible, appear, disappear } = usePositioning(
-                        anchorRef as Ref<HTMLElement>,
-                        attachmentRef as Ref<HTMLElement>,
-                    );
-
-                    return { anchorRef, attachmentRef, isVisible, appear, disappear };
+                    return {};
                 },
             });
-            mount(TargetComponent);
+            mount(Component);
 
             // when
             await nextTick();
