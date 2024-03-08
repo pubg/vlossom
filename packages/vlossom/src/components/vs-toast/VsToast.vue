@@ -3,16 +3,17 @@
         <div class="toast-content">
             <span v-html="toastInfo.text" />
         </div>
-        <button
-            ref="closeButtonRef"
-            v-if="!toastInfo.autoClose"
-            type="button"
-            class="close-button"
-            @click="closeToast"
-            aria-label="close"
-        >
-            <vs-icon icon="close" size="20px" />
-        </button>
+        <div class="close-button">
+            <button
+                ref="closeButtonRef"
+                v-if="!toastInfo.autoClose"
+                type="button"
+                @click="closeToast"
+                aria-label="close"
+            >
+                <vs-icon icon="close" size="20px" />
+            </button>
+        </div>
     </div>
 </template>
 

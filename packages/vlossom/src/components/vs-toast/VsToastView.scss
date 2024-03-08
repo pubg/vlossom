@@ -34,12 +34,18 @@
     width: fit-content;
 
     .toast-content {
-        padding: 1rem 3rem 1rem 4rem;
+        padding: 1rem 3rem;
     }
 
     .close-button {
-        color: #fff;
-        padding-right: 0.8rem;
+        position: relative;
+
+        button {
+            color: #fff;
+            position: absolute;
+            top: 0;
+            right: 6px;
+        }
     }
 }
 

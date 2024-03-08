@@ -39,7 +39,7 @@ describe('vs-toast', () => {
                     },
                 });
 
-                expect(wrapper.find('.close-button').exists()).toBe(false);
+                expect(wrapper.find('button[aria-label="close"]').exists()).toBe(false);
             });
             it('autoClose 가 false 인 경우, close-button이 렌더된다', () => {
                 // given
@@ -55,7 +55,7 @@ describe('vs-toast', () => {
                     },
                 });
 
-                expect(wrapper.find('.close-button').exists()).toBe(true);
+                expect(wrapper.find('button[aria-label="close"]').exists()).toBe(true);
             });
         });
 
