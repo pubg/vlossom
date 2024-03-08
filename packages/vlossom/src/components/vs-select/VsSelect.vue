@@ -318,7 +318,13 @@ export default defineComponent({
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
 
-        const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
+        const { getOptionLabel, getOptionValue } = useInputOption(
+            inputValue,
+            options,
+            optionLabel,
+            optionValue,
+            multiple,
+        );
 
         const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(disabled, readonly);

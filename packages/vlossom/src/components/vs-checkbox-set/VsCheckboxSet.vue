@@ -124,7 +124,13 @@ export default defineComponent({
             inputValue.value = [];
         }
 
-        const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
+        const { getOptionLabel, getOptionValue } = useInputOption(
+            inputValue,
+            options,
+            optionLabel,
+            optionValue,
+            ref(true),
+        );
 
         function requiredCheck() {
             return required.value && inputValue.value.length === 0 ? 'required' : '';

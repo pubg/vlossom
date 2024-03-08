@@ -9,7 +9,7 @@ describe('input option composable', () => {
             const options = ref(['test']);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -20,7 +20,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label'), ref(''));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label'), ref(''), ref(false));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -31,7 +31,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('{"label":"test"}');
@@ -42,7 +42,7 @@ describe('input option composable', () => {
             const options = ref([{ label: { test: 'test' } }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label.test'), ref(''));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label.test'), ref(''), ref(false));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -55,7 +55,7 @@ describe('input option composable', () => {
             const options = ref(['test']);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test');
@@ -66,7 +66,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: 'test-value' }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value'));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value'), ref(false));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
@@ -77,7 +77,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
 
             // then
             expect(getOptionValue(options.value[0])).toBe(options.value[0]);
@@ -88,7 +88,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: { test: 'test-value' } }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value.test'));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value.test'), ref(false));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
@@ -96,63 +96,187 @@ describe('input option composable', () => {
     });
 
     describe('options 변경 시', () => {
-        describe('inputValue가 array인 경우', () => {
-            it('빈 array인 경우 그대로 빈 array 값이 유지된다', async () => {
-                // given
-                const inputValue = ref([]);
-                const options = ref(['test1', 'test2', 'test3']);
+        describe('multiple 인 경우', () => {
+            describe('primitive value', () => {
+                it('빈 array인 경우 그대로 빈 array 값이 유지된다', async () => {
+                    // given
+                    const inputValue = ref([]);
+                    const options = ref(['test1', 'test2', 'test3']);
 
-                // when
-                useInputOption(inputValue, options, ref(''), ref(''));
-                options.value = ['new-test1', 'new-test2', 'new-test3'];
-                await nextTick();
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = ['new-test1', 'new-test2', 'new-test3'];
+                    await nextTick();
 
-                // then
-                expect(inputValue.value).toEqual([]);
+                    // then
+                    expect(inputValue.value).toEqual([]);
+                });
+
+                it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
+                    // given
+                    const inputValue = ref(['test1', 'test2']);
+                    const options = ref(['test1', 'test2', 'test3']);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = ['test1', 'new-test2', 'new-test3'];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toEqual(['test1']);
+                });
             });
 
-            it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
-                // given
-                const inputValue = ref(['test1', 'test2']);
-                const options = ref(['test1', 'test2', 'test3']);
+            describe('object value', () => {
+                it('빈 array인 경우 그대로 빈 array 값이 유지된다', async () => {
+                    // given
+                    const inputValue = ref([]);
+                    const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
 
-                // when
-                useInputOption(inputValue, options, ref(''), ref(''));
-                options.value = ['test1', 'new-test2', 'new-test3'];
-                await nextTick();
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = [{ name: 'new-test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
+                    await nextTick();
 
-                // then
-                expect(inputValue.value).toEqual(['test1']);
+                    // then
+                    expect(inputValue.value).toEqual([]);
+                });
+
+                it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
+                    // given
+                    const inputValue = ref([{ name: 'test1' }, { name: 'test2' }]);
+                    const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = [{ name: 'test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toEqual([{ name: 'test1' }]);
+                });
+            });
+
+            describe('array value', () => {
+                it('빈 array인 경우 그대로 빈 array 값이 유지된다', async () => {
+                    // given
+                    const inputValue = ref([]);
+                    const options = ref([['test1'], ['test2'], ['test3']]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = [['new-test1'], ['new-test2'], ['new-test3']];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toEqual([]);
+                });
+
+                it('바뀐 options 중에 inputValue에 포함된 값이 있다면 유지하고 없으면 제거한다', async () => {
+                    // given
+                    const inputValue = ref([['test1'], ['test2']]);
+                    const options = ref([['test1'], ['test2'], ['test3']]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(true));
+                    options.value = [['test1'], ['new-test2'], ['new-test3']];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toEqual([['test1']]);
+                });
             });
         });
 
-        describe('inputValue가 array가 아닌 경우', () => {
-            it('바뀐 options 중에 inputValue 값이 있다면 유지한다', async () => {
-                // given
-                const inputValue = ref('test1');
-                const options = ref(['test1', 'test2', 'test3']);
+        describe('multiple 아닌 경우', () => {
+            describe('primitive value', () => {
+                it('바뀐 options 중에 inputValue 값이 있다면 유지한다', async () => {
+                    // given
+                    const inputValue = ref('test1');
+                    const options = ref(['test1', 'test2', 'test3']);
 
-                // when
-                useInputOption(inputValue, options, ref(''), ref(''));
-                options.value = ['test1', 'new-test2', 'new-test3'];
-                await nextTick();
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = ['test1', 'new-test2', 'new-test3'];
+                    await nextTick();
 
-                // then
-                expect(inputValue.value).toBe('test1');
+                    // then
+                    expect(inputValue.value).toBe('test1');
+                });
+
+                it('바뀐 options 중에 inputValue 값이 없다면 null을 할당한다', async () => {
+                    // given
+                    const inputValue = ref('test1');
+                    const options = ref(['test1', 'test2', 'test3']);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = ['new-test1', 'new-test2', 'new-test3'];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toBe(null);
+                });
             });
 
-            it('바뀐 options 중에 inputValue 값이 없다면 null을 할당한다', async () => {
-                // given
-                const inputValue = ref('test1');
-                const options = ref(['test1', 'test2', 'test3']);
+            describe('object value', () => {
+                it('바뀐 options 중에 inputValue 값이 있다면 유지한다', async () => {
+                    // given
+                    const inputValue = ref({ name: 'test1' });
+                    const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
 
-                // when
-                useInputOption(inputValue, options, ref(''), ref(''));
-                options.value = ['new-test1', 'new-test2', 'new-test3'];
-                await nextTick();
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = [{ name: 'test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
+                    await nextTick();
 
-                // then
-                expect(inputValue.value).toBe(null);
+                    // then
+                    expect(inputValue.value).toEqual({ name: 'test1' });
+                });
+
+                it('바뀐 options 중에 inputValue 값이 없다면 null을 할당한다', async () => {
+                    // given
+                    const inputValue = ref({ name: 'test1' });
+                    const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = [{ name: 'new-test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toBe(null);
+                });
+            });
+
+            describe('array value', () => {
+                it('바뀐 options 중에 inputValue 값이 있다면 유지한다', async () => {
+                    // given
+                    const inputValue = ref(['test1']);
+                    const options = ref([['test1'], ['test2'], ['test3']]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = [['test1'], ['new-test2'], ['new-test3']];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toEqual(['test1']);
+                });
+
+                it('바뀐 options 중에 inputValue 값이 없다면 null을 할당한다', async () => {
+                    // given
+                    const inputValue = ref(['test1']);
+                    const options = ref([['test1'], ['test2'], ['test3']]);
+
+                    // when
+                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    options.value = [['new-test1'], ['new-test2'], ['new-test3']];
+                    await nextTick();
+
+                    // then
+                    expect(inputValue.value).toBe(null);
+                });
             });
         });
     });

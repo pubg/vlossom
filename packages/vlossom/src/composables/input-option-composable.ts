@@ -15,6 +15,7 @@ export function useInputOption(
     options: Ref<any[]>,
     optionLabel: Ref<string>,
     optionValue: Ref<string>,
+    multiple: Ref<boolean>,
 ) {
     function getOptionLabel(option: any) {
         if (typeof option === 'object') {
@@ -55,16 +56,12 @@ export function useInputOption(
             return;
         }
 
-        if (Array.isArray(inputValue.value)) {
+        if (multiple.value && Array.isArray(inputValue.value)) {
             inputValue.value = inputValue.value.filter((value) => {
-                return newOptions.some((o) => {
-                    return getOptionValue(o) === value;
-                });
+                return newOptions.some((o) => utils.object.isEqual(getOptionValue(o), value));
             });
         } else {
-            const option = newOptions.find((o) => {
-                return getOptionValue(o) === inputValue.value;
-            });
+            const option = newOptions.find((o) => utils.object.isEqual(getOptionValue(o), inputValue.value));
 
             if (!option) {
                 inputValue.value = null;
