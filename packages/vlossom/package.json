@@ -39,6 +39,8 @@
     ],
     "main": "./dist/vlossom.umd.cjs",
     "module": "./dist/vlossom.js",
+    "unpkg": "./dist/vlossom.umd.cjs",
+    "jsdelivr": "./dist/vlossom.umd.cjs",
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
     "exports": {
