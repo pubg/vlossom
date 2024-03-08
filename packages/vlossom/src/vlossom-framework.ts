@@ -1,7 +1,9 @@
 import { store } from './store';
+import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';
 import type { VlossomOptions, VsComponent } from '@/declaration';
+import type { ToastPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
@@ -53,6 +55,8 @@ export class Vlossom {
     toggleTheme() {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
+
+    public toast: ToastPlugin = vsPlugins.toastPlugin;
 }
 
 let vlossom: Vlossom;

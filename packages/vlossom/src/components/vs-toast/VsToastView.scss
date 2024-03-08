@@ -1,0 +1,57 @@
+.vs-toast-view {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    position: fixed;
+    transition: all 0.5s ease;
+    width: 98%;
+    z-index: var(--vs-toast-z-index);
+}
+
+.vs-toast-view-top {
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+}
+
+.vs-toast-view-bottom {
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.vs-toast {
+    background-image: var(--vs-gradient-color);
+    box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
+    display: flex;
+    justify-content: center;
+    border-radius: 0.4rem;
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    pointer-events: auto;
+    width: fit-content;
+
+    .toast-content {
+        padding: 1rem 3rem;
+    }
+
+    .close-button {
+        position: relative;
+
+        button {
+            color: #fff;
+            position: absolute;
+            top: 0;
+            right: 6px;
+        }
+    }
+}
+
+.fade-enter-active {
+    animation: fade-in-top 0.5s both;
+}
+.fade-leave-active {
+    animation: fade-out-top 0.5s;
+}
