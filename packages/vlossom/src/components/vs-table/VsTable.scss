@@ -35,6 +35,10 @@
                 font-size: 1.1rem;
                 font-weight: 700;
 
+                &.draggable-th {
+                    color: transparent;
+                }
+
                 &.table-th:first-of-type {
                     padding-left: 2rem;
                 }

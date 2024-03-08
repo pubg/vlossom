@@ -1,7 +1,7 @@
 <template>
     <thead>
         <tr :style="trStyle">
-            <th class="draggable-th" v-if="draggable"></th>
+            <th class="draggable-th" v-if="draggable">drag</th>
             <th class="selectable-th" v-if="selectable"> <!-- [TODO] select --></th>
             <th
                 v-for="(header, index) in headers"
@@ -22,10 +22,13 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { VsIcon } from '@/icons';
+
 import type { TableHeader } from './types';
 
 export default defineComponent({
     name: 'vs-table-header',
+    components: { VsIcon },
     props: {
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
