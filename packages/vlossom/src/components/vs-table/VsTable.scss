@@ -76,6 +76,9 @@
 
         tbody tr:not(.skeleton) td.draggable-td {
             cursor: grab;
+            &:active {
+                cursor: grabbing;
+            }
         }
 
         tbody tr:not(.skeleton):hover::after {
