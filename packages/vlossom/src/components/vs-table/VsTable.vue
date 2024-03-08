@@ -2,12 +2,12 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense': '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
-                <VsTableHeader :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
+                <vs-table-header :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
-                </VsTableHeader>
-                <VsTableBody
+                </vs-table-header>
+                <vs-table-body
                     :items="items"
                     :headers="headers"
                     :draggable="draggable"
@@ -17,7 +17,7 @@
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
-                </VsTableBody>
+                </vs-table-body>
             </table>
         </div>
     </div>

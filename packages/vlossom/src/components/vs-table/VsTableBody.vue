@@ -1,7 +1,7 @@
 <template>
     <draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
         <template #item="{ element, index }">
-            <VsTableBodyRow
+            <vs-table-body-row
                 :item="element"
                 :headers="headers"
                 :draggable="draggable"
@@ -13,11 +13,11 @@
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
                 </template>
-            </VsTableBodyRow>
+            </vs-table-body-row>
         </template>
     </draggable>
     <tbody v-if="loading && computedItems.length === 0">
-        <VsTableBodyRow
+        <vs-table-body-row
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
             :item="dummy"
