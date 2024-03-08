@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-toast-view', `vs-toast-view-${placement}`]">
-        <TransitionGroup name="fade">
+        <TransitionGroup name="fade" appear>
             <vs-toast ref="toastRefs" v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
         </TransitionGroup>
     </div>
