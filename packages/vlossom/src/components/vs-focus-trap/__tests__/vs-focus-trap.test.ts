@@ -1,12 +1,23 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { nextTick } from 'vue';
+import { nextTick, ref, defineComponent, Ref } from 'vue';
 import VsFocusTrap from '../VsFocusTrap.vue';
 
-const slot = `<div>
-    <input />
-    <button>close</button>
-</div>`;
+const Component = defineComponent({
+    template: `
+        <div>
+            <input />
+            <button ref="buttonRef">close</button>
+        </div>
+    `,
+    setup() {
+        const buttonRef: Ref<HTMLElement | null> = ref(null);
+
+        return {
+            buttonRef,
+        };
+    },
+});
 
 beforeEach(() => {
     document.body.innerHTML = '';
@@ -14,11 +25,11 @@ beforeEach(() => {
 
 describe('focus-trap', () => {
     describe('catch focus', () => {
-        it('mount 되고 나서 가장 첫번째 focusable 요소에 focus를 준다', async () => {
+        it('mount 되고 나서 vs-focus-trap 쪽으로 focus를 가져온다', async () => {
             // given
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 attachTo: document.body,
             });
@@ -26,14 +37,14 @@ describe('focus-trap', () => {
             await nextTick();
 
             // then
-            expect(wrapper.find('input').element).toBe(document.activeElement);
+            expect(wrapper.find('.vs-focus-trap>div[tabindex="-1"]').element).toBe(document.activeElement);
         });
 
         it('initial-focus-ref prop이 지정되어 있다면 mount 되고 나서 해당 요소에 focus를 준다', async () => {
             // given
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 attachTo: document.body,
             });
@@ -50,7 +61,7 @@ describe('focus-trap', () => {
             // given
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 attachTo: document.body,
             });
@@ -58,7 +69,8 @@ describe('focus-trap', () => {
             await nextTick();
 
             // when
-            wrapper.find('button').trigger('keydown.Tab');
+            await wrapper.find('button').element.focus();
+            await wrapper.find('button').trigger('keydown.Tab');
 
             // then
             expect(wrapper.find('input').element).toBe(document.activeElement);
@@ -68,7 +80,7 @@ describe('focus-trap', () => {
             // given
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 attachTo: document.body,
             });
@@ -76,7 +88,8 @@ describe('focus-trap', () => {
             await nextTick();
 
             // when
-            wrapper.find('input').trigger('keydown.Tab', {
+            await wrapper.find('input').element.focus();
+            await wrapper.find('input').trigger('keydown.Tab', {
                 shiftKey: true,
             });
 
@@ -90,7 +103,7 @@ describe('focus-trap', () => {
 
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 props: {
                     focusLock: false,
@@ -119,7 +132,7 @@ describe('focus-trap', () => {
 
             const wrapper = mount(VsFocusTrap, {
                 slots: {
-                    default: slot,
+                    default: Component,
                 },
                 attachTo: document.body,
             });

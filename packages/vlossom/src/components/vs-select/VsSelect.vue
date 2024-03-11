@@ -79,7 +79,8 @@
                     v-if="!noClear && selectedOptions.length && !readonly && !disabled"
                     type="button"
                     class="clear-button"
-                    aria-label="clear"
+                    aria-hidden="true"
+                    tabindex="-1"
                     @click.stop="onClear()"
                 >
                     <vs-icon icon="close" :size="dense ? 16 : 20" />

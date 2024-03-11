@@ -51,7 +51,8 @@
                     class="clear-button"
                     :class="{ show: inputValue }"
                     :disabled="!inputValue"
-                    aria-label="clear"
+                    aria-hidden="true"
+                    tabindex="-1"
                     @click.stop="clearWithFocus()"
                 >
                     <vs-icon icon="close" :size="dense ? 16 : 20" />

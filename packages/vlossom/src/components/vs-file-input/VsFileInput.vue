@@ -50,6 +50,8 @@
                 <button
                     v-if="!noClear && hasValue && !readonly && !disabled"
                     class="clear-button"
+                    aria-hidden="true"
+                    tabindex="-1"
                     @click.stop="onClear()"
                 >
                     <vs-icon icon="close" :size="dense ? 16 : 20" />
