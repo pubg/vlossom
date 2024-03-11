@@ -27,7 +27,7 @@ function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
 
 export const DEFAULT_TOAST_TIMEOUT = 3000;
 
-export function getToastInfo(
+function getToastInfo(
     text: string,
     {
         autoClose = true,

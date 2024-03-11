@@ -1,27 +1,10 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
-import { toastPlugin, getToastInfo } from '..';
+import { toastPlugin } from '..';
 import { store } from '@/store';
 
 import type { ToastInfo } from '@/plugins';
 
 describe('toast-plugin', () => {
-    describe('getToastInfo', () => {
-        it('toastInfo 를 생성할 수 있다', () => {
-            // when
-            const result = getToastInfo('Hello');
-
-            // then
-            expect(result).toEqual({
-                id: expect.any(String),
-                text: 'Hello',
-                autoClose: true,
-                duration: 3000,
-                placement: 'top',
-                align: 'center',
-            });
-        });
-    });
-
     describe('toastPlugin', () => {
         let originalAddToast: (toastInfo: ToastInfo) => void = () => {};
         let mockStore: {
