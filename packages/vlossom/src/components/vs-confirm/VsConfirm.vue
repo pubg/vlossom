@@ -34,7 +34,7 @@ import { useColorScheme } from '@/composables';
 import { VsComponent } from '@/declaration';
 import { store } from '@/store';
 import VsButton from '@/components/vs-button/VsButton.vue';
-import VsModal from '../vs-modal/VsModal.vue';
+import VsModal from '@/components/vs-modal/VsModal.vue';
 
 import type { ConfirmInfo } from '@/plugins';
 

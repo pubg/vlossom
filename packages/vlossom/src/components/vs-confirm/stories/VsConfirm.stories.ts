@@ -1,6 +1,6 @@
 import { colorScheme, getColorSchemeTemplate, chromaticParameters, size } from '@/storybook';
 import { ref } from 'vue';
-import { useVlossom } from '../../../../src';
+import { useVlossom } from '@/vlossom-framework';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
 import VsForm from '@/components/vs-form/VsForm.vue';
