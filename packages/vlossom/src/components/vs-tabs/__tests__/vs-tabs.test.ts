@@ -25,7 +25,6 @@ describe('vs-tabs', () => {
 
         it('props tabs에 전달된 string 배열이 중복되면 validator 가 false 를 리턴한다', () => {
             // given
-            const originalConsoleWarn = console.warn;
             const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
             const tabs = ['tab1', 'tab1'];
@@ -41,7 +40,7 @@ describe('vs-tabs', () => {
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
             // clear
-            console.warn = originalConsoleWarn;
+            consoleSpy.mockRestore();
         });
 
         it('각 탭의 slot을 통해 탭을 커스터마이징 할 수 있다', () => {

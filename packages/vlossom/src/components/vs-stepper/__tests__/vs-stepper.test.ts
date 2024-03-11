@@ -26,7 +26,6 @@ describe('vs-stepper', () => {
 
         it('props steps에 전달된 string 배열이 중복되면 validator가 false를 리턴한다', () => {
             // given
-            const originalConsoleWarn = console.warn;
             const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
             const steps = ['step1', 'step1'];
@@ -41,7 +40,7 @@ describe('vs-stepper', () => {
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
             // clear
-            console.warn = originalConsoleWarn;
+            consoleSpy.mockRestore();
         });
 
         it('각 스텝의 step slot을 통해 step에서 표시할 내용을 커스터마이징할 수 있다', () => {

@@ -145,7 +145,6 @@ describe('toast-plugin', () => {
 
         it('UIState 가 error 인 toast 를 보여줄 수 있다', () => {
             // given
-            const originalConsoleError = console.error;
             const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
@@ -158,12 +157,11 @@ describe('toast-plugin', () => {
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
             // clear
-            console.error = originalConsoleError;
+            consoleSpy.mockRestore();
         });
 
         it('UIState 가 warning 인 toast 를 보여줄 수 있다', () => {
             // given
-            const originalConsoleWarn = console.warn;
             const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
             vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
 
@@ -176,7 +174,7 @@ describe('toast-plugin', () => {
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
             // clear
-            console.warn = originalConsoleWarn;
+            consoleSpy.mockRestore();
         });
     });
 });
