@@ -21,9 +21,9 @@ export interface ToastInfo {
 }
 
 export interface ToastPlugin {
-    show(text: string, toastOptions?: ToastOptions): void;
-    success(text: string, toastOptions?: ToastOptions): void;
-    info(text: string, toastOptions?: ToastOptions): void;
+    show(text: any, toastOptions?: ToastOptions): void;
+    success(text: any, toastOptions?: ToastOptions): void;
+    info(text: any, toastOptions?: ToastOptions): void;
     error(text: any, toastOptions?: ToastOptions): void;
     warn(text: any, toastOptions?: ToastOptions): void;
 }

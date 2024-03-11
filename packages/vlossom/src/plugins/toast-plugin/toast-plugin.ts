@@ -59,17 +59,17 @@ function getToastInfo(
 }
 
 export const toastPlugin: ToastPlugin = {
-    show(text: string, toastOptions?: ToastOptions) {
+    show(text: any, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
     },
-    success(text: string, toastOptions?: ToastOptions) {
+    success(text: any, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Success);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
     },
-    info(text: string, toastOptions?: ToastOptions) {
+    info(text: any, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Info);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
