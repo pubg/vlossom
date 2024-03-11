@@ -4,7 +4,7 @@ import VsConfirm from '@/components/vs-confirm/VsConfirm.vue';
 
 import type { ConfirmInfo, ConfirmOptions, ConfirmPlugin } from './types';
 
-export function renderConfirm(confirmInfo: ConfirmInfo) {
+function renderConfirm(confirmInfo: ConfirmInfo) {
     const body = document?.body;
     if (!body) {
         console.error('body not found');

@@ -7,7 +7,7 @@ import VsToastView from '@/components/vs-toast/VsToastView.vue';
 import type { ToastInfo, ToastOptions, ToastPlugin } from './types';
 import type { Placement, Align } from '@/declaration';
 
-export function attachToast(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
+function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
     const body = document?.body;
     if (!body) {
         console.error('body not found');
@@ -62,28 +62,28 @@ export const toastPlugin: ToastPlugin = {
     show(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);
-        attachToast(toastInfo.placement, toastInfo.align);
+        attach(toastInfo.placement, toastInfo.align);
     },
     success(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Success);
         store.toast.addToast(toastInfo);
-        attachToast(toastInfo.placement, toastInfo.align);
+        attach(toastInfo.placement, toastInfo.align);
     },
     info(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Info);
         store.toast.addToast(toastInfo);
-        attachToast(toastInfo.placement, toastInfo.align);
+        attach(toastInfo.placement, toastInfo.align);
     },
     error(text: any, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Error);
         store.toast.addToast(toastInfo);
-        attachToast(toastInfo.placement, toastInfo.align);
+        attach(toastInfo.placement, toastInfo.align);
         console.error(text);
     },
     warn(text: any, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Warning);
         store.toast.addToast(toastInfo);
-        attachToast(toastInfo.placement, toastInfo.align);
+        attach(toastInfo.placement, toastInfo.align);
         console.warn(text);
     },
 };
