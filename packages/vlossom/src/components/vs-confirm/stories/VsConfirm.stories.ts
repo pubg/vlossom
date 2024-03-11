@@ -164,8 +164,8 @@ export const NestedWithModal: OpenStory = {
 						<vs-input required v-model="form.email" label="Email" />
 					</vs-form>
 					<template #footer>
-						<vs-button @click="closeModal()"> Cancel </vs-button>
 						<vs-button @click="submit()"> Submit </vs-button>
+						<vs-button @click="closeModal()"> Cancel </vs-button>
 					</template>
 				</vs-modal>
 			</div>
