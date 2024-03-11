@@ -117,13 +117,7 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        const { getOptionLabel, getOptionValue } = useInputOption(
-            inputValue,
-            options,
-            optionLabel,
-            optionValue,
-            ref(false),
-        );
+        const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
 
         function requiredCheck() {
             const hasChecked = options.value.some((option) => isChecked(option));
