@@ -106,7 +106,11 @@ export const Search: Story = {
         },
         template: `
             <div>
-                <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem"/>
+                <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem">
+                    <template #prepend-content>
+                        <vs-icon icon="search" size="22px" style="margin-left: 0.5rem"/>
+                    </template>
+                </vs-input>
                 <vs-table v-bind="args" :search="search">
                     <template #item-checked="{ value }">
                         <vs-checkbox v-model="value"/>
