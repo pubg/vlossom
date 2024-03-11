@@ -25,7 +25,7 @@ beforeEach(() => {
 
 describe('focus-trap', () => {
     describe('catch focus', () => {
-        it('mount 되고 나서 vs-focus-trap 쪽으로 focus를 가져온다', async () => {
+        it('mount 되고 나서 vs-focus-trap이 감싸고 있는 영역으로 focus를 가져온다', async () => {
             // given
             const wrapper = mount(VsFocusTrap, {
                 slots: {
