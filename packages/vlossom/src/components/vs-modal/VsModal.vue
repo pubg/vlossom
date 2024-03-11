@@ -65,17 +65,21 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        watch(isOpen, (val) => {
-            if (val && !hasContainer.value) {
-                document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = '15px';
-            } else {
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-            }
+        watch(
+            isOpen,
+            (val) => {
+                if (val && !hasContainer.value) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.paddingRight = '15px';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                }
 
-            emit('update:modelValue', val);
-        });
+                emit('update:modelValue', val);
+            },
+            { immediate: true },
+        );
 
         function clickDimmed() {
             if (closeOnDimmedClick.value) {
