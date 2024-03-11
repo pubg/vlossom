@@ -1,5 +1,5 @@
 import { utils } from '@/utils';
-import { PropType, Ref, watch } from 'vue';
+import { watch, ref, type PropType, type Ref } from 'vue';
 import * as _ from 'lodash-es';
 
 export function getInputOptionProps() {
@@ -15,6 +15,7 @@ export function useInputOption(
     options: Ref<any[]>,
     optionLabel: Ref<string>,
     optionValue: Ref<string>,
+    multiple = ref(false),
 ) {
     function getOptionLabel(option: any) {
         if (typeof option === 'object') {
@@ -55,16 +56,12 @@ export function useInputOption(
             return;
         }
 
-        if (Array.isArray(inputValue.value)) {
+        if (multiple.value && Array.isArray(inputValue.value)) {
             inputValue.value = inputValue.value.filter((value) => {
-                return newOptions.some((o) => {
-                    return getOptionValue(o) === value;
-                });
+                return newOptions.some((o) => utils.object.isEqual(getOptionValue(o), value));
             });
         } else {
-            const option = newOptions.find((o) => {
-                return getOptionValue(o) === inputValue.value;
-            });
+            const option = newOptions.find((o) => utils.object.isEqual(getOptionValue(o), inputValue.value));
 
             if (!option) {
                 inputValue.value = null;
