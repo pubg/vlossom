@@ -31,22 +31,6 @@ describe('dialog store', () => {
             // then
             expect(store.getTopId()).toEqual('dialog1');
         });
-
-        it('stack에서 가장 위에 있는 dialog id가 confirm 이면 detachConfirm을 호출한다', () => {
-            // given
-            const store = new DialogStore();
-            const detachConfirmSpy = vi.spyOn(confirmPlugin, 'detachConfirm');
-
-            // when
-            store.push('dialog1');
-            store.push('confirm');
-
-            store.pop();
-
-            // then
-            expect(detachConfirmSpy).toBeCalledTimes(1);
-            expect(store.getTopId()).toEqual('dialog1');
-        });
     });
 
     describe('getTopId', () => {

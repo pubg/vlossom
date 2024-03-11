@@ -1,5 +1,3 @@
-import { detachConfirm } from '@/plugins';
-
 export class DialogStore {
     private idStack: string[] = [];
 
@@ -8,9 +6,6 @@ export class DialogStore {
     }
 
     pop() {
-        if (this.getTopId() === 'confirm') {
-            detachConfirm();
-        }
         this.idStack.pop();
     }
 

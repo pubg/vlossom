@@ -2,10 +2,10 @@ import { describe, afterEach, vi, it, expect } from 'vitest';
 import { store } from '@/store';
 import * as confirmPlugin from '@/plugins/confirm-plugin';
 
-const { attachConfirm, detachConfirm, confirmPlugin: confirm } = confirmPlugin;
+const { renderConfirm, confirmPlugin: confirm } = confirmPlugin;
 
 describe('confirm-plugin', () => {
-    describe('attachConfirm', () => {
+    describe('renderConfirm', () => {
         const originalDocumentBody = document.body;
 
         afterEach(() => {
@@ -29,7 +29,7 @@ describe('confirm-plugin', () => {
             });
 
             // when
-            attachConfirm({ text: 'Are you sure?' });
+            renderConfirm({ text: 'Are you sure?' });
 
             // then
             expect(consoleError).toBeCalledWith('body not found');
@@ -43,7 +43,7 @@ describe('confirm-plugin', () => {
                 document.body.appendChild(confirmComp);
 
                 // when
-                attachConfirm({ text: 'Are you sure?' });
+                renderConfirm({ text: 'Are you sure?' });
 
                 // then
                 expect(document.querySelectorAll('#vs-confirm').length).toBe(1);
@@ -51,26 +51,11 @@ describe('confirm-plugin', () => {
 
             it('vs-confirm 이 없으면 새로운 VsConfirm 컴포넌트로 VNode를 생성해서 body의 하위노드로 attach 한다', () => {
                 // when
-                attachConfirm({ text: 'Are you sure?' });
+                renderConfirm({ text: 'Are you sure?' });
 
                 // then
                 expect(document.querySelectorAll('#vs-confirm').length).toBe(1);
             });
-        });
-    });
-
-    describe('detachConfirm', () => {
-        it('vs-confirm 이 dom 에 attach 되어 있으면 detach 한다', () => {
-            // given
-            const confirmComp = document.createElement('div');
-            confirmComp.setAttribute('id', 'vs-confirm');
-            document.body.appendChild(confirmComp);
-
-            // // when
-            detachConfirm();
-
-            // then
-            expect(document.querySelectorAll('#vs-confirm').length).toBe(0);
         });
     });
 

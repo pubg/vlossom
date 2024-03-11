@@ -1,43 +1,31 @@
 <template>
-    <Transition>
-        <div v-if="isOpen" class="vs-confirm">
-            <div class="dimmed" aria-hidden="true" />
-            <vs-focus-trap>
-                <vs-dialog-node
-                    id="confirm"
-                    :class="['confirm-dialog', confirmInfo.size || 'sm']"
-                    :style-set="dialogStylSet"
-                    :close-on-esc="false"
-                >
-                    <div class="confirm-text scale-up-center">
-                        <p v-html="confirmInfo.text"></p>
-                    </div>
-                    <template #footer>
-                        <div class="confirm-footer">
-                            <vs-button
-                                :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
-                                class="ok-button"
-                                aria-label="ok"
-                                dense
-                                @click="ok"
-                            >
-                                {{ confirmInfo.okText || 'Ok' }}
-                            </vs-button>
-                            <vs-button
-                                :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
-                                class="cancel-button"
-                                aria-label="cancel"
-                                dense
-                                @click="cancel"
-                            >
-                                {{ confirmInfo.cancelText || 'Cancel' }}
-                            </vs-button>
-                        </div>
-                    </template>
-                </vs-dialog-node>
-            </vs-focus-trap>
+    <vs-modal v-model="isOpen" :style-set="dialogStylSet" :size="confirmInfo.size || 'sm'" :close-on-esc="false">
+        <div class="confirm-text scale-up-center">
+            <p v-html="confirmInfo.text"></p>
         </div>
-    </Transition>
+        <template #footer>
+            <div class="confirm-footer">
+                <vs-button
+                    :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
+                    class="ok-button"
+                    aria-label="ok"
+                    dense
+                    @click="ok"
+                >
+                    {{ confirmInfo.okText || 'Ok' }}
+                </vs-button>
+                <vs-button
+                    :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
+                    class="cancel-button"
+                    aria-label="cancel"
+                    dense
+                    @click="cancel"
+                >
+                    {{ confirmInfo.cancelText || 'Cancel' }}
+                </vs-button>
+            </div>
+        </template>
+    </vs-modal>
 </template>
 
 <script lang="ts">
@@ -46,15 +34,14 @@ import { useColorScheme } from '@/composables';
 import { VsComponent } from '@/declaration';
 import { store } from '@/store';
 import VsButton from '@/components/vs-button/VsButton.vue';
-import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
-import { VsDialogNode } from '@/nodes';
+import VsModal from '../vs-modal/VsModal.vue';
 
 import type { ConfirmInfo } from '@/plugins';
 
 const name = VsComponent.VsConfirm;
 export default defineComponent({
     name,
-    components: { VsButton, VsFocusTrap, VsDialogNode },
+    components: { VsButton, VsModal },
     props: {
         confirmInfo: { type: Object as PropType<ConfirmInfo>, required: true },
     },
@@ -66,7 +53,7 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, toRef(confirmInfo.value.colorScheme));
 
         const dialogStylSet = {
-            '--vs-dialog-node-padding': 0,
+            padding: '0',
         };
 
         function ok() {
