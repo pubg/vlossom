@@ -7,6 +7,9 @@ describe('vs-index-item', () => {
         it('slot에 삽입된 내용을 보여준다', () => {
             // given
             const wrapper = mount(VsIndexItem, {
+                props: {
+                    key: 'key',
+                },
                 slots: {
                     default: 'This is index item content',
                 },

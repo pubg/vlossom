@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTabs from '../VsTabs.vue';
 
@@ -25,6 +25,9 @@ describe('vs-tabs', () => {
 
         it('props tabs에 전달된 string 배열이 중복되면 validator 가 false 를 리턴한다', () => {
             // given
+            const originalConsoleWarn = console.warn;
+            const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
             const tabs = ['tab1', 'tab1'];
 
             const wrapper = mount(VsTabs, {
@@ -35,6 +38,10 @@ describe('vs-tabs', () => {
 
             // then
             expect(wrapper.vm.$options.props.tabs.validator?.(tabs)).toBe(false);
+            expect(consoleSpy).toHaveBeenCalledTimes(1);
+
+            // clear
+            console.warn = originalConsoleWarn;
         });
 
         it('각 탭의 slot을 통해 탭을 커스터마이징 할 수 있다', () => {

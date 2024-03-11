@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { VsStepper } from '@/components';
 
@@ -26,6 +26,9 @@ describe('vs-stepper', () => {
 
         it('props steps에 전달된 string 배열이 중복되면 validator가 false를 리턴한다', () => {
             // given
+            const originalConsoleWarn = console.warn;
+            const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
             const steps = ['step1', 'step1'];
             const wrapper = mount(VsStepper, {
                 props: {
@@ -35,6 +38,10 @@ describe('vs-stepper', () => {
 
             // then
             expect(wrapper.vm.$options.props.steps.validator?.(steps)).toBe(false);
+            expect(consoleSpy).toHaveBeenCalledTimes(1);
+
+            // clear
+            console.warn = originalConsoleWarn;
         });
 
         it('각 스텝의 step slot을 통해 step에서 표시할 내용을 커스터마이징할 수 있다', () => {
