@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, ref, toRef, toRefs } from 'vue';
+import { PropType, defineComponent, ref, toRef, toRefs, watch } from 'vue';
 import { useColorScheme } from '@/composables';
 import { VsComponent } from '@/declaration';
 import { store } from '@/store';
@@ -44,11 +44,18 @@ export default defineComponent({
     components: { VsButton, VsModal },
     props: {
         confirmInfo: { type: Object as PropType<ConfirmInfo>, required: true },
+        // v-model
+        modelValue: { type: Boolean, default: true },
     },
-    setup(props) {
-        const { confirmInfo } = toRefs(props);
+    emits: ['update:modelValue'],
+    setup(props, { emit }) {
+        const { confirmInfo, modelValue } = toRefs(props);
 
-        const isOpen = ref(true);
+        const isOpen = ref(modelValue.value);
+
+        watch(isOpen, (val) => {
+            emit('update:modelValue', val);
+        });
 
         const { computedColorScheme } = useColorScheme(name, toRef(confirmInfo.value.colorScheme));
 

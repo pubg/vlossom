@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import { store } from '@/store';
 import VsConfirm from '../VsConfirm.vue';
@@ -41,9 +42,11 @@ describe('vs-confirm', () => {
         store.dialog.pop = originalPop;
     });
 
-    it('text를 렌더할 수 있다', () => {
+    it('text를 렌더할 수 있다', async () => {
         // given
-        const wrapper = mount(VsConfirm, {
+        const text = 'This is Confirm Text';
+
+        mount(VsConfirm, {
             props: {
                 confirmInfo: {
                     text: 'This is Confirm Text',
@@ -52,40 +55,47 @@ describe('vs-confirm', () => {
         });
 
         // then
-        expect(wrapper.html()).toContain('This is Confirm Text');
+        expect(document.body.innerHTML).toContain(text);
     });
 
-    it('okText를 설정할 수 있다', () => {
+    it('ok-button의 텍스트를 설정할 수 있다', () => {
         // given
-        const wrapper = mount(VsConfirm, {
+        const okText = 'YES';
+        mount(VsConfirm, {
             props: {
                 confirmInfo: {
                     text: 'This is Confirm Text',
-                    okText: 'YES',
+                    okText,
                 },
             },
         });
 
         // then
-        expect(wrapper.html()).toContain('YES');
+        const okButtons = document.querySelectorAll('button[aria-label="ok"]');
+        const targetButton = okButtons[okButtons.length - 1];
+        expect(targetButton?.textContent).toContain(okText);
     });
 
-    it('cancelText를 설정할 수 있다', () => {
+    it('cancel-button의 텍스트를 설정할 수 있다', () => {
         // given
-        const wrapper = mount(VsConfirm, {
+        const cancelText = 'NO';
+
+        mount(VsConfirm, {
             props: {
                 confirmInfo: {
                     text: 'This is Confirm Text',
-                    cancelText: 'NO',
+                    cancelText,
                 },
             },
         });
 
         // then
-        expect(wrapper.html()).toContain('NO');
+        const cancelButtons = document.querySelectorAll('button[aria-label="cancel"]');
+        const targetButton = cancelButtons[cancelButtons.length - 1];
+        expect(targetButton?.textContent).toContain(cancelText);
     });
 
-    it('confirm 버튼을 클릭하면 resolve 가 true 로 이행되고 confirm dialog가 닫힌다', async () => {
+    it('ok 버튼을 클릭하면 resolve 가 true 로 이행되고 confirm dialog가 닫힌다', async () => {
         // given
         vi.spyOn(store.confirm, 'executeResolve').mockImplementation(mockStore!.confirm.executeResolve);
         vi.spyOn(store.dialog, 'pop').mockImplementation(mockStore!.dialog.pop);
@@ -99,7 +109,11 @@ describe('vs-confirm', () => {
         });
 
         // when
-        await wrapper.find('button[aria-label="ok"]').trigger('click');
+        const okButtons = document.querySelectorAll('button[aria-label="ok"]');
+        const targetButton = okButtons[okButtons.length - 1];
+        targetButton.dispatchEvent(new Event('click'));
+
+        await nextTick();
 
         // then
         expect(wrapper.vm.isOpen).toBe(false);
@@ -121,7 +135,11 @@ describe('vs-confirm', () => {
         });
 
         // when
-        await wrapper.find('button[aria-label="cancel"]').trigger('click');
+        const cancelButtons = document.querySelectorAll('button[aria-label="cancel"]');
+        const targetButton = cancelButtons[cancelButtons.length - 1];
+        targetButton.dispatchEvent(new Event('click'));
+
+        await nextTick();
 
         // then
         expect(wrapper.vm.isOpen).toBe(false);
