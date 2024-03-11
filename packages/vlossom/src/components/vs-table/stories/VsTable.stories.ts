@@ -112,9 +112,9 @@ export const Search: Story = {
                     </template>
                 </vs-input>
                 <vs-table v-bind="args" :search="search">
-                    <template #item-checked="{ value }">
-                        <vs-checkbox v-model="value"/>
-                    </template>
+                <template #item-checked="{ value }">
+                    <vs-switch v-model="value"></vs-switch>
+            </template>
                 </vs-table>
             </div>
         `,
