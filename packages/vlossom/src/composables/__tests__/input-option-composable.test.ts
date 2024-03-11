@@ -9,7 +9,7 @@ describe('input option composable', () => {
             const options = ref(['test']);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -20,7 +20,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label'), ref(''), ref(false));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label'), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -31,7 +31,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('{"label":"test"}');
@@ -42,7 +42,7 @@ describe('input option composable', () => {
             const options = ref([{ label: { test: 'test' } }]);
 
             // when
-            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label.test'), ref(''), ref(false));
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('label.test'), ref(''));
 
             // then
             expect(getOptionLabel(options.value[0])).toBe('test');
@@ -55,7 +55,7 @@ describe('input option composable', () => {
             const options = ref(['test']);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test');
@@ -66,7 +66,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: 'test-value' }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value'), ref(false));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value'));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
@@ -77,7 +77,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test' }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''), ref(false));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref(''));
 
             // then
             expect(getOptionValue(options.value[0])).toBe(options.value[0]);
@@ -88,7 +88,7 @@ describe('input option composable', () => {
             const options = ref([{ label: 'test', value: { test: 'test-value' } }]);
 
             // when
-            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value.test'), ref(false));
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('value.test'));
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
@@ -196,7 +196,7 @@ describe('input option composable', () => {
                     const options = ref(['test1', 'test2', 'test3']);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = ['test1', 'new-test2', 'new-test3'];
                     await nextTick();
 
@@ -210,7 +210,7 @@ describe('input option composable', () => {
                     const options = ref(['test1', 'test2', 'test3']);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = ['new-test1', 'new-test2', 'new-test3'];
                     await nextTick();
 
@@ -226,7 +226,7 @@ describe('input option composable', () => {
                     const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = [{ name: 'test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
                     await nextTick();
 
@@ -240,7 +240,7 @@ describe('input option composable', () => {
                     const options = ref([{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = [{ name: 'new-test1' }, { name: 'new-test2' }, { name: 'new-test3' }];
                     await nextTick();
 
@@ -256,7 +256,7 @@ describe('input option composable', () => {
                     const options = ref([['test1'], ['test2'], ['test3']]);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = [['test1'], ['new-test2'], ['new-test3']];
                     await nextTick();
 
@@ -270,7 +270,7 @@ describe('input option composable', () => {
                     const options = ref([['test1'], ['test2'], ['test3']]);
 
                     // when
-                    useInputOption(inputValue, options, ref(''), ref(''), ref(false));
+                    useInputOption(inputValue, options, ref(''), ref(''));
                     options.value = [['new-test1'], ['new-test2'], ['new-test3']];
                     await nextTick();
 
