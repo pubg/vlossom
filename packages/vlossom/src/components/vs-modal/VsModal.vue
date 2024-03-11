@@ -76,7 +76,9 @@ export default defineComponent({
                     document.body.style.paddingRight = '';
                 }
 
-                emit('update:modelValue', val);
+                if (val !== modelValue.value) {
+                    emit('update:modelValue', val);
+                }
             },
             { immediate: true },
         );
