@@ -1,5 +1,5 @@
 <template>
-    <draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable tag="tbody" v-model="computedTableItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
@@ -16,7 +16,7 @@
             </vs-table-body-row>
         </template>
     </draggable>
-    <tbody v-if="loading && computedItems.length === 0">
+    <tbody v-if="loading && computedTableItems.length === 0">
         <vs-table-body-row
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
@@ -28,7 +28,7 @@
             :tr-style="trStyle"
         />
     </tbody>
-    <tbody v-if="!loading && computedItems.length === 0">
+    <tbody v-if="!loading && computedTableItems.length === 0">
         <slot name="empty">
             <div class="table-empty">
                 <vs-icon size="6rem" icon="noData"></vs-icon>
@@ -88,9 +88,15 @@ export default defineComponent({
 
         const { getSearchedItems } = useTableSearch(headers);
 
-        const computedItems: WritableComputedRef<TableItem[]> = computed({
+        function getResultItems() {
+            const searched = getSearchedItems(innerTableItems, search);
+            // [TODO] filter, sort
+            return searched;
+        }
+
+        const computedTableItems: WritableComputedRef<TableItem[]> = computed({
             get(): TableItem[] {
-                return getSearchedItems(innerTableItems, search);
+                return getResultItems();
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
@@ -108,7 +114,7 @@ export default defineComponent({
         }
 
         return {
-            computedItems,
+            computedTableItems,
             dummyTableItems,
             emitRowClick,
         };
