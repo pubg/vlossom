@@ -42,6 +42,7 @@
 import draggable from 'vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
+import useTableSearch from './composables/useTableSearch';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
@@ -58,6 +59,7 @@ export default defineComponent({
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
+        search: { type: String, default: '' },
     },
     components: {
         draggable,
@@ -66,7 +68,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {
-        const { items } = toRefs(props);
+        const { headers, items, search } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -84,13 +86,11 @@ export default defineComponent({
             { immediate: true },
         );
 
-        function emitRowClick(rowItem: any, rowIndex: number) {
-            emit('rowClick', rowItem, rowIndex);
-        }
+        const { getSearchedItems } = useTableSearch(headers);
 
         const computedItems: WritableComputedRef<TableItem[]> = computed({
             get(): TableItem[] {
-                return innerTableItems.value;
+                return getSearchedItems(innerTableItems, search);
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
@@ -102,6 +102,10 @@ export default defineComponent({
         const dummyTableItems = new Array(4).fill({}).map((item) => {
             return { id: stringUtil.createID(), data: item };
         });
+
+        function emitRowClick(rowItem: any, rowIndex: number) {
+            emit('rowClick', rowItem, rowIndex);
+        }
 
         return {
             computedItems,

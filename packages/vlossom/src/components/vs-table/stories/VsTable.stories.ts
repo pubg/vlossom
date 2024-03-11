@@ -1,4 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
+import { ref } from 'vue';
 import VsTable from './../VsTable.vue';
 import { VsIcon } from '@/icons';
 
@@ -96,6 +97,38 @@ export const Dense: Story = {
     },
 };
 
+export const Search: Story = {
+    render: (args: any) => ({
+        components: { VsTable, VsIcon },
+        setup() {
+            const search = ref('');
+            return { args, search };
+        },
+        template: `
+            <div>
+                <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem"/>
+                <vs-table v-bind="args" :search="search">
+                    <template #item-checked="{ value }">
+                        <vs-checkbox v-model="value"/>
+                    </template>
+                </vs-table>
+            </div>
+        `,
+    }),
+    args: {
+        headers: [
+            { label: 'ID', key: 'id', width: '7rem' },
+            { label: 'Name', key: 'name', width: '10rem' },
+            { label: 'Description', key: 'desc', width: '26rem' },
+            { label: 'Check', key: 'checked', width: '7rem', searchable: false },
+        ],
+        items,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
 export const Draggable: Story = {
     args: {
         draggable: true,
@@ -155,7 +188,7 @@ export const ItemSlot: Story = {
                         <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch :modelValue="value"></vs-switch>
+                        <vs-switch v-model="value"></vs-switch>
                     </template>
                 </vs-table>
             </div>
