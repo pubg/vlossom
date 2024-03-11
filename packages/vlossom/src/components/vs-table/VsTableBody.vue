@@ -60,6 +60,7 @@ export default defineComponent({
             default: () => ({}),
         },
         search: { type: String, default: '' },
+        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
     components: {
         draggable,
@@ -68,7 +69,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search } = toRefs(props);
+        const { headers, items, search, searchableKeys } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -86,7 +87,7 @@ export default defineComponent({
             { immediate: true },
         );
 
-        const { getSearchedItems } = useTableSearch(headers);
+        const { getSearchedItems } = useTableSearch(headers, searchableKeys);
 
         function getResultItems() {
             const searched = getSearchedItems(innerTableItems, search);

@@ -13,6 +13,7 @@
                     :draggable="draggable"
                     :loading="loading"
                     :search="search"
+                    :searchable-keys="searchableKeys"
                     :tr-style="trStyle"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
@@ -51,6 +52,7 @@ export default defineComponent({
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
         search: { type: String, default: '' },
+        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, draggable, headers } = toRefs(props);
