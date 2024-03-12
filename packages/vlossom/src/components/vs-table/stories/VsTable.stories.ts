@@ -1,4 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
+import { ref } from 'vue';
 import VsTable from './../VsTable.vue';
 import { VsIcon } from '@/icons';
 
@@ -96,6 +97,44 @@ export const Dense: Story = {
     },
 };
 
+export const Search: Story = {
+    render: (args: any) => ({
+        components: { VsTable, VsIcon },
+        setup() {
+            const search = ref('');
+            return { args, search };
+        },
+        template: `
+            <div>
+                <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem">
+                    <template #prepend-content>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="margin-left: 0.5rem">
+                            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                        </svg>
+                    </template>
+                </vs-input>
+                <vs-table v-bind="args" :search="search">
+                    <template #item-checked="{ value }">
+                        <vs-switch v-model="value"></vs-switch>
+                    </template>
+                </vs-table>
+            </div>
+        `,
+    }),
+    args: {
+        headers: [
+            { label: 'ID', key: 'id', width: '7rem' },
+            { label: 'Name', key: 'name', width: '10rem' },
+            { label: 'Description', key: 'desc', width: '26rem' },
+            { label: 'Check', key: 'checked', width: '7rem', searchable: false },
+        ],
+        items,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
 export const Draggable: Story = {
     args: {
         draggable: true,
@@ -155,7 +194,7 @@ export const ItemSlot: Story = {
                         <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch :modelValue="value"></vs-switch>
+                        <vs-switch v-model="value"></vs-switch>
                     </template>
                 </vs-table>
             </div>

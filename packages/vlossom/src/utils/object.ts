@@ -8,4 +8,8 @@ export const objectUtil = {
     isUniq(array: any[]): boolean {
         return _.uniq(array).length === array.length;
     },
+
+    pick(object: { [key: string]: any }, keys: string[]): { [key: string]: any } {
+        return _.pick(object, keys);
+    },
 };
