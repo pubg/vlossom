@@ -10,6 +10,7 @@
                 <vs-table-body
                     :items="items"
                     :headers="headers"
+                    :filter="filter"
                     :draggable="draggable"
                     :loading="loading"
                     :search="search"
@@ -33,7 +34,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 
-import type { VsTableStyleSet, TableHeader } from './types';
+import type { VsTableStyleSet, TableHeader, TableFilter } from './types';
 
 const name = VsComponent.VsTable;
 
@@ -48,6 +49,10 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
+        filter: {
+            type: Object as PropType<TableFilter>,
+            default: null,
+        },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },

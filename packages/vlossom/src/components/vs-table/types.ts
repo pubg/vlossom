@@ -12,4 +12,6 @@ export interface TableItem {
     data: { [key: string]: any };
 }
 
+export type TableFilter = { [key: string]: (rowData: { [key: string]: any }) => boolean };
+
 export interface VsTableStyleSet {}

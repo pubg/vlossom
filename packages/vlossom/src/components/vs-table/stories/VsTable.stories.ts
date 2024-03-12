@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import VsTable from './../VsTable.vue';
 import { VsIcon } from '@/icons';
 
@@ -118,6 +118,51 @@ export const Search: Story = {
                         <vs-switch v-model="value"></vs-switch>
                     </template>
                 </vs-table>
+            </div>
+        `,
+    }),
+    args: {
+        headers: [
+            { label: 'ID', key: 'id', width: '7rem' },
+            { label: 'Name', key: 'name', width: '10rem' },
+            { label: 'Description', key: 'desc', width: '26rem' },
+            { label: 'Check', key: 'checked', width: '7rem', searchable: false },
+        ],
+        items,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
+export const Filter: Story = {
+    render: (args: any) => ({
+        components: { VsTable, VsIcon },
+        setup() {
+            const id: Ref<String | Number> = ref('all');
+            const checked = ref('false');
+            const options = ['all', 1, 2, 3, 4];
+            const filter = {
+                id: (rowData: { [key: string]: any }): boolean => {
+                    if (id.value === 'all') {
+                        return true;
+                    }
+                    return id.value === rowData.id;
+                },
+                checked: (rowData: { [key: string]: any }): boolean => {
+                    return checked.value === rowData.checked;
+                },
+            };
+            return { args, id, checked, options, filter };
+        },
+        template: `
+            <div>
+                <vs-block style="margin: 0.8rem">
+                    <h3 style="margin-bottom: 0.5rem">Filter</h3>
+                    <vs-select v-model="id" :options="options" label="id" style="margin-bottom: 0.5rem"/>
+                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false">
+                </vs-block>
+                <vs-table v-bind="args" :filter="filter"/>
             </div>
         `,
     }),

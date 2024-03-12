@@ -1,5 +1,11 @@
 <template>
-    <draggable tag="tbody" v-model="computedTableItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable
+        tag="tbody"
+        v-model="computedTableItems"
+        item-key="id"
+        handle=".handle"
+        :disabled="!draggable || loading"
+    >
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
@@ -43,15 +49,20 @@ import draggable from 'vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
 import useTableSearch from './composables/useTableSearch';
+import useTableFilter from './composables/useTableFilter';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
-import type { TableHeader, TableItem } from './types';
+import type { TableHeader, TableItem, TableFilter } from './types';
 
 export default defineComponent({
     name: 'vs-table-body',
     props: {
         draggable: { type: Boolean, default: false },
+        filter: {
+            type: Object as PropType<TableFilter>,
+            default: null,
+        },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
@@ -69,7 +80,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys } = toRefs(props);
+        const { headers, items, search, searchableKeys, filter } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -88,11 +99,13 @@ export default defineComponent({
         );
 
         const { getSearchedItems } = useTableSearch(headers, searchableKeys);
+        const { getFilteredItems } = useTableFilter();
 
         function getResultItems() {
             const searched = getSearchedItems(innerTableItems, search);
+            const filtered = getFilteredItems(searched, filter);
             // [TODO] filter, sort
-            return searched;
+            return filtered;
         }
 
         const computedTableItems: WritableComputedRef<TableItem[]> = computed({
