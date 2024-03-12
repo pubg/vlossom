@@ -8,12 +8,16 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+            <div
+                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :style="computedStyleSet"
+            >
                 <button
                     v-if="hasPrependButton"
                     type="button"
@@ -83,6 +87,7 @@ import {
     getInputProps,
     useInput,
     useStringModifier,
+    useStateClass,
 } from '@/composables';
 import { VsComponent, type ColorScheme, StringModifiers } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
@@ -140,6 +145,7 @@ export default defineComponent({
             max,
             min,
             modelModifiers,
+            state,
         } = toRefs(props);
 
         const { slots, emit } = context;
@@ -148,6 +154,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
+        const { boxGlowByState } = useStateClass(state);
         const { modifyStringValue } = useStringModifier(modelModifiers);
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
@@ -269,6 +276,7 @@ export default defineComponent({
             onBlur,
             onEnter,
             clearWithFocus,
+            boxGlowByState,
         };
     },
 });

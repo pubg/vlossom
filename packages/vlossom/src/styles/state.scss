@@ -1,0 +1,47 @@
+@use 'sass:map';
+@use 'palette' as *;
+
+$box-glow: (
+    'info': var(--vs-light-blue-100),
+    'success': var(--vs-green-100),
+    'error': var(--vs-red-100),
+    'warning': var(--vs-orange-100),
+);
+
+$text-glow: (
+    'info': var(--vs-light-blue-600),
+    'success': var(--vs-green-600),
+    'error': var(--vs-red-600),
+    'warning': var(--vs-orange-600),
+);
+
+@each $state, $color in $box-glow {
+    .vs-box-glow-#{$state} {
+        --vs-glow-color: #{$color};
+        animation: box-glow 1.2s ease-out infinite alternate;
+    }
+}
+
+@each $state, $color in $text-glow {
+    .vs-text-glow-#{$state} {
+        --vs-glow-color: #{$color};
+        animation: text-glow 1.2s ease-out infinite alternate;
+    }
+}
+
+@keyframes box-glow {
+    0% {
+        box-shadow: 0 0 0 0 transparent;
+    }
+    100% {
+        box-shadow: 0 0 5px 2px var(--vs-glow-color);
+    }
+}
+@keyframes text-glow {
+    from {
+        text-shadow: 0 0 0 transparent;
+    }
+    to {
+        text-shadow: 0 0 4px var(--vs-glow-color);
+    }
+}

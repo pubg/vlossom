@@ -8,6 +8,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -15,7 +16,7 @@
 
             <div
                 ref="triggerRef"
-                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }]"
+                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
                 @click="toggleOptions()"
             >
@@ -191,6 +192,7 @@ import {
     useInput,
     getInputOptionProps,
     useInputOption,
+    useStateClass,
 } from '@/composables';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
@@ -274,6 +276,7 @@ export default defineComponent({
             required,
             rules,
             selectAll,
+            state,
         } = toRefs(props);
 
         const { emit } = context;
@@ -299,6 +302,8 @@ export default defineComponent({
                 color: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
             }),
         );
+
+        const { boxGlowByState } = useStateClass(state);
 
         const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -486,6 +491,7 @@ export default defineComponent({
             inputRef,
             focus,
             blur,
+            boxGlowByState,
         };
     },
 });

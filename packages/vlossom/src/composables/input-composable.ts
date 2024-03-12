@@ -17,6 +17,7 @@ interface VsInputProps<T> {
     readonly: { type: BooleanConstructor; default: boolean };
     required: { type: BooleanConstructor; default: boolean };
     rules: { type: PropType<Rule<T>[]>; default: () => Rule<T>[] };
+    state: { type: PropType<UIState>; default: UIState };
     visible: { type: BooleanConstructor; default: boolean };
 
     // v-model
@@ -41,6 +42,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
             readonly: { type: Boolean, default: false },
             required: { type: Boolean, default: false },
             rules: { type: Array as PropType<Rule<T>[]>, default: () => [] },
+            state: { type: String as PropType<UIState>, default: UIState.Idle },
             visible: { type: Boolean, default: true },
 
             // v-model

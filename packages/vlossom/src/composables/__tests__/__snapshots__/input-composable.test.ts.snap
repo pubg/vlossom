@@ -50,6 +50,10 @@ exports[`getInputProps > input component에 필요한 props들을 가져올 수 
     "default": [Function],
     "type": [Function],
   },
+  "state": {
+    "default": "idle",
+    "type": [Function],
+  },
   "valid": {
     "default": false,
     "type": [Function],
@@ -101,6 +105,10 @@ exports[`getInputProps > input props 중 제외할 props를 정할 수 있다 1`
   },
   "rules": {
     "default": [Function],
+    "type": [Function],
+  },
+  "state": {
+    "default": "idle",
     "type": [Function],
   },
   "valid": {

@@ -8,13 +8,14 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
             </template>
 
             <div
-                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }]"
+                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
                 @dragenter="setDragging(true)"
                 @dragleave="setDragging(false)"
@@ -67,7 +68,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput, useStateClass } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
@@ -107,6 +108,7 @@ export default defineComponent({
             readonly,
             required,
             rules,
+            state,
         } = toRefs(props);
 
         const { emit } = context;
@@ -114,6 +116,8 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
+
+        const { boxGlowByState } = useStateClass(state);
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -227,6 +231,7 @@ export default defineComponent({
             onBlur,
             dragging,
             setDragging,
+            boxGlowByState,
         };
     },
 });
