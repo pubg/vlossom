@@ -2,7 +2,7 @@ import { computed, Ref } from 'vue';
 import type { TableHeader, TableItem } from '../types';
 import { utils } from '@/utils';
 
-export default function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<string[]>) {
+export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<string[]>) {
     const searchTargetKeys = computed(() => {
         return headers.value
             .filter((header: TableHeader) => header.searchable !== false)
