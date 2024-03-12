@@ -137,7 +137,7 @@ export const Filter: Story = {
     render: (args: any) => ({
         components: { VsTable, VsIcon },
         setup() {
-            const id: Ref<String | Number> = ref('all');
+            const id: Ref<string | number> = ref('all');
             const checked = ref('false');
             const options = ['all', 1, 2, 3, 4];
             const filter = {
