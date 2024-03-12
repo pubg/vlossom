@@ -48,12 +48,13 @@
 import draggable from 'vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
-import useTableSearch from './composables/useTableSearch';
-import useTableFilter from './composables/useTableFilter';
+import { useTableSearch } from './composables/useTableSearch';
+import { useTableFilter } from './composables/useTableFilter';
+import { useTableSort } from './composables/useTableSort';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
-import type { TableHeader, TableItem, TableFilter } from './types';
+import type { TableHeader, TableItem, TableFilter, SortType } from './types';
 
 export default defineComponent({
     name: 'vs-table-body',
@@ -66,12 +67,16 @@ export default defineComponent({
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
+        search: { type: String, default: '' },
+        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
+        sortTypes: {
+            type: Object as PropType<{ [key: string]: SortType }>,
+            default: () => ({}),
+        },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
-        search: { type: String, default: '' },
-        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
     components: {
         draggable,
@@ -80,7 +85,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys, filter } = toRefs(props);
+        const { headers, items, search, searchableKeys, filter, sortTypes } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -90,22 +95,15 @@ export default defineComponent({
             });
         });
 
-        watch(
-            items,
-            (newItems: any[]) => {
-                innerItems.value = newItems || [];
-            },
-            { immediate: true },
-        );
-
         const { getSearchedItems } = useTableSearch(headers, searchableKeys);
         const { getFilteredItems } = useTableFilter();
+        const { getSortedItems } = useTableSort(sortTypes);
 
         function getResultItems() {
             const searched = getSearchedItems(innerTableItems, search);
             const filtered = getFilteredItems(searched, filter);
-            // [TODO] filter, sort
-            return filtered;
+            const sorted = getSortedItems(filtered);
+            return sorted;
         }
 
         const computedTableItems: WritableComputedRef<TableItem[]> = computed({
@@ -117,6 +115,14 @@ export default defineComponent({
                 emit('update:tableItems', innerItems.value);
             },
         });
+
+        watch(
+            items,
+            (newItems: any[]) => {
+                innerItems.value = newItems || [];
+            },
+            { immediate: true },
+        );
 
         // for initial skeleton loading
         const dummyTableItems = new Array(4).fill({}).map((item) => {

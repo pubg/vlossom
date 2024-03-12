@@ -14,4 +14,10 @@ export interface TableItem {
 
 export type TableFilter = { [key: string]: (rowData: { [key: string]: any }) => boolean };
 
+export enum SortType {
+    NONE,
+    ASCEND,
+    DESCEND,
+}
+
 export interface VsTableStyleSet {}

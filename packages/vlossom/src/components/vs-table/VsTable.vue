@@ -2,7 +2,13 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense' : '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
-                <vs-table-header :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
+                <vs-table-header
+                    :headers="headers"
+                    :draggable="draggable"
+                    :loading="loading"
+                    :sort-types="sortTypes"
+                    :tr-style="trStyle"
+                >
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
@@ -15,6 +21,7 @@
                     :loading="loading"
                     :search="search"
                     :searchable-keys="searchableKeys"
+                    :sort-types="sortTypes"
                     :tr-style="trStyle"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
@@ -27,14 +34,14 @@
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, computed, defineComponent, toRefs } from 'vue';
+import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 
-import type { VsTableStyleSet, TableHeader, TableFilter } from './types';
+import { VsTableStyleSet, TableHeader, TableFilter, SortType } from './types';
 
 const name = VsComponent.VsTable;
 
@@ -99,12 +106,26 @@ export default defineComponent({
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
 
+        const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
+
+        const initSortTypes = () => {
+            sortTypes.value = headers.value.reduce((acc, { key, sortable = false }) => {
+                if (sortable) {
+                    acc[key] = SortType.NONE;
+                }
+                return acc;
+            }, {} as { [key: string]: SortType });
+        };
+
+        watch(headers, initSortTypes, { immediate: true });
+
         return {
             computedColorScheme,
             computedStyleSet,
             headerSlots,
             itemSlots,
             trStyle,
+            sortTypes,
         };
     },
 });
