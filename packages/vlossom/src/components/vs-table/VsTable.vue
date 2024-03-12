@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense': '']" :style="computedStyleSet">
+    <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense' : '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <vs-table-header :headers="headers" :draggable="draggable" :loading="loading" :tr-style="trStyle">
@@ -12,6 +12,8 @@
                     :headers="headers"
                     :draggable="draggable"
                     :loading="loading"
+                    :search="search"
+                    :searchable-keys="searchableKeys"
                     :tr-style="trStyle"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
@@ -49,6 +51,8 @@ export default defineComponent({
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
+        search: { type: String, default: '' },
+        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, draggable, headers } = toRefs(props);

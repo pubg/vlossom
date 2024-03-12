@@ -1,5 +1,5 @@
 <template>
-    <draggable tag="tbody" v-model="computedItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable tag="tbody" v-model="computedTableItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
@@ -16,7 +16,7 @@
             </vs-table-body-row>
         </template>
     </draggable>
-    <tbody v-if="loading && computedItems.length === 0">
+    <tbody v-if="loading && computedTableItems.length === 0">
         <vs-table-body-row
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
@@ -28,7 +28,7 @@
             :tr-style="trStyle"
         />
     </tbody>
-    <tbody v-if="!loading && computedItems.length === 0">
+    <tbody v-if="!loading && computedTableItems.length === 0">
         <slot name="empty">
             <div class="table-empty">
                 <vs-icon size="6rem" icon="noData"></vs-icon>
@@ -42,6 +42,7 @@
 import draggable from 'vuedraggable';
 import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
+import useTableSearch from './composables/useTableSearch';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
@@ -58,6 +59,8 @@ export default defineComponent({
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
+        search: { type: String, default: '' },
+        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
     components: {
         draggable,
@@ -66,7 +69,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {
-        const { items } = toRefs(props);
+        const { headers, items, search, searchableKeys } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -84,13 +87,17 @@ export default defineComponent({
             { immediate: true },
         );
 
-        function emitRowClick(rowItem: any, rowIndex: number) {
-            emit('rowClick', rowItem, rowIndex);
+        const { getSearchedItems } = useTableSearch(headers, searchableKeys);
+
+        function getResultItems() {
+            const searched = getSearchedItems(innerTableItems, search);
+            // [TODO] filter, sort
+            return searched;
         }
 
-        const computedItems: WritableComputedRef<TableItem[]> = computed({
+        const computedTableItems: WritableComputedRef<TableItem[]> = computed({
             get(): TableItem[] {
-                return innerTableItems.value;
+                return getResultItems();
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
@@ -103,8 +110,12 @@ export default defineComponent({
             return { id: stringUtil.createID(), data: item };
         });
 
+        function emitRowClick(rowItem: any, rowIndex: number) {
+            emit('rowClick', rowItem, rowIndex);
+        }
+
         return {
-            computedItems,
+            computedTableItems,
             dummyTableItems,
             emitRowClick,
         };
