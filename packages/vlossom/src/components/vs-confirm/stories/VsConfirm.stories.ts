@@ -144,7 +144,7 @@ export const NestedWithModal: OpenStory = {
                     }, 500);
                     closeModal();
                 } catch (error) {
-                    $vs.toast.error(error);
+                    $vs.toast.error(error as Error);
                 }
             }
 

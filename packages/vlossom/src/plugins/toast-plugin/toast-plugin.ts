@@ -59,28 +59,36 @@ function getToastInfo(
 }
 
 export const toastPlugin: ToastPlugin = {
-    show(text: any, toastOptions?: ToastOptions) {
+    show(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
     },
-    success(text: any, toastOptions?: ToastOptions) {
+    success(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Success);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
     },
-    info(text: any, toastOptions?: ToastOptions) {
+    info(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Info);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
     },
-    error(text: any, toastOptions?: ToastOptions) {
-        const toastInfo = getToastInfo(text, toastOptions, UIState.Error);
+    error(error: string | Error, toastOptions?: ToastOptions) {
+        let message = '';
+
+        if (error instanceof Error) {
+            message = error.message;
+        } else {
+            message = error;
+        }
+
+        const toastInfo = getToastInfo(message, toastOptions, UIState.Error);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
-        console.error(text);
+        console.error(error);
     },
-    warn(text: any, toastOptions?: ToastOptions) {
+    warn(text: string, toastOptions?: ToastOptions) {
         const toastInfo = getToastInfo(text, toastOptions, UIState.Warning);
         store.toast.addToast(toastInfo);
         attach(toastInfo.placement, toastInfo.align);
