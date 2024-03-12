@@ -11,7 +11,7 @@ const items = [
         name: 'Apple',
         order: 4,
         checked: true,
-        created: '2011-10-02',
+        created: '2022-10-02',
         desc: 'Lorem Ipsum has been the industry ',
     },
     {
@@ -19,7 +19,7 @@ const items = [
         name: 'Banana',
         order: 1,
         checked: true,
-        created: '2021-01-01',
+        created: '2024-01-01',
         desc: 'has been the tscrambled it tscrambled it the industrys standard dummy text',
     },
     {
@@ -27,7 +27,7 @@ const items = [
         name: 'Carrot',
         order: 3,
         checked: false,
-        created: '2021-07-15',
+        created: '2023-07-15',
         desc: 'scrambled it to make a type specimen book',
     },
     {
@@ -35,7 +35,7 @@ const items = [
         name: 'Durian',
         order: 2,
         checked: false,
-        created: '2021-10-11',
+        created: '2023-10-11',
         desc: 'pecimen book. It has survived not only five centuries, but also the leap into electronic',
     },
 ];
@@ -70,7 +70,11 @@ const meta: Meta<typeof VsTable> = {
 export default meta;
 type Story = StoryObj<typeof VsTable>;
 
-export const Default: Story = {};
+export const Default: Story = {
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
@@ -86,9 +90,6 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
 };
 
 export const Dense: Story = {
@@ -130,9 +131,6 @@ export const Search: Story = {
         ],
         items,
     },
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
 };
 
 export const Filter: Story = {
@@ -157,26 +155,26 @@ export const Filter: Story = {
         },
         template: `
             <div>
-                <vs-block style="margin: 0.8rem">
+                <vs-block style="margin-bottom: 0.8rem">
                     <h3 style="margin-bottom: 0.5rem">Filter</h3>
-                    <vs-select v-model="id" :options="options" label="id" style="margin-bottom: 0.5rem"/>
+                    <vs-select v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
                     <vs-switch v-model="checked" label="checked" true-label="true" false-label="false">
                 </vs-block>
                 <vs-table v-bind="args" :filter="filter"/>
             </div>
         `,
     }),
+};
+
+export const SortableHeader: Story = {
     args: {
         headers: [
-            { label: 'ID', key: 'id', width: '7rem' },
-            { label: 'Name', key: 'name', width: '10rem' },
-            { label: 'Description', key: 'desc', width: '26rem' },
-            { label: 'Check', key: 'checked', width: '7rem', searchable: false },
+            { label: 'ID', key: 'id', width: '5rem' },
+            { label: 'Name', key: 'name', width: '8rem', sortable: true },
+            { label: 'Order', key: 'order', width: '8rem', sortable: true },
+            { label: 'Description', key: 'desc', width: '20rem' },
+            { label: 'Created', key: 'created', width: '12rem', sortable: true },
         ],
-        items,
-    },
-    parameters: {
-        chromatic: chromaticParameters.theme,
     },
 };
 
@@ -221,9 +219,6 @@ export const HeaderSlot: Story = {
             </div>
         `,
     }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
 };
 
 export const ItemSlot: Story = {
@@ -245,7 +240,4 @@ export const ItemSlot: Story = {
             </div>
         `,
     }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
 };
