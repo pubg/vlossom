@@ -1,10 +1,19 @@
 <template>
-    <draggable tag="tbody" v-model="computedTableItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable
+        tag="tbody"
+        v-model="computedTableItems"
+        item-key="id"
+        handle=".handle"
+        :disabled="!draggable || loading"
+    >
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
                 :headers="headers"
                 :draggable="draggable"
+                :expanded-ids="expandedIds"
+                :expandable="expandable"
+                :rows="rows"
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
@@ -23,6 +32,9 @@
             :item="dummy"
             :headers="headers"
             :draggable="draggable"
+            :expanded-ids="expandedIds"
+            :expandable="expandable"
+            :rows="rows"
             :loading="loading"
             :row-index="index"
             :tr-style="trStyle"
@@ -46,12 +58,20 @@ import useTableSearch from './composables/useTableSearch';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
-import type { TableHeader, TableItem } from './types';
+import type { TableHeader, TableItem, TableRow } from './types';
 
 export default defineComponent({
     name: 'vs-table-body',
+    components: {
+        draggable,
+        VsTableBodyRow,
+        VsIcon,
+    },
     props: {
         draggable: { type: Boolean, default: false },
+        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
+        expandable: { type: Boolean, default: false },
+        rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
@@ -61,11 +81,6 @@ export default defineComponent({
         },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
-    },
-    components: {
-        draggable,
-        VsTableBodyRow,
-        VsIcon,
     },
     emits: ['sort', 'rowClick', 'update:tableItems'],
     setup(props, { emit }) {

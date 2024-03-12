@@ -13,6 +13,7 @@ const items = [
         checked: true,
         created: '2011-10-02',
         desc: 'Lorem Ipsum has been the industry ',
+        additionalText: 'Additial Text for Apple: This content only shows when expanded',
     },
     {
         id: 2,
@@ -21,6 +22,7 @@ const items = [
         checked: true,
         created: '2021-01-01',
         desc: 'has been the tscrambled it tscrambled it the industrys standard dummy text',
+        additionalText: 'Additial Text for Banana: This content only shows when expanded',
     },
     {
         id: 3,
@@ -29,6 +31,7 @@ const items = [
         checked: false,
         created: '2021-07-15',
         desc: 'scrambled it to make a type specimen book',
+        additionalText: 'Additial Text for Carrot: This content only shows when expanded',
     },
     {
         id: 4,
@@ -37,6 +40,7 @@ const items = [
         checked: false,
         created: '2021-10-11',
         desc: 'pecimen book. It has survived not only five centuries, but also the leap into electronic',
+        additionalText: 'Additial Text for Durian: This content only shows when expanded',
     },
 ];
 
@@ -199,6 +203,29 @@ export const ItemSlot: Story = {
                 </vs-table>
             </div>
         `,
+    }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
+export const Expandable: Story = {
+    render: (args: any) => ({
+        components: { VsTable },
+        setup() {
+            return { args };
+        },
+        template: `
+			<div>
+				<vs-table v-bind="args">
+					<template #expand="{ item }">
+						<div style="padding: 1rem">
+							{{ item.additionalText }}
+						</div>
+					</template>
+				</vs-table>
+			</div>
+		`,
     }),
     parameters: {
         chromatic: chromaticParameters.theme,

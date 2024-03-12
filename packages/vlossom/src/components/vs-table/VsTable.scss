@@ -1,4 +1,6 @@
- .vs-table .table-wrap {
+@use '@/styles/mixin' as *;
+
+.vs-table .table-wrap {
     width: 100%;
     overflow-x: auto;
 
@@ -35,7 +37,8 @@
                 font-size: 1.1rem;
                 font-weight: 700;
 
-                &.draggable-th {
+                &.draggable-th,
+                &.expandable-th {
                     visibility: hidden;
                 }
 
@@ -62,6 +65,52 @@
 
                 &.table-td:first-of-type {
                     padding-left: 2rem;
+                }
+
+                &.expandable-td {
+                    padding-left: 0;
+
+                    > button {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 1.6rem;
+                        height: 1.6rem;
+                        border-radius: 0.2rem;
+                        background-color: var(--vs-comp-backgroundColor);
+
+                        i {
+                            color: var(--vs-comp-color);
+                            pointer-events: none;
+                            transform: rotate(180deg);
+                            transition: transform 0.4s;
+                        }
+
+                        &.expanded {
+                            i {
+                                transform: rotate(0deg);
+                            }
+                        }
+
+                        &:hover {
+                            box-shadow: 0 0 4px var(--vs-comp-backgroundColor);
+                        }
+
+                        &:disabled {
+                            @include disabled;
+                        }
+                    }
+                }
+
+                &.expanded-row-content {
+                    display: grid;
+                    grid-column: 1/-1;
+                    padding: 0 1rem;
+                    border-top: 1px dashed var(--vs-line-color);
+                    border-left: 1px dashed var(--vs-line-color);
+                    border-right: 1px dashed var(--vs-line-color);
+                    font-size: 1.1rem;
+                    box-shadow: var(--vs-table-expand-box-shadow-up), var(--vs-table-expand-box-shadow-down);
                 }
 
                 .skeleton {
@@ -164,6 +213,34 @@
 
                 &:first-child {
                     border-top: none;
+                }
+
+                &[data-label='expandable-td'],
+                &[data-label='expanded-row-content'] {
+                    min-height: auto;
+                    &::before {
+                        display: none;
+                    }
+                }
+
+                &[data-label='expanded-row-content'] {
+                    border-top: none;
+                }
+
+                &.expandable-td {
+                    button {
+                        flex: 1;
+                    }
+                }
+
+                &.expanded-row-content {
+                    display: flex !important;
+                    padding-top: 0;
+                    padding-bottom: 1.2rem;
+
+                    .expand-contents {
+                        flex: 1;
+                    }
                 }
 
                 .skeleton {
