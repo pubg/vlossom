@@ -158,7 +158,7 @@ export const Filter: Story = {
                 <vs-block style="margin-bottom: 0.8rem">
                     <h3 style="margin-bottom: 0.5rem">Filter</h3>
                     <vs-select v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
-                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false">
+                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false"/>
                 </vs-block>
                 <vs-table v-bind="args" :filter="filter"/>
             </div>
