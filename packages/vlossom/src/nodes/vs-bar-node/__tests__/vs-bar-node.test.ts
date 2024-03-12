@@ -7,6 +7,9 @@ describe('vs-bar-node', () => {
         it('slot에 삽입된 내용을 보여준다', () => {
             // given
             const wrapper = mount(VsBarNode, {
+                props: {
+                    colorScheme: 'default',
+                },
                 slots: {
                     default: 'This is slot content',
                 },
