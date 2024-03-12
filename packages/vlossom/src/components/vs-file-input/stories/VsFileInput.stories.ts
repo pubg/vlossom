@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
+import { chromaticParameters, colorScheme, getMetaArguments, getColorSchemeTemplate } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsFileInput from './../VsFileInput.vue';
@@ -25,6 +25,7 @@ const meta: Meta<typeof VsFileInput> = {
     },
 };
 
+meta.args = getMetaArguments(VsFileInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsFileInput>;
 
