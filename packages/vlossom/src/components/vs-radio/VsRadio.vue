@@ -30,7 +30,7 @@
                 @blur="onBlur"
             >
                 <template #label v-if="$slots['radio-label']">
-                    <slot name="radio-label">{{ radioLabel }}</slot>
+                    <slot name="radio-label" />
                 </template>
             </vs-check-node>
 
