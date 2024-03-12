@@ -14,7 +14,7 @@ export default function useTableSearch(headers: Ref<TableHeader[]>, searchableKe
         if (keyword.value.trim() === '') {
             return items.value;
         }
-        const lowercaseKeyword = keyword.value.toLowerCase();
+        const lowercaseKeyword = keyword.value.trim().toLowerCase();
         return items.value.filter(({ data }) => {
             const searchableData = utils.object.pick(data, searchTargetKeys.value);
             const target = Object.values(searchableData).join(' ').toLowerCase();
