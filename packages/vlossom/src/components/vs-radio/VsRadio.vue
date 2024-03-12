@@ -55,9 +55,8 @@ import { VsCheckNode } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
-const name = VsComponent.VsRadio;
 export default defineComponent({
-    name,
+    name: VsComponent.VsRadio,
     components: { VsInputWrapper, VsWrapper, VsCheckNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
@@ -77,14 +76,14 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
-        const { beforeChange, colorScheme, styleSet, label, modelValue, messages, required, rules, radioValue } =
+        const { beforeChange, colorScheme, styleSet, label, modelValue, messages, name, required, rules, radioValue } =
             toRefs(props);
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { computedColorScheme } = useColorScheme(VsComponent.VsRadio, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
 
         const inputValue = ref(modelValue.value);
 
@@ -93,7 +92,12 @@ export default defineComponent({
         });
 
         function requiredCheck() {
-            return required.value && !isChecked.value ? 'required' : '';
+            if (!required.value) {
+                return '';
+            }
+
+            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            return !checkedRadioElement ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
