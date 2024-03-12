@@ -16,7 +16,9 @@
                 @blur="onBlur"
             />
         </div>
-        <label v-if="label" :for="id">{{ label }}</label>
+        <label v-if="label" :for="id">
+            <slot name="label">{{ label }}</slot>
+        </label>
     </div>
 </template>
 
