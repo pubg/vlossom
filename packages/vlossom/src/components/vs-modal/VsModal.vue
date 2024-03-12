@@ -29,7 +29,7 @@
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useStyleSet } from '@/composables';
 import { VsComponent, Size } from '@/declaration';
-import { VsFocusTrap } from '@/components';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 
 import type { VsModalStyleSet } from './types';
@@ -65,17 +65,23 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        watch(isOpen, (val) => {
-            if (val && !hasContainer.value) {
-                document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = '15px';
-            } else {
-                document.body.style.overflow = '';
-                document.body.style.paddingRight = '';
-            }
+        watch(
+            isOpen,
+            (val) => {
+                if (val && !hasContainer.value) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.paddingRight = '15px';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+                }
 
-            emit('update:modelValue', val);
-        });
+                if (val !== modelValue.value) {
+                    emit('update:modelValue', val);
+                }
+            },
+            { immediate: true },
+        );
 
         function clickDimmed() {
             if (closeOnDimmedClick.value) {

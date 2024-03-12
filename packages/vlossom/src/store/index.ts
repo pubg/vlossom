@@ -1,11 +1,13 @@
-import { DialogStore } from './dialog-store';
 import { OptionStore } from './option-store';
+import { DialogStore } from './dialog-store';
 import { ToastStore } from './toast-store';
+import { ConfirmStore } from './confirm-store';
 
 export class VsStore {
     public option = new OptionStore();
     private _dialog: DialogStore | null = null;
     private _toast: ToastStore | null = null;
+    private _confirm: ConfirmStore | null = null;
 
     public get dialog() {
         if (!this._dialog) {
@@ -19,6 +21,13 @@ export class VsStore {
             this._toast = new ToastStore();
         }
         return this._toast;
+    }
+
+    public get confirm() {
+        if (!this._confirm) {
+            this._confirm = new ConfirmStore();
+        }
+        return this._confirm;
     }
 }
 

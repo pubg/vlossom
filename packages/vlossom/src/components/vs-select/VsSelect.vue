@@ -196,12 +196,13 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsChip, VsChipStyleSet } from '@/components';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import VsChip from '@/components/vs-chip/VsChip.vue';
+
+import type { VsChipStyleSet } from '@/components';
 
 const name = VsComponent.VsSelect;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsChip, VsIcon },

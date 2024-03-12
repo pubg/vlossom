@@ -3,7 +3,7 @@ import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';
 import type { VlossomOptions, VsComponent } from '@/declaration';
-import type { ToastPlugin } from './plugins';
+import type { ToastPlugin, ConfirmPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
@@ -57,6 +57,8 @@ export class Vlossom {
     }
 
     public toast: ToastPlugin = vsPlugins.toastPlugin;
+
+    public confirm: ConfirmPlugin = vsPlugins.confirmPlugin;
 }
 
 let vlossom: Vlossom;
