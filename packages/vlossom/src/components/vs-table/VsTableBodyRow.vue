@@ -62,7 +62,6 @@ export default defineComponent({
     props: {
         loading: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
-        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
         expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         item: { type: Object as PropType<TableItem>, required: true },
@@ -75,9 +74,9 @@ export default defineComponent({
         },
     },
     setup(props) {
-        const { expandedIds, expandable, headers, item, rowIndex, rows } = toRefs(props);
+        const { expandable, headers, item, rowIndex, rows } = toRefs(props);
 
-        const { isExpanded, toggleExpand } = useTableExpand(expandable, expandedIds);
+        const { isExpanded, toggleExpand } = useTableExpand(expandable);
 
         const isExpandlableRow: ComputedRef<boolean> = computed(() => {
             const { data } = item.value;

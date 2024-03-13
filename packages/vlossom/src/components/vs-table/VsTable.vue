@@ -17,7 +17,6 @@
                     :items="items"
                     :headers="headers"
                     :draggable="draggable"
-                    :expanded-ids="expandedIds"
                     :expandable="expandable"
                     :rows="rows"
                     :loading="loading"
@@ -35,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
+import { ComputedRef, PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import useTableExpand from './composables/useTableExpand';
@@ -112,8 +111,7 @@ export default defineComponent({
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
 
-        const expandedIds: Ref<string[]> = ref([]);
-        const { toggleExpand } = useTableExpand(expandable, expandedIds);
+        const { expandedIds, toggleExpand } = useTableExpand(expandable);
         function expand(index: number) {
             const target = items.value[index]; // TODO: computedItems 생성
             if (!target) {
