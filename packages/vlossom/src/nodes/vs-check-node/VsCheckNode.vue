@@ -49,6 +49,7 @@ export default defineComponent({
             default: 'checkbox',
         },
         checked: { type: Boolean, default: false },
+        indeterminate: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         label: { type: String, default: '' },
         name: { type: String, default: '' },
@@ -59,12 +60,13 @@ export default defineComponent({
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
     setup(props, { emit }) {
-        const { checked, disabled, readonly, state, type } = toRefs(props);
+        const { checked, indeterminate, disabled, readonly, state, type } = toRefs(props);
 
         const { boxGlowByState, textGlowByState } = useStateClass(state);
 
         const classObj = computed(() => ({
             checked: checked.value,
+            indeterminate: indeterminate.value,
             disabled: disabled.value,
             readonly: readonly.value,
         }));
@@ -73,6 +75,11 @@ export default defineComponent({
             if (type.value === 'radio') {
                 return checked.value ? 'radioChecked' : 'radioUnchecked';
             }
+
+            if (indeterminate.value) {
+                return 'indeterminate';
+            }
+
             return 'check';
         });
 
