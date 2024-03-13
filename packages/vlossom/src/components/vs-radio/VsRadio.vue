@@ -28,7 +28,11 @@
                 @toggle="onToggle"
                 @focus="onFocus"
                 @blur="onBlur"
-            />
+            >
+                <template #label v-if="$slots['radio-label']">
+                    <slot name="radio-label" />
+                </template>
+            </vs-check-node>
 
             <template #messages v-if="!noMsg">
                 <slot name="messages" />

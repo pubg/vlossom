@@ -32,7 +32,16 @@
                     @toggle="onToggle(option, $event)"
                     @focus="onFocus(option, $event)"
                     @blur="onBlur(option, $event)"
-                />
+                >
+                    <template #label v-if="$slots['check-label']">
+                        <slot
+                            name="check-label"
+                            :option="option"
+                            :value="getOptionValue(option)"
+                            :label="getOptionLabel(option)"
+                        />
+                    </template>
+                </vs-check-node>
             </div>
 
             <template #messages v-if="!noMsg">
