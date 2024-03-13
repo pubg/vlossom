@@ -7,21 +7,10 @@ import type { ToastInfo } from '@/plugins';
 describe('toast-plugin', () => {
     describe('toastPlugin', () => {
         let originalAddToast: (toastInfo: ToastInfo) => void = () => {};
-        let mockStore: {
-            toast: {
-                addToast: (toastInfo: ToastInfo) => void;
-            };
-        } | null = null;
 
         beforeEach(() => {
             originalAddToast = store.toast.addToast;
             store.toast.addToast = vi.spyOn(store.toast, 'addToast').mockImplementation(() => undefined).mockClear;
-
-            mockStore = {
-                toast: {
-                    addToast: vi.fn(),
-                },
-            };
         });
 
         afterEach(() => {
@@ -30,13 +19,13 @@ describe('toast-plugin', () => {
 
         it('UIState 가 없는 toast 를 보여줄 수 있다', () => {
             // given
-            vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
+            vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
             toastPlugin.show('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalledWith({
+            expect(store.toast.addToast).toHaveBeenCalledWith({
                 id: expect.any(String),
                 text: 'Hello',
                 autoClose: true,
@@ -49,38 +38,38 @@ describe('toast-plugin', () => {
 
         it('UIState 가 success 인 toast 를 보여줄 수 있다', () => {
             // given
-            vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
+            vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
             toastPlugin.success('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
+            expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });
 
         it('UIState 가 info 인 toast 를 보여줄 수 있다', () => {
             // given
-            vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
+            vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
             toastPlugin.info('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
+            expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
         });
 
         it('UIState 가 error 인 toast 를 보여줄 수 있다', () => {
             // given
             const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-            vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
+            vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
             toastPlugin.error('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
+            expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
@@ -91,13 +80,13 @@ describe('toast-plugin', () => {
         it('UIState 가 warning 인 toast 를 보여줄 수 있다', () => {
             // given
             const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-            vi.spyOn(store.toast, 'addToast').mockImplementation(mockStore!.toast.addToast);
+            vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
             toastPlugin.warn('Hello');
 
             // then
-            expect(mockStore!.toast.addToast).toHaveBeenCalledTimes(1);
+            expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
             expect(consoleSpy).toHaveBeenCalledTimes(1);
 
