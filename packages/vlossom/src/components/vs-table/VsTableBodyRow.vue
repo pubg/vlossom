@@ -27,7 +27,7 @@
 
         <td v-if="expandable" class="expandable-td">
             <button
-                v-if="isExpandlableRow"
+                v-if="isExpandableRow"
                 type="button"
                 @click.stop="toggleExpand(item.id)"
                 :disabled="loading"
@@ -78,7 +78,7 @@ export default defineComponent({
 
         const { isExpanded, toggleExpand } = useTableExpand(expandable);
 
-        const isExpandlableRow: ComputedRef<boolean> = computed(() => {
+        const isExpandableRow: ComputedRef<boolean> = computed(() => {
             const { data } = item.value;
             const { expandable: rowExpandableFn } = rows.value || {};
 
@@ -119,7 +119,7 @@ export default defineComponent({
             getTableData,
             isExpanded,
             toggleExpand,
-            isExpandlableRow,
+            isExpandableRow,
         };
     },
 });
