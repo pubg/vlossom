@@ -70,11 +70,7 @@ const meta: Meta<typeof VsTable> = {
 export default meta;
 type Story = StoryObj<typeof VsTable>;
 
-export const Default: Story = {
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
-};
+export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
@@ -90,6 +86,9 @@ export const ColorScheme: Story = {
             </div>
         `,
     }),
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const Dense: Story = {
@@ -175,7 +174,7 @@ export const SortableHeader: Story = {
             { label: 'Description', key: 'desc', width: '20rem' },
             { label: 'Created', key: 'created', width: '12rem', sortable: true },
         ],
-    },
+    },  
 };
 
 export const Draggable: Story = {
@@ -188,11 +187,17 @@ export const Loading: Story = {
     args: {
         loading: true,
     },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
 };
 
 export const NoData: Story = {
     args: {
         items: [],
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
     },
 };
 

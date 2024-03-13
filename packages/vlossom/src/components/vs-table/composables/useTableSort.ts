@@ -37,8 +37,10 @@ export function useTableSort(sortTypes: Ref<{ [key: string]: SortType }>) {
         }
 
         const sortType = sortTypes.value[sortKey];
-        const sorted = [...items].sort((a: TableItem, b: TableItem) => {
-            const comparison = +(a.data[sortKey] > b.data[sortKey]) || +(a.data[sortKey] === b.data[sortKey]) - 1;
+        const sorted = [...items].sort((itemA: TableItem, itemB: TableItem) => {
+            const a = itemA.data[sortKey];
+            const b = itemB.data[sortKey];
+            const comparison = +(a > b) || +(a === b) - 1;
             return sortType === SortType.ASCEND ? comparison : -comparison;
         });
         return sorted;
