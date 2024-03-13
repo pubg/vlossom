@@ -1,10 +1,12 @@
-import { ref, type Ref } from 'vue';
+import { Ref } from 'vue';
 
-export default function useTableExpand(expandable: Ref<boolean>) {
-    const expandedIds: Ref<string[]> = ref([]);
+export default function useTableExpand(expandable: Ref<boolean>, expandedIds: Ref<string[]>) {
+    function getExpandedIndex(id: string): number {
+        return expandedIds.value.findIndex((expandedId) => expandedId === id);
+    }
 
     function isExpanded(id: string): boolean {
-        return expandedIds.value.includes(id);
+        return getExpandedIndex(id) > -1;
     }
 
     function toggleExpand(id: string) {
@@ -12,7 +14,7 @@ export default function useTableExpand(expandable: Ref<boolean>) {
             return;
         }
 
-        const expandedIndex = expandedIds.value.findIndex((expandedId) => expandedId === id);
+        const expandedIndex = getExpandedIndex(id);
 
         if (expandedIndex > -1) {
             expandedIds.value.splice(expandedIndex, 1);
