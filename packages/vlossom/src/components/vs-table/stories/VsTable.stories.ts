@@ -174,7 +174,7 @@ export const SortableHeader: Story = {
             { label: 'Description', key: 'desc', width: '20rem' },
             { label: 'Created', key: 'created', width: '12rem', sortable: true },
         ],
-    },  
+    },
 };
 
 export const Draggable: Story = {
