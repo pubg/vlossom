@@ -7,9 +7,9 @@ export interface TableHeader {
     filter?: (value: any, item?: any) => any;
 }
 
-export interface TableRow {
-    selectable?: (row: any, rowIndex?: number) => boolean;
-    expandable?: (row: any, rowIndex?: number) => boolean;
+export interface TableRow<T = any> {
+    selectable?: (row: T, rowIndex?: number) => boolean;
+    expandable?: (row: T, rowIndex?: number) => boolean;
 }
 
 export interface TableItem {
