@@ -4,6 +4,7 @@ import {
     ref,
     toRefs,
     cloneVNode,
+    h,
     onMounted,
     onBeforeUnmount,
     computed,
@@ -23,6 +24,7 @@ export default defineComponent({
     setup(props, { slots }) {
         const { focusLock, initialFocusRef } = toRefs(props);
 
+        const focusTrapRef: Ref<HTMLElement | null> = ref(null);
         const wrapperRef: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null);
 
         const wrapperElement = computed(() => {
@@ -80,7 +82,8 @@ export default defineComponent({
             }
 
             const focusables = wrapperElement.value.querySelectorAll<HTMLElement>(
-                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+                `button:not([tabindex="-1"]), [href]:not([tabindex="-1"]), input:not([tabindex="-1"]),
+                select:not([tabindex="-1"]), textarea:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"])`,
             );
             if (!focusables.length) {
                 return;
@@ -99,7 +102,7 @@ export default defineComponent({
                 if (initialFocusRef.value) {
                     initialFocusRef.value.focus();
                 } else {
-                    firstFocusable?.focus();
+                    focusTrapRef.value?.focus();
                 }
             });
         });
@@ -132,7 +135,10 @@ export default defineComponent({
                 }
             });
 
-            return cloneVNode(vNodes[0], { ref: wrapperRef });
+            return h('div', { class: 'vs-focus-trap' }, [
+                h('div', { tabindex: -1, ref: focusTrapRef }),
+                cloneVNode(vNodes[0], { ref: wrapperRef }),
+            ]);
         }
 
         return () => render();

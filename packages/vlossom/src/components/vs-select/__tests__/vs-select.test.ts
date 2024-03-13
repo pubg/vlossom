@@ -813,7 +813,7 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('input').trigger('mouseover');
-            await wrapper.find('button[aria-label="clear"').trigger('click');
+            await wrapper.find('button.clear-button').trigger('click');
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
