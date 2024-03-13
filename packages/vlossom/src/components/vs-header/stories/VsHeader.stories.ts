@@ -14,11 +14,15 @@ const meta: Meta<typeof VsHeader> = {
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
 				<vs-header v-bind="args" > This is Header Content </vs-header>
-				${LOREM_IPSUM}
+				<div style="padding-top:50px;">${LOREM_IPSUM}</div>
 			</div>
 		`,
     }),
     tags: ['autodocs'],
+    args: {
+        height: '50px',
+        position: 'absolute',
+    },
     argTypes: {
         colorScheme,
         verticalAlign: align,
@@ -54,7 +58,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-header color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
+                    <vs-header color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }" primary>
 						This is Header Content
                     </vs-header>
                 `)}
@@ -70,36 +74,12 @@ export const Primary: Story = {
 };
 
 export const VerticalAlignStart: Story = {
-    render: (args: any) => ({
-        components: { VsHeader },
-        setup() {
-            const styleSet = {
-                height: '200px',
-            };
-            return { args, styleSet };
-        },
-        template: `
-			<vs-header v-bind="args" :styleSet="styleSet" > This is Header Content </vs-header>
-		`,
-    }),
     args: {
         verticalAlign: 'start',
     },
 };
 
 export const VerticalAlignEnd: Story = {
-    render: (args: any) => ({
-        components: { VsHeader },
-        setup() {
-            const styleSet = {
-                height: '200px',
-            };
-            return { args, styleSet };
-        },
-        template: `
-			<vs-header v-bind="args" :styleSet="styleSet" > This is Header Content </vs-header>
-		`,
-    }),
     args: {
         verticalAlign: 'end',
     },
@@ -112,6 +92,7 @@ export const StyleSet: Story = {
             color: '#fff',
             height: '60px',
             padding: '10px',
+            position: 'fixed',
             textAlign: 'center',
             boxShadow: '0 0 10px rgba(0, 0, 0, 1)',
         },

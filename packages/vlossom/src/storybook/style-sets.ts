@@ -127,30 +127,21 @@ const vsFooter: VsFooterStyleSet = {
     display: 'flex',
     flex: '1 1 auto',
     height: '32px',
-    left: 0,
     padding: '2%',
-    position: 'absolute',
+    position: 'sticky',
     textAlign: 'start',
-    right: 'auto',
-    top: 'auto',
-    width: '100%',
 };
 
 const vsHeader: VsHeaderStyleSet = {
     backgroundColor: 'grey',
     bottom: 'auto',
-    boxShadow: 'none',
     color: '#fff',
     display: 'flex',
     flex: '1 1 auto',
     height: '32px',
-    left: 'auto',
     padding: '2%',
     position: 'sticky',
     textAlign: 'start',
-    right: 'auto',
-    top: '50%',
-    width: '100%',
     zIndex: 9999,
 };
 
