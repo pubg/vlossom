@@ -25,7 +25,7 @@
             </div>
         </td>
 
-        <td v-if="expandable" class="expandable-td" data-label="expandable-td">
+        <td v-if="expandable" class="expandable-td">
             <button
                 v-if="isExpandlableRow"
                 type="button"
@@ -41,7 +41,6 @@
         <td
             v-if="expandable && isExpanded(item.id)"
             :class="['expanded-row-content', { 'scale-up-ver-top': isExpanded(item.id) }]"
-            data-label="expanded-row-content"
         >
             <div class="expand-contents fade-in">
                 <slot name="expand" :id="item.id" :item="item.data" :itemIndex="rowIndex" />

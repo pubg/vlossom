@@ -215,15 +215,14 @@
                     border-top: none;
                 }
 
-                &[data-label='expandable-td'],
-                &[data-label='expanded-row-content'] {
+                &.expandable-td,
+                &.expanded-row-content {
                     min-height: auto;
                     &::before {
                         display: none;
                     }
                 }
-
-                &[data-label='expanded-row-content'] {
+                &.expanded-row-content {
                     border-top: none;
                 }
 
