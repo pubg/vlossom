@@ -11,7 +11,7 @@
                 :item="element"
                 :headers="headers"
                 :draggable="draggable"
-                :expandable="expandable"
+                :expandable="hasExpand"
                 :rows="rows"
                 :loading="loading"
                 :row-index="index"
@@ -31,7 +31,7 @@
             :item="dummy"
             :headers="headers"
             :draggable="draggable"
-            :expandable="expandable"
+            :expandable="hasExpand"
             :rows="rows"
             :loading="loading"
             :row-index="index"
@@ -67,7 +67,7 @@ export default defineComponent({
     },
     props: {
         draggable: { type: Boolean, default: false },
-        expandable: { type: Boolean, default: false },
+        hasExpand: { type: Boolean, default: false },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },

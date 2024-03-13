@@ -5,7 +5,7 @@
                 <vs-table-header
                     :headers="headers"
                     :draggable="draggable"
-                    :expandable="expandable"
+                    :expandable="hasExpand"
                     :loading="loading"
                     :tr-style="trStyle"
                 >
@@ -17,7 +17,7 @@
                     :items="items"
                     :headers="headers"
                     :draggable="draggable"
-                    :expandable="expandable"
+                    :hasExpand="hasExpand"
                     :rows="rows"
                     :loading="loading"
                     :search="search"
@@ -72,7 +72,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
-        const expandable = computed(() => !!slots['expand']);
+        const hasExpand = computed(() => !!slots['expand']);
 
         const headerSlots = computed(() => {
             return Object.keys(slots).reduce((acc, slotName) => {
@@ -104,14 +104,14 @@ export default defineComponent({
                 gridColumns.unshift('3rem');
             }
 
-            if (expandable.value) {
+            if (hasExpand.value) {
                 gridColumns.push('4.4rem');
             }
 
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
 
-        const { expandedIds, toggleExpand } = useTableExpand(expandable);
+        const { expandedIds, toggleExpand } = useTableExpand(hasExpand);
         function expand(index: number) {
             const target = items.value[index]; // TODO: computedItems 생성
             if (!target) {
@@ -127,7 +127,7 @@ export default defineComponent({
             headerSlots,
             itemSlots,
             trStyle,
-            expandable,
+            hasExpand,
             expand,
             expandedIds,
         };
