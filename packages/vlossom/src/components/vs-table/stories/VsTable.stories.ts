@@ -64,7 +64,7 @@ const meta: Meta<typeof VsTable> = {
         headers: [
             { label: 'ID', key: 'id', width: '7rem' },
             { label: 'Name', key: 'name', width: '10rem' },
-            { label: 'Description', key: 'desc', width: '26rem' },
+            { label: 'Description', key: 'desc' },
             { label: 'Check', key: 'checked', width: '7rem' },
         ],
         items,
