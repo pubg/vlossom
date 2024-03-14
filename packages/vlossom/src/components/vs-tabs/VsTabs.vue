@@ -32,7 +32,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         mobileFull: { type: Boolean, default: false },
@@ -51,6 +51,7 @@ export default defineComponent({
         const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({

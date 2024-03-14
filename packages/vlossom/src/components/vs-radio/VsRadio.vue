@@ -62,7 +62,7 @@ export default defineComponent({
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,

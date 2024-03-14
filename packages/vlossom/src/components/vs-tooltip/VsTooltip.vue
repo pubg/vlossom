@@ -39,7 +39,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsTooltipStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsTooltipStyleSet> },
         placement: {
             type: String as PropType<Placement>,
             default: 'top',

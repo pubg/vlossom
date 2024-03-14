@@ -14,7 +14,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsDividerStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsDividerStyleSet> },
         vertical: { type: Boolean, default: false },
         mobileFull: { type: Boolean, default: false },
     },

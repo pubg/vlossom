@@ -41,7 +41,7 @@ export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
     props: {
-        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: true },

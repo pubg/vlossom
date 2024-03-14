@@ -19,7 +19,7 @@
                         <vs-icon size="1.2rem" icon="copy" />
                     </button>
 
-                    <button type="button" v-if="link" class="link-button" aria-label="link"  @click.stop="openLink">
+                    <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
                         <vs-icon size="1.2rem" icon="link" />
                     </button>
                 </div>
@@ -48,7 +48,7 @@ export default defineComponent({
     components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsTextWrapStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsTextWrapStyleSet> },
         align: {
             type: String as PropType<Align>,
             default: 'center',

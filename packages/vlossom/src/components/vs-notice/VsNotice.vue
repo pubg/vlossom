@@ -35,7 +35,7 @@ export default defineComponent({
     props: {
         title: { type: String, default: 'Notice' },
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet> },
         primary: { type: Boolean, default: false },
         // v-model
         modelValue: { type: Boolean, default: true },
@@ -43,7 +43,9 @@ export default defineComponent({
     emits: ['update:modelValue'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, primary } = toRefs(props);
+
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsNoticeStyleSet>(name, styleSet);
 
         const isVisible = ref(true);

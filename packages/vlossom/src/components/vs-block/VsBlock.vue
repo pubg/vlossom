@@ -21,7 +21,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsBlockStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsBlockStyleSet> },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);

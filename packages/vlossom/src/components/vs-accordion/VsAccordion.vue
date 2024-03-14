@@ -24,10 +24,7 @@ export default defineComponent({
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: {
-            type: [String, Object] as PropType<string | VsAccordionStyleSet>,
-            default: '',
-        },
+        styleSet: { type: [String, Object] as PropType<string | VsAccordionStyleSet> },
         // v-model
         open: { type: Boolean, default: false },
     },
@@ -36,6 +33,7 @@ export default defineComponent({
         const { colorScheme, styleSet, open: modelOpen } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsAccordionStyleSet>(name, styleSet);
 
         const isOpen = ref(modelOpen.value);

@@ -69,7 +69,7 @@ export default defineComponent({
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,

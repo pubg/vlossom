@@ -47,7 +47,7 @@ export default defineComponent({
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsStepperStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsStepperStyleSet> },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         gap: { type: [String, Number], default: '' },
         steps: {
@@ -65,6 +65,7 @@ export default defineComponent({
         const { colorScheme, styleSet, disabled, gap, steps, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
 
         const selected = ref(modelValue.value);

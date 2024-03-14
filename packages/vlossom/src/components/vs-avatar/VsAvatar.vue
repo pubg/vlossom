@@ -15,10 +15,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: {
-            type: [String, Object] as PropType<string | VsAvatarStyleSet>,
-            default: '',
-        },
+        styleSet: { type: [String, Object] as PropType<string | VsAvatarStyleSet> },
     },
     setup(props) {
         const { colorScheme, styleSet } = toRefs(props);

@@ -20,7 +20,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsValueTagStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsValueTagStyleSet> },
         primary: { type: Boolean, default: false },
     },
     setup(props, { slots }) {

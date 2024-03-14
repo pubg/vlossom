@@ -28,7 +28,7 @@ export default defineComponent({
     components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsButtonStyleSet> },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         large: { type: Boolean, default: false },

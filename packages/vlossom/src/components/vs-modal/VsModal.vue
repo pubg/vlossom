@@ -40,7 +40,7 @@ export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
     props: {
-        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },

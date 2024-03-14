@@ -37,11 +37,11 @@ export default defineComponent({
     name,
     components: { VsIcon },
     props: {
-        closable: { type: Boolean, default: false },
         colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsChipStyleSet> },
+        closable: { type: Boolean, default: false },
         noRound: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
-        styleSet: { type: [String, Object] as PropType<string | VsChipStyleSet>, default: '' },
     },
     emits: ['close'],
     setup(props, { slots }) {

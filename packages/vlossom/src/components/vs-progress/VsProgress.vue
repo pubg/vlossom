@@ -19,7 +19,7 @@ export default defineComponent({
     name: name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsProgressStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsProgressStyleSet> },
         max: { type: Number, default: 100 },
         value: { type: Number, default: 0 },
     },

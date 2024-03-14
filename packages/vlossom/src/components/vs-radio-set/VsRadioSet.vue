@@ -82,7 +82,7 @@ export default defineComponent({
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsRadioSetStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioSetStyleSet> },
         beforeChange: {
             type: Function as PropType<(option: any) => Promise<boolean> | null>,
             default: null,
