@@ -13,12 +13,16 @@ const meta: Meta<typeof VsFooter> = {
         },
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
+				<div style="padding-bottom:50px;">${LOREM_IPSUM}</div>
 				<vs-footer v-bind="args" > This is Footer Content </vs-footer>
-				${LOREM_IPSUM}
 			</div>
 		`,
     }),
     tags: ['autodocs'],
+    args: {
+        height: '50px',
+        position: 'absolute',
+    },
     argTypes: {
         colorScheme,
         verticalAlign: align,
@@ -54,7 +58,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-footer color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }">
+                    <vs-footer color-scheme="{{ color }}" :style="{ marginBottom: '1rem' }" primary>
 						This is Footer Content
                     </vs-footer>
                 `)}
@@ -70,36 +74,12 @@ export const Primary: Story = {
 };
 
 export const VerticalAlignTop: Story = {
-    render: (args: any) => ({
-        components: { VsFooter },
-        setup() {
-            const styleSet = {
-                height: '200px',
-            };
-            return { args, styleSet };
-        },
-        template: `
-			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
-		`,
-    }),
     args: {
         verticalAlign: 'start',
     },
 };
 
 export const VerticalAlignBottom: Story = {
-    render: (args: any) => ({
-        components: { VsFooter },
-        setup() {
-            const styleSet = {
-                height: '200px',
-            };
-            return { args, styleSet };
-        },
-        template: `
-			<vs-footer v-bind="args" :styleSet="styleSet" > This is Footer Content </vs-footer>
-		`,
-    }),
     args: {
         verticalAlign: 'end',
     },
@@ -107,19 +87,26 @@ export const VerticalAlignBottom: Story = {
 
 export const StyleSet: Story = {
     args: {
+        position: undefined,
+        height: undefined,
         styleSet: {
             backgroundColor: '#000',
+            bottom: 0,
             color: '#fff',
             height: '60px',
+            left: 0,
             padding: '10px',
-            position: 'absolute',
+            position: 'fixed',
             textAlign: 'center',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 1)',
         },
     },
 };
 
 export const PreDefinedStyleSet: Story = {
     args: {
+        position: undefined,
+        height: undefined,
         styleSet: 'myStyleSet',
     },
 };
