@@ -214,6 +214,8 @@ const vsPagination: VsPaginationStyleSet = {
 };
 
 const vsProgress: VsProgressStyleSet = {
+    barColor: 'skyblue',
+    valueColor: 'blue',
     borderRadius: '0.2rem',
     height: '0.5rem',
     width: '100%',

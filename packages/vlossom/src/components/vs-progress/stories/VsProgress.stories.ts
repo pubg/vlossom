@@ -44,27 +44,17 @@ export const ColorScheme: Story = {
     },
 };
 
-export const Primary: Story = {
-    render: () => ({
-        components: { VsProgress },
-        template: `
-			<div>
-                ${getColorSchemeTemplate(`
-                    <vs-progress color-scheme="{{ color }}" primary :value="60"/>
-                `)}
-			</div>
-		`,
-    }),
-    parameters: {
-        chromatic: chromaticParameters.theme,
-    },
-};
-
 export const StyleSet: Story = {
     render: () => ({
         components: { VsProgress },
         setup() {
-            const styleSet = { borderRadius: '0.8rem', height: '1rem', width: '50%' };
+            const styleSet = {
+                barColor: '#ffc29b',
+                valueColor: '#ff5342',
+                borderRadius: '0.8rem',
+                height: '1rem',
+                width: '50%',
+            };
             return { styleSet };
         },
         template: `
@@ -74,14 +64,7 @@ export const StyleSet: Story = {
 };
 
 export const PreDefinedStyleSet: Story = {
-    render: () => ({
-        components: { VsProgress },
-        setup() {
-            const styleSet = { borderRadius: '0.8rem', height: '1rem', width: '50%' };
-            return { styleSet };
-        },
-        template: `
-			<vs-progress style-set="myStyleSet" :value="20" :max="200"/>
-		`,
-    }),
+    args: {
+        styleSet: 'myStyleSet',
+    },
 };
