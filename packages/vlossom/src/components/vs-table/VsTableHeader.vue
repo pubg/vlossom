@@ -23,10 +23,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue';
-import { useTableSort } from './composables/useTableSort';
 import { VsIcon } from '@/icons';
-
-import type { SortType, TableHeader } from './types';
+import { type TableHeader, SortType } from './types';
+import { useSortableHeader } from './composables/useSortableHeader';
 
 export default defineComponent({
     name: 'vs-table-header',
@@ -35,25 +34,26 @@ export default defineComponent({
         expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         selectable: { type: Boolean, default: false },
-        sortTypes: {
-            type: Object as PropType<{ [key: string]: SortType }>,
-            default: () => ({}),
-        },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
+            default: () => ({}),
+        },
+        // v-model
+        sortTypes: {
+            type: Object as PropType<{ [key: string]: SortType }>,
             default: () => ({}),
         },
     },
     components: {
         VsIcon,
     },
-    emits: ['sort'],
-    setup(props) {
-        const { sortTypes } = toRefs(props);
+    emits: ['update:sortTypes'],
+    setup(props, context) {
+        const { headers } = toRefs(props);
 
-        const { updateSortType, getSortIcon } = useTableSort(sortTypes);
+        const { sortTypes, updateSortType, getSortIcon } = useSortableHeader(headers, context);
 
-        return { updateSortType, getSortIcon };
+        return { sortTypes, updateSortType, getSortIcon };
     },
 });
 </script>

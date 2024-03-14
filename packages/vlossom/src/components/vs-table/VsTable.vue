@@ -6,8 +6,8 @@
                     :headers="headers"
                     :draggable="draggable"
                     :loading="loading"
-                    :sort-types="sortTypes"
                     :tr-style="trStyle"
+                    v-model:sort-types="sortTypes"
                 >
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
+import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
@@ -107,17 +107,6 @@ export default defineComponent({
         });
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
-
-        const initSortTypes = () => {
-            sortTypes.value = headers.value.reduce((acc, { key, sortable = false }) => {
-                if (sortable) {
-                    acc[key] = SortType.NONE;
-                }
-                return acc;
-            }, {} as { [key: string]: SortType });
-        };
-
-        watch(headers, initSortTypes, { immediate: true });
 
         return {
             computedColorScheme,

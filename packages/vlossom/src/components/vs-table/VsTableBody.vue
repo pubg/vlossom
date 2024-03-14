@@ -97,12 +97,12 @@ export default defineComponent({
 
         const { getSearchedItems } = useTableSearch(headers, searchableKeys);
         const { getFilteredItems } = useTableFilter();
-        const { getSortedItems } = useTableSort(sortTypes);
+        const { getSortedItems } = useTableSort();
 
         function getResultItems() {
             const searched = getSearchedItems(innerTableItems, search);
             const filtered = getFilteredItems(searched, filter);
-            const sorted = getSortedItems(filtered);
+            const sorted = getSortedItems(filtered, sortTypes);
             return sorted;
         }
 
