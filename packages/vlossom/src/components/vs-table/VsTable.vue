@@ -15,11 +15,11 @@
                     </template>
                 </vs-table-header>
                 <vs-table-body
+                    ref="tableBodyRef"
                     :items="items"
                     :headers="headers"
                     :filter="filter"
                     :draggable="draggable"
-                    :expanded-ids="expandedIds"
                     :hasExpand="hasExpand"
                     :rows="rows"
                     :loading="loading"
@@ -27,7 +27,6 @@
                     :searchable-keys="searchableKeys"
                     :sort-types="sortTypes"
                     :tr-style="trStyle"
-                    @toggleExpand="toggleExpand"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -42,7 +41,6 @@
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import useTableExpand from './composables/useTableExpand';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
@@ -75,13 +73,11 @@ export default defineComponent({
     },
     expose: ['expand'],
     setup(props, { slots }) {
-        const { colorScheme, styleSet, draggable, headers, items } = toRefs(props);
+        const { colorScheme, styleSet, draggable, headers } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
-
-        const hasExpand = computed(() => !!slots['expand']);
 
         const headerSlots = computed(() => {
             return Object.keys(slots).reduce((acc, slotName) => {
@@ -122,15 +118,12 @@ export default defineComponent({
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
-        const { expandedIds, toggleExpand } = useTableExpand(hasExpand);
-        function expand(index: number) {
-            const target = items.value[index]; // TODO: computedItems 생성
-            if (!target) {
-                return;
-            }
+        const hasExpand = computed(() => !!slots['expand']);
+        const tableBodyRef: Ref<typeof VsTableBody | null> = ref(null);
 
-            toggleExpand(target.id);
-        }
+        const expand = () => {
+            return tableBodyRef.value?.expand();
+        };
 
         return {
             computedColorScheme,
@@ -140,8 +133,6 @@ export default defineComponent({
             trStyle,
             sortTypes,
             hasExpand,
-            expandedIds,
-            toggleExpand,
             // expose
             expand,
         };
