@@ -8,15 +8,6 @@ describe('vs-confirm', () => {
     let originalResolve: (result: boolean) => void = () => {};
     let originalPop: () => void = () => {};
 
-    let mockStore: {
-        confirm: {
-            executeResolve: (result: boolean) => void;
-        };
-        dialog: {
-            pop: () => void;
-        };
-    } | null = null;
-
     beforeEach(() => {
         originalResolve = store.confirm.executeResolve;
         originalPop = store.dialog.pop;
@@ -26,15 +17,6 @@ describe('vs-confirm', () => {
             .mockImplementation(() => undefined).mockClear;
 
         store.dialog.pop = vi.spyOn(store.dialog, 'pop').mockImplementation(() => undefined).mockClear;
-
-        mockStore = {
-            confirm: {
-                executeResolve: vi.fn(),
-            },
-            dialog: {
-                pop: vi.fn(),
-            },
-        };
     });
 
     afterEach(() => {
@@ -97,8 +79,8 @@ describe('vs-confirm', () => {
 
     it('ok 버튼을 클릭하면 resolve 가 true 로 이행되고 confirm dialog가 닫힌다', async () => {
         // given
-        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(mockStore!.confirm.executeResolve);
-        vi.spyOn(store.dialog, 'pop').mockImplementation(mockStore!.dialog.pop);
+        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(() => vi.fn());
+        vi.spyOn(store.dialog, 'pop').mockImplementation(() => vi.fn());
 
         const wrapper = mount(VsConfirm, {
             props: {
@@ -117,14 +99,14 @@ describe('vs-confirm', () => {
 
         // then
         expect(wrapper.vm.isOpen).toBe(false);
-        expect(mockStore!.confirm.executeResolve).toHaveBeenCalledTimes(1);
-        expect(mockStore!.dialog.pop).toHaveBeenCalledTimes(1);
+        expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
+        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
     });
 
     it('cancel 버튼을 클릭하면 resolve 가 false 로 이행되고 confirm dialog가 닫힌다', async () => {
         // given
-        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(mockStore!.confirm.executeResolve);
-        vi.spyOn(store.dialog, 'pop').mockImplementation(mockStore!.dialog.pop);
+        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(() => vi.fn());
+        vi.spyOn(store.dialog, 'pop').mockImplementation(() => vi.fn());
 
         const wrapper = mount(VsConfirm, {
             props: {
@@ -143,7 +125,7 @@ describe('vs-confirm', () => {
 
         // then
         expect(wrapper.vm.isOpen).toBe(false);
-        expect(mockStore!.confirm.executeResolve).toHaveBeenCalledTimes(1);
-        expect(mockStore!.dialog.pop).toHaveBeenCalledTimes(1);
+        expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
+        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
     });
 });
