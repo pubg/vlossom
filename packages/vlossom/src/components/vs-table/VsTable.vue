@@ -8,6 +8,7 @@
                     :expandable="hasExpand"
                     :loading="loading"
                     :tr-style="trStyle"
+                    v-model:sort-types="sortTypes"
                 >
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -16,6 +17,7 @@
                 <vs-table-body
                     :items="items"
                     :headers="headers"
+                    :filter="filter"
                     :draggable="draggable"
                     :expanded-ids="expandedIds"
                     :hasExpand="hasExpand"
@@ -23,6 +25,7 @@
                     :loading="loading"
                     :search="search"
                     :searchable-keys="searchableKeys"
+                    :sort-types="sortTypes"
                     :tr-style="trStyle"
                     @toggleExpand="toggleExpand"
                 >
@@ -36,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, computed, defineComponent, toRefs } from 'vue';
+import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import useTableExpand from './composables/useTableExpand';
@@ -44,7 +47,7 @@ import useTableExpand from './composables/useTableExpand';
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 
-import type { VsTableStyleSet, TableHeader, TableRow } from './types';
+import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 
 const name = VsComponent.VsTable;
 
@@ -59,6 +62,10 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
         dense: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
+        filter: {
+            type: Object as PropType<TableFilter>,
+            default: null,
+        },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
@@ -113,6 +120,8 @@ export default defineComponent({
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
 
+        const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
+
         const { expandedIds, toggleExpand } = useTableExpand(hasExpand);
         function expand(index: number) {
             const target = items.value[index]; // TODO: computedItems 생성
@@ -129,10 +138,12 @@ export default defineComponent({
             headerSlots,
             itemSlots,
             trStyle,
+            sortTypes,
             hasExpand,
-            expand,
             expandedIds,
             toggleExpand,
+            // expose
+            expand,
         };
     },
 });
