@@ -127,20 +127,20 @@ export const PreDefinedStyleSet: Story = {
     },
 };
 
-export const LeadingIcon: Story = {
+export const Icon: Story = {
     render: () => ({
         components: { VsChip, VsIcon },
         template: `
             <div>
 				<vs-chip>
-					<template #leading-icon>
+					<template #icon>
 						<vs-icon icon="check" size="16px"/>
 					</template>
 					Chip
 				</vs-chip>
 
 				<vs-chip>
-					<template #leading-icon>
+					<template #icon>
 						<vs-icon icon="close" size="16px" />
 					</template>
 					Chip
@@ -173,7 +173,7 @@ export const ClickEventWithPrimary: Story = {
             <div style="display:flex; align-items:center">
                 ${getColorSchemeTemplate(`
                     <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')">
-                        <template #leading-icon>
+                        <template #icon>
                             <vs-icon v-if="isSelected('{{ color }}')" icon="check" size="16px" />
                         </template>
                         {{color}}
