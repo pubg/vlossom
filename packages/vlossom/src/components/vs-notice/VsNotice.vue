@@ -5,13 +5,15 @@
         :style="computedStyleSet"
     >
         <div class="vs-notice-contents">
-            <strong class="sub-title">{{ title }}</strong>
+            <slot name="title">
+                <strong class="title">{{ title }}</strong>
+            </slot>
             <vs-divider :color-scheme="colorScheme" :style-set="{ lineColor: primary ? 'white' : '' }" vertical />
-            <p>
+            <div>
                 <slot />
-            </p>
+            </div>
         </div>
-        <button type="button" class="vs-notice-close" @click.stop="closeNotice()" aria-label="close">
+        <button type="button" class="close-button" @click.stop="closeNotice()" aria-label="close">
             <vs-icon icon="close" size="20" />
         </button>
     </div>

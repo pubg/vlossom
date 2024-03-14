@@ -6,31 +6,41 @@
     padding: 0.8rem 2.4rem;
     overflow: hidden;
     background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor));
-    color: var(--vs-notice-color, var(--vs-comp-color));
-    font-size: var(--vs-notice-fontSize, 1.2rem);
-    font-weight: var(--vs-notice-fontWeight, 500);
 
     .vs-notice-contents {
         display: flex;
         align-items: center;
-        width: 100%;
-    }
-    .sub-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: var(--vs-notice-subTitleFontSize, 1.2rem);
-        font-weight: var(--vs-notice-subTitleFontWeight, 600);
+        color: var(--vs-notice-contentFontColor, var(--vs-comp-color));
+        font-size: var(--vs-notice-contentFontSize, 1.2rem);
+        font-weight: var(--vs-notice-contentFontWeight, 500);
+
+        .title {
+            color: var(--vs-notice-titleFontColor, var(--vs-comp-color));
+            font-size: var(--vs-notice-titleFontSize, 1.2rem);
+            font-weight: var(--vs-notice-titleFontWeight, 600);
+        }
     }
 
-    .vs-notice-close {
+    .close-button {
         display: flex;
         cursor: pointer;
+        color: var(--vs-notice-contentFontColor, var(--vs-comp-color));
     }
 
     // primary
     &.primary {
         background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-notice-color, var(--vs-comp-color-primary));
+
+        .vs-notice-contents {
+            color: var(--vs-notice-contentFontColor, var(--vs-comp-color-primary));
+
+            .title {
+                color: var(--vs-notice-titleFontColor, var(--vs-comp-color-primary));
+            }
+        }
+
+        .close-button {
+            color: var(--vs-notice-contentFontColor, var(--vs-comp-color-primary));
+        }
     }
 }

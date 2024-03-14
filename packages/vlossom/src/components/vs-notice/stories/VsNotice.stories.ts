@@ -11,7 +11,7 @@ const meta: Meta<typeof VsNotice> = {
         setup() {
             return { args };
         },
-        template: '<vs-notice v-bind="args">Hello! This is Notice</vs-notice>',
+        template: '<vs-notice v-bind="args">Hello! This is Vlossom Notice Content</vs-notice>',
     }),
     tags: ['autodocs'],
     argTypes: {
@@ -33,7 +33,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-notice color-scheme="{{ color }}">Hello! This is Vlossom {{ color }} notice</vs-notice>
+                    <vs-notice color-scheme="{{ color }}" style="margin-bottom:1rem">Hello! This is Vlossom {{ color }} notice content</vs-notice>
                 `)}
             </div>
         `,
@@ -41,6 +41,21 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const TitleSlot: Story = {
+    render: (args: any) => ({
+        components: { VsNotice },
+        setup() {
+            return { args };
+        },
+        template: `
+			<vs-notice>
+				<template #title><span>Please Note 📌</span></template>
+				Hello! This is Vlossom Notice Content
+			</vs-notice>
+		`,
+    }),
 };
 
 export const Primary: Story = {
@@ -52,7 +67,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-notice color-scheme="{{ color }}" primary>Hello! This is Vlossom {{ color }} notice</vs-notice>
+                    <vs-notice color-scheme="{{ color }}" primary style="margin-bottom:1rem">Hello! This is Vlossom {{ color }} notice</vs-notice>
                 `)}
             </div>
         `,
@@ -64,7 +79,7 @@ export const Primary: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
+        styleSet: { backgroundColor: '#a5d6ad', contentFontSize: '2rem' },
     },
 };
 
