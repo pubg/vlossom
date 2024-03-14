@@ -1,4 +1,4 @@
-import { COLORS, CSS_POSITION, PLACEMENTS, SIZES } from '@/declaration';
+import { COLORS, CSS_POSITION, PLACEMENTS, SIZES, UIState } from '@/declaration';
 
 export const colorScheme = {
     control: 'select',
@@ -18,6 +18,11 @@ export const placement = {
 export const size = {
     control: 'select',
     options: SIZES,
+};
+
+export const state = {
+    control: 'select',
+    options: [UIState.Idle, UIState.Info, UIState.Success, UIState.Warning, UIState.Error],
 };
 
 export function numberArray(length: number, multiSelect: boolean = false) {

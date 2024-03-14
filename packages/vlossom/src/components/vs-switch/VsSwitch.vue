@@ -8,6 +8,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -15,7 +16,12 @@
 
             <div
                 role="switch"
-                :class="['vs-switch', `vs-${computedColorScheme}`, { checked: isChecked, disabled, readonly }]"
+                :class="[
+                    'vs-switch',
+                    `vs-${computedColorScheme}`,
+                    boxGlowByState,
+                    { checked: isChecked, disabled, readonly },
+                ]"
                 :style="computedStyleSet"
                 :aria-checked="isChecked"
                 :aria-disabled="disabled"
@@ -62,6 +68,7 @@ import {
     getResponsiveProps,
     useInput,
     useValueMatcher,
+    useStateClass,
 } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration';
 
@@ -105,12 +112,14 @@ export default defineComponent({
             falseValue,
             multiple,
             modelValue,
+            state,
         } = toRefs(props);
 
         const { emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet(name, styleSet);
+        const { boxGlowByState } = useStateClass(state);
 
         const inputValue = ref(modelValue.value);
 
@@ -176,6 +185,7 @@ export default defineComponent({
             validate,
             clear,
             id,
+            boxGlowByState,
         };
     },
 });

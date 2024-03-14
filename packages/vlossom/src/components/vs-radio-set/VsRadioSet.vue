@@ -7,6 +7,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
             group-label
         >
             <template #label v-if="!noLabel">
@@ -24,9 +25,10 @@
                     :style-set="radioStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
+                    :name="name"
                     :readonly="readonly"
                     :required="required"
-                    :name="name"
+                    :state="state"
                     :value="getOptionValue(option)"
                     :label="getOptionLabel(option)"
                     @toggle="onToggle(option)"

@@ -1,4 +1,11 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getMetaArguments,
+    getColorSchemeTemplate,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsFileInput from './../VsFileInput.vue';
@@ -22,9 +29,11 @@ const meta: Meta<typeof VsFileInput> = {
     },
     argTypes: {
         colorScheme,
+        state,
     },
 };
 
+meta.args = getMetaArguments(VsFileInput.props, meta.args);
 export default meta;
 type Story = StoryObj<typeof VsFileInput>;
 
@@ -39,7 +48,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-file-input color-scheme="{{ color }}" :style="{ marginBottom: '5px' }" v-bind="args" />
+                    <vs-file-input v-bind="args" color-scheme="{{ color }}" :style="{ marginBottom: '5px' }" />
                 `)}
             </div>
         `,
@@ -50,6 +59,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsFileInput },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-file-input v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Accept: Story = {

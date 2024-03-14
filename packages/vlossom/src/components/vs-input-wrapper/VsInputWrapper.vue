@@ -5,6 +5,7 @@
                 :is="groupLabel ? 'legend' : 'label'"
                 v-if="!noLabel"
                 :for="groupLabel ? undefined : id || undefined"
+                :class="textGlowByState"
             >
                 <slot name="label">
                     <span class="vs-label">{{ label }}</span>
@@ -25,7 +26,8 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
-import { VsComponent, type StateMessage } from '@/declaration';
+import { VsComponent, type StateMessage, UIState } from '@/declaration';
+import { useStateClass } from '@/composables';
 import VsMessage from '@/components/vs-message/VsMessage.vue';
 
 export default defineComponent({
@@ -40,9 +42,12 @@ export default defineComponent({
         noMsg: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
         shake: { type: Boolean, default: false },
+        state: { type: String as PropType<UIState>, default: UIState.Idle },
     },
     setup(props) {
-        const { shake } = toRefs(props);
+        const { shake, state } = toRefs(props);
+
+        const { textGlowByState } = useStateClass(state);
 
         const needToShake = ref(false);
         watch(shake, () => {
@@ -53,6 +58,7 @@ export default defineComponent({
         });
 
         return {
+            textGlowByState,
             needToShake,
         };
     },

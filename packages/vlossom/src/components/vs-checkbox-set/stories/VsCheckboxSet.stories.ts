@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, getMetaArguments } from '@/storybook';
+import { chromaticParameters, colorScheme, getMetaArguments, state, getStateTemplate } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckboxSet from '../VsCheckboxSet.vue';
@@ -18,6 +18,7 @@ const meta: Meta<typeof VsCheckboxSet> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        state,
     },
     args: {
         options: ['Apple', 'Banana', 'Carrot'],
@@ -46,6 +47,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsCheckboxSet },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-checkbox-set v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Disabled: Story = {

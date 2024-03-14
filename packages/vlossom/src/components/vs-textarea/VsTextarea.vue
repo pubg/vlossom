@@ -8,6 +8,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -15,7 +16,7 @@
 
             <textarea
                 ref="textareaRef"
-                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }]"
+                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
                 :id="id"
                 :value="inputValue"
@@ -47,6 +48,7 @@ import {
     getInputProps,
     useInput,
     useStringModifier,
+    useStateClass,
 } from '@/composables';
 import { VsComponent, type ColorScheme, StringModifiers } from '@/declaration';
 import { useVsTextareaRules } from './vs-textarea-rules';
@@ -88,6 +90,7 @@ export default defineComponent({
             max,
             min,
             modelModifiers,
+            state,
         } = toRefs(props);
 
         const { emit } = context;
@@ -96,6 +99,7 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
         const { computedStyleSet } = useStyleSet<VsTextareaStyleSet>(name, styleSet);
+        const { boxGlowByState } = useStateClass(state);
         const { modifyStringValue } = useStringModifier(modelModifiers);
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
@@ -170,6 +174,7 @@ export default defineComponent({
             onFocus,
             onBlur,
             onEnter,
+            boxGlowByState,
         };
     },
 });

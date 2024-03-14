@@ -1,5 +1,12 @@
 import { computed, ref } from 'vue';
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getColorSchemeTemplate,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import VsSwitch from '../VsSwitch.vue';
 
@@ -18,6 +25,7 @@ const meta: Meta<typeof VsSwitch> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        state,
     },
 };
 
@@ -43,6 +51,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsSwitch },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-switch v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Disabled: Story = {

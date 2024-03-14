@@ -1,4 +1,11 @@
-import { chromaticParameters, colorScheme, getMetaArguments, getColorSchemeTemplate } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getMetaArguments,
+    getColorSchemeTemplate,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadio from './../VsRadio.vue';
@@ -18,6 +25,7 @@ const meta: Meta<typeof VsRadio> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        state,
     },
     args: {
         radioLabel: 'Radio Input',
@@ -56,6 +64,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsRadio },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-radio v-bind="args" label="State ({{state}})" state="{{state}}" radio-value="{{state}}" radio-label="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Disabled: Story = {

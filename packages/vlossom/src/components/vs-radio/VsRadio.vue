@@ -8,6 +8,7 @@
             :no-msg="noMsg"
             :required="required"
             :shake="shake"
+            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -21,9 +22,10 @@
                 :checked="isChecked"
                 :label="radioLabel"
                 :disabled="disabled"
+                :name="name"
                 :readonly="readonly"
                 :required="required"
-                :name="name"
+                :state="state"
                 :value="radioValue"
                 @toggle="onToggle"
                 @focus="onFocus"

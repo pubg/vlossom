@@ -3,7 +3,7 @@
         <div class="input-container">
             <vs-icon class="check-icon" :icon="icon" />
             <input
-                class="check-input"
+                :class="['check-input', boxGlowByState]"
                 :type="type"
                 :id="id"
                 :disabled="disabled || readonly"
@@ -16,7 +16,7 @@
                 @blur="onBlur"
             />
         </div>
-        <label v-if="label" :for="id">
+        <label v-if="label" :for="id" :class="textGlowByState">
             <slot name="label">{{ label }}</slot>
         </label>
     </div>
@@ -24,7 +24,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
-import { ColorScheme } from '@/declaration';
+import { ColorScheme, UIState } from '@/declaration';
+import { useStateClass } from '@/composables';
 import { VsIcon } from '@/icons';
 
 type CheckNodeType = 'radio' | 'checkbox';
@@ -53,11 +54,14 @@ export default defineComponent({
         name: { type: String, default: '' },
         readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
+        state: { type: String as PropType<UIState>, default: UIState.Idle },
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
     setup(props, { emit }) {
-        const { checked, disabled, readonly, type } = toRefs(props);
+        const { checked, disabled, readonly, state, type } = toRefs(props);
+
+        const { boxGlowByState, textGlowByState } = useStateClass(state);
 
         const classObj = computed(() => ({
             checked: checked.value,
@@ -100,6 +104,8 @@ export default defineComponent({
             onFocus,
             onBlur,
             convertToString,
+            boxGlowByState,
+            textGlowByState,
         };
     },
 });
