@@ -69,7 +69,7 @@ export default defineComponent({
         VsIcon,
     },
     props: {
-        draggable: { type: Boolean, default: false },t
+        draggable: { type: Boolean, default: false },
         filter: {
             type: Object as PropType<TableFilter>,
             default: null,
@@ -93,7 +93,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys, filter, sortTypes, exapndedIds } = toRefs(props);
+        const { headers, items, search, searchableKeys, filter, sortTypes, expandedIds } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {

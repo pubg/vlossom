@@ -5,11 +5,10 @@
                 <vs-table-header
                     :headers="headers"
                     :draggable="draggable"
-                    :loading="loading"
-                    v-model:sort-types="sortTypes"
                     :expandable="hasExpand"
                     :loading="loading"
                     :tr-style="trStyle"
+                    v-model:sort-types="sortTypes"
                 >
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -122,7 +121,7 @@ export default defineComponent({
         });
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
-        
+
         const { expandedIds, toggleExpand } = useTableExpand(hasExpand);
         function expand(index: number) {
             const target = items.value[index]; // TODO: computedItems 생성
@@ -141,9 +140,10 @@ export default defineComponent({
             trStyle,
             sortTypes,
             hasExpand,
-            expand,
             expandedIds,
             toggleExpand,
+            // expose
+            expand,
         };
     },
 });
