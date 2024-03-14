@@ -34,7 +34,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{ color }}">
+                    <vs-chip color-scheme="{{ color }}" style="margin-bottom: 0.3rem;">
                         Chip
                     </vs-chip>
                 `)}
@@ -62,7 +62,7 @@ export const Closable: Story = {
         },
         template: `
             <div>
-                <vs-chip v-for="color in opened" :key="color" :color-scheme="color" closable @close="close(color)">Chip</vs-chip>
+                <vs-chip v-for="color in opened" :key="color" :color-scheme="color" closable @close="close(color)" style="margin-bottom: 0.3rem;">Chip</vs-chip>
                 <vs-button v-if="!opened.length" @click="reset" dense>Reset</vs-button>
             </div>
         `,
@@ -78,7 +78,7 @@ export const NoRound: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{color}}" no-round>
+                    <vs-chip color-scheme="{{color}}" no-round style="margin-bottom: 0.3rem;">
                         Chip
                     </vs-chip>
                 `)}
@@ -93,7 +93,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{color}}" primary>
+                    <vs-chip color-scheme="{{color}}" primary style="margin-bottom: 0.3rem;">
                         Chip
                     </vs-chip>
                 `)}
@@ -102,28 +102,6 @@ export const Primary: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
-    },
-};
-
-export const StyleSet: Story = {
-    args: {
-        styleSet: {
-            backgroundColor: '#1e88e5',
-            borderRadius: '0.2rem',
-            color: 'white',
-            fontSize: '1.2rem',
-            fontWeight: '500',
-            height: '2rem',
-            minHeight: '1rem',
-            outlineBorder: '3px solid #304d30',
-            padding: '0.8rem 1.5rem',
-        },
-    },
-};
-
-export const PreDefinedStyleSet: Story = {
-    args: {
-        styleSet: 'myStyleSet',
     },
 };
 
@@ -170,9 +148,9 @@ export const ClickEventWithPrimary: Story = {
             return { COLORS, selected, onClick, isSelected };
         },
         template: `
-            <div style="display:flex; align-items:center">
+            <div style="display:flex; align-items:center; flex-wrap: wrap;">
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')">
+                    <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')" :style-set="{padding: '0 1rem'}" style="margin-bottom: 0.3rem;">
                         <template #icon>
                             <vs-icon v-if="isSelected('{{ color }}')" icon="check" size="16px" />
                         </template>
@@ -189,5 +167,27 @@ export const ClickEventWithPrimary: Story = {
         await userEvent.click(canvas.getByText('yellow'), { delay: 150 });
         await userEvent.click(canvas.getByText('blue'), { delay: 150 });
         await userEvent.click(canvas.getByText('blue'), { delay: 150 });
+    },
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: {
+            backgroundColor: '#1e88e5',
+            borderRadius: '0.2rem',
+            color: 'white',
+            fontSize: '1.2rem',
+            fontWeight: '500',
+            height: '2rem',
+            minHeight: '1rem',
+            outlineBorder: '3px solid #304d30',
+            padding: '0.8rem 1.5rem',
+        },
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
     },
 };
