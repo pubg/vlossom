@@ -32,18 +32,14 @@
         width: 120%;
     }
 
-    .vs-chip-icon {
+    .icon-container {
         align-items: center;
         border-radius: 50%;
         display: inline-flex;
         justify-content: center;
     }
 
-    .vs-chip-prepend-icon {
-        overflow: hidden;
-    }
-
-    .vs-chip-close {
+    .close-button {
         background-color: rgba(255, 255, 255, 0.7);
         cursor: pointer;
         height: calc(var(--vs-chip-height, 1.2rem) * 0.8);

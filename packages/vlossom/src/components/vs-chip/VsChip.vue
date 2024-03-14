@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <span v-if="hasIcon" class="vs-chip-icon vs-chip-prepend-icon">
+        <span v-if="hasIcon" class="icon-container">
             <slot name="icon" />
         </span>
 
@@ -11,11 +11,11 @@
         <button
             v-if="closable"
             type="button"
-            :class="['vs-chip-icon', 'vs-chip-close', { primary }]"
+            :class="['icon-container', 'close-button', { primary }]"
             aria-label="close"
             @click.stop="$emit('close')"
         >
-            <vs-icon class="close-icon" icon="close" />
+            <vs-icon icon="close" />
         </button>
     </div>
 </template>
