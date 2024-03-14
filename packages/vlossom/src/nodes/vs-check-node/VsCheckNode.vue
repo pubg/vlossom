@@ -76,7 +76,7 @@ export default defineComponent({
                 return checked.value ? 'radioChecked' : 'radioUnchecked';
             }
 
-            if (indeterminate.value) {
+            if (type.value === 'checkbox' && indeterminate.value) {
                 return 'indeterminate';
             }
 
