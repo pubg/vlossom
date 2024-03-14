@@ -53,7 +53,8 @@
             color: var(--vs-checkbox-checkLabelColor, var(--vs-font-color));
         }
 
-        &.checked {
+        &.checked,
+        &.indeterminate {
             .check-icon {
                 color: var(--vs-checkbox-iconColor, var(--vs-plain-backgroundColor));
                 background-color: var(--vs-checkbox-backgroundColor, var(--vs-comp-border-color));

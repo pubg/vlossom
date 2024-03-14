@@ -1,4 +1,12 @@
-import { chromaticParameters, colorScheme, getMetaArguments, state, getStateTemplate } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getColorSchemeTemplate,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
+import { computed, ref } from 'vue';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckbox from '../VsCheckbox.vue';
@@ -40,7 +48,9 @@ export const ColorScheme: Story = {
         },
         template: `
             <div>
-				<vs-checkbox v-for="color in colorOptions" :key="color" :color-scheme="color" checkLabel="Checkbox" />
+				${getColorSchemeTemplate(`
+					<vs-checkbox color-scheme="{{color}}" checkLabel="Checkbox" />
+				`)}
             </div>
         `,
     }),
@@ -97,6 +107,62 @@ export const Required: Story = {
         label: 'Label',
         required: true,
     },
+};
+
+export const Indeterminate: Story = {
+    render: (args: any) => ({
+        components: { VsCheckbox },
+        setup() {
+            const children = ref([false, false]);
+            const parent = ref(false);
+
+            const indeterminate = computed(
+                () => !children.value.every((child) => child) && children.value.some((child) => child),
+            );
+
+            const allTrue = computed(() => children.value.every((child) => child));
+            const allFalse = computed(() => children.value.every((child) => !child));
+
+            function updateParent(value: boolean) {
+                if (indeterminate.value && !value) {
+                    children.value = [true, true];
+                } else {
+                    parent.value = value;
+                    children.value = [value, value];
+                }
+            }
+
+            function updateChild(index: number, value: boolean) {
+                children.value[index] = value;
+
+                if (value && allTrue.value) {
+                    parent.value = true;
+                }
+                if (!value && allFalse.value) {
+                    parent.value = false;
+                }
+            }
+
+            function updateChild1(value: boolean) {
+                updateChild(0, value);
+            }
+
+            function updateChild2(value: boolean) {
+                updateChild(1, value);
+            }
+
+            return { args, parent, children, indeterminate, updateParent, updateChild1, updateChild2, updateChild };
+        },
+        template: `
+            <div >
+                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"/>
+				<div style="margin-top: 10px; margin-left: 30px;">
+					<vs-checkbox v-model="children[0]" check-label="Child 1" @update:modelValue="updateChild1" />
+					<vs-checkbox v-model="children[1]" check-label="Child 2" @update:modelValue="updateChild2" style="margin-top: 10px;" />
+				</div>
+            </div>
+        `,
+    }),
 };
 
 export const Width: Story = {

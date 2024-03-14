@@ -20,6 +20,7 @@
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :checked="isChecked"
+                :indeterminate="indeterminate"
                 :label="checkLabel"
                 :disabled="disabled"
                 :name="name"
@@ -77,6 +78,7 @@ export default defineComponent({
         trueValue: { type: null, default: true },
         falseValue: { type: null, default: false },
         multiple: { type: Boolean, default: false },
+        indeterminate: { type: Boolean, default: false },
         // v-model
         modelValue: { type: null, default: false },
     },
