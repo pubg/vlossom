@@ -31,17 +31,14 @@
                 type="button"
                 @click.stop="onToggleExpand(item.id)"
                 :disabled="loading"
-                :class="{ expanded: isExpanded(item.id) }"
+                :class="{ expanded }"
                 :aria-label="`expand ${item.id}`"
             >
                 <vs-icon size="1.2rem" icon="keyboardArrowUp" />
             </button>
         </td>
 
-        <td
-            v-if="expandable && isExpanded(item.id)"
-            :class="['expanded-row-content', { 'scale-up-ver-top': isExpanded(item.id) }]"
-        >
+        <td v-if="expandable && expanded" :class="['expanded-row-content', { 'scale-up-ver-top': expanded }]">
             <div class="expand-contents fade-in">
                 <slot name="expand" :id="item.id" :item="item.data" :itemIndex="rowIndex" />
             </div>
@@ -61,7 +58,7 @@ export default defineComponent({
     props: {
         loading: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
-        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
+        expanded: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         item: { type: Object as PropType<TableItem>, required: true },
@@ -75,7 +72,7 @@ export default defineComponent({
     },
     emits: ['toggleExpand'],
     setup(props, { emit }) {
-        const { expandedIds, headers, item, rowIndex, rows } = toRefs(props);
+        const { headers, item, rowIndex, rows } = toRefs(props);
 
         const isExpandableRow: ComputedRef<boolean> = computed(() => {
             const { data } = item.value;
@@ -111,10 +108,6 @@ export default defineComponent({
             return !Object.keys(item.value.data).length;
         });
 
-        function isExpanded(id: string): boolean {
-            return expandedIds.value.includes(id);
-        }
-
         function onToggleExpand(id: string) {
             emit('toggleExpand', id);
         }
@@ -124,7 +117,6 @@ export default defineComponent({
             getRowData,
             getHeader,
             getTableData,
-            isExpanded,
             onToggleExpand,
             isExpandableRow,
         };

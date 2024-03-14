@@ -17,6 +17,7 @@
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
+                :expanded="isExpanded(element.id)"
                 @click="emitRowClick(element, index)"
                 @toggleExpand="onToggleExpand"
             >
@@ -82,7 +83,7 @@ export default defineComponent({
     },
     emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys } = toRefs(props);
+        const { expandedIds, headers, items, search, searchableKeys } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -127,6 +128,10 @@ export default defineComponent({
             emit('rowClick', rowItem, rowIndex);
         }
 
+        function isExpanded(id: string): boolean {
+            return expandedIds.value.includes(id);
+        }
+
         function onToggleExpand(id: string) {
             emit('toggleExpand', id);
         }
@@ -135,6 +140,7 @@ export default defineComponent({
             computedTableItems,
             dummyTableItems,
             emitRowClick,
+            isExpanded,
             onToggleExpand,
         };
     },
