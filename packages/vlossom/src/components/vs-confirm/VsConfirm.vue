@@ -1,12 +1,18 @@
 <template>
-    <vs-modal v-model="isOpen" :style-set="dialogStylSet" :size="confirmInfo.size || 'sm'" :close-on-esc="false">
+    <vs-modal
+        v-model="isOpen"
+        :style-set="dialogStylSet"
+        :size="confirmInfo.size || 'sm'"
+        :close-on-dimmed-click="false"
+        :close-on-esc="false"
+    >
         <div class="confirm-text scale-up-center">
             <p v-html="confirmInfo.text"></p>
         </div>
         <template #footer>
             <div class="confirm-footer">
                 <vs-button
-                    :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
+                    :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
                     class="ok-button"
                     aria-label="ok"
                     dense
@@ -15,7 +21,7 @@
                     {{ confirmInfo.okText || 'Ok' }}
                 </vs-button>
                 <vs-button
-                    :color-scheme="computedColorScheme === 'default' ? 'indigo' : computedColorScheme"
+                    :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
                     class="cancel-button"
                     aria-label="cancel"
                     dense
