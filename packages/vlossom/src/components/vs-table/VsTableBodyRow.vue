@@ -24,16 +24,33 @@
                 </slot>
             </div>
         </td>
-        <td class="expandable-td" v-if="expandable"><!-- [TODO] expansion --></td>
-        <td class="expanded-row-content" v-if="expandable"><!-- [TODO] expansion --></td>
+
+        <td v-if="expandable" class="expandable-td">
+            <button
+                v-if="isExpandableRow"
+                type="button"
+                @click.stop="onToggleExpand(item.id)"
+                :disabled="loading"
+                :class="{ expanded }"
+                :aria-label="`expand ${item.id}`"
+            >
+                <vs-icon size="1.2rem" icon="keyboardArrowUp" />
+            </button>
+        </td>
+
+        <td v-if="expandable && expanded" :class="['expanded-row-content', { 'scale-up-ver-top': expanded }]">
+            <div class="expand-contents fade-in">
+                <slot name="expand" :id="item.id" :item="item.data" :itemIndex="rowIndex" />
+            </div>
+        </td>
     </tr>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
 import { VsIcon } from '@/icons';
 
-import type { TableHeader, TableItem } from './types';
+import type { TableHeader, TableItem, TableRow } from './types';
 
 export default defineComponent({
     name: 'vs-table-body-row',
@@ -41,18 +58,28 @@ export default defineComponent({
     props: {
         loading: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
+        expanded: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         item: { type: Object as PropType<TableItem>, required: true },
         rowIndex: { type: Number, required: true },
+        rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         selectable: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
     },
-    setup(props) {
-        const { headers, item } = toRefs(props);
+    emits: ['toggleExpand'],
+    setup(props, { emit }) {
+        const { headers, item, rowIndex, rows } = toRefs(props);
+
+        const isExpandableRow: ComputedRef<boolean> = computed(() => {
+            const { data } = item.value;
+            const { expandable: rowExpandableFn } = rows.value || {};
+
+            return !rowExpandableFn || rowExpandableFn(data, rowIndex.value);
+        });
 
         function getRowData(row: { [key: string]: any }) {
             if (!headers.value) {
@@ -81,11 +108,17 @@ export default defineComponent({
             return !Object.keys(item.value.data).length;
         });
 
+        function onToggleExpand(id: string) {
+            emit('toggleExpand', id);
+        }
+
         return {
             isDummyRow,
             getRowData,
             getHeader,
             getTableData,
+            onToggleExpand,
+            isExpandableRow,
         };
     },
 });

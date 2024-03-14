@@ -2,7 +2,7 @@
     <thead>
         <tr :style="trStyle">
             <th class="draggable-th" v-if="draggable">drag</th>
-            <th class="selectable-th" v-if="selectable"> <!-- [TODO] select --></th>
+            <th class="selectable-th" v-if="selectable"><!-- [TODO] select --></th>
             <th
                 v-for="(header, index) in headers"
                 :key="`th-${index}`"
@@ -17,7 +17,7 @@
                     <vs-icon :icon="getSortIcon(sortTypes[header.key])" size="1.4rem" />
                 </span>
             </th>
-            <th class="expandable-th" v-if="expandable"></th>
+            <th class="expandable-th" v-if="expandable">expand</th>
         </tr>
     </thead>
 </template>
