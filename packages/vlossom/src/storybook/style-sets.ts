@@ -182,12 +182,11 @@ const vsModal: VsModalStyleSet = {
 };
 
 const vsNotice: VsNoticeStyleSet = {
-    backgroundColor: '#1e88e5',
-    color: 'white',
-    fontSize: '1rem',
-    fontWeight: '500',
-    subTitleFontSize: '1.2rem',
-    subTitleFontWeight: '600',
+    backgroundColor: '#ffc100',
+    contentFontColor: '#fff',
+    contentFontSize: '1.5rem',
+    titleFontColor: '#1e5631',
+    titleFontSize: '1rem',
 };
 
 const vsPage: VsPageStyleSet = {
