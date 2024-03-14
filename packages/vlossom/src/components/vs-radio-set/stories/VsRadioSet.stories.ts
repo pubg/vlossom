@@ -1,4 +1,11 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getColorSchemeTemplate,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadioSet from '../VsRadioSet.vue';
@@ -18,6 +25,7 @@ const meta: Meta<typeof VsRadioSet> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        state,
     },
     args: {
         name: 'fruit',
@@ -53,6 +61,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsRadioSet },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-radio-set v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Disabled: Story = {

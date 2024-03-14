@@ -1,6 +1,13 @@
 import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getColorSchemeTemplate,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
@@ -29,6 +36,7 @@ const meta: Meta<typeof VsInput> = {
             control: 'radio',
             options: Object.values(InputType),
         },
+        state,
     },
 };
 
@@ -57,6 +65,25 @@ export const ColorScheme: Story = {
     },
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsInput },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-input v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
+    args: {
+        placeholder: 'enter here',
     },
 };
 

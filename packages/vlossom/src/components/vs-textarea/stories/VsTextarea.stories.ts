@@ -1,4 +1,11 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
+import {
+    chromaticParameters,
+    colorScheme,
+    getColorSchemeTemplate,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsTextarea from './../VsTextarea.vue';
@@ -17,10 +24,11 @@ const meta: Meta<typeof VsTextarea> = {
     }),
     tags: ['autodocs'],
     args: {
-        placeholder: 'this is placeholder',
+        placeholder: 'enter text',
     },
     argTypes: {
         colorScheme,
+        state,
     },
 };
 
@@ -50,6 +58,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsTextarea },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-textarea v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Disabled: Story = {

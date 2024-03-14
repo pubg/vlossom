@@ -1,4 +1,11 @@
-import { colorScheme, getColorSchemeTemplate, chromaticParameters, getMetaArguments } from '@/storybook';
+import {
+    colorScheme,
+    getColorSchemeTemplate,
+    chromaticParameters,
+    getMetaArguments,
+    state,
+    getStateTemplate,
+} from '@/storybook';
 import VsSelect from '../VsSelect.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
@@ -34,9 +41,11 @@ const meta: Meta<typeof VsSelect> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
+        state,
     },
     args: {
         label: 'Select',
+        placeholder: 'select me',
         options,
     },
 };
@@ -68,6 +77,22 @@ export const ColorScheme: Story = {
     parameters: {
         chromatic: chromaticParameters.theme,
     },
+};
+
+export const State: Story = {
+    render: (args: any) => ({
+        components: { VsSelect },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getStateTemplate(`
+                    <vs-select v-bind="args" label="State ({{state}})" state="{{state}}" style="marginBottom: 16px" />
+                `)}
+            </div>
+        `,
+    }),
 };
 
 export const Autocomplete: Story = {
