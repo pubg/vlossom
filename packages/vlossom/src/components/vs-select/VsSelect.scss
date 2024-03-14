@@ -108,12 +108,13 @@
             padding: 0 1.2rem;
             min-height: var(--vs-select-height, 2.5rem);
             line-height: var(--vs-select-height, 2.5rem);
+            color: var(--vs-select-color, var(--vs-font-color));
             cursor: pointer;
             user-select: none;
 
             &.selected {
                 background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
-                color: var(--vs-select-selectedOptionColor, var(--vs-comp-border-color));
+                color: var(--vs-select-selectedOptionColor, var(--vs-comp-color));
                 font-weight: 600;
             }
 

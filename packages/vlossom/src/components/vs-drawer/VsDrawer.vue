@@ -31,7 +31,8 @@ import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vu
 import { useStyleSet } from '@/composables';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
-import { VsComponent, Placement, PLACEMENTS, Size, SIZES } from '@/declaration';
+import { VsComponent, Placement, Size, SIZES } from '@/declaration';
+import { validationUtil } from '@/utils/validation';
 
 import type { VsDrawerStyleSet } from './types';
 
@@ -51,7 +52,7 @@ export default defineComponent({
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
-            validator: (val: Placement) => PLACEMENTS.includes(val),
+            validator: (val: Placement) => validationUtil.validatePlacementProp(name, val),
         },
         size: { type: String as PropType<Size | string>, default: '' },
         // v-model

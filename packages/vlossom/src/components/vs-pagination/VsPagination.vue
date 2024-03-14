@@ -54,6 +54,7 @@ import { ColorScheme, VsComponent } from '@/declaration';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsIcon } from '@/icons';
 import { VsPaginationStyleSet } from './types';
+import { validationUtil } from '@/utils/validation';
 
 const name = VsComponent.VsPagination;
 export default defineComponent({
@@ -67,12 +68,24 @@ export default defineComponent({
             type: Number,
             required: true,
             default: 1,
-            validator: (value: number) => value > 0,
+            validator: (value: number) => {
+                const isValid = value > 0;
+                if (!isValid) {
+                    validationUtil.logPropError(name, 'length must be greater than 0');
+                }
+                return isValid;
+            },
         },
         showingLength: {
             type: Number,
             default: 10,
-            validator: (value: number) => value > 0,
+            validator: (value: number) => {
+                const isValid = value > 0;
+                if (!isValid) {
+                    validationUtil.logPropError(name, 'showingLength must be greater than 0');
+                }
+                return isValid;
+            },
         },
         edgeButtons: { type: Boolean, default: false },
         // v-model

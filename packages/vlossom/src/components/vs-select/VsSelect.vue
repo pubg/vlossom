@@ -201,6 +201,7 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import { validationUtil } from '@/utils/validation';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
 import type { VsChipStyleSet } from '@/components';
@@ -221,7 +222,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    console.error('[vs-select] prop closableChips can only be used with multiple prop');
+                    validationUtil.logPropError(name, 'closableChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -232,7 +233,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    console.error('[vs-select] prop collapseChips can only be used with multiple prop');
+                    validationUtil.logPropError(name, 'collapseChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -251,7 +252,17 @@ export default defineComponent({
             },
         },
         multiple: { type: Boolean, default: false },
-        selectAll: { type: Boolean, default: false },
+        selectAll: {
+            type: Boolean,
+            default: false,
+            validator: (value, props) => {
+                if (!props.multiple && value) {
+                    validationUtil.logPropError(name, 'selectAll can only be used with multiple prop');
+                    return false;
+                }
+                return true;
+            },
+        },
         // v-model
         modelValue: { type: null, default: null },
     },

@@ -24,6 +24,7 @@ import { computed, defineComponent, PropType, toRefs, ref, watch } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
+import { validationUtil } from '@/utils/validation';
 
 import type { VsTabsStyleSet } from './types';
 
@@ -39,8 +40,12 @@ export default defineComponent({
         tabs: {
             type: Array as PropType<string[]>,
             required: true,
-            validator(prop: string[]) {
-                return objectUtil.isUniq(prop);
+            validator: (prop: string[]) => {
+                const isValid = objectUtil.isUniq(prop);
+                if (!isValid) {
+                    validationUtil.logPropError(name, 'tabs with duplicate items are not allowed');
+                }
+                return isValid;
             },
         },
         // v-model
