@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { VsComponent } from '@/declaration';
 import { useStyleSet } from '../style-set-composable';
-import { store } from '@/store';
+import { store } from '@/stores';
 
 import type { VsButtonStyleSet } from '@/components';
 import type { StyleSet } from '@/declaration';

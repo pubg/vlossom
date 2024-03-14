@@ -32,7 +32,7 @@
 import { PropType, defineComponent, ref, toRef, toRefs, watch } from 'vue';
 import { useColorScheme } from '@/composables';
 import { VsComponent } from '@/declaration';
-import { store } from '@/store';
+import { store } from '@/stores';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
 

@@ -1,5 +1,5 @@
 import { render, h } from 'vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 import VsConfirm from '@/components/vs-confirm/VsConfirm.vue';
 
 import type { ConfirmInfo, ConfirmOptions, ConfirmPlugin } from './types';

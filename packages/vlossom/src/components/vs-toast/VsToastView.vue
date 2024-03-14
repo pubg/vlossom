@@ -17,7 +17,7 @@ import {
     type PropType,
     type ShallowRef,
 } from 'vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 import VsToast from './VsToast.vue';
 import { VsComponent } from '@/declaration';
 

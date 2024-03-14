@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, computed, onMounted, onBeforeUnmount, type PropType } from 'vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 import { utils } from '@/utils';
 
 export default defineComponent({

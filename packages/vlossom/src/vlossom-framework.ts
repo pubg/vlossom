@@ -1,4 +1,4 @@
-import { store } from './store';
+import { store } from './stores';
 import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';

@@ -1,6 +1,6 @@
 import { computed, ComputedRef, Ref } from 'vue';
 import { utils } from '@/utils';
-import { store } from '@/store';
+import { store } from '@/stores';
 
 import type { VsComponent } from '@/declaration';
 

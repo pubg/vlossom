@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, vi } from 'vitest';
 import { config } from '@vue/test-utils';
-import { VsStore } from '@/store';
-import * as exports from '@/store';
+import { VsStore } from '@/stores';
+import * as exports from '@/stores';
 import { createVlossom } from '@/index';
 
 beforeEach(() => {

@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 
 import type { Ref } from 'vue';
 import type { ColorScheme, VsComponent } from '@/declaration';

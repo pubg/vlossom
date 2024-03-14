@@ -22,7 +22,7 @@ import { PropType, computed, defineComponent, ref, toRef, toRefs } from 'vue';
 import { UIState } from '@/declaration';
 import { useColorScheme } from '@/composables';
 import { VsIcon } from '@/icons';
-import { store } from '@/store';
+import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
 
 import type { ToastInfo } from '@/plugins';

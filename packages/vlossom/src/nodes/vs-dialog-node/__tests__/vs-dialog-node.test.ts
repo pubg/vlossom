@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsDialogNode from '../VsDialogNode.vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 
 describe('vs-dialog-node', () => {
     describe('slot', () => {
