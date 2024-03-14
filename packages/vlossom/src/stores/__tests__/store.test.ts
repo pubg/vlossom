@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { VsStore } from './../index';
-import { OptionStore } from './../option-store';
+import { VsStore } from '../index';
+import { OptionStore } from '../option-store';
 import { DialogStore } from '../dialog-store';
-import { ToastStore } from './../toast-store';
-import { ConfirmStore } from './../confirm-store';
+import { ToastStore } from '../toast-store';
+import { ConfirmStore } from '../confirm-store';
 
 describe('Vlossom store', () => {
     it('store가 다른 store를 생성해서 가지고 있다', () => {

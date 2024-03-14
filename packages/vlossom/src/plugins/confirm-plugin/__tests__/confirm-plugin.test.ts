@@ -1,5 +1,5 @@
 import { describe, vi, it, expect } from 'vitest';
-import { store } from '@/store';
+import { store } from '@/stores';
 import * as confirmPlugin from '@/plugins/confirm-plugin';
 
 const { confirmPlugin: confirm } = confirmPlugin;

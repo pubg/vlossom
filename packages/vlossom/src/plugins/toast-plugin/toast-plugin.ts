@@ -1,5 +1,5 @@
 import { render, h } from 'vue';
-import { store } from '@/store';
+import { store } from '@/stores';
 import { utils } from '@/utils';
 import { UIState } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';

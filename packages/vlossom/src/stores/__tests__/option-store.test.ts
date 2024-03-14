@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { OptionStore } from './../option-store';
+import { OptionStore } from '../option-store';
 import { VsComponent } from '@/declaration';
 
 describe('option store', () => {

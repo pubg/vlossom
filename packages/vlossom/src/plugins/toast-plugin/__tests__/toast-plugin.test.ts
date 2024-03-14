@@ -1,6 +1,6 @@
 import { describe, beforeEach, afterEach, vi, it, expect } from 'vitest';
 import { toastPlugin } from '..';
-import { store } from '@/store';
+import { store } from '@/stores';
 
 import type { ToastInfo } from '@/plugins';
 

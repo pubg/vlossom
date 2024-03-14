@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
-import { store } from '@/store';
+import { store } from '@/stores';
 import VsConfirm from '../VsConfirm.vue';
 
 describe('vs-confirm', () => {
