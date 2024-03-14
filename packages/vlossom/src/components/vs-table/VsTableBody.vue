@@ -18,6 +18,7 @@
                 :row-index="index"
                 :tr-style="trStyle"
                 @click="emitRowClick(element, index)"
+                @toggleExpand="onToggleExpand"
             >
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
@@ -32,9 +33,6 @@
             :item="dummy"
             :headers="headers"
             :draggable="draggable"
-            :expanded-ids="expandedIds"
-            :expandable="hasExpand"
-            :rows="rows"
             :loading="loading"
             :row-index="index"
             :tr-style="trStyle"
@@ -82,7 +80,7 @@ export default defineComponent({
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
-    emits: ['sort', 'rowClick', 'update:tableItems'],
+    emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
     setup(props, { emit }) {
         const { headers, items, search, searchableKeys } = toRefs(props);
 
@@ -129,10 +127,15 @@ export default defineComponent({
             emit('rowClick', rowItem, rowIndex);
         }
 
+        function onToggleExpand(id: string) {
+            emit('toggleExpand', id);
+        }
+
         return {
             computedTableItems,
             dummyTableItems,
             emitRowClick,
+            onToggleExpand,
         };
     },
 });

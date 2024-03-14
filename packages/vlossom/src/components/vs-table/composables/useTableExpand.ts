@@ -1,9 +1,7 @@
-import { Ref } from 'vue';
+import { Ref, ref } from 'vue';
 
-export default function useTableExpand(expandable: Ref<boolean>, expandedIds: Ref<string[]>) {
-    function isExpanded(id: string): boolean {
-        return expandedIds.value.includes(id);
-    }
+export default function useTableExpand(expandable: Ref<boolean>) {
+    const expandedIds: Ref<string[]> = ref([]);
 
     function toggleExpand(id: string) {
         if (!expandable.value) {
@@ -20,7 +18,7 @@ export default function useTableExpand(expandable: Ref<boolean>, expandedIds: Re
     }
 
     return {
-        isExpanded,
+        expandedIds,
         toggleExpand,
     };
 }

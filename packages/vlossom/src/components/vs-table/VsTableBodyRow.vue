@@ -29,7 +29,7 @@
             <button
                 v-if="isExpandableRow"
                 type="button"
-                @click.stop="toggleExpand(item.id)"
+                @click.stop="onToggleExpand(item.id)"
                 :disabled="loading"
                 :class="{ expanded: isExpanded(item.id) }"
                 :aria-label="`expand ${item.id}`"
@@ -52,7 +52,6 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
 import { VsIcon } from '@/icons';
-import useTableExpand from './composables/useTableExpand';
 
 import type { TableHeader, TableItem, TableRow } from './types';
 
@@ -74,10 +73,9 @@ export default defineComponent({
             default: () => ({}),
         },
     },
-    setup(props) {
-        const { expandedIds, expandable, headers, item, rowIndex, rows } = toRefs(props);
-
-        const { isExpanded, toggleExpand } = useTableExpand(expandable, expandedIds);
+    emits: ['toggleExpand'],
+    setup(props, { emit }) {
+        const { expandedIds, headers, item, rowIndex, rows } = toRefs(props);
 
         const isExpandableRow: ComputedRef<boolean> = computed(() => {
             const { data } = item.value;
@@ -113,13 +111,21 @@ export default defineComponent({
             return !Object.keys(item.value.data).length;
         });
 
+        function isExpanded(id: string): boolean {
+            return expandedIds.value.includes(id);
+        }
+
+        function onToggleExpand(id: string) {
+            emit('toggleExpand', id);
+        }
+
         return {
             isDummyRow,
             getRowData,
             getHeader,
             getTableData,
             isExpanded,
-            toggleExpand,
+            onToggleExpand,
             isExpandableRow,
         };
     },
