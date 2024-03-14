@@ -87,10 +87,14 @@ export const VerticalAlignBottom: Story = {
 
 export const StyleSet: Story = {
     args: {
+        position: undefined,
+        height: undefined,
         styleSet: {
             backgroundColor: '#000',
+            bottom: 0,
             color: '#fff',
             height: '60px',
+            left: 0,
             padding: '10px',
             position: 'fixed',
             textAlign: 'center',
@@ -101,6 +105,8 @@ export const StyleSet: Story = {
 
 export const PreDefinedStyleSet: Story = {
     args: {
+        position: undefined,
+        height: undefined,
         styleSet: 'myStyleSet',
     },
 };
