@@ -51,9 +51,9 @@ export default defineComponent({
     setup(props, context) {
         const { headers } = toRefs(props);
 
-        const { sortTypes, updateSortType, getSortIcon } = useSortableHeader(headers, context);
+        const { updateSortType, getSortIcon } = useSortableHeader(headers, context);
 
-        return { sortTypes, updateSortType, getSortIcon };
+        return { updateSortType, getSortIcon };
     },
 });
 </script>

@@ -42,7 +42,6 @@ export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
         }
     }
     return {
-        sortTypes,
         updateSortType,
         getSortIcon,
     };
