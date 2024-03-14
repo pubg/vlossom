@@ -7,6 +7,11 @@ export interface TableHeader {
     filter?: (value: any, item?: any) => any;
 }
 
+export interface TableRow<T = any> {
+    selectable?: (row: T, rowIndex?: number) => boolean;
+    expandable?: (row: T, rowIndex?: number) => boolean;
+}
+
 export interface TableItem {
     id: string;
     data: { [key: string]: any };

@@ -1,14 +1,25 @@
 <template>
-    <draggable tag="tbody" v-model="computedTableItems" item-key="id" handle=".handle" :disabled="!draggable || loading">
+    <draggable
+        tag="tbody"
+        v-model="computedTableItems"
+        item-key="id"
+        handle=".handle"
+        :disabled="!draggable || loading"
+    >
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
                 :headers="headers"
                 :draggable="draggable"
+                :expanded-ids="expandedIds"
+                :expandable="hasExpand"
+                :rows="rows"
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
+                :expanded="isExpanded(element.id)"
                 @click="emitRowClick(element, index)"
+                @toggleExpand="onToggleExpand"
             >
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
@@ -46,12 +57,20 @@ import useTableSearch from './composables/useTableSearch';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
-import type { TableHeader, TableItem } from './types';
+import type { TableHeader, TableItem, TableRow } from './types';
 
 export default defineComponent({
     name: 'vs-table-body',
+    components: {
+        draggable,
+        VsTableBodyRow,
+        VsIcon,
+    },
     props: {
         draggable: { type: Boolean, default: false },
+        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
+        hasExpand: { type: Boolean, default: false },
+        rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
@@ -62,14 +81,9 @@ export default defineComponent({
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
     },
-    components: {
-        draggable,
-        VsTableBodyRow,
-        VsIcon,
-    },
-    emits: ['sort', 'rowClick', 'update:tableItems'],
+    emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys } = toRefs(props);
+        const { expandedIds, headers, items, search, searchableKeys } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -114,10 +128,20 @@ export default defineComponent({
             emit('rowClick', rowItem, rowIndex);
         }
 
+        function isExpanded(id: string): boolean {
+            return expandedIds.value.includes(id);
+        }
+
+        function onToggleExpand(id: string) {
+            emit('toggleExpand', id);
+        }
+
         return {
             computedTableItems,
             dummyTableItems,
             emitRowClick,
+            isExpanded,
+            onToggleExpand,
         };
     },
 });
