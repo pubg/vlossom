@@ -30,7 +30,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .vs-divider.vertical.mobile-full {
+    .vs-divider.vertical.responsive {
         @include vs-divider-horizontal;
         margin: 0;
     }

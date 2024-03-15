@@ -73,7 +73,7 @@ export const Vertical: Story = {
 export const VerticalWithMobileFull: Story = {
     args: {
         vertical: true,
-        mobileFull: true,
+        responsive: true,
     },
     render: (args: any) => ({
         components: { VsDivider },
