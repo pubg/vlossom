@@ -32,7 +32,7 @@ import { useStyleSet } from '@/composables';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 import { VsComponent, Placement, Size, SIZES } from '@/declaration';
-import { validationUtil } from '@/utils/validation';
+import { propValidationUtil } from '@/utils/prop-validation';
 
 import type { VsDrawerStyleSet } from './types';
 
@@ -52,7 +52,7 @@ export default defineComponent({
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
-            validator: (val: Placement) => validationUtil.validatePlacementProp(name, val),
+            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
         },
         size: { type: String as PropType<Size | string>, default: '' },
         // v-model

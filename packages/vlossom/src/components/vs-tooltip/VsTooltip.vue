@@ -30,7 +30,7 @@ import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmoun
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
-import { validationUtil } from '@/utils/validation';
+import { propValidationUtil } from '@/utils/prop-validation';
 
 import type { VsTooltipStyleSet } from './types';
 
@@ -44,12 +44,12 @@ export default defineComponent({
         placement: {
             type: String as PropType<Placement>,
             default: 'top',
-            validator: (val: Placement) => validationUtil.validatePlacementProp(name, val),
+            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
         },
         align: {
             type: String as PropType<Align>,
             default: 'center',
-            validator: (val: Align) => validationUtil.validateAlignProp(name, val),
+            validator: (val: Align) => propValidationUtil.validateAlign(name, val),
         },
         clickable: { type: Boolean, default: false },
         contentsHover: { type: Boolean, default: false },
