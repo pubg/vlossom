@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { VsStepper } from '@/components';
+import VsStepper from '@/components/vs-stepper/VsStepper.vue';
 
 function mountComponent() {
     return mount(VsStepper);

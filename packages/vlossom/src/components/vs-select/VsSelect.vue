@@ -204,7 +204,7 @@ import { utils } from '@/utils';
 import { logUtil } from '@/utils/log';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
-import type { VsChipStyleSet } from '@/components';
+import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({
