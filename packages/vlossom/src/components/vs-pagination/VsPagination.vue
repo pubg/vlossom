@@ -61,10 +61,7 @@ export default defineComponent({
     components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: {
-            type: [String, Object] as PropType<string | VsPaginationStyleSet>,
-            default: '',
-        },
+        styleSet: { type: [String, Object] as PropType<string | VsPaginationStyleSet> },
         disabled: { type: Boolean, default: false },
         length: {
             type: Number,

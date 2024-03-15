@@ -23,7 +23,7 @@ const name = VsComponent.VsPage;
 export default defineComponent({
     name,
     props: {
-        styleSet: { type: [String, Object] as PropType<string | VsPageStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsPageStyleSet> },
     },
     setup(props, { slots }) {
         const { styleSet } = toRefs(props);

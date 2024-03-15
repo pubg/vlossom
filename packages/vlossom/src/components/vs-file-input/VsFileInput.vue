@@ -85,7 +85,7 @@ export default defineComponent({
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet> },
         accept: { type: String, default: '' },
         dense: { type: Boolean, default: false },
         dropPlaceholder: { type: String, default: 'Drop file here...' },

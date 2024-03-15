@@ -65,7 +65,7 @@ export default defineComponent({
         ...getInputProps<InputValueType, ['noClear']>('noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model
@@ -98,9 +98,13 @@ export default defineComponent({
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsTextareaStyleSet>(name, styleSet);
+
         const { boxGlowByState } = useStateClass(state);
+
         const { modifyStringValue } = useStringModifier(modelModifiers);
+
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
         const classObj = computed(() => ({

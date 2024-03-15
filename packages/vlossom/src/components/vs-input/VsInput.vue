@@ -106,7 +106,7 @@ export default defineComponent({
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         dense: { type: Boolean, default: false },
         type: { type: String as PropType<InputType>, default: InputType.Text },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
@@ -153,9 +153,13 @@ export default defineComponent({
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
+
         const { boxGlowByState } = useStateClass(state);
+
         const { modifyStringValue } = useStringModifier(modelModifiers);
+
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
         const classObj = computed(() => ({

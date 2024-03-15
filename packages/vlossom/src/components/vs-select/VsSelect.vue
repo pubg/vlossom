@@ -214,7 +214,7 @@ export default defineComponent({
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsSelectStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsSelectStyleSet> },
         autocomplete: { type: Boolean, default: false },
         closableChips: {
             type: Boolean,

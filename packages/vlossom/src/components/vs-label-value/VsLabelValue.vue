@@ -23,7 +23,7 @@ export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },

@@ -30,7 +30,7 @@ export default defineComponent({
     name,
     components: { VsIcon },
     props: {
-        styleSet: { type: [String, Object] as PropType<string | VsThemeButtonStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsThemeButtonStyleSet> },
     },
     setup(props) {
         const { styleSet } = toRefs(props);

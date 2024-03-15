@@ -81,7 +81,7 @@ export default defineComponent({
         ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
@@ -118,7 +118,9 @@ export default defineComponent({
         const { emit } = context;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
         const { computedStyleSet } = useStyleSet(name, styleSet);
+
         const { boxGlowByState } = useStateClass(state);
 
         const inputValue = ref(modelValue.value);

@@ -4,7 +4,10 @@ import { store } from '@/stores';
 
 import type { VsComponent } from '@/declaration';
 
-export function useStyleSet<T extends { [key: string]: any }>(component: VsComponent, styleSet: Ref<string | T>) {
+export function useStyleSet<T extends { [key: string]: any }>(
+    component: VsComponent,
+    styleSet: Ref<string | T | undefined>,
+) {
     const styles: ComputedRef<T> = computed(() => {
         if (!styleSet.value) {
             return {} as T;

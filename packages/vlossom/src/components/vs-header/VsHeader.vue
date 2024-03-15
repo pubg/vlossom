@@ -26,7 +26,7 @@ export default defineComponent({
     components: { VsBarNode },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsHeaderStyleSet>, default: '' },
+        styleSet: { type: [String, Object] as PropType<string | VsHeaderStyleSet> },
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
