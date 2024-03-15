@@ -1,6 +1,7 @@
 import { render, h } from 'vue';
 import { store } from '@/stores';
 import { utils } from '@/utils';
+import { logUtil } from '@/utils/log';
 import { UIState } from '@/declaration';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
@@ -10,7 +11,7 @@ import type { Placement, Align } from '@/declaration';
 function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
     const body = document?.body;
     if (!body) {
-        console.error('body not found');
+        logUtil.logError('VsToast', 'body not found');
         return;
     }
 

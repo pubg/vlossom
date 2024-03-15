@@ -1,5 +1,6 @@
 import { Ref, onBeforeMount, ref, nextTick } from 'vue';
 import { utils } from '@/utils';
+import { logUtil } from '@/utils/log';
 import type { AttachInfo, Placement, Align } from '@/declaration';
 
 export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
@@ -94,15 +95,19 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         isVisible.value = true;
 
         nextTick(() => {
-            attachment.value.style.display = 'block';
-            attachment.value.style.position = 'absolute';
-            computePosition(attachInfo);
+            try {
+                attachment.value.style.display = 'block';
+                attachment.value.style.position = 'absolute';
+                computePosition(attachInfo);
 
-            throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
-            resizeObserver = new ResizeObserver(throttledComputePosition);
-            resizeObserver.observe(anchor.value);
-            document.addEventListener('scroll', throttledComputePosition, true);
-            window.addEventListener('resize', throttledComputePosition, true);
+                throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
+                resizeObserver = new ResizeObserver(throttledComputePosition);
+                resizeObserver.observe(anchor.value);
+                document.addEventListener('scroll', throttledComputePosition, true);
+                window.addEventListener('resize', throttledComputePosition, true);
+            } catch (error: any) {
+                logUtil.logError('anchor positioning', error);
+            }
         });
     }
 

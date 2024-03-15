@@ -1,4 +1,5 @@
 import { utils } from '@/utils';
+import { logUtil } from '@/utils/log';
 import { watch, ref, type PropType, type Ref } from 'vue';
 import * as _ from 'lodash-es';
 
@@ -23,8 +24,9 @@ export function useInputOption(
                 const label = _.at(option, [optionLabel.value])[0];
 
                 if (!label) {
-                    console.error(
-                        `optionLabel: ${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
+                    logUtil.logError(
+                        'optionLabel',
+                        `${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
                     );
                 }
 
