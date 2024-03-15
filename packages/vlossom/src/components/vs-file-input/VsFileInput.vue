@@ -5,7 +5,7 @@
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
-            :no-msg="noMsg"
+            :no-message="noMessage"
             :required="required"
             :shake="shake"
             :state="state"
@@ -59,7 +59,7 @@
                 </button>
             </div>
 
-            <template #messages v-if="!noMsg">
+            <template #messages v-if="!noMessage">
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>

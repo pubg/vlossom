@@ -5,7 +5,7 @@
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
-            :no-msg="noMsg"
+            :no-message="noMessage"
             :required="required"
             :shake="shake"
             :state="state"
@@ -55,6 +55,10 @@
                 :checked="isChecked"
                 @change="toggle()"
             />
+
+            <template #messages v-if="!noMessage">
+                <slot name="messages" />
+            </template>
         </vs-input-wrapper>
     </vs-wrapper>
 </template>

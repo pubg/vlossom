@@ -30,7 +30,7 @@ const meta: Meta<typeof VsRadio> = {
     args: {
         radioLabel: 'Radio Input',
         noLabel: true,
-        noMsg: true,
+        noMessage: true,
         name: 'test',
         radioValue: 'test',
     },
@@ -101,7 +101,7 @@ export const Label: Story = {
 export const Messages: Story = {
     args: {
         messages: [{ state: UIState.Info, text: 'This is info message' }],
-        noMsg: false,
+        noMessage: false,
     },
 };
 
