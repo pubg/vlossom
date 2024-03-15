@@ -121,8 +121,8 @@ export default defineComponent({
         const hasExpand = computed(() => !!slots['expand']);
         const tableBodyRef: Ref<typeof VsTableBody | null> = ref(null);
 
-        const expand = () => {
-            return tableBodyRef.value?.expand();
+        const expand = (index: number) => {
+            return tableBodyRef.value?.expand(index);
         };
 
         return {
