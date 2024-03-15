@@ -38,7 +38,7 @@ import { computed, defineComponent, toRefs, ref, watch, type PropType } from 'vu
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
-import { validationUtil } from '@/utils/validation';
+import { logUtil } from '@/utils/log';
 
 import type { VsStepperStyleSet } from './types';
 
@@ -57,7 +57,7 @@ export default defineComponent({
             validator: (prop: string[]) => {
                 const isValid = objectUtil.isUniq(prop);
                 if (!isValid) {
-                    validationUtil.logPropError(name, 'steps with duplicate items are not allowed');
+                    logUtil.logPropError(name, 'steps', 'steps with duplicate items are not allowed');
                 }
                 return isValid;
             },

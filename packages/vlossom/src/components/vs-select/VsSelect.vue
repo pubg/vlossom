@@ -201,7 +201,7 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
-import { validationUtil } from '@/utils/validation';
+import { logUtil } from '@/utils/log';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
 import type { VsChipStyleSet } from '@/components';
@@ -222,7 +222,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    validationUtil.logPropError(name, 'closableChips can only be used with multiple prop');
+                    logUtil.logPropError(name, 'closableChips', 'closableChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -233,7 +233,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    validationUtil.logPropError(name, 'collapseChips can only be used with multiple prop');
+                    logUtil.logPropError(name, 'collapseChips', 'collapseChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -246,7 +246,7 @@ export default defineComponent({
             validator: (value: number) => {
                 const isValid = value >= 10;
                 if (!isValid) {
-                    console.error('[vs-select] prop lazyLoadNum must be 10 or more');
+                    logUtil.logPropError(name, 'lazyLoadNum', 'lazyLoadNum must be 10 or more');
                 }
                 return isValid;
             },
@@ -257,7 +257,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    validationUtil.logPropError(name, 'selectAll can only be used with multiple prop');
+                    logUtil.logPropError(name, 'selectAll', 'selectAll can only be used with multiple prop');
                     return false;
                 }
                 return true;
