@@ -14,7 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-radio-set', { column }]" :style="radioSetStyleSet">
+            <div :class="['vs-radio-set', { vertical }]" :style="radioSetStyleSet">
                 <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
@@ -87,8 +87,8 @@ export default defineComponent({
             type: Function as PropType<(option: any) => Promise<boolean> | null>,
             default: null,
         },
-        column: { type: Boolean, default: false },
         name: { type: String, required: true },
+        vertical: { type: Boolean, default: false },
         // v-model
         modelValue: { type: null, default: null },
     },

@@ -14,7 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
+            <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
                 <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
@@ -88,7 +88,7 @@ export default defineComponent({
             type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
             default: null,
         },
-        column: { type: Boolean, default: false },
+        vertical: { type: Boolean, default: false },
         // v-model
         modelValue: { type: Array as PropType<any[]>, default: () => [] },
     },
