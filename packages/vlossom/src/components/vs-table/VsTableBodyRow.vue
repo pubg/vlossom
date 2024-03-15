@@ -29,7 +29,7 @@
             <button
                 v-if="isExpandableRow"
                 type="button"
-                @click.stop="onToggleExpand(item.id)"
+                @click.stop="emitToggleExpand(item.id)"
                 :disabled="loading"
                 :class="{ expanded }"
                 :aria-label="`expand ${item.id}`"
@@ -108,17 +108,17 @@ export default defineComponent({
             return !Object.keys(item.value.data).length;
         });
 
-        function onToggleExpand(id: string) {
+        function emitToggleExpand(id: string) {
             emit('toggleExpand', id);
         }
 
         return {
             isDummyRow,
+            isExpandableRow,
             getRowData,
             getHeader,
             getTableData,
-            onToggleExpand,
-            isExpandableRow,
+            emitToggleExpand,
         };
     },
 });

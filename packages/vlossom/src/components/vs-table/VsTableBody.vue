@@ -11,15 +11,14 @@
                 :item="element"
                 :headers="headers"
                 :draggable="draggable"
-                :expanded-ids="expandedIds"
                 :expandable="hasExpand"
+                :expanded="isExpanded(element.id)"
                 :rows="rows"
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
-                :expanded="isExpanded(element.id)"
                 @click="emitRowClick(element, index)"
-                @toggleExpand="onToggleExpand"
+                @toggleExpand="toggleExpand"
             >
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
@@ -56,6 +55,7 @@ import VsTableBodyRow from './VsTableBodyRow.vue';
 import { useTableSearch } from './composables/useTableSearch';
 import { useTableFilter } from './composables/useTableFilter';
 import { useTableSort } from './composables/useTableSort';
+import { useTableExpand } from './composables/useTableExpand';
 import { VsIcon } from '@/icons';
 import { stringUtil } from '@/utils/string';
 
@@ -75,8 +75,8 @@ export default defineComponent({
             default: null,
         },
         expandedIds: { type: Array as PropType<string[]>, default: () => [] },
-        hasExpand: { type: Boolean, default: false },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
+        hasExpand: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
@@ -92,8 +92,9 @@ export default defineComponent({
         },
     },
     emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
+    expose: ['expand'],
     setup(props, { emit }) {
-        const { headers, items, search, searchableKeys, filter, sortTypes, expandedIds } = toRefs(props);
+        const { headers, items, search, searchableKeys, filter, sortTypes, hasExpand } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -132,6 +133,16 @@ export default defineComponent({
             { immediate: true },
         );
 
+        const { isExpanded, toggleExpand } = useTableExpand(hasExpand);
+
+        function expand(index: number) {
+            const target = computedTableItems.value[index];
+            if (!target) {
+                return;
+            }
+            toggleExpand(target.id);
+        }
+
         // for initial skeleton loading
         const dummyTableItems = new Array(4).fill({}).map((item) => {
             return { id: stringUtil.createID(), data: item };
@@ -141,20 +152,14 @@ export default defineComponent({
             emit('rowClick', rowItem, rowIndex);
         }
 
-        function isExpanded(id: string): boolean {
-            return expandedIds.value.includes(id);
-        }
-
-        function onToggleExpand(id: string) {
-            emit('toggleExpand', id);
-        }
-
         return {
             computedTableItems,
             dummyTableItems,
             emitRowClick,
             isExpanded,
-            onToggleExpand,
+            toggleExpand,
+            // expose
+            expand,
         };
     },
 });
