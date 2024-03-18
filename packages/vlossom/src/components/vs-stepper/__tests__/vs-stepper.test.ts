@@ -88,7 +88,7 @@ describe('vs-stepper', () => {
             });
 
             // when
-            const target = wrapper.findAll('li[role=tab]')[1];
+            const target = wrapper.findAll('li')[1];
             await target.trigger('click');
 
             // then
@@ -110,7 +110,7 @@ describe('vs-stepper', () => {
             });
 
             // when
-            const steps = wrapper.findAll('li[role=tab]');
+            const steps = wrapper.findAll('li');
             await steps[1].trigger('click');
             await steps[0].trigger('click');
 

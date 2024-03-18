@@ -3,11 +3,12 @@
         <div class="toast-content">
             <span v-html="toastInfo.text" />
         </div>
-        <div class="close-button">
+        <div class="close-button-container">
             <button
                 ref="closeButtonRef"
                 v-if="!toastInfo.autoClose"
                 type="button"
+                class="close-button"
                 @click="closeToast"
                 aria-label="close"
             >

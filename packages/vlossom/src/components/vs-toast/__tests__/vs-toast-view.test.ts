@@ -290,7 +290,7 @@ describe('vs-toast-view', () => {
             await nextTick();
 
             // then
-            const closeButtonRefs = toastViewWrapper.findAll('button[aria-label="close"]');
+            const closeButtonRefs = toastViewWrapper.findAll('button.close-button');
             expect(closeButtonRefs.length).toBe(2);
 
             const targetButtonRef = closeButtonRefs[0];

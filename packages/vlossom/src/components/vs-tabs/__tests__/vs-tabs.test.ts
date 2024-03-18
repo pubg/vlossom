@@ -70,7 +70,7 @@ describe('vs-tabs', () => {
             });
 
             // when
-            await wrapper.findAll('li[role=tab]')[1].trigger('click');
+            await wrapper.findAll('li')[1].trigger('click');
 
             // then
             expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
@@ -89,7 +89,7 @@ describe('vs-tabs', () => {
             });
 
             // when
-            const tabs = wrapper.findAll('li[role=tab]');
+            const tabs = wrapper.findAll('li');
             await tabs[1].trigger('click');
             await tabs[0].trigger('click');
 

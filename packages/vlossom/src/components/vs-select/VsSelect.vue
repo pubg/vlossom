@@ -125,6 +125,7 @@
                                 :aria-setsize="filteredOptions.length"
                                 :aria-posinset="1"
                                 :class="[
+                                    'option',
                                     'select-all',
                                     {
                                         selected: isAllSelected,
@@ -148,10 +149,13 @@
                                 :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
                                 :aria-setsize="filteredOptions.length"
                                 :aria-posinset="(selectAll ? 2 : 1) + index"
-                                :class="{
-                                    selected: isSelectedOption(option.value),
-                                    chased: isChasedOption(index),
-                                }"
+                                :class="[
+                                    'option',
+                                    {
+                                        selected: isSelectedOption(option.value),
+                                        chased: isChasedOption(index),
+                                    },
+                                ]"
                                 @mousemove="onMouseMove(option)"
                                 @click.stop="selectOption(option.value)"
                             >

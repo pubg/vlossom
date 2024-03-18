@@ -40,12 +40,12 @@ describe('vs-chip', () => {
 
             it('close 버튼이 렌더된다', () => {
                 // then
-                expect(wrapper.find('button[aria-label="close"]').exists()).toBe(true);
+                expect(wrapper.find('button.close-button').exists()).toBe(true);
             });
 
             it('close 버튼이 눌렸을 때 close 함수를 한번 emit 한다', async () => {
                 // when
-                const closeBtn = wrapper.find('button[aria-label="close"]');
+                const closeBtn = wrapper.find('button.close-button');
                 await closeBtn.trigger('click');
 
                 // then
@@ -63,7 +63,7 @@ describe('vs-chip', () => {
             });
 
             // then
-            expect(wrapper.find('button[aria-label="close"]').exists()).toBe(false);
+            expect(wrapper.find('button.close-button').exists()).toBe(false);
         });
     });
 });

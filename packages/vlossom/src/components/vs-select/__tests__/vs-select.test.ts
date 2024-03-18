@@ -34,7 +34,7 @@ describe('vs-select', () => {
             await wrapper.find('input').trigger('click');
 
             // then
-            expect(wrapper.findAll('li[role="option"]')).toHaveLength(3);
+            expect(wrapper.findAll('li.option')).toHaveLength(3);
             expect(wrapper.html()).toContain('A');
             expect(wrapper.html()).toContain('B');
             expect(wrapper.html()).toContain('C');
@@ -63,7 +63,7 @@ describe('vs-select', () => {
             await wrapper.find('input').trigger('click');
 
             // then
-            expect(wrapper.findAll('li[role="option"]')).toHaveLength(3);
+            expect(wrapper.findAll('li.option')).toHaveLength(3);
             expect(wrapper.html()).toContain('A');
             expect(wrapper.html()).toContain('B');
             expect(wrapper.html()).toContain('C');
@@ -186,7 +186,7 @@ describe('vs-select', () => {
 
                 // when
                 await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li[role="option"]')[1].trigger('click');
+                await wrapper.findAll('li.option')[1].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -254,7 +254,7 @@ describe('vs-select', () => {
 
                 // when
                 await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li[role="option"]')[1].trigger('click');
+                await wrapper.findAll('li.option')[1].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -317,7 +317,7 @@ describe('vs-select', () => {
 
                 // when
                 await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li[role="option"]')[2].trigger('click');
+                await wrapper.findAll('li.option')[2].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -363,12 +363,12 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+            await wrapper.findAll('li.option')[1].trigger('click');
             await vi.advanceTimersByTime(500);
 
             // then
             expect(wrapper.find('input').element.value).toBe('B');
-            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+            expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
         });
 
         it('multiple이 true일 때 옵션을 선택하면 선택한 옵션 값이 chip 형태로 보여지고 옵션 리스트 창은 여전히 존재한다', async () => {
@@ -387,13 +387,13 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+            await wrapper.findAll('li.option')[1].trigger('click');
 
             // then
             expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.findComponent({ name: 'VsChip' }).exists()).toBe(true);
             expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('B');
-            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+            expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
         });
 
         it('multiple이 true일 때 선택된 옵션을 다시 선택하면 선택한 옵션 값이 chip 리스트에서 사라지고 옵션 리스트 창은 여전히 존재한다', async () => {
@@ -414,13 +414,13 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li[role="option"]')[1].trigger('click');
+            await wrapper.findAll('li.option')[1].trigger('click');
 
             // then
             expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(1);
             expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('A');
-            expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+            expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
         });
 
         it('selectAll이 true일 때 모든 옵션을 선택할 수 있는 옵션을 제공한다', async () => {
@@ -443,10 +443,10 @@ describe('vs-select', () => {
             // when
             await wrapper.find('input').trigger('click');
             // then
-            expect(wrapper.find('ul[role="listbox"]').html()).toContain('Select All');
+            expect(wrapper.find('ul#vs-select-options').html()).toContain('Select All');
 
             // when
-            await wrapper.find('li[role="option"]').trigger('click');
+            await wrapper.find('li.option').trigger('click');
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toHaveLength(1);
@@ -477,7 +477,7 @@ describe('vs-select', () => {
             await vi.advanceTimersByTime(500);
 
             // then
-            expect(document.body.querySelector('ul[role="listbox"]')).toBeNull();
+            expect(document.body.querySelector('ul#vs-select-options')).toBeNull();
         });
     });
 
@@ -554,7 +554,7 @@ describe('vs-select', () => {
             await vi.advanceTimersByTime(500);
 
             // then
-            expect(wrapper.findAll('li[role="option"]')).toHaveLength(1);
+            expect(wrapper.findAll('li.option')).toHaveLength(1);
             expect(wrapper.html()).toContain('banana');
         });
     });
@@ -581,24 +581,24 @@ describe('vs-select', () => {
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
 
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
                 await vi.advanceTimersByTime(500);
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
 
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Space' });
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
 
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Space' });
                 await vi.advanceTimersByTime(500);
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
             });
 
             it('combobox가 focus를 받은 상태에서 Arrow Down 키를 누르면 옵션 리스트가 열리고 listbox의 첫번째 옵션으로 focus가 이동한다', async () => {
@@ -606,9 +606,9 @@ describe('vs-select', () => {
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
 
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(true);
-                const firstId = wrapper.find('ul[role="listbox"]').find('li').attributes('id');
-                expect(wrapper.find('ul[role="listbox"]').attributes('aria-activedescendant')).toBe(firstId);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
+                const firstId = wrapper.find('ul#vs-select-options').find('li').attributes('id');
+                expect(wrapper.find('ul#vs-select-options').attributes('aria-activedescendant')).toBe(firstId);
             });
 
             it('옵션 리스트를 열고 Arrow Down 키를 누르면 listbox의 첫번째 옵션으로 focus가 이동하고 Enter 키를 누르면 그 옵션이 선택된다', async () => {
@@ -617,7 +617,7 @@ describe('vs-select', () => {
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
 
                 // then
-                const firstId = wrapper.find('ul[role="listbox"]').find('li').attributes('id');
+                const firstId = wrapper.find('ul#vs-select-options').find('li').attributes('id');
                 expect(wrapper.find('input').attributes('aria-activedescendant')).toBe(firstId);
 
                 // when
@@ -651,7 +651,7 @@ describe('vs-select', () => {
                 await vi.advanceTimersByTime(500);
 
                 // then
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
             });
 
             it('Tab 키를 누르면 focus 중인 옵션이 선택되고 옵션 리스트가 닫힌다', async () => {
@@ -666,7 +666,7 @@ describe('vs-select', () => {
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['B']);
                 expect(wrapper.find('input').element.value).toBe('B');
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
             });
 
             it('multiple이 true일 때도 Tab 키를 누르면 focus 중인 옵션이 선택되고 옵션 리스트가 닫힌다', async () => {
@@ -684,7 +684,7 @@ describe('vs-select', () => {
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([['B']]);
                 expect(wrapper.find('input').element.value).toBe('');
-                expect(wrapper.find('ul[role="listbox"]').exists()).toBe(false);
+                expect(wrapper.find('ul#vs-select-options').exists()).toBe(false);
             });
         });
 
@@ -692,7 +692,7 @@ describe('vs-select', () => {
             it('옵션 리스트에서 mouse move event가 발생되면 mouse가 올라가 있던 옵션 기준으로 focus가 이동한다', async () => {
                 // when
                 await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li[role="option"]')[1].trigger('mousemove');
+                await wrapper.findAll('li.option')[1].trigger('mousemove');
                 await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
 
@@ -707,7 +707,7 @@ describe('vs-select', () => {
             it('옵션을 선택하고 옵션창이 닫히면 combobox로 focus가 간다', async () => {
                 // when
                 await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li[role="option"]')[1].trigger('click');
+                await wrapper.findAll('li.option')[1].trigger('click');
                 await vi.advanceTimersByTime(500);
 
                 // then
