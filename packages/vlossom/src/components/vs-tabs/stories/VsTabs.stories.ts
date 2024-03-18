@@ -1,7 +1,8 @@
 import { ref } from 'vue';
 import { chromaticParameters, colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook';
-import { VsIcon } from '@/icons';
 import VsTabs from '../VsTabs.vue';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
+import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -73,6 +74,42 @@ export const MobileFull: Story = {
     },
     parameters: {
         chromatic: chromaticParameters.mobile,
+    },
+};
+
+export const Width: Story = {
+    render: (args: any) => ({
+        components: { VsTabs, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container row-gap="20px">
+                <vs-tabs v-bind="args"/>   
+                <vs-tabs v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        width: { md: '100%', lg: '50%' },
+    },
+};
+
+export const Grid: Story = {
+    render: (args: any) => ({
+        components: { VsTabs, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container column-gap="40px">
+				<vs-tabs v-bind="args" />
+				<vs-tabs v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        grid: { md: 6, lg: 3 },
     },
 };
 
