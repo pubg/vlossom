@@ -5,7 +5,7 @@
                 <div class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="['modal-dialog', size]"
+                        :class="['modal-dialog', `vs-${computedColorScheme}`, size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :hide-scroll="hideScroll"
@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useStyleSet } from '@/composables';
-import { VsComponent, Size } from '@/declaration';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { VsComponent, Size, type ColorScheme } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 
@@ -40,6 +40,7 @@ export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
@@ -52,7 +53,9 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnDimmedClick, hasContainer } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, hasContainer } = toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
@@ -90,6 +93,7 @@ export default defineComponent({
         }
 
         return {
+            computedColorScheme,
             computedStyleSet,
             isOpen,
             clickDimmed,

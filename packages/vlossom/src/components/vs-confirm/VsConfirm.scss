@@ -18,16 +18,13 @@
     width: 100%;
 
     .ok-button {
-        background-color: var(--vs-comp-backgroundColor-primary);
-        color: var(--vs-comp-color-primary);
         margin-right: 10px;
         min-width: 20%;
         max-width: 50%;
     }
 
     .cancel-button {
-        background-color: var(--vs-comp-backgroundColor);
-        color: var(--vs-comp-color);
+        border-width: 1.5px;
         min-width: 20%;
         max-width: 50%;
     }

@@ -5,7 +5,7 @@
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
-                        :class="['drawer-dialog', placement, hasSpecifiedSize ? '' : size]"
+                        :class="['drawer-dialog', `vs-${computedColorScheme}`, placement, hasSpecifiedSize ? '' : size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :hide-scroll="hideScroll"
@@ -28,10 +28,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useStyleSet } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
-import { VsComponent, Placement, Size, SIZES } from '@/declaration';
+import { VsComponent, Placement, Size, SIZES, type ColorScheme } from '@/declaration';
 import { propValidationUtil } from '@/utils/prop-validation';
 
 import type { VsDrawerStyleSet } from './types';
@@ -42,6 +42,7 @@ export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
@@ -60,7 +61,10 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } =
+            toRefs(props);
+
+        const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
@@ -117,6 +121,7 @@ export default defineComponent({
         }
 
         return {
+            computedColorScheme,
             computedStyleSet,
             hasSpecifiedSize,
             isOpen,
