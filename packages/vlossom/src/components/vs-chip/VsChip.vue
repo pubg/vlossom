@@ -1,7 +1,7 @@
 <template>
     <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <span v-if="hasLeadingIcon" class="vs-chip-icon vs-chip-leading-icon">
-            <slot name="leading-icon" />
+        <span v-if="hasIcon" class="icon-container">
+            <slot name="icon" />
         </span>
 
         <div class="vs-chip-content">
@@ -11,11 +11,11 @@
         <button
             v-if="closable"
             type="button"
-            :class="['vs-chip-icon', 'vs-chip-close', { primary }]"
+            :class="['icon-container', 'close-button', { primary }]"
             aria-label="close"
             @click.stop="$emit('close')"
         >
-            <vs-icon class="close-icon" icon="close" />
+            <vs-icon icon="close" />
         </button>
     </div>
 </template>
@@ -51,7 +51,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsChipStyleSet>(name, styleSet);
 
-        const hasLeadingIcon = computed((): boolean => !!slots['leading-icon']);
+        const hasIcon = computed((): boolean => !!slots['icon']);
 
         const attrs: SetupContextAttrs = useAttrs();
 
@@ -62,7 +62,7 @@ export default defineComponent({
         }));
 
         return {
-            hasLeadingIcon,
+            hasIcon,
             computedColorScheme,
             computedStyleSet,
             classObj,

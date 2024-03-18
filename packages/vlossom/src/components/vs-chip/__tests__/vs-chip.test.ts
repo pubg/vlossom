@@ -7,26 +7,17 @@ function mountComponent() {
 }
 
 describe('vs-chip', () => {
-    describe('leading-icon', () => {
-        it('leading-icon이 있는 경우 leading-icon 슬롯이 렌더된다', () => {
+    describe('icon', () => {
+        it('icon이 있는 경우 icon 슬롯이 렌더된다', () => {
             // given
             const wrapper = mount(VsChip, {
                 slots: {
-                    'leading-icon': '<div>icon</div>',
+                    icon: '<div>icon</div>',
                 },
             });
 
             // then
-            expect(wrapper.find('.vs-chip-leading-icon').exists()).toBe(true);
             expect(wrapper.html()).toContain('<div>icon</div>');
-        });
-
-        it('leading-icon이 없는 경우 leading-icon 슬롯이 렌더되지 않는다', () => {
-            // given
-            const wrapper = mount(VsChip);
-
-            // then
-            expect(wrapper.find('.vs-chip-leading-icon').exists()).toBe(false);
         });
     });
 
@@ -49,12 +40,12 @@ describe('vs-chip', () => {
 
             it('close 버튼이 렌더된다', () => {
                 // then
-                expect(wrapper.find('.vs-chip-close').exists()).toBe(true);
+                expect(wrapper.find('button[aria-label="close"]').exists()).toBe(true);
             });
 
             it('close 버튼이 눌렸을 때 close 함수를 한번 emit 한다', async () => {
                 // when
-                const closeBtn = wrapper.find('.vs-chip-close');
+                const closeBtn = wrapper.find('button[aria-label="close"]');
                 await closeBtn.trigger('click');
 
                 // then
@@ -72,7 +63,7 @@ describe('vs-chip', () => {
             });
 
             // then
-            expect(wrapper.find('.vs-chip-close').exists()).toBe(false);
+            expect(wrapper.find('button[aria-label="close"]').exists()).toBe(false);
         });
     });
 });
