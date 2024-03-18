@@ -53,7 +53,7 @@ describe('vs-confirm', () => {
         });
 
         // then
-        const okButtons = document.querySelectorAll('button[aria-label="ok"]');
+        const okButtons = document.querySelectorAll('button.ok-button');
         const targetButton = okButtons[okButtons.length - 1];
         expect(targetButton?.textContent).toContain(okText);
     });
@@ -72,7 +72,7 @@ describe('vs-confirm', () => {
         });
 
         // then
-        const cancelButtons = document.querySelectorAll('button[aria-label="cancel"]');
+        const cancelButtons = document.querySelectorAll('button.cancel-button');
         const targetButton = cancelButtons[cancelButtons.length - 1];
         expect(targetButton?.textContent).toContain(cancelText);
     });
@@ -91,7 +91,7 @@ describe('vs-confirm', () => {
         });
 
         // when
-        const okButtons = document.querySelectorAll('button[aria-label="ok"]');
+        const okButtons = document.querySelectorAll('button.ok-button');
         const targetButton = okButtons[okButtons.length - 1];
         targetButton.dispatchEvent(new Event('click'));
 
@@ -117,7 +117,7 @@ describe('vs-confirm', () => {
         });
 
         // when
-        const cancelButtons = document.querySelectorAll('button[aria-label="cancel"]');
+        const cancelButtons = document.querySelectorAll('button.cancel-button');
         const targetButton = cancelButtons[cancelButtons.length - 1];
         targetButton.dispatchEvent(new Event('click'));
 

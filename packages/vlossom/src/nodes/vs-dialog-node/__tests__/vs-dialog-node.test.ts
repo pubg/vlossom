@@ -54,7 +54,7 @@ describe('vs-dialog-node', () => {
             });
 
             // then
-            const dialog = wrapper.find('[role="dialog"]');
+            const dialog = wrapper.find('div.vs-dialog');
             expect(dialog.attributes('aria-labelledby')).toBe(wrapper.find('header').attributes('id'));
             expect(dialog.attributes('aria-label')).toBe(undefined);
         });
@@ -64,7 +64,7 @@ describe('vs-dialog-node', () => {
             const wrapper = mount(VsDialogNode);
 
             // then
-            const dialog = wrapper.find('[role="dialog"]');
+            const dialog = wrapper.find('div.vs-dialog');
             expect(dialog.attributes('aria-labelledby')).toBe(undefined);
             expect(dialog.attributes('aria-label')).toBe('Dialog');
         });
@@ -78,7 +78,7 @@ describe('vs-dialog-node', () => {
             });
 
             // then
-            const dialog = wrapper.find('[role="dialog"]');
+            const dialog = wrapper.find('div.vs-dialog');
             expect(dialog.attributes('aria-describedby')).toBe(wrapper.find('div.dialog-body').attributes('id'));
         });
 
@@ -87,7 +87,7 @@ describe('vs-dialog-node', () => {
             const wrapper = mount(VsDialogNode, { modal: true });
 
             // then
-            const dialog = wrapper.find('[role="dialog"]');
+            const dialog = wrapper.find('div.vs-dialog');
             expect(dialog.attributes('aria-modal')).toBe('true');
 
             // when

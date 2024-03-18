@@ -16,7 +16,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
         });
 
         it('modelValue가 true이면 drawer가 열린다', async () => {
@@ -30,13 +30,13 @@ describe('vs-drawer', () => {
                 },
             });
 
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
 
             // when
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(true);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(true);
         });
     });
 
@@ -127,7 +127,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(true);
+            expect(wrapper.find('div.dimmed').exists()).toBe(true);
         });
 
         it('dimmed prop을 false로 전달하면 dimmed 영역이 존재하지 않는다', () => {
@@ -143,7 +143,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(false);
+            expect(wrapper.find('div.dimmed').exists()).toBe(false);
         });
 
         it('기본적으로 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
@@ -158,7 +158,7 @@ describe('vs-drawer', () => {
             });
 
             // when
-            await wrapper.find('div[aria-hidden="true"]').trigger('click');
+            await wrapper.find('div.dimmed').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -179,7 +179,7 @@ describe('vs-drawer', () => {
             });
 
             // when
-            await wrapper.find('div[aria-hidden="true"]').trigger('click');
+            await wrapper.find('div.dimmed').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');

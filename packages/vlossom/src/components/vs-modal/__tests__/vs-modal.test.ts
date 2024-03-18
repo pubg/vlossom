@@ -16,7 +16,7 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
         });
 
         it('modelValue가 true이면 modal이 열린다', async () => {
@@ -30,13 +30,13 @@ describe('vs-modal', () => {
                 },
             });
 
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
 
             // when
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('[role="dialog"]').exists()).toBe(true);
+            expect(wrapper.find('div.vs-dialog').exists()).toBe(true);
         });
     });
 
@@ -127,7 +127,7 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('div[aria-hidden="true"]').exists()).toBe(true);
+            expect(wrapper.find('div.dimmed').exists()).toBe(true);
         });
 
         it('dimmed 영역 클릭 시 modal이 닫힌다', async () => {
@@ -142,7 +142,7 @@ describe('vs-modal', () => {
             });
 
             // when
-            await wrapper.find('div[aria-hidden="true"]').trigger('click');
+            await wrapper.find('div.dimmed').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -163,7 +163,7 @@ describe('vs-modal', () => {
             });
 
             // when
-            await wrapper.find('div[aria-hidden="true"]').trigger('click');
+            await wrapper.find('div.dimmed').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
