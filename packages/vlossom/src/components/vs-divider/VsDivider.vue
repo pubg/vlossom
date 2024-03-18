@@ -16,10 +16,10 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDividerStyleSet> },
         vertical: { type: Boolean, default: false },
-        mobileFull: { type: Boolean, default: false },
+        responsive: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, mobileFull, vertical } = toRefs(props);
+        const { colorScheme, styleSet, responsive, vertical } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -28,7 +28,7 @@ export default defineComponent({
         const classObj = computed(() => ({
             horizontal: !vertical.value,
             vertical: vertical.value,
-            'mobile-full': mobileFull.value,
+            responsive: responsive.value,
         }));
 
         return {

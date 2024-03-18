@@ -5,7 +5,7 @@
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
-            :no-msg="noMsg"
+            :no-message="noMessage"
             :required="required"
             :shake="shake"
             :state="state"
@@ -175,7 +175,7 @@
                 </Teleport>
             </div>
 
-            <template #messages v-if="!noMsg">
+            <template #messages v-if="!noMessage">
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
@@ -204,7 +204,7 @@ import { utils } from '@/utils';
 import { logUtil } from '@/utils/log';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
-import type { VsChipStyleSet } from '@/components';
+import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({

@@ -17,7 +17,7 @@
         </component>
 
         <slot name="messages">
-            <div class="vs-messages" v-if="!noMsg">
+            <div class="vs-messages" v-if="!noMessage">
                 <vs-message v-for="(message, index) in messages" :key="`${index}-${message.text}`" :message="message" />
             </div>
         </slot>
@@ -39,7 +39,7 @@ export default defineComponent({
         label: { type: String, default: '' },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
         noLabel: { type: Boolean, default: false },
-        noMsg: { type: Boolean, default: false },
+        noMessage: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
         shake: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: UIState.Idle },

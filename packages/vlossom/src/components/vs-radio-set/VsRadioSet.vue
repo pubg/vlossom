@@ -4,7 +4,7 @@
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
-            :no-msg="noMsg"
+            :no-message="noMessage"
             :required="required"
             :shake="shake"
             :state="state"
@@ -14,7 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-radio-set', { column }]" :style="radioSetStyleSet">
+            <div :class="['vs-radio-set', { vertical }]" :style="radioSetStyleSet">
                 <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
@@ -46,7 +46,7 @@
                 </vs-check-node>
             </div>
 
-            <template #messages v-if="!noMsg">
+            <template #messages v-if="!noMessage">
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
@@ -87,8 +87,8 @@ export default defineComponent({
             type: Function as PropType<(option: any) => Promise<boolean> | null>,
             default: null,
         },
-        column: { type: Boolean, default: false },
         name: { type: String, required: true },
+        vertical: { type: Boolean, default: false },
         // v-model
         modelValue: { type: null, default: null },
     },

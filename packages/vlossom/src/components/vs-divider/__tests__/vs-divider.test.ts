@@ -45,19 +45,19 @@ describe('vs-divider', () => {
         });
     });
 
-    describe('mobile-full', () => {
-        it('vertical과 mobile-full props를 설정하면 각각의 class를 가진다.', () => {
+    describe('responsive', () => {
+        it('vertical과 responsive props를 설정하면 각각의 class를 가진다.', () => {
             //given
             const wrapper = mount(VsDivider, {
                 props: {
                     vertical: true,
-                    mobileFull: true,
+                    responsive: true,
                 },
             });
 
             //then
             expect(wrapper.classes('vertical')).toBe(true);
-            expect(wrapper.classes('mobile-full')).toBe(true);
+            expect(wrapper.classes('responsive')).toBe(true);
         });
     });
 });

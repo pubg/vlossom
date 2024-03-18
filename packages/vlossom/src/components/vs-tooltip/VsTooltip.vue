@@ -10,7 +10,7 @@
             <slot />
         </div>
 
-        <teleport to="#vs-overlay" v-if="computedShow || isVisible">
+        <Teleport to="#vs-overlay" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
                 :class="['tooltip', `vs-${computedColorScheme}`, `placement-${computedPlacement}`, `align-${align}`]"
@@ -21,7 +21,7 @@
                     <slot name="tooltip" />
                 </div>
             </div>
-        </teleport>
+        </Teleport>
     </div>
 </template>
 

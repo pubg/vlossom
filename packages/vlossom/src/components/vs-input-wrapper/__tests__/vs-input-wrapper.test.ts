@@ -75,11 +75,11 @@ describe('vs-input-wrapper', () => {
     });
 
     describe('messages', () => {
-        it('noMsg props가 전달되면 message 영역이 보이지 않는다', () => {
+        it('noMessage props가 전달되면 message 영역이 보이지 않는다', () => {
             // given
             const wrapper = mount(VsInputWrapper, {
                 props: {
-                    noMsg: true,
+                    noMessage: true,
                 },
             });
 

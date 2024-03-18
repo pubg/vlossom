@@ -106,9 +106,9 @@ export const Readonly: Story = {
     },
 };
 
-export const Column: Story = {
+export const Vertical: Story = {
     args: {
-        column: true,
+        vertical: true,
     },
 };
 

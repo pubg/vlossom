@@ -4,7 +4,7 @@
             :label="label"
             :messages="computedMessages"
             :no-label="noLabel"
-            :no-msg="noMsg"
+            :no-message="noMessage"
             :required="required"
             :shake="shake"
             :state="state"
@@ -14,7 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-checkbox-set', { column }]" :style="checkboxSetStyleSet">
+            <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
                 <vs-check-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
@@ -46,7 +46,7 @@
                 </vs-check-node>
             </div>
 
-            <template #messages v-if="!noMsg">
+            <template #messages v-if="!noMessage">
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
@@ -88,7 +88,7 @@ export default defineComponent({
             type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
             default: null,
         },
-        column: { type: Boolean, default: false },
+        vertical: { type: Boolean, default: false },
         // v-model
         modelValue: { type: Array as PropType<any[]>, default: () => [] },
     },
