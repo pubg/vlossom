@@ -3,6 +3,7 @@ import { toastPlugin } from '..';
 import { store } from '@/stores';
 
 import type { ToastInfo } from '@/plugins';
+import { mockConsoleError, mockConsoleWarn } from '@/test/setup';
 
 describe('toast-plugin', () => {
     describe('toastPlugin', () => {
@@ -62,7 +63,6 @@ describe('toast-plugin', () => {
 
         it('UIState 가 error 인 toast 를 보여줄 수 있다', () => {
             // given
-            const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
             vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
@@ -71,15 +71,11 @@ describe('toast-plugin', () => {
             // then
             expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
-            expect(consoleSpy).toHaveBeenCalledTimes(1);
-
-            // clear
-            consoleSpy.mockRestore();
+            expect(mockConsoleError).toHaveBeenCalledTimes(1);
         });
 
         it('UIState 가 warning 인 toast 를 보여줄 수 있다', () => {
             // given
-            const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
             vi.spyOn(store.toast, 'addToast').mockImplementation(() => vi.fn());
 
             // when
@@ -88,10 +84,7 @@ describe('toast-plugin', () => {
             // then
             expect(store.toast.addToast).toHaveBeenCalledTimes(1);
             expect(document.querySelectorAll('.vs-toast-view').length).toBe(1);
-            expect(consoleSpy).toHaveBeenCalledTimes(1);
-
-            // clear
-            consoleSpy.mockRestore();
+            expect(mockConsoleWarn).toHaveBeenCalledTimes(1);
         });
     });
 });
