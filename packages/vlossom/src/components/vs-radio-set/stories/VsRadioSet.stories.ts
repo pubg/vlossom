@@ -7,6 +7,7 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { UIState } from '@/declaration';
+import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadioSet from '../VsRadioSet.vue';
 
@@ -109,6 +110,15 @@ export const Readonly: Story = {
 export const Vertical: Story = {
     args: {
         vertical: true,
+    },
+};
+
+export const BeforeChange: Story = {
+    args: {
+        beforeChange: async () => {
+            const $vs = useVlossom();
+            return await $vs.confirm.open('Are you sure?');
+        },
     },
 };
 

@@ -8,6 +8,7 @@ import {
 } from '@/storybook';
 import { computed, ref } from 'vue';
 import { UIState } from '@/declaration';
+import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckbox from '../VsCheckbox.vue';
 
@@ -163,6 +164,15 @@ export const Indeterminate: Story = {
             </div>
         `,
     }),
+};
+
+export const BeforeChange: Story = {
+    args: {
+        beforeChange: async () => {
+            const $vs = useVlossom();
+            return await $vs.confirm.open('Are you sure?');
+        },
+    },
 };
 
 export const Width: Story = {
