@@ -23,35 +23,53 @@ describe('vs-accordion', () => {
         expect(wrapper.find('.accordion-content').html()).toContain(contents);
     });
 
-    describe('open', () => {
-        it('open 상태를 전달해서 accordion을 열어둘 수 있다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsAccordion, {
-                props: {
-                    open: true,
-                },
-            });
-
-            // then;
-            expect(wrapper.find('details').attributes('open')).exist;
+    it('open 상태를 전달해서 accordion을 열어둘 수 있다', () => {
+        // given
+        const wrapper: ReturnType<typeof mountComponent> = mount(VsAccordion, {
+            props: {
+                open: true,
+            },
         });
 
-        it('v-model:open으로 open 상태를 바인딩 할 수 있다', async () => {
+        // then;
+        expect(wrapper.find('details').attributes('open')).exist;
+    });
+
+    describe('v-model', () => {
+        it('v-model binding으로 accordion을 열 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsAccordion, {
                 props: {
-                    open: false,
-                    'onUpdate:open': (open: boolean) => wrapper.setProps({ open }),
+                    modelValue: false,
+                    'onUpdate:modelValue': (v: boolean) => wrapper.setProps({ modelValue: v }),
                 },
             });
 
             // when
-            await wrapper.setProps({ open: true });
+            await wrapper.setProps({ modelValue: true });
 
             // then;
             expect(wrapper.find('details').attributes('open')).exist;
-            expect(wrapper.emitted('update:open')).toEqual([[true]]);
+            expect(wrapper.emitted('update:modelValue')).toEqual([[true]]);
             expect(wrapper.emitted('toggle')).toEqual([[true]]);
+        });
+
+        it('v-model binding으로 accordion을 닫을 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsAccordion, {
+                props: {
+                    modelValue: true,
+                    'onUpdate:modelValue': (v: boolean) => wrapper.setProps({ modelValue: v }),
+                },
+            });
+
+            // when
+            await wrapper.setProps({ modelValue: false });
+
+            // then;
+            expect(wrapper.find('details').attributes('open')).not.exist;
+            expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
+            expect(wrapper.emitted('toggle')).toEqual([[false]]);
         });
     });
 });

@@ -25,30 +25,31 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsAccordionStyleSet> },
-        // v-model
         open: { type: Boolean, default: false },
+        // v-model
+        modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:open', 'toggle'],
+    emits: ['update:modelValue', 'toggle'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, open: modelOpen } = toRefs(props);
+        const { colorScheme, styleSet, open, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsAccordionStyleSet>(name, styleSet);
 
-        const isOpen = ref(modelOpen.value);
+        const isOpen = ref(open.value || modelValue.value);
 
         function onToggle(event: Event) {
-            const { open } = event.target as HTMLDetailsElement;
-            isOpen.value = open;
+            const element = event.target as HTMLDetailsElement;
+            isOpen.value = element.open;
         }
 
-        watch(modelOpen, (o) => {
+        watch(modelValue, (o) => {
             isOpen.value = o;
         });
 
         watch(isOpen, (o) => {
-            emit('update:open', o);
+            emit('update:modelValue', o);
             emit('toggle', o);
         });
 
