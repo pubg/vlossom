@@ -1,20 +1,45 @@
 name: Release Workflow
 
 on:
-  push:
-    branches:
-      - 'main'
+    push:
+        branches:
+            - 'main'
 
 permissions:
-  contents: write
-  pull-requests: write
+    contents: write
+    pull-requests: write
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: node
-          package-name: vlossom
-          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
+    release-please:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: google-github-actions/release-please-action@v3
+              id: release
+              with:
+                  release-type: node
+                  package-name: vlossom
+                  path: packages/vlossom
+                  changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
+
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+              if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  registry-url: 'https://registry.npmjs.org'
+              if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
+            - name: Install dependencies
+              run: npm ci
+              if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
+            - name: Build Vlossom
+              run: npm run build
+              working-directory: ./packages/vlossom
+              if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
+            - name: Publish Vlossom
+              run: npm publish
+              working-directory: ./packages/vlossom
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+              if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
