@@ -111,7 +111,8 @@ export default defineComponent({
             },
         });
 
-        async function onToggle(checked: boolean) {
+        async function onToggle() {
+            // radio changed value is always true
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value);
@@ -120,7 +121,7 @@ export default defineComponent({
                 }
             }
 
-            inputValue.value = checked ? radioValue.value : null;
+            inputValue.value = radioValue.value;
         }
 
         function onFocus(e: FocusEvent) {
