@@ -1,4 +1,4 @@
-import { size } from '@/storybook';
+import { size, colorScheme } from '@/storybook';
 import { ref } from 'vue';
 import VsModal from './../VsModal.vue';
 
@@ -42,7 +42,7 @@ const meta: Meta<typeof VsModal> = {
                 </template>
                 some contents ...
                 <template #footer>
-                    <modal-close-button @click="isOpen = false" />
+                    <modal-close-button :color-scheme="args.colorScheme" primary @click="isOpen = false" />
                 </template>
             </vs-modal>
         `,
@@ -50,6 +50,7 @@ const meta: Meta<typeof VsModal> = {
     tags: ['autodocs'],
     argTypes: {
         size,
+        colorScheme,
     },
 };
 
@@ -81,7 +82,7 @@ export const Size: Story = {
                 <vs-modal v-model="isOpen" v-bind="args" :size="currentSize">
                     some contents ...
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -111,7 +112,7 @@ export const Header: Story = {
                     Here is modal body
 
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -136,7 +137,7 @@ export const Footer: Story = {
                     <template #footer>
                         <div>
                             Here is modal footer
-                            <modal-close-button @click="isOpen = false" />
+                            <modal-close-button primary @click="isOpen = false" />
                         </div>
                     </template>
                 </vs-modal>
@@ -171,7 +172,7 @@ export const Nested: Story = {
                         </vs-modal>
                     </div>
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -197,7 +198,7 @@ export const Form: Story = {
                         <vs-input v-model="form.email" label="Email" />
                     </div>
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -220,7 +221,7 @@ export const HasContainer: Story = {
                 <vs-modal v-model="isOpen" v-bind="args">
                     Here is modal body
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -247,7 +248,7 @@ export const HideScroll: Story = {
                         Here is modal body
                     </div>
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>
@@ -276,7 +277,7 @@ export const InitialFocusRef: Story = {
                         <vs-input ref="inputRef" />
                     </div>
                     <template #footer>
-                        <modal-close-button @click="isOpen = false" />
+                        <modal-close-button primary @click="isOpen = false" />
                     </template>
                 </vs-modal>
             </div>

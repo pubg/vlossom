@@ -5,6 +5,7 @@
         :size="confirmInfo.size || 'sm'"
         :close-on-dimmed-click="false"
         :close-on-esc="false"
+        :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
     >
         <div class="confirm-text scale-up-center">
             <p v-html="confirmInfo.text"></p>
@@ -16,6 +17,7 @@
                     class="ok-button"
                     aria-label="ok"
                     dense
+                    primary
                     @click="ok"
                 >
                     {{ confirmInfo.okText || 'Ok' }}
@@ -25,6 +27,7 @@
                     class="cancel-button"
                     aria-label="cancel"
                     dense
+                    outline
                     @click="cancel"
                 >
                     {{ confirmInfo.cancelText || 'Cancel' }}

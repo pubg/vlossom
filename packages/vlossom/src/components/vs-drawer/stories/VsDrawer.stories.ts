@@ -1,4 +1,4 @@
-import { placement, size } from '@/storybook';
+import { placement, size, colorScheme } from '@/storybook';
 import { userEvent, within } from '@storybook/testing-library';
 import { ref } from 'vue';
 import { VsIcon } from '@/icons';
@@ -55,6 +55,7 @@ const meta: Meta<typeof VsDrawer> = {
     argTypes: {
         placement,
         size,
+        colorScheme,
     },
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
