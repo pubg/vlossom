@@ -21,9 +21,11 @@ jobs:
                   path: packages/vlossom
                   changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
 
-            - uses: actions/checkout@v4
+            - name: Checkout Repository
+              uses: actions/checkout@v4
               if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
-            - uses: actions/setup-node@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
                   node-version: 20
                   registry-url: 'https://registry.npmjs.org'
