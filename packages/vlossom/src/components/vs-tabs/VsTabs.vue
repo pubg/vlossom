@@ -1,37 +1,42 @@
 <template>
-    <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <ul role="tablist">
-            <li
-                v-for="(tab, index) in tabs"
-                :key="tab"
-                :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
-                role="tab"
-                :aria-selected="isSelected(index)"
-                :aria-disabled="isDisabled(index)"
-                :tabindex="isSelected(index) ? 0 : -1"
-                @click.stop="selectTab(index)"
-            >
-                <slot :name="tab" :index="index">
-                    {{ tab }}
-                </slot>
-            </li>
-        </ul>
-    </div>
+    <vs-wrapper :width="width" :grid="grid">
+        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+            <ul role="tablist">
+                <li
+                    v-for="(tab, index) in tabs"
+                    :key="tab"
+                    :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
+                    role="tab"
+                    :aria-selected="isSelected(index)"
+                    :aria-disabled="isDisabled(index)"
+                    :tabindex="isSelected(index) ? 0 : -1"
+                    @click.stop="selectTab(index)"
+                >
+                    <slot :name="tab" :index="index">
+                        {{ tab }}
+                    </slot>
+                </li>
+            </ul>
+        </div>
+    </vs-wrapper>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, ref, watch } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
 import { logUtil } from '@/utils/log';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
 import type { VsTabsStyleSet } from './types';
 
 const name = VsComponent.VsTabs;
 export default defineComponent({
     name,
+    components: { VsWrapper },
     props: {
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
         dense: { type: Boolean, default: false },

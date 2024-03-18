@@ -39,12 +39,14 @@ import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
 import { logUtil } from '@/utils/log';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
 import type { VsStepperStyleSet } from './types';
 
 const name = VsComponent.VsStepper;
 export default defineComponent({
     name,
+    components: { VsWrapper },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

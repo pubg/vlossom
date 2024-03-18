@@ -1,8 +1,8 @@
 import { computed, ref, type Ref } from 'vue';
-import VsStepper from '../VsStepper.vue';
 import { colorScheme, getColorSchemeTemplate, getMetaArguments, numberArray } from '@/storybook';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
+import VsStepper from '../VsStepper.vue';
 import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -66,7 +66,7 @@ export const disabled: Story = {
 
 export const Gap: Story = {
     render: (args: any) => ({
-        components: { VsStepper, VsContainer },
+        components: { VsStepper },
         setup() {
             return { args };
         },
