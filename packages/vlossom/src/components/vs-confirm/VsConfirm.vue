@@ -17,7 +17,7 @@
                     class="ok-button"
                     aria-label="ok"
                     dense
-					primary
+                    primary
                     @click="ok"
                 >
                     {{ confirmInfo.okText || 'Ok' }}
