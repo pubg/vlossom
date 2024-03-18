@@ -1,6 +1,7 @@
 import { chromaticParameters, colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook';
 import { PLACEMENTS, ALIGNS } from '@/declaration';
 import VsTextWrap from './../VsTextWrap.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -92,7 +93,7 @@ export const NoTooltip: Story = {
 
 export const PlacementAndAlign: Story = {
     render: (args: any) => ({
-        components: { VsTextWrap },
+        components: { VsTextWrap, VsDivider },
         setup() {
             return { args, PLACEMENTS, ALIGNS };
         },

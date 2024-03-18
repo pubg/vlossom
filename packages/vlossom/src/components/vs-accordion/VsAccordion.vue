@@ -15,12 +15,14 @@
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
 import type { VsAccordionStyleSet } from './types';
 
 const name = VsComponent.VsAccordion;
 export default defineComponent({
     name,
+    components: { VsWrapper },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

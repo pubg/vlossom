@@ -1,4 +1,5 @@
 import { colorScheme, getColorSchemeTemplate, chromaticParameters, align } from '@/storybook';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { ToastOptions } from '@/plugins';
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -6,6 +7,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 const meta: Meta = {
     title: 'Plugins/Toast',
     render: (args: any) => ({
+        components: { VsButton },
         setup() {
             return { args };
         },
@@ -46,6 +48,7 @@ export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
+        components: { VsButton },
         setup() {
             return { args };
         },
@@ -68,6 +71,7 @@ export const ColorScheme: Story = {
 
 export const State: Story = {
     render: () => ({
+        components: { VsButton },
         template: `
 		<div>
 			<vs-button color-scheme="green" @click="$vs.toast.success('This is Toast Message!')"> toast.success </vs-button>
@@ -81,6 +85,7 @@ export const State: Story = {
 
 export const HtmlText: Story = {
     render: (args: any) => ({
+        components: { VsButton },
         setup() {
             return { args };
         },
@@ -95,6 +100,7 @@ export const HtmlText: Story = {
 
 export const AutoClose: Story = {
     render: (args: any) => ({
+        components: { VsButton },
         setup() {
             return { args };
         },
@@ -120,6 +126,7 @@ function getPlacementTemplate() {
 
 export const Position: Story = {
     render: () => ({
+        components: { VsButton },
         template: `${getPlacementTemplate()}`,
     }),
 };

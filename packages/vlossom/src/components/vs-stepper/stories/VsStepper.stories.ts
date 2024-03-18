@@ -3,6 +3,7 @@ import { colorScheme, getColorSchemeTemplate, getMetaArguments, numberArray } fr
 import { chromaticParameters } from '@/storybook/parameters';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsStepper from '../VsStepper.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -115,7 +116,7 @@ export const Grid: Story = {
 
 export const CustomSlots: Story = {
     render: (args: any) => ({
-        components: { VsStepper, VsIcon },
+        components: { VsStepper, VsIcon, VsButton },
         setup() {
             const selectedIdx = ref(0);
             function updateModel(value: number) {
