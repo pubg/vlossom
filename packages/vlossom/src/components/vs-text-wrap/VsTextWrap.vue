@@ -9,7 +9,7 @@
             contents-hover
         >
             <div class="text-wrap">
-                <div ref="contentsRef" class="text-wrap-contents" :style="{ width }">
+                <div ref="contentsRef" class="text-wrap-contents" :style="{ width: computedWidth }">
                     <slot />
                 </div>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { defineComponent, ref, toRefs, computed, type PropType, type Ref } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
 import { utils } from '@/utils';
@@ -63,15 +63,19 @@ export default defineComponent({
             default: 'top',
             validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
         },
-        width: { type: String, default: '' },
+        width: { type: [String, Number], default: '' },
     },
     emits: ['copied'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, link } = toRefs(props);
+        const { colorScheme, styleSet, link, width } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTextWrapStyleSet>(name, styleSet);
+
+        const computedWidth = computed(() => {
+            return isNaN(Number(width.value)) ? width.value : `${width.value}px`;
+        });
 
         const contentsRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -93,6 +97,7 @@ export default defineComponent({
         return {
             computedColorScheme,
             computedStyleSet,
+            computedWidth,
             contentsRef,
             copyInnerText,
             openLink,

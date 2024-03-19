@@ -20,6 +20,11 @@ const meta: Meta<typeof VsTextWrap> = {
         colorScheme,
         align,
         placement,
+        width: {
+            control: {
+                type: 'text',
+            },
+        },
     },
 };
 
