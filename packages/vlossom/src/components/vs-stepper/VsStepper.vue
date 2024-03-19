@@ -7,6 +7,7 @@
             <ul role="tablist">
                 <li
                     v-for="(item, index) in steps"
+                    ref="stepRefs"
                     :key="item"
                     :class="[
                         {
@@ -20,6 +21,7 @@
                     :aria-disabled="isDisabled(index)"
                     :tabindex="isSelected(index) ? 0 : -1"
                     @click.stop="selectStep(index)"
+                    @keydown.stop="handleKeydown"
                 >
                     <div class="item-step">
                         <slot :name="`${item}-step`" :item="item" :index="index"> {{ index + 1 }} </slot>
@@ -34,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, type PropType } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, onMounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -74,6 +76,12 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
+
+        const stepRefs: Ref<HTMLElement[]> = ref([]);
+
+        onMounted(() => {
+            stepRefs.value[0]?.focus();
+        });
 
         const selected = ref(modelValue.value);
 
@@ -149,6 +157,7 @@ export default defineComponent({
         });
 
         watch(selected, (index: number) => {
+            stepRefs.value[index]?.focus();
             if (index !== modelValue.value) {
                 emit('update:modelValue', index);
                 emit('change', index);
@@ -163,6 +172,31 @@ export default defineComponent({
             { immediate: true },
         );
 
+        function handleKeydown(event: KeyboardEvent) {
+            const length = steps.value.length;
+            let targetIndex = selected.value;
+
+            switch (event.code) {
+                case 'ArrowLeft':
+                    targetIndex = selected.value - 1;
+                    break;
+                case 'ArrowRight':
+                    targetIndex = selected.value + 1;
+                    break;
+                case 'Home':
+                    targetIndex = 0;
+                    break;
+                case 'End':
+                    targetIndex = length - 1;
+                    break;
+                default:
+                    return;
+            }
+
+            event.preventDefault();
+            selectStep((targetIndex + length) % length);
+        }
+
         return {
             computedColorScheme,
             computedStyleSet,
@@ -173,6 +207,8 @@ export default defineComponent({
             isPrevious,
             isSelected,
             isDisabled,
+            stepRefs,
+            handleKeydown,
         };
     },
 });

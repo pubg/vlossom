@@ -77,6 +77,10 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 white-space: nowrap;
             }
 
+            &:focus {
+                outline: none;
+            }
+
             &.previous,
             &.selected {
                 .item-step {

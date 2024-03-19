@@ -32,6 +32,10 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             &:hover {
                 background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
             }
+			
+            &:focus {
+                outline: none;
+            }
 
             &.primary {
                 border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));

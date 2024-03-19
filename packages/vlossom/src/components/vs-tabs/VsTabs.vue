@@ -4,6 +4,7 @@
             <ul role="tablist">
                 <li
                     v-for="(tab, index) in tabs"
+                    ref="tabRefs"
                     :key="tab"
                     :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
                     role="tab"
@@ -11,6 +12,7 @@
                     :aria-disabled="isDisabled(index)"
                     :tabindex="isSelected(index) ? 0 : -1"
                     @click.stop="selectTab(index)"
+                    @keydown.stop="handleKeydown"
                 >
                     <slot :name="tab" :index="index">
                         {{ tab }}
@@ -22,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, ref, watch } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, onMounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -64,6 +66,12 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
+        const tabRefs: Ref<HTMLElement[]> = ref([]);
+
+        onMounted(() => {
+            tabRefs.value[0]?.focus();
+        });
+
         const classObj = computed(() => ({
             dense: dense.value,
             'mobile-full': mobileFull.value,
@@ -95,6 +103,7 @@ export default defineComponent({
         });
 
         watch(selectedIdx, (index: number) => {
+            tabRefs.value[index]?.focus();
             if (index !== modelValue.value) {
                 emit('update:modelValue', index);
                 emit('change', index);
@@ -109,6 +118,31 @@ export default defineComponent({
             { immediate: true },
         );
 
+        function handleKeydown(event: KeyboardEvent) {
+            const length = tabs.value.length;
+            let targetIndex = selectedIdx.value;
+
+            switch (event.code) {
+                case 'ArrowLeft':
+                    targetIndex = selectedIdx.value - 1;
+                    break;
+                case 'ArrowRight':
+                    targetIndex = selectedIdx.value + 1;
+                    break;
+                case 'Home':
+                    targetIndex = 0;
+                    break;
+                case 'End':
+                    targetIndex = length - 1;
+                    break;
+                default:
+                    return;
+            }
+
+            event.preventDefault();
+            selectTab((targetIndex + length) % length);
+        }
+
         return {
             computedColorScheme,
             computedStyleSet,
@@ -117,6 +151,8 @@ export default defineComponent({
             isDisabled,
             selectedIdx,
             selectTab,
+            tabRefs,
+            handleKeydown,
         };
     },
 });
