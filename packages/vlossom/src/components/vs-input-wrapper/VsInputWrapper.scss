@@ -1,6 +1,22 @@
+@use '@/styles/mixin' as *;
+
 .vs-input-wrapper {
+    .vs-label {
+        color: var(--vs-font-color);
+        font-size: 1rem;
+        line-height: 2rem;
+
+        &.disabled {
+            @include disabled;
+        }
+    }
+
     .required-star {
         color: var(--vs-red-600);
+
+        &.disabled {
+            @include disabled;
+        }
     }
 
     fieldset {

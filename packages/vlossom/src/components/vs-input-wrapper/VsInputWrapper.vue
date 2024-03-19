@@ -8,9 +8,9 @@
                 :class="textGlowByState"
             >
                 <slot name="label">
-                    <span class="vs-label">{{ label }}</span>
+                    <span :class="['vs-label', { disabled }]">{{ label }}</span>
                 </slot>
-                <i class="required-star" v-if="required">*</i>
+                <i :class="['required-star', { disabled }]" v-if="required">*</i>
             </component>
 
             <slot />
@@ -37,6 +37,7 @@ export default defineComponent({
         groupLabel: { type: Boolean, default: false },
         id: { type: String, default: '' },
         label: { type: String, default: '' },
+        disabled: { type: Boolean, default: false },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
         noLabel: { type: Boolean, default: false },
         noMessage: { type: Boolean, default: false },
