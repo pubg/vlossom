@@ -138,7 +138,7 @@ export const StyleSet: Story = {
             borderColor: 'black',
             borderRadius: '0.4rem',
             boxShadow: 'none',
-            color: 'black',
+            fontColor: 'black',
             fontSize: '0.9rem',
             padding: '0.7rem 0.8rem',
             copyIconColor: '#394867',

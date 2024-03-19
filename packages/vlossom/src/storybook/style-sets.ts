@@ -38,18 +38,18 @@ import type {
 const vsAccordion: VsAccordionStyleSet = {
     border: '1px solid #1e88e5',
     borderRadius: '0.7rem',
-    titleColor: '#1e88e5',
+    titleFontColor: '#1e88e5',
     titleBackgroundColor: '#f5f5f5',
     titlePadding: '1rem',
-    contentsColor: '#1e88e5',
-    contentsBackgroundColor: '#f5f5f5',
-    contentsPadding: '0.2rem',
+    contentFontColor: '#1e88e5',
+    contentBackgroundColor: '#f5f5f5',
+    contentPadding: '0.2rem',
 };
 
 const vsAvatar: VsAvatarStyleSet = {
     backgroundColor: '#1e88e5',
     borderRadius: '50%',
-    color: '#fff',
+    fontColor: '#fff',
     fontSize: '1.5rem',
     fontWeight: '600',
     height: '5rem',
@@ -58,19 +58,19 @@ const vsAvatar: VsAvatarStyleSet = {
 
 const vsBlock: VsBlockStyleSet = {
     backgroundColor: '#000',
-    color: '#fff',
+    contentFontColor: '#fff',
 };
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
-    color: 'white',
+    fontColor: 'white',
 };
 
 const vsCheckbox: VsCheckboxStyleSet = {
     backgroundColor: '#0288d1',
     border: '2px solid #0288d1',
     borderRadius: '0.4rem',
-    checkLabelColor: '#0288d1',
+    checkLabelFontColor: '#0288d1',
     fontSize: '1.2rem',
     height: '1.4rem',
     iconColor: '#ffb300',
@@ -81,7 +81,7 @@ const vsCheckboxSet: VsCheckboxSetStyleSet = {
     backgroundColor: '#0288d1',
     border: '2px solid #0288d1',
     borderRadius: '0.4rem',
-    checkLabelColor: '#0288d1',
+    checkLabelFontColor: '#0288d1',
     fontSize: '1.2rem',
     height: '1.4rem',
     iconColor: '#ffb300',
@@ -92,7 +92,7 @@ const vsCheckboxSet: VsCheckboxSetStyleSet = {
 const vsChip: VsChipStyleSet = {
     backgroundColor: '#a5d6ad',
     borderRadius: '1.2rem',
-    color: '#304d30',
+    fontColor: '#304d30',
     height: '3rem',
     minHeight: '2rem',
     padding: '0.8rem 1.5rem',
@@ -114,7 +114,7 @@ const vsFileInput: VsFileInputStyleSet = {
     borderWidth: '1px',
     borderStyle: 'solid',
     backgroundColor: '#D4E7C5',
-    color: '#99BC85',
+    fontColor: '#99BC85',
     clearButtonColor: '#436850',
     fontSize: '0.8rem',
     prependBackgroundColor: '#86A789',
@@ -123,7 +123,7 @@ const vsFileInput: VsFileInputStyleSet = {
 const vsFooter: VsFooterStyleSet = {
     backgroundColor: 'grey',
     bottom: 0,
-    color: '#fff',
+    fontColor: '#fff',
     display: 'flex',
     flex: '1 1 auto',
     height: '32px',
@@ -135,7 +135,7 @@ const vsFooter: VsFooterStyleSet = {
 const vsHeader: VsHeaderStyleSet = {
     backgroundColor: 'grey',
     bottom: 'auto',
-    color: '#fff',
+    fontColor: '#fff',
     display: 'flex',
     flex: '1 1 auto',
     height: '32px',
@@ -154,21 +154,21 @@ const vsImage: VsImageStyleSet = {
 
 const vsInput: VsInputStyleSet = {
     border: 'solid 1px #1e88e5',
-    color: '#1e88e5',
+    fontColor: '#1e88e5',
 };
 
 const vsLabelValue: VsLabelValueStyleSet = {
     backgroundColor: '#f5f5f5',
     fontSize: '0.95rem',
     labelBackgroundColor: '#18122b',
-    labelColor: '#ffffff',
+    labelFontColor: '#ffffff',
     labelFontWeight: '550',
     labelWidth: '10%',
     padding: '2rem',
 };
 
 const vsLoading: VsLoadingStyleSet = {
-    color: '#ff90bc',
+    fontColor: '#ff90bc',
     height: '20rem',
     width: '7rem',
     barWidth: '16%',
@@ -176,7 +176,7 @@ const vsLoading: VsLoadingStyleSet = {
 
 const vsModal: VsModalStyleSet = {
     backgroundColor: '#FFF6E9',
-    color: '#0D9276',
+    contentFontColor: '#0D9276',
     headerFontColor: '#40A2E3',
     padding: '3rem',
 };
@@ -190,7 +190,7 @@ const vsNotice: VsNoticeStyleSet = {
 };
 
 const vsPage: VsPageStyleSet = {
-    color: '#ff90bc',
+    fontColor: '#ff90bc',
     padding: '0.8rem 1.5rem',
 };
 
@@ -199,7 +199,7 @@ const vsPagination: VsPaginationStyleSet = {
     borderRadius: '0.2rem',
     buttonHeight: '1.2rem',
     buttonWidth: '1.6rem',
-    color: '#fff',
+    fontColor: '#fff',
     fontSize: '0.8rem',
     fontWeight: '600',
     gap: '0.5rem',
@@ -222,29 +222,29 @@ const vsProgress: VsProgressStyleSet = {
 };
 
 const vsRadio: VsRadioStyleSet = {
-    labelColor: '#4e9865',
+    labelFontColor: '#4e9865',
     labelFontSize: '1.2rem',
-    radioColor: '#1e88e5',
+    radioFontColor: '#1e88e5',
     radioSize: '1.6rem',
 };
 
 const vsRadioSet: VsRadioSetStyleSet = {
-    labelColor: '#1e88e5',
+    labelFontColor: '#1e88e5',
     labelFontSize: '1.2rem',
-    radioColor: '#18e835',
+    radioFontColor: '#18e835',
     radioSize: '1.8rem',
     radioMargin: '4rem',
 };
 
 const vsSection: VsSectionStyleSet = {
     backgroundColor: '#90caf9',
-    color: 'white',
+    fontColor: 'white',
 };
 
 const vsSelect: VsSelectStyleSet = {
     backgroundColor: '#FFF3CF',
     border: '1px solid #637A9F',
-    color: '#637A9F',
+    fontColor: '#637A9F',
     fontSize: '1rem',
     hoverOptionBackgroundColor: '#C9D7DD',
     hoverOptionColor: '#637A9F',
@@ -256,7 +256,7 @@ const vsStepper: VsStepperStyleSet = {
     activeBackgroundColor: 'white',
     activeColor: '#1e88e5',
     fontSize: '1.2rem',
-    labelColor: '#90caf9',
+    labelFontColor: '#90caf9',
     stepSize: '2rem',
 };
 
@@ -281,7 +281,7 @@ const vsSwitch: VsSwitchStyleSet = {
 const vsTabs: VsTabsStyleSet = {
     backgroundColor: '#008db2',
     borderBottomColor: '#0288d1',
-    color: '#ff8919',
+    fontColor: '#ff8919',
     fontSize: '1rem',
     fontWeight: '500',
     gap: '2px',
@@ -292,7 +292,7 @@ const vsTabs: VsTabsStyleSet = {
 
 const vsTextarea: VsTextareaStyleSet = {
     border: 'solid 1px #1e88e5',
-    color: '#1e88e5',
+    fontColor: '#1e88e5',
 };
 
 const vsTextWrap: VsTextWrapStyleSet = {
@@ -305,23 +305,23 @@ const vsTooltip: VsTooltipStyleSet = {
     arrowSize: '0.5rem',
     backgroundColor: '#ffe3e1',
     borderColor: '#ffd1d1',
-    borderWeight: '3.5px',
+    borderWidth: '3.5px',
     borderRadius: '0',
-    color: '#ff6677',
+    fontColor: '#ff6677',
     fontSize: '1.1rem',
     padding: '0.9rem 0.8rem',
 };
 
 const vsThemeButton: VsThemeButtonStyleSet = {
     backgroundColor: '#BACC81',
-    color: '#013A20',
+    fontColor: '#013A20',
     hoverBackgroundColor: '#478C5C',
     width: '2rem',
 };
 
 const vsValueTag: VsValueTagStyleSet = {
     backgroundColor: '#b6c4b6',
-    color: '#304d30',
+    fontColor: '#304d30',
     fontSize: '1rem',
     fontWeight: '480',
     width: '50%',

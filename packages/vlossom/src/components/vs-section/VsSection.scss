@@ -2,7 +2,7 @@
     background-color: var(--vs-section-backgroundColor, var(--vs-area-backgroundColor));
     border-radius: var(--vs-section-borderRadius, 0.4rem);
     box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow));
-    color: var(--vs-section-color, var(--vs-font-color));
+    color: var(--vs-section-fontColor, var(--vs-font-color));
     padding: var(--vs-section-padding, 2.8rem 3.2rem);
     position: relative;
 

@@ -5,11 +5,11 @@ export interface VsBlockStyleSet {
     borderRadius?: string;
     borderStyle?: string;
     borderWidth?: string;
-    color?: string;
-    fontWeight?: string;
+    contentFontColor?: string;
+    contentFontWeight?: string | number;
     headerBackgroundColor?: string;
-    headerColor?: string;
-    headerFontWeight?: string;
+    headerFontColor?: string;
+    headerFontWeight?: string | number;
     headerPadding?: string;
     padding?: string;
 }

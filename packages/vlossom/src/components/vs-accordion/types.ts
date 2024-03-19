@@ -1,12 +1,12 @@
 export interface VsAccordionStyleSet {
     border?: string;
     borderRadius?: string;
-    titleColor?: string;
+    contentBackgroundColor?: string;
+    contentFontColor?: string;
+    contentPadding?: string;
     titleBackgroundColor?: string;
-    titlePadding?: string;
+    titleFontColor?: string;
     titleFontSize?: string;
-    titleFontWeight?: string;
-    contentsColor?: string;
-    contentsBackgroundColor?: string;
-    contentsPadding?: string;
+    titleFontWeight?: string | number;
+    titlePadding?: string;
 }

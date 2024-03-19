@@ -1,6 +1,6 @@
 export interface VsLoadingStyleSet {
     barWidth?: string;
-    color?: string;
+    fontColor?: string;
     height?: string;
     width?: string;
 }

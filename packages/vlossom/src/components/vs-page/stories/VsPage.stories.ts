@@ -33,7 +33,7 @@ export const Default: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { padding: '1.2rem 3rem', color: '#3559e0', headerMargin: '0 0 4rem 0' },
+        styleSet: { padding: '1.2rem 3rem', fontColor: '#3559e0', headerMargin: '0 0 4rem 0' },
     },
 };
 

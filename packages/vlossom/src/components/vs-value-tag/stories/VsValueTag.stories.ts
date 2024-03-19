@@ -74,7 +74,7 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#99b1ff',
             borderRadius: '0.3rem',
-            color: '#392467',
+            fontColor: '#392467',
             fontSize: '1.5rem',
             fontWeight: '550',
             padding: '0.18rem',

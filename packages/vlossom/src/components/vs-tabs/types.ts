@@ -1,9 +1,9 @@
 export interface VsTabsStyleSet {
     backgroundColor?: string;
     borderBottomColor?: string;
-    color?: string;
+    fontColor?: string;
     fontSize?: string;
-    fontWeight?: string;
+    fontWeight?: string | number;
     gap?: string;
     height?: string;
     padding?: string;

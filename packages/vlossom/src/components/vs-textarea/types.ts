@@ -4,7 +4,7 @@ export interface VsTextareaStyleSet {
     backgroundColor?: string;
     border?: string;
     borderRadius?: string;
-    color?: string;
+    fontColor?: string;
     fontSize?: string;
     height?: string;
 }

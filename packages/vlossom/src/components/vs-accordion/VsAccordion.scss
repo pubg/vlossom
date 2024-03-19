@@ -1,4 +1,4 @@
-$titleColor: var(--vs-accordion-titleColor, var(--vs-comp-color));
+$titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-color));
 
 .vs-accordion {
     position: relative;
@@ -39,9 +39,9 @@ $titleColor: var(--vs-accordion-titleColor, var(--vs-comp-color));
 
         .accordion-content {
             box-sizing: border-box;
-            color: var(--vs-accordion-contentsColor, var(--vs-font-color));
-            background-color: var(--vs-accordion-contentsBackgroundColor, var(--vs-plain-backgroundColor));
-            padding: var(--vs-accordion-contentsPadding, 0.8rem 1.6rem);
+            color: var(--vs-accordion-contentFontColor, var(--vs-font-color));
+            background-color: var(--vs-accordion-contentBackgroundColor, var(--vs-plain-backgroundColor));
+            padding: var(--vs-accordion-contentPadding, 0.8rem 1.6rem);
         }
     }
 

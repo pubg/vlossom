@@ -80,7 +80,7 @@ export const StyleSet: Story = {
             borderRadius: '0.4rem',
             buttonHeight: '2rem',
             buttonWidth: '3rem',
-            color: '#fff',
+            fontColor: '#fff',
             fontSize: '1.2rem',
             gap: '0.4rem',
             selectedBackgroundColor: '#a5d6a7',

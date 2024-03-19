@@ -91,7 +91,7 @@ export const StyleSet: Story = {
         height: undefined,
         styleSet: {
             backgroundColor: '#000',
-            color: '#fff',
+            fontColor: '#fff',
             height: '60px',
             left: 0,
             padding: '10px',

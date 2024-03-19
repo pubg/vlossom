@@ -4,9 +4,9 @@ export interface VsBarNodeStyleSet {
     backgroundColor?: string;
     bottom?: string | number;
     boxShadow?: string;
-    color?: string;
     display?: string;
     flex?: string;
+    fontColor?: string;
     height?: string;
     left?: string | number;
     padding?: string;
@@ -15,5 +15,5 @@ export interface VsBarNodeStyleSet {
     right?: string | number;
     top?: string | number;
     width?: string;
-    zIndex?: number;
+    zIndex?: string | number;
 }

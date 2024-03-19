@@ -71,7 +71,7 @@ export const StyleSet: Story = {
             height: '5rem',
             width: '5rem',
             backgroundColor: '#e188e5',
-            color: '#fff',
+            fontColor: '#fff',
         },
     },
 };

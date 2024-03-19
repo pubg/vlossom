@@ -61,12 +61,12 @@ export const StyleSet: Story = {
         styleSet: {
             border: '1px solid #1e88e5',
             borderRadius: '0.7rem',
-            titleColor: '#1e4335',
+            contentBackgroundColor: '#f5f5f5',
+            contentFontColor: '#1e88e5',
+            contentPadding: '2rem',
             titleBackgroundColor: '#456585',
+            titleFontColor: '#1e4335',
             titlePadding: '1rem',
-            contentsColor: '#1e88e5',
-            contentsBackgroundColor: '#f5f5f5',
-            contentsPadding: '2rem',
         },
     },
 };

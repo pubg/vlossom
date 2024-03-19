@@ -12,7 +12,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
         .tab {
             align-items: center;
             background: transparent;
-            color: var(--vs-tabs-color, var(--vs-comp-color));
+            color: var(--vs-tabs-fontColor, var(--vs-comp-color));
             cursor: pointer;
             display: inline-flex;
             font-size: var(--vs-tabs-fontSize, 1rem);

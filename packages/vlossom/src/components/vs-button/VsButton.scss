@@ -12,7 +12,7 @@
     font-size: var(--vs-button-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
     background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
-    color: var(--vs-button-color, var(--vs-comp-color));
+    color: var(--vs-button-fontColor, var(--vs-comp-color));
     overflow: hidden;
 
     .content {
@@ -50,7 +50,7 @@
 .vs-button {
     &.primary {
         background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-button-color, var(--vs-comp-color-primary));
+        color: var(--vs-button-fontColor, var(--vs-comp-color-primary));
     }
 }
 
@@ -76,7 +76,7 @@
     &.outline {
         background: none;
         border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-border-color));
-        color: var(--vs-button-color, var(--vs-comp-border-color));
+        color: var(--vs-button-fontColor, var(--vs-comp-border-color));
         font-weight: var(--vs-button-fontWeight, 500);
 
         &:after {

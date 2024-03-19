@@ -11,7 +11,7 @@
 
     .label {
         padding: 0 1.2rem 0 0.8rem;
-        color: var(--vs-value-tag-color, var(--vs-comp-color));
+        color: var(--vs-value-tag-fontColor, var(--vs-comp-color));
         width: var(--vs-value-tag-labelWidth, '100%');
     }
 
@@ -29,7 +29,7 @@
         background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor-primary));
 
         .label {
-            color: var(--vs-value-tag-color, var(--vs-comp-color-primary));
+            color: var(--vs-value-tag-fontColor, var(--vs-comp-color-primary));
         }
     }
 }

@@ -124,7 +124,7 @@ export const StyleSet: Story = {
             backgroundColor: '#f8e8ee',
             fontSize: '1.3rem',
             labelBackgroundColor: '#fdcedf',
-            labelColor: '#a7727d',
+            labelFontColor: '#a7727d',
             labelFontWeight: '550',
             labelWidth: '15rem',
             padding: '2rem 2rem',

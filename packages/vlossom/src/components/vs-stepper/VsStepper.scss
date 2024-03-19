@@ -67,7 +67,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
             }
 
             .item-name {
-                color: var(--vs-stepper-labelColor, var(--vs-font-color));
+                color: var(--vs-stepper-labelFontColor, var(--vs-font-color));
                 font-size: $fontSize;
                 font-weight: 500;
                 left: 50%;
@@ -85,7 +85,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 }
 
                 .item-name {
-                    color: var(--vs-stepper-labelColor, $activeColor);
+                    color: var(--vs-stepper-labelFontColor, $activeColor);
                 }
             }
 

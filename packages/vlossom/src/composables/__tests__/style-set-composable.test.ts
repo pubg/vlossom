@@ -9,7 +9,7 @@ import type { StyleSet } from '@/declaration';
 
 const vsButton: VsButtonStyleSet = {
     backgroundColor: '#1e88e5',
-    color: 'white',
+    fontColor: 'white',
 };
 
 const styleSet: StyleSet = {
@@ -36,7 +36,7 @@ describe('useStyleSet composable', () => {
 
         expect(computedStyleSet.value).toEqual({
             '--vs-button-backgroundColor': '#1e88e5',
-            '--vs-button-color': 'white',
+            '--vs-button-fontColor': 'white',
         });
     });
 });
