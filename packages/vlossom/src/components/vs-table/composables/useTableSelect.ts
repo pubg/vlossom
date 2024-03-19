@@ -28,8 +28,8 @@ export function useTableSelect(
         get(): boolean {
             return selectableItems.value.length > 0 && selectedIds.value.length === selectableItems.value.length;
         },
-        set(isSelectedAll: boolean) {
-            if (isSelectedAll) {
+        set(selectAll: boolean) {
+            if (selectAll) {
                 selectedIds.value = selectableItems.value.map((item) => item.id);
             } else {
                 selectedIds.value = [];
@@ -51,10 +51,10 @@ export function useTableSelect(
 
     watch(
         selectedItems,
-        (selectedItems: any[]) => {
+        (newItems: any[]) => {
             const newSelectedIds = innerTableItems.value
                 .filter((tableItem) => {
-                    return selectedItems.some((item) => utils.object.isEqual(tableItem.data, item));
+                    return newItems.some((item) => utils.object.isEqual(tableItem.data, item));
                 })
                 .map((tableItem) => tableItem.id);
             selectedIds.value = newSelectedIds;
@@ -62,15 +62,15 @@ export function useTableSelect(
         { immediate: true },
     );
 
-    watch(computedSelectedAll, (isSelectedAll: boolean) => {
-        ctx.emit('update:isSelectedAll', isSelectedAll);
+    watch(computedSelectedAll, (v: boolean) => {
+        ctx.emit('update:isSelectedAll', v);
     });
 
-    watch(isSelectedAll, (isSelectedAll: boolean) => {
-        if (computedSelectedAll.value === isSelectedAll) {
+    watch(isSelectedAll, (v: boolean) => {
+        if (computedSelectedAll.value === v) {
             return;
         }
-        computedSelectedAll.value = isSelectedAll;
+        computedSelectedAll.value = v;
     });
 
     function isSelected(id: string): boolean {
