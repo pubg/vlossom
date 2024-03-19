@@ -34,11 +34,9 @@ export default defineComponent({
         id: { type: String, required: true },
         colorScheme: {
             type: String as PropType<'default' | ColorScheme>,
-            required: true,
         },
         styleSet: {
             type: Object as PropType<{ [key: string]: any }>,
-            required: true,
         },
         type: {
             type: String as PropType<CheckNodeType>,
