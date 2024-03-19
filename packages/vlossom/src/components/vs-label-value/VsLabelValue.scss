@@ -17,7 +17,7 @@
         padding: var(--vs-label-value-labelPadding, 1.2rem 1.4rem);
         font-weight: var(--vs-label-value-labelFontWeight, 500);
         background-color: var(--vs-label-value-labelBackgroundColor, var(--vs-comp-backgroundColor));
-        color: var(--vs-label-value-labelColor, var(--vs-comp-color));
+        color: var(--vs-label-value-labelFontColor, var(--vs-comp-color));
         word-break: break-word;
     }
 
@@ -36,7 +36,7 @@
 .vs-label-value {
     &.primary {
         .label {
-            color: var(--vs-label-value-color, var(--vs-comp-color-primary));
+            color: var(--vs-label-value-labelFontColor, var(--vs-comp-color-primary));
             background-color: var(--vs-label-value-backgroundColor, var(--vs-comp-backgroundColor-primary));
         }
     }

@@ -4,7 +4,7 @@ export interface VsSelectStyleSet {
     borderRadius?: string;
     chipBackgroundColor?: string;
     chipFontColor?: string;
-    color?: string;
+    fontColor?: string;
     collapseChipBackgroundColor?: string;
     collapseChipFontColor?: string;
     fontSize?: string;

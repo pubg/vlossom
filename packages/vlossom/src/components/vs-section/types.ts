@@ -2,7 +2,7 @@ export interface VsSectionStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     boxShadow?: string;
-    color?: string;
+    fontColor?: string;
     padding?: string;
     titleMargin?: string;
 }

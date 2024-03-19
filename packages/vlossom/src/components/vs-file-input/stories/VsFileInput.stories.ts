@@ -179,7 +179,7 @@ export const StyleSet: Story = {
             borderWidth: '1px',
             borderStyle: 'solid',
             backgroundColor: '#ffe0b2',
-            color: '#d84315',
+            fontColor: '#d84315',
             clearButtonColor: '#FC6736',
             dragBackgroundColor: '#ffcc80',
             fontSize: '1.3rem',

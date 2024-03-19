@@ -98,9 +98,9 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             borderRadius: '0.8rem',
-            fontWeight: '500',
+            contentFontWeight: '500',
             padding: '3rem 2rem',
-            headerColor: '#ffb300',
+            headerFontColor: '#ffb300',
             headerBackgroundColor: 'rgba(255, 246, 230, 1)',
             headerFontWeight: '600',
         },

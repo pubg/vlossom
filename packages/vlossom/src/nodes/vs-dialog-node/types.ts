@@ -1,11 +1,11 @@
 export interface VsDialogNodeStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
-    color?: string;
-    fontSize?: string;
+    contentFontColor?: string;
+    contentFontSize?: string;
     headerFontColor?: string;
     headerFontSize?: string;
-    headerFontWeight?: string;
+    headerFontWeight?: string | number;
     height?: string;
     width?: string;
     padding?: string;

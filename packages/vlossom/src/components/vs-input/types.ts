@@ -17,7 +17,7 @@ export interface VsInputStyleSet {
     border?: string;
     borderRadius?: string;
     clearButtonColor?: string;
-    color?: string;
+    fontColor?: string;
     fontSize?: string;
     height?: string;
     prependBackgroundColor?: string;

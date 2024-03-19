@@ -209,7 +209,7 @@ export const StyleSet: Story = {
             borderColor: 'transparent',
             borderRadius: '0.4rem',
             boxShadow: 'none',
-            color: 'white',
+            fontColor: 'white',
             fontSize: '0.9rem',
             padding: '0.4rem 0.5rem',
         },

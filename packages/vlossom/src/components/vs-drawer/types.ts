@@ -1,5 +1,5 @@
 import { VsDialogNodeStyleSet } from '@/nodes';
 
 export interface VsDrawerStyleSet extends VsDialogNodeStyleSet {
-    zIndex?: string;
+    zIndex?: string | number;
 }

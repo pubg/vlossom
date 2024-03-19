@@ -1,9 +1,9 @@
 export interface VsAvatarStyleSet {
-    width?: string;
-    height?: string;
-    borderRadius?: string;
     backgroundColor?: string;
-    color?: string;
+    borderRadius?: string;
+    fontColor?: string;
     fontSize?: string;
-    fontWeight?: string;
+    fontWeight?: string | number;
+    height?: string;
+    width?: string;
 }

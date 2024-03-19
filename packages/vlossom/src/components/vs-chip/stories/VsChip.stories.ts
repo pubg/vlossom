@@ -176,7 +176,7 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#1e88e5',
             borderRadius: '0.2rem',
-            color: 'white',
+            fontColor: 'white',
             fontSize: '1.2rem',
             fontWeight: '500',
             height: '2rem',

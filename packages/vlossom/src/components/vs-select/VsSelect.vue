@@ -309,13 +309,13 @@ export default defineComponent({
         const chipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
-                color: computedStyleSet.value['--vs-select-chipFontColor'] as string,
+                fontColor: computedStyleSet.value['--vs-select-chipFontColor'] as string,
             }),
         );
         const collapseChipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
-                color: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
+                fontColor: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
             }),
         );
 

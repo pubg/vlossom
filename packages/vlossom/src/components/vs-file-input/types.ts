@@ -7,8 +7,8 @@ export interface VsFileInputStyleSet {
     borderStyle?: string;
     borderRadius?: string;
     clearButtonColor?: string;
-    color?: string;
     dragBackgroundColor?: string;
+    fontColor?: string;
     fontSize?: string;
     height?: string;
     prependBackgroundColor?: string;

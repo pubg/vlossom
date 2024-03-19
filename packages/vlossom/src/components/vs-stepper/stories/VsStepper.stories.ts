@@ -223,7 +223,7 @@ export const StyleSet: Story = {
             activeBackgroundColor: '#FFF512',
             activeColor: '#090907',
             fontSize: '16px',
-            labelColor: '#000',
+            labelFontColor: '#000',
             stepSize: '40px',
         },
     },

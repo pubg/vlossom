@@ -147,7 +147,13 @@ export const TabSlot: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#90caf9', fontSize: '20px', height: '40px', color: '#1e88e5', tabWidth: '200px' },
+        styleSet: {
+            backgroundColor: '#90caf9',
+            fontSize: '20px',
+            height: '40px',
+            fontColor: '#1e88e5',
+            tabWidth: '200px',
+        },
     },
 };
 

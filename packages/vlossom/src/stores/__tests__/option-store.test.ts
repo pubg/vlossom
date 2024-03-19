@@ -78,7 +78,7 @@ describe('option store', () => {
                 const styleSet = {
                     VsButton: {
                         primary: {
-                            color: 'red',
+                            fontColor: 'red',
                         },
                     },
                 };
@@ -96,14 +96,14 @@ describe('option store', () => {
                 const styleSet = {
                     VsButton: {
                         primary: {
-                            color: 'red',
+                            fontColor: 'red',
                         },
                     },
                 };
                 const styleSet2 = {
                     VsButton: {
                         secondary: {
-                            color: 'blue',
+                            fontColor: 'blue',
                         },
                     },
                 };
@@ -116,10 +116,10 @@ describe('option store', () => {
                 expect(store.getState().styleSets).toEqual({
                     VsButton: {
                         primary: {
-                            color: 'red',
+                            fontColor: 'red',
                         },
                         secondary: {
-                            color: 'blue',
+                            fontColor: 'blue',
                         },
                     },
                 });
@@ -133,7 +133,7 @@ describe('option store', () => {
                 const styleSet = {
                     VsButton: {
                         primary: {
-                            color: 'red',
+                            fontColor: 'red',
                         },
                     },
                 };
@@ -143,7 +143,7 @@ describe('option store', () => {
                 const result = store.getStyleSet(VsComponent.VsButton, 'primary');
 
                 // then
-                expect(result).toEqual({ color: 'red' });
+                expect(result).toEqual({ fontColor: 'red' });
             });
 
             it('StyleSet이 정의되어 있지 않다면 undefined를 반환한다', () => {
@@ -152,7 +152,7 @@ describe('option store', () => {
                 const styleSet = {
                     VsButton: {
                         primary: {
-                            color: 'red',
+                            fontColor: 'red',
                         },
                     },
                 };

@@ -1,11 +1,11 @@
 export interface VsValueTagStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
-    color?: string;
+    fontColor?: string;
     fontSize?: string;
-    fontWeight?: string;
+    fontWeight?: string | number;
     labelWidth?: string;
-    lineHeight?: string;
+    lineHeight?: string | number;
     padding?: string;
     width?: string;
 }

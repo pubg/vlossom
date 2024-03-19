@@ -92,7 +92,7 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#000',
             bottom: 0,
-            color: '#fff',
+            fontColor: '#fff',
             height: '60px',
             left: 0,
             padding: '10px',

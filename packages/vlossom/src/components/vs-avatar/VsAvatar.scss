@@ -7,7 +7,7 @@
     width: var(--vs-avatar-width, 3rem);
     height: var(--vs-avatar-height, 3rem);
     background-color: var(--vs-avatar-backgroundColor, var(--vs-comp-backgroundColor));
-    color: var(--vs-avatar-color, var(--vs-comp-color));
+    color: var(--vs-avatar-fontColor, var(--vs-comp-color));
     font-size: var(--vs-avatar-fontSize, 0.8rem);
     font-weight: var(--vs-avatar-fontWeight, 400);
     overflow: hidden;

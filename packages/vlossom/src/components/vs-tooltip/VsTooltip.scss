@@ -14,8 +14,8 @@
         font-size: var(--vs-tooltip-fontSize, 1rem);
         border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
         background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-backgroundColor));
-        box-shadow: inset 0px 0px 0px var(--vs-tooltip-borderWeight, 0.15rem) var(--vs-tooltip-borderColor, var(--vs-comp-color));
-        color: var(--vs-tooltip-color, var(--vs-comp-color));
+        box-shadow: inset 0px 0px 0px var(--vs-tooltip-borderWidth, 0.15rem) var(--vs-tooltip-borderColor, var(--vs-comp-color));
+        color: var(--vs-tooltip-fontColor, var(--vs-comp-color));
         white-space: nowrap;
 
         &::after {

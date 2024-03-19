@@ -249,7 +249,7 @@ export const StyleSet: Story = {
         collapseChips: true,
         styleSet: {
             backgroundColor: '#ADBC9F',
-            color: '#12372A',
+            fontColor: '#12372A',
             border: '1px solid #12372A',
             chipBackgroundColor: '#9B4444',
             chipFontColor: '#EEEEEE',
