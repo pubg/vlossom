@@ -9,6 +9,7 @@ import {
 } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsSwitch from '../VsSwitch.vue';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -37,6 +38,7 @@ export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: (args: any) => ({
+        components: { VsSwitch },
         setup() {
             return { args };
         },
@@ -125,6 +127,7 @@ export const Required: Story = {
 
 export const Width: Story = {
     render: (args: any) => ({
+        components: { VsSwitch, VsContainer },
         setup() {
             return { args };
         },
@@ -142,6 +145,7 @@ export const Width: Story = {
 
 export const Grid: Story = {
     render: (args: any) => ({
+        components: { VsSwitch, VsContainer },
         setup() {
             return { args };
         },

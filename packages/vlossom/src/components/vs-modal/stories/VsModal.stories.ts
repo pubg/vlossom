@@ -1,14 +1,17 @@
 import { size, colorScheme } from '@/storybook';
-import { ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import VsModal from './../VsModal.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
+import VsInput from '@/components/vs-input/VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const ModalCloseButton = {
+const ModalCloseButton = defineComponent({
+    components: { VsButton },
     template: `
         <vs-button>Close</vs-button>
     `,
-};
+});
 
 const containerStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.02)',
@@ -26,7 +29,7 @@ const meta: Meta<typeof VsModal> = {
     title: 'Components/Layout Components/VsModal',
     component: VsModal,
     render: (args: any) => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -61,7 +64,7 @@ export const Default: Story = {};
 
 export const Size: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
             const sizes = size.options;
@@ -93,7 +96,7 @@ export const Size: Story = {
 
 export const Header: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -122,7 +125,7 @@ export const Header: Story = {
 
 export const Footer: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -148,7 +151,7 @@ export const Footer: Story = {
 
 export const Nested: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
             const isOpenNested = ref(false);
@@ -182,7 +185,7 @@ export const Nested: Story = {
 
 export const Form: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton, VsInput },
         setup() {
             const isOpen = ref(false);
             const form = ref({ name: '', email: '' });
@@ -208,7 +211,7 @@ export const Form: Story = {
 
 export const HasContainer: Story = {
     render: (args: any) => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -234,7 +237,7 @@ export const HasContainer: Story = {
 
 export const HideScroll: Story = {
     render: (args: any) => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -262,7 +265,7 @@ export const HideScroll: Story = {
 
 export const InitialFocusRef: Story = {
     render: () => ({
-        components: { VsModal, ModalCloseButton },
+        components: { VsModal, ModalCloseButton, VsButton, VsInput },
         setup() {
             const isOpen = ref(false);
             const inputRef = ref(null);

@@ -4,11 +4,13 @@ import VsIndexItem from '../VsIndexItem.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
 import { LOREM_IPSUM } from '@/storybook';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const CompA = defineComponent({
+    components: { VsButton },
     template: `
 		<p>Component: A</p>
     	<span>count: {{ count }}</span>
@@ -24,7 +26,7 @@ const meta: Meta<typeof VsIndexView> = {
     title: 'Components/Layout Components/VsIndexView & VsIndexItem',
     component: VsIndexView,
     render: (args: any) => ({
-        components: { VsIndexView, VsIndexItem, VsButton, CompA },
+        components: { VsIndexView, VsIndexItem, VsButton, VsDivider, CompA },
         setup() {
             const selectedIndex = ref(0);
             function updateModel(value: number) {

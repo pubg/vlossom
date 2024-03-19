@@ -4,6 +4,7 @@ import { useVlossom } from '@/vlossom-framework';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
 import VsForm from '@/components/vs-form/VsForm.vue';
+import VsInput from '@/components/vs-input/VsInput.vue';
 import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { ConfirmOptions } from '@/plugins';
@@ -89,6 +90,7 @@ export const ColorScheme: OpenStory = {
 
 export const HtmlText: OpenStory = {
     render: (args: any) => ({
+        components: { VsButton },
         setup() {
             return { args };
         },
@@ -109,7 +111,7 @@ export const HtmlText: OpenStory = {
 
 export const NestedWithModal: OpenStory = {
     render: (args: any) => ({
-        components: { VsButton, VsModal, VsForm },
+        components: { VsButton, VsModal, VsForm, VsInput },
         setup() {
             const $vs = useVlossom();
 

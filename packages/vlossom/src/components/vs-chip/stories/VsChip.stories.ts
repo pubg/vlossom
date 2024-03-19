@@ -3,6 +3,7 @@ import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/stor
 import { VsIcon } from '@/icons';
 import { userEvent, within } from '@storybook/testing-library';
 import VsChip from './../VsChip.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { COLORS } from '@/declaration';
@@ -48,7 +49,7 @@ export const ColorScheme: Story = {
 
 export const Closable: Story = {
     render: () => ({
-        components: { VsChip },
+        components: { VsChip, VsButton },
         setup() {
             const opened: Ref<string[]> = ref([...COLORS]);
             function close(color: string) {

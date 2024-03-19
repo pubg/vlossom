@@ -3,6 +3,8 @@ import { userEvent, within } from '@storybook/testing-library';
 import { ref } from 'vue';
 import { VsIcon } from '@/icons';
 import VsDrawer from './../VsDrawer.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
+import VsInput from '@/components/vs-input/VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -35,7 +37,7 @@ const meta: Meta<typeof VsDrawer> = {
     title: 'Components/Layout Components/VsDrawer',
     component: VsDrawer,
     render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -71,7 +73,7 @@ export const Default: Story = {};
 
 export const Placement: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
             const placements = placement.options;
@@ -103,7 +105,7 @@ export const Placement: Story = {
 
 export const Size: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
             const sizes = [...size.options, '500px'];
@@ -135,7 +137,7 @@ export const Size: Story = {
 
 export const Header: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -163,7 +165,7 @@ export const Header: Story = {
 
 export const Footer: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -189,7 +191,7 @@ export const Footer: Story = {
 
 export const HasContainer: Story = {
     render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -216,7 +218,7 @@ export const HasContainer: Story = {
 
 export const HideScroll: Story = {
     render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
 
@@ -241,7 +243,7 @@ export const HideScroll: Story = {
 
 export const InitialFocusRef: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton },
+        components: { VsDrawer, DrawerCloseButton, VsInput, VsButton },
         setup() {
             const isOpen = ref(false);
             const inputRef = ref(null);

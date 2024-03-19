@@ -75,12 +75,14 @@ import {
     useStateClass,
 } from '@/composables';
 import { ColorScheme, VsComponent } from '@/declaration';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
 import type { VsSwitchStyleSet } from './types';
 
 const name = VsComponent.VsSwitch;
 export default defineComponent({
     name,
+    components: { VsWrapper },
     props: {
         ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
         ...getResponsiveProps(),

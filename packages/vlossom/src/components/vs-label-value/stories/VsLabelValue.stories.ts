@@ -1,5 +1,6 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate, align, LOREM_IPSUM } from '@/storybook';
 import VsLabelValue from '../VsLabelValue.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -65,7 +66,7 @@ export const Primary: Story = {
 
 export const HasActions: Story = {
     render: (args: any) => ({
-        components: { VsLabelValue },
+        components: { VsLabelValue, VsButton },
         setup() {
             return { args };
         },
@@ -81,7 +82,7 @@ export const HasActions: Story = {
 
 export const VerticalAlignTop: Story = {
     render: (args: any) => ({
-        components: { VsLabelValue },
+        components: { VsLabelValue, VsButton },
         setup() {
             return { args };
         },
@@ -100,7 +101,7 @@ export const VerticalAlignTop: Story = {
 
 export const VerticalAlignBottom: Story = {
     render: (args: any) => ({
-        components: { VsLabelValue },
+        components: { VsLabelValue, VsButton },
         setup() {
             return { args };
         },

@@ -1,6 +1,8 @@
 import { chromaticParameters, colorScheme, align, placement, getColorSchemeTemplate } from '@/storybook';
 import { PLACEMENTS, ALIGNS } from '@/declaration';
 import VsTooltip from './../VsTooltip.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -8,7 +10,7 @@ const meta: Meta<typeof VsTooltip> = {
     title: 'Components/Base Components/VsTooltip',
     component: VsTooltip,
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -34,7 +36,7 @@ export const Default: Story = {};
 
 export const ColorScheme: Story = {
     render: () => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         template: `
             <div style="display: flex; flex-wrap: wrap;">
                 ${getColorSchemeTemplate(`
@@ -53,7 +55,7 @@ export const ColorScheme: Story = {
 
 export const PlacementAndAlign: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsDivider, VsButton },
         setup() {
             return { args, PLACEMENTS, ALIGNS };
         },
@@ -74,7 +76,7 @@ export const PlacementAndAlign: Story = {
 
 export const Clickable: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -95,7 +97,7 @@ export const Clickable: Story = {
 
 export const ContentsHover: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -116,7 +118,7 @@ export const ContentsHover: Story = {
 
 export const EnterDelayAndLeaveDelay: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -138,7 +140,7 @@ export const EnterDelayAndLeaveDelay: Story = {
 
 export const DisableAnimation: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -159,7 +161,7 @@ export const DisableAnimation: Story = {
 
 export const Disabled: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
@@ -180,7 +182,7 @@ export const Disabled: Story = {
 
 export const Margin: Story = {
     render: (args: any) => ({
-        components: { VsTooltip },
+        components: { VsTooltip, VsButton },
         setup() {
             return { args };
         },
