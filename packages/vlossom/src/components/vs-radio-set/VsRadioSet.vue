@@ -2,6 +2,7 @@
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
+            :disabled="disabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"

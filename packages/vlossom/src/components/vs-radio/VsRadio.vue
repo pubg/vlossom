@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="radioLabel ? '' : id"
             :label="label"
+            :disabled="disabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
