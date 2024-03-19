@@ -8,14 +8,8 @@ import { iconSvgs } from './icons';
 
 export default defineComponent({
     props: {
-        icon: {
-            type: String as PropType<keyof typeof iconSvgs>,
-            required: true,
-        },
-        size: {
-            type: [Number, String],
-            default: 0,
-        },
+        icon: { type: String as PropType<keyof typeof iconSvgs>, required: true },
+        size: { type: [Number, String], default: 0 },
     },
     setup(props) {
         const { size } = toRefs(props);

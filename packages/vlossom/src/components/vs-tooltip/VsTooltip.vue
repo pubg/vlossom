@@ -41,11 +41,6 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTooltipStyleSet> },
-        placement: {
-            type: String as PropType<Placement>,
-            default: 'top',
-            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
-        },
         align: {
             type: String as PropType<Align>,
             default: 'center',
@@ -53,11 +48,16 @@ export default defineComponent({
         },
         clickable: { type: Boolean, default: false },
         contentsHover: { type: Boolean, default: false },
-        disabled: { type: Boolean, default: false },
         disableAnimation: { type: Boolean, default: false },
+        disabled: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
         margin: { type: Number, default: 2 },
+        placement: {
+            type: String as PropType<Placement>,
+            default: 'top',
+            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
+        },
     },
     setup(props) {
         const {

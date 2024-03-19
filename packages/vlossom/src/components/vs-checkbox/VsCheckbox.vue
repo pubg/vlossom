@@ -76,10 +76,10 @@ export default defineComponent({
             default: null,
         },
         checkLabel: { type: String, default: '' },
+        indeterminate: { type: Boolean, default: false },
+        multiple: { type: Boolean, default: false },
         trueValue: { type: null, default: true },
         falseValue: { type: null, default: false },
-        multiple: { type: Boolean, default: false },
-        indeterminate: { type: Boolean, default: false },
         // v-model
         modelValue: { type: null, default: false },
     },

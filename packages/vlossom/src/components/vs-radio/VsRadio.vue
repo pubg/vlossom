@@ -69,8 +69,8 @@ export default defineComponent({
             default: null,
         },
         name: { type: String, required: true },
-        radioValue: { type: null, required: true },
         radioLabel: { type: String, default: '' },
+        radioValue: { type: null, required: true },
         // v-model
         modelValue: { type: null, default: null },
     },
