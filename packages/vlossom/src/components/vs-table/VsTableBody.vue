@@ -12,7 +12,9 @@
                 :headers="headers"
                 :draggable="draggable"
                 :expandable="hasExpand"
+                :selectable="selectable"
                 :expanded="isExpanded(element.id)"
+                :selected="isSelected(element.id)"
                 :rows="rows"
                 :loading="loading"
                 :row-index="index"
@@ -20,6 +22,15 @@
                 @click="emitRowClick(element, index)"
                 @toggleExpand="toggleExpand"
             >
+                <template #check>
+                    <vs-check-node
+                        :id="element.id"
+                        type="checkbox"
+                        :color-scheme="colorScheme"
+                        :checked="isSelected(element.id)"
+                        @toggle="(e) => toggleSelect(e, element.id)"
+                    />
+                </template>
                 <template v-for="(_, name) in $slots" #[name]="slotData">
                     <slot :name="name" v-bind="slotData || {}" />
                 </template>
@@ -56,9 +67,12 @@ import { useTableSearch } from './composables/useTableSearch';
 import { useTableFilter } from './composables/useTableFilter';
 import { useTableSort } from './composables/useTableSort';
 import { useTableExpand } from './composables/useTableExpand';
+import { useTableSelect } from './composables/useTableSelect';
 import { VsIcon } from '@/icons';
-import { stringUtil } from '@/utils/string';
+import { VsCheckNode } from '@/nodes';
+import { utils } from '@/utils';
 
+import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
 
 export default defineComponent({
@@ -67,8 +81,10 @@ export default defineComponent({
         draggable,
         VsTableBodyRow,
         VsIcon,
+        VsCheckNode,
     },
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         draggable: { type: Boolean, default: false },
         filter: {
             type: Object as PropType<TableFilter>,
@@ -82,6 +98,11 @@ export default defineComponent({
         loading: { type: Boolean, default: false },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
+        selectable: { type: Boolean, default: false },
+        selectedItems: {
+            type: Array as PropType<any[]>,
+            default: () => [] as any[],
+        },
         sortTypes: {
             type: Object as PropType<{ [key: string]: SortType }>,
             default: () => ({}),
@@ -90,17 +111,31 @@ export default defineComponent({
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
+        // v-model
+        isSelectedAll: { type: Boolean, default: false },
     },
-    emits: ['sort', 'rowClick', 'toggleExpand', 'update:tableItems'],
+    emits: ['sort', 'rowClick', 'toggleExpand', 'change:selectedItems', 'update:tableItems', 'update:isSelectedAll'],
     expose: ['expand'],
-    setup(props, { emit }) {
-        const { headers, items, search, searchableKeys, filter, sortTypes, hasExpand } = toRefs(props);
+    setup(props, ctx) {
+        const {
+            headers,
+            items,
+            search,
+            searchableKeys,
+            filter,
+            sortTypes,
+            hasExpand,
+            isSelectedAll,
+            rows,
+            selectable,
+            selectedItems,
+        } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
             const itemArr = innerItems.value || [];
             return itemArr.map((item: any) => {
-                return { id: stringUtil.createID(), data: item };
+                return { id: utils.string.createID(), data: item };
             });
         });
 
@@ -121,7 +156,7 @@ export default defineComponent({
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                emit('update:tableItems', innerItems.value);
+                ctx.emit('update:tableItems', innerItems.value);
             },
         });
 
@@ -131,6 +166,16 @@ export default defineComponent({
                 innerItems.value = newItems || [];
             },
             { immediate: true },
+        );
+
+        const { isSelected, toggleSelect } = useTableSelect(
+            selectable,
+            selectedItems,
+            isSelectedAll,
+            innerTableItems,
+            computedTableItems,
+            rows,
+            ctx,
         );
 
         const { isExpanded, toggleExpand } = useTableExpand(hasExpand);
@@ -145,19 +190,22 @@ export default defineComponent({
 
         // for initial skeleton loading
         const dummyTableItems = new Array(4).fill({}).map((item) => {
-            return { id: stringUtil.createID(), data: item };
+            return { id: utils.string.createID(), data: item };
         });
 
         function emitRowClick(rowItem: any, rowIndex: number) {
-            emit('rowClick', rowItem, rowIndex);
+            ctx.emit('rowClick', rowItem, rowIndex);
         }
 
         return {
             computedTableItems,
             dummyTableItems,
-            emitRowClick,
+            utils,
+            isSelected,
+            toggleSelect,
             isExpanded,
             toggleExpand,
+            emitRowClick,
             // expose
             expand,
         };

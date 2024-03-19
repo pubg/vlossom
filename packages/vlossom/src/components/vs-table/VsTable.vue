@@ -6,10 +6,21 @@
                     :headers="headers"
                     :draggable="draggable"
                     :expandable="hasExpand"
+                    :selectable="selectable"
                     :loading="loading"
                     :tr-style="trStyle"
                     v-model:sort-types="sortTypes"
                 >
+                    <template #check>
+                        <vs-check-node
+                            v-if="!loading"
+                            :id="utils.string.createID()"
+                            type="checkbox"
+                            :color-scheme="colorScheme"
+                            :checked="isSelectedAll"
+                            @toggle="onToggleCheck"
+                        />
+                    </template>
                     <template v-for="(_, name) in headerSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
                     </template>
@@ -25,8 +36,12 @@
                     :loading="loading"
                     :search="search"
                     :searchable-keys="searchableKeys"
+                    :selectable="selectable"
                     :sort-types="sortTypes"
                     :tr-style="trStyle"
+                    v-model:isSelectedAll="isSelectedAll"
+                    :selected-items="selectedItems"
+                    @change:selected-items="emitSelectedItems"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -41,9 +56,11 @@
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import { utils } from '@/utils';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
+import { VsCheckNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 
@@ -54,6 +71,7 @@ export default defineComponent({
     components: {
         VsTableHeader,
         VsTableBody,
+        VsCheckNode,
     },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -70,10 +88,17 @@ export default defineComponent({
         loading: { type: Boolean, default: false },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
+        selectable: { type: Boolean, default: false },
+        // v-model
+        selectedItems: {
+            type: Array as PropType<any[]>,
+            default: () => [] as any[],
+        },
     },
     expose: ['expand'],
-    setup(props, { slots }) {
-        const { colorScheme, styleSet, draggable, headers } = toRefs(props);
+    emits: ['update:selectedItems'],
+    setup(props, { slots, emit }) {
+        const { colorScheme, styleSet, draggable, headers, selectable } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -104,17 +129,27 @@ export default defineComponent({
             const gridColumns = headers.value.map((h) => {
                 return h.width || 'minmax(20rem, 1fr)';
             });
-
+            if (selectable.value) {
+                gridColumns.unshift('4.8rem');
+            }
             if (draggable.value) {
                 gridColumns.unshift('3rem');
             }
-
             if (hasExpand.value) {
                 gridColumns.push('4.4rem');
             }
-
             return { gridTemplateColumns: gridColumns.join(' ') };
         });
+
+        const isSelectedAll = ref(false);
+
+        function onToggleCheck(e: any) {
+            isSelectedAll.value = e;
+        }
+
+        function emitSelectedItems(e: any) {
+            emit('update:selectedItems', e);
+        }
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
@@ -133,6 +168,10 @@ export default defineComponent({
             trStyle,
             sortTypes,
             hasExpand,
+            isSelectedAll,
+            utils,
+            onToggleCheck,
+            emitSelectedItems,
             // expose
             expand,
         };
