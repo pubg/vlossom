@@ -1,6 +1,6 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="200">
+        <Transition name="modal" :duration="MODAL_CLOSE_DELAY">
             <div v-if="isOpen" :class="['vs-modal', { 'has-container': hasContainer }]" :style="computedStyleSet">
                 <div class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :initial-focus-ref="initialFocusRef">
@@ -35,6 +35,7 @@ import { VsDialogNode } from '@/nodes';
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
+const MODAL_CLOSE_DELAY = 200;
 
 export default defineComponent({
     name,
@@ -75,8 +76,10 @@ export default defineComponent({
                     document.body.style.overflow = 'hidden';
                     document.body.style.paddingRight = '15px';
                 } else {
-                    document.body.style.overflow = '';
-                    document.body.style.paddingRight = '';
+                    setTimeout(() => {
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                    }, MODAL_CLOSE_DELAY);
                 }
 
                 if (val !== modelValue.value) {
@@ -99,6 +102,7 @@ export default defineComponent({
             clickDimmed,
             hasHeader,
             hasFooter,
+            MODAL_CLOSE_DELAY,
         };
     },
 });
