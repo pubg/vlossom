@@ -70,7 +70,7 @@ const vsCheckbox: VsCheckboxStyleSet = {
     backgroundColor: '#0288d1',
     border: '2px solid #0288d1',
     borderRadius: '0.4rem',
-    checkLabelColor: '#0288d1',
+    checkLabelFontColor: '#0288d1',
     fontSize: '1.2rem',
     height: '1.4rem',
     iconColor: '#ffb300',
@@ -81,7 +81,7 @@ const vsCheckboxSet: VsCheckboxSetStyleSet = {
     backgroundColor: '#0288d1',
     border: '2px solid #0288d1',
     borderRadius: '0.4rem',
-    checkLabelColor: '#0288d1',
+    checkLabelFontColor: '#0288d1',
     fontSize: '1.2rem',
     height: '1.4rem',
     iconColor: '#ffb300',
@@ -222,16 +222,16 @@ const vsProgress: VsProgressStyleSet = {
 };
 
 const vsRadio: VsRadioStyleSet = {
-    labelColor: '#4e9865',
+    labelFontColor: '#4e9865',
     labelFontSize: '1.2rem',
-    radioColor: '#1e88e5',
+    radioFontColor: '#1e88e5',
     radioSize: '1.6rem',
 };
 
 const vsRadioSet: VsRadioSetStyleSet = {
-    labelColor: '#1e88e5',
+    labelFontColor: '#1e88e5',
     labelFontSize: '1.2rem',
-    radioColor: '#18e835',
+    radioFontColor: '#18e835',
     radioSize: '1.8rem',
     radioMargin: '4rem',
 };

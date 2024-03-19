@@ -2,7 +2,7 @@ export interface VsCheckboxStyleSet {
     backgroundColor?: string;
     border?: string;
     borderRadius?: string;
-    checkLabelColor?: string;
+    checkLabelFontColor?: string;
     focusBoxShadow?: string;
     fontSize?: string;
     height?: string;

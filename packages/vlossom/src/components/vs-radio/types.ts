@@ -1,7 +1,7 @@
 export interface VsRadioStyleSet {
     focusBoxShadow?: string;
-    labelColor?: string;
+    labelFontColor?: string;
     labelFontSize?: string;
-    radioColor?: string;
+    radioFontColor?: string;
     radioSize?: string;
 }
