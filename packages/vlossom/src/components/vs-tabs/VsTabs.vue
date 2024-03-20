@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, onMounted, type Ref, type PropType } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -67,10 +67,6 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
         const tabRefs: Ref<HTMLElement[]> = ref([]);
-
-        onMounted(() => {
-            tabRefs.value[0]?.focus();
-        });
 
         const classObj = computed(() => ({
             dense: dense.value,

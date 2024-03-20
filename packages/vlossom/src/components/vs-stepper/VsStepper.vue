@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, onMounted, type Ref, type PropType } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -78,10 +78,6 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
 
         const stepRefs: Ref<HTMLElement[]> = ref([]);
-
-        onMounted(() => {
-            stepRefs.value[0]?.focus();
-        });
 
         const selected = ref(modelValue.value);
 
