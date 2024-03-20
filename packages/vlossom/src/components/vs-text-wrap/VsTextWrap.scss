@@ -13,7 +13,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         word-wrap: break-word;
-        white-space: nowrap;
         -webkit-line-clamp: 1;
     }
 
@@ -35,5 +34,11 @@
 
     .text-wrap-contents + .text-wrap-buttons {
         margin-left: 0.6rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text-wrap > .text-wrap-contents {
+        width: fit-content !important;
     }
 }
