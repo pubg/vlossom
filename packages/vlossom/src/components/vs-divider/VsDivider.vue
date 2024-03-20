@@ -15,8 +15,8 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDividerStyleSet> },
-        vertical: { type: Boolean, default: false },
         responsive: { type: Boolean, default: false },
+        vertical: { type: Boolean, default: false },
     },
     setup(props) {
         const { colorScheme, styleSet, responsive, vertical } = toRefs(props);

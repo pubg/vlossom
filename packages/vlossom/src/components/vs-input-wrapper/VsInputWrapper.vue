@@ -34,10 +34,10 @@ export default defineComponent({
     name: VsComponent.VsInputWrapper,
     components: { VsMessage },
     props: {
+        disabled: { type: Boolean, default: false },
         groupLabel: { type: Boolean, default: false },
         id: { type: String, default: '' },
         label: { type: String, default: '' },
-        disabled: { type: Boolean, default: false },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
         noLabel: { type: Boolean, default: false },
         noMessage: { type: Boolean, default: false },

@@ -109,9 +109,9 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         dense: { type: Boolean, default: false },
-        type: { type: String as PropType<InputType>, default: InputType.Text },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        type: { type: String as PropType<InputType>, default: InputType.Text },
         // v-model
         modelValue: { type: [String, Number] as PropType<InputValueType>, default: '' },
         modelModifiers: {

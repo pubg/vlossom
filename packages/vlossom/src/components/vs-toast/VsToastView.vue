@@ -29,8 +29,8 @@ export default defineComponent({
     name,
     components: { VsToast },
     props: {
-        placement: { type: String as PropType<Exclude<Placement, 'left' | 'right'>>, required: true },
         align: { type: String as PropType<Align>, required: true },
+        placement: { type: String as PropType<Exclude<Placement, 'left' | 'right'>>, required: true },
     },
     setup(props) {
         const { placement, align } = toRefs(props);

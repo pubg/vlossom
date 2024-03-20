@@ -64,6 +64,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsPaginationStyleSet> },
         disabled: { type: Boolean, default: false },
+        edgeButtons: { type: Boolean, default: false },
         length: {
             type: Number,
             required: true,
@@ -87,7 +88,6 @@ export default defineComponent({
                 return isValid;
             },
         },
-        edgeButtons: { type: Boolean, default: false },
         // v-model
         modelValue: { type: Number, default: 1 },
     },

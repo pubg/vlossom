@@ -20,10 +20,10 @@ export default defineComponent({
     name,
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsImageStyleSet> },
-        src: { type: String, required: true, default: '' },
         alt: { type: String, default: '' },
         fallback: { type: String, default: '' },
         lazy: { type: Boolean, default: false },
+        src: { type: String, required: true, default: '' },
     },
     emits: ['error'],
     setup(props, { emit }) {
