@@ -3,7 +3,12 @@
         <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
         </td>
-        <td class="selectable-td" v-if="selectable"><!-- [TODO] select --></td>
+        <td class="selectable-td" v-if="selectable">
+            <div v-if="loading" class="skeleton"></div>
+            <div v-else-if="isSelectableRow">
+                <slot name="check" />
+            </div>
+        </td>
         <td
             class="table-td"
             v-for="(cell, index) in getRowData(item.data)"
@@ -74,13 +79,6 @@ export default defineComponent({
     setup(props, { emit }) {
         const { headers, item, rowIndex, rows } = toRefs(props);
 
-        const isExpandableRow: ComputedRef<boolean> = computed(() => {
-            const { data } = item.value;
-            const { expandable: rowExpandableFn } = rows.value || {};
-
-            return !rowExpandableFn || rowExpandableFn(data, rowIndex.value);
-        });
-
         function getRowData(row: { [key: string]: any }) {
             if (!headers.value) {
                 return Object.entries(item.value.data).map(([key, value]) => ({ key, value }));
@@ -108,12 +106,27 @@ export default defineComponent({
             return !Object.keys(item.value.data).length;
         });
 
+        const isSelectableRow = computed(() => {
+            const { data } = item.value;
+            const { selectable: rowSelectableFn } = rows.value || {};
+
+            return !rowSelectableFn || rowSelectableFn(data, rowIndex.value);
+        });
+
+        const isExpandableRow: ComputedRef<boolean> = computed(() => {
+            const { data } = item.value;
+            const { expandable: rowExpandableFn } = rows.value || {};
+
+            return !rowExpandableFn || rowExpandableFn(data, rowIndex.value);
+        });
+
         function emitToggleExpand(id: string) {
             emit('toggleExpand', id);
         }
 
         return {
             isDummyRow,
+            isSelectableRow,
             isExpandableRow,
             getRowData,
             getHeader,

@@ -101,6 +101,43 @@ export const Dense: Story = {
     },
 };
 
+export const selectable: Story = {
+    render: (args: any) => ({
+        components: { VsTable },
+        setup() {
+            const selected = ref([
+                {
+                    id: 1,
+                    name: 'Apple',
+                    order: 4,
+                    checked: true,
+                    created: '2022-10-02',
+                    desc: 'Lorem Ipsum has been the industry ',
+                    additionalText: 'Additial Text for Apple: This content only shows when expanded',
+                },
+                {
+                    id: 2,
+                    name: 'Banana',
+                    order: 1,
+                    checked: true,
+                    created: '2024-01-01',
+                    desc: 'has been the tscrambled it tscrambled it the industrys standard dummy text',
+                    additionalText: 'Additial Text for Banana: This content only shows when expanded',
+                },
+            ]);
+            return { args, selected };
+        },
+        template: `
+            <vs-table v-bind="args" v-model:selected-items="selected" />
+            <h4>selected items :</h4>
+            {{selected}}
+        `,
+    }),
+    args: {
+        selectable: true,
+    },
+};
+
 export const Search: Story = {
     render: (args: any) => ({
         components: { VsTable, VsIcon },

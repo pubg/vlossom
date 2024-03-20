@@ -2,13 +2,16 @@
     <thead>
         <tr :style="trStyle">
             <th class="draggable-th" v-if="draggable">drag</th>
-            <th class="selectable-th" v-if="selectable"><!-- [TODO] select --></th>
+            <th class="selectable-th" v-if="selectable" aria-label="select">
+                <slot name="check" />
+                select
+            </th>
             <th
                 v-for="(header, index) in headers"
                 :key="`th-${index}`"
                 :class="['table-th', { sortable: header.sortable }]"
                 :style="{ width: header.width }"
-                @click="updateSortType(header)"
+                @click="updateSortTypes(header)"
             >
                 <slot :name="`header-${header.key}`" :header="header">
                     {{ header.label }}
@@ -29,6 +32,7 @@ import { useSortableHeader } from './composables/useSortableHeader';
 
 export default defineComponent({
     name: 'vs-table-header',
+    components: { VsIcon },
     props: {
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
@@ -44,16 +48,13 @@ export default defineComponent({
             default: () => ({}),
         },
     },
-    components: {
-        VsIcon,
-    },
     emits: ['update:sortTypes'],
     setup(props, context) {
         const { headers } = toRefs(props);
 
-        const { updateSortType, getSortIcon } = useSortableHeader(headers, context);
+        const { updateSortTypes, getSortIcon } = useSortableHeader(headers, context);
 
-        return { updateSortType, getSortIcon };
+        return { updateSortTypes, getSortIcon };
     },
 });
 </script>
