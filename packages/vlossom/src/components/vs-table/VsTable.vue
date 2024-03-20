@@ -18,6 +18,7 @@
                             type="checkbox"
                             :color-scheme="colorScheme"
                             :checked="isSelectedAll"
+                            aria-label="select-all"
                             @toggle="onToggleCheck"
                         />
                     </template>

@@ -2,8 +2,9 @@
     <thead>
         <tr :style="trStyle">
             <th class="draggable-th" v-if="draggable">drag</th>
-            <th class="selectable-th" v-if="selectable">
+            <th class="selectable-th" v-if="selectable" aria-label="select">
                 <slot name="check" />
+                select
             </th>
             <th
                 v-for="(header, index) in headers"

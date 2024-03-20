@@ -28,6 +28,7 @@
                         type="checkbox"
                         :color-scheme="colorScheme"
                         :checked="isSelected(element.id)"
+                        aria-label="select"
                         @toggle="(e) => toggleSelect(e, element.id)"
                     />
                 </template>
