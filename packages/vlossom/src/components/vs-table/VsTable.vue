@@ -144,11 +144,11 @@ export default defineComponent({
 
         const isSelectedAll = ref(false);
 
-        function onToggleCheck(e: any) {
-            isSelectedAll.value = e;
+        function onToggleCheck(check: boolean) {
+            isSelectedAll.value = check;
         }
 
-        function emitSelectedItems(e: any) {
+        function emitSelectedItems(e: any[]) {
             emit('update:selectedItems', e);
         }
 
