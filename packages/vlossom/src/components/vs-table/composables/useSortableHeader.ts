@@ -15,7 +15,7 @@ export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
 
     watch(headers, initSortTypes, { immediate: true });
 
-    function updateSortType({ key, sortable }: TableHeader) {
+    function updateSortTypes({ key, sortable }: TableHeader) {
         if (!sortable) {
             return;
         }
@@ -42,7 +42,7 @@ export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
         }
     }
     return {
-        updateSortType,
+        updateSortTypes,
         getSortIcon,
     };
 }

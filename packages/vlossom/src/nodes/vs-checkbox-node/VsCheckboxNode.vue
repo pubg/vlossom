@@ -11,6 +11,7 @@
                 :name="name"
                 :value="convertToString(value)"
                 :checked="checked"
+                :aria-label="ariaLabel"
                 :aria-required="required"
                 @change="toggle"
                 @focus="onFocus"
@@ -34,9 +35,19 @@ export default defineComponent({
     name: 'VsCheckboxNode',
     components: { VsIcon },
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        id: { type: String, required: true },
+        colorScheme: {
+            type: String as PropType<'default' | ColorScheme>,
+        },
+        styleSet: {
+            type: Object as PropType<{ [key: string]: any }>,
+        },
         ariaLabel: { type: String, default: '' },
+        type: {
+            type: String as PropType<CheckNodeType>,
+            required: true,
+            default: 'checkbox',
+        },
         checked: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
