@@ -129,7 +129,8 @@ export const selectable: Story = {
         },
         template: `
             <vs-table v-bind="args" v-model:selected-items="selected" />
-            selected: {{selected}}
+            <h4>selected items :</h4>
+            {{selected}}
         `,
     }),
     args: {
