@@ -34,8 +34,14 @@ export default defineComponent({
     name: 'VsCheckNode',
     components: { VsIcon },
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
-        styleSet: { type: Object as PropType<{ [key: string]: any }>, required: true },
+        colorScheme: {
+            type: String as PropType<'default' | ColorScheme>,
+            required: true,
+        },
+        styleSet: {
+            type: Object as PropType<{ [key: string]: any }>,
+            required: true,
+        },
         checked: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
@@ -45,7 +51,11 @@ export default defineComponent({
         readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: UIState.Idle },
-        type: { type: String as PropType<CheckNodeType>, required: true, default: 'checkbox' },
+        type: {
+            type: String as PropType<CheckNodeType>,
+            required: true,
+            default: 'checkbox',
+        },
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],

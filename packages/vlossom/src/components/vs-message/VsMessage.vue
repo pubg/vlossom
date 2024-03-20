@@ -16,7 +16,10 @@ export default defineComponent({
     name: VsComponent.VsMessage,
     components: { VsIcon },
     props: {
-        message: { type: Object as PropType<StateMessage>, required: true },
+        message: {
+            type: Object as PropType<StateMessage>,
+            required: true,
+        },
     },
     setup(props) {
         const { message } = toRefs(props);
