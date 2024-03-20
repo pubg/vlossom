@@ -10,6 +10,7 @@
                 :name="name"
                 :value="convertToString(value)"
                 :checked="checked"
+                :aria-label="ariaLabel"
                 :aria-required="required"
                 @change="toggle"
                 @focus="onFocus"
@@ -38,6 +39,7 @@ export default defineComponent({
         styleSet: {
             type: Object as PropType<{ [key: string]: any }>,
         },
+        ariaLabel: { type: String, default: '' },
         type: {
             type: String as PropType<CheckNodeType>,
             required: true,
