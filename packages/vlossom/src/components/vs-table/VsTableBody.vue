@@ -87,16 +87,16 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         draggable: { type: Boolean, default: false },
+        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
         filter: {
             type: Object as PropType<TableFilter>,
             default: null,
         },
-        expandedIds: { type: Array as PropType<string[]>, default: () => [] },
-        rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         hasExpand: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         loading: { type: Boolean, default: false },
+        rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
         selectable: { type: Boolean, default: false },
@@ -115,7 +115,7 @@ export default defineComponent({
         // v-model
         isSelectedAll: { type: Boolean, default: false },
     },
-    emits: ['sort', 'rowClick', 'toggleExpand', 'change:selectedItems', 'update:tableItems', 'update:isSelectedAll'],
+    emits: ['rowClick', 'toggleExpand', 'change:selectedItems', 'update:tableItems', 'update:isSelectedAll'],
     expose: ['expand'],
     setup(props, ctx) {
         const {
@@ -189,14 +189,14 @@ export default defineComponent({
             toggleExpand(target.id);
         }
 
+        function emitRowClick(rowItem: any, rowIndex: number) {
+            ctx.emit('rowClick', rowItem, rowIndex);
+        }
+
         // for initial skeleton loading
         const dummyTableItems = new Array(4).fill({}).map((item) => {
             return { id: utils.string.createID(), data: item };
         });
-
-        function emitRowClick(rowItem: any, rowIndex: number) {
-            ctx.emit('rowClick', rowItem, rowIndex);
-        }
 
         return {
             computedTableItems,
