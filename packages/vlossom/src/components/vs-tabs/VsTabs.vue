@@ -114,29 +114,51 @@ export default defineComponent({
             { immediate: true },
         );
 
+        function findNextActivedIndex(startIndex: number): number {
+            const length = tabs.value.length;
+            for (let i = startIndex; i < length + startIndex; i++) {
+                const index = i % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
+        function findPreviousActivedIndex(startIndex: number): number {
+            const length = tabs.value.length;
+            for (let i = startIndex; i > startIndex - length; i--) {
+                const index = (i + length) % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
         function handleKeydown(event: KeyboardEvent) {
             const length = tabs.value.length;
             let targetIndex = selectedIdx.value;
 
             switch (event.code) {
                 case 'ArrowLeft':
-                    targetIndex = selectedIdx.value - 1;
+                    targetIndex = findPreviousActivedIndex(targetIndex - 1);
                     break;
                 case 'ArrowRight':
-                    targetIndex = selectedIdx.value + 1;
+                    targetIndex = findNextActivedIndex(targetIndex + 1);
                     break;
                 case 'Home':
-                    targetIndex = 0;
+                    targetIndex = findNextActivedIndex(0);
                     break;
                 case 'End':
-                    targetIndex = length - 1;
+                    targetIndex = findPreviousActivedIndex(length - 1);
                     break;
                 default:
                     return;
             }
 
             event.preventDefault();
-            selectTab((targetIndex + length) % length);
+            selectTab(targetIndex);
         }
 
         return {

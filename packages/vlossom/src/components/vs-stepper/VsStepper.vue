@@ -168,29 +168,51 @@ export default defineComponent({
             { immediate: true },
         );
 
+        function findNextActivedIndex(startIndex: number): number {
+            let length = steps.value.length;
+            for (let i = startIndex; i < length + startIndex; i++) {
+                const index = i % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
+        function findPreviousActivedIndex(startIndex: number): number {
+            let length = steps.value.length;
+            for (let i = startIndex; i > startIndex - length; i--) {
+                const index = (i + length) % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
         function handleKeydown(event: KeyboardEvent) {
             const length = steps.value.length;
             let targetIndex = selected.value;
 
             switch (event.code) {
                 case 'ArrowLeft':
-                    targetIndex = selected.value - 1;
+                    targetIndex = findPreviousActivedIndex(targetIndex - 1);
                     break;
                 case 'ArrowRight':
-                    targetIndex = selected.value + 1;
+                    targetIndex = findNextActivedIndex(targetIndex + 1);
                     break;
                 case 'Home':
-                    targetIndex = 0;
+                    targetIndex = findNextActivedIndex(0);
                     break;
                 case 'End':
-                    targetIndex = length - 1;
+                    targetIndex = findPreviousActivedIndex(length - 1);
                     break;
                 default:
                     return;
             }
 
             event.preventDefault();
-            selectStep((targetIndex + length) % length);
+            selectStep(targetIndex);
         }
 
         return {
