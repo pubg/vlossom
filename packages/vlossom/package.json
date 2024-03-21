@@ -1,7 +1,7 @@
 {
     "name": "vlossom",
     "description": "Vlossom UI components for Vue",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "type": "module",
     "author": "PUBG Studio",
     "repository": {
