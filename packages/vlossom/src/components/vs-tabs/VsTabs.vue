@@ -4,6 +4,7 @@
             <ul role="tablist">
                 <li
                     v-for="(tab, index) in tabs"
+                    ref="tabRefs"
                     :key="tab"
                     :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
                     role="tab"
@@ -11,6 +12,7 @@
                     :aria-disabled="isDisabled(index)"
                     :tabindex="isSelected(index) ? 0 : -1"
                     @click.stop="selectTab(index)"
+                    @keydown.stop="handleKeydown"
                 >
                     <slot :name="tab" :index="index">
                         {{ tab }}
@@ -22,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, ref, watch } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -64,6 +66,8 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
+        const tabRefs: Ref<HTMLElement[]> = ref([]);
+
         const classObj = computed(() => ({
             dense: dense.value,
             'mobile-full': mobileFull.value,
@@ -95,6 +99,7 @@ export default defineComponent({
         });
 
         watch(selectedIdx, (index: number) => {
+            tabRefs.value[index]?.focus();
             if (index !== modelValue.value) {
                 emit('update:modelValue', index);
                 emit('change', index);
@@ -109,6 +114,53 @@ export default defineComponent({
             { immediate: true },
         );
 
+        function findNextActivedIndex(startIndex: number): number {
+            const length = tabs.value.length;
+            for (let i = startIndex; i < length + startIndex; i++) {
+                const index = i % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
+        function findPreviousActivedIndex(startIndex: number): number {
+            const length = tabs.value.length;
+            for (let i = startIndex; i > startIndex - length; i--) {
+                const index = (i + length) % length;
+                if (!isDisabled(index)) {
+                    return index;
+                }
+            }
+            return startIndex;
+        }
+
+        function handleKeydown(event: KeyboardEvent) {
+            const length = tabs.value.length;
+            let targetIndex = selectedIdx.value;
+
+            switch (event.code) {
+                case 'ArrowLeft':
+                    targetIndex = findPreviousActivedIndex(targetIndex - 1);
+                    break;
+                case 'ArrowRight':
+                    targetIndex = findNextActivedIndex(targetIndex + 1);
+                    break;
+                case 'Home':
+                    targetIndex = findNextActivedIndex(0);
+                    break;
+                case 'End':
+                    targetIndex = findPreviousActivedIndex(length - 1);
+                    break;
+                default:
+                    return;
+            }
+
+            event.preventDefault();
+            selectTab(targetIndex);
+        }
+
         return {
             computedColorScheme,
             computedStyleSet,
@@ -117,6 +169,8 @@ export default defineComponent({
             isDisabled,
             selectedIdx,
             selectTab,
+            tabRefs,
+            handleKeydown,
         };
     },
 });
