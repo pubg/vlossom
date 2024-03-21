@@ -1,7 +1,7 @@
 $fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
-    overflow: auto hidden;
+    overflow: hidden;
     border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
 
     ul {
