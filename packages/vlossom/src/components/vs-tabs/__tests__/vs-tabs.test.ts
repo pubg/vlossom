@@ -1,13 +1,27 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTabs from '../VsTabs.vue';
 import { mockConsoleError } from '@/test/setup';
+import { nextTick } from 'vue';
 
 function mountComponent() {
     return mount(VsTabs);
 }
 describe('vs-tabs', () => {
-    describe('props & slots', () => {
+    const originalScrollIntoView = window.HTMLElement.prototype.scrollIntoView;
+    let originalInnerWidth: number = 0;
+
+    beforeEach(() => {
+        window.HTMLElement.prototype.scrollIntoView = vi.fn().mockImplementation(() => {});
+        originalInnerWidth = window.innerWidth;
+    });
+
+    afterEach(() => {
+        window.HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
+        window.innerWidth = originalInnerWidth;
+    });
+
+    describe('tabs', () => {
         it('props tabs에 string 배열을 전달하면, 그 길이만큼 tab이 생기고 배열의 각 요소가 tab의 이름으로 지정된다', () => {
             // given
             const tabs = ['tab1', 'tab2', 'tab3'];
@@ -97,6 +111,52 @@ describe('vs-tabs', () => {
             expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
             expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([1]);
             expect(wrapper.vm.selectedIdx).toEqual(1);
+        });
+    });
+
+    describe('scrollable', () => {
+        it('scrollButtons prop이 false 이면 scroll 버튼이 렌더되지 않는다', () => {
+            // given
+            const wrapper = mount(VsTabs, {
+                props: {
+                    tabs: ['tab1', 'tab2', 'tab3'],
+                    scrollButtons: false,
+                },
+            });
+
+            // then
+            expect(wrapper.html()).not.toContain('scroll-button');
+        });
+
+        it('scrollButtons props이 auto이면 모바일에서는 scroll 버튼이 렌더되지 않는다', () => {
+            // given
+            window.innerWidth = 500;
+            const wrapper = mount(VsTabs, {
+                props: {
+                    tabs: ['tab1', 'tab2', 'tab3'],
+                    scrollButtons: 'auto',
+                },
+            });
+
+            // then
+            expect(wrapper.html()).not.toContain('scroll-button');
+        });
+
+        it('scrollButtons prop이 true이더라도 scrollCount가 전체 탭 길이와 동일하면 scroll 버튼이 렌더되지 않는다', async () => {
+            // given
+            const wrapper = mount(VsTabs, {
+                props: {
+                    tabs: ['tab1', 'tab2', 'tab3'],
+                    scrollButtons: true,
+                },
+            });
+
+            // when
+            wrapper.vm.scrollCount = 3;
+            await nextTick();
+
+            // then
+            expect(wrapper.html()).not.toContain('scroll-button');
         });
     });
 });

@@ -1,16 +1,28 @@
+@use '@/styles/mixin' as *;
 $fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
-    overflow: hidden;
-
-    &.bottomLine {
-        border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
-    }
+    display: flex;
+    overflow-x: hidden;
+    user-select: none;
 
     ul {
         align-items: center;
         display: inline-flex;
         list-style: none;
+        overflow-x: hidden;
+
+        &.bottomLine {
+            border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+        }
+
+        &.scrollable {
+            overflow-x: auto;
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .tab {
             align-items: center;
@@ -22,11 +34,11 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             font-weight: $fontWeight;
             height: var(--vs-tabs-height, auto);
             justify-content: center;
-            overflow: hidden;
             padding: var(--vs-tabs-padding, 0.2rem 1rem);
             text-align: center;
             transition: color 0.1s;
             width: var(--vs-tabs-tabWidth, auto);
+            min-width: fit-content;
 
             &:not(:last-child) {
                 margin-right: var(--vs-tabs-gap, 0.3rem);
@@ -46,7 +58,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             }
 
             &.disabled {
-                opacity: 0.4;
+                @include disabled;
             }
         }
     }
@@ -54,6 +66,23 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
     &.dense {
         .tab {
             padding: var(--vs-tabs-padding, 0.2rem);
+        }
+    }
+
+    .scroll-button {
+        width: 1rem;
+        color: var(--vs-font-color);
+
+        &.scroll-left-button {
+            margin-right: 0.5rem;
+        }
+
+        &.scroll-right-button {
+            margin-left: 0.5rem;
+        }
+
+        &[disabled] {
+            @include disabled;
         }
     }
 }

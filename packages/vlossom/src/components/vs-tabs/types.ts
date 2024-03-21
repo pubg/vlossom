@@ -10,6 +10,8 @@ export interface VsTabsStyleSet {
     tabWidth?: string;
 }
 
-export const SCROLL_BUTTONS = ['always', 'mobie'] as const;
+export const SCROLL_BUTTONS = [true, false, 'auto'] as const;
 
 export type ScrollButton = (typeof SCROLL_BUTTONS)[number];
+
+export type ScrollLogicalPosition = 'center' | 'end' | 'nearest' | 'start';
