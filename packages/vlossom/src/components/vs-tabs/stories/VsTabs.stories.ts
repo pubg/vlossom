@@ -7,7 +7,23 @@ import { VsIcon } from '@/icons';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 const disabledArgTypes = numberArray(3, true);
-const tabs = ['tab1', 'tab2', 'tab3'];
+const tabs = [
+    'tab1',
+    'tab2',
+    'tab3',
+    'tab4',
+    'tab5',
+    'tab6',
+    'tab7',
+    'tab8',
+    'tab9',
+    'tab10',
+    'tab11',
+    'tab12',
+    'tab13',
+    'tab14',
+    'tab15',
+];
 
 const meta: Meta<typeof VsTabs> = {
     title: 'Components/Layout Components/VsTabs',
@@ -43,7 +59,7 @@ export const ColorScheme: Story = {
         template: `
 			<div>
 				${getColorSchemeTemplate(`
-					<vs-tabs :tabs="tabs" color-scheme="{{ color }}" :style="{ marginBottom: '5px' }" />
+					<vs-tabs :tabs="tabs" color-scheme="{{ color }}" :style="{ marginBottom: '10px' }" />
 				`)}
 			</div>
 			`,
