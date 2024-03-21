@@ -1,7 +1,8 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
-        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
+        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense, bottomLine }]" :style="computedStyleSet">
             <ul role="tablist">
+                <button type="button">temp left</button>
                 <li
                     v-for="(tab, index) in tabs"
                     ref="tabRefs"
@@ -18,6 +19,7 @@
                         {{ tab }}
                     </slot>
                 </li>
+                <button type="button">temp right</button>
             </ul>
         </div>
     </vs-wrapper>
@@ -41,6 +43,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
+        bottomLine: { type: Boolean, default: true },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         scrollable: { type: Boolean, default: false },

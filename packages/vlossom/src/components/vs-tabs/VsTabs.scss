@@ -2,7 +2,10 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
     overflow: hidden;
-    border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+
+    &.bottomLine {
+        border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+    }
 
     ul {
         align-items: center;
