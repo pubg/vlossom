@@ -68,15 +68,6 @@ export const disabled: Story = {
     },
 };
 
-export const MobileFull: Story = {
-    args: {
-        mobileFull: true,
-    },
-    parameters: {
-        chromatic: chromaticParameters.mobile,
-    },
-};
-
 export const Width: Story = {
     render: (args: any) => ({
         components: { VsTabs, VsContainer },

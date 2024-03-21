@@ -32,7 +32,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             &:hover {
                 background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
             }
-			
+
             &:focus {
                 outline: none;
             }
@@ -51,24 +51,6 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
     &.dense {
         .tab {
             padding: var(--vs-tabs-padding, 0.2rem);
-        }
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .vs-tabs.mobile-full {
-        ul {
-            border: none;
-            flex-direction: column;
-            width: 100%;
-
-            .tab {
-                width: 100%;
-
-                &:not(:last-child) {
-                    margin-bottom: var(--vs-tabs-gap, 0.5rem);
-                }
-            }
         }
     }
 }

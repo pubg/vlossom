@@ -1,6 +1,6 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
-        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
             <ul role="tablist">
                 <li
                     v-for="(tab, index) in tabs"
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
+import { defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
@@ -43,7 +43,6 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
-        mobileFull: { type: Boolean, default: false },
         tabs: {
             type: Array as PropType<string[]>,
             required: true,
@@ -60,18 +59,13 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, disabled, tabs, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
         const tabRefs: Ref<HTMLElement[]> = ref([]);
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            'mobile-full': mobileFull.value,
-        }));
 
         function isSelected(index: number) {
             return selectedIdx.value === index;
@@ -164,7 +158,6 @@ export default defineComponent({
         return {
             computedColorScheme,
             computedStyleSet,
-            classObj,
             isSelected,
             isDisabled,
             selectedIdx,
