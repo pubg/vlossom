@@ -185,6 +185,11 @@
 
 @media screen and (max-width: 576px) {
     .vs-table .table-wrap {
+        table {
+            display: flex;
+            flex-direction: column;
+        }
+
         table thead {
             display: none;
         }
@@ -204,13 +209,14 @@
                 justify-content: space-between;
                 padding: 0.8rem 1.2rem !important;
                 border-top: 1px dashed var(--vs-line-color);
+                overflow-x: auto;
 
                 &::before {
                     content: attr(data-label);
                     color: var(--vs-comp-color);
                     display: block;
                     line-height: 3rem;
-                    margin-right: 1.8rem;
+                    margin-right: 1.4rem;
                     font-size: 1.1rem;
                     font-weight: 700;
                 }
