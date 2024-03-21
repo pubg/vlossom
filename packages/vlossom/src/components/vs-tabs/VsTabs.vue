@@ -31,7 +31,7 @@ import { objectUtil } from '@/utils/object';
 import { logUtil } from '@/utils/log';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
-import type { VsTabsStyleSet } from './types';
+import type { VsTabsStyleSet, ScrollButton } from './types';
 
 const name = VsComponent.VsTabs;
 export default defineComponent({
@@ -43,6 +43,18 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
+        scrollable: { type: Boolean, default: false },
+        scrollButtons: {
+            type: String as PropType<ScrollButton>,
+            default: '',
+            validator: (value: ScrollButton, props) => {
+                if (!props.scrollable && value) {
+                    logUtil.logPropError(name, 'scrollButtons', 'scrollable must be true to use scrollButtons');
+                    return false;
+                }
+                return true;
+            },
+        },
         tabs: {
             type: Array as PropType<string[]>,
             required: true,
