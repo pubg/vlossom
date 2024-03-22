@@ -233,10 +233,10 @@ export default defineComponent({
             return Math.ceil(length / innerItemsPerPage.value) || 1;
         });
 
-        watch(innerPage, (page: number) => {
+        watch(innerPage, (p: number) => {
             isSelectedAll.value = false;
             emitSelectedItems([]);
-            emit('update:page', page);
+            emit('update:page', p);
         });
 
         watch(
