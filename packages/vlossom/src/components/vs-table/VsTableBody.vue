@@ -75,6 +75,8 @@ import { utils } from '@/utils';
 
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
+import { useTablePagination } from './composables/useTablePagination';
+import { nextTick } from 'process';
 
 export default defineComponent({
     name: 'vs-table-body',
@@ -95,7 +97,10 @@ export default defineComponent({
         hasExpand: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
+        innerPage: { type: Number, default: -1 },
+        innerItemsPerPage: { type: Number, default: -1 },
         loading: { type: Boolean, default: false },
+        pagination: { type: Boolean, default: false },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
@@ -112,10 +117,20 @@ export default defineComponent({
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
         },
+        totalLength: { type: Number, default: 0 },
         // v-model
         isSelectedAll: { type: Boolean, default: false },
+        totalItemsLength: { type: Number, default: 0 },
     },
-    emits: ['rowClick', 'toggleExpand', 'change:selectedItems', 'update:tableItems', 'update:isSelectedAll'],
+    emits: [
+        'rowClick',
+        'toggleExpand',
+        'change:selectedItems',
+        'change:totalItems',
+        'change:pagedItems',
+        'update:isSelectedAll',
+        'update:totalItemsLength',
+    ],
     expose: ['expand'],
     setup(props, ctx) {
         const {
@@ -130,6 +145,10 @@ export default defineComponent({
             rows,
             selectable,
             selectedItems,
+            pagination,
+            innerPage,
+            innerItemsPerPage,
+            totalLength,
         } = toRefs(props);
 
         const innerItems: Ref<any[]> = ref([]);
@@ -140,24 +159,41 @@ export default defineComponent({
             });
         });
 
-        const { getSearchedItems } = useTableSearch(headers, searchableKeys);
-        const { getFilteredItems } = useTableFilter();
-        const { getSortedItems } = useTableSort();
+        const { getSearchedTableItems } = useTableSearch(headers, searchableKeys);
+        const { getFilteredTableItems } = useTableFilter();
+        const { getSortedTableItems } = useTableSort();
+        const { getPagedTableItems } = useTablePagination();
 
-        function getResultItems() {
-            const searched = getSearchedItems(innerTableItems, search);
-            const filtered = getFilteredItems(searched, filter);
-            const sorted = getSortedItems(filtered, sortTypes);
+        function getResultTableItems() {
+            const searched = getSearchedTableItems(innerTableItems.value, search);
+            const filtered = getFilteredTableItems(searched, filter);
+            const sorted = getSortedTableItems(filtered, sortTypes);
             return sorted;
         }
 
         const computedTableItems: WritableComputedRef<TableItem[]> = computed({
             get(): TableItem[] {
-                return getResultItems();
+                const resultTableItems = getResultTableItems();
+                const pagedTableItems = getPagedTableItems(
+                    resultTableItems,
+                    pagination,
+                    innerPage,
+                    innerItemsPerPage,
+                    totalLength,
+                );
+                ctx.emit('update:totalItemsLength', resultTableItems.length);
+                const resultItems = resultTableItems.map((i) => i.data);
+                const pagedItems = pagination.value ? pagedTableItems.map((i) => i.data) : resultItems;
+
+                nextTick(() => {
+                    ctx.emit('change:totalItems', resultItems);
+                    ctx.emit('change:pagedItems', pagedItems);
+                });
+                return pagedTableItems;
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                ctx.emit('update:tableItems', innerItems.value);
+                ctx.emit('change:totalItems', innerItems.value);
             },
         });
 

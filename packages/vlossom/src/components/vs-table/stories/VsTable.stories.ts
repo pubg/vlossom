@@ -101,7 +101,7 @@ export const Dense: Story = {
     },
 };
 
-export const selectable: Story = {
+export const Selectable: Story = {
     render: (args: any) => ({
         components: { VsTable },
         setup() {
@@ -221,6 +221,19 @@ export const SortableHeader: Story = {
 export const Draggable: Story = {
     args: {
         draggable: true,
+    },
+};
+
+export const Pagination: Story = {
+    args: {
+        pagination: true,
+        paginationOptions: [
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+            { label: 'All', value: -1 },
+        ],
+        pageEdgeButtons: true,
     },
 };
 

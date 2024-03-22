@@ -162,6 +162,20 @@
     }
 }
 
+.table-pagination {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.2rem 0;
+
+    .pagination-options {
+        width: 10rem;
+        height: 100%;
+    }
+}
+
 .vs-table.dense .table-wrap table {
     tr {
         th,
