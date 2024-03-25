@@ -171,7 +171,7 @@ export default defineComponent({
                     acc[slotName] = slots[slotName];
                 }
                 return acc;
-            }, {} as { [ykey: string]: any });
+            }, {} as { [key: string]: any });
         });
 
         const itemSlots = computed(() => {
