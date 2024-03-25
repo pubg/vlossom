@@ -199,11 +199,6 @@
             margin: 1rem 0 0 0;
             border: 1px solid var(--vs-line-color);
 
-            &.selected {
-                background-color: var(--vs-blue-100);
-                color: var(--vs-blue-800);
-            }
-
             &:first-of-type {
                 margin-top: 0;
             }
