@@ -95,6 +95,12 @@ export const ColorScheme: Story = {
     },
 };
 
+export const Caption: Story = {
+    args: {
+        caption: 'Fruit Shopping List',
+    },
+};
+
 export const Dense: Story = {
     args: {
         dense: true,

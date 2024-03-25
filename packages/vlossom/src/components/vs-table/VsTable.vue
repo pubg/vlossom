@@ -2,6 +2,7 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense' : '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
+                <caption v-if="caption">{{ caption }}</caption>
                 <vs-table-header
                     :headers="headers"
                     :draggable="draggable"
@@ -77,6 +78,7 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
+        caption: { type: String, default: '' },
         dense: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
         filter: {
