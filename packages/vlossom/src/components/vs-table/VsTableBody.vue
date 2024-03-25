@@ -76,7 +76,6 @@ import { utils } from '@/utils';
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
 import { useTablePagination } from './composables/useTablePagination';
-import { nextTick } from 'process';
 
 export default defineComponent({
     name: 'vs-table-body',
@@ -184,11 +183,8 @@ export default defineComponent({
                 ctx.emit('update:totalItemsLength', resultTableItems.length);
                 const resultItems = resultTableItems.map((i) => i.data);
                 const pagedItems = pagination.value ? pagedTableItems.map((i) => i.data) : resultItems;
-
-                nextTick(() => {
-                    ctx.emit('change:totalItems', resultItems);
-                    ctx.emit('change:pagedItems', pagedItems);
-                });
+                ctx.emit('change:totalItems', resultItems);
+                ctx.emit('change:pagedItems', pagedItems);
                 return pagedTableItems;
             },
             set(itemArr: TableItem[]) {

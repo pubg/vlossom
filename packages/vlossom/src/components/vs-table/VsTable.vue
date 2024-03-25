@@ -91,6 +91,8 @@ import { utils } from '@/utils';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
+import VsPagination from '@/components/vs-pagination/VsPagination.vue';
+import VsSelect from '@/components/vs-select/VsSelect.vue';
 import { VsCheckNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
@@ -104,6 +106,8 @@ export default defineComponent({
         VsTableHeader,
         VsTableBody,
         VsCheckNode,
+        VsPagination,
+        VsSelect,
     },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
