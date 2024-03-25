@@ -57,7 +57,11 @@
             transition: background-color 0.2s;
             border-bottom: 1px solid var(--vs-grey-200);
             color: var(--vs-font-color);
-            background-color: var(--vs-plain-backgroundColord);
+
+            &.selected {
+                background-color: var(--vs-blue-100);
+                color: var(--vs-blue-800);
+            }
 
             td {
                 min-height: 4.8rem;
@@ -194,6 +198,11 @@
             flex-direction: column;
             margin: 1rem 0 0 0;
             border: 1px solid var(--vs-line-color);
+
+            &.selected {
+                background-color: var(--vs-blue-100);
+                color: var(--vs-blue-800);
+            }
 
             &:first-of-type {
                 margin-top: 0;
