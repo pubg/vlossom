@@ -1,3 +1,5 @@
+import { UIState } from '@/declaration';
+
 export interface TableHeader {
     label: string;
     key: string;
@@ -8,6 +10,7 @@ export interface TableHeader {
 }
 
 export interface TableRow<T = any> {
+    state?: (row: any, rowIndex?: number) => UIState;
     selectable?: (row: T, rowIndex?: number) => boolean;
     expandable?: (row: T, rowIndex?: number) => boolean;
 }

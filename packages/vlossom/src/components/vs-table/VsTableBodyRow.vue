@@ -1,5 +1,5 @@
 <template>
-    <tr :style="trStyle" :class="{ skeleton: loading }">
+    <tr :style="trStyle" :class="[{ skeleton: loading }, rowState]">
         <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
         </td>
@@ -53,6 +53,7 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
+import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 
 import type { TableHeader, TableItem, TableRow } from './types';
@@ -70,6 +71,7 @@ export default defineComponent({
         rowIndex: { type: Number, required: true },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         selectable: { type: Boolean, default: false },
+        selected: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
             default: () => ({}),
@@ -77,7 +79,7 @@ export default defineComponent({
     },
     emits: ['toggleExpand'],
     setup(props, { emit }) {
-        const { headers, item, rowIndex, rows } = toRefs(props);
+        const { headers, item, rowIndex, rows, selected } = toRefs(props);
 
         function getRowData(row: { [key: string]: any }) {
             if (!headers.value) {
@@ -120,6 +122,19 @@ export default defineComponent({
             return !rowExpandableFn || rowExpandableFn(data, rowIndex.value);
         });
 
+        const rowState = computed(() => {
+            if (selected.value) {
+                return UIState.Selected;
+            }
+
+            const { state: rowStateFn } = rows.value || {};
+            if (!rowStateFn) {
+                return;
+            }
+            const { data } = item.value;
+            return rowStateFn(data, rowIndex.value);
+        });
+
         function emitToggleExpand(id: string) {
             emit('toggleExpand', id);
         }
@@ -128,6 +143,7 @@ export default defineComponent({
             isDummyRow,
             isSelectableRow,
             isExpandableRow,
+            rowState,
             getRowData,
             getHeader,
             getTableData,
