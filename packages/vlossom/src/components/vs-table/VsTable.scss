@@ -67,7 +67,11 @@
             transition: background-color 0.2s;
             border-bottom: 1px solid var(--vs-grey-200);
             color: var(--vs-font-color);
-            background-color: var(--vs-plain-backgroundColord);
+
+            &.selected {
+                background-color: var(--vs-blue-100);
+                color: var(--vs-blue-800);
+            }
 
             td {
                 min-height: 4.8rem;
