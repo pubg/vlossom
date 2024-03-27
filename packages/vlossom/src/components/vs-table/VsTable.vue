@@ -46,10 +46,10 @@
                     :totalLength="totalLength"
                     :tr-style="trStyle"
                     v-model:is-selected-all="isSelectedAll"
-                    v-model:total-items-length="totalItemsLength"
-                    @change:selected-items="emitSelectedItems"
+                    v-model:result-items-length="resultItemsLength"
                     @change:paged-items="emitPagedItems"
-                    @change:total-items="emitTotalItems"
+                    @change:result-items="emitResultItems"
+                    @change:selected-items="emitSelectedItems"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -143,12 +143,12 @@ export default defineComponent({
             type: Array as PropType<any[]>,
             default: () => [] as any[],
         },
-        totalItems: {
+        resultItems: {
             type: Array as PropType<any[]>,
             default: () => [] as any[],
         },
     },
-    emits: ['update:itemsPerPage', 'update:page', 'update:pagedItems', 'update:selectedItems', 'update:totalItems'],
+    emits: ['update:itemsPerPage', 'update:page', 'update:pagedItems', 'update:resultItems', 'update:selectedItems'],
     expose: ['expand'],
     setup(props, { slots, emit }) {
         const {
@@ -231,13 +231,13 @@ export default defineComponent({
 
         const innerPage = ref(-1);
         const innerItemsPerPage = ref(-1);
-        const totalItemsLength = ref(0);
+        const resultItemsLength = ref(0);
 
         const paginationLength = computed(() => {
             if (innerItemsPerPage.value === -1) {
                 return 1;
             }
-            const length = totalLength.value || totalItemsLength.value;
+            const length = totalLength.value || resultItemsLength.value;
             return Math.ceil(length / innerItemsPerPage.value) || 1;
         });
 
@@ -288,8 +288,8 @@ export default defineComponent({
             emit('update:pagedItems', items);
         }
 
-        function emitTotalItems(items: any[]) {
-            emit('update:totalItems', items);
+        function emitResultItems(items: any[]) {
+            emit('update:resultItems', items);
         }
 
         return {
@@ -305,13 +305,13 @@ export default defineComponent({
             innerPage,
             innerItemsPerPage,
             paginationLength,
-            totalItemsLength,
+            resultItemsLength,
             canDrag,
             hasSelectable,
             onToggleCheck,
             emitSelectedItems,
             emitPagedItems,
-            emitTotalItems,
+            emitResultItems,
             // expose
             expand,
         };

@@ -1,7 +1,7 @@
 <template>
     <draggable
         tag="tbody"
-        v-model="computedTableItems"
+        v-model="computedPagedTableItems"
         item-key="id"
         handle=".handle"
         :disabled="!draggable || loading"
@@ -38,7 +38,7 @@
             </vs-table-body-row>
         </template>
     </draggable>
-    <tbody v-if="loading && computedTableItems.length === 0">
+    <tbody v-if="loading && computedPagedTableItems.length === 0">
         <vs-table-body-row
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
@@ -50,7 +50,7 @@
             :tr-style="trStyle"
         />
     </tbody>
-    <tbody v-if="!loading && computedTableItems.length === 0">
+    <tbody v-if="!loading && computedPagedTableItems.length === 0">
         <slot name="empty">
             <div class="table-empty">
                 <vs-icon size="6rem" icon="noData"></vs-icon>
@@ -62,7 +62,18 @@
 
 <script lang="ts">
 import draggable from 'vuedraggable';
-import { computed, ComputedRef, defineComponent, PropType, ref, Ref, toRefs, watch, WritableComputedRef } from 'vue';
+import {
+    computed,
+    ComputedRef,
+    defineComponent,
+    nextTick,
+    PropType,
+    ref,
+    Ref,
+    toRefs,
+    watch,
+    WritableComputedRef,
+} from 'vue';
 import VsTableBodyRow from './VsTableBodyRow.vue';
 import { useTableSearch } from './composables/useTableSearch';
 import { useTableFilter } from './composables/useTableFilter';
@@ -119,16 +130,16 @@ export default defineComponent({
         totalLength: { type: Number, default: 0 },
         // v-model
         isSelectedAll: { type: Boolean, default: false },
-        totalItemsLength: { type: Number, default: 0 },
+        resultItemsLength: { type: Number, default: 0 },
     },
     emits: [
         'rowClick',
         'toggleExpand',
         'change:selectedItems',
-        'change:totalItems',
+        'change:resultItems',
         'change:pagedItems',
         'update:isSelectedAll',
-        'update:totalItemsLength',
+        'update:resultItemsLength',
     ],
     expose: ['expand'],
     setup(props, ctx) {
@@ -163,33 +174,38 @@ export default defineComponent({
         const { getSortedTableItems } = useTableSort();
         const { getPagedTableItems } = useTablePagination();
 
-        function getResultTableItems() {
+        const computedResultTableItems: ComputedRef<TableItem[]> = computed(() => {
             const searched = getSearchedTableItems(innerTableItems.value, search);
             const filtered = getFilteredTableItems(searched, filter);
             const sorted = getSortedTableItems(filtered, sortTypes);
+            const resultItems = sorted.map((i) => i.data);
+            nextTick(() => {
+                ctx.emit('update:resultItemsLength', resultItems.length);
+                ctx.emit('change:resultItems', resultItems);
+            });
             return sorted;
-        }
+        });
 
-        const computedTableItems: WritableComputedRef<TableItem[]> = computed({
+        const computedPagedTableItems: WritableComputedRef<TableItem[]> = computed({
             get(): TableItem[] {
-                const resultTableItems = getResultTableItems();
+                if (!pagination.value) {
+                    return computedResultTableItems.value;
+                }
                 const pagedTableItems = getPagedTableItems(
-                    resultTableItems,
+                    computedResultTableItems.value,
                     pagination,
                     innerPage,
                     innerItemsPerPage,
                     totalLength,
                 );
-                ctx.emit('update:totalItemsLength', resultTableItems.length);
-                const resultItems = resultTableItems.map((i) => i.data);
-                const pagedItems = pagination.value ? pagedTableItems.map((i) => i.data) : resultItems;
-                ctx.emit('change:totalItems', resultItems);
-                ctx.emit('change:pagedItems', pagedItems);
+                const pagedItems = pagedTableItems.map((i) => i.data);
+                nextTick(() => {
+                    ctx.emit('change:pagedItems', pagedItems);
+                });
                 return pagedTableItems;
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                ctx.emit('change:totalItems', innerItems.value);
             },
         });
 
@@ -206,7 +222,7 @@ export default defineComponent({
             selectedItems,
             isSelectedAll,
             innerTableItems,
-            computedTableItems,
+            computedPagedTableItems,
             rows,
             ctx,
         );
@@ -214,7 +230,7 @@ export default defineComponent({
         const { isExpanded, toggleExpand } = useTableExpand(hasExpand);
 
         function expand(index: number) {
-            const target = computedTableItems.value[index];
+            const target = computedPagedTableItems.value[index];
             if (!target) {
                 return;
             }
@@ -231,7 +247,7 @@ export default defineComponent({
         });
 
         return {
-            computedTableItems,
+            computedPagedTableItems,
             dummyTableItems,
             utils,
             isSelected,
