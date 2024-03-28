@@ -185,14 +185,25 @@
 
 @media screen and (max-width: 576px) {
     .vs-table .table-wrap {
-        table thead {
-            display: none;
+        margin-bottom: 2rem;
+
+        table thead tr {
+            grid-template-columns: none !important;
+            th:not(:first-child) {
+                display: none;
+            }
+            th:first-child {
+                color: transparent;
+                height: 3.2rem;
+            }
+            margin-bottom: 0.8rem;
+            border: 1px solid var(--vs-line-color);
         }
 
         table tbody tr {
             display: flex !important;
             flex-direction: column;
-            margin: 1rem 0 0 0;
+            margin: 0.8rem 0 0 0;
             border: 1px solid var(--vs-line-color);
 
             &:first-of-type {
