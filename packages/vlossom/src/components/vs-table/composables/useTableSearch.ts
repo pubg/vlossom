@@ -10,12 +10,12 @@ export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<
             .concat(searchableKeys.value);
     });
 
-    function getSearchedItems(items: Ref<TableItem[]>, keyword: Ref<string>) {
+    function getSearchedTableItems(tableItems: TableItem[], keyword: Ref<string>): TableItem[] {
         if (keyword.value.trim() === '') {
-            return items.value;
+            return tableItems;
         }
         const lowercaseKeyword = keyword.value.trim().toLowerCase();
-        return items.value.filter(({ data }) => {
+        return tableItems.filter(({ data }) => {
             const searchableData = utils.object.pick(data, searchTargetKeys.value);
             const target = Object.values(searchableData).join(' ').toLowerCase();
             return target.includes(lowercaseKeyword);
@@ -23,6 +23,6 @@ export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<
     }
 
     return {
-        getSearchedItems,
+        getSearchedTableItems,
     };
 }

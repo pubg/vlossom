@@ -5,9 +5,9 @@
                 <caption v-if="caption">{{ caption }}</caption>
                 <vs-table-header
                     :headers="headers"
-                    :draggable="draggable"
+                    :draggable="canDrag"
                     :expandable="hasExpand"
-                    :selectable="selectable"
+                    :selectable="hasSelectable"
                     :loading="loading"
                     :tr-style="trStyle"
                     v-model:sort-types="sortTypes"
@@ -32,18 +32,25 @@
                     :items="items"
                     :headers="headers"
                     :filter="filter"
-                    :draggable="draggable"
+                    :draggable="canDrag"
                     :hasExpand="hasExpand"
                     :rows="rows"
                     :loading="loading"
                     :search="search"
                     :searchable-keys="searchableKeys"
-                    :selectable="selectable"
-                    :sort-types="sortTypes"
-                    :tr-style="trStyle"
-                    v-model:isSelectedAll="isSelectedAll"
+                    :selectable="hasSelectable"
                     :selected-items="selectedItems"
+                    :sort-types="sortTypes"
+                    :pagination="pagination"
+                    :innerPage="innerPage"
+                    :innerItemsPerPage="innerItemsPerPage"
+                    :totalLength="totalLength"
+                    :tr-style="trStyle"
+                    v-model:is-selected-all="isSelectedAll"
+                    v-model:total-items-length="totalItemsLength"
                     @change:selected-items="emitSelectedItems"
+                    @change:paged-items="emitPagedItems"
+                    @change:total-items="emitTotalItems"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -51,20 +58,46 @@
                 </vs-table-body>
             </table>
         </div>
+        <div class="table-pagination" v-if="pagination">
+            <vs-pagination
+                v-model="innerPage"
+                :disabled="paginationLength <= 1 || loading"
+                :length="paginationLength"
+                :edgeButtons="pageEdgeButtons"
+                :color-scheme="colorScheme"
+            />
+            <div class="pagination-options">
+                <vs-select
+                    v-model="innerItemsPerPage"
+                    :options="paginationOptions"
+                    :disabled="loading"
+                    :color-scheme="colorScheme"
+                    label="pagination-options"
+                    option-label="label"
+                    option-value="value"
+                    no-clear
+                    no-label
+                    dense
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs } from 'vue';
+import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
+import VsPagination from '@/components/vs-pagination/VsPagination.vue';
+import VsSelect from '@/components/vs-select/VsSelect.vue';
 import { VsCheckNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
+import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
 
 const name = VsComponent.VsTable;
 
@@ -74,6 +107,8 @@ export default defineComponent({
         VsTableHeader,
         VsTableBody,
         VsCheckNode,
+        VsPagination,
+        VsSelect,
     },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -89,19 +124,48 @@ export default defineComponent({
         items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         loading: { type: Boolean, default: false },
+        pagination: { type: Boolean, default: false },
+        paginationOptions: {
+            type: Array as PropType<LabelValue<number>[]>,
+            default: () => DEFAULT_TABLE_PAGE_COUNT,
+        },
+        pageEdgeButtons: { type: Boolean, default: false },
         search: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
         selectable: { type: Boolean, default: false },
+        totalLength: { type: Number },
         // v-model
+        itemsPerPage: { type: Number, default: DEFAULT_TABLE_ITEMS_PER_PAGE },
+        page: { type: Number, default: 1 },
+        pagedItems: {
+            type: Array as PropType<any[]>,
+            default: () => [] as any[],
+        },
         selectedItems: {
             type: Array as PropType<any[]>,
             default: () => [] as any[],
         },
+        totalItems: {
+            type: Array as PropType<any[]>,
+            default: () => [] as any[],
+        },
     },
+    emits: ['update:itemsPerPage', 'update:page', 'update:pagedItems', 'update:selectedItems', 'update:totalItems'],
     expose: ['expand'],
-    emits: ['update:selectedItems'],
     setup(props, { slots, emit }) {
-        const { colorScheme, styleSet, draggable, headers, selectable } = toRefs(props);
+        const {
+            colorScheme,
+            styleSet,
+            draggable,
+            headers,
+            selectable,
+            itemsPerPage,
+            page,
+            pagination,
+            paginationOptions,
+            rows,
+            totalLength,
+        } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -125,6 +189,14 @@ export default defineComponent({
             }, {} as { [key: string]: any });
         });
 
+        const canDrag = computed(() => {
+            return draggable.value && !pagination.value;
+        });
+
+        const hasSelectable = computed(() => {
+            return selectable.value || !!rows.value?.selectable;
+        });
+
         const trStyle: ComputedRef<{ [key: string]: any }> = computed(() => {
             if (!headers.value) {
                 return {};
@@ -132,10 +204,10 @@ export default defineComponent({
             const gridColumns = headers.value.map((h) => {
                 return h.width || 'minmax(20rem, 1fr)';
             });
-            if (selectable.value) {
+            if (hasSelectable.value) {
                 gridColumns.unshift('4.8rem');
             }
-            if (draggable.value) {
+            if (canDrag.value) {
                 gridColumns.unshift('3rem');
             }
             if (hasExpand.value) {
@@ -150,10 +222,6 @@ export default defineComponent({
             isSelectedAll.value = check;
         }
 
-        function emitSelectedItems(e: any[]) {
-            emit('update:selectedItems', e);
-        }
-
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
         const hasExpand = computed(() => !!slots['expand']);
@@ -162,6 +230,69 @@ export default defineComponent({
         const expand = (index: number) => {
             return tableBodyRef.value?.expand(index);
         };
+
+        const innerPage = ref(-1);
+        const innerItemsPerPage = ref(-1);
+        const totalItemsLength = ref(0);
+
+        const paginationLength = computed(() => {
+            if (innerItemsPerPage.value === -1) {
+                return 1;
+            }
+            const length = totalLength.value || totalItemsLength.value;
+            return Math.ceil(length / innerItemsPerPage.value) || 1;
+        });
+
+        watch(innerPage, (p: number) => {
+            isSelectedAll.value = false;
+            emitSelectedItems([]);
+            emit('update:page', p);
+        });
+
+        watch(
+            page,
+            (p: number) => {
+                if (p <= 0) {
+                    innerPage.value = 1;
+                } else if (p > paginationLength.value) {
+                    innerPage.value = paginationLength.value;
+                } else {
+                    innerPage.value = p;
+                }
+            },
+            { immediate: true },
+        );
+
+        watch(innerItemsPerPage, (p: number) => {
+            isSelectedAll.value = false;
+            emitSelectedItems([]);
+            emit('update:itemsPerPage', p);
+        });
+
+        watch(
+            itemsPerPage,
+            (ipp: number) => {
+                const optionValues = paginationOptions.value.map((o) => o.value);
+                if (optionValues.includes(ipp)) {
+                    innerItemsPerPage.value = ipp;
+                } else {
+                    innerItemsPerPage.value = paginationOptions.value[0].value;
+                }
+            },
+            { immediate: true },
+        );
+
+        function emitSelectedItems(items: any[]) {
+            emit('update:selectedItems', items);
+        }
+
+        function emitPagedItems(items: any[]) {
+            emit('update:pagedItems', items);
+        }
+
+        function emitTotalItems(items: any[]) {
+            emit('update:totalItems', items);
+        }
 
         return {
             computedColorScheme,
@@ -173,8 +304,16 @@ export default defineComponent({
             hasExpand,
             isSelectedAll,
             utils,
+            innerPage,
+            innerItemsPerPage,
+            paginationLength,
+            totalItemsLength,
+            canDrag,
+            hasSelectable,
             onToggleCheck,
             emitSelectedItems,
+            emitPagedItems,
+            emitTotalItems,
             // expose
             expand,
         };
