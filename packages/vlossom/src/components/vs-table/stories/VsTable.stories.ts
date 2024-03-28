@@ -95,6 +95,12 @@ export const ColorScheme: Story = {
     },
 };
 
+export const Caption: Story = {
+    args: {
+        caption: 'Fruit Shopping List',
+    },
+};
+
 export const Dense: Story = {
     args: {
         dense: true,
@@ -129,8 +135,10 @@ export const selectable: Story = {
         },
         template: `
             <vs-table v-bind="args" v-model:selected-items="selected" />
-            <h4>selected items :</h4>
-            {{selected}}
+            <div style="height: 200px; margin-top: 1rem;">
+                <h4>selected items :</h4>
+                {{selected}}
+            </div>
         `,
     }),
     args: {
