@@ -52,7 +52,7 @@ import { logUtil } from '@/utils/log';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 
-import type { VsTabsStyleSet, ScrollButton, ScrollLogicalPosition } from './types';
+import type { VsTabsStyleSet, ScrollButton } from './types';
 
 const name = VsComponent.VsTabs;
 export default defineComponent({
@@ -225,7 +225,7 @@ export default defineComponent({
             return scrollButtons.value;
         });
 
-        function scrollTo(index: number, position: ScrollLogicalPosition = 'nearest') {
+        function scrollTo(index: number) {
             if (!scrollable.value) {
                 return;
             }
@@ -240,7 +240,7 @@ export default defineComponent({
                 targetIndex = totalLength.value - 1;
             }
 
-            tabRefs.value[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: position });
+            tabRefs.value[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
             currentFocusedTab.value = targetIndex;
         }
 

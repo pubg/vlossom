@@ -13,5 +13,3 @@ export interface VsTabsStyleSet {
 export const SCROLL_BUTTONS = [true, false, 'auto'] as const;
 
 export type ScrollButton = (typeof SCROLL_BUTTONS)[number];
-
-export type ScrollLogicalPosition = 'center' | 'end' | 'nearest' | 'start';
