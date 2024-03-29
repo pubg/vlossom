@@ -65,7 +65,7 @@ export const Dense: Story = {
     },
 };
 
-export const disabled: Story = {
+export const Disabled: Story = {
     args: {
         disabled: [1],
     },
@@ -74,7 +74,7 @@ export const disabled: Story = {
     },
 };
 
-export const scrollable: Story = {
+export const Scrollable: Story = {
     args: {
         scrollable: true,
         scrollButtons: 'auto',
