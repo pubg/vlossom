@@ -154,7 +154,7 @@ export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
 
-export interface LabelValue<T> {
+export interface LabelValue<T = any> {
     label: string;
     value: T;
 }
