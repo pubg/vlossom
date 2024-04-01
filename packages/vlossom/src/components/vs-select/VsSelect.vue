@@ -69,6 +69,7 @@
                     :readonly="readonly || !autocomplete"
                     :aria-required="required"
                     :value="inputLabel"
+                    :aria-label="label"
                     @input="updateAutocompleteText"
                     @focus="onFocus"
                     @blur="onBlur"
