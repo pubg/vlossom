@@ -48,6 +48,7 @@ import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, 
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
+import { domUtil } from '@/utils/dom';
 import { logUtil } from '@/utils/log';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
@@ -214,12 +215,12 @@ export default defineComponent({
         }
 
         const showScrollButtons = computed(() => {
-            if (scrollCount.value === totalLength.value) {
+            if (!scrollable.value) {
                 return false;
             }
 
             if (scrollButtons.value === 'auto') {
-                return window.innerWidth > 768;
+                return !domUtil.hasTouchScreen() && scrollCount.value < totalLength.value;
             }
 
             return scrollButtons.value;
