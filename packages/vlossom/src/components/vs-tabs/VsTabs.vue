@@ -1,7 +1,17 @@
 <template>
     <vs-wrapper :width="width" :grid="grid">
-        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-            <ul role="tablist">
+        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
+            <button
+                v-if="showScrollButtons"
+                type="button"
+                class="scroll-button scroll-left-button"
+                aria-label="scroll to the left"
+                :disabled="currentFocusedTab <= 0"
+                @click="scrollLeft"
+            >
+                <vs-icon icon="goPrev" size="1.2rem" />
+            </button>
+            <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine, scrollable }">
                 <li
                     v-for="(tab, index) in tabs"
                     ref="tabRefs"
@@ -19,31 +29,55 @@
                     </slot>
                 </li>
             </ul>
+            <button
+                v-if="showScrollButtons"
+                type="button"
+                class="scroll-button scroll-right-button"
+                aria-label="scroll to the right"
+                :disabled="currentFocusedTab >= tabs.length - 1"
+                @click="scrollRight"
+            >
+                <vs-icon icon="goNext" size="1.2rem" />
+            </button>
         </div>
     </vs-wrapper>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { objectUtil } from '@/utils/object';
+import { domUtil } from '@/utils/dom';
 import { logUtil } from '@/utils/log';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import { VsIcon } from '@/icons';
 
-import type { VsTabsStyleSet } from './types';
+import type { VsTabsStyleSet, ScrollButton } from './types';
 
 const name = VsComponent.VsTabs;
 export default defineComponent({
     name,
-    components: { VsWrapper },
+    components: { VsWrapper, VsIcon },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
+        bottomLine: { type: Boolean, default: true },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
-        mobileFull: { type: Boolean, default: false },
+        scrollable: { type: Boolean, default: false },
+        scrollButtons: {
+            type: [Boolean, String] as PropType<ScrollButton>,
+            default: false,
+            validator: (value: ScrollButton, props) => {
+                if (!props.scrollable && value) {
+                    logUtil.logPropError(name, 'scrollButtons', 'scrollable must be true to use scrollButtons');
+                    return false;
+                }
+                return true;
+            },
+        },
         tabs: {
             type: Array as PropType<string[]>,
             required: true,
@@ -60,18 +94,18 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, dense, disabled, mobileFull, tabs, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, disabled, scrollable, scrollButtons, tabs, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
+        const totalLength = computed(() => tabs.value.length);
+        const tabsContainerRef: Ref<HTMLElement | null> = ref(null);
         const tabRefs: Ref<HTMLElement[]> = ref([]);
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            'mobile-full': mobileFull.value,
-        }));
+        const selectedIdx = ref(modelValue.value);
+        const currentFocusedTab = ref(selectedIdx.value);
+        const scrollCount = ref(0);
 
         function isSelected(index: number) {
             return selectedIdx.value === index;
@@ -81,10 +115,8 @@ export default defineComponent({
             return disabled.value?.includes(index);
         }
 
-        const selectedIdx = ref(modelValue.value);
-
         function selectTab(index: number) {
-            if (index < 0 || index > tabs.value.length - 1) {
+            if (index < 0 || index > totalLength.value - 1) {
                 selectedIdx.value = 0;
                 return;
             }
@@ -100,6 +132,8 @@ export default defineComponent({
 
         watch(selectedIdx, (index: number) => {
             tabRefs.value[index]?.focus();
+            scrollTo(index);
+
             if (index !== modelValue.value) {
                 emit('update:modelValue', index);
                 emit('change', index);
@@ -115,9 +149,8 @@ export default defineComponent({
         );
 
         function findNextActivedIndex(startIndex: number): number {
-            const length = tabs.value.length;
-            for (let i = startIndex; i < length + startIndex; i++) {
-                const index = i % length;
+            for (let i = startIndex; i < totalLength.value + startIndex; i++) {
+                const index = i % totalLength.value;
                 if (!isDisabled(index)) {
                     return index;
                 }
@@ -126,9 +159,8 @@ export default defineComponent({
         }
 
         function findPreviousActivedIndex(startIndex: number): number {
-            const length = tabs.value.length;
-            for (let i = startIndex; i > startIndex - length; i--) {
-                const index = (i + length) % length;
+            for (let i = startIndex; i > startIndex - totalLength.value; i--) {
+                const index = (i + totalLength.value) % totalLength.value;
                 if (!isDisabled(index)) {
                     return index;
                 }
@@ -137,7 +169,6 @@ export default defineComponent({
         }
 
         function handleKeydown(event: KeyboardEvent) {
-            const length = tabs.value.length;
             let targetIndex = selectedIdx.value;
 
             switch (event.code) {
@@ -151,7 +182,7 @@ export default defineComponent({
                     targetIndex = findNextActivedIndex(0);
                     break;
                 case 'End':
-                    targetIndex = findPreviousActivedIndex(length - 1);
+                    targetIndex = findPreviousActivedIndex(totalLength.value - 1);
                     break;
                 default:
                     return;
@@ -161,16 +192,93 @@ export default defineComponent({
             selectTab(targetIndex);
         }
 
+        function calculateScrollCount(): void {
+            const tabContainerWidth = tabsContainerRef.value?.clientWidth;
+            if (!tabContainerWidth) {
+                scrollCount.value = 0;
+                return;
+            }
+
+            let visibleTabsCount = 0;
+            let accumulatedWidth = 0;
+
+            tabRefs.value.some((tabRef) => {
+                if (accumulatedWidth < tabContainerWidth - tabRef.offsetWidth) {
+                    accumulatedWidth += tabRef.offsetWidth;
+                    visibleTabsCount++;
+                    return false;
+                }
+                return true;
+            });
+
+            scrollCount.value = visibleTabsCount;
+        }
+
+        const showScrollButtons = computed(() => {
+            if (!scrollable.value) {
+                return false;
+            }
+
+            if (scrollButtons.value === 'auto') {
+                return !domUtil.hasTouchScreen() && scrollCount.value < totalLength.value;
+            }
+
+            return scrollButtons.value;
+        });
+
+        function scrollTo(index: number) {
+            if (!scrollable.value) {
+                return;
+            }
+
+            let targetIndex = index;
+
+            if (index < 0) {
+                targetIndex = 0;
+            }
+
+            if (index > totalLength.value - 1) {
+                targetIndex = totalLength.value - 1;
+            }
+
+            tabRefs.value[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            currentFocusedTab.value = targetIndex;
+        }
+
+        function scrollLeft() {
+            const targetIndex = Math.max(0, currentFocusedTab.value - scrollCount.value);
+            scrollTo(targetIndex);
+        }
+
+        function scrollRight() {
+            const targetIndex = Math.min(totalLength.value - 1, currentFocusedTab.value + scrollCount.value);
+            scrollTo(targetIndex);
+        }
+
+        onMounted(() => {
+            calculateScrollCount();
+            window.addEventListener('resize', calculateScrollCount);
+        });
+
+        onUnmounted(() => {
+            window.removeEventListener('resize', calculateScrollCount);
+        });
+
         return {
             computedColorScheme,
             computedStyleSet,
-            classObj,
             isSelected,
             isDisabled,
             selectedIdx,
             selectTab,
+            tabsContainerRef,
             tabRefs,
             handleKeydown,
+            showScrollButtons,
+            currentFocusedTab,
+            scrollLeft,
+            scrollRight,
+            scrollCount,
         };
     },
 });
