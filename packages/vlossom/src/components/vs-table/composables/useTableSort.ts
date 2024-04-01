@@ -2,7 +2,7 @@ import { Ref } from 'vue';
 import { TableItem, SortType } from '../types';
 
 export function useTableSort() {
-    function getSortedItems(items: TableItem[], sortTypes: Ref<{ [key: string]: SortType }>) {
+    function getSortedTableItems(items: TableItem[], sortTypes: Ref<{ [key: string]: SortType }>) {
         const sortKey = Object.keys(sortTypes.value).find((key) => {
             return sortTypes.value[key] !== SortType.NONE;
         });
@@ -21,6 +21,6 @@ export function useTableSort() {
     }
 
     return {
-        getSortedItems,
+        getSortedTableItems,
     };
 }
