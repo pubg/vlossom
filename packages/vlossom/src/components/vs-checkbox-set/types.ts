@@ -1,5 +1,5 @@
-import type { VsCheckboxStyleSet } from './../vs-checkbox/types';
+import type { VsCheckboxNodeStyleSet } from '@/nodes';
 
-export interface VsCheckboxSetStyleSet extends VsCheckboxStyleSet {
-    checkboxMargin?: string;
+export interface VsCheckboxSetStyleSet extends VsCheckboxNodeStyleSet {
+    checkboxGap?: string;
 }

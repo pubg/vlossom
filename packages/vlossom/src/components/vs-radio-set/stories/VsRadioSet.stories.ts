@@ -165,7 +165,7 @@ export const StyleSet: Story = {
             labelFontSize: '1.2rem',
             radioColor: '#18a865',
             radioSize: '2.4rem',
-            radioMargin: '8rem',
+            radioGap: '8rem',
         },
     },
 };

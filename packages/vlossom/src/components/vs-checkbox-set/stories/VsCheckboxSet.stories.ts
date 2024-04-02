@@ -160,7 +160,7 @@ export const StyleSet: Story = {
             labelFontSize: '0.8rem',
             checkboxColor: '#81c798',
             checkboxSize: '4rem',
-            checkboxMargin: '3rem',
+            checkboxGap: '3rem',
         },
     },
 };

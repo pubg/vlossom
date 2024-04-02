@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsCheckNode from './../VsCheckNode.vue';
+import VsCheckboxNode from './../VsCheckboxNode.vue';
 
 function mountComponent() {
-    return mount(VsCheckNode);
+    return mount(VsCheckboxNode);
 }
 
-describe('vs-check-node', () => {
+describe('vs-checkbox-node', () => {
     describe('checkbox type', () => {
         it('checkbox icon이 표시된다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     id: 'test',
                     colorScheme: 'default',
@@ -26,7 +26,7 @@ describe('vs-check-node', () => {
 
         it('checked 속성을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     id: 'test',
                     colorScheme: 'default',
@@ -46,7 +46,7 @@ describe('vs-check-node', () => {
         describe('events', () => {
             it('toggle 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',
@@ -67,7 +67,7 @@ describe('vs-check-node', () => {
 
             it('focus 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',
@@ -86,7 +86,7 @@ describe('vs-check-node', () => {
 
             it('blur 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',
@@ -108,7 +108,7 @@ describe('vs-check-node', () => {
     describe('radio type', () => {
         it('checkbox icon이 표시된다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     id: 'test',
                     colorScheme: 'default',
@@ -124,7 +124,7 @@ describe('vs-check-node', () => {
 
         it('checked 속성을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                 props: {
                     id: 'test',
                     colorScheme: 'default',
@@ -144,7 +144,7 @@ describe('vs-check-node', () => {
         describe('events', () => {
             it('toggle 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',
@@ -165,7 +165,7 @@ describe('vs-check-node', () => {
 
             it('focus 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',
@@ -184,7 +184,7 @@ describe('vs-check-node', () => {
 
             it('blur 이벤트를 발생시킬 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckNode, {
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxNode, {
                     props: {
                         id: 'test',
                         colorScheme: 'default',

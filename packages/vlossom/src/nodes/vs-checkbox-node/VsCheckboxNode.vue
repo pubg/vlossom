@@ -1,10 +1,10 @@
 <template>
-    <div :class="['vs-check-node', type, `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
-        <div class="input-wrap">
-            <vs-icon v-if="type === 'checkbox'" class="check-icon" :icon="icon" />
+    <div :class="['vs-checkbox-node', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
+        <div class="checkbox-wrap">
+            <vs-icon class="check-icon" :icon="icon" />
             <input
-                :class="['check-input', boxGlowByState]"
-                :type="type"
+                type="checkbox"
+                :class="['checkbox-input', boxGlowByState]"
                 :id="id"
                 :disabled="disabled || readonly"
                 :name="name"
@@ -16,7 +16,7 @@
                 @blur="onBlur"
             />
         </div>
-        <label v-if="label" :for="id" :class="textGlowByState">
+        <label v-if="label" :for="id" :class="['checkbox-label', textGlowByState]">
             <slot name="label">{{ label }}</slot>
         </label>
     </div>
@@ -28,10 +28,8 @@ import { ColorScheme, UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
 import { VsIcon } from '@/icons';
 
-type CheckNodeType = 'radio' | 'checkbox';
-
 export default defineComponent({
-    name: 'VsCheckNode',
+    name: 'VsCheckboxNode',
     components: { VsIcon },
     props: {
         colorScheme: {
@@ -51,11 +49,6 @@ export default defineComponent({
         readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: UIState.Idle },
-        type: {
-            type: String as PropType<CheckNodeType>,
-            required: true,
-            default: 'checkbox',
-        },
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
@@ -66,7 +59,6 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             checked: checked.value,
-            indeterminate: indeterminate.value,
             disabled: disabled.value,
             readonly: readonly.value,
         }));
@@ -114,4 +106,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsCheckNode.scss" />
+<style lang="scss" scoped src="./VsCheckboxNode.scss" />

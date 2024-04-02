@@ -80,7 +80,7 @@ const vsCheckboxSet: VsCheckboxSetStyleSet = {
     checkboxSize: '3rem',
     labelFontColor: '#0288d1',
     labelFontSize: '1.2rem',
-    checkboxMargin: '6rem',
+    checkboxGap: '6rem',
 };
 
 const vsChip: VsChipStyleSet = {
@@ -227,7 +227,7 @@ const vsRadioSet: VsRadioSetStyleSet = {
     labelFontSize: '1.2rem',
     radioColor: '#18e835',
     radioSize: '1.8rem',
-    radioMargin: '4rem',
+    radioGap: '4rem',
 };
 
 const vsSection: VsSectionStyleSet = {

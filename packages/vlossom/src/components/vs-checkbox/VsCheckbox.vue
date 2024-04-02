@@ -15,15 +15,14 @@
                 <slot name="label" />
             </template>
 
-            <vs-check-node
-                type="checkbox"
-                :id="id"
+            <vs-checkbox-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :checked="isChecked"
+                :disabled="disabled"
+                :id="id"
                 :indeterminate="indeterminate"
                 :label="checkLabel"
-                :disabled="disabled"
                 :name="name"
                 :readonly="readonly"
                 :required="required"
@@ -36,7 +35,7 @@
                 <template #label v-if="$slots['check-label']">
                     <slot name="check-label" />
                 </template>
-            </vs-check-node>
+            </vs-checkbox-node>
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -58,14 +57,14 @@ import {
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsCheckboxNode } from '@/nodes';
 
 import type { VsCheckboxStyleSet } from './types';
 
 const name = VsComponent.VsCheckbox;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsCheckNode },
+    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),

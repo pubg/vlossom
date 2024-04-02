@@ -16,22 +16,21 @@
             </template>
 
             <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
-                <vs-check-node
+                <vs-checkbox-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
                     class="vs-checkbox-item"
-                    type="checkbox"
-                    :id="`${id}-${optionIds[index]}`"
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
+                    :id="`${id}-${optionIds[index]}`"
+                    :label="getOptionLabel(option)"
                     :name="name"
                     :readonly="readonly"
                     :required="required"
                     :state="state"
                     :value="getOptionValue(option)"
-                    :label="getOptionLabel(option)"
                     @toggle="onToggle(option, $event)"
                     @focus="onFocus(option, $event)"
                     @blur="onBlur(option, $event)"
@@ -44,7 +43,7 @@
                             :label="getOptionLabel(option)"
                         />
                     </template>
-                </vs-check-node>
+                </vs-checkbox-node>
             </div>
 
             <template #messages v-if="!noMessage">
@@ -69,7 +68,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsCheckboxNode } from '@/nodes';
 
 import type { VsCheckboxSetStyleSet } from './types';
 import { VsCheckboxStyleSet } from '../vs-checkbox/types';
@@ -78,7 +77,7 @@ const name = VsComponent.VsCheckboxSet;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsCheckNode },
+    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getInputOptionProps(),

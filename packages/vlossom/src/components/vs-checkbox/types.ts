@@ -1,10 +1,3 @@
-export interface VsCheckboxStyleSet {
-    borderRadius?: string;
-    checkboxColor?: string;
-    checkboxSize?: string;
-    focusBoxShadow?: string;
-    labelFontColor?: string;
-    labelFontSize?: string;
-    selectedLabelFontColor?: string;
-    selectedLabelFontWeight?: string | number;
-}
+import type { VsCheckboxNodeStyleSet } from '@/nodes';
+
+export interface VsCheckboxStyleSet extends VsCheckboxNodeStyleSet {}
