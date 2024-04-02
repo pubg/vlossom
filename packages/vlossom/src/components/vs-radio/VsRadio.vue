@@ -15,14 +15,13 @@
                 <slot name="label" />
             </template>
 
-            <vs-check-node
-                type="radio"
-                :id="id"
+            <vs-radio-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :checked="isChecked"
-                :label="radioLabel"
                 :disabled="disabled"
+                :id="id"
+                :label="radioLabel"
                 :name="name"
                 :readonly="readonly"
                 :required="required"
@@ -35,7 +34,7 @@
                 <template #label v-if="$slots['radio-label']">
                     <slot name="radio-label" />
                 </template>
-            </vs-check-node>
+            </vs-radio-node>
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -51,13 +50,13 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
 export default defineComponent({
     name: VsComponent.VsRadio,
-    components: { VsInputWrapper, VsWrapper, VsCheckNode },
+    components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),

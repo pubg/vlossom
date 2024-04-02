@@ -22,7 +22,7 @@ export default defineComponent({
     setup(props) {
         const { styleSet, height, position, primary, verticalAlign } = toRefs(props);
 
-        const convertedProperties = computed(() => {
+        const convertedStyleSet = computed(() => {
             return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
                 const propName = key.split('-').pop();
                 acc[`--vs-bar-node-${propName}`] = value;
@@ -35,7 +35,7 @@ export default defineComponent({
         }));
 
         const computedStyle = computed(() => {
-            const style = { ...convertedProperties.value };
+            const style = { ...convertedStyleSet.value };
             if (height.value) {
                 style['--vs-bar-node-height'] = height.value;
             }

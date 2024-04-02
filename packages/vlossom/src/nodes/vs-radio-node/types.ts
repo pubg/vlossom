@@ -1,10 +1,10 @@
-export interface VsCheckboxStyleSet {
+export interface VsRadioNodeStyleSet {
     borderRadius?: string;
-    checkboxColor?: string;
-    checkboxSize?: string;
     focusBoxShadow?: string;
     labelFontColor?: string;
     labelFontSize?: string;
+    radioColor?: string;
+    radioSize?: string;
     selectedLabelFontColor?: string;
     selectedLabelFontWeight?: string | number;
 }
