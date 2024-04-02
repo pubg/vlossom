@@ -1,93 +1,159 @@
 @use '@/styles/mixin' as *;
 
 .vs-check-node {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     user-select: none;
 
-    .input-container {
+    .input-wrap {
         position: relative;
         display: flex;
         align-items: center;
-
-        .check-icon {
-            transition: all 0.2s ease;
-        }
 
         input {
             position: absolute;
             top: 0;
             left: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
             cursor: pointer;
-            appearance: none;
+        }
+
+        input[type='checkbox'] {
+            &:focus-visible {
+                border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
+                box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 4px 1px var(--vs-comp-color));
+            }
+        }
+
+        input[type='radio'] {
+            &:focus-visible {
+                border-radius: var(--vs-radio-borderRadius, 50%);
+                box-shadow: var(--vs-radio-focusBoxShadow, 0 0 4px 1px var(--vs-comp-color));
+            }
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            transition: all 0.6s ease-out;
+            pointer-events: none;
         }
     }
 
     label {
-        padding-left: 0.5rem;
-        padding-bottom: 2px;
+        padding-left: 0.4rem;
         cursor: pointer;
+        user-select: none;
     }
 
     &.checkbox {
-        .check-icon {
-            color: transparent;
-            width: var(--vs-checkbox-width, 1.2rem);
-            height: var(--vs-checkbox-height, 1.2rem);
-            border: var(--vs-checkbox-border, 2px solid var(--vs-comp-border-color));
-            border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
-        }
+        .input-wrap {
+            color: var(--vs-checkbox-checkboxColor, var(--vs-comp-color));
+            border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
 
-        input[type='checkbox'] {
-            width: var(--vs-checkbox-width, 1.2rem);
-            height: var(--vs-checkbox-height, 1.2rem);
+            .check-icon {
+                width: var(--vs-checkbox-checkboxSize, 1.6rem);
+                height: var(--vs-checkbox-checkboxSize, 1.6rem);
+            }
 
-            &:focus-visible {
-                border-radius: var(--vs-checkbox-borderRadius, 0.14rem);
-                box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            &:after {
+                background-color: var(--vs-checkbox-checkboxColor, var(--vs-comp-color));
+                border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
             }
         }
 
         label {
-            font-size: var(--vs-checkbox-fontSize, 1rem);
-            color: var(--vs-checkbox-checkLabelFontColor, var(--vs-font-color));
-        }
-
-        &.checked,
-        &.indeterminate {
-            .check-icon {
-                color: var(--vs-checkbox-iconColor, var(--vs-plain-backgroundColor));
-                background-color: var(--vs-checkbox-backgroundColor, var(--vs-comp-border-color));
-            }
+            color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
+            font-size: var(--vs-checkbox-labelFontSize, 1rem);
         }
     }
 
     &.radio {
-        .check-icon {
-            width: var(--vs-radio-radioSize, 1.2rem);
-            height: var(--vs-radio-radioSize, 1.2rem);
-            color: var(--vs-radio-radioFontColor, var(--vs-comp-border-color));
-        }
+        .input-wrap {
+            color: var(--vs-radio-radioColor, var(--vs-comp-color));
+            width: var(--vs-radio-radioSize, 1.25rem);
+            height: var(--vs-radio-radioSize, 1.25rem);
+            border: 1px solid var(--vs-radio-radioColor, var(--vs-comp-color));
+            border-radius: var(--vs-radio-borderRadius, 50%);
 
-        input[type='radio'] {
-            width: var(--vs-radio-radioSize, 1.2rem);
-            height: var(--vs-radio-radioSize, 1.2rem);
-            border-radius: 50%;
+            &:before {
+                content: '';
+                display: block;
+                opacity: 0;
+                width: 0.6rem;
+                height: 0.6rem;
+                margin: auto;
+                transform: scale(0.1);
+                transition: opacity 0.3s, transform 0.3s;
+            }
 
-            &:focus-visible {
-                border-radius: 50%;
-                box-shadow: var(--vs-radio-focusBoxShadow, 0 0 4px 1px var(--vs-comp-border-color));
+            &:before,
+            &:after {
+                background-color: var(--vs-radio-radioColor, var(--vs-comp-color));
+                border-radius: var(--vs-radio-borderRadius, 50%);
             }
         }
 
         label {
-            font-size: var(--vs-radio-labelFontSize, 1rem);
             color: var(--vs-radio-labelFontColor, var(--vs-font-color));
+            font-size: var(--vs-radio-labelFontSize, 1rem);
+        }
+    }
+
+    &:active .input-wrap:after {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+        transition: 0s;
+        width: 0%;
+    }
+
+    &.checked {
+        &.checkbox {
+            label {
+                font-weight: var(--vs-checkbox-selectedLabelFontWeight, 600);
+                color: var(
+                    --vs-checkbox-selectedLabelFontColor,
+                    var(--vs-checkbox-checkboxColor, var(--vs-comp-color))
+                );
+            }
+        }
+
+        &.radio {
+            .input-wrap {
+                &:before {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            label {
+                font-weight: var(--vs-radio-selectedLabelFontWeight, 600);
+                color: var(--vs-radio-selectedLabelFontColor, var(--vs-radio-checkboxColor, var(--vs-comp-color)));
+            }
         }
     }
 
     &.disabled {
         @include disabled;
+
+        input[type='checkbox'],
+        input[type='radio'],
+        label {
+            cursor: default;
+        }
     }
 
     &.readonly {

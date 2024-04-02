@@ -163,7 +163,7 @@ export const StyleSet: Story = {
         styleSet: {
             labelFontColor: '#1e18e5',
             labelFontSize: '1.2rem',
-            radioFontColor: '#18a865',
+            radioColor: '#18a865',
             radioSize: '2.4rem',
             radioMargin: '8rem',
         },

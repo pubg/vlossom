@@ -1,7 +1,7 @@
 <template>
     <div :class="['vs-check-node', type, `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
-        <div class="input-container">
-            <vs-icon class="check-icon" :icon="icon" />
+        <div class="input-wrap">
+            <vs-icon v-if="type === 'checkbox'" class="check-icon" :icon="icon" />
             <input
                 :class="['check-input', boxGlowByState]"
                 :type="type"
@@ -60,7 +60,7 @@ export default defineComponent({
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
     setup(props, { emit }) {
-        const { checked, indeterminate, disabled, readonly, state, type } = toRefs(props);
+        const { checked, indeterminate, disabled, readonly, state } = toRefs(props);
 
         const { boxGlowByState, textGlowByState } = useStateClass(state);
 
@@ -72,15 +72,11 @@ export default defineComponent({
         }));
 
         const icon = computed(() => {
-            if (type.value === 'radio') {
-                return checked.value ? 'radioChecked' : 'radioUnchecked';
+            if (indeterminate.value) {
+                return 'checkboxIndeterminate';
             }
 
-            if (type.value === 'checkbox' && indeterminate.value) {
-                return 'indeterminate';
-            }
-
-            return 'check';
+            return checked.value ? 'checkboxChecked' : 'checkboxUnchecked';
         });
 
         function toggle(event: Event) {
@@ -88,12 +84,12 @@ export default defineComponent({
             emit('toggle', (event.target as HTMLInputElement).checked);
         }
 
-        function onFocus(e: FocusEvent) {
-            emit('focus', e);
+        function onFocus(event: FocusEvent) {
+            emit('focus', event);
         }
 
-        function onBlur(e: FocusEvent) {
-            emit('blur', e);
+        function onBlur(event: FocusEvent) {
+            emit('blur', event);
         }
 
         function convertToString(value: any) {

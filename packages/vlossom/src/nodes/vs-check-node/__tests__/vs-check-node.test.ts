@@ -21,7 +21,7 @@ describe('vs-check-node', () => {
             });
 
             // then
-            expect(wrapper.vm.icon).toBe('check');
+            expect(wrapper.vm.icon).toBe('checkboxChecked');
         });
 
         it('checked 속성을 설정할 수 있다', async () => {

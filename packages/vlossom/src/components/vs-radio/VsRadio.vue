@@ -67,6 +67,7 @@ export default defineComponent({
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
         },
+        checked: { type: Boolean, default: false },
         name: { type: String, required: true },
         radioLabel: { type: String, default: '' },
         radioValue: { type: null, required: true },
@@ -76,8 +77,19 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
-        const { beforeChange, colorScheme, styleSet, label, modelValue, messages, name, required, rules, radioValue } =
-            toRefs(props);
+        const {
+            beforeChange,
+            checked,
+            colorScheme,
+            label,
+            messages,
+            modelValue,
+            name,
+            radioValue,
+            required,
+            rules,
+            styleSet,
+        } = toRefs(props);
 
         const { emit } = context;
 
@@ -106,6 +118,11 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = radioValue.value;
+                    }
+                },
                 onClear: () => {
                     inputValue.value = null;
                 },

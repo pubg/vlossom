@@ -170,7 +170,7 @@ export const StyleSet: Story = {
             focusBoxShadow: '0 0 0 3px #81c798',
             labelFontColor: '#ac77c8',
             labelFontSize: '1.5rem',
-            radioFontColor: '#41c798',
+            radioColor: '#41c798',
             radioSize: '2rem',
         },
     },

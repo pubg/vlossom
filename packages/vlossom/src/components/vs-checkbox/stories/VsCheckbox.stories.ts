@@ -214,10 +214,12 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: '#81c798',
-            border: '3px solid #81c798',
-            borderRadius: '0.8rem',
+            borderRadius: '1.3rem',
             focusBoxShadow: '0 0 0 3px #81c798',
+            labelFontColor: '#a0b0b9',
+            labelFontSize: '0.8rem',
+            checkboxColor: '#81c798',
+            checkboxSize: '4rem',
         },
     },
 };
