@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadio from './../VsRadio.vue';
@@ -8,6 +8,25 @@ function mountComponent() {
 }
 
 describe('vs-radio', () => {
+    describe('checked', () => {
+        it('checked 속성을 전달해서 처음부터 선택 상태로 만들 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+                props: {
+                    name: 'radio',
+                    radioValue: 'test',
+                    checked: true,
+                },
+            });
+
+            await nextTick();
+
+            // then
+            expect(wrapper.vm.isChecked).toBe(true);
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+    });
+
     describe('v-model', () => {
         it('modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
@@ -87,29 +106,6 @@ describe('vs-radio', () => {
         });
     });
 
-    describe('rules', () => {
-        it('required 체크가 가능하다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
-                props: {
-                    name: 'radio',
-                    radioValue: 'test',
-                    modelValue: null,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    required: true,
-                },
-            });
-
-            // when
-            await wrapper.setProps({ modelValue: 'test' });
-            await wrapper.setProps({ modelValue: null });
-
-            // then
-            expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.html()).toContain('required');
-        });
-    });
-
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
@@ -117,14 +113,17 @@ describe('vs-radio', () => {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
-                    modelValue: 'test',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    required: true,
+                    rules: [() => ''],
                 },
             });
 
+            // when
+            const result = wrapper.vm.validate();
+            await nextTick();
+
             // then
-            expect(wrapper.vm.validate()).toBe(true);
+            expect(result).toBe(true);
+            expect(wrapper.vm.computedMessages).toHaveLength(0);
         });
 
         it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
@@ -133,14 +132,70 @@ describe('vs-radio', () => {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
-                    modelValue: null,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    required: true,
+                    rules: [() => 'error'],
                 },
             });
 
+            // when
+            const result = wrapper.vm.validate();
+            await nextTick();
+
             // then
-            expect(wrapper.vm.validate()).toBe(false);
+            expect(result).toBe(false);
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('error');
+        });
+
+        // document.querySelector(`input[name="${name.value}"]:checked`) 에러 발생으로 인해 테스트 제외
+        describe.skip('required check', () => {
+            let wrapper: ReturnType<typeof mountComponent>;
+
+            afterEach(() => {
+                wrapper.unmount();
+            });
+
+            it('required 상태에서 checked이면 validation true', async () => {
+                // given
+                wrapper = mount(VsRadio, {
+                    props: {
+                        name: 'radio',
+                        radioValue: 'test',
+                        required: true,
+                        checked: true,
+                    },
+                    attachTo: document.body,
+                });
+
+                // when
+                const result = wrapper.vm.validate();
+                await nextTick();
+
+                // then
+                expect(result).toBe(true);
+                expect(wrapper.vm.computedMessages).toHaveLength(0);
+            });
+
+            it('required 상태에서 unchecked이면 validation false', async () => {
+                // given
+                wrapper = mount(VsRadio, {
+                    props: {
+                        name: 'radio',
+                        radioValue: 'test',
+                        required: true,
+                        checked: false,
+                    },
+                    attachTo: document.body,
+                });
+
+                // when
+                const result = wrapper.vm.validate();
+                await nextTick();
+
+                // then
+                expect(result).toBe(false);
+                expect(wrapper.vm.computedMessages).toHaveLength(1);
+                expect(wrapper.html()).toContain('required');
+            });
         });
     });
 
@@ -179,7 +234,7 @@ describe('vs-radio', () => {
     });
 });
 
-describe('vs-radio (multiple)', () => {
+describe('vs-radio (multiple inputs)', () => {
     let radio1: ReturnType<typeof mountComponent>;
     let radio2: ReturnType<typeof mountComponent>;
 

@@ -16,7 +16,7 @@
                 @blur="onBlur"
             />
         </div>
-        <label v-if="label" :for="id" :class="['checkbox-label', textGlowByState]">
+        <label v-if="label || $slots['label']" :for="id" :class="['checkbox-label', textGlowByState]">
             <slot name="label">{{ label }}</slot>
         </label>
     </div>
@@ -32,14 +32,8 @@ export default defineComponent({
     name: 'VsCheckboxNode',
     components: { VsIcon },
     props: {
-        colorScheme: {
-            type: String as PropType<'default' | ColorScheme>,
-            required: true,
-        },
-        styleSet: {
-            type: Object as PropType<{ [key: string]: any }>,
-            required: true,
-        },
+        colorScheme: { type: String as PropType<'default' | ColorScheme> },
+        styleSet: { type: Object as PropType<{ [key: string]: any }> },
         checked: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
@@ -64,11 +58,15 @@ export default defineComponent({
         }));
 
         const icon = computed(() => {
+            if (checked.value) {
+                return 'checkboxChecked';
+            }
+
             if (indeterminate.value) {
                 return 'checkboxIndeterminate';
             }
 
-            return checked.value ? 'checkboxChecked' : 'checkboxUnchecked';
+            return 'checkboxUnchecked';
         });
 
         function toggle(event: Event) {
