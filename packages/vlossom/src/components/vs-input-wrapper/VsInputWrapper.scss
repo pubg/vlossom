@@ -2,9 +2,11 @@
 
 .vs-input-wrapper {
     .vs-label {
+        display: flex;
+        align-items: center;
+        min-height: 1.5rem;
         color: var(--vs-font-color);
-        font-size: 1rem;
-        line-height: 2rem;
+        font-size: 0.9rem;
 
         &.disabled {
             @include disabled;
@@ -12,7 +14,10 @@
     }
 
     .required-star {
+        position: relative;
+        top: 0.2rem;
         color: var(--vs-red-600);
+        margin-left: 0.15rem;
 
         &.disabled {
             @include disabled;
@@ -24,5 +29,16 @@
         margin: 0;
         padding: 0;
         min-width: 0;
+    }
+
+    .vs-messages {
+        display: flex;
+        align-items: center;
+        min-height: 1.2rem;
+        margin-bottom: 0.2rem;
+
+        .message-item + .message-item {
+            margin-left: 1rem;
+        }
     }
 }
