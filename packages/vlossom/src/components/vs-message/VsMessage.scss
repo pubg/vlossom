@@ -2,10 +2,11 @@
     display: flex;
     align-items: center;
     color: var(--vs-line-color);
+    font-size: 0.8rem;
 
     .message-icon {
         position: relative;
-        top: 0.1rem;
-        margin-right: 0.4rem;
+        top: 0.05rem;
+        margin-right: 0.3rem;
     }
 }

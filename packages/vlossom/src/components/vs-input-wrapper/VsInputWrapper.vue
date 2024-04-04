@@ -5,22 +5,27 @@
                 :is="groupLabel ? 'legend' : 'label'"
                 v-if="!noLabel"
                 :for="groupLabel ? undefined : id || undefined"
-                :class="textGlowByState"
+                :class="['vs-label', textGlowByState]"
             >
                 <slot name="label">
-                    <span :class="['vs-label', { disabled }]">{{ label }}</span>
+                    <span :class="{ disabled }">{{ label }}</span>
                 </slot>
-                <i :class="['required-star', { disabled }]" v-if="required">*</i>
+                <i v-if="required" :class="['required-star', { disabled }]">*</i>
             </component>
 
             <slot />
         </component>
 
-        <slot name="messages">
-            <div class="vs-messages" v-if="!noMessage">
-                <vs-message v-for="(message, index) in messages" :key="`${index}-${message.text}`" :message="message" />
-            </div>
-        </slot>
+        <div class="vs-messages" v-if="!noMessage">
+            <slot name="messages">
+                <vs-message
+                    class="message-item"
+                    v-for="(message, index) in messages"
+                    :key="`${index}-${message.text}`"
+                    :message="message"
+                />
+            </slot>
+        </div>
     </div>
 </template>
 
