@@ -41,4 +41,42 @@ describe('string util', () => {
             expect(result).toBe('pascal-case');
         });
     });
+
+    describe('convertToString', () => {
+        const { convertToString } = stringUtil;
+
+        it('Given a string, when the function is called, then it should return the same string', () => {
+            // Given
+            const value = 'test';
+
+            // When
+            const result = convertToString(value);
+
+            // Then
+            expect(result).toBe(value);
+        });
+
+        it('Given an object, when the function is called, then it should return the stringified object', () => {
+            // Given
+            const value = { key: 'value' };
+
+            // When
+            const result = convertToString(value);
+
+            // Then
+            expect(result).toBe(JSON.stringify(value));
+        });
+
+        it(`Given a non-string and non-object value, when the function is called,
+            then it should return the stringified value`, () => {
+            // Given
+            const value = 123;
+
+            // When
+            const result = convertToString(value);
+
+            // Then
+            expect(result).toBe(String(value));
+        });
+    });
 });
