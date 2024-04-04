@@ -44,6 +44,10 @@
         opacity: 0.45;
         pointer-events: none;
     }
+
+    &:focus-visible {
+        box-shadow: 0 0 0.6rem 0 var(--vs-comp-border-color);
+    }
 }
 
 // primary {
