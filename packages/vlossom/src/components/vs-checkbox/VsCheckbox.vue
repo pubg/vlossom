@@ -18,6 +18,7 @@
             <vs-checkbox-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
+                :aria-label="ariaLabel || checkLabel || label || convertToString(trueValue)"
                 :checked="isChecked"
                 :disabled="disabled"
                 :id="id"
@@ -55,6 +56,7 @@ import {
     useValueMatcher,
 } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
@@ -70,6 +72,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
+        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
@@ -172,6 +175,7 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            convertToString: utils.string.convertToString,
         };
     },
 });
