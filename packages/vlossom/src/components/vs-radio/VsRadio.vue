@@ -18,7 +18,7 @@
             <vs-radio-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
-                :aria-label="ariaLabel || radioLabel || label || convertToString(radioValue) || label"
+                :aria-label="ariaLabel || radioLabel || label || convertToString(radioValue)"
                 :checked="isChecked"
                 :disabled="disabled"
                 :id="id"
