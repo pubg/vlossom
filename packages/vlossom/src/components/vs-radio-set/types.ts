@@ -1,5 +1,5 @@
-import type { VsRadioStyleSet } from './../vs-radio/types';
+import type { VsRadioNodeStyleSet } from '@/nodes';
 
-export interface VsRadioSetStyleSet extends VsRadioStyleSet {
-    radioMargin?: string;
+export interface VsRadioSetStyleSet extends VsRadioNodeStyleSet {
+    radioGap?: string;
 }

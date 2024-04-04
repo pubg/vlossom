@@ -67,26 +67,20 @@ const vsButton: VsButtonStyleSet = {
 };
 
 const vsCheckbox: VsCheckboxStyleSet = {
-    backgroundColor: '#0288d1',
-    border: '2px solid #0288d1',
-    borderRadius: '0.4rem',
-    checkLabelFontColor: '#0288d1',
-    fontSize: '1.2rem',
-    height: '1.4rem',
-    iconColor: '#ffb300',
-    width: '1.4rem',
+    borderRadius: '0.6rem',
+    checkboxColor: '#ffb300',
+    checkboxSize: '3rem',
+    labelFontColor: '#0288d1',
+    labelFontSize: '1.2rem',
 };
 
 const vsCheckboxSet: VsCheckboxSetStyleSet = {
-    backgroundColor: '#0288d1',
-    border: '2px solid #0288d1',
-    borderRadius: '0.4rem',
-    checkLabelFontColor: '#0288d1',
-    fontSize: '1.2rem',
-    height: '1.4rem',
-    iconColor: '#ffb300',
-    width: '1.4rem',
-    checkboxMargin: '6rem',
+    borderRadius: '0.6rem',
+    checkboxColor: '#ffb300',
+    checkboxSize: '3rem',
+    labelFontColor: '#0288d1',
+    labelFontSize: '1.2rem',
+    checkboxGap: '6rem',
 };
 
 const vsChip: VsChipStyleSet = {
@@ -224,16 +218,16 @@ const vsProgress: VsProgressStyleSet = {
 const vsRadio: VsRadioStyleSet = {
     labelFontColor: '#4e9865',
     labelFontSize: '1.2rem',
-    radioFontColor: '#1e88e5',
+    radioColor: '#1e88e5',
     radioSize: '1.6rem',
 };
 
 const vsRadioSet: VsRadioSetStyleSet = {
     labelFontColor: '#1e88e5',
     labelFontSize: '1.2rem',
-    radioFontColor: '#18e835',
+    radioColor: '#18e835',
     radioSize: '1.8rem',
-    radioMargin: '4rem',
+    radioGap: '4rem',
 };
 
 const vsSection: VsSectionStyleSet = {

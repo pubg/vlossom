@@ -1,0 +1,71 @@
+@use '@/styles/mixin' as *;
+
+$radio-color: var(--vs-radio-radioColor, var(--vs-comp-color));
+$radio-size: var(--vs-radio-radioSize, 1.25rem);
+$radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, $radio-color);
+$radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
+
+.vs-radio-node {
+    position: relative;
+    display: flex;
+
+    .radio-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+
+        .radio-input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+
+            &:checked + .radio-label {
+                font-weight: var(--vs-radio-selectedLabelFontWeight, 500);
+                color: $radio-selected-label-color;
+
+                &:before {
+                    box-shadow: $radio-selected-inset-box-shadow;
+                }
+            }
+
+            &:focus-visible + .radio-label {
+                &:before {
+                    box-shadow: $radio-selected-inset-box-shadow, var(--vs-radio-focusBoxShadow, 0 0 1rem $radio-color);
+                }
+            }
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            transition: 0.25s ease;
+            color: var(--vs-radio-labelFontColor, var(--vs-font-color));
+            font-size: var(--vs-radio-labelFontSize, 1rem);
+            padding: 0.2rem 0;
+
+            &:hover {
+                color: $radio-selected-label-color;
+            }
+            &:before {
+                content: '';
+                background-color: var(--vs-area-backgroundColor);
+                width: $radio-size;
+                height: $radio-size;
+                border-radius: var(--vs-radio-borderRadius, 50%);
+                margin-right: 0.5rem;
+                transition: 0.25s ease;
+                box-shadow: inset 0 0 0 0.06rem $radio-color;
+            }
+        }
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        @include readonly;
+    }
+}

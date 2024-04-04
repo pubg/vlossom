@@ -8,6 +8,7 @@ import {
 } from '@/storybook';
 import { computed, ref } from 'vue';
 import { UIState } from '@/declaration';
+import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckbox from '../VsCheckbox.vue';
 
@@ -165,6 +166,15 @@ export const Indeterminate: Story = {
     }),
 };
 
+export const BeforeChange: Story = {
+    args: {
+        beforeChange: async () => {
+            const $vs = useVlossom();
+            return await $vs.confirm.open('Are you sure?');
+        },
+    },
+};
+
 export const Width: Story = {
     render: (args: any) => ({
         components: { VsCheckbox, VsContainer },
@@ -204,10 +214,12 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: '#81c798',
-            border: '3px solid #81c798',
-            borderRadius: '0.8rem',
+            borderRadius: '1.3rem',
             focusBoxShadow: '0 0 0 3px #81c798',
+            labelFontColor: '#a0b0b9',
+            labelFontSize: '0.8rem',
+            checkboxColor: '#81c798',
+            checkboxSize: '4rem',
         },
     },
 };

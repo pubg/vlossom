@@ -16,22 +16,21 @@
             </template>
 
             <div :class="['vs-radio-set', { vertical }]" :style="radioSetStyleSet">
-                <vs-check-node
+                <vs-radio-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
                     class="vs-radio-item"
-                    type="radio"
-                    :id="`${id}-${optionIds[index]}`"
                     :color-scheme="computedColorScheme"
                     :style-set="radioStyleSet"
                     :checked="isChecked(option)"
                     :disabled="disabled"
+                    :id="`${id}-${optionIds[index]}`"
+                    :label="getOptionLabel(option)"
                     :name="name"
                     :readonly="readonly"
                     :required="required"
                     :state="state"
                     :value="getOptionValue(option)"
-                    :label="getOptionLabel(option)"
                     @toggle="onToggle(option)"
                     @focus="onFocus(option, $event)"
                     @blur="onBlur(option, $event)"
@@ -44,7 +43,7 @@
                             :label="getOptionLabel(option)"
                         />
                     </template>
-                </vs-check-node>
+                </vs-radio-node>
             </div>
 
             <template #messages v-if="!noMessage">
@@ -69,15 +68,14 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioSetStyleSet } from './types';
 import type { VsRadioStyleSet } from './../vs-radio/types';
 
-const name = VsComponent.VsRadioSet;
 export default defineComponent({
-    name,
-    components: { VsInputWrapper, VsWrapper, VsCheckNode },
+    name: VsComponent.VsRadioSet,
+    components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
         ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getInputOptionProps(),
@@ -104,6 +102,7 @@ export default defineComponent({
             label,
             modelValue,
             messages,
+            name,
             options,
             optionLabel,
             optionValue,
@@ -114,7 +113,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { computedColorScheme } = useColorScheme(VsComponent.VsRadioSet, colorScheme);
 
         const { computedStyleSet: radioStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
         const { computedStyleSet: radioSetStyleSet } = useStyleSet<VsRadioSetStyleSet>(
@@ -132,8 +131,12 @@ export default defineComponent({
         const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
 
         function requiredCheck() {
-            const hasChecked = options.value.some((option) => isChecked(option));
-            return required.value && !hasChecked ? 'required' : '';
+            if (!required.value) {
+                return '';
+            }
+
+            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            return !checkedRadioElement ? 'required' : '';
         }
 
         function isChecked(option: any) {

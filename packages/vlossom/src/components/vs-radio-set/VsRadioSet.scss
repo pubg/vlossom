@@ -8,6 +8,6 @@
     }
 
     .vs-radio-item:not(:last-child) {
-        margin-right: var(--vs-radio-set-radioMargin, 2rem);
+        margin-right: var(--vs-radio-set-radioGap, 2rem);
     }
 }

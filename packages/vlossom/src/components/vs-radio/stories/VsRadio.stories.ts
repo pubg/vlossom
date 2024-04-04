@@ -7,6 +7,7 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { UIState } from '@/declaration';
+import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadio from './../VsRadio.vue';
 
@@ -118,6 +119,15 @@ export const Required: Story = {
     },
 };
 
+export const BeforeChange: Story = {
+    args: {
+        beforeChange: async () => {
+            const $vs = useVlossom();
+            return await $vs.confirm.open('Are you sure?');
+        },
+    },
+};
+
 export const Width: Story = {
     render: (args: any) => ({
         components: { VsRadio, VsContainer },
@@ -160,7 +170,7 @@ export const StyleSet: Story = {
             focusBoxShadow: '0 0 0 3px #81c798',
             labelFontColor: '#ac77c8',
             labelFontSize: '1.5rem',
-            radioFontColor: '#41c798',
+            radioColor: '#41c798',
             radioSize: '2rem',
         },
     },

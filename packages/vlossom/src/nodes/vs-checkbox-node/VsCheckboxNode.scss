@@ -1,0 +1,73 @@
+@use '@/styles/mixin' as *;
+
+$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-comp-color));
+$checkbox-size: var(--vs-checkbox-checkboxSize, 1.6rem);
+$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $checkbox-color);
+
+.vs-checkbox-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    user-select: none;
+
+    .checkbox-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: $checkbox-color;
+        border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
+        overflow: hidden;
+
+        .check-icon {
+            width: $checkbox-size;
+            height: $checkbox-size;
+        }
+
+        .checkbox-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        // TODO: focus box-shadow
+        // .check-icon ~ .checkbox-input:focus-visible {
+        //     box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 1rem $checkbox-color);
+        // }
+    }
+
+    .checkbox-label {
+        user-select: none;
+        padding-left: 0.4rem;
+        cursor: pointer;
+        transition: 0.25s ease;
+        color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
+        font-size: var(--vs-checkbox-labelFontSize, 1rem);
+    }
+
+    &.checked {
+        .checkbox-label {
+            font-weight: var(--vs-checkbox-selectedLabelFontWeight, 500);
+            color: $checkbox-selected-label-color;
+        }
+    }
+
+    &:hover {
+        .checkbox-label {
+            color: $checkbox-selected-label-color;
+        }
+    }
+
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        @include readonly;
+    }
+}

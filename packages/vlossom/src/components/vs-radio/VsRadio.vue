@@ -15,14 +15,13 @@
                 <slot name="label" />
             </template>
 
-            <vs-check-node
-                type="radio"
-                :id="id"
+            <vs-radio-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :checked="isChecked"
-                :label="radioLabel"
                 :disabled="disabled"
+                :id="id"
+                :label="radioLabel"
                 :name="name"
                 :readonly="readonly"
                 :required="required"
@@ -35,7 +34,7 @@
                 <template #label v-if="$slots['radio-label']">
                     <slot name="radio-label" />
                 </template>
-            </vs-check-node>
+            </vs-radio-node>
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -51,14 +50,13 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
-const name = VsComponent.VsRadio;
 export default defineComponent({
-    name,
-    components: { VsInputWrapper, VsWrapper, VsCheckNode },
+    name: VsComponent.VsRadio,
+    components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),
@@ -68,6 +66,7 @@ export default defineComponent({
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
         },
+        checked: { type: Boolean, default: false },
         name: { type: String, required: true },
         radioLabel: { type: String, default: '' },
         radioValue: { type: null, required: true },
@@ -77,14 +76,25 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
-        const { beforeChange, colorScheme, styleSet, label, modelValue, messages, required, rules, radioValue } =
-            toRefs(props);
+        const {
+            beforeChange,
+            checked,
+            colorScheme,
+            label,
+            messages,
+            modelValue,
+            name,
+            radioValue,
+            required,
+            rules,
+            styleSet,
+        } = toRefs(props);
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { computedColorScheme } = useColorScheme(VsComponent.VsRadio, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
 
         const inputValue = ref(modelValue.value);
 
@@ -93,7 +103,12 @@ export default defineComponent({
         });
 
         function requiredCheck() {
-            return required.value && !isChecked.value ? 'required' : '';
+            if (!required.value) {
+                return '';
+            }
+
+            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            return !checkedRadioElement ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
@@ -102,13 +117,19 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = radioValue.value;
+                    }
+                },
                 onClear: () => {
                     inputValue.value = null;
                 },
             },
         });
 
-        async function onToggle(checked: boolean) {
+        async function onToggle() {
+            // radio changed value is always true
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value);
@@ -117,7 +138,7 @@ export default defineComponent({
                 }
             }
 
-            inputValue.value = checked ? radioValue.value : null;
+            inputValue.value = radioValue.value;
         }
 
         function onFocus(e: FocusEvent) {
