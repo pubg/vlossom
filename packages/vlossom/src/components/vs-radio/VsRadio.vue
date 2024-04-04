@@ -18,6 +18,7 @@
             <vs-radio-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
+                :aria-label="ariaLabel || radioLabel || label || convertToString(radioValue) || label"
                 :checked="isChecked"
                 :disabled="disabled"
                 :id="id"
@@ -62,6 +63,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
+        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(value: any) => Promise<boolean> | null>,
             default: null,
@@ -162,6 +164,7 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            convertToString: utils.string.convertToString,
         };
     },
 });
