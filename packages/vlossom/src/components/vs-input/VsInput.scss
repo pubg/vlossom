@@ -3,8 +3,10 @@
 .vs-input {
     position: relative;
     display: flex;
+    align-items: center;
     overflow: hidden;
     background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
+    box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-comp-border-color));
     border-radius: var(--vs-input-borderRadius, 0.4rem);
     height: var(--vs-input-height, 2.5rem);
@@ -21,25 +23,25 @@
 
     .prepend,
     .append {
-        margin: 0;
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    button.prepend,
-    button.append {
-        width: 2.5rem;
+        min-width: 3rem;
+        height: 100%;
         border: none;
-        border-radius: 0;
+
+        &:focus-visible {
+            box-shadow: 0 0 0.6rem 0 var(--vs-comp-border-color);
+        }
     }
 
-    button.prepend {
+    .prepend {
         background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-input-prependColor, var(--vs-comp-color-primary));
     }
 
-    button.append {
+    .append {
         background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
         color: var(--vs-input-appendColor, var(--vs-comp-color-primary));
     }

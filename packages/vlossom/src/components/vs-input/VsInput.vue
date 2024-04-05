@@ -23,8 +23,8 @@
                     v-if="hasPrependButton"
                     type="button"
                     class="prepend"
-                    @click="$emit('prepend')"
                     aria-label="prepend-action"
+                    @click="$emit('prepend')"
                 >
                     <slot name="prepend-button" />
                 </button>
@@ -67,7 +67,7 @@
                     <slot name="append-content" />
                 </div>
 
-                <button v-if="hasAppendButton" class="append" @click="$emit('append')" aria-label="append-action">
+                <button v-if="hasAppendButton" class="append" aria-label="append-action" @click="$emit('append')">
                     <slot name="append-button" />
                 </button>
             </div>
