@@ -19,7 +19,7 @@ export function useInputOption(
     multiple = ref(false),
 ) {
     function getOptionLabel(option: any) {
-        if (typeof option === 'object') {
+        if (utils.object.isPlainObject(option)) {
             if (optionLabel.value) {
                 const label = _.at(option, [optionLabel.value])[0];
 
@@ -40,7 +40,7 @@ export function useInputOption(
     }
 
     function getOptionValue(option: any) {
-        if (typeof option === 'object' && optionValue.value) {
+        if (utils.object.isPlainObject(option) && optionValue.value) {
             const value = _.at(option, [optionValue.value])[0];
 
             if (!value) {

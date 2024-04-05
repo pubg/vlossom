@@ -8,4 +8,8 @@ export const objectUtil = {
     isUniq(array: any[]): boolean {
         return _.uniq(array).length === array.length;
     },
+
+    isPlainObject(value: any): value is Record<string, any> {
+        return _.isPlainObject(value);
+    },
 };

@@ -1,4 +1,5 @@
 import { ComputedRef, PropType, Ref, computed } from 'vue';
+import { utils } from '@/utils';
 
 import type { Breakpoints } from '@/declaration';
 
@@ -13,7 +14,7 @@ export function useResponsive(width: Ref<string | Breakpoints | null>, grid: Ref
     const responsiveClasses: ComputedRef<string[]> = computed(() => {
         const classes: string[] = ['vs-responsive'];
 
-        if (width.value && typeof width.value === 'object') {
+        if (width.value && utils.object.isPlainObject(width.value)) {
             const { sm, md, lg, xl } = width.value;
             const widthClasses = [
                 ...(sm ? ['vs-width-sm'] : []),
@@ -39,7 +40,7 @@ export function useResponsive(width: Ref<string | Breakpoints | null>, grid: Ref
     const responsiveStyles: ComputedRef<Record<string, string>> = computed(() => {
         const styles: Record<string, string> = {};
 
-        if (width.value && typeof width.value === 'object') {
+        if (width.value && utils.object.isPlainObject(width.value)) {
             const { base, sm, md, lg, xl } = width.value;
             const widthStyles = {
                 ...(base && { ['--vs-width-base']: base?.toString() }),

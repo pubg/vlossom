@@ -47,4 +47,34 @@ describe('object util', () => {
             expect(result2).toBe(false);
         });
     });
+
+    describe('isPlainObject', () => {
+        const { isPlainObject } = objectUtil;
+
+        it('객체가 plain object인지 확인할 수 있다', () => {
+            // given
+            const plainObject = { a: 1 };
+            const notPlainObject = new Map();
+            const array = [1, 2, 3];
+            class Foo {
+                a = 1;
+            }
+            const instance = new Foo();
+            const func = () => {};
+
+            // when
+            const result1 = isPlainObject(plainObject);
+            const result2 = isPlainObject(notPlainObject);
+            const result3 = isPlainObject(array);
+            const result4 = isPlainObject(instance);
+            const result5 = isPlainObject(func);
+
+            // then
+            expect(result1).toBe(true);
+            expect(result2).toBe(false);
+            expect(result3).toBe(false);
+            expect(result4).toBe(false);
+            expect(result5).toBe(false);
+        });
+    });
 });
