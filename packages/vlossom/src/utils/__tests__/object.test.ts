@@ -60,18 +60,21 @@ describe('object util', () => {
                 a = 1;
             }
             const instance = new Foo();
+            const func = () => {};
 
             // when
             const result1 = isPlainObject(plainObject);
             const result2 = isPlainObject(notPlainObject);
             const result3 = isPlainObject(array);
             const result4 = isPlainObject(instance);
+            const result5 = isPlainObject(func);
 
             // then
             expect(result1).toBe(true);
             expect(result2).toBe(false);
             expect(result3).toBe(false);
             expect(result4).toBe(false);
+            expect(result5).toBe(false);
         });
     });
 });
