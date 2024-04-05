@@ -18,7 +18,7 @@
             <vs-radio-node
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
-                :aria-label="ariaLabel || radioLabel || label || convertToString(radioValue)"
+                :aria-label="ariaLabel"
                 :checked="isChecked"
                 :disabled="disabled"
                 :id="id"
@@ -164,7 +164,6 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
-            convertToString: utils.string.convertToString,
         };
     },
 });

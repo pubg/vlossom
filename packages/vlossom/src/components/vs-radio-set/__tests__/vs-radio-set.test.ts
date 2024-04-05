@@ -369,29 +369,6 @@ describe('vs-radio-set', () => {
         });
     });
 
-    describe('aria-label', () => {
-        it('option의 label이 aria-label로 설정된다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
-                props: {
-                    name: 'test',
-                    options: [
-                        { label: 'A', value: 'a' },
-                        { label: 'B', value: 'b' },
-                        { label: 'C', value: 'c' },
-                    ],
-                    optionLabel: 'label',
-                    optionValue: 'value',
-                },
-            });
-
-            // then
-            expect(wrapper.findAll('.vs-radio-item')[0].find('input').attributes('aria-label')).toBe('A');
-            expect(wrapper.findAll('.vs-radio-item')[1].find('input').attributes('aria-label')).toBe('B');
-            expect(wrapper.findAll('.vs-radio-item')[2].find('input').attributes('aria-label')).toBe('C');
-        });
-    });
-
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given

@@ -22,7 +22,6 @@
                     class="vs-radio-item"
                     :color-scheme="computedColorScheme"
                     :style-set="radioStyleSet"
-                    :aria-label="getOptionLabel(option)"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :id="`${id}-${optionIds[index]}`"

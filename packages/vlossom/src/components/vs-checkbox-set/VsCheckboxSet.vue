@@ -22,7 +22,6 @@
                     class="vs-checkbox-item"
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
-                    :aria-label="getOptionLabel(option)"
                     :checked="isChecked(option)"
                     :disabled="disabled"
                     :id="`${id}-${optionIds[index]}`"

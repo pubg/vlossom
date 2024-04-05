@@ -440,45 +440,6 @@ describe('vs-checkbox', () => {
             // then
             expect(wrapper.find('input').attributes('aria-label')).toBe('aria-label');
         });
-
-        it('aria-label이 설정되지 않았을 때는 check-label 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
-                props: {
-                    name: 'checkbox',
-                    checkLabel: 'check-label',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('check-label');
-        });
-
-        it('aria-label, check-label이 모두 설정되지 않았을 때는 label 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
-                props: {
-                    name: 'checkbox',
-                    label: 'label',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('label');
-        });
-
-        it('aria-label, check-label, label이 모두 설정되지 않았을 때는 true-value 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
-                props: {
-                    name: 'checkbox',
-                    trueValue: 'check-value',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('check-value');
-        });
     });
 
     describe('focus / blur', () => {

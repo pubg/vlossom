@@ -213,47 +213,6 @@ describe('vs-radio', () => {
             // then
             expect(wrapper.find('input').attributes('aria-label')).toBe('aria-label');
         });
-
-        it('aria-label이 설정되지 않았을 때는 radio-label 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
-                props: {
-                    name: 'radio',
-                    radioValue: 'test',
-                    radioLabel: 'radio-label',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('radio-label');
-        });
-
-        it('aria-label, radio-label이 모두 설정되지 않았을 때는 label 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
-                props: {
-                    name: 'radio',
-                    radioValue: 'test',
-                    label: 'label',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('label');
-        });
-
-        it('aria-label, radio-label, label이 모두 설정되지 않았을 때는 radio-value 값으로 대체한다', () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
-                props: {
-                    name: 'radio',
-                    radioValue: 'radio-value',
-                },
-            });
-
-            // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('radio-value');
-        });
     });
 
     describe('focus / blur', () => {
