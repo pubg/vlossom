@@ -313,7 +313,7 @@ describe('VsTable', () => {
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
                 slots: {
-                    expand: `<template #expand="{ item }">{{ item.additionalText }}</template>`,
+                    expand: '<template #expand="{ item }">{{ item.additionalText }}</template>',
                 },
             });
 
