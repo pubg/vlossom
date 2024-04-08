@@ -18,7 +18,7 @@ export function useInputOption(
     optionValue: Ref<string>,
     multiple = ref(false),
 ) {
-    function getOptionLabel(option: any) {
+    function getOptionLabel(option: any): string {
         if (utils.object.isPlainObject(option)) {
             if (optionLabel.value) {
                 const label = _.at(option, [optionLabel.value])[0];

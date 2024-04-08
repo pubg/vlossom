@@ -4,6 +4,7 @@
             <input
                 type="radio"
                 :class="['radio-input', boxGlowByState]"
+                :aria-label="ariaLabel"
                 :id="id"
                 :disabled="disabled || readonly"
                 :name="name"
@@ -26,12 +27,14 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 import { ColorScheme, UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
+import { utils } from '@/utils';
 
 export default defineComponent({
     name: 'VsRadioNode',
     props: {
         colorScheme: { type: String as PropType<'default' | ColorScheme> },
         styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
@@ -66,22 +69,14 @@ export default defineComponent({
             emit('blur', event);
         }
 
-        function convertToString(value: any) {
-            if (typeof value === 'string') {
-                return value;
-            }
-
-            return JSON.stringify(value);
-        }
-
         return {
             classObj,
             toggle,
             onFocus,
             onBlur,
-            convertToString,
             boxGlowByState,
             textGlowByState,
+            convertToString: utils.string.convertToString,
         };
     },
 });
