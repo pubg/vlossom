@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsSwitch from '../VsSwitch.vue';
@@ -544,6 +544,28 @@ describe('vs-switch', () => {
     });
 
     describe('before change', () => {
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('beforeChange 함수에 from, to 인자가 전달된다', async () => {
+            // given
+            const beforeChange = vi.fn().mockResolvedValue(true);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                props: {
+                    modelValue: false,
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    beforeChange,
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue(true);
+
+            // then
+            expect(beforeChange).toHaveBeenCalledWith(false, true);
+        });
+
         it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {

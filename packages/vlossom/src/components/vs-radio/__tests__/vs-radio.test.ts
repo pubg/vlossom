@@ -1,4 +1,4 @@
-import { beforeEach, afterEach, describe, expect, it } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadio from './../VsRadio.vue';
@@ -274,6 +274,10 @@ describe('vs-radio (multiple inputs)', () => {
         });
     });
 
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
     it('처음에는 아무 radio도 선택되어 있지 않다', () => {
         // then
         expect(radio1.vm.isChecked).toBe(false);
@@ -333,5 +337,25 @@ describe('vs-radio (multiple inputs)', () => {
         expect(radio1.html()).toContain('required');
         expect(radio2.vm.computedMessages).toHaveLength(1);
         expect(radio2.html()).toContain('required');
+    });
+
+    it('beforeChange 함수에 from, to 인자가 전달된다 ', async () => {
+        // given
+        const beforeChange = vi.fn().mockResolvedValue(true);
+        const radio3: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            props: {
+                name: 'radio',
+                radioValue: 'C',
+                modelValue: 'A',
+                'onUpdate:modelValue': (e) => radio3.setProps({ modelValue: e }),
+                beforeChange,
+            },
+        });
+
+        // when
+        await radio3.find('input').trigger('change');
+
+        // then
+        expect(beforeChange).toHaveBeenCalledWith('A', 'C');
     });
 });

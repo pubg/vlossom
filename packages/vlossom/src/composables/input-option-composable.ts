@@ -43,8 +43,11 @@ export function useInputOption(
         if (utils.object.isPlainObject(option) && optionValue.value) {
             const value = _.at(option, [optionValue.value])[0];
 
-            if (!value) {
-                console.error(`optionValue: ${optionValue.value} is not found in option: ${JSON.stringify(option)}`);
+            if (value === undefined || value === null) {
+                logUtil.logError(
+                    'optionValue',
+                    `${optionValue.value} is not found in option: ${JSON.stringify(option)}`,
+                );
             }
 
             return value;

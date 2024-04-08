@@ -85,7 +85,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxSetStyleSet> },
         beforeChange: {
-            type: Function as PropType<(checked: boolean, target: any) => Promise<boolean> | null>,
+            type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
             default: null,
         },
         vertical: { type: Boolean, default: false },
@@ -131,10 +131,6 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        function onClear() {
-            inputValue.value = [];
-        }
-
         const { getOptionLabel, getOptionValue } = useInputOption(
             inputValue,
             options,
@@ -153,7 +149,9 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
-                onClear,
+                onClear: () => {
+                    inputValue.value = [];
+                },
             },
         });
 
@@ -163,20 +161,18 @@ export default defineComponent({
 
         async function onToggle(option: any, checked: boolean) {
             const beforeChangeFn = beforeChange.value;
+            const targetOptionValue = getOptionValue(option);
+            const toValue = checked
+                ? [...inputValue.value, targetOptionValue]
+                : inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetOptionValue));
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(isChecked(option), option);
+                const result = await beforeChangeFn(inputValue.value, toValue, option);
                 if (!result) {
                     return;
                 }
             }
 
-            const targetValue = getOptionValue(option);
-
-            if (checked) {
-                inputValue.value = [...inputValue.value, targetValue];
-            } else {
-                inputValue.value = inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetValue));
-            }
+            inputValue.value = toValue;
         }
 
         function onFocus(option: any, e: FocusEvent) {

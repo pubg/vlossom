@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadioSet from './../VsRadioSet.vue';
@@ -327,6 +327,26 @@ describe('vs-radio-set', () => {
     });
 
     describe('before change', () => {
+        it('beforeChange 함수에 from, to 인자가 전달된다 ', async () => {
+            // given
+            const beforeChange = vi.fn().mockResolvedValue(true);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+                props: {
+                    name: 'radio',
+                    modelValue: 'A',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    beforeChange,
+                },
+            });
+
+            // when
+            await wrapper.find('input[value="C"]').trigger('change');
+
+            // then
+            expect(beforeChange).toHaveBeenCalledWith('A', 'C', 'C');
+        });
+
         it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {

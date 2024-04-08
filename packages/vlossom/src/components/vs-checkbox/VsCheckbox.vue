@@ -73,7 +73,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
         ariaLabel: { type: String, default: '' },
         beforeChange: {
-            type: Function as PropType<(value: any) => Promise<boolean> | null>,
+            type: Function as PropType<(fron: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
         checked: { type: Boolean, default: false },
@@ -143,14 +143,15 @@ export default defineComponent({
 
         async function onToggle(c: boolean) {
             const beforeChangeFn = beforeChange.value;
+            const toValue = getUpdatedValue(c, inputValue.value);
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value);
+                const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {
                     return;
                 }
             }
 
-            inputValue.value = getUpdatedValue(c, inputValue.value);
+            inputValue.value = toValue;
         }
 
         function onFocus(e: FocusEvent) {

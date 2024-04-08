@@ -65,7 +65,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
         ariaLabel: { type: String, default: '' },
         beforeChange: {
-            type: Function as PropType<(value: any) => Promise<boolean> | null>,
+            type: Function as PropType<(fron: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
         checked: { type: Boolean, default: false },
@@ -131,16 +131,17 @@ export default defineComponent({
         });
 
         async function onToggle() {
-            // radio changed value is always true
+            // radio change event value is always true
             const beforeChangeFn = beforeChange.value;
+            const toValue = radioValue.value;
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value);
+                const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {
                     return;
                 }
             }
 
-            inputValue.value = radioValue.value;
+            inputValue.value = toValue;
         }
 
         function onFocus(e: FocusEvent) {
