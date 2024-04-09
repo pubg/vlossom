@@ -73,7 +73,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
         ariaLabel: { type: String, default: '' },
         beforeChange: {
-            type: Function as PropType<(fron: any, to: any) => Promise<boolean> | null>,
+            type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
         checked: { type: Boolean, default: false },
