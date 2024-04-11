@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsCheckbox from './../VsCheckbox.vue';
@@ -389,6 +389,28 @@ describe('vs-checkbox', () => {
     });
 
     describe('before change', () => {
+        afterEach(() => {
+            vi.restoreAllMocks();
+        });
+
+        it('beforeChange 함수에 from, to 인자가 전달된다', async () => {
+            // given
+            const beforeChange = vi.fn().mockResolvedValue(true);
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                props: {
+                    trueValue: 'A',
+                    falseValue: 'B',
+                    beforeChange,
+                },
+            });
+
+            // when
+            await wrapper.find('input').setValue('A');
+
+            // then
+            expect(beforeChange).toHaveBeenCalledWith('B', 'A');
+        });
+
         it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {

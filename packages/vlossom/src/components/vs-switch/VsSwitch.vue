@@ -90,7 +90,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
         beforeChange: {
-            type: Function as PropType<(value: any) => Promise<boolean> | null>,
+            type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
         multiple: { type: Boolean, default: false },
@@ -164,14 +164,15 @@ export default defineComponent({
             }
 
             const beforeChangeFn = beforeChange.value;
+            const toValue = getUpdatedValue(!isChecked.value, inputValue.value);
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value);
+                const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {
                     return;
                 }
             }
 
-            inputValue.value = getUpdatedValue(!isChecked.value, inputValue.value);
+            inputValue.value = toValue;
         }
 
         function onFocus(e: FocusEvent) {

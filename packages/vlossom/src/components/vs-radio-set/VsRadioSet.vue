@@ -83,7 +83,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioSetStyleSet> },
         beforeChange: {
-            type: Function as PropType<(option: any) => Promise<boolean> | null>,
+            type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
             default: null,
         },
         name: { type: String, required: true },
@@ -156,15 +156,17 @@ export default defineComponent({
         });
 
         async function onToggle(option: any) {
+            // radio change event value is always true
             const beforeChangeFn = beforeChange.value;
+            const toValue = getOptionValue(option);
             if (beforeChangeFn) {
-                const result = await beforeChangeFn(option);
+                const result = await beforeChangeFn(inputValue.value, toValue, option);
                 if (!result) {
                     return;
                 }
             }
 
-            inputValue.value = getOptionValue(option);
+            inputValue.value = toValue;
         }
 
         function onFocus(option: any, e: FocusEvent) {
