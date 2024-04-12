@@ -76,3 +76,5 @@ export const PreDefinedStyleSet: Story = {
         styleSet: 'myStyleSet',
     },
 };
+
+export const Chromatic: Story = {};
