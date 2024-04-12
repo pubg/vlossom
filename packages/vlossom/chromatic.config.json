@@ -1,4 +1,0 @@
-{
-    "exitZeroOnChanges": true,
-    "onlyStoryNames": ["Components/**/Chromatic"]
-}
