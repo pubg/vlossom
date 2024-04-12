@@ -1,5 +1,4 @@
-import { userEvent, within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { userEvent, within, expect } from '@storybook/test';
 import {
     chromaticParameters,
     colorScheme,
@@ -292,7 +291,11 @@ export const Grid: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#eef1ff', fontColor: '#4851aa', border: '1px solid #4851aa' },
+        styleSet: {
+            backgroundColor: '#eef1ff',
+            fontColor: '#4851aa',
+            border: '1px solid #4851aa',
+        },
     },
 };
 

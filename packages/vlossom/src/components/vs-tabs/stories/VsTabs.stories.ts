@@ -92,7 +92,7 @@ export const Width: Story = {
         },
         template: `
             <vs-container row-gap="20px">
-                <vs-tabs v-bind="args"/>   
+                <vs-tabs v-bind="args" />
                 <vs-tabs v-bind="args" />
             </vs-container>
         `,

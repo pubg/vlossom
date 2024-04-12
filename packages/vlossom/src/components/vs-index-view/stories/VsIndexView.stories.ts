@@ -128,7 +128,7 @@ export const Width: Story = {
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> First Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
-				
+
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> Second Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
@@ -167,7 +167,7 @@ export const WidthWithTabs: Story = {
 						<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 					</vs-index-view>
 				</vs-wrapper>
-				
+
 				<vs-wrapper :width="args.width" :grid="args.grid">
 					<vs-tabs :tabs="tabBList" v-model="tabB" @update:modelValue="updateTabB" v-bind="args"/>
 					<vs-index-view v-model="tabB" v-bind="args">
@@ -194,7 +194,7 @@ export const Grid: Story = {
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> First Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
-				
+
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> Second Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
