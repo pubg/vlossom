@@ -1,0 +1,4 @@
+{
+    "exitZeroOnChanges": true,
+    "onlyStoryFiles": ["src/components/**/*.chromatic.stories.ts"]
+}
