@@ -40,3 +40,4 @@ jobs:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   autoAcceptChanges: main
                   workingDir: ./packages/vlossom
+                  buildScriptName: build-storybook:chromatic
