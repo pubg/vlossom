@@ -152,7 +152,16 @@ export const Indeterminate: Story = {
                 updateChild(1, value);
             }
 
-            return { args, parent, children, indeterminate, updateParent, updateChild1, updateChild2, updateChild };
+            return {
+                args,
+                parent,
+                children,
+                indeterminate,
+                updateParent,
+                updateChild1,
+                updateChild2,
+                updateChild,
+            };
         },
         template: `
             <div >

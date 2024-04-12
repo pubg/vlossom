@@ -95,7 +95,11 @@ export const VerticalWithMobileFull: Story = {
 
 export const VerticalWithStyleSet: Story = {
     args: {
-        styleSet: { lineColor: '#ef4040', lineWidth: '2.5px', verticalHeight: '4rem' },
+        styleSet: {
+            lineColor: '#ef4040',
+            lineWidth: '2.5px',
+            verticalHeight: '4rem',
+        },
         vertical: true,
     },
 };

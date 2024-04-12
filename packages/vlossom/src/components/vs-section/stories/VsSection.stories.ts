@@ -60,7 +60,11 @@ export const HasTitle: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#99b1ff', borderRadius: '0.8rem', padding: '4rem 2rem' },
+        styleSet: {
+            backgroundColor: '#99b1ff',
+            borderRadius: '0.8rem',
+            padding: '4rem 2rem',
+        },
     },
 };
 

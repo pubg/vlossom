@@ -1,7 +1,7 @@
 import { ref, type Ref } from 'vue';
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
 import { VsIcon } from '@/icons';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 import VsChip from './../VsChip.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 

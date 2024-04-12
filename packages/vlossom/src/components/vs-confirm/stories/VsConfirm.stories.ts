@@ -66,7 +66,7 @@ export const ColorScheme: OpenStory = {
 			<div>
 				${getColorSchemeTemplate(`
 					<div>
-						<vs-button color-scheme={{ color }} @click="$vs.confirm.open(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }"> 
+						<vs-button color-scheme={{ color }} @click="$vs.confirm.open(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }">
 							Open Confirm ( {{'{{ color }}'.toUpperCase()}} )
 						 </vs-button>
 					</div>
@@ -150,7 +150,16 @@ export const NestedWithModal: OpenStory = {
                 }
             }
 
-            return { args, isModalOpen, formRef, form, openModal, closeModal, submit, result };
+            return {
+                args,
+                isModalOpen,
+                formRef,
+                form,
+                openModal,
+                closeModal,
+                submit,
+                result,
+            };
         },
         template: `
 			<div>

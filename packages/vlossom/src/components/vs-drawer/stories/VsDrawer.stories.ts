@@ -1,5 +1,5 @@
 import { placement, size, colorScheme } from '@/storybook';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 import { ref } from 'vue';
 import { VsIcon } from '@/icons';
 import VsDrawer from './../VsDrawer.vue';
@@ -84,7 +84,13 @@ export const Placement: Story = {
                 isOpen.value = true;
             }
 
-            return { isOpen, placements, currentPlacement, setPlacement, contentStyle };
+            return {
+                isOpen,
+                placements,
+                currentPlacement,
+                setPlacement,
+                contentStyle,
+            };
         },
         template: `
             <div>

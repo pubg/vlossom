@@ -12,7 +12,7 @@ const meta: Meta = {
             return { args };
         },
         template: `
-			<vs-button @click="$vs.toast.show(args.text, 
+			<vs-button @click="$vs.toast.show(args.text,
 			{
 				autoClose: args.autoClose,
 				timeout: args.timeout,
@@ -56,7 +56,7 @@ export const ColorScheme: Story = {
 			<div>
 				${getColorSchemeTemplate(`
 					<div>
-						<vs-button color-scheme={{ color }} @click="$vs.toast.show(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }"> 
+						<vs-button color-scheme={{ color }} @click="$vs.toast.show(args.text, {colorScheme: '{{ color }}'})" :style="{ marginBottom: '5px' }">
 							Show Toast ( {{'{{ color }}'.toUpperCase()}} )
 						 </vs-button>
 					</div>

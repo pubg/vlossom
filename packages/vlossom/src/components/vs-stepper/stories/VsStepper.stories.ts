@@ -86,7 +86,7 @@ export const Width: Story = {
         },
         template: `
             <vs-container>
-                <vs-stepper v-bind="args"/>   
+                <vs-stepper v-bind="args"/>
                 <vs-stepper v-bind="args" />
             </vs-container>
         `,
