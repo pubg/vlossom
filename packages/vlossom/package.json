@@ -30,8 +30,9 @@
         "lint:fix": "eslint --fix --ext .js,.ts,vue --ignore-path ../../.gitignore .",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
+        "build-storybook:chromatic": "storybook build -c .storybook-chromatic",
         "test-storybook": "test-storybook --verbose",
-        "chromatic": "chromatic --exit-zero-on-changes"
+        "chromatic": "chromatic --build-script-name build-storybook:chromatic --exit-zero-on-changes"
     },
     "files": [
         "dist",
