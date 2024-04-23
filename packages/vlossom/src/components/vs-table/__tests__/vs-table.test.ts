@@ -90,7 +90,7 @@ describe('VsTable', () => {
     });
 
     describe('selectable', () => {
-        it('select all checkbox가 checked=true에서 false로 바뀌면, 모든 item들이 선택된다.', async () => {
+        it('select all checkbox가 checked=true가 되면, 모든 item들이 선택된다.', async () => {
             // given
             let wrapper: ReturnType<typeof mountComponent>;
             wrapper = mount(VsTable, {
@@ -166,7 +166,7 @@ describe('VsTable', () => {
     });
 
     describe('search', () => {
-        it('search props를 통해 입력된 키워드로 table item을 검색할 수 있다. 단, searchable:false인 key는 검색 대상에서 제외된다.', async () => {
+        it('search props를 통해 입력된 키워드로 table item들을 검색할 수 있다. 단, searchable:false인 key는 검색 대상에서 제외된다.', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -190,7 +190,7 @@ describe('VsTable', () => {
     });
 
     describe('filter', () => {
-        it('filter props를 통해서 filtering을 통과한 table item만 렌더시킬 수 있다', async () => {
+        it('filter props를 통해서 filtering을 통과한 table item들만 렌더시킬 수 있다', async () => {
             // given
             const filter = {
                 id: (rowData: { [key: string]: any }): boolean => {
@@ -222,7 +222,7 @@ describe('VsTable', () => {
     });
 
     describe('sortable', () => {
-        it('sortable:true인 header를 한 번 클릭하면 ascending order로 아이템을 정렬할 수 있다', async () => {
+        it('sortable:true인 header를 한 번 클릭하면 ascending order로 item들을 정렬할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
@@ -244,7 +244,7 @@ describe('VsTable', () => {
             });
         });
 
-        it('sortable:true인 header를 두 번 클릭하면 descending order로 아이템을 정렬할 수 있다', async () => {
+        it('sortable:true인 header를 두 번 클릭하면 descending order로 item들을 정렬할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
@@ -270,7 +270,7 @@ describe('VsTable', () => {
     });
 
     describe('pagination', () => {
-        it('pagination:ture 일 때, pagination과 pagination-options select가 렌더된다', () => {
+        it('pagination:true 일 때, pagination과 pagination-options select가 렌더된다', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
