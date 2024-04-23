@@ -91,7 +91,7 @@ describe('VsTable', () => {
 
     describe('selectable', () => {
         let wrapper: ReturnType<typeof mountComponent>;
-        it('select all checkbox가 checked=true가 되면, 모든 item들이 선택된다', async () => {
+        it('select-all checkbox의 값이 true가 되면, 모든 item들이 선택된다', async () => {
             // given
             wrapper = mount(VsTable, {
                 props: {
@@ -115,7 +115,7 @@ describe('VsTable', () => {
             expect(updateModelValueEvent?.[2][0]).toEqual(items);
         });
 
-        it('selectedItems = items 일 때, select-all checkbox의 값이 true가 된다', async () => {
+        it('selectedItems가 items와 같을 때, select-all checkbox의 값이 true가 된다', async () => {
             // given
             wrapper = mount(VsTable, {
                 props: {
@@ -185,7 +185,7 @@ describe('VsTable', () => {
     });
 
     describe('filter', () => {
-        it('filter props를 통해서 filtering을 통과한 table item들만 렌더시킬 수 있다', async () => {
+        it('filter props를 통해서 filter를 통과한 table item들만 렌더시킬 수 있다', async () => {
             // given
             const filter = {
                 id: (rowData: { [key: string]: any }): boolean => {
