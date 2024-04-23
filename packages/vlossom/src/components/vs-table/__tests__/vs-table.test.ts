@@ -43,7 +43,7 @@ const items: { [key: string]: any }[] = [
 
 describe('VsTable', () => {
     describe('items / headers', () => {
-        it('headers와 items 배열을 props로 할당하면 적절하게 table을 렌더할 수 있다. ', async () => {
+        it('headers와 items 배열을 props로 할당하면 적절하게 table을 렌더할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -73,7 +73,7 @@ describe('VsTable', () => {
     });
 
     describe('caption', () => {
-        it('table의 caption 영역을 설정할 수 있다.', async () => {
+        it('table의 caption 영역을 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -90,9 +90,10 @@ describe('VsTable', () => {
     });
 
     describe('selectable', () => {
-        it('select all checkbox가 checked=true가 되면, 모든 item들이 선택된다.', async () => {
+        let wrapper: ReturnType<typeof mountComponent>;
+        it('select all checkbox가 checked=true가 되면, 모든 item들이 선택된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -116,15 +117,12 @@ describe('VsTable', () => {
 
         it('selectedItems = items 일 때, select-all checkbox의 값이 true가 된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
                     selectable: true,
                     selectedItems: [],
-                    'onUpdate:selectedItems': (e) => {
-                        wrapper?.setProps({ selectedItems: e });
-                    },
                 },
             });
 
@@ -137,9 +135,9 @@ describe('VsTable', () => {
             expect(selectAllCheckBox.element.checked).toBe(true);
         });
 
-        it('특정 item의 checkbox 값을 업데이트하면 selectedItems에 해당 item이 추가된다.', async () => {
+        it('특정 item의 checkbox 값을 업데이트하면 selectedItems에 해당 item이 추가된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -163,7 +161,7 @@ describe('VsTable', () => {
     });
 
     describe('search', () => {
-        it('search props를 통해 입력된 키워드로 table item들을 검색할 수 있다. 단, searchable:false인 key는 검색 대상에서 제외된다.', async () => {
+        it('search props를 통해 입력된 키워드로 table item들을 검색할 수 있다 (단, searchable:false인 key는 검색 대상에서 제외된다)', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -284,7 +282,7 @@ describe('VsTable', () => {
             expect(selectWrapper.exists()).toBe(true);
         });
 
-        it('pagination options을 이용해서 page size를 변경할 수 있다.', async () => {
+        it('pagination options을 이용해서 page size를 변경할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -312,7 +310,7 @@ describe('VsTable', () => {
     });
 
     describe('header slot', () => {
-        it('header slot을 통해 table header를 커스터마이징 할 수 있다.', () => {
+        it('header slot을 통해 table header를 커스터마이징 할 수 있다', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
@@ -330,7 +328,7 @@ describe('VsTable', () => {
     });
 
     describe('item slot', () => {
-        it('item slot을 통해 table body의 각 row를 커스터마이징 할 수 있다.', () => {
+        it('item slot을 통해 table body의 각 row를 커스터마이징 할 수 있다', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
@@ -348,7 +346,7 @@ describe('VsTable', () => {
     });
 
     describe('expandable', () => {
-        it('table expand slot 안에 데이터를 넣을 수 있으며, expand 버튼을 클릭 시 해당 데이터가 화면에 렌더된다.', async () => {
+        it('table expand slot 안에 데이터를 넣을 수 있으며, expand 버튼을 클릭 시 해당 데이터가 화면에 렌더된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: { headers, items },
