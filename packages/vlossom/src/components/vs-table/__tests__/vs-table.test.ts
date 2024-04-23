@@ -92,8 +92,7 @@ describe('VsTable', () => {
     describe('selectable', () => {
         it('select all checkbox가 checked=true가 되면, 모든 item들이 선택된다.', async () => {
             // given
-            let wrapper: ReturnType<typeof mountComponent>;
-            wrapper = mount(VsTable, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -117,8 +116,7 @@ describe('VsTable', () => {
 
         it('selectedItems = items 일 때, select-all checkbox의 값이 true가 된다', async () => {
             // given
-            let wrapper: ReturnType<typeof mountComponent>;
-            wrapper = mount(VsTable, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -141,8 +139,7 @@ describe('VsTable', () => {
 
         it('특정 item의 checkbox 값을 업데이트하면 selectedItems에 해당 item이 추가된다.', async () => {
             // given
-            let wrapper: ReturnType<typeof mountComponent>;
-            wrapper = mount(VsTable, {
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
                     headers,
                     items,
