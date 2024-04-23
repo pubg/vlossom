@@ -14,6 +14,7 @@
                 >
                     <template #check>
                         <vs-check-node
+                            class="select-all"
                             v-if="!loading"
                             :id="utils.string.createID()"
                             type="checkbox"

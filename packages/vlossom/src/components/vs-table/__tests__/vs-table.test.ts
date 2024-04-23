@@ -89,36 +89,81 @@ describe('VsTable', () => {
         });
     });
 
-    // describe('selectable', () => {
-    //     it('select all checkbox를 toggle할 수 있다.', async () => {
-    //         let wrapper: ReturnType<typeof mountComponent>;
-    //         wrapper = mount(VsTable, {
-    //             props: {
-    //                 headers,
-    //                 items,
-    //                 selectable: true,
-    //                 selectedItems: [],
-    //             },
-    //             listeners: {
-    //                 'update:selectedItems': (e: any) => {
-    //                     wrapper.setProps({ selectedItems: e });
-    //                 }
-    //             }
+    describe('selectable', () => {
+        it('select all checkbox가 checked=true에서 false로 바뀌면, 모든 item들이 선택된다.', async () => {
+            // given
+            let wrapper: ReturnType<typeof mountComponent>;
+            wrapper = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    selectable: true,
+                    selectedItems: [],
+                    'onUpdate:selectedItems': (e) => {
+                        wrapper?.setProps({ selectedItems: e });
+                    },
+                },
+            });
 
-    //         });
+            // when
+            const selectAllCheckBox = wrapper.find('.select-all').find('input');
+            await selectAllCheckBox.setValue(true);
+            await nextTick();
 
-    //         // Click select-all checkbox
-    //         await wrapper.find('.select-all').trigger('toggle');
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:selectedItems');
+            expect(updateModelValueEvent?.[2][0]).toEqual(items);
+        });
 
-    //         await nextTick();
+        it('selectedItems = items 일 때, select-all checkbox의 값이 true가 된다', async () => {
+            // given
+            let wrapper: ReturnType<typeof mountComponent>;
+            wrapper = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    selectable: true,
+                    selectedItems: [],
+                    'onUpdate:selectedItems': (e) => {
+                        wrapper?.setProps({ selectedItems: e });
+                    },
+                },
+            });
 
-    //         const updateModelValueEvent = wrapper.emitted('update:selectedItems');
-    //         const firstEmissionArgs = updateModelValueEvent && updateModelValueEvent[0];
+            // when
+            await wrapper.setProps({ selectedItems: [...items] });
+            await nextTick();
 
-    //         // Check if the first emission of 'update:selectedItems' contains all items
-    //         expect(firstEmissionArgs).toEqual([items]);
-    //     });
-    // });
+            // then
+            const selectAllCheckBox = wrapper.find('.select-all').find('input');
+            expect(selectAllCheckBox.element.checked).toBe(true);
+        });
+
+        it('특정 item의 checkbox 값을 업데이트하면 selectedItems에 해당 item이 추가된다.', async () => {
+            // given
+            let wrapper: ReturnType<typeof mountComponent>;
+            wrapper = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    selectable: true,
+                    selectedItems: [],
+                    'onUpdate:selectedItems': (e) => {
+                        wrapper?.setProps({ selectedItems: e });
+                    },
+                },
+            });
+
+            // when
+            const firstItemCheckbox = wrapper.findComponent({ name: 'VsTableBodyRow' }).find('input[type="checkbox"]');
+            await firstItemCheckbox.setValue(true);
+            await nextTick();
+
+            // then
+            const updateModelValueEvent = wrapper.emitted('update:selectedItems');
+            expect(updateModelValueEvent?.[2][0]).toEqual([items[0]]);
+        });
+    });
 
     describe('search', () => {
         it('search props를 통해 입력된 키워드로 table item을 검색할 수 있다. 단, searchable:false인 key는 검색 대상에서 제외된다.', async () => {
@@ -139,7 +184,6 @@ describe('VsTable', () => {
             const visibleRows = wrapper.findAll('tbody tr').filter((node) => node.isVisible());
             const containsApple = visibleRows.some((row) => row.text().includes('Apple'));
             const containsDurian = visibleRows.some((row) => row.text().includes('Durian'));
-
             expect(containsApple).toBe(true);
             expect(containsDurian).toBe(false);
         });
@@ -153,7 +197,6 @@ describe('VsTable', () => {
                     return rowData.id < 2;
                 },
             };
-
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
                     headers,
@@ -237,9 +280,9 @@ describe('VsTable', () => {
                 },
             });
 
+            // then
             const paginationWrapper = wrapper.find('.table-pagination .vs-pagination');
             const selectWrapper = wrapper.find('.pagination-options .vs-select');
-
             expect(paginationWrapper.exists()).toBe(true);
             expect(selectWrapper.exists()).toBe(true);
         });
