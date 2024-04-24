@@ -8,7 +8,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
     -webkit-tap-highlight-color: transparent;
 
     .item-line {
-        background-color: var(--vs-grey-300);
+        background-color: var(--vs-gray-300);
         height: 0.2rem;
         left: $stepButtonW;
         right: $stepButtonW;
@@ -43,9 +43,9 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
 
             .item-step {
                 align-items: center;
-                background-color: var(--vs-grey-300);
+                background-color: var(--vs-gray-300);
                 border-radius: 50%;
-                color: var(--vs-grey-50);
+                color: var(--vs-gray-50);
                 display: flex;
                 font-size: $fontSize;
                 font-weight: 600;
@@ -107,12 +107,12 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
                 cursor: default;
 
                 .item-step {
-                    background-color: var(--vs-grey-100);
+                    background-color: var(--vs-gray-100);
                     color: transparentize(#adadad, 0.6);
                 }
 
                 .item-name {
-                    color: var(--vs-grey-200);
+                    color: var(--vs-gray-200);
                     opacity: 0.6;
                 }
             }

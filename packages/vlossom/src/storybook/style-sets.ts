@@ -115,7 +115,7 @@ const vsFileInput: VsFileInputStyleSet = {
 };
 
 const vsFooter: VsFooterStyleSet = {
-    backgroundColor: 'grey',
+    backgroundColor: 'gray',
     bottom: 0,
     fontColor: '#fff',
     display: 'flex',
@@ -127,7 +127,7 @@ const vsFooter: VsFooterStyleSet = {
 };
 
 const vsHeader: VsHeaderStyleSet = {
-    backgroundColor: 'grey',
+    backgroundColor: 'gray',
     bottom: 'auto',
     fontColor: '#fff',
     display: 'flex',
