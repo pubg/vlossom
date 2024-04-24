@@ -13,7 +13,7 @@ const items = [
         checked: true,
         created: '2022-10-02',
         desc: 'Lorem Ipsum has been the industry ',
-        additionalText: 'Additial Text for Apple: This content only shows when expanded',
+        additionalText: 'Additional Text for Apple: This content only shows when expanded',
     },
     {
         id: 2,
@@ -22,7 +22,7 @@ const items = [
         checked: true,
         created: '2024-01-01',
         desc: 'has been the tscrambled it tscrambled it the industrys standard dummy text',
-        additionalText: 'Additial Text for Banana: This content only shows when expanded',
+        additionalText: 'Additional Text for Banana: This content only shows when expanded',
     },
     {
         id: 3,
@@ -31,7 +31,7 @@ const items = [
         checked: false,
         created: '2023-07-15',
         desc: 'scrambled it to make a type specimen book',
-        additionalText: 'Additial Text for Carrot: This content only shows when expanded',
+        additionalText: 'Additional Text for Carrot: This content only shows when expanded',
     },
     {
         id: 4,
@@ -40,7 +40,7 @@ const items = [
         checked: false,
         created: '2023-10-11',
         desc: 'pecimen book. It has survived not only five centuries, but also the leap into electronic',
-        additionalText: 'Additial Text for Durian: This content only shows when expanded',
+        additionalText: 'Additional Text for Durian: This content only shows when expanded',
     },
 ];
 
