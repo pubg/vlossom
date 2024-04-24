@@ -23,7 +23,7 @@
                 @toggleExpand="toggleExpand"
             >
                 <template #check>
-                    <vs-check-node
+                    <vs-checkbox-node
                         :id="element.id"
                         type="checkbox"
                         :color-scheme="colorScheme"
@@ -70,7 +70,7 @@ import { useTableSort } from './composables/useTableSort';
 import { useTableExpand } from './composables/useTableExpand';
 import { useTableSelect } from './composables/useTableSelect';
 import { VsIcon } from '@/icons';
-import { VsCheckNode } from '@/nodes';
+import { VsCheckboxNode } from '@/nodes';
 import { utils } from '@/utils';
 
 import type { ColorScheme } from '@/declaration';
@@ -83,7 +83,7 @@ export default defineComponent({
         draggable,
         VsTableBodyRow,
         VsIcon,
-        VsCheckNode,
+        VsCheckboxNode,
     },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },

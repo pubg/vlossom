@@ -13,7 +13,7 @@
                     v-model:sort-types="sortTypes"
                 >
                     <template #check>
-                        <vs-check-node
+                        <vs-checkbox-node
                             class="select-all"
                             v-if="!loading"
                             :id="utils.string.createID()"
@@ -95,7 +95,7 @@ import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 import VsPagination from '@/components/vs-pagination/VsPagination.vue';
 import VsSelect from '@/components/vs-select/VsSelect.vue';
-import { VsCheckNode } from '@/nodes';
+import { VsCheckboxNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
@@ -107,7 +107,7 @@ export default defineComponent({
     components: {
         VsTableHeader,
         VsTableBody,
-        VsCheckNode,
+        VsCheckboxNode,
         VsPagination,
         VsSelect,
     },
@@ -173,21 +173,27 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('header-')) {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('header-')) {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const itemSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('item-') || slotName === 'expand') {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('item-') || slotName === 'expand') {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const canDrag = computed(() => {
