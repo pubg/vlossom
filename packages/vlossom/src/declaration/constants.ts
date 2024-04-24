@@ -1,6 +1,7 @@
 export const ALIGNS = ['start', 'center', 'end'] as const;
 
 export const COLORS = [
+    'gray',
     'red',
     'orange',
     'yellow',
@@ -13,8 +14,6 @@ export const COLORS = [
     'purple',
     'pink',
     'brown',
-    'grey',
-    'black',
 ] as const;
 
 export const CSS_POSITION = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
