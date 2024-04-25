@@ -1,8 +1,6 @@
 <template>
     <div :class="['vs-bar-node', `vs-${colorScheme}`, { ...classObj }]" :style="computedStyle">
-        <div class="vs-bar-node-content">
-            <slot />
-        </div>
+        <slot />
     </div>
 </template>
 
@@ -23,11 +21,14 @@ export default defineComponent({
         const { styleSet, height, position, primary, verticalAlign } = toRefs(props);
 
         const convertedStyleSet = computed(() => {
-            return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
-                const propName = key.split('-').pop();
-                acc[`--vs-bar-node-${propName}`] = value;
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.entries(styleSet.value).reduce(
+                (acc, [key, value]) => {
+                    const propName = key.split('-').pop();
+                    acc[`--vs-bar-node-${propName}`] = value;
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const classObj = computed(() => ({

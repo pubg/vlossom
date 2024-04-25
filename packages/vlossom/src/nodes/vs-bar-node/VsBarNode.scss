@@ -1,5 +1,5 @@
 .vs-bar-node {
-    background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-backgroundColor));
+    background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg));
     bottom: var(--vs-bar-node-bottom, auto);
     box-shadow: var(--vs-bar-node-boxShadow, none);
     color: var(--vs-bar-node-fontColor, var(--vs-comp-color));
@@ -15,12 +15,7 @@
     z-index: var(--vs-bar-node-zIndex, auto);
 
     &.primary {
-        background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg-primary));
         color: var(--vs-bar-node-fontColor, var(--vs-comp-color-primary));
-    }
-
-    .vs-bar-node-content {
-        text-align: var(--vs-bar-node-textAlign, inherit);
-        width: 100%;
     }
 }
