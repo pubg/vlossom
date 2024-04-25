@@ -70,7 +70,7 @@ export default defineComponent({
             default: false,
             validator: (value: ScrollButton, props) => {
                 if (!props.scrollable && value) {
-                    utils.log.propError(name, 'scrollButtons', 'scrollable must be true to use scrollButtons');
+                    utils.log.propError(name, 'scroll-buttons', 'scrollable must be true to use scrollButtons');
                     return false;
                 }
                 return true;
