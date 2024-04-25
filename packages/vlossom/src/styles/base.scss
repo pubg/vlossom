@@ -22,6 +22,8 @@ body {
         'Segoe UI Emoji',
         'Segoe UI Symbol',
         sans-serif;
+    background-color: var(--vs-background-color);
+    transition: background-color 0.15s linear;
 }
 
 .vs-inline-gap:has(+ .vs-inline-gap) {
