@@ -11,7 +11,7 @@ import type { Placement, Align } from '@/declaration';
 function attach(placement: Exclude<Placement, 'left' | 'right'>, align: Align) {
     const body = document?.body;
     if (!body) {
-        logUtil.logError('VsToast', 'body not found');
+        logUtil.logError('vs-toast', 'body not found');
         return;
     }
 

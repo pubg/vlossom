@@ -5,10 +5,10 @@ export const logUtil = {
     logWarning(target: string, message: string) {
         console.warn(`[Vlossom] ${target}: ${message}`);
     },
-    logPropError(componentName: string, prop: string, message: string) {
-        console.error(`[Vlossom] ${componentName} prop ${prop}: ${message}`);
+    logPropError(componentName: string, property: string, message: string) {
+        this.logError(`${componentName} property ${property}`, message);
     },
-    logPropWarning(componentName: string, prop: string, message: string) {
-        console.warn(`[Vlossom] ${componentName} prop ${prop}: ${message}`);
+    logPropWarning(componentName: string, property: string, message: string) {
+        this.logWarning(`${componentName} property ${property}`, message);
     },
 };

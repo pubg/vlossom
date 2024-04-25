@@ -123,7 +123,7 @@ export default defineComponent({
 
             const vNodes = slots.default().filter((vnode) => vnode.type !== Comment);
             if (vNodes.length !== 1) {
-                logUtil.logError('VsFocusTrap', 'FocusTrap can only contain one child');
+                logUtil.logError('vs-focus-trap', 'FocusTrap can only contain one child');
 
                 return vNodes;
             }

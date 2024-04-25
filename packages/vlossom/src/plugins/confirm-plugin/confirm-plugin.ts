@@ -8,7 +8,7 @@ import type { ConfirmInfo, ConfirmOptions, ConfirmPlugin } from './types';
 function renderConfirm(confirmInfo: ConfirmInfo) {
     const body = document?.body;
     if (!body) {
-        logUtil.logError('VsConfirm', 'body not found');
+        logUtil.logError('vs-confirm', 'body not found');
         return;
     }
 

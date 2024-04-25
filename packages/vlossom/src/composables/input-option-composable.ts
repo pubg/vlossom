@@ -25,7 +25,7 @@ export function useInputOption(
 
                 if (!label) {
                     logUtil.logError(
-                        'optionLabel',
+                        'option-label',
                         `${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
                     );
                 }
@@ -45,7 +45,7 @@ export function useInputOption(
 
             if (value === undefined || value === null) {
                 logUtil.logError(
-                    'optionValue',
+                    'option-value',
                     `${optionValue.value} is not found in option: ${JSON.stringify(option)}`,
                 );
             }
