@@ -1,7 +1,6 @@
 import { utils } from '@/utils';
 import { logUtil } from '@/utils/log';
 import { watch, ref, type PropType, type Ref } from 'vue';
-import * as _ from 'lodash-es';
 
 export function getInputOptionProps() {
     return {
@@ -21,7 +20,7 @@ export function useInputOption(
     function getOptionLabel(option: any): string {
         if (utils.object.isPlainObject(option)) {
             if (optionLabel.value) {
-                const label = _.at(option, [optionLabel.value])[0];
+                const label = utils.object.at(option, [optionLabel.value])[0];
 
                 if (!label) {
                     logUtil.logError(
@@ -41,7 +40,7 @@ export function useInputOption(
 
     function getOptionValue(option: any) {
         if (utils.object.isPlainObject(option) && optionValue.value) {
-            const value = _.at(option, [optionValue.value])[0];
+            const value = utils.object.at(option, [optionValue.value])[0];
 
             if (value === undefined || value === null) {
                 logUtil.logError(
