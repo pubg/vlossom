@@ -19,13 +19,15 @@ export function useInputOption(
     function getOptionLabel(option: any): string {
         if (utils.object.isPlainObject(option)) {
             if (optionLabel.value) {
-                const label = utils.object.at(option, [optionLabel.value])[0];
+                const label = utils.object.get(option, optionLabel.value);
 
                 if (!label) {
                     utils.log.error(
                         'option-label',
                         `${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
                     );
+
+                    return JSON.stringify(option);
                 }
 
                 return label || '';
@@ -39,13 +41,15 @@ export function useInputOption(
 
     function getOptionValue(option: any) {
         if (utils.object.isPlainObject(option) && optionValue.value) {
-            const value = utils.object.at(option, [optionValue.value])[0];
+            const value = utils.object.get(option, optionValue.value);
 
-            if (value === undefined || value === null) {
+            if (value === undefined) {
                 utils.log.error(
                     'option-value',
                     `${optionValue.value} is not found in option: ${JSON.stringify(option)}`,
                 );
+
+                return option;
             }
 
             return value;

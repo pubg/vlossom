@@ -1,7 +1,7 @@
 import * as _ from 'lodash-es';
 
 export const objectUtil = {
-    at: _.at,
+    get: _.get,
 
     isEqual: _.isEqual,
 
