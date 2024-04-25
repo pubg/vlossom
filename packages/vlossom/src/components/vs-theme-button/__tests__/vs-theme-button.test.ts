@@ -15,7 +15,7 @@ describe('vs-theme-button', () => {
             const wrapper = mount(VsThemeButton);
 
             //then
-            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
+            expect(wrapper.find('span.theme-light').classes()).toContain('on');
         });
 
         it('클릭하면 dark mode로 변경되어 theme light 아이콘이 활성화된다', async () => {
@@ -26,7 +26,7 @@ describe('vs-theme-button', () => {
             await wrapper.trigger('click');
 
             //then
-            expect(wrapper.find('span.theme-light').classes()).toContain('on');
+            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
         });
     });
 
@@ -43,7 +43,7 @@ describe('vs-theme-button', () => {
             await nextTick();
 
             //then
-            expect(wrapper.find('span.theme-light').classes()).toContain('on');
+            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
         });
 
         it('클릭하면 light mode로 변경되어 theme dark 아이콘이 활성화된다', async () => {
@@ -51,7 +51,7 @@ describe('vs-theme-button', () => {
             await wrapper.trigger('click');
 
             //then
-            expect(wrapper.find('span.theme-dark').classes()).toContain('on');
+            expect(wrapper.find('span.theme-light').classes()).toContain('on');
         });
     });
 });

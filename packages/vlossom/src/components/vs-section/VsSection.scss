@@ -1,9 +1,9 @@
 .vs-section {
-    background-color: var(--vs-section-backgroundColor, var(--vs-area-backgroundColor));
+    background-color: var(--vs-section-backgroundColor, var(--vs-area-bg));
     border-radius: var(--vs-section-borderRadius, 0.4rem);
     box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow));
     color: var(--vs-section-fontColor, var(--vs-font-color));
-    padding: var(--vs-section-padding, 2.8rem 3.2rem);
+    padding: var(--vs-section-padding, 2rem);
     position: relative;
 
     .section-title {
@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 992px) {
     .vs-section {
-        padding: var(--vs-section-padding, 2rem 2.4rem);
+        padding: var(--vs-section-padding, 1.6rem);
     }
 
     .vs-section + .vs-section {
@@ -27,7 +27,7 @@
 
 @media screen and (max-width: 768px) {
     .vs-section {
-        padding: var(--vs-section-padding, 1.8rem 2.2rem);
+        padding: var(--vs-section-padding, 1.2rem);
     }
 
     .vs-section + .vs-section {
@@ -37,7 +37,7 @@
 
 @media screen and (max-width: 576px) {
     .vs-section {
-        padding: var(--vs-section-padding, 1.6rem 1.4rem);
+        padding: var(--vs-section-padding, 1rem);
     }
 
     .vs-section + .vs-section {

@@ -1,20 +1,20 @@
 $theme-light: (
-    font-color: var(--vs-gray-800),
-    plain-backgroundColor: #ffffff,
+    background-color: var(--vs-app-bg-color-light),
+    font-color: var(--vs-gray-900),
+    plain-backgroundColor: var(--vs-white),
     dimmed-backgroundColor: rgba(0, 0, 0, 0.45),
     area-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16),
-    area-backgroundColor: #ffffff,
     area-hover-backgroundColor: var(--vs-gray-100),
     table-expand-box-shadow-up: inset 0 3px 8px rgba(100, 100, 100, 0.3),
     table-expand-box-shadow-down: inset 0 -2px 4px rgba(50, 50, 50, 0.15),
 );
 
 $theme-dark: (
-    font-color: var(--vs-gray-200),
+    background-color: var(--vs-app-bg-color-dark),
+    font-color: var(--vs-gray-50),
     plain-backgroundColor: #000000,
     dimmed-backgroundColor: rgba(0, 0, 0, 0.6),
     area-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 0.16),
-    area-backgroundColor: #14151f,
     area-hover-backgroundColor: var(--vs-gray-700),
     table-expand-box-shadow-up: inset 0 3px 6px rgba(255, 255, 255, 0.2),
     table-expand-box-shadow-down: inset 0 -2px 4px rgba(255, 255, 255, 0.15),
