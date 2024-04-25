@@ -11,13 +11,17 @@
     cursor: pointer;
     font-size: var(--vs-button-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
-    background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
-    color: var(--vs-button-fontColor, var(--vs-comp-color));
+    background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg));
+    color: var(--vs-button-fontColor, var(--vs-font-color-default));
     overflow: hidden;
 
     .content {
         display: flex;
         align-items: center;
+    }
+
+    &:hover {
+        background-color: var(--vs-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
     }
 
     &:after {
@@ -34,6 +38,10 @@
         pointer-events: none;
     }
 
+    &:active {
+        background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-active));
+    }
+
     &:active:after {
         opacity: 0.6;
         width: 0%;
@@ -46,7 +54,7 @@
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0.6rem 0 var(--vs-comp-border-color);
+        box-shadow: 0 0 0.6rem 0 var(--vs-comp-bg-active);
     }
 }
 
