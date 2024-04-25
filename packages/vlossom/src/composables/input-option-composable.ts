@@ -1,6 +1,5 @@
-import { utils } from '@/utils';
-import { logUtil } from '@/utils/log';
 import { watch, ref, type PropType, type Ref } from 'vue';
+import { utils } from '@/utils';
 
 export function getInputOptionProps() {
     return {
@@ -23,7 +22,7 @@ export function useInputOption(
                 const label = utils.object.at(option, [optionLabel.value])[0];
 
                 if (!label) {
-                    logUtil.logError(
+                    utils.log.error(
                         'option-label',
                         `${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
                     );
@@ -43,7 +42,7 @@ export function useInputOption(
             const value = utils.object.at(option, [optionValue.value])[0];
 
             if (value === undefined || value === null) {
-                logUtil.logError(
+                utils.log.error(
                     'option-value',
                     `${optionValue.value} is not found in option: ${JSON.stringify(option)}`,
                 );

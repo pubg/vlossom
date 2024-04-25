@@ -217,4 +217,3 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped src="./VsTooltip.scss" />
-@/utils/prop

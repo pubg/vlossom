@@ -1,6 +1,5 @@
 import { Ref, onBeforeMount, ref, nextTick } from 'vue';
 import { utils } from '@/utils';
-import { logUtil } from '@/utils/log';
 import type { AttachInfo, Placement, Align } from '@/declaration';
 
 export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
@@ -106,7 +105,7 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
                 document.addEventListener('scroll', throttledComputePosition, true);
                 window.addEventListener('resize', throttledComputePosition, true);
             } catch (error: any) {
-                logUtil.logError('anchor positioning', error);
+                utils.log.error('anchor positioning', error);
             }
         });
     }

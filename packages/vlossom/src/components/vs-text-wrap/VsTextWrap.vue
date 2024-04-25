@@ -106,4 +106,3 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped src="./VsTextWrap.scss" />
-@/utils/prop

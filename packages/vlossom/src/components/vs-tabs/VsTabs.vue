@@ -47,9 +47,7 @@
 import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import { objectUtil } from '@/utils/object';
-import { domUtil } from '@/utils/dom';
-import { logUtil } from '@/utils/log';
+import { utils } from '@/utils';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 
@@ -72,7 +70,7 @@ export default defineComponent({
             default: false,
             validator: (value: ScrollButton, props) => {
                 if (!props.scrollable && value) {
-                    logUtil.logPropError(name, 'scrollButtons', 'scrollable must be true to use scrollButtons');
+                    utils.log.propError(name, 'scrollButtons', 'scrollable must be true to use scrollButtons');
                     return false;
                 }
                 return true;
@@ -82,9 +80,9 @@ export default defineComponent({
             type: Array as PropType<string[]>,
             required: true,
             validator: (prop: string[]) => {
-                const isValid = objectUtil.isUniq(prop);
+                const isValid = utils.object.isUniq(prop);
                 if (!isValid) {
-                    logUtil.logPropError(name, 'tabs', 'tabs with duplicate items are not allowed');
+                    utils.log.propError(name, 'tabs', 'tabs with duplicate items are not allowed');
                 }
                 return isValid;
             },
@@ -220,7 +218,7 @@ export default defineComponent({
             }
 
             if (scrollButtons.value === 'auto') {
-                return !domUtil.hasTouchScreen() && scrollCount.value < totalLength.value;
+                return !utils.dom.hasTouchScreen() && scrollCount.value < totalLength.value;
             }
 
             return scrollButtons.value;

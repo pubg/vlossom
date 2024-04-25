@@ -1,14 +1,14 @@
 import { render, h } from 'vue';
 import { store } from '@/stores';
+import { utils } from '@/utils';
 import VsConfirm from '@/components/vs-confirm/VsConfirm.vue';
-import { logUtil } from '@/utils/log';
 
 import type { ConfirmInfo, ConfirmOptions, ConfirmPlugin } from './types';
 
 function renderConfirm(confirmInfo: ConfirmInfo) {
     const body = document?.body;
     if (!body) {
-        logUtil.logError('vs-confirm', 'body not found');
+        utils.log.error('vs-confirm', 'body not found');
         return;
     }
 

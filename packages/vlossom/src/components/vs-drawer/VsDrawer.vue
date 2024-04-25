@@ -134,4 +134,3 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped src="./VsDrawer.scss" />
-@/utils/prop

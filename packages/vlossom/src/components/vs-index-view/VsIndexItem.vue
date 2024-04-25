@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent, getCurrentInstance } from 'vue';
 import { VsComponent } from '@/declaration';
-import { logUtil } from '@/utils/log';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsIndexItem;
 
@@ -17,7 +17,7 @@ export default defineComponent({
         const instance = getCurrentInstance();
         const key = instance?.vnode.key;
         if (!key) {
-            logUtil.logWarning(name, 'key is required');
+            utils.log.warning(name, 'key is required');
         }
     },
 });
