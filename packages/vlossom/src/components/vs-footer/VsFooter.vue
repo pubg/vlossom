@@ -1,7 +1,7 @@
 <template>
     <vs-bar-node
         :color-scheme="computedColorScheme"
-        :style-set="{ ...defaultInsetStyle, ...computedStyleSet }"
+        :style-set="computedStyleSet"
         :height="height"
         :position="position"
         :primary="primary"
@@ -12,13 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, type PropType } from 'vue';
+import { defineComponent, toRefs, computed, watch, inject, type PropType } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
 import { VsComponent } from '@/declaration';
 
 import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsFooterStyleSet } from './types';
+import type { LayoutAttrs } from '../vs-layout/types';
 
 const name = VsComponent.VsFooter;
 export default defineComponent({
@@ -31,13 +32,14 @@ export default defineComponent({
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<Align>, default: '' },
+        layout: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, position } = toRefs(props);
+        const { colorScheme, styleSet, height, position, layout } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
+        const { computedStyleSet: footerStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
 
         const defaultInsetStyle = computed(() => {
             const style: { [ley: string]: any } = {};
@@ -50,10 +52,28 @@ export default defineComponent({
             return style;
         });
 
+        const computedStyleSet = computed(() => {
+            return { ...footerStyleSet.value, ...defaultInsetStyle.value };
+        });
+
+        const layoutAttrs: LayoutAttrs | undefined = inject('layoutAttrs');
+        watch(
+            computedStyleSet,
+            (style) => {
+                if (!layout.value || !layoutAttrs) {
+                    return;
+                }
+                layoutAttrs.footer = {
+                    position: position.value || style['--vs-footer-position'] || 'static',
+                    height: height.value || style['--vs-footer-height'] || 'auto',
+                };
+            },
+            { immediate: true, deep: true },
+        );
+
         return {
             computedColorScheme,
             computedStyleSet,
-            defaultInsetStyle,
         };
     },
 });

@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed, inject, watchEffect, type PropType } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
@@ -42,6 +42,7 @@ import { VsComponent, Placement, Size, SIZES, type ColorScheme, PLACEMENTS } fro
 import { utils } from '@/utils';
 
 import type { VsDrawerStyleSet } from './types';
+import type { LayoutAttrs } from '../vs-layout/types';
 
 const name = VsComponent.VsDrawer;
 
@@ -57,6 +58,7 @@ export default defineComponent({
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
+        layout: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
@@ -68,7 +70,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } =
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, layout, placement, size } =
             toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -103,6 +105,9 @@ export default defineComponent({
 
         const isOpen = ref(modelValue.value);
 
+        const navOn = inject('navOn');
+        const layoutAttrs: LayoutAttrs | undefined = inject('layoutAttrs');
+
         watch(modelValue, (val) => {
             isOpen.value = val;
         });
@@ -128,6 +133,29 @@ export default defineComponent({
 
             emit('update:modelValue', val);
         });
+
+        watchEffect(() => {
+            if (!layout.value) {
+                return;
+            }
+            if (typeof navOn === 'object' && navOn !== null && 'value' in navOn) {
+                navOn.value = isOpen.value;
+            }
+        });
+
+        watch(
+            computedStyleSet,
+            () => {
+                if (!layout.value || !layoutAttrs) {
+                    return;
+                }
+                layoutAttrs.drawer = {
+                    placement: placement.value,
+                    size: size.value,
+                };
+            },
+            { immediate: true, deep: true },
+        );
 
         function clickDimmed() {
             if (closeOnDimmedClick.value) {

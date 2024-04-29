@@ -18,6 +18,8 @@ body {
         'Segoe UI Symbol',
         sans-serif;
     font-weight: 400;
+    min-height: 100vh;
+    position: relative;
 }
 
 .vs-inline-gap:has(+ .vs-inline-gap) {

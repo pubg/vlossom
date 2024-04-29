@@ -21,6 +21,7 @@ export enum VsComponent {
     VsInput = 'VsInput',
     VsInputWrapper = 'VsInputWrapper',
     VsLabelValue = 'VsLabelValue',
+    VsLayout = 'VsLayout',
     VsLoading = 'VsLoading',
     VsMain = 'VsMain',
     VsMessage = 'VsMessage',
