@@ -14,7 +14,7 @@ import {
     type PropType,
 } from 'vue';
 import { VsComponent } from '@/declaration';
-import { logUtil } from '@/utils/log';
+import { utils } from '@/utils';
 
 export default defineComponent({
     name: VsComponent.VsFocusTrap,
@@ -123,7 +123,7 @@ export default defineComponent({
 
             const vNodes = slots.default().filter((vnode) => vnode.type !== Comment);
             if (vNodes.length !== 1) {
-                logUtil.logError('VsFocusTrap', 'FocusTrap can only contain one child');
+                utils.log.error('vs-focus-trap', 'FocusTrap can only contain one child');
 
                 return vNodes;
             }

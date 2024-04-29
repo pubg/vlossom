@@ -28,9 +28,9 @@
 <script lang="ts">
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
+import { VsComponent, type ColorScheme, type Placement, type Align, PLACEMENTS, ALIGNS } from '@/declaration';
 import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
-import { propValidationUtil } from '@/utils/prop-validation';
+import { utils } from '@/utils';
 
 import type { VsTooltipStyleSet } from './types';
 
@@ -44,7 +44,7 @@ export default defineComponent({
         align: {
             type: String as PropType<Align>,
             default: 'center',
-            validator: (val: Align) => propValidationUtil.validateAlign(name, val),
+            validator: (val: Align) => utils.props.checkPropExist<Align>(name, 'align', ALIGNS, val),
         },
         clickable: { type: Boolean, default: false },
         contentsHover: { type: Boolean, default: false },
@@ -56,7 +56,7 @@ export default defineComponent({
         placement: {
             type: String as PropType<Placement>,
             default: 'top',
-            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
+            validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
     },
     setup(props) {

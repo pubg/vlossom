@@ -39,8 +39,7 @@
 import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
-import { objectUtil } from '@/utils/object';
-import { logUtil } from '@/utils/log';
+import { utils } from '@/utils';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
 import type { VsStepperStyleSet } from './types';
@@ -59,9 +58,9 @@ export default defineComponent({
             type: Array as PropType<string[]>,
             required: true,
             validator: (prop: string[]) => {
-                const isValid = objectUtil.isUniq(prop);
+                const isValid = utils.object.isUniq(prop);
                 if (!isValid) {
-                    logUtil.logPropError(name, 'steps', 'steps with duplicate items are not allowed');
+                    utils.log.propError(name, 'steps', 'steps with duplicate items are not allowed');
                 }
                 return isValid;
             },

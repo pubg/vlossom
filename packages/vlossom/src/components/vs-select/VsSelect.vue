@@ -206,7 +206,6 @@ import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
-import { logUtil } from '@/utils/log';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
 import type { VsChipStyleSet } from '@/components/vs-chip/types';
@@ -227,7 +226,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    logUtil.logPropError(name, 'closableChips', 'closableChips can only be used with multiple prop');
+                    utils.log.propError(name, 'closable-chips', 'closableChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -238,7 +237,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    logUtil.logPropError(name, 'collapseChips', 'collapseChips can only be used with multiple prop');
+                    utils.log.propError(name, 'collapse-chips', 'collapseChips can only be used with multiple prop');
                     return false;
                 }
                 return true;
@@ -251,7 +250,7 @@ export default defineComponent({
             validator: (value: number) => {
                 const isValid = value >= 10;
                 if (!isValid) {
-                    logUtil.logPropError(name, 'lazyLoadNum', 'lazyLoadNum must be 10 or more');
+                    utils.log.propError(name, 'lazy-load-num', 'lazyLoadNum must be 10 or more');
                 }
                 return isValid;
             },
@@ -262,7 +261,7 @@ export default defineComponent({
             default: false,
             validator: (value, props) => {
                 if (!props.multiple && value) {
-                    logUtil.logPropError(name, 'selectAll', 'selectAll can only be used with multiple prop');
+                    utils.log.propError(name, 'select-all', 'selectAll can only be used with multiple prop');
                     return false;
                 }
                 return true;

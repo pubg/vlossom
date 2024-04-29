@@ -26,6 +26,17 @@ describe('input option composable', () => {
             expect(getOptionLabel(options.value[0])).toBe('test');
         });
 
+        it('option이 object이고 optionLabel이 지정되었어도 실제 label이 없으면 JSON.stringify(option)을 반환한다', () => {
+            // given
+            const options = ref([{ label: 'test' }]);
+
+            // when
+            const { getOptionLabel } = useInputOption(ref('dummy'), options, ref('empty-label'), ref(''));
+
+            // then
+            expect(getOptionLabel(options.value[0])).toBe('{"label":"test"}');
+        });
+
         it('option이 object이고 optionLabel이 없으면 JSON.stringify(option)을 반환한다', () => {
             // given
             const options = ref([{ label: 'test' }]);
@@ -70,6 +81,17 @@ describe('input option composable', () => {
 
             // then
             expect(getOptionValue(options.value[0])).toBe('test-value');
+        });
+
+        it('option이 object이고 optionValue가 지정되더라도 value 자체가 없다면 option 그대로 반환한다', () => {
+            // given
+            const options = ref([{ label: 'test', value: 'test-value' }]);
+
+            // when
+            const { getOptionValue } = useInputOption(ref('dummy'), options, ref(''), ref('empty-value'));
+
+            // then
+            expect(getOptionValue(options.value[0])).toBe(options.value[0]);
         });
 
         it('option이 object이고 optionValue가 없으면 option 그대로 반환한다', () => {
