@@ -2,7 +2,7 @@
     background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg));
     bottom: var(--vs-bar-node-bottom, auto);
     box-shadow: var(--vs-bar-node-boxShadow, none);
-    color: var(--vs-bar-node-fontColor, var(--vs-comp-color));
+    color: var(--vs-bar-node-fontColor, var(--vs-comp-bg));
     display: var(--vs-bar-node-display, flex);
     flex: var(--vs-bar-node-flex, 1 1 auto);
     height: var(--vs-bar-node-height, auto);
@@ -16,6 +16,6 @@
 
     &.primary {
         background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg-primary));
-        color: var(--vs-bar-node-fontColor, var(--vs-comp-color-primary));
+        color: var(--vs-bar-node-fontColor, var(--vs-comp-bg-primary));
     }
 }

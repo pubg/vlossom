@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-comp-color));
+$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-comp-bg));
 $checkbox-size: var(--vs-checkbox-checkboxSize, 1.6rem);
 $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $checkbox-color);
 

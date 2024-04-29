@@ -4,10 +4,10 @@
     }
 
     align-items: center;
-    background-color: var(--vs-chip-backgroundColor, var(--vs-comp-backgroundColor));
-    border: var(--vs-chip-outlineBorder, 1px solid var(--vs-comp-color), 0);
+    background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg));
+    border: var(--vs-chip-outlineBorder, 1px solid var(--vs-line-color));
     border-radius: var(--vs-chip-borderRadius, 1.3rem);
-    color: var(--vs-chip-fontColor, var(--vs-comp-color));
+    color: var(--vs-chip-fontColor, var(--vs-font-color));
     display: inline-flex;
     font-size: var(--vs-chip-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
@@ -46,7 +46,7 @@
         width: calc(var(--vs-chip-height, 1.2rem) * 0.8);
 
         &.primary {
-            background-color: var(--vs-light-backgroundColor);
+            background-color: var(--vs-no-color);
         }
     }
 
@@ -76,7 +76,7 @@
     }
 
     &.primary {
-        background-color: var(--vs-chip-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-chip-fontColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg-primary));
+        color: var(--vs-chip-fontColor, var(--vs-font-color-primary));
     }
 }

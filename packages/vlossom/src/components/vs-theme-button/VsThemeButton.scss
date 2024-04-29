@@ -1,5 +1,5 @@
-$vs-theme-button-width: 2rem;
-$vs-theme-button-height: 2rem;
+$vs-theme-button-width: 1.8rem;
+$vs-theme-button-height: 1.8rem;
 
 .vs-theme-button {
     position: relative;
@@ -8,11 +8,11 @@ $vs-theme-button-height: 2rem;
     width: var(--vs-theme-button-width, $vs-theme-button-width);
     height: var(--vs-theme-button-height, $vs-theme-button-height);
     border-radius: var(--vs-theme-button-borderRadius, 50%);
-    background-color: var(--vs-theme-button-backgroundColor, none);
+    background-color: var(--vs-theme-button-backgroundColor, var(--vs-comp-bg));
     transition: all 0.2s ease-out;
 
     &:hover {
-        background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-area-hover-backgroundColor));
+        background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
     }
 
     .icon {
@@ -28,8 +28,10 @@ $vs-theme-button-height: 2rem;
         height: var(--vs-theme-button-height, $vs-theme-button-height);
         opacity: 0;
         transform: scale(0.4) rotate(270deg);
-        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-        color: var(--vs-theme-button-fontColor, var(--vs-orange-500));
+        transition:
+            opacity 0.4s ease-out,
+            transform 0.4s ease-out;
+        color: var(--vs-theme-button-fontColor, var(--vs-orange-400));
 
         &.on {
             opacity: 1;

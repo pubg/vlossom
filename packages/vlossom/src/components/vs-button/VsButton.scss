@@ -5,15 +5,16 @@
     align-items: center;
     white-space: nowrap;
     max-height: var(--vs-button-maxHeight, 3rem);
-    padding: var(--vs-button-padding, 0.4rem 1.2rem);
-    border: none;
+    padding: var(--vs-button-padding, 0.4rem 1rem);
+    border: 1px solid var(--vs-line-color);
     border-radius: var(--vs-button-borderRadius, 0.4rem);
     cursor: pointer;
-    font-size: var(--vs-button-fontSize, 1rem);
-    font-weight: var(--vs-button-fontWeight, 400);
+    font-size: var(--vs-button-fontSize, 0.9rem);
+    font-weight: var(--vs-button-fontWeight, 500);
     background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg));
-    color: var(--vs-button-fontColor, var(--vs-font-color-default));
+    color: var(--vs-button-fontColor, var(--vs-font-color));
     overflow: hidden;
+    box-sizing: border-box;
 
     .content {
         display: flex;
@@ -22,6 +23,10 @@
 
     &:hover {
         background-color: var(--vs-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
+    }
+
+    &:active {
+        background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-active));
     }
 
     &:after {
@@ -36,10 +41,6 @@
         background: #ffffff;
         transition: all 0.4s ease-out;
         pointer-events: none;
-    }
-
-    &:active {
-        background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-active));
     }
 
     &:active:after {
@@ -61,8 +62,17 @@
 // primary {
 .vs-button {
     &.primary {
-        background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-button-fontColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg-primary));
+        color: var(--vs-button-fontColor, var(--vs-font-color-primary));
+        border: 1px solid var(--vs-line-color-primary);
+
+        &:hover {
+            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-comp-bg-primary-hover));
+        }
+
+        &:active {
+            background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-primary-active));
+        }
     }
 }
 
@@ -87,8 +97,8 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-border-color));
-        color: var(--vs-button-fontColor, var(--vs-comp-border-color));
+        border: var(--vs-button-outlineBorder, 1px solid var(--vs-line-color));
+        color: var(--vs-button-fontColor, var(--vs-line-color));
         font-weight: var(--vs-button-fontWeight, 500);
 
         &:after {
