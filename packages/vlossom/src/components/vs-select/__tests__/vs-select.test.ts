@@ -767,6 +767,20 @@ describe('vs-select', () => {
         });
     });
 
+    describe('aria-label', () => {
+        it('aria-label을 설정할 수 있다', () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    ariaLabel: 'aria-label',
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').attributes('aria-label')).toBe('aria-label');
+        });
+    });
+
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given

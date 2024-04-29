@@ -89,6 +89,7 @@
     "dependencies": {
         "@vueuse/core": "^10.9.0",
         "lodash-es": "^4.17.21",
+        "vuedraggable": "^4.1.0",
         "nanoid": "^5.0.7"
     }
 }

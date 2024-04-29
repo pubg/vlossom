@@ -25,6 +25,7 @@ import type {
     VsSelectStyleSet,
     VsStepperStyleSet,
     VsSwitchStyleSet,
+    VsTableStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -68,6 +69,7 @@ export interface StyleSet {
     VsSelect?: { [key: string]: VsSelectStyleSet };
     VsStepper?: { [key: string]: VsStepperStyleSet };
     VsSwitch?: { [key: string]: VsSwitchStyleSet };
+    VsTable?: { [key: string]: VsTableStyleSet };
     VsTabs?: { [key: string]: VsTabsStyleSet };
     VsTextarea?: { [key: string]: VsTextareaStyleSet };
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
@@ -153,3 +155,8 @@ export type CssPosition = (typeof CSS_POSITION)[number];
 export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
+
+export interface LabelValue<T = any> {
+    label: string;
+    value: T;
+}

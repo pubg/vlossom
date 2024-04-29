@@ -14,4 +14,6 @@ export const objectUtil = {
     },
 
     omit: _.omit,
+
+    pick: _.pick,
 };

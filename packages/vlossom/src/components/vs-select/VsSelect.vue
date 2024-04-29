@@ -62,6 +62,7 @@
                     :id="id"
                     role="combobox"
                     :aria-expanded="isOpen || isVisible"
+                    :aria-label="ariaLabel"
                     aria-controls="vs-select-options"
                     :aria-autocomplete="autocomplete ? 'list' : undefined"
                     :aria-activedescendant="focusedOptionId"
@@ -220,6 +221,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSelectStyleSet> },
+        ariaLabel: { type: String, default: '' },
         autocomplete: { type: Boolean, default: false },
         closableChips: {
             type: Boolean,
