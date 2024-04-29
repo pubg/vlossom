@@ -35,9 +35,8 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs, computed, type PropType, type Ref } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement, type Align } from '@/declaration';
+import { VsComponent, type ColorScheme, type Placement, type Align, ALIGNS, PLACEMENTS } from '@/declaration';
 import { utils } from '@/utils';
-import { propValidationUtil } from '@/utils/prop-validation';
 import { VsIcon } from '@/icons';
 
 import type { VsTextWrapStyleSet } from './types';
@@ -53,7 +52,7 @@ export default defineComponent({
         align: {
             type: String as PropType<Align>,
             default: 'center',
-            validator: (val: Align) => propValidationUtil.validateAlign(name, val),
+            validator: (val: Align) => utils.props.checkPropExist<Align>(name, 'align', ALIGNS, val),
         },
         copy: { type: Boolean, default: false },
         link: { type: String, default: '' },
@@ -61,7 +60,7 @@ export default defineComponent({
         placement: {
             type: String as PropType<Placement>,
             default: 'top',
-            validator: (val: Placement) => propValidationUtil.validatePlacement(name, val),
+            validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         width: { type: [String, Number], default: '' },
     },

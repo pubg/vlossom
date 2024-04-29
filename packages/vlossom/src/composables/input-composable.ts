@@ -1,7 +1,7 @@
 import { ComputedRef, PropType, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
-import * as _ from 'lodash-es';
 import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
+import { utils } from '@/utils';
 
 import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
 
@@ -51,7 +51,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
         },
     );
 
-    return _.omit(inputProps, excludes) as Omit<VsInputProps<T>, K[number]>;
+    return utils.object.omit(inputProps, excludes) as Omit<VsInputProps<T>, K[number]>;
 }
 
 export function useInput<T = unknown>(

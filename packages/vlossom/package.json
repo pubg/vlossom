@@ -22,8 +22,8 @@
     "scripts": {
         "dev": "vite --port 3000",
         "build": "vue-tsc && vite build",
-        "test": "vitest run --reporter=verbose",
-        "test:watch": "vitest --reporter=verbose",
+        "test": "vitest run",
+        "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
         "test:snapshot": "vitest run --update",
         "lint": "eslint --ext .js,.ts,vue --ignore-path ../../.gitignore .",
@@ -76,6 +76,7 @@
         "chromatic": "^11.3.0",
         "jsdom": "^24.0.0",
         "ress": "^5.0.2",
+        "rollup-plugin-visualizer": "^5.12.0",
         "sass": "^1.75.0",
         "storybook": "^8.0.8",
         "typescript": "^5.4.5",

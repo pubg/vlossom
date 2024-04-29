@@ -1,7 +1,5 @@
-import { utils } from '@/utils';
-import { logUtil } from '@/utils/log';
 import { watch, ref, type PropType, type Ref } from 'vue';
-import * as _ from 'lodash-es';
+import { utils } from '@/utils';
 
 export function getInputOptionProps() {
     return {
@@ -21,13 +19,15 @@ export function useInputOption(
     function getOptionLabel(option: any): string {
         if (utils.object.isPlainObject(option)) {
             if (optionLabel.value) {
-                const label = _.at(option, [optionLabel.value])[0];
+                const label = utils.object.get(option, optionLabel.value);
 
                 if (!label) {
-                    logUtil.logError(
-                        'optionLabel',
+                    utils.log.error(
+                        'option-label',
                         `${optionLabel.value} is not found in option: ${JSON.stringify(option)}`,
                     );
+
+                    return JSON.stringify(option);
                 }
 
                 return label || '';
@@ -41,13 +41,15 @@ export function useInputOption(
 
     function getOptionValue(option: any) {
         if (utils.object.isPlainObject(option) && optionValue.value) {
-            const value = _.at(option, [optionValue.value])[0];
+            const value = utils.object.get(option, optionValue.value);
 
-            if (value === undefined || value === null) {
-                logUtil.logError(
-                    'optionValue',
+            if (value === undefined) {
+                utils.log.error(
+                    'option-value',
                     `${optionValue.value} is not found in option: ${JSON.stringify(option)}`,
                 );
+
+                return option;
             }
 
             return value;
