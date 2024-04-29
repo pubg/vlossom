@@ -6,6 +6,9 @@
             @mouseenter="onTriggerEnter"
             @mouseleave="onTriggerLeave"
             @click="onTriggerClick"
+            @focusin="onTriggerEnter"
+            @focusout="onTriggerLeave"
+            @keydown.esc="onTriggerLeave"
         >
             <slot />
         </div>
