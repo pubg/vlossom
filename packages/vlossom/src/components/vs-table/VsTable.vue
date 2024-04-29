@@ -73,7 +73,7 @@
                     :options="paginationOptions"
                     :disabled="loading"
                     :color-scheme="colorScheme"
-                    label="pagination-options"
+                    aria-label="pagination-options"
                     option-label="label"
                     option-value="value"
                     no-clear
