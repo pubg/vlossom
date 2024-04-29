@@ -68,7 +68,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
     .scroll-button {
         width: 1rem;
-        color: var(--vs-comp-color);
+        color: var(--vs-comp-bg);
 
         &.scroll-left-button {
             margin-right: 0.5rem;

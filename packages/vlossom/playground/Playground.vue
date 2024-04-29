@@ -11,16 +11,24 @@
 
         <vs-section>
             <template #title>Hello Vlossom!</template>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc ultricies ultricies.
+            <vs-button>Hello</vs-button>
+            <vs-button v-for="color in COLORS" :color-scheme="color">Hello</vs-button>
+            <vs-divider />
+            <vs-button primary>Hello</vs-button>
+            <vs-button v-for="color in COLORS" :color-scheme="color" primary>Hello</vs-button>
         </vs-section>
     </vs-page>
 </template>
 
 <script lang="ts">
+import { COLORS } from './../src/declaration';
+
 export default {
     name: 'Playground',
     setup() {
-        return {};
+        return {
+            COLORS,
+        };
     },
 };
 </script>

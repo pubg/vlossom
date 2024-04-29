@@ -2,11 +2,11 @@
 
 $borderWidth: var(--vs-file-input-borderWidth, 0.0625rem);
 $borderStyle: var(--vs-file-input-borderStyle, solid);
-$borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
+$borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
 
 .vs-file-input {
     position: relative;
-    background-color: var(--vs-file-input-backgroundColor, var(--vs-plain-backgroundColor));
+    background-color: var(--vs-file-input-backgroundColor, var(--vs-no-color));
     border: $borderWidth $borderStyle $borderColor;
     border-radius: var(--vs-file-input-borderRadius, 0.4rem);
     height: var(--vs-file-input-height, 2.5rem);
@@ -30,8 +30,8 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
         .attach-file-icon {
             width: 2.5rem;
             border-radius: var(--vs-file-input-borderRadius, 0.4rem) 0 0 var(--vs-file-input-borderRadius, 0.4rem);
-            background-color: var(--vs-file-input-prependBackgroundColor, var(--vs-comp-border-color));
-            color: var(--vs-file-input-prependColor, var(--vs-comp-color-primary));
+            background-color: var(--vs-file-input-prependBackgroundColor, var(--vs-line-color));
+            color: var(--vs-file-input-prependColor, var(--vs-comp-bg-primary));
             display: flex;
             justify-content: center;
             align-items: center;
@@ -66,7 +66,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
         opacity: 0;
         transform: translate(0, -50%);
         transition: opacity 0.4s;
-        color: var(--vs-file-input-clearButtonColor, var(--vs-comp-border-color));
+        color: var(--vs-file-input-clearButtonColor, var(--vs-line-color));
         background: none;
         border: none;
         cursor: pointer;
@@ -88,7 +88,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-comp-border-color));
     }
 
     &.dragging {
-        background-color: var(--vs-file-input-dragBackgroundColor, var(--vs-light-backgroundColor));
+        background-color: var(--vs-file-input-dragBackgroundColor, var(--vs-no-color));
     }
 
     &.readonly {

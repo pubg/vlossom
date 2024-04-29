@@ -7,18 +7,18 @@
     font-weight: var(--vs-value-tag-fontWeight, 400);
     width: var(--vs-value-tag-width, 100%);
     line-height: var(--vs-value-tag-lineHeight, 2.2rem);
-    background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor));
+    background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-bg));
 
     .label {
         padding: 0 1.2rem 0 0.8rem;
-        color: var(--vs-value-tag-fontColor, var(--vs-comp-color));
+        color: var(--vs-value-tag-fontColor, var(--vs-font-color));
         width: var(--vs-value-tag-labelWidth, '100%');
     }
 
     .value {
         flex: 1;
         padding: 0 0.8rem;
-        background-color: var(--vs-plain-backgroundColor);
+        background-color: var(--vs-no-color);
         color: var(--vs-font-color);
     }
 }
@@ -26,10 +26,10 @@
 // Primary {
 .vs-value-tag {
     &.primary {
-        background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-bg-primary));
 
         .label {
-            color: var(--vs-value-tag-fontColor, var(--vs-comp-color-primary));
+            color: var(--vs-value-tag-fontColor, var(--vs-font-color-primary));
         }
     }
 }
