@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$radio-color: var(--vs-radio-radioColor, var(--vs-comp-color));
+$radio-color: var(--vs-radio-radioColor, var(--vs-comp-bg));
 $radio-size: var(--vs-radio-radioSize, 1.25rem);
 $radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, $radio-color);
 $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
@@ -50,7 +50,7 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
             }
             &:before {
                 content: '';
-                background-color: var(--vs-area-backgroundColor);
+                background-color: var(--vs-area-bg);
                 width: $radio-size;
                 height: $radio-size;
                 border-radius: var(--vs-radio-borderRadius, 50%);

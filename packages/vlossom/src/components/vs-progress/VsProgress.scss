@@ -8,12 +8,13 @@ progress {
 progress[value] {
     &::-webkit-progress-bar {
         overflow: hidden;
-        background-color: var(--vs-progress-barColor, var(--vs-comp-backgroundColor));
+        background-color: var(--vs-progress-barColor, var(--vs-comp-bg));
+        border: 1px solid var(--vs-progress-borderColor, var(--vs-line-color));
         border-radius: var(--vs-progress-borderRadius, 0.4rem);
     }
 
     &::-webkit-progress-value {
         position: relative;
-        background-color: var(--vs-progress-valueColor, var(--vs-comp-backgroundColor-primary));
+        background-color: var(--vs-progress-valueColor, var(--vs-comp-bg-primary));
     }
 }

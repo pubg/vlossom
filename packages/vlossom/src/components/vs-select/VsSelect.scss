@@ -2,8 +2,8 @@
 
 .vs-select {
     display: flex;
-    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
     min-height: var(--vs-select-height, 2.5rem);
     font-size: var(--vs-select-fontSize, 1rem);
@@ -47,7 +47,7 @@
         padding-right: 0.6rem;
         opacity: 0;
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        color: var(--vs-input-clearButtonColor, var(--vs-line-color));
         background: none;
         border: none;
         cursor: pointer;
@@ -94,8 +94,8 @@
 
 .options-container {
     z-index: 900;
-    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
+    background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
+    border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
 
     .options {
@@ -113,19 +113,19 @@
             user-select: none;
 
             &.selected {
-                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
-                color: var(--vs-select-selectedOptionColor, var(--vs-comp-color));
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-bg));
+                color: var(--vs-select-selectedOptionColor, var(--vs-comp-bg));
                 font-weight: 600;
             }
 
             &:not(.selected).chased {
-                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
-                color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-no-color));
+                color: var(--vs-select-hoverOptionColor, var(--vs-line-color));
                 font-weight: 600;
             }
 
             &.select-all {
-                background-color: var(--vs-light-backgroundColor);
+                background-color: var(--vs-no-color);
                 padding: 0.4 0.4rem;
                 height: 3.2rem;
                 display: flex;

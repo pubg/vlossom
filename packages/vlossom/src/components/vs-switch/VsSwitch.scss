@@ -8,8 +8,8 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 .vs-switch {
     appearance: none;
     align-items: center;
-    background-color: var(--vs-switch-falseBackgroundColor, var(--vs-light-backgroundColor));
-    border-color: var(--vs-switch-falseBorderColor, var(--vs-comp-color));
+    background-color: var(--vs-switch-falseBackgroundColor, var(--vs-no-color));
+    border-color: var(--vs-switch-falseBorderColor, var(--vs-comp-bg));
     border-radius: var(--vs-switch-borderRadius, 1rem);
     border-style: solid;
     border-width: var(--vs-switch-falseBorderWidth, 1px);
@@ -21,7 +21,9 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     position: relative;
-    transition: all 0.4s, border 0s;
+    transition:
+        all 0.4s,
+        border 0s;
     width: $width;
 
     &:focus-visible {
@@ -43,7 +45,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
     &::before {
         content: '';
-        background-color: var(--vs-switch-falseHandleColor, var(--vs-comp-backgroundColor-primary));
+        background-color: var(--vs-switch-falseHandleColor, var(--vs-comp-bg-primary));
         border-radius: 50%;
         box-shadow: 2px 2px 2px 0 rgba(#000, 0.4);
         height: $switchSize;
@@ -54,15 +56,15 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     }
 
     &.checked {
-        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-color));
-        border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-color));
+        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-bg));
+        border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-bg));
         border-style: solid;
         border-width: var(--vs-switch-trueBorderWidth, 0);
-        color: var(--vs-switch-trueFontColor, var(--vs-comp-color-primary));
+        color: var(--vs-switch-trueFontColor, var(--vs-comp-bg-primary));
 
         &::before {
             left: calc(100% - ($switchSize + $switchGap));
-            background-color: var(--vs-switch-trueHandleColor, var(--vs-comp-color-primary));
+            background-color: var(--vs-switch-trueHandleColor, var(--vs-comp-bg-primary));
         }
 
         .status-label {
