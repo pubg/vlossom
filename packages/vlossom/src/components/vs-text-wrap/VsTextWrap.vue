@@ -16,7 +16,7 @@
                 <div class="text-wrap-buttons" v-if="copy || link || $slots['actions']">
                     <slot name="actions" />
                     <button type="button" v-if="copy" class="copy-button" aria-label="copy" @click.stop="copyInnerText">
-                        <vs-icon size="1.2rem" icon="copy" />
+                        <vs-icon size="1.2rem" :icon="computedIcon" :style="computedIconStyle" />
                     </button>
 
                     <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
@@ -78,6 +78,7 @@ export default defineComponent({
 
         const contentsRef: Ref<HTMLInputElement | null> = ref(null);
 
+        const copied = ref(false);
         function copyInnerText() {
             const innerText = contentsRef?.value?.innerText || contentsRef?.value?.innerHTML?.replace(/<[^>]*>/g, '');
             if (!innerText) {
@@ -85,7 +86,20 @@ export default defineComponent({
             }
             utils.clipboard.copy(innerText);
             emit('copied', innerText);
+
+            copied.value = true;
+            setTimeout(() => {
+                copied.value = false;
+            }, 2000);
         }
+
+        const computedIcon = computed(() => {
+            return copied.value ? 'check' : 'copy';
+        });
+
+        const computedIconStyle = computed(() => {
+            return { color: copied.value ? 'green' : colorScheme.value };
+        });
 
         function openLink() {
             if (!link.value) {
@@ -100,6 +114,9 @@ export default defineComponent({
             contentsRef,
             copyInnerText,
             openLink,
+            copied,
+            computedIcon,
+            computedIconStyle,
         };
     },
 });
