@@ -3,20 +3,20 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 0.8rem 2.4rem;
+    padding: 0.8rem 1.6rem;
     overflow: hidden;
-    background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor));
+    background-color: var(--vs-notice-backgroundColor, var(--vs-comp-bg));
 
     .vs-notice-contents {
         display: flex;
         align-items: center;
-        color: var(--vs-notice-contentFontColor, var(--vs-comp-color));
-        font-size: var(--vs-notice-contentFontSize, 1.2rem);
+        color: var(--vs-notice-contentFontColor, var(--vs-font-color));
+        font-size: var(--vs-notice-contentFontSize, 1rem);
         font-weight: var(--vs-notice-contentFontWeight, 500);
 
         .title {
-            color: var(--vs-notice-titleFontColor, var(--vs-comp-color));
-            font-size: var(--vs-notice-titleFontSize, 1.2rem);
+            color: var(--vs-notice-titleFontColor, var(--vs-font-color));
+            font-size: var(--vs-notice-titleFontSize, 1rem);
             font-weight: var(--vs-notice-titleFontWeight, 600);
         }
     }
@@ -24,23 +24,23 @@
     .close-button {
         display: flex;
         cursor: pointer;
-        color: var(--vs-notice-contentFontColor, var(--vs-comp-color));
+        color: var(--vs-notice-contentFontColor, var(--vs-font-color));
     }
 
     // primary
     &.primary {
-        background-color: var(--vs-notice-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        background-color: var(--vs-notice-backgroundColor, var(--vs-comp-bg-primary));
 
         .vs-notice-contents {
-            color: var(--vs-notice-contentFontColor, var(--vs-comp-color-primary));
+            color: var(--vs-notice-contentFontColor, var(--vs-font-color-primary));
 
             .title {
-                color: var(--vs-notice-titleFontColor, var(--vs-comp-color-primary));
+                color: var(--vs-notice-titleFontColor, var(--vs-font-color-primary));
             }
         }
 
         .close-button {
-            color: var(--vs-notice-contentFontColor, var(--vs-comp-color-primary));
+            color: var(--vs-notice-contentFontColor, var(--vs-font-color-primary));
         }
     }
 }
