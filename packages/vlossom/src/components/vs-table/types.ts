@@ -28,4 +28,6 @@ export enum SortType {
     DESCEND,
 }
 
-export interface VsTableStyleSet {}
+export interface VsTableStyleSet {
+    //[TODO] add style set
+}
