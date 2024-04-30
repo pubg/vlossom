@@ -27,6 +27,7 @@ $sizes: xs, sm, md, lg, xl;
         position: absolute;
         width: 100%;
         height: 100%;
+        pointer-events: auto;
 
         // placement
         &.top {
