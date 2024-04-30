@@ -10,15 +10,11 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
         align-items: center;
         display: inline-flex;
         list-style: none;
-        overflow-x: hidden;
+        overflow-x: auto;
+        scrollbar-width: thin;
 
         &.bottomLine {
             border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
-        }
-
-        &.scrollable {
-            overflow-x: auto;
-            scrollbar-width: thin;
         }
 
         .tab {

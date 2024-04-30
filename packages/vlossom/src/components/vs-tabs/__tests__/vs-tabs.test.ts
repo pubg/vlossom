@@ -115,12 +115,11 @@ describe('vs-tabs', () => {
     });
 
     describe('scrollButtons', () => {
-        it('scrollButtons prop이 show 이고 scrollable이 true이면 scroll 버튼이 렌더된다', () => {
+        it('scrollButtons prop이 show 이면 scroll 버튼이 렌더된다', () => {
             // given
             const wrapper = mount(VsTabs, {
                 props: {
                     tabs: ['tab1', 'tab2', 'tab3'],
-                    scrollable: true,
                     scrollButtons: 'show',
                 },
             });

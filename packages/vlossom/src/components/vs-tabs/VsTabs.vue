@@ -11,7 +11,7 @@
             >
                 <vs-icon icon="goPrev" size="1.2rem" />
             </button>
-            <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine, scrollable }">
+            <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine }">
                 <li
                     v-for="(tab, index) in tabs"
                     ref="tabRefs"
@@ -64,17 +64,9 @@ export default defineComponent({
         bottomLine: { type: Boolean, default: true },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
-        scrollable: { type: Boolean, default: true },
         scrollButtons: {
             type: [Boolean, String] as PropType<ScrollButton>,
             default: 'hide',
-            validator: (value: ScrollButton, props) => {
-                if (!props.scrollable && value !== 'hide') {
-                    utils.log.propError(name, 'scroll-buttons', 'scrollable must be true to use scrollButtons');
-                    return false;
-                }
-                return true;
-            },
         },
         tabs: {
             type: Array as PropType<string[]>,
@@ -92,7 +84,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, disabled, scrollable, scrollButtons, tabs, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, disabled, scrollButtons, tabs, modelValue } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -213,10 +205,6 @@ export default defineComponent({
         }
 
         const showScrollButtons = computed(() => {
-            if (!scrollable.value) {
-                return false;
-            }
-
             if (scrollButtons.value === 'auto') {
                 return !utils.dom.hasTouchScreen() && scrollCount.value < totalLength.value;
             }
@@ -225,10 +213,6 @@ export default defineComponent({
         });
 
         function scrollTo(index: number) {
-            if (!scrollable.value) {
-                return;
-            }
-
             let targetIndex = index;
 
             if (index < 0) {
