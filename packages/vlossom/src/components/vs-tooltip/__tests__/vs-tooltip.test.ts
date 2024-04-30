@@ -22,7 +22,7 @@ describe('vs-tooltip', () => {
         beforeEach(() => {
             wrapper = mount(VsTooltip, {
                 slots: {
-                    default: 'Hover Here!',
+                    default: '<button>Hover Here!</button>',
                     tooltip: 'Tooltip',
                 },
                 props: {
@@ -62,6 +62,45 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(0);
 
             wrapper.find('.tooltip-trigger').trigger('mouseleave');
+            await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
+
+            //then
+            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.innerHTML).toContain('Hover Here!');
+            expect(window.document.body.innerHTML).not.toContain('Tooltip');
+        });
+
+        it('tooltip trigger에 focus가 잡히면 contents가 나타난다', async () => {
+            //when
+            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            await vi.advanceTimersByTimeAsync(0);
+
+            //then
+            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.innerHTML).toContain('Hover Here!');
+            expect(window.document.body.innerHTML).toContain('Tooltip');
+        });
+
+        it('tooltip trigger에서 focus가 사라지면 contents가 사라진다', async () => {
+            //when
+            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            await vi.advanceTimersByTimeAsync(0);
+
+            wrapper.find('.tooltip-trigger').find('button').element.blur();
+            await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
+
+            //then
+            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.innerHTML).toContain('Hover Here!');
+            expect(window.document.body.innerHTML).not.toContain('Tooltip');
+        });
+
+        it('tooltip trigger에 focus가 잡힌 상태에서 Escape 키를 누르면 contents가 사라진다.', async () => {
+            //when
+            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            await vi.advanceTimersByTimeAsync(0);
+
+            wrapper.find('.tooltip-trigger').element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
             await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
             //then
