@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTabs from '../VsTabs.vue';
 import { mockConsoleError } from '@/test/setup';
-import { nextTick } from 'vue';
+import { utils } from '@/utils';
 
 function mountComponent() {
     return mount(VsTabs);
@@ -114,13 +114,27 @@ describe('vs-tabs', () => {
         });
     });
 
-    describe('scrollable', () => {
-        it('scrollButtons prop이 false 이면 scroll 버튼이 렌더되지 않는다', () => {
+    describe('scrollButtons', () => {
+        it('scrollButtons prop이 show 이고 scrollable이 true이면 scroll 버튼이 렌더된다', () => {
             // given
             const wrapper = mount(VsTabs, {
                 props: {
                     tabs: ['tab1', 'tab2', 'tab3'],
-                    scrollButtons: false,
+                    scrollable: true,
+                    scrollButtons: 'show',
+                },
+            });
+
+            // then
+            expect(wrapper.html()).toContain('scroll-button');
+        });
+
+        it('scrollButtons prop이 hide 이면 scroll 버튼이 렌더되지 않는다', () => {
+            // given
+            const wrapper = mount(VsTabs, {
+                props: {
+                    tabs: ['tab1', 'tab2', 'tab3'],
+                    scrollButtons: 'hide',
                 },
             });
 
@@ -130,30 +144,15 @@ describe('vs-tabs', () => {
 
         it('scrollButtons props이 auto이면 모바일에서는 scroll 버튼이 렌더되지 않는다', () => {
             // given
-            window.innerWidth = 500;
+
+            vi.spyOn(utils.dom, 'hasTouchScreen').mockImplementation(() => true);
+
             const wrapper = mount(VsTabs, {
                 props: {
                     tabs: ['tab1', 'tab2', 'tab3'],
                     scrollButtons: 'auto',
                 },
             });
-
-            // then
-            expect(wrapper.html()).not.toContain('scroll-button');
-        });
-
-        it('scrollButtons prop이 true이더라도 scrollCount가 전체 탭 길이와 동일하면 scroll 버튼이 렌더되지 않는다', async () => {
-            // given
-            const wrapper = mount(VsTabs, {
-                props: {
-                    tabs: ['tab1', 'tab2', 'tab3'],
-                    scrollButtons: true,
-                },
-            });
-
-            // when
-            wrapper.vm.scrollCount = 3;
-            await nextTick();
 
             // then
             expect(wrapper.html()).not.toContain('scroll-button');
