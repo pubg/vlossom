@@ -12,7 +12,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
     height: var(--vs-file-input-height, 2.5rem);
     outline: none;
     font-size: var(--vs-file-input-fontSize, 1rem);
-    color: var(--vs-file-input-fontColor, var(--vs-font-color));
+    color: var(--vs-file-input-fontColor, var(--vs-comp-font));
 
     input[type='file'] {
         position: absolute;
@@ -31,7 +31,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
             width: 2.5rem;
             border-radius: var(--vs-file-input-borderRadius, 0.4rem) 0 0 var(--vs-file-input-borderRadius, 0.4rem);
             background-color: var(--vs-file-input-prependBackgroundColor, var(--vs-line-color));
-            color: var(--vs-file-input-prependColor, var(--vs-comp-bg-primary));
+            color: var(--vs-file-input-prependColor, var(--vs-primary-comp-bg));
             display: flex;
             justify-content: center;
             align-items: center;

@@ -5,58 +5,63 @@
 $colors: map.keys($palette);
 
 :root {
+    --vs-app-background-color: var(--vs-app-bg-color-light);
+    --vs-dimmed-background-color: var(--vs-dimmed-bg-light);
+
     --vs-no-color: var(--vs-white);
     --vs-no-color-inverse: var(--vs-black);
     --vs-no-color-font: var(--vs-gray-800);
 
+    --vs-comp-font: var(--vs-gray-800);
     --vs-comp-bg: var(--vs-white);
     --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
     --vs-comp-bg-active: #{darken(#ffffff, 15%)};
     --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
 
-    --vs-comp-bg-primary: var(--vs-black);
-    --vs-comp-bg-primary-hover: #{lighten(#000000, 10%)};
-    --vs-comp-bg-primary-active: #{lighten(#000000, 20%)};
+    --vs-primary-comp-font: var(--vs-white);
+    --vs-primary-comp-bg: var(--vs-black);
+    --vs-primary-comp-bg-hover: #{lighten(#000000, 10%)};
+    --vs-primary-comp-bg-active: #{lighten(#000000, 20%)};
 
     --vs-font-color: var(--vs-gray-800);
 
-    --vs-font-color-primary: var(--vs-white);
-
-    --vs-line-color: var(--vs-gray-700);
-
-    --vs-line-color-primary: var(--vs-black);
+    --vs-line-color: var(--vs-gray-200);
 
     --vs-area-bg: var(--vs-white);
     --vs-area-bg-hover: #{darken(#ffffff, 5%)};
+    --vs-area-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16);
 
     .vs-dark {
+        --vs-app-background-color: var(--vs-app-bg-color-dark);
+        --vs-dimmed-background-color: var(--vs-dimmed-bg-dark);
+
         --vs-no-color: var(--vs-black);
         --vs-no-color-inverse: var(--vs-white);
         --vs-no-color-font: var(--vs-gray-50);
 
+        --vs-comp-font: var(--vs-gray-50);
         --vs-comp-bg: var(--vs-black);
         --vs-comp-bg-hover: #{lighten(#000000, 10%)};
         --vs-comp-bg-active: #{lighten(#000000, 20%)};
         --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
 
-        --vs-comp-bg-primary: var(--vs-white);
-        --vs-comp-bg-primary-hover: #{darken(#ffffff, 5%)};
-        --vs-comp-bg-primary-active: #{darken(#ffffff, 10%)};
+        --vs-primary-comp-font: var(--vs-black);
+        --vs-primary-comp-bg: var(--vs-white);
+        --vs-primary-comp-bg-hover: #{darken(#ffffff, 5%)};
+        --vs-primary-comp-bg-active: #{darken(#ffffff, 10%)};
 
         --vs-font-color: var(--vs-gray-50);
 
-        --vs-font-color-primary: var(--vs-black);
-
-        --vs-line-color: var(--vs-gray-100);
-
-        --vs-line-color-primary: var(--vs-white);
+        --vs-line-color: var(--vs-gray-500);
 
         --vs-area-bg: var(--vs-black);
         --vs-area-bg-hover: #{lighten(#000000, 5%)};
+        --vs-area-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 0.16);
     }
 
     @each $color in $colors {
         .vs-#{$color} {
+            --vs-comp-font: #{map.get($palette, $color, 800)};
             --vs-comp-bg: #{map.get($palette, $color, 100)};
             --vs-comp-bg-hover: #{darken(map.get($palette, $color, 100), 5%)};
             --vs-comp-bg-active: #{darken(map.get($palette, $color, 100), 15%)};
@@ -66,20 +71,28 @@ $colors: map.keys($palette);
                 map.get($palette, $color, 300) 100%
             );
 
-            --vs-comp-bg-primary: #{map.get($palette, $color, 500)};
-            --vs-comp-bg-primary-hover: #{lighten(map.get($palette, $color, 500), 2%)};
-            --vs-comp-bg-primary-active: #{lighten(map.get($palette, $color, 500), 4%)};
+            --vs-primary-comp-font: #{lighten(map.get($palette, $color, 50), 50%)};
+            --vs-primary-comp-bg: #{map.get($palette, $color, 500)};
+            --vs-primary-comp-bg-hover: #{lighten(map.get($palette, $color, 500), 2%)};
+            --vs-primary-comp-bg-active: #{lighten(map.get($palette, $color, 500), 4%)};
 
             --vs-font-color: #{map.get($palette, $color, 800)};
 
-            --vs-font-color-primary: #{lighten(map.get($palette, $color, 50), 50%)};
-
             --vs-line-color: #{map.get($palette, $color, 100)};
 
-            --vs-line-color-primary: #{map.get($palette, $color, 500)};
-
-            --vs-area-bg: #{lighten(map.get($palette, $color, 50), 5%)};
+            --vs-area-bg: #{lighten(map.get($palette, $color, 50), 4%)};
             --vs-area-bg-hover: #{map.get($palette, $color, 50)};
+        }
+    }
+
+    .vs-dark {
+        @each $color in $colors {
+            .vs-#{$color} {
+                --vs-font-color: #{lighten(map.get($palette, $color, 50), 3%)};
+
+                --vs-area-bg: #{darken(map.get($palette, $color, 900), 5%)};
+                --vs-area-bg-hover: #{map.get($palette, $color, 900)};
+            }
         }
     }
 }

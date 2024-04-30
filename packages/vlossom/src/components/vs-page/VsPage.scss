@@ -1,7 +1,7 @@
 .vs-page {
     position: relative;
     padding: var(--vs-page-padding, 3rem 4rem);
-    color: var(--vs-page-fontColor, var(--vs-font-color));
+    color: var(--vs-page-fontColor, var(--vs-comp-font));
 
     .page-header {
         margin: var(--vs-page-headerMargin, 0 0 2.4rem 0);

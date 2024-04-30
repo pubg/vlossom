@@ -21,7 +21,7 @@
         margin: var(--vs-pagination-gap, 0.2rem);
         border-radius: var(--vs-pagination-borderRadius, 0.4rem);
         background-color: var(--vs-pagination-backgroundColor, var(--vs-comp-bg));
-        color: var(--vs-pagination-fontColor, var(--vs-font-color));
+        color: var(--vs-pagination-fontColor, var(--vs-comp-font));
         border: 1px solid var(--vs-line-color);
         font-size: var(--vs-pagination-fontSize, 0.8rem);
         font-weight: var(--vs-pagination-fontWeight, 400);
@@ -32,7 +32,7 @@
             pointer-events: none;
         }
         &:hover {
-            color: var(--vs-pagination-hoverColor, var(--vs-pagination-fontColor, var(--vs-font-color)));
+            color: var(--vs-pagination-hoverColor, var(--vs-pagination-fontColor, var(--vs-comp-font)));
             background-color: var(
                 --vs-pagination-hoverBackgroundColor,
                 var(--vs-pagination-backgroundColor, var(--vs-comp-bg-hover))
@@ -44,9 +44,9 @@
             background-color: var(--vs-comp-bg-active);
         }
         &.selected {
-            background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-comp-bg-primary));
-            color: var(--vs-pagination-selectedColor, var(--vs-font-color-primary));
-            border: 1px solid var(--vs-line-color-primary);
+            background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-primary-comp-bg));
+            color: var(--vs-pagination-selectedColor, var(--vs-primary-comp-font));
+            border: 1px solid var(--vs-primary-comp-bg);
             font-size: var(--vs-pagination-selectedFontSize, 0.9rem);
             font-weight: var(--vs-pagination-selectedFontWeight, 600);
         }

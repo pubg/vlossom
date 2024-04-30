@@ -35,7 +35,7 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet> },
-        primary: { type: Boolean, default: false },
+        primary: { type: Boolean, default: true },
         title: { type: String, default: 'Notice' },
         // v-model
         modelValue: { type: Boolean, default: true },

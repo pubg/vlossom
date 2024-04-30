@@ -1,5 +1,4 @@
 @use '@/styles/mixin' as *;
-$fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
     display: flex;
@@ -62,13 +61,13 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
     &.dense {
         .tab {
-            padding: var(--vs-tabs-padding, 0.2rem);
+            padding: var(--vs-tabs-padding, 0.2rem 0.4rem);
         }
     }
 
     .scroll-button {
         width: 1rem;
-        color: var(--vs-comp-bg);
+        color: var(--vs-comp-font);
 
         &.scroll-left-button {
             margin-right: 0.5rem;

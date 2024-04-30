@@ -58,9 +58,9 @@ type Story = StoryObj<typeof VsIndexView>;
 
 export const Default: Story = {};
 
-export const KeepAlive: Story = {
+export const KeepAliveFalse: Story = {
     args: {
-        keepAlive: true,
+        keepAlive: false,
     },
 };
 

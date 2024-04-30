@@ -15,8 +15,8 @@
         border-radius: var(--vs-tooltip-borderRadius, 0.35rem);
         background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-bg));
         box-shadow: inset 0px 0px 0px var(--vs-tooltip-borderWidth, 0.15rem)
-            var(--vs-tooltip-borderColor, var(--vs-line-color-primary));
-        color: var(--vs-tooltip-fontColor, var(--vs-font-color));
+            var(--vs-tooltip-borderColor, var(--vs-primary-comp-bg));
+        color: var(--vs-tooltip-fontColor, var(--vs-comp-font));
         white-space: nowrap;
 
         &::after {
@@ -26,7 +26,7 @@
             height: 0;
             border: var(--vs-tooltip-arrowSize, 0.4rem) solid transparent;
             border-bottom: var(--vs-tooltip-arrowSize, 0.4rem) solid
-                var(--vs-tooltip-arrowColor, var(--vs-line-color-primary));
+                var(--vs-tooltip-arrowColor, var(--vs-primary-comp-bg));
         }
     }
 

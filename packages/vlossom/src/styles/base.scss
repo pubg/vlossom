@@ -22,7 +22,8 @@ body {
         'Segoe UI Emoji',
         'Segoe UI Symbol',
         sans-serif;
-    background-color: var(--vs-background-color);
+    font-weight: 400;
+    background-color: var(--vs-app-background-color);
     transition: background-color 0.15s linear;
 }
 

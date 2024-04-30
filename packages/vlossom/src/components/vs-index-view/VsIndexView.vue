@@ -30,7 +30,7 @@ export default defineComponent({
     components: { VsWrapper },
     props: {
         ...getResponsiveProps(),
-        keepAlive: { type: Boolean, default: false },
+        keepAlive: { type: Boolean, default: true },
         // v-model
         modelValue: { type: Number, default: 0 },
     },

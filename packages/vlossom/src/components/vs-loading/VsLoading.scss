@@ -14,7 +14,7 @@ $barWidth: var(--vs-loading-barWidth, 11.11%);
         display: inline-block;
         width: $barWidth;
         height: 100%;
-        background-color: var(--vs-loading-fontColor, var(--vs-comp-bg-primary));
+        background-color: var(--vs-loading-fontColor, var(--vs-primary-comp-bg));
         animation: vs-loading 1s infinite cubic-bezier(0.25, 0.25, 0.75, 0.75);
     }
 
