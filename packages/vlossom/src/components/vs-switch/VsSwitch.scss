@@ -13,7 +13,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     border-radius: var(--vs-switch-borderRadius, 1rem);
     border-style: solid;
     border-width: var(--vs-switch-falseBorderWidth, 1px);
-    color: var(--vs-switch-falseFontColor, var(--vs-font-color));
+    color: var(--vs-switch-falseFontColor, var(--vs-comp-font));
     cursor: pointer;
     display: flex;
     font-size: var(--vs-switch-fontSize, 1rem);
@@ -45,7 +45,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
     &::before {
         content: '';
-        background-color: var(--vs-switch-falseHandleColor, var(--vs-comp-bg-primary));
+        background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
         border-radius: 50%;
         box-shadow: 2px 2px 2px 0 rgba(#000, 0.4);
         height: $switchSize;
@@ -60,11 +60,11 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
         border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-bg));
         border-style: solid;
         border-width: var(--vs-switch-trueBorderWidth, 0);
-        color: var(--vs-switch-trueFontColor, var(--vs-comp-bg-primary));
+        color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-bg));
 
         &::before {
             left: calc(100% - ($switchSize + $switchGap));
-            background-color: var(--vs-switch-trueHandleColor, var(--vs-comp-bg-primary));
+            background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-bg));
         }
 
         .status-label {

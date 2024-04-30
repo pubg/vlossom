@@ -1,13 +1,16 @@
 .vs-bar-node {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg));
     bottom: var(--vs-bar-node-bottom, auto);
     box-shadow: var(--vs-bar-node-boxShadow, none);
-    color: var(--vs-bar-node-fontColor, var(--vs-comp-bg));
+    color: var(--vs-bar-node-fontColor, var(--vs-comp-font));
     display: var(--vs-bar-node-display, flex);
     flex: var(--vs-bar-node-flex, 1 1 auto);
     height: var(--vs-bar-node-height, auto);
     left: var(--vs-bar-node-left, auto);
-    padding: var(--vs-bar-node-padding);
+    padding: var(--vs-bar-node-padding, 0.4rem 1rem);
     position: var(--vs-bar-node-position, static);
     right: var(--vs-bar-node-right, auto);
     top: var(--vs-bar-node-top, auto);
@@ -15,7 +18,7 @@
     z-index: var(--vs-bar-node-zIndex, auto);
 
     &.primary {
-        background-color: var(--vs-bar-node-backgroundColor, var(--vs-comp-bg-primary));
-        color: var(--vs-bar-node-fontColor, var(--vs-comp-bg-primary));
+        background-color: var(--vs-bar-node-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-bar-node-fontColor, var(--vs-primary-comp-font));
     }
 }

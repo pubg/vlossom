@@ -31,7 +31,7 @@
         border: none;
         outline: none;
         background-color: transparent;
-        color: var(--vs-select-fontColor, var(--vs-font-color));
+        color: var(--vs-select-fontColor, var(--vs-comp-font));
         cursor: pointer;
         min-width: 2rem;
 
@@ -108,7 +108,7 @@
             padding: 0 1.2rem;
             min-height: var(--vs-select-height, 2.5rem);
             line-height: var(--vs-select-height, 2.5rem);
-            color: var(--vs-select-fontColor, var(--vs-font-color));
+            color: var(--vs-select-fontColor, var(--vs-comp-font));
             cursor: pointer;
             user-select: none;
 

@@ -3,7 +3,7 @@
     height: 0;
     margin: 24px 0 24px 0;
     border-top: var(--vs-divider-lineWidth, 1px) var(--vs-divider-lineStyle, solid)
-        var(--vs-divider-lineColor, var(--vs-line-color-primary));
+        var(--vs-divider-lineColor, var(--vs-primary-comp-bg));
     border-left: 0;
 }
 
@@ -14,7 +14,7 @@
     margin: 0 1.2rem 0 1.2rem;
     border-top: 0;
     border-left: var(--vs-divider-lineWidth, 1px) var(--vs-divider-lineStyle, solid)
-        var(--vs-divider-lineColor, var(--vs-line-color-primary));
+        var(--vs-divider-lineColor, var(--vs-primary-comp-bg));
 }
 
 .vs-divider {

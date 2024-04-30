@@ -13,7 +13,7 @@ const meta: Meta<typeof VsTextWrap> = {
         setup() {
             return { args };
         },
-        template: '<vs-text-wrap v-bind="args">This is text wrap. Hover here. </vs-text-wrap>',
+        template: '<vs-text-wrap v-bind="args">This is text wrap. Hover here.</vs-text-wrap>',
     }),
     tags: ['autodocs'],
     argTypes: {

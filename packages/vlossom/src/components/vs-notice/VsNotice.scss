@@ -10,12 +10,12 @@
     .vs-notice-contents {
         display: flex;
         align-items: center;
-        color: var(--vs-notice-contentFontColor, var(--vs-font-color));
+        color: var(--vs-notice-contentFontColor, var(--vs-comp-font));
         font-size: var(--vs-notice-contentFontSize, 1rem);
         font-weight: var(--vs-notice-contentFontWeight, 500);
 
         .title {
-            color: var(--vs-notice-titleFontColor, var(--vs-font-color));
+            color: var(--vs-notice-titleFontColor, var(--vs-comp-font));
             font-size: var(--vs-notice-titleFontSize, 1rem);
             font-weight: var(--vs-notice-titleFontWeight, 600);
         }
@@ -24,23 +24,23 @@
     .close-button {
         display: flex;
         cursor: pointer;
-        color: var(--vs-notice-contentFontColor, var(--vs-font-color));
+        color: var(--vs-notice-contentFontColor, var(--vs-comp-font));
     }
 
     // primary
     &.primary {
-        background-color: var(--vs-notice-backgroundColor, var(--vs-comp-bg-primary));
+        background-color: var(--vs-notice-backgroundColor, var(--vs-primary-comp-bg));
 
         .vs-notice-contents {
-            color: var(--vs-notice-contentFontColor, var(--vs-font-color-primary));
+            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
 
             .title {
-                color: var(--vs-notice-titleFontColor, var(--vs-font-color-primary));
+                color: var(--vs-notice-titleFontColor, var(--vs-primary-comp-font));
             }
         }
 
         .close-button {
-            color: var(--vs-notice-contentFontColor, var(--vs-font-color-primary));
+            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
         }
     }
 }

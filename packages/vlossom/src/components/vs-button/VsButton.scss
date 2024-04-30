@@ -12,7 +12,7 @@
     font-size: var(--vs-button-fontSize, 0.9rem);
     font-weight: var(--vs-button-fontWeight, 500);
     background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg));
-    color: var(--vs-button-fontColor, var(--vs-font-color));
+    color: var(--vs-button-fontColor, var(--vs-comp-font));
     overflow: hidden;
     box-sizing: border-box;
 
@@ -62,16 +62,16 @@
 // primary {
 .vs-button {
     &.primary {
-        background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg-primary));
-        color: var(--vs-button-fontColor, var(--vs-font-color-primary));
-        border: 1px solid var(--vs-line-color-primary);
+        background-color: var(--vs-button-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-button-fontColor, var(--vs-primary-comp-font));
+        border: 1px solid var(--vs-primary-comp-bg);
 
         &:hover {
-            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-comp-bg-primary-hover));
+            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-primary-comp-bg-hover));
         }
 
         &:active {
-            background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-primary-active));
+            background-color: var(--vs-button-activeBackgroundColor, var(--vs-primary-comp-bg-active));
         }
     }
 }
@@ -81,7 +81,7 @@
     &.dense {
         padding: var(--vs-button-padding, 0.2rem 0.8rem);
         border-radius: var(--vs-button-borderRadius, 0.4rem);
-        font-size: var(--vs-button-fontSize, 1rem);
+        font-size: var(--vs-button-fontSize, 0.8rem);
         max-height: var(--vs-button-maxHeight, 2.4rem);
     }
 
@@ -97,8 +97,8 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid var(--vs-line-color));
-        color: var(--vs-button-fontColor, var(--vs-line-color));
+        border: var(--vs-button-outlineBorder, 1px solid var(--vs-primary-comp-bg));
+        color: var(--vs-button-fontColor, var(--vs-primary-comp-bg));
         font-weight: var(--vs-button-fontWeight, 500);
 
         &:after {

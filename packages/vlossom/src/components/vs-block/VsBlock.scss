@@ -12,7 +12,7 @@ $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
     .block-header {
         background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-bg));
         border-bottom: $borderWidth $borderStyle $borderColor;
-        color: var(--vs-block-headerFontColor, var(--vs-comp-bg));
+        color: var(--vs-block-headerFontColor, var(--vs-comp-font));
         font-weight: var(--vs-block-headerFontWeight, 500);
         padding: var(--vs-block-headerPadding, 1rem 1.2rem);
         position: relative;
@@ -21,7 +21,7 @@ $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
 
     .block-content {
         background-color: var(--vs-block-backgroundColor, var(--vs-no-color));
-        color: var(--vs-block-contentFontColor, var(--vs-font-color));
+        color: var(--vs-block-contentFontColor, var(--vs-comp-font));
         font-weight: var(--vs-block-fontWeight, 400);
         padding: var(--vs-block-padding, 1rem 1.2rem);
     }

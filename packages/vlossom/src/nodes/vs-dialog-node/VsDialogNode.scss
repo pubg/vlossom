@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--vs-dialog-node-backgroundColor, var(--vs-comp-bg));
-    color: var(--vs-dialog-node-contentFontColor, var(--vs-font-color));
+    color: var(--vs-dialog-node-contentFontColor, var(--vs-comp-font));
     border-radius: var(--vs-dialog-node-borderRadius, 0);
     width: var(--vs-dialog-node-width, auto);
     height: var(--vs-dialog-node-height, auto);
@@ -15,7 +15,7 @@
     }
 
     .dialog-header {
-        color: var(--vs-dialog-node-headerFontColor, var(--vs-font-color));
+        color: var(--vs-dialog-node-headerFontColor, var(--vs-comp-font));
         font-size: var(--vs-dialog-node-headerFontSize, 1.25rem);
         font-weight: var(--vs-dialog-node-headerFontWeight, 600);
     }
