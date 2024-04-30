@@ -16,7 +16,7 @@
                 <div class="text-wrap-buttons" v-if="copy || link || $slots['actions']">
                     <slot name="actions" />
                     <button type="button" v-if="copy" class="copy-button" aria-label="copy" @click.stop="copyInnerText">
-                        <vs-icon size="1.2rem" :icon="computedIcon" :style="computedIconStyle" />
+                        <vs-icon size="1.2rem" :icon="computedIcon" :class="{ copied }" />
                     </button>
 
                     <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
@@ -97,10 +97,6 @@ export default defineComponent({
             return copied.value ? 'check' : 'copy';
         });
 
-        const computedIconStyle = computed(() => {
-            return { color: copied.value ? 'green' : colorScheme.value };
-        });
-
         function openLink() {
             if (!link.value) {
                 return;
@@ -116,7 +112,6 @@ export default defineComponent({
             openLink,
             copied,
             computedIcon,
-            computedIconStyle,
         };
     },
 });
