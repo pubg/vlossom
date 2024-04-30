@@ -1,7 +1,14 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
         <Transition name="drawer" :duration="300">
-            <div v-if="isOpen" :class="['vs-drawer', { 'has-container': hasContainer }]" :style="computedStyleSet">
+            <div
+                v-if="isOpen"
+                :class="['vs-drawer', { 'has-container': hasContainer }]"
+                :style="{
+                    ...computedStyleSet,
+                    ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
+                }"
+            >
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
                 <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
