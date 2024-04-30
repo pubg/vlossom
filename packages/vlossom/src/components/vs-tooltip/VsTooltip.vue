@@ -9,6 +9,7 @@
             @focusin="onTriggerEnter"
             @focusout="onTriggerLeave"
             @keydown.esc="onTriggerLeave"
+            tabindex="0"
         >
             <slot />
         </div>
