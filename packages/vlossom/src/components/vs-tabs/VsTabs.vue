@@ -64,12 +64,12 @@ export default defineComponent({
         bottomLine: { type: Boolean, default: true },
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
-        scrollable: { type: Boolean, default: false },
+        scrollable: { type: Boolean, default: true },
         scrollButtons: {
             type: [Boolean, String] as PropType<ScrollButton>,
-            default: false,
+            default: 'hide',
             validator: (value: ScrollButton, props) => {
-                if (!props.scrollable && value) {
+                if (!props.scrollable && value !== 'hide') {
                     utils.log.propError(name, 'scroll-buttons', 'scrollable must be true to use scrollButtons');
                     return false;
                 }
@@ -221,7 +221,7 @@ export default defineComponent({
                 return !utils.dom.hasTouchScreen() && scrollCount.value < totalLength.value;
             }
 
-            return scrollButtons.value;
+            return scrollButtons.value === 'show';
         });
 
         function scrollTo(index: number) {

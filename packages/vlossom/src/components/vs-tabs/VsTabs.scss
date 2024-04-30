@@ -18,10 +18,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
         &.scrollable {
             overflow-x: auto;
-        }
-
-        &::-webkit-scrollbar {
-            display: none;
+            scrollbar-width: thin;
         }
 
         .tab {
