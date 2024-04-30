@@ -13,14 +13,13 @@ const meta: Meta<typeof VsHeader> = {
         },
         template: `
 			<div style="height:200px; background-color:#fff; position: relative; width: 100%">
-				<vs-header v-bind="args" > This is Header Content </vs-header>
+				<vs-header v-bind="args"> This is Header Content </vs-header>
 				<div style="padding-top:50px;">${LOREM_IPSUM}</div>
 			</div>
 		`,
     }),
     tags: ['autodocs'],
     args: {
-        height: '50px',
         position: 'absolute',
     },
     argTypes: {

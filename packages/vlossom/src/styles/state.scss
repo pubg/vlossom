@@ -8,10 +8,10 @@ $box-glow: (
 );
 
 $text-glow: (
-    'info': var(--vs-light-blue-600),
-    'success': var(--vs-green-600),
-    'error': var(--vs-red-600),
-    'warning': var(--vs-orange-600),
+    'info': var(--vs-light-blue-500),
+    'success': var(--vs-green-500),
+    'error': var(--vs-red-500),
+    'warning': var(--vs-orange-500),
 );
 
 @each $state, $color in $box-glow {

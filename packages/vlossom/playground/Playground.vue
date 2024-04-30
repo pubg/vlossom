@@ -1,5 +1,5 @@
 <template>
-    <vs-header class="header" primary height="60px">
+    <vs-header class="header" primary height="60px" :style-set="{ backgroundColor: 'black', fontColor: 'white' }">
         <div class="logo">
             <vs-image src="/assets/vlossom-logo.png" :style-set="{ height: '40px', width: '40px' }" />
             <span>Vlossom</span>
@@ -11,24 +11,18 @@
 
         <vs-section>
             <template #title>Hello Vlossom!</template>
-            <vs-button>Hello</vs-button>
-            <vs-button v-for="color in COLORS" :color-scheme="color">Hello</vs-button>
-            <vs-divider />
-            <vs-button primary>Hello</vs-button>
-            <vs-button v-for="color in COLORS" :color-scheme="color" primary>Hello</vs-button>
+
+            Vlossom is a Vue 3 component library that provides a set of high-quality components and themes for your Vue
+            3 applications.
         </vs-section>
     </vs-page>
 </template>
 
 <script lang="ts">
-import { COLORS } from './../src/declaration';
-
 export default {
     name: 'Playground',
     setup() {
-        return {
-            COLORS,
-        };
+        return {};
     },
 };
 </script>

@@ -7,7 +7,7 @@
     background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg));
     border: var(--vs-chip-outlineBorder, 1px solid var(--vs-line-color));
     border-radius: var(--vs-chip-borderRadius, 1.3rem);
-    color: var(--vs-chip-fontColor, var(--vs-font-color));
+    color: var(--vs-chip-fontColor, var(--vs-comp-font));
     display: inline-flex;
     font-size: var(--vs-chip-fontSize, 1rem);
     font-weight: var(--vs-button-fontWeight, 400);
@@ -76,7 +76,7 @@
     }
 
     &.primary {
-        background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg-primary));
-        color: var(--vs-chip-fontColor, var(--vs-font-color-primary));
+        background-color: var(--vs-chip-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-chip-fontColor, var(--vs-primary-comp-font));
     }
 }

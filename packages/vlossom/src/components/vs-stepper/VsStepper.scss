@@ -1,14 +1,12 @@
-$activeColor: var(--vs-stepper-activeColor, var(--vs-comp-bg));
-$activeBackgroundColor: var(--vs-stepper-activeBackgroundColor, var(--vs-comp-bg));
 $fontSize: var(--vs-stepper-fontSize, 1rem);
-$stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
+$stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
 
 .vs-stepper {
     position: relative;
     -webkit-tap-highlight-color: transparent;
 
     .item-line {
-        background-color: var(--vs-gray-300);
+        background-color: var(--vs-comp-bg);
         height: 0.2rem;
         left: $stepButtonW;
         right: $stepButtonW;
@@ -17,7 +15,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
         transform: translateY(-50%);
 
         .progress-line {
-            background-color: $activeColor;
+            background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
             height: 100%;
             opacity: 0.8;
             transition: width 0.2s;
@@ -43,9 +41,10 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
 
             .item-step {
                 align-items: center;
-                background-color: var(--vs-gray-300);
+                background-color: var(--vs-comp-bg);
+                border: 1px solid var(--vs-line-color);
                 border-radius: 50%;
-                color: var(--vs-gray-50);
+                color: var(--vs-comp-font);
                 display: flex;
                 font-size: $fontSize;
                 font-weight: 600;
@@ -67,9 +66,9 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
             }
 
             .item-name {
-                color: var(--vs-stepper-labelFontColor, var(--vs-font-color));
+                color: var(--vs-stepper-labelFontColor, var(--vs-comp-font));
                 font-size: $fontSize;
-                font-weight: 500;
+                font-weight: 400;
                 left: 50%;
                 position: absolute;
                 top: 140%;
@@ -84,18 +83,18 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.6rem);
             &.previous,
             &.selected {
                 .item-step {
-                    background-color: $activeBackgroundColor;
-                    color: $activeColor;
+                    background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
+                    color: var(--vs-primary-comp-font);
                 }
 
                 .item-name {
-                    color: var(--vs-stepper-labelFontColor, $activeColor);
+                    color: var(--vs-stepper-labelFontColor, var(--vs-comp-font));
                 }
             }
 
             &.selected {
                 .item-step {
-                    border: solid 0.2rem $activeColor;
+                    border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
                 }
 
                 .item-name {

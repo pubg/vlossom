@@ -58,7 +58,7 @@ export const TitleSlot: Story = {
     }),
 };
 
-export const Primary: Story = {
+export const PrimaryFalse: Story = {
     render: (args: any) => ({
         components: { VsNotice },
         setup() {
@@ -67,7 +67,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-notice color-scheme="{{ color }}" primary style="margin-bottom:1rem">Hello! This is Vlossom {{ color }} notice</vs-notice>
+                    <vs-notice color-scheme="{{ color }}" :primary="false" style="margin-bottom:1rem">Hello! This is Vlossom {{ color }} notice</vs-notice>
                 `)}
             </div>
         `,

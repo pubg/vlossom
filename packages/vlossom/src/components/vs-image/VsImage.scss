@@ -1,6 +1,6 @@
 .vs-image {
     position: relative;
-    
+
     img {
         width: var(--vs-image-width, 100%);
         height: var(--vs-image-height, 100%);
@@ -9,10 +9,10 @@
         object-fit: var(--vs-image-objectFit, contain);
     }
 
-    .alt-text{
+    .alt-text {
         position: absolute;
         top: 0;
         left: 0;
-        color: var(--vs-font-color);
+        color: var(--vs-comp-font);
     }
 }

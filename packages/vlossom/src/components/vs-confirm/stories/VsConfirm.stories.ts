@@ -34,7 +34,7 @@ const meta: Meta = {
 			<div>
 				<vs-button @click="confirm()"> Open Confirm </vs-button>
 				<vs-divider />
-				<div style="color: var(--vs-font-color)">Result : <span v-if="showResult">{{ result }}</span> </div>
+				<div style="color: var(--vs-comp-font)">Result : <span v-if="showResult">{{ result }}</span> </div>
 			</div>
 		`,
     }),
@@ -212,7 +212,7 @@ export const Prompt: PromptStory = {
         template: `
 			<vs-button @click="prompt()"> Open Prompt </vs-button>
 			<vs-divider />
-			<div style="color: var(--vs-font-color)">Result : <span v-if="showResult">{{ result }}</span> </div>
+			<div style="color: var(--vs-comp-font)">Result : <span v-if="showResult">{{ result }}</span> </div>
 		`,
     }),
     args: {

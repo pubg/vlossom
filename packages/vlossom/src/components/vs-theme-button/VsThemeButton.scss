@@ -1,5 +1,5 @@
-$vs-theme-button-width: 1.8rem;
-$vs-theme-button-height: 1.8rem;
+$vs-theme-button-width: 2rem;
+$vs-theme-button-height: 2rem;
 
 .vs-theme-button {
     position: relative;
@@ -7,6 +7,7 @@ $vs-theme-button-height: 1.8rem;
     min-height: $vs-theme-button-height;
     width: var(--vs-theme-button-width, $vs-theme-button-width);
     height: var(--vs-theme-button-height, $vs-theme-button-height);
+    border: 1px solid var(--vs-line-color);
     border-radius: var(--vs-theme-button-borderRadius, 50%);
     background-color: var(--vs-theme-button-backgroundColor, var(--vs-comp-bg));
     transition: all 0.2s ease-out;
@@ -15,10 +16,10 @@ $vs-theme-button-height: 1.8rem;
         background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
     }
 
-    .icon {
+    .theme-icon {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 50%;
+        left: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -27,7 +28,8 @@ $vs-theme-button-height: 1.8rem;
         width: var(--vs-theme-button-width, $vs-theme-button-width);
         height: var(--vs-theme-button-height, $vs-theme-button-height);
         opacity: 0;
-        transform: scale(0.4) rotate(270deg);
+        transform: scale(0.4) rotate(270deg) translateX(-50%) translateY(-50%);
+        transform-origin: top left;
         transition:
             opacity 0.4s ease-out,
             transform 0.4s ease-out;
@@ -35,7 +37,7 @@ $vs-theme-button-height: 1.8rem;
 
         &.on {
             opacity: 1;
-            transform: scale(1) rotate(0deg);
+            transform: scale(1) rotate(0deg) translateX(-50%) translateY(-50%);
         }
     }
 }

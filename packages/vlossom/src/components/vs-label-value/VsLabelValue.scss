@@ -2,9 +2,10 @@
     width: 100%;
     height: 100%;
     background-color: var(--vs-label-value-backgroundColor, var(--vs-no-color));
+    border: 1px solid var(--vs-line-color);
     display: flex;
     justify-content: between;
-    font-size: var(--vs-label-value-fontSize, 1.2rem);
+    font-size: var(--vs-label-value-fontSize, 1rem);
 
     > .cell {
         display: flex;
@@ -17,7 +18,8 @@
         padding: var(--vs-label-value-labelPadding, 1.2rem 1.4rem);
         font-weight: var(--vs-label-value-labelFontWeight, 500);
         background-color: var(--vs-label-value-labelBackgroundColor, var(--vs-comp-bg));
-        color: var(--vs-label-value-labelFontColor, var(--vs-comp-bg));
+        color: var(--vs-label-value-labelFontColor, var(--vs-comp-font));
+        border-right: 1px solid var(--vs-line-color);
         word-break: break-word;
     }
 
@@ -35,9 +37,12 @@
 
 .vs-label-value {
     &.primary {
+        border: 1px solid var(--vs-primary-comp-bg);
+
         .label {
-            background-color: var(--vs-label-value-backgroundColor, var(--vs-comp-bg-primary));
-            color: var(--vs-label-value-labelFontColor, var(--vs-font-color-primary));
+            background-color: var(--vs-label-value-backgroundColor, var(--vs-primary-comp-bg));
+            color: var(--vs-label-value-labelFontColor, var(--vs-primary-comp-font));
+            border-right: 1px solid var(--vs-primary-comp-bg);
         }
     }
 }
