@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-text-wrap']" :style="computedStyleSet">
+    <div :class="['vs-text-wrap', `vs-${computedColorScheme}`]" :style="computedStyleSet">
         <vs-tooltip
             :color-scheme="colorScheme"
             :style-set="styleSet"
