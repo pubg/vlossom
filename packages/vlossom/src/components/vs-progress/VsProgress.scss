@@ -15,6 +15,6 @@ progress[value] {
 
     &::-webkit-progress-value {
         position: relative;
-        background-color: var(--vs-progress-valueColor, var(--vs-comp-bg-primary));
+        background-color: var(--vs-progress-valueColor, var(--vs-primary-comp-bg));
     }
 }

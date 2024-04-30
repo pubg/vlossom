@@ -5,11 +5,11 @@
         :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
         @click.stop="toggleTheme()"
     >
-        <span class="icon theme-light" :class="{ on: !isDarkTheme }">
+        <span class="theme-icon theme-light" :class="{ on: !isDarkTheme }">
             <vs-icon icon="themeLight" size="20" />
         </span>
 
-        <span class="icon theme-dark" :class="{ on: isDarkTheme }">
+        <span class="theme-icon theme-dark" :class="{ on: isDarkTheme }">
             <vs-icon icon="themeDark" size="20" />
         </span>
     </button>
@@ -39,10 +39,10 @@ export default defineComponent({
 
         const vlossom = useVlossom();
 
-        const isDarkTheme = computed(() => vlossom.theme === 'dark');
+        const isDarkTheme = computed(() => vlossom?.theme === 'dark');
 
         function toggleTheme() {
-            vlossom.toggleTheme();
+            vlossom?.toggleTheme();
         }
 
         return {

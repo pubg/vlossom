@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-message', colorClass]">
-        <vs-icon class="message-icon" :icon="icon" size="0.9rem" />
+        <vs-icon class="message-icon" :icon="icon" size="1rem" />
         <span class="message-text">{{ message.text }}</span>
     </div>
 </template>

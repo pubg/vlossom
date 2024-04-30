@@ -1,5 +1,4 @@
 @use '@/styles/mixin' as *;
-$fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
     display: flex;
@@ -14,20 +13,21 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
         scrollbar-width: thin;
 
         &.bottomLine {
-            border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-line-color));
+            border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-primary-comp-bg));
         }
 
         .tab {
+            position: relative;
             align-items: center;
             background: transparent;
-            color: var(--vs-tabs-fontColor, var(--vs-comp-bg));
+            color: var(--vs-tabs-fontColor, var(--vs-primary-comp-bg));
             cursor: pointer;
             display: inline-flex;
             font-size: var(--vs-tabs-fontSize, 1rem);
-            font-weight: $fontWeight;
+            font-weight: 400;
             height: var(--vs-tabs-height, auto);
             justify-content: center;
-            padding: var(--vs-tabs-padding, 0.2rem 1rem);
+            padding: var(--vs-tabs-padding, 0.6rem 1.2rem);
             text-align: center;
             transition: color 0.1s;
             width: var(--vs-tabs-tabWidth, auto);
@@ -38,16 +38,26 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             }
 
             &:hover {
-                background-color: var(--vs-tabs-backgroundColor, var(--vs-no-color));
+                background-color: var(--vs-tabs-backgroundColor, var(--vs-comp-bg));
             }
 
             &:focus {
                 outline: none;
             }
 
-            &.primary {
-                border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-bg-primary));
-                font-weight: calc($fontWeight + 200);
+            &.selected {
+                background-color: var(--vs-tabs-backgroundColor, var(--vs-area-bg-hover));
+                color: var(--vs-primary-comp-bg);
+                font-weight: 600;
+            }
+            &.selected:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                display: block;
+                height: 0.2rem;
+                width: 100%;
+                background-color: var(--vs-tabs-backgroundColor, var(--vs-primary-comp-bg));
             }
 
             &.disabled {
@@ -58,13 +68,13 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
     &.dense {
         .tab {
-            padding: var(--vs-tabs-padding, 0.2rem);
+            padding: var(--vs-tabs-padding, 0.2rem 0.4rem);
         }
     }
 
     .scroll-button {
         width: 1rem;
-        color: var(--vs-comp-bg);
+        color: var(--vs-comp-font);
 
         &.scroll-left-button {
             margin-right: 0.5rem;

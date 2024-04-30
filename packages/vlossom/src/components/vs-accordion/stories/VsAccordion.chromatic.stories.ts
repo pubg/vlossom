@@ -12,10 +12,16 @@ const meta: Meta<typeof VsAccordion> = {
             return { args };
         },
         template: `
-            <vs-accordion v-bind="args">
+            <div>
+            <vs-accordion v-bind="args" :style="{ marginBottom: '12px' }">
                 <template #title>Hello, Chromatic Vlossom!</template>
                 ${LOREM_IPSUM}
-            </vs-accordion>`,
+            </vs-accordion>
+            <vs-accordion v-bind="args" open>
+                <template #title>Hello, Chromatic Vlossom!</template>
+                ${LOREM_IPSUM}
+            </vs-accordion>
+            </div>`,
     }),
     tags: ['autodocs'],
     argTypes: {

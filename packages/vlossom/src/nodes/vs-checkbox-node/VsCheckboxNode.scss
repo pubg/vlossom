@@ -46,7 +46,7 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $check
         padding-left: 0.4rem;
         cursor: pointer;
         transition: 0.25s ease;
-        color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
+        color: var(--vs-checkbox-labelFontColor, var(--vs-comp-font));
         font-size: var(--vs-checkbox-labelFontSize, 1rem);
     }
 
