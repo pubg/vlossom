@@ -76,7 +76,6 @@ export const Disabled: Story = {
 
 export const Scrollable: Story = {
     args: {
-        scrollable: true,
         scrollButtons: 'auto',
     },
     parameters: {
