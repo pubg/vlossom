@@ -40,13 +40,15 @@
     }
 
     .close-button {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: var(--vs-comp-bg);
+        color: var(--vs-comp-font);
         cursor: pointer;
         height: calc(var(--vs-chip-height, 1.2rem) * 0.8);
         width: calc(var(--vs-chip-height, 1.2rem) * 0.8);
 
         &.primary {
-            background-color: var(--vs-no-color);
+            background-color: var(--vs-primary-comp-bg);
+            color: var(--vs-primary-comp-font);
         }
     }
 

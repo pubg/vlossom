@@ -5,7 +5,7 @@
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
-    min-height: var(--vs-select-height, 2.5rem);
+    min-height: var(--vs-select-height, 2.6rem);
     font-size: var(--vs-select-fontSize, 1rem);
 
     .multiple-chips {
@@ -97,6 +97,7 @@
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, 0.4rem);
+    overflow: hidden;
 
     .options {
         max-height: 25rem;
@@ -112,15 +113,9 @@
             cursor: pointer;
             user-select: none;
 
-            &.selected {
-                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-bg));
-                color: var(--vs-select-selectedOptionColor, var(--vs-comp-bg));
-                font-weight: 600;
-            }
-
             &:not(.selected).chased {
-                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-no-color));
-                color: var(--vs-select-hoverOptionColor, var(--vs-line-color));
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-comp-bg-hover));
+                color: var(--vs-select-hoverOptionColor, var(--vs-comp-font));
                 font-weight: 600;
             }
 
@@ -130,6 +125,12 @@
                 height: 3.2rem;
                 display: flex;
                 align-items: center;
+            }
+
+            &.selected {
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-bg-active));
+                color: var(--vs-select-selectedOptionColor, var(--vs-comp-font));
+                font-weight: 600;
             }
         }
     }
