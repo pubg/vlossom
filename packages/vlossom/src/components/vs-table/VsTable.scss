@@ -39,10 +39,10 @@
         }
 
         thead tr {
-            background-color: var(--vs-comp-backgroundColor);
+            background-color: var(--vs-comp-bg);
 
             th {
-                color: var(--vs-comp-color);
+                color: var(--vs-comp-font);
                 height: 3.6rem;
                 font-size: 1.1rem;
                 font-weight: 700;
@@ -65,7 +65,7 @@
         tbody tr {
             position: relative;
             transition: background-color 0.2s;
-            border-bottom: 1px solid var(--vs-grey-200);
+            border-bottom: 1px solid var(--vs-gray-200);
             color: var(--vs-font-color);
 
             &.selected {
@@ -95,10 +95,10 @@
                         width: 1.6rem;
                         height: 1.6rem;
                         border-radius: 0.2rem;
-                        background-color: var(--vs-comp-backgroundColor);
+                        background-color: var(--vs-comp-bg);
 
                         i {
-                            color: var(--vs-comp-color);
+                            color: var(--vs-comp-font);
                             pointer-events: none;
                             transform: rotate(180deg);
                             transition: transform 0.4s;
@@ -111,7 +111,7 @@
                         }
 
                         &:hover {
-                            box-shadow: 0 0 4px var(--vs-comp-backgroundColor);
+                            box-shadow: 0 0 4px var(--vs-comp-bg);
                         }
 
                         &:disabled {
@@ -135,7 +135,7 @@
                     width: 95%;
                     height: 60%;
                     border-radius: 0.4rem;
-                    background-color: var(--vs-grey-200);
+                    background-color: var(--vs-gray-200);
                     animation: skeleton-loading 0.6s infinite alternate;
                 }
             }
@@ -157,12 +157,12 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-color: var(--vs-area-backgroundColor);
+            background-color: var(--vs-area-bg);
             pointer-events: none;
         }
 
         .table-empty {
-            border-bottom: 1px solid var(--vs-grey-200);
+            border-bottom: 1px solid var(--vs-gray-200);
             padding: 4.8rem 0;
             font-weight: 400;
             text-align: center;
@@ -252,7 +252,7 @@
 
                 &::before {
                     content: attr(data-label);
-                    color: var(--vs-comp-color);
+                    color: var(--vs-comp-font);
                     display: block;
                     line-height: 3rem;
                     margin-right: 1.4rem;
@@ -298,7 +298,7 @@
         }
 
         .table-empty {
-            border-top: 1px solid var(--vs-grey-200);
+            border-top: 1px solid var(--vs-gray-200);
         }
     }
 }
