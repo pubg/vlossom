@@ -20,7 +20,7 @@
     .text-wrap-buttons {
         > button {
             &.copy-button {
-                color: var(--vs-text-wrap-copyIconColor, var(--vs-comp-color));
+                color: var(--vs-text-wrap-copyIconColor, var(--vs-comp-font));
 
                 .copied {
                     color: green;
@@ -28,7 +28,7 @@
             }
 
             &.link-button {
-                color: var(--vs-text-wrap-linkIconColor, var(--vs-comp-color));
+                color: var(--vs-text-wrap-linkIconColor, var(--vs-comp-font));
             }
         }
 
