@@ -141,20 +141,38 @@ describe('vs-tabs', () => {
             expect(wrapper.html()).not.toContain('scroll-button');
         });
 
-        it('scrollButtons props이 auto이면 모바일에서는 scroll 버튼이 렌더되지 않는다', () => {
-            // given
+        describe('scrollButtons prop이 auto 이면', () => {
+            it('모바일에서는 scroll 버튼이 렌더되지 않는다', () => {
+                // given
 
-            vi.spyOn(utils.dom, 'hasTouchScreen').mockImplementation(() => true);
+                vi.spyOn(utils.dom, 'hasTouchScreen').mockImplementation(() => true);
 
-            const wrapper = mount(VsTabs, {
-                props: {
-                    tabs: ['tab1', 'tab2', 'tab3'],
-                    scrollButtons: 'auto',
-                },
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs: ['tab1', 'tab2', 'tab3'],
+                        scrollButtons: 'auto',
+                    },
+                });
+
+                // then
+                expect(wrapper.html()).not.toContain('scroll-button');
             });
 
-            // then
-            expect(wrapper.html()).not.toContain('scroll-button');
+            it('데스크톱에서는 scroll 버튼이 렌더된다', () => {
+                // given
+
+                vi.spyOn(utils.dom, 'hasTouchScreen').mockImplementation(() => false);
+
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs: ['tab1', 'tab2', 'tab3'],
+                        scrollButtons: 'auto',
+                    },
+                });
+
+                // then
+                expect(wrapper.html()).toContain('scroll-button');
+            });
         });
     });
 });
