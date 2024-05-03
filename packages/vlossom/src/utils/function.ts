@@ -1,4 +1,4 @@
-import * as _ from 'lodash-es';
+import * as _ from 'radash';
 
 export const functionUtil = {
     debounce: _.debounce,

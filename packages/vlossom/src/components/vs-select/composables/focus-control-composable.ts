@@ -116,7 +116,7 @@ export function useFocusControl(
         }
     }
 
-    const onMouseMove = utils.function.throttle((option: any) => {
+    const onMouseMove = utils.function.throttle({ interval: 50 }, (option: any) => {
         chasingMouse.value = true;
 
         if (!option.id && option === 'all') {
@@ -124,7 +124,7 @@ export function useFocusControl(
         } else {
             hoveredIndex.value = loadedOptions.value.findIndex((o) => o.id === option.id) + (selectAll.value ? 1 : 0);
         }
-    }, 50);
+    });
 
     function scrollIntoView() {
         const id = loadedOptions.value[focusedIndex.value]?.id;

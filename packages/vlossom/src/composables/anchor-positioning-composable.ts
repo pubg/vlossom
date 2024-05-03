@@ -99,7 +99,10 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
                 attachment.value.style.position = 'absolute';
                 computePosition(attachInfo);
 
-                throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
+                throttledComputePosition = utils.function.throttle(
+                    { interval: 30 },
+                    computePosition.bind(null, attachInfo),
+                );
                 resizeObserver = new ResizeObserver(throttledComputePosition);
                 resizeObserver.observe(anchor.value);
                 document.addEventListener('scroll', throttledComputePosition, true);
