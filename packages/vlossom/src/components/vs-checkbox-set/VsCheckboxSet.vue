@@ -71,7 +71,7 @@ import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
 
 import type { VsCheckboxSetStyleSet } from './types';
-import { VsCheckboxStyleSet } from '../vs-checkbox/types';
+import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
 

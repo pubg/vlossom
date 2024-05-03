@@ -137,7 +137,7 @@ export default defineComponent({
             getInitialValue,
             getClearedValue,
             getUpdatedValue,
-        } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+        } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';

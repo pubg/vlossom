@@ -3,12 +3,11 @@ import { utils } from '@/utils';
 
 export function useValueMatcher(
     multiple: Ref<boolean>,
-    modelValue: Ref<any>,
     inputValue: Ref<any>,
     trueValue: Ref<any>,
     falseValue: Ref<any>,
 ) {
-    const isArrayValue = computed(() => Array.isArray(modelValue.value));
+    const isArrayValue = computed(() => Array.isArray(inputValue.value));
     const isMultipleValue = computed(() => multiple.value && isArrayValue.value);
 
     const isMatched: ComputedRef<boolean> = computed(() => {
@@ -23,7 +22,7 @@ export function useValueMatcher(
         if (isMultipleValue.value) {
             return inputValue.value;
         }
-        return utils.object.isEqual(modelValue.value, trueValue.value) ? trueValue.value : falseValue.value;
+        return utils.object.isEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
     }
 
     function getClearedValue() {

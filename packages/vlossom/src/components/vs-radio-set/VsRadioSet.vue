@@ -71,7 +71,7 @@ import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioSetStyleSet } from './types';
-import type { VsRadioStyleSet } from './../vs-radio/types';
+import type { VsRadioStyleSet } from '@/components/vs-radio/types';
 
 export default defineComponent({
     name: VsComponent.VsRadioSet,
