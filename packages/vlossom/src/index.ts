@@ -11,4 +11,6 @@ export * from './vlossom-framework';
 export * from './components';
 export * from './composables';
 export * from './declaration';
+export * from './icons';
+export * from './nodes';
 export * from './utils';
