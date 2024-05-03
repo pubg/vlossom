@@ -8,7 +8,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
     position: relative;
     background-color: var(--vs-file-input-backgroundColor, var(--vs-no-color));
     border: $borderWidth $borderStyle $borderColor;
-    border-radius: var(--vs-file-input-borderRadius, 0.4rem);
+    border-radius: var(--vs-file-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     height: var(--vs-file-input-height, 2.5rem);
     outline: none;
     font-size: var(--vs-file-input-fontSize, 1rem);
@@ -29,7 +29,8 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
 
         .attach-file-icon {
             width: 2.5rem;
-            border-radius: var(--vs-file-input-borderRadius, 0.4rem) 0 0 var(--vs-file-input-borderRadius, 0.4rem);
+            border-radius: var(--vs-file-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem)) 0 0
+                var(--vs-file-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
             background-color: var(--vs-file-input-prependBackgroundColor, var(--vs-line-color));
             color: var(--vs-file-input-prependColor, var(--vs-primary-comp-bg));
             display: flex;

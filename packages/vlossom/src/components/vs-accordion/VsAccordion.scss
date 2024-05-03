@@ -7,7 +7,7 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
         box-sizing: border-box;
         overflow: hidden;
         border: var(--vs-accordion-border, 1px solid var(--vs-line-color));
-        border-radius: var(--vs-accordion-borderRadius, 0.4rem);
+        border-radius: var(--vs-accordion-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
 
         summary {
             position: relative;

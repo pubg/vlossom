@@ -8,7 +8,7 @@
     background-color: var(--vs-input-backgroundColor, var(--vs-no-color));
     box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
-    border-radius: var(--vs-input-borderRadius, 0.4rem);
+    border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     height: var(--vs-input-height, 2.5rem);
 
     input {

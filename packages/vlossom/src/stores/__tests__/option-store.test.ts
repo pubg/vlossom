@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { OptionStore } from '../option-store';
 import { VsComponent } from '@/declaration';
 
@@ -15,6 +15,7 @@ describe('option store', () => {
             theme: 'light',
             globalColorScheme: {},
             styleSets: {},
+            globalRadiusRatio: 1,
         });
     });
 
@@ -164,6 +165,63 @@ describe('option store', () => {
                 // then
                 expect(result).toBeUndefined();
             });
+        });
+    });
+
+    describe('globalRadiusRatio', () => {
+        it('globalRadiusRatio를 설정할 수 있다', () => {
+            // given
+            const store = new OptionStore();
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
+
+            // when
+            store.setGlobalRadiusRatio(0.5);
+
+            // then
+            expect(store.getState().globalRadiusRatio).toEqual(0.5);
+            expect(setPropertySpy).toBeCalledWith('--vs-radius-ratio', '0.5');
+        });
+
+        it('globalRadiusRatio가 0보다 작으면 radius ratio를 설정하지 않는다', () => {
+            // given
+            const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
+
+            // when
+            store.setGlobalRadiusRatio(-1);
+
+            // then
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
+        });
+
+        it('globalRadiusRatio가 1보다 크면 radius ratio를 설정하지 않는다', () => {
+            // given
+            const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
+
+            // when
+            store.setGlobalRadiusRatio(2);
+
+            // then
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
+        });
+
+        it('globalRadiusRatio가 NaN이면 radius ratio를 설정하지 않는다', () => {
+            // given
+            const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
+
+            // when
+            store.setGlobalRadiusRatio(NaN);
+
+            // then
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
         });
     });
 });
