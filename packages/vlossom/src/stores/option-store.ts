@@ -7,6 +7,7 @@ interface OptionStoreState {
     theme: 'light' | 'dark';
     globalColorScheme: GlobalColorScheme;
     styleSets: StyleSet;
+    globalBorderRadius: string;
 }
 
 export class OptionStore {
@@ -14,6 +15,7 @@ export class OptionStore {
         theme: 'light',
         globalColorScheme: {},
         styleSets: {},
+        globalBorderRadius: '0.4rem',
     });
 
     getState() {
@@ -30,6 +32,12 @@ export class OptionStore {
 
     getGlobalColorScheme(component: VsComponent) {
         return this.state.globalColorScheme[component] || this.state.globalColorScheme.default;
+    }
+
+    setGlobalBorderRadius(borderRadius: string = '0.4rem') {
+        this.state.globalBorderRadius = borderRadius;
+
+        document.documentElement.style.setProperty('--vs-border-radius', borderRadius);
     }
 
     registerStyleSet(styleSet: StyleSet) {

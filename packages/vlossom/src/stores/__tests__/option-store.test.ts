@@ -15,6 +15,7 @@ describe('option store', () => {
             theme: 'light',
             globalColorScheme: {},
             styleSets: {},
+            globalBorderRadius: '0.4rem',
         });
     });
 
@@ -164,6 +165,41 @@ describe('option store', () => {
                 // then
                 expect(result).toBeUndefined();
             });
+        });
+    });
+
+    describe('globalBorderRadius', () => {
+        it('globalBorderRadius를 설정할 수 있다', () => {
+            // given
+            const store = new OptionStore();
+
+            // when
+            store.setGlobalBorderRadius('0.5rem');
+
+            // then
+            expect(store.getState().globalBorderRadius).toEqual('0.5rem');
+        });
+
+        it('globalBorderRadius를 설정할 수 있다 (기본값)', () => {
+            // given
+            const store = new OptionStore();
+
+            // when
+            store.setGlobalBorderRadius();
+
+            // then
+            expect(store.getState().globalBorderRadius).toEqual('0.4rem');
+        });
+
+        it('globalBorderRadius를 설정할 때 document에도 반영된다', () => {
+            // given
+            const store = new OptionStore();
+
+            // when
+            store.setGlobalBorderRadius('0.5rem');
+
+            // then
+            expect(document.documentElement.style.getPropertyValue('--vs-border-radius')).toEqual('0.5rem');
         });
     });
 });
