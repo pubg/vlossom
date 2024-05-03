@@ -28,7 +28,7 @@ interface VsInputProps<T> {
 export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>> = Array<keyof VsInputProps<T>>>(
     ...excludes: K
 ): Omit<VsInputProps<T>, K[number]> {
-    const inputProps: Omit<VsInputProps<T>, K[number]> = Object.assign(
+    const inputProps: VsInputProps<T> = Object.assign(
         {},
         {
             disabled: { type: Boolean, default: false },
@@ -51,7 +51,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
         },
     );
 
-    return utils.object.omit(inputProps, excludes as any) as Omit<VsInputProps<T>, K[number]>;
+    return utils.object.omit(inputProps, excludes) as Omit<VsInputProps<T>, K[number]>;
 }
 
 export function useInput<T = unknown>(
