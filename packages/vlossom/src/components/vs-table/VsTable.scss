@@ -94,7 +94,7 @@
                         justify-content: center;
                         width: 1.6rem;
                         height: 1.6rem;
-                        border-radius: 0.2rem;
+                        border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
                         background-color: var(--vs-comp-bg);
 
                         i {
@@ -134,7 +134,7 @@
                 .skeleton {
                     width: 95%;
                     height: 60%;
-                    border-radius: 0.4rem;
+                    border-radius: calc(var(--vs-radius-ratio) * 0.4rem);
                     background-color: var(--vs-gray-200);
                     animation: skeleton-loading 0.6s infinite alternate;
                 }

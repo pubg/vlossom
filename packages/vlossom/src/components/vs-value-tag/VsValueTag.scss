@@ -2,7 +2,8 @@
     display: flex;
     align-items: center;
     border: 1px solid var(--vs-line-color);
-    border-radius: var(--vs-value-tag-borderRadius, 0.2rem);
+    border-radius: var(--vs-value-tag-borderRadius, calc(var(--vs-radius-ratio) * 0.2rem));
+    overflow: hidden;
     font-size: var(--vs-value-tag-fontSize, 1rem);
     font-weight: var(--vs-value-tag-fontWeight, 400);
     width: var(--vs-value-tag-width, 100%);

@@ -4,8 +4,8 @@
     display: flex;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
-    border-radius: var(--vs-select-borderRadius, 0.4rem);
     min-height: var(--vs-select-height, 2.6rem);
+    border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     font-size: var(--vs-select-fontSize, 1rem);
 
     .multiple-chips {
@@ -96,7 +96,7 @@
     z-index: 900;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 0.0625rem var(--vs-line-color));
-    border-radius: var(--vs-select-borderRadius, 0.4rem);
+    border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     overflow: hidden;
 
     .options {
