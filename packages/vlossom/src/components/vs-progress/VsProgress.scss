@@ -10,7 +10,7 @@ progress[value] {
         overflow: hidden;
         background-color: var(--vs-progress-barColor, var(--vs-comp-bg));
         border: 1px solid var(--vs-progress-borderColor, var(--vs-line-color));
-        border-radius: var(--vs-progress-borderRadius, 0.4rem);
+        border-radius: var(--vs-progress-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     }
 
     &::-webkit-progress-value {

@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     border: var(--vs-avatar-border, 0.1rem solid var(--vs-line-color));
-    border-radius: var(--vs-avatar-borderRadius, 0.4rem);
+    border-radius: var(--vs-avatar-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     width: var(--vs-avatar-width, 3rem);
     height: var(--vs-avatar-height, 3rem);
     background-color: var(--vs-avatar-backgroundColor, var(--vs-comp-bg));

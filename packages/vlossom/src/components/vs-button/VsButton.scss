@@ -7,7 +7,7 @@
     max-height: var(--vs-button-maxHeight, 3rem);
     padding: var(--vs-button-padding, 0.4rem 1rem);
     border: 1px solid var(--vs-line-color);
-    border-radius: var(--vs-button-borderRadius, 0.4rem);
+    border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     cursor: pointer;
     font-size: var(--vs-button-fontSize, 0.9rem);
     font-weight: var(--vs-button-fontWeight, 500);
@@ -80,14 +80,14 @@
 .vs-button {
     &.dense {
         padding: var(--vs-button-padding, 0.2rem 0.8rem);
-        border-radius: var(--vs-button-borderRadius, 0.4rem);
+        border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.3rem));
         font-size: var(--vs-button-fontSize, 0.8rem);
         max-height: var(--vs-button-maxHeight, 2.4rem);
     }
 
     &.large {
         padding: var(--vs-button-padding, 0.6rem 1.4rem);
-        border-radius: var(--vs-button-borderRadius, 0.6rem);
+        border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
         font-size: var(--vs-button-fontSize, 1.2rem);
         max-height: var(--vs-button-maxHeight, 3.7rem);
     }
