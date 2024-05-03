@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 import { VsComponent } from '@/declaration';
+import { utils } from '@/utils';
 
 import type { GlobalColorScheme, StyleSet } from '@/declaration';
 
@@ -7,7 +8,7 @@ interface OptionStoreState {
     theme: 'light' | 'dark';
     globalColorScheme: GlobalColorScheme;
     styleSets: StyleSet;
-    globalBorderRadius: string;
+    globalRadiusRatio: number;
 }
 
 export class OptionStore {
@@ -15,7 +16,7 @@ export class OptionStore {
         theme: 'light',
         globalColorScheme: {},
         styleSets: {},
-        globalBorderRadius: '0.4rem',
+        globalRadiusRatio: 1,
     });
 
     getState() {
@@ -34,10 +35,14 @@ export class OptionStore {
         return this.state.globalColorScheme[component] || this.state.globalColorScheme.default;
     }
 
-    setGlobalBorderRadius(borderRadius: string = '0.4rem') {
-        this.state.globalBorderRadius = borderRadius;
+    setGlobalRadiusRatio(radiusRatio: number) {
+        if (isNaN(radiusRatio) || radiusRatio < 0 || radiusRatio > 1) {
+            utils.log.error('VlossomOptions', 'The radius ratio must be between 0 and 1');
+            return;
+        }
 
-        document.documentElement.style.setProperty('--vs-border-radius', borderRadius);
+        this.state.globalRadiusRatio = radiusRatio;
+        document.documentElement.style.setProperty('--vs-radius-ratio', radiusRatio.toString());
     }
 
     registerStyleSet(styleSet: StyleSet) {

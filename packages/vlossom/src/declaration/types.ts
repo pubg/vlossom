@@ -83,7 +83,7 @@ export interface VlossomOptions {
     components?: VsComponent[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
-    borderRadius?: string;
+    radiusRatio?: number;
     detectOSTheme?: boolean;
 }
 

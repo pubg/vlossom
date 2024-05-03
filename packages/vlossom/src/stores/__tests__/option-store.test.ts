@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { OptionStore } from '../option-store';
 import { VsComponent } from '@/declaration';
 
@@ -15,7 +15,7 @@ describe('option store', () => {
             theme: 'light',
             globalColorScheme: {},
             styleSets: {},
-            globalBorderRadius: '0.4rem',
+            globalRadiusRatio: 1,
         });
     });
 
@@ -168,38 +168,60 @@ describe('option store', () => {
         });
     });
 
-    describe('globalBorderRadius', () => {
-        it('globalBorderRadius를 설정할 수 있다', () => {
+    describe('globalRadiusRatio', () => {
+        it('globalRadiusRatio를 설정할 수 있다', () => {
             // given
             const store = new OptionStore();
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
 
             // when
-            store.setGlobalBorderRadius('0.5rem');
+            store.setGlobalRadiusRatio(0.5);
 
             // then
-            expect(store.getState().globalBorderRadius).toEqual('0.5rem');
+            expect(store.getState().globalRadiusRatio).toEqual(0.5);
+            expect(setPropertySpy).toBeCalledWith('--vs-radius-ratio', '0.5');
         });
 
-        it('globalBorderRadius를 설정할 수 있다 (기본값)', () => {
+        it('globalRadiusRatio가 0보다 작으면 radius ratio를 설정하지 않는다', () => {
             // given
             const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
 
             // when
-            store.setGlobalBorderRadius();
+            store.setGlobalRadiusRatio(-1);
 
             // then
-            expect(store.getState().globalBorderRadius).toEqual('0.4rem');
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
         });
 
-        it('globalBorderRadius를 설정할 때 document에도 반영된다', () => {
+        it('globalRadiusRatio가 1보다 크면 radius ratio를 설정하지 않는다', () => {
             // given
             const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
 
             // when
-            store.setGlobalBorderRadius('0.5rem');
+            store.setGlobalRadiusRatio(2);
 
             // then
-            expect(document.documentElement.style.getPropertyValue('--vs-border-radius')).toEqual('0.5rem');
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
+        });
+
+        it('globalRadiusRatio가 NaN이면 radius ratio를 설정하지 않는다', () => {
+            // given
+            const store = new OptionStore();
+            const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+            const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty').mockImplementation(() => {});
+
+            // when
+            store.setGlobalRadiusRatio(NaN);
+
+            // then
+            expect(consoleErrorSpy).toBeCalled();
+            expect(setPropertySpy).not.toBeCalled();
         });
     });
 });
