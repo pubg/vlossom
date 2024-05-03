@@ -4,7 +4,7 @@ $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
 
 .vs-block {
     border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
-    border-radius: var(--vs-block-borderRadius, 0.4rem);
+    border-radius: var(--vs-block-borderRadius, calc(var(--vs-radius-ratio) * 0.5rem));
     overflow: hidden;
     position: relative;
     width: 100%;
