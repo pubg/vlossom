@@ -7,11 +7,12 @@ import type { ToastPlugin, ConfirmPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
-        const { colorScheme = {}, styleSet = {}, theme = 'light' } = options || {};
+        const { colorScheme = {}, styleSet = {}, theme = 'light', radiusRatio = 1 } = options || {};
 
         this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
         store.option.setGlobalColorScheme(colorScheme);
         store.option.registerStyleSet(styleSet);
+        store.option.setGlobalRadiusRatio(radiusRatio);
 
         if (options?.detectOSTheme) {
             const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
@@ -44,12 +45,24 @@ export class Vlossom {
         document.body.classList.toggle('vs-dark', value === 'dark');
     }
 
-    get globalColorScheme() {
+    get colorScheme() {
         return store.option.getState().globalColorScheme;
+    }
+
+    set colorScheme(colorScheme) {
+        store.option.setGlobalColorScheme(colorScheme);
     }
 
     get styleSets() {
         return store.option.getState().styleSets;
+    }
+
+    get radiusRatio() {
+        return store.option.getState().globalRadiusRatio;
+    }
+
+    set radiusRatio(radiusRatio: number) {
+        store.option.setGlobalRadiusRatio(radiusRatio);
     }
 
     toggleTheme() {

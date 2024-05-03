@@ -17,7 +17,7 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $check
         display: flex;
         align-items: center;
         color: $checkbox-color;
-        border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
+        border-radius: var(--vs-checkbox-borderRadius, calc(var(--vs-radius-ratio) * 0.2rem));
         overflow: hidden;
 
         .check-icon {

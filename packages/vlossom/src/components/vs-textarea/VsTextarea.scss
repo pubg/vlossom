@@ -10,7 +10,7 @@
     color: var(--vs-textarea-fontColor, var(--vs-comp-font));
     font-size: var(--vs-textarea-fontSize, 1rem);
     border: var(--vs-textarea-border, solid 1px var(--vs-line-color));
-    border-radius: var(--vs-textarea-borderRadius, 0.4rem);
+    border-radius: var(--vs-textarea-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     padding: 0.6rem;
     outline: none;
     resize: vertical;

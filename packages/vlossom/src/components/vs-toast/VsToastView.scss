@@ -26,7 +26,7 @@
     box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
     display: flex;
     justify-content: center;
-    border-radius: 0.4rem;
+    border-radius: calc(var(--vs-radius-ratio) * 0.5rem);
     color: #fff;
     font-size: 1.1rem;
     margin: 0.4rem 0;
