@@ -75,7 +75,7 @@
     }
 
     &.dense {
-        height: var(--vs-select-height, 2.2rem);
+        min-height: var(--vs-select-height, 2.2rem);
         font-size: var(--vs-select-fontSize, 0.9rem);
     }
 

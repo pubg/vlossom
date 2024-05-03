@@ -1,5 +1,6 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import VsSelect from '../VsSelect.vue';
+import { ref } from 'vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -26,23 +27,22 @@ const meta: Meta<typeof VsSelect> = {
     render: (args: any) => ({
         components: { VsSelect },
         setup() {
-            return { args };
+            const modelValue1 = ref(['apple', 'banana', 'carrot']);
+            const modelValue2 = ref(['apple', 'banana', 'carrot']);
+            const modelValue3 = ref(['apple', 'banana', 'carrot']);
+            return { args, modelValue1, modelValue2, modelValue3 };
         },
         template: `
             <div>
                 <vs-select v-bind="args" label="Select" :style="{ marginBottom: '12px' }"/>
 				
-                <vs-select v-bind="args" label="Select With Header" :style="{ marginBottom: '12px' }">
-                    <template #options-header>
-                        <div style="padding: 1rem 1.2rem; background-color: #7f86d7; color: #EEEEEE">Options Header</div>
-                    </template>
-                </vs-select>
+                <vs-select v-bind="args" label="Select (dense)" dense :style="{ marginBottom: '12px' }"/>
+                
+                <vs-select v-bind="args" v-model="modelValue1" label="Select Multiple" multiple :style="{ marginBottom: '12px' }"/>
 
-                <vs-select v-bind="args" label="Select With Footer">
-                    <template #options-footer>
-                        <div style="padding: 1rem 1.2rem; background-color: #7f86d7; color: #EEEEEE">Options Footer</div>
-                    </template>
-                </vs-select>
+                <vs-select v-bind="args" v-model="modelValue2" label="Select with ClosableChips" multiple closableChips :style="{ marginBottom: '12px' }"/>
+                
+                <vs-select v-bind="args" v-model="modelValue3" label="Select with CollapseChips" multiple collapseChips />				
             </div>`,
     }),
     tags: ['autodocs'],
