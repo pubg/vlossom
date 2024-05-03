@@ -18,13 +18,13 @@ export function useAutocomplete(
 
     watch(
         autocompleteText,
-        utils.function.debounce({ delay: 300 }, () => {
+        utils.function.debounce(() => {
             const lower = autocompleteText.value.toLowerCase();
             filteredOptions.value = computedOptions.value.filter((option) => {
                 const label = getOptionLabel(option.value);
                 return label.toLowerCase().includes(lower);
             });
-        }),
+        }, 300),
     );
 
     watch(isOpen, () => {
