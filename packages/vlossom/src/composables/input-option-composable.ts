@@ -30,7 +30,11 @@ export function useInputOption(
                     return JSON.stringify(option);
                 }
 
-                return label || '';
+                if (typeof label === 'string') {
+                    return label;
+                }
+
+                return JSON.stringify(label);
             } else {
                 return JSON.stringify(option);
             }

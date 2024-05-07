@@ -1,4 +1,4 @@
-import * as _ from 'lodash-es';
+import * as _ from 'radash';
 
 export const objectUtil = {
     get: _.get,
@@ -6,11 +6,11 @@ export const objectUtil = {
     isEqual: _.isEqual,
 
     isUniq(array: any[]): boolean {
-        return _.uniq(array).length === array.length;
+        return _.unique(array).length === array.length;
     },
 
     isPlainObject(value: any): value is Record<string, any> {
-        return _.isPlainObject(value);
+        return _.isObject(value);
     },
 
     omit: _.omit,

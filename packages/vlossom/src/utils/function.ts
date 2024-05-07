@@ -1,7 +1,11 @@
-import * as _ from 'lodash-es';
+import * as _ from 'radash';
 
 export const functionUtil = {
-    debounce: _.debounce,
+    debounce(func: (...args: any) => any, delay: number = 0): (...args: any) => any {
+        return _.debounce({ delay }, func);
+    },
 
-    throttle: _.throttle,
+    throttle(func: (...args: any) => any, interval: number = 0): (...args: any) => any {
+        return _.throttle({ interval }, func);
+    },
 };
