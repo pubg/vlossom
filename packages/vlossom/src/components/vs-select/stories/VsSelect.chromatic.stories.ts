@@ -1,6 +1,7 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import VsSelect from '../VsSelect.vue';
+import { UIState } from '@/declaration';
 import { ref } from 'vue';
+import VsSelect from '../VsSelect.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -30,13 +31,23 @@ const meta: Meta<typeof VsSelect> = {
             const modelValue1 = ref(['apple', 'banana', 'carrot']);
             const modelValue2 = ref(['apple', 'banana', 'carrot']);
             const modelValue3 = ref(['apple', 'banana', 'carrot']);
-            return { args, modelValue1, modelValue2, modelValue3 };
+
+            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            return { args, modelValue1, modelValue2, modelValue3, messages };
         },
         template: `
             <div>
                 <vs-select v-bind="args" label="Select" :style="{ marginBottom: '12px' }"/>
+
+                <vs-select v-bind="args" label="Required Select" required :style="{ marginBottom: '12px' }"/>
+
+                <vs-select v-bind="args" label="Readonly Select" readonly :style="{ marginBottom: '12px' }"/>
 				
-                <vs-select v-bind="args" label="Select (dense)" dense :style="{ marginBottom: '12px' }"/>
+                <vs-select v-bind="args" label="Disabled Select" disabled :style="{ marginBottom: '12px' }"/>
+                
+                <vs-select v-bind="args" label="Select with Messages" :messages="messages" :style="{ marginBottom: '12px' }"/>
+				
+                <vs-select v-bind="args" label="Dense Select" dense :style="{ marginBottom: '12px' }"/>
                 
                 <vs-select v-bind="args" v-model="modelValue1" label="Select Multiple" multiple :style="{ marginBottom: '12px' }"/>
 
