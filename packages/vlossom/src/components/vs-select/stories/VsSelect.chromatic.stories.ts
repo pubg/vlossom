@@ -22,7 +22,7 @@ const options = [
 ];
 
 const meta: Meta<typeof VsSelect> = {
-    title: 'Chromatic/Layout Components/VsSelect',
+    title: 'Chromatic/Input Components/VsSelect',
     component: VsSelect,
     render: (args: any) => ({
         components: { VsSelect },
