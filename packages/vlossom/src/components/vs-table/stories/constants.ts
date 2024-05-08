@@ -1,0 +1,38 @@
+export const items = [
+    {
+        id: 1,
+        name: 'Apple',
+        order: 4,
+        checked: true,
+        created: '2022-10-02',
+        desc: 'Lorem Ipsum has been the industry ',
+        additionalText: 'Additional Text for Apple: This content only shows when expanded',
+    },
+    {
+        id: 2,
+        name: 'Banana',
+        order: 1,
+        checked: true,
+        created: '2024-01-01',
+        desc: 'has been the tscrambled it tscrambled it the industrys standard dummy text',
+        additionalText: 'Additional Text for Banana: This content only shows when expanded',
+    },
+    {
+        id: 3,
+        name: 'Carrot',
+        order: 3,
+        checked: false,
+        created: '2023-07-15',
+        desc: 'scrambled it to make a type specimen book',
+        additionalText: 'Additional Text for Carrot: This content only shows when expanded',
+    },
+    {
+        id: 4,
+        name: 'Durian',
+        order: 2,
+        checked: false,
+        created: '2023-10-11',
+        desc: 'pecimen book. It has survived not only five centuries, but also the leap into electronic',
+        additionalText: 'Additional Text for Durian: This content only shows when expanded',
+    },
+];
