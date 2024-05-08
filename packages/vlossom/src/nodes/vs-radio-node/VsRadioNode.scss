@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$radio-color: var(--vs-radio-radioColor, var(--vs-comp-bg));
+$radio-color: var(--vs-radio-radioColor, var(--vs-line-color));
 $radio-size: var(--vs-radio-radioSize, 1.25rem);
 $radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, $radio-color);
 $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
