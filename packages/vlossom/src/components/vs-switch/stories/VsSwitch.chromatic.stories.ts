@@ -25,7 +25,7 @@ const meta: Meta<typeof VsSwitch> = {
 
                 <vs-switch v-bind="args" label="Switch with Messages" :messages="messages" :style="{ marginBottom: '12px' }"/>
                
-                <vs-switch v-bind="args" label="Switch with custom labels" true-label="Approved" false-label="Rejected"/>
+                <vs-switch v-bind="args" label="Switch with Custom Labels" true-label="Approved" false-label="Rejected"/>
             </div>
 		`,
     }),
