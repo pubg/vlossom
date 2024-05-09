@@ -24,10 +24,7 @@ const meta: Meta<typeof VsTextarea> = {
                 <vs-textarea v-bind="args" label="Disabled Textarea" disabled :style="{ marginBottom: '12px' }"/>
 
                 <vs-textarea v-bind="args" label="Textarea with Messages"  :messages="messages" :style="{ marginBottom: '12px' }"/>
-                
-                <vs-textarea v-bind="args" label="Dense Textarea" dense/>
-            </div>
-		`,
+            </div>`,
     }),
     tags: ['autodocs'],
     args: {
