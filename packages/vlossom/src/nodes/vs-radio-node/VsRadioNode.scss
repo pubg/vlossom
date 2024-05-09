@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$radio-color: var(--vs-radio-radioColor, var(--vs-line-color));
+$radio-color: var(--vs-radio-radioColor, var(--vs-primary-comp-bg));
 $radio-size: var(--vs-radio-radioSize, 1.25rem);
 $radio-hover-label-color: var(--vs-checkbox-hoverLabelFontColor, var(--vs-comp-bg-hover));
 $radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, var(--vs-comp-bg-active));
