@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 import VsIndexView from '../VsIndexView.vue';
 import VsIndexItem from '../VsIndexItem.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
@@ -6,21 +6,9 @@ import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsDivider from '@/components/vs-divider/VsDivider.vue';
 import { LOREM_IPSUM } from '@/storybook';
+import { CompA } from './CompA';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const CompA = defineComponent({
-    components: { VsButton },
-    template: `
-		<p>Component: A</p>
-    	<span>count: {{ count }}</span>
-    	<vs-button :style="{ width: '10px', marginLeft: '10px', marginTop: '10px'}" @click="count++">+</vs-button>
-	`,
-    data() {
-        const count = ref(0);
-        return { count };
-    },
-});
 
 const meta: Meta<typeof VsIndexView> = {
     title: 'Components/Layout Components/VsIndexView & VsIndexItem',
