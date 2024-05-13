@@ -1,11 +1,8 @@
-import VsImage from './../VsImage.vue';
 import { chromaticParameters } from '@/storybook/parameters';
+import { src, fallbackSrc, lazySrc } from './constants';
+import VsImage from './../VsImage.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const src = 'https://cdn.pixabay.com/photo/2022/04/06/14/26/ornamental-plum-7115659_1280.jpg';
-const fallback = 'https://cdn.pixabay.com/photo/2019/04/19/07/24/blossom-4138763_1280.jpg';
-const lazy = 'https://cdn.pixabay.com/photo/2017/04/07/14/25/cat-2211076_1280.jpg';
 
 const meta: Meta<typeof VsImage> = {
     title: 'Components/Base Components/VsImage',
@@ -43,7 +40,7 @@ export const Fallback: Story = {
     }),
     args: {
         src: '',
-        fallback,
+        fallback: fallbackSrc,
     },
     parameters: {
         chromatic: chromaticParameters.theme,
@@ -76,7 +73,7 @@ export const Lazy: Story = {
         template: '<vs-image v-bind="args"/>',
     }),
     args: {
-        src: lazy,
+        src: lazySrc,
         lazy: true,
     },
     parameters: {
