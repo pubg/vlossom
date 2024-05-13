@@ -34,7 +34,6 @@ const meta: Meta<typeof VsFooter> = {
                 </div>
             </div>`,
     }),
-    tags: ['autodocs'],
     args: {
         height: '50px',
         position: 'absolute',

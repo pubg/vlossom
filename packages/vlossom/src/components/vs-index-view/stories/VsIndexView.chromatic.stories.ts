@@ -35,7 +35,6 @@ const meta: Meta<typeof VsIndexView> = {
 			</div>
 		`,
     }),
-    tags: ['autodocs'],
 };
 
 export default meta;

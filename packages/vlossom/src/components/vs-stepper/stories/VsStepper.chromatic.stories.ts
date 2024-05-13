@@ -23,7 +23,6 @@ const meta: Meta<typeof VsStepper> = {
             </div>
         `,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         disabled: disabledArgTypes,

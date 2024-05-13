@@ -18,7 +18,6 @@ const meta: Meta<typeof VsPage> = {
         </vs-page>
     `,
     }),
-    tags: ['autodocs'],
 };
 
 export default meta;

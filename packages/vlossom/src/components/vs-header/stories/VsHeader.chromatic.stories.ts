@@ -34,7 +34,6 @@ const meta: Meta<typeof VsHeader> = {
                 </div>
             </div>`,
     }),
-    tags: ['autodocs'],
     args: {
         position: 'absolute',
     },

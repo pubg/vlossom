@@ -51,7 +51,6 @@ const meta: Meta<typeof VsModal> = {
             </div>
         `,
     }),
-    tags: ['autodocs'],
     argTypes: {
         size,
         colorScheme,

@@ -25,7 +25,6 @@ const meta: Meta<typeof VsTabs> = {
                 <vs-tabs v-bind="args" dense/>
             </div>`,
     }),
-    tags: ['autodocs'],
     args: {
         tabs,
     },

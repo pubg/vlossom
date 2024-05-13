@@ -67,7 +67,6 @@ const meta: Meta<typeof VsDrawer> = {
             </div>
         `,
     }),
-    tags: ['autodocs'],
     argTypes: {
         placement,
         size,

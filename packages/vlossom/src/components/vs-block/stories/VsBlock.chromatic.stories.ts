@@ -21,7 +21,6 @@ const meta: Meta<typeof VsBlock> = {
                 </vs-block>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },
