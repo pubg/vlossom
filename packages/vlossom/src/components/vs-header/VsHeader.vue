@@ -32,10 +32,9 @@ export default defineComponent({
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<Align>, default: '' },
-        layout: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, height, position, layout } = toRefs(props);
+        const { colorScheme, styleSet, height, position } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -60,7 +59,7 @@ export default defineComponent({
         watch(
             computedStyleSet,
             (style) => {
-                if (!layout.value || !layoutAttrs) {
+                if (!layoutAttrs) {
                     return;
                 }
                 layoutAttrs.header = {

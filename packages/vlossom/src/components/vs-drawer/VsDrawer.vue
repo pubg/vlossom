@@ -58,7 +58,6 @@ export default defineComponent({
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
-        layout: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
@@ -70,7 +69,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, layout, placement, size } =
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } =
             toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -135,9 +134,6 @@ export default defineComponent({
         });
 
         watchEffect(() => {
-            if (!layout.value) {
-                return;
-            }
             if (typeof navOn === 'object' && navOn !== null && 'value' in navOn) {
                 navOn.value = isOpen.value;
             }
@@ -146,7 +142,7 @@ export default defineComponent({
         watch(
             computedStyleSet,
             () => {
-                if (!layout.value || !layoutAttrs) {
+                if (!layoutAttrs) {
                     return;
                 }
                 layoutAttrs.drawer = {
