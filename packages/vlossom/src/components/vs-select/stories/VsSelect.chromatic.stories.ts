@@ -45,7 +45,6 @@ const meta: Meta<typeof VsSelect> = {
                 <vs-select v-bind="args" v-model="modelValue3" label="Select with CollapseChips" multiple collapseChips />				
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         state,
