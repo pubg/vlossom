@@ -18,7 +18,6 @@ const meta: Meta<typeof VsDivider> = {
                 <vs-divider v-bind="args" vertical/>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

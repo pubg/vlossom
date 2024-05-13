@@ -18,7 +18,6 @@ const meta: Meta<typeof VsValueTag> = {
                 <vs-value-tag v-bind="args" primary><template #label>label</template><template #value>value</template></vs-value-tag>				
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

@@ -29,7 +29,6 @@ const meta: Meta<typeof VsLabelValue> = {
                 </vs-label-value>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

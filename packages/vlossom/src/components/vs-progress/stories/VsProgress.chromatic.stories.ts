@@ -16,7 +16,6 @@ const meta: Meta<typeof VsProgress> = {
                 <vs-progress v-bind="args"/>
             </div>`,
     }),
-    tags: ['autodocs'],
     args: {
         value: 50,
         max: 100,

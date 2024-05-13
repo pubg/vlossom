@@ -26,7 +26,6 @@ const meta: Meta<typeof VsTooltip> = {
                 </div>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         align,

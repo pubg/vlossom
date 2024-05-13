@@ -121,7 +121,6 @@ const meta: Meta<typeof VsTable> = {
             </div>
         `,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

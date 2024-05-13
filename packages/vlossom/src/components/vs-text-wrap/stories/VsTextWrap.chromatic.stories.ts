@@ -21,7 +21,6 @@ const meta: Meta<typeof VsTextWrap> = {
                 <vs-text-wrap v-bind="args" link="https://google.com">https://google.com</vs-text-wrap>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         align,

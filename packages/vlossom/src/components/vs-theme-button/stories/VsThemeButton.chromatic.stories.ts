@@ -12,7 +12,6 @@ const meta: Meta<typeof VsThemeButton> = {
         },
         template: '<vs-theme-button v-bind="args" />',
     }),
-    tags: ['autodocs'],
 };
 
 export default meta;

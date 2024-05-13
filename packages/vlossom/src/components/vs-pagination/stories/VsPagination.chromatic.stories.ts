@@ -24,7 +24,6 @@ const meta: Meta<typeof VsPagination> = {
                 <vs-pagination v-bind="args" :length="length" disabled />
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

@@ -30,7 +30,6 @@ const meta: Meta<typeof VsChip> = {
                 </vs-chip>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

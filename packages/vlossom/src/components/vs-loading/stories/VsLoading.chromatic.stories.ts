@@ -13,7 +13,6 @@ const meta: Meta<typeof VsLoading> = {
         },
         template: '<vs-loading v-bind="args" />',
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

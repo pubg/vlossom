@@ -28,7 +28,6 @@ const meta: Meta<typeof VsButton> = {
                 <vs-button v-bind="args" large>Button</vs-button>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

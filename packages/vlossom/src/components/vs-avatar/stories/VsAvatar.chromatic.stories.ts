@@ -20,7 +20,6 @@ const meta: Meta<typeof VsAvatar> = {
                 </vs-avatar>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

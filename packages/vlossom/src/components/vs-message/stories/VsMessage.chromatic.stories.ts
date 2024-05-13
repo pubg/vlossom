@@ -20,7 +20,6 @@ const meta: Meta<typeof VsMessage> = {
         },
         template: '<vs-message v-for="message in messages" :key="message.text" v-bind="args" :message="message" />',
     }),
-    tags: ['autodocs'],
 };
 
 export default meta;

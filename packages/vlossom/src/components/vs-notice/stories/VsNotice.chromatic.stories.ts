@@ -23,7 +23,6 @@ const meta: Meta<typeof VsNotice> = {
                 <vs-notice v-bind="args" :primary="false">Hello! This is Vlossom Notice Content</vs-notice>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },

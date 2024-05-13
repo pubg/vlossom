@@ -25,7 +25,6 @@ const meta: Meta<typeof VsImage> = {
     args: {
         src,
     },
-    tags: ['autodocs'],
     argTypes: {},
 };
 
