@@ -1,37 +1,12 @@
 import { placement, size, colorScheme } from '@/storybook';
 import { userEvent, within } from '@storybook/test';
 import { ref } from 'vue';
-import { VsIcon } from '@/icons';
 import VsDrawer from './../VsDrawer.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
+import { DrawerCloseButton, contentStyle, containerStyle } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const DrawerCloseButton = {
-    components: { VsIcon },
-    template: `
-        <vs-icon icon="close" style="cursor: pointer" />
-    `,
-};
-
-const contentStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1rem',
-};
-
-const containerStyle = {
-    backgroundColor: 'rgba(0, 0, 0, 0.02)',
-    border: '1px solid rgb(240, 240, 240)',
-    borderRadius: '4px',
-    color: 'var(--vs-comp-font)',
-    height: '800px',
-    overflow: 'hidden',
-    position: 'relative',
-    padding: '2rem',
-    width: '600px',
-};
 
 const meta: Meta<typeof VsDrawer> = {
     title: 'Components/Layout Components/VsDrawer',

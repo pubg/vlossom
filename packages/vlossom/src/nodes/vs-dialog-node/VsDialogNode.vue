@@ -12,7 +12,7 @@
             <slot name="header" />
         </header>
 
-        <div :class="['dialog-body', { 'hide-scroll': hideScroll }]" :id="bodyId">
+        <div :class="['dialog-body', { 'hide-scroll': hideScroll }]" :id="bodyId" tabindex="0">
             <slot />
         </div>
 
@@ -39,11 +39,14 @@ export default defineComponent({
         const { styleSet, closeOnEsc } = toRefs(props);
 
         const convertedStyleSet = computed(() => {
-            return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
-                const propName = key.split('-').pop();
-                acc[`--vs-dialog-node-${propName}`] = value;
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.entries(styleSet.value).reduce(
+                (acc, [key, value]) => {
+                    const propName = key.split('-').pop();
+                    acc[`--vs-dialog-node-${propName}`] = value;
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const hasHeader = computed(() => !!slots['header']);
