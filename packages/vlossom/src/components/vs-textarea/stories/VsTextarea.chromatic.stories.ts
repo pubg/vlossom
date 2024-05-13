@@ -30,7 +30,6 @@ const meta: Meta<typeof VsTextarea> = {
                 <vs-textarea v-bind="args" label="Textarea with Messages"  :messages="messages" :style="{ marginBottom: '12px' }"/>
             </div>`,
     }),
-    tags: ['autodocs'],
     args: {
         placeholder: 'enter text',
     },

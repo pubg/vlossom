@@ -31,7 +31,6 @@ const meta: Meta<typeof VsCheckbox> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         state,

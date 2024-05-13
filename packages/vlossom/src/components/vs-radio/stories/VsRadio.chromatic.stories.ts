@@ -29,7 +29,6 @@ const meta: Meta<typeof VsRadio> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         state,

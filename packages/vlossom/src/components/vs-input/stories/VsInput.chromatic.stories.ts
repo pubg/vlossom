@@ -60,7 +60,6 @@ const meta: Meta<typeof VsInput> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     args: {
         placeholder: 'this is placeholder',
     },

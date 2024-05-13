@@ -33,7 +33,6 @@ const meta: Meta<typeof VsSwitch> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         state,

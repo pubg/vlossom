@@ -33,7 +33,6 @@ const meta: Meta<typeof VsRadioSet> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
         state,

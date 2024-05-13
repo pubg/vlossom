@@ -29,7 +29,6 @@ const meta: Meta<typeof VsFileInput> = {
             </div>
 		`,
     }),
-    tags: ['autodocs'],
     args: {
         placeholder: 'this is placeholder',
         label: 'File Input',
