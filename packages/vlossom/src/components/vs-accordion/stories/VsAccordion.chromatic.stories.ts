@@ -23,7 +23,6 @@ const meta: Meta<typeof VsAccordion> = {
             </vs-accordion>
             </div>`,
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },
