@@ -3,8 +3,7 @@ import { userEvent, within } from '@storybook/test';
 import { reactive } from 'vue';
 import VsModal from './../VsModal.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
-import { ModalCloseButton } from './ModalCloseButton';
-import { containerStyle } from './constants';
+import { ModalCloseButton, containerStyle } from './constants';
 import { SIZES } from '@/declaration';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

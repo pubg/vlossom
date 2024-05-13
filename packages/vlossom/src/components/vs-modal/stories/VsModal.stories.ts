@@ -3,8 +3,7 @@ import { ref } from 'vue';
 import VsModal from './../VsModal.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
-import { ModalCloseButton } from './ModalCloseButton';
-import { containerStyle } from './constants';
+import { ModalCloseButton, containerStyle } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
