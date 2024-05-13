@@ -1,15 +1,12 @@
 import { ref } from 'vue';
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, numberArray } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
 import VsTabs from '../VsTabs.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { VsIcon } from '@/icons';
 import { SCROLL_BUTTONS } from '../types';
+import { disabledArgTypes, tabs } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const tabLength = 15;
-const disabledArgTypes = numberArray(tabLength, true);
-const tabs = Array.from({ length: tabLength }, (_, idx) => `tab${idx + 1}`);
 
 const meta: Meta<typeof VsTabs> = {
     title: 'Components/Layout Components/VsTabs',
@@ -74,7 +71,7 @@ export const Disabled: Story = {
     },
 };
 
-export const Scrollable: Story = {
+export const ScrollButtons: Story = {
     args: {
         scrollButtons: 'auto',
     },

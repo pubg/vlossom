@@ -1,4 +1,4 @@
-import { colorScheme, LOREM_IPSUM, getColorSchemeTemplate } from '@/storybook';
+import { colorScheme, LOREM_IPSUM } from '@/storybook';
 import VsSection from './../VsSection.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -11,11 +11,11 @@ const meta: Meta<typeof VsSection> = {
         setup() {
             return { args };
         },
-        template: getColorSchemeTemplate(`
+        template: `
             <vs-section v-bind="args" color-scheme="{{ color }}">
                 <template #title>Hello, vs-section!</template>
                 ${LOREM_IPSUM}
-            </vs-section>`),
+            </vs-section>`,
     }),
     argTypes: {
         colorScheme,
