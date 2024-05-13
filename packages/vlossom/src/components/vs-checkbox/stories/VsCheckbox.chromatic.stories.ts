@@ -15,7 +15,9 @@ const meta: Meta<typeof VsCheckbox> = {
         },
         template: `
             <div>
-                <vs-checkbox v-bind="args" label="Checkbox" :style="{ marginBottom: '12px' }"/>
+				<vs-checkbox v-bind="args" label="Checkbox" :style="{ marginBottom: '12px' }"/>
+				
+                <vs-checkbox v-bind="args" label="Checkbox" checked :style="{ marginBottom: '12px' }" />
 
                 <vs-checkbox  v-bind="args" label="Required Checkbox" required :style="{ marginBottom: '12px' }"/>
 

@@ -13,11 +13,14 @@ const meta: Meta<typeof VsInput> = {
         components: { VsInput, VsIcon },
         setup() {
             const messages = [{ state: UIState.Success, text: 'This is success message' }];
-            return { args, messages };
+            const modelValue = 'John Doe';
+            return { args, messages, modelValue };
         },
         template: `
             <div>
                 <vs-input v-bind="args" label="Input" :style="{ marginBottom: '12px' }"/>
+                
+                <vs-input v-bind="args" v-model="modelValue"  label="Input" :style="{ marginBottom: '12px' }"/>
 
                 <vs-input  v-bind="args" label="Required Input" required :style="{ marginBottom: '12px' }"/>
 

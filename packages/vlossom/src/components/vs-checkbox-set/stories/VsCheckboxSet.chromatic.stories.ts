@@ -1,5 +1,7 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
+import { ref } from 'vue';
 import { UIState } from '@/declaration';
+import { options } from './constants';
 import VsCheckboxSet from '../VsCheckboxSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -11,11 +13,14 @@ const meta: Meta<typeof VsCheckboxSet> = {
         components: { VsCheckboxSet },
         setup() {
             const messages = [{ state: UIState.Success, text: 'This is success message' }];
-            return { args, messages };
+            const modelValue = ref([...options]);
+            return { args, messages, modelValue };
         },
         template: `
             <div>
                 <vs-checkbox-set v-bind="args" label="Checkbox Set" :style="{ marginBottom: '12px' }"/>
+
+                <vs-checkbox-set v-bind="args" v-model="modelValue" label="Checkbox Set" :style="{ marginBottom: '12px' }"/>
 
                 <vs-checkbox-set v-bind="args" label="Required Checkbox Set" required :style="{ marginBottom: '12px' }"/>
 
@@ -35,7 +40,7 @@ const meta: Meta<typeof VsCheckboxSet> = {
         state,
     },
     args: {
-        options: ['Apple', 'Banana', 'Carrot'],
+        options,
     },
 };
 

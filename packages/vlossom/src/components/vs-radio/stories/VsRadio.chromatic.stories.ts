@@ -16,6 +16,8 @@ const meta: Meta<typeof VsRadio> = {
         template: `
             <div>
                 <vs-radio v-bind="args" label="Radio" :style="{ marginBottom: '12px' }"/>
+                
+                <vs-radio v-bind="args" label="Radio" checked :style="{ marginBottom: '12px' }"/>
 
                 <vs-radio v-bind="args" label="Required Radio" required :style="{ marginBottom: '12px' }"/>
 

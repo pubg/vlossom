@@ -1,4 +1,5 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
+import { ref } from 'vue';
 import { UIState } from '@/declaration';
 import VsSwitch from '../VsSwitch.vue';
 
@@ -11,11 +12,14 @@ const meta: Meta<typeof VsSwitch> = {
         components: { VsSwitch },
         setup() {
             const messages = [{ state: UIState.Success, text: 'This is success message' }];
-            return { args, messages };
+            const modelValue = ref(true);
+            return { args, messages, modelValue };
         },
         template: `
             <div>
                 <vs-switch v-bind="args" label="Switch" :style="{ marginBottom: '12px' }"/>
+                
+                <vs-switch v-bind="args" v-model="modelValue" label="Switch" :style="{ marginBottom: '12px' }"/>
 
                 <vs-switch v-bind="args" label="Required Switch" required :style="{ marginBottom: '12px' }"/>
 

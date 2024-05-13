@@ -3,6 +3,7 @@ import { UIState } from '@/declaration';
 import VsRadioSet from '../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
 
 const meta: Meta<typeof VsRadioSet> = {
     title: 'Chromatic/Input Components/VsRadioSet',
@@ -11,11 +12,14 @@ const meta: Meta<typeof VsRadioSet> = {
         components: { VsRadioSet },
         setup() {
             const messages = [{ state: UIState.Success, text: 'This is success message' }];
-            return { args, messages };
+            const modelValue = ref('Apple');
+            return { args, messages, modelValue };
         },
         template: `
             <div>
                 <vs-radio-set v-bind="args" label="Radio Set" :style="{ marginBottom: '12px' }"/>
+                
+                <vs-radio-set v-bind="args" v-model="modelValue" label="Radio Set" :style="{ marginBottom: '12px' }"/>
 
                 <vs-radio-set v-bind="args" label="Required Radio Set" required :style="{ marginBottom: '12px' }"/>
 
