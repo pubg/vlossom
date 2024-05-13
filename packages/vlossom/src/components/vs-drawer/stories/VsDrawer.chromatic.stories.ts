@@ -3,8 +3,7 @@ import { userEvent, within } from '@storybook/test';
 import { reactive } from 'vue';
 import VsDrawer from './../VsDrawer.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
-import { DrawerCloseButton } from './DrawerCloseBotton';
-import { contentStyle, containerStyle } from './constants';
+import { DrawerCloseButton, contentStyle, containerStyle } from './constants';
 import { PLACEMENTS, SIZES } from '@/declaration';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

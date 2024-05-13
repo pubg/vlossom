@@ -4,8 +4,7 @@ import { ref } from 'vue';
 import VsDrawer from './../VsDrawer.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
-import { DrawerCloseButton } from './DrawerCloseBotton';
-import { contentStyle, containerStyle } from './constants';
+import { DrawerCloseButton, contentStyle, containerStyle } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
