@@ -17,7 +17,6 @@ const meta: Meta<typeof VsSection> = {
                 ${LOREM_IPSUM}
             </vs-section>`),
     }),
-    tags: ['autodocs'],
     argTypes: {
         colorScheme,
     },
