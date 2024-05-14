@@ -71,7 +71,7 @@ import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioSetStyleSet } from './types';
-import type { VsRadioStyleSet } from './../vs-radio/types';
+import type { VsRadioStyleSet } from '@/components/vs-radio/types';
 
 export default defineComponent({
     name: VsComponent.VsRadioSet,
@@ -82,10 +82,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioSetStyleSet> },
-        beforeChange: {
-            type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
-            default: null,
-        },
         name: { type: String, required: true },
         vertical: { type: Boolean, default: false },
         // v-model
@@ -97,7 +93,6 @@ export default defineComponent({
         const {
             colorScheme,
             styleSet,
-            beforeChange,
             disabled,
             label,
             modelValue,
@@ -157,16 +152,7 @@ export default defineComponent({
 
         async function onToggle(option: any) {
             // radio change event value is always true
-            const beforeChangeFn = beforeChange.value;
-            const toValue = getOptionValue(option);
-            if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value, toValue, option);
-                if (!result) {
-                    return;
-                }
-            }
-
-            inputValue.value = toValue;
+            inputValue.value = getOptionValue(option);
         }
 
         function onFocus(option: any, e: FocusEvent) {

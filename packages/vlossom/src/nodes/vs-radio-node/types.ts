@@ -6,5 +6,4 @@ export interface VsRadioNodeStyleSet {
     radioColor?: string;
     radioSize?: string;
     selectedLabelFontColor?: string;
-    selectedLabelFontWeight?: string | number;
 }

@@ -116,7 +116,7 @@ export default defineComponent({
             getInitialValue,
             getClearedValue,
             getUpdatedValue,
-        } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+        } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';
@@ -142,8 +142,9 @@ export default defineComponent({
         });
 
         async function onToggle(c: boolean) {
-            const beforeChangeFn = beforeChange.value;
             const toValue = getUpdatedValue(c, inputValue.value);
+
+            const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {

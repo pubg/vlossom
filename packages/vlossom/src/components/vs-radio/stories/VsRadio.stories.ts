@@ -7,7 +7,6 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { UIState } from '@/declaration';
-import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadio from './../VsRadio.vue';
 
@@ -116,15 +115,6 @@ export const Required: Story = {
     args: {
         label: 'Label',
         required: true,
-    },
-};
-
-export const BeforeChange: Story = {
-    args: {
-        beforeChange: async () => {
-            const $vs = useVlossom();
-            return await $vs.confirm.open('Are you sure?');
-        },
     },
 };
 

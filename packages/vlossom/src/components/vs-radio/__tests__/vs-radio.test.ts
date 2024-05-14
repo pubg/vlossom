@@ -338,24 +338,4 @@ describe('vs-radio (multiple inputs)', () => {
         expect(radio2.vm.computedMessages).toHaveLength(1);
         expect(radio2.html()).toContain('required');
     });
-
-    it('beforeChange 함수에 from, to 인자가 전달된다 ', async () => {
-        // given
-        const beforeChange = vi.fn().mockResolvedValue(true);
-        const radio3: ReturnType<typeof mountComponent> = mount(VsRadio, {
-            props: {
-                name: 'radio',
-                radioValue: 'C',
-                modelValue: 'A',
-                'onUpdate:modelValue': (e) => radio3.setProps({ modelValue: e }),
-                beforeChange,
-            },
-        });
-
-        // when
-        await radio3.find('input').trigger('change');
-
-        // then
-        expect(beforeChange).toHaveBeenCalledWith('A', 'C');
-    });
 });

@@ -33,6 +33,10 @@ export class Vlossom {
         return '';
     }
 
+    get store() {
+        return store;
+    }
+
     get theme() {
         return store.option.getState().theme;
     }

@@ -24,7 +24,7 @@ import { PropType, defineComponent, ref, toRefs, watch, computed } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
-import VsDivider from '../vs-divider/VsDivider.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { VsNoticeStyleSet } from './types';
 

@@ -22,7 +22,6 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
             opacity: 0;
 
             &:checked + .radio-label {
-                font-weight: var(--vs-radio-selectedLabelFontWeight, 500);
                 color: $radio-selected-label-color;
 
                 &:before {

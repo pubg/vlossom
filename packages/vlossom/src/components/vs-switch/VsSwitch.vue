@@ -137,7 +137,7 @@ export default defineComponent({
             getInitialValue,
             getClearedValue,
             getUpdatedValue,
-        } = useValueMatcher(multiple, modelValue, inputValue, trueValue, falseValue);
+        } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
             return required.value && !isChecked.value ? 'required' : '';
@@ -163,8 +163,9 @@ export default defineComponent({
                 return;
             }
 
-            const beforeChangeFn = beforeChange.value;
             const toValue = getUpdatedValue(!isChecked.value, inputValue.value);
+
+            const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {

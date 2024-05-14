@@ -3,6 +3,7 @@
         <div class="checkbox-wrap">
             <vs-icon class="check-icon" :icon="icon" />
             <input
+                ref="checkboxRef"
                 type="checkbox"
                 :class="['checkbox-input', boxGlowByState]"
                 :aria-label="ariaLabel"
@@ -12,9 +13,9 @@
                 :value="convertToString(value)"
                 :checked="checked"
                 :aria-required="required"
-                @change="toggle"
-                @focus="onFocus"
-                @blur="onBlur"
+                @click.prevent.stop="onClick"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
             />
         </div>
         <label v-if="label || $slots['label']" :for="id" :class="['checkbox-label', textGlowByState]">
@@ -24,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
 import { ColorScheme, UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
 import { utils } from '@/utils';
@@ -54,6 +55,8 @@ export default defineComponent({
 
         const { boxGlowByState, textGlowByState } = useStateClass(state);
 
+        const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
+
         const classObj = computed(() => ({
             checked: checked.value,
             disabled: disabled.value,
@@ -72,9 +75,9 @@ export default defineComponent({
             return 'checkboxUnchecked';
         });
 
-        function toggle(event: Event) {
+        function onClick(event: Event) {
             emit('change', event);
-            emit('toggle', (event.target as HTMLInputElement).checked);
+            emit('toggle', !checked.value);
         }
 
         function onFocus(event: FocusEvent) {
@@ -85,10 +88,23 @@ export default defineComponent({
             emit('blur', event);
         }
 
+        watch(
+            checked,
+            (value) => {
+                nextTick(() => {
+                    if (checkboxRef.value) {
+                        checkboxRef.value.checked = value;
+                    }
+                });
+            },
+            { immediate: true },
+        );
+
         return {
+            checkboxRef,
             classObj,
             icon,
-            toggle,
+            onClick,
             onFocus,
             onBlur,
             convertToString: utils.string.convertToString,

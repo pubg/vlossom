@@ -52,7 +52,6 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $check
 
     &.checked {
         .checkbox-label {
-            font-weight: var(--vs-checkbox-selectedLabelFontWeight, 500);
             color: $checkbox-selected-label-color;
         }
     }

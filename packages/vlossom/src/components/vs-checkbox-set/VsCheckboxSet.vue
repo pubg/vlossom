@@ -71,7 +71,7 @@ import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
 
 import type { VsCheckboxSetStyleSet } from './types';
-import { VsCheckboxStyleSet } from '../vs-checkbox/types';
+import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
 
@@ -90,7 +90,10 @@ export default defineComponent({
         },
         vertical: { type: Boolean, default: false },
         // v-model
-        modelValue: { type: Array as PropType<any[]>, default: () => [] },
+        modelValue: {
+            type: Array as PropType<any[]>,
+            default: () => [],
+        },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
@@ -149,6 +152,11 @@ export default defineComponent({
             messages,
             rules: allRules,
             callbacks: {
+                onMounted: () => {
+                    if (!inputValue.value) {
+                        inputValue.value = [];
+                    }
+                },
                 onClear: () => {
                     inputValue.value = [];
                 },
@@ -160,11 +168,12 @@ export default defineComponent({
         }
 
         async function onToggle(option: any, checked: boolean) {
-            const beforeChangeFn = beforeChange.value;
             const targetOptionValue = getOptionValue(option);
             const toValue = checked
                 ? [...inputValue.value, targetOptionValue]
                 : inputValue.value.filter((v: any) => !utils.object.isEqual(v, targetOptionValue));
+
+            const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value, toValue, option);
                 if (!result) {
