@@ -9,7 +9,7 @@
     box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
-    height: var(--vs-input-height, 2.5rem);
+    height: var(--vs-input-height, 2.6rem);
 
     input {
         width: 100%;
@@ -38,12 +38,12 @@
 
     .prepend {
         background-color: var(--vs-input-prependBackgroundColor, var(--vs-primary-comp-bg));
-        color: var(--vs-input-prependColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-prependColor, var(--vs-primary-comp-font));
     }
 
     .append {
         background-color: var(--vs-input-appendBackgroundColor, var(--vs-primary-comp-bg));
-        color: var(--vs-input-appendColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-appendColor, var(--vs-primary-comp-font));
     }
 
     .clear-button {

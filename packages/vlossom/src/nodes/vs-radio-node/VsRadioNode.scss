@@ -1,8 +1,9 @@
 @use '@/styles/mixin' as *;
 
-$radio-color: var(--vs-radio-radioColor, var(--vs-comp-bg));
+$radio-color: var(--vs-radio-radioColor, var(--vs-primary-comp-bg));
 $radio-size: var(--vs-radio-radioSize, 1.25rem);
-$radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, $radio-color);
+$radio-hover-label-color: var(--vs-checkbox-hoverLabelFontColor, var(--vs-comp-bg-hover));
+$radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, var(--vs-comp-bg-active));
 $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
 
 .vs-radio-node {
@@ -29,6 +30,11 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
                 }
             }
 
+            &:hover + .radio-label {
+                font-weight: var(--vs-checkbox-hoverLabelFontWeight, 500);
+                color: $radio-hover-label-color;
+            }
+
             &:focus-visible + .radio-label {
                 &:before {
                     box-shadow: $radio-selected-inset-box-shadow, var(--vs-radio-focusBoxShadow, 0 0 1rem $radio-color);
@@ -44,9 +50,6 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
             font-size: var(--vs-radio-labelFontSize, 1rem);
             padding: 0.2rem 0;
 
-            &:hover {
-                color: $radio-selected-label-color;
-            }
             &:before {
                 content: '';
                 background-color: var(--vs-area-bg);
