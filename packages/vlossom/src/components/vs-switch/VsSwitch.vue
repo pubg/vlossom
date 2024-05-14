@@ -163,8 +163,9 @@ export default defineComponent({
                 return;
             }
 
-            const beforeChangeFn = beforeChange.value;
             const toValue = getUpdatedValue(!isChecked.value, inputValue.value);
+
+            const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {
