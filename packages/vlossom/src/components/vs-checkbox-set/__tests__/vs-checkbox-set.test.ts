@@ -111,7 +111,7 @@ describe('vs-checkbox-set', () => {
                 });
 
                 // when
-                await wrapper.find('input[value="B"]').setValue(true);
+                await wrapper.find('input[value="B"]').trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -177,7 +177,7 @@ describe('vs-checkbox-set', () => {
                 });
 
                 // when
-                await wrapper.find('input[value="b"]').setValue(true);
+                await wrapper.find('input[value="b"]').trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -241,7 +241,7 @@ describe('vs-checkbox-set', () => {
 
             // when
             await nextTick();
-            await wrapper.find('input[value="A"]').setValue(false);
+            await wrapper.find('input[value="A"]').trigger('click');
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
@@ -278,7 +278,7 @@ describe('vs-checkbox-set', () => {
 
             // when
             await nextTick();
-            await wrapper.find('input[value="A"]').setValue(false);
+            await wrapper.find('input[value="A"]').trigger('click');
 
             // then
             expect(wrapper.vm.validate()).toBe(false);
@@ -303,7 +303,7 @@ describe('vs-checkbox-set', () => {
             });
 
             // when
-            await wrapper.find('input[value="B"]').setValue(true);
+            await wrapper.find('input[value="B"]').trigger('click');
 
             // then
             expect(beforeChange).toHaveBeenCalledWith(['A'], ['A', 'B'], 'B');
@@ -321,7 +321,7 @@ describe('vs-checkbox-set', () => {
             });
 
             // when
-            await wrapper.find('input[value="B"]').setValue(true);
+            await wrapper.find('input[value="B"]').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -341,7 +341,7 @@ describe('vs-checkbox-set', () => {
             });
 
             // when
-            await wrapper.find('input[value="B"]').setValue(true);
+            await wrapper.find('input[value="B"]').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');

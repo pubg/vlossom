@@ -107,7 +107,7 @@ describe('VsTable', () => {
 
             // when
             const selectAllCheckBox = wrapper.find('.select-all').find('input');
-            await selectAllCheckBox.setValue(true);
+            await selectAllCheckBox.trigger('click');
             await nextTick();
 
             // then
@@ -151,7 +151,7 @@ describe('VsTable', () => {
 
             // when
             const firstItemCheckbox = wrapper.findComponent({ name: 'VsTableBodyRow' }).find('input[type="checkbox"]');
-            await firstItemCheckbox.setValue(true);
+            await firstItemCheckbox.trigger('click');
             await nextTick();
 
             // then

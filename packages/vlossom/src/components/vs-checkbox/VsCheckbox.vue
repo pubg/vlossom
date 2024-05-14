@@ -142,12 +142,9 @@ export default defineComponent({
         });
 
         async function onToggle(c: boolean) {
-            console.log('🚀 ~ onToggle ~ c:', c);
-            const beforeChangeFn = beforeChange.value;
-
             const toValue = getUpdatedValue(c, inputValue.value);
-            console.log('🚀 ~ onToggle ~ toValue:', toValue);
 
+            const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {
                 const result = await beforeChangeFn(inputValue.value, toValue);
                 if (!result) {

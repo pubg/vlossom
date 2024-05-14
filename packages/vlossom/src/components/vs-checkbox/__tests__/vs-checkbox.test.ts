@@ -20,6 +20,7 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
 
         it('modelValue를 업데이트 할 수 있다', async () => {
@@ -32,12 +33,13 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual(true);
+            expect(wrapper.find('input').element.checked).toBe(true);
         });
 
         it('modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
@@ -54,6 +56,7 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
 
         it('modelValue가 null이면 false로 가공해준다', async () => {
@@ -88,6 +91,7 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
 
         it('checkbox를 true로 업데이트하면 modelValue를 true-value 값으로 업데이트 한다', async () => {
@@ -102,7 +106,7 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -122,12 +126,13 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(false);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual('B');
+            expect(wrapper.find('input').element.checked).toBe(false);
         });
 
         it('object 타입 true-value, false-value를 설정할 수 있다', () => {
@@ -143,6 +148,7 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
     });
 
@@ -161,6 +167,7 @@ describe('vs-checkbox', () => {
 
                 // then
                 expect(wrapper.find('input').element.checked).toBe(true);
+                expect(wrapper.vm.isChecked).toBe(true);
             });
 
             it('인풋 값을 true로 업데이트하면 true-value가 modelValue배열에 포함된다', async () => {
@@ -175,12 +182,13 @@ describe('vs-checkbox', () => {
                 });
 
                 // when
-                await wrapper.find('input').setValue(true);
+                await wrapper.find('input').trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
                 expect(updateModelValueEvent).toHaveLength(1);
                 expect(updateModelValueEvent?.[0][0]).toEqual(['A']);
+                expect(wrapper.find('input').element.checked).toBe(true);
             });
         });
 
@@ -212,12 +220,13 @@ describe('vs-checkbox', () => {
                 });
 
                 // when
-                await wrapper.find('input').setValue(true);
+                await wrapper.find('input').trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
                 expect(updateModelValueEvent).toHaveLength(1);
                 expect(updateModelValueEvent?.[0][0]).toEqual('A');
+                expect(wrapper.find('input').element.checked).toBe(true);
             });
         });
 
@@ -237,9 +246,10 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
 
-        it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
+        it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                 props: {
@@ -250,8 +260,11 @@ describe('vs-checkbox', () => {
                 },
             });
 
+            await nextTick();
+
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
 
         it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
@@ -266,7 +279,7 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -290,6 +303,7 @@ describe('vs-checkbox', () => {
 
             // then
             expect(wrapper.find('input').element.checked).toBe(true);
+            expect(wrapper.vm.isChecked).toBe(true);
         });
     });
 
@@ -311,7 +325,7 @@ describe('vs-checkbox', () => {
                 await nextTick();
 
                 // then
-                expect(wrapper.find('input').element.checked).toBe(false);
+                expect(wrapper.vm.isChecked).toBe(false);
                 expect(wrapper.props('modelValue')).toEqual(['B']);
             });
         });
@@ -332,6 +346,7 @@ describe('vs-checkbox', () => {
 
                 // then
                 expect(wrapper.find('input').element.checked).toBe(false);
+                expect(wrapper.vm.isChecked).toBe(false);
                 expect(wrapper.props('modelValue')).toBe(false);
             });
         });
@@ -350,7 +365,7 @@ describe('vs-checkbox', () => {
 
             // when
             await nextTick();
-            await wrapper.find('input').setValue(false);
+            await wrapper.find('input').trigger('click');
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
@@ -405,7 +420,7 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue('A');
+            await wrapper.find('input').trigger('click');
 
             // then
             expect(beforeChange).toHaveBeenCalledWith('B', 'A');
@@ -422,7 +437,7 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -441,7 +456,7 @@ describe('vs-checkbox', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('input').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');

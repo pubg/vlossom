@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsCheckboxNode from './../VsCheckboxNode.vue';
+import { nextTick } from 'vue';
 
 function mountComponent() {
     return mount(VsCheckboxNode);
@@ -18,6 +19,7 @@ describe('vs-checkbox-node', () => {
             });
 
             // then
+            expect(wrapper.find('input').element.checked).toBe(false);
             expect(wrapper.vm.icon).toBe('checkboxUnchecked');
         });
 
@@ -31,6 +33,7 @@ describe('vs-checkbox-node', () => {
             });
 
             // then
+            expect(wrapper.find('input').element.checked).toBe(true);
             expect(wrapper.vm.icon).toBe('checkboxChecked');
         });
 
@@ -45,6 +48,7 @@ describe('vs-checkbox-node', () => {
             });
 
             // then
+            expect(wrapper.find('input').element.checked).toBe(false);
             expect(wrapper.vm.icon).toBe('checkboxIndeterminate');
         });
 
@@ -59,6 +63,7 @@ describe('vs-checkbox-node', () => {
             });
 
             // then
+            expect(wrapper.find('input').element.checked).toBe(true);
             expect(wrapper.vm.icon).toBe('checkboxChecked');
         });
     });
@@ -123,12 +128,12 @@ describe('vs-checkbox-node', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('change');
+            await wrapper.find('input').trigger('click');
 
             // then
             expect(wrapper.emitted('change')).toHaveLength(1);
             expect(wrapper.emitted('toggle')).toHaveLength(1);
-            expect(wrapper.emitted('toggle')).toEqual([[true]]);
+            expect(wrapper.emitted('toggle')).toEqual([[false]]);
         });
 
         it('focus 이벤트를 발생시킬 수 있다', async () => {
