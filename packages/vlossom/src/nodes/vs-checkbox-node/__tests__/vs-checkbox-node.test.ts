@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsCheckboxNode from './../VsCheckboxNode.vue';
-import { nextTick } from 'vue';
 
 function mountComponent() {
     return mount(VsCheckboxNode);
