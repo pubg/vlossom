@@ -18,9 +18,9 @@
             <div
                 :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
-                @dragenter="setDragging(true)"
-                @dragleave="setDragging(false)"
-                @drop="setDragging(false)"
+                @dragenter.stop="setDragging(true)"
+                @dragleave.stop="setDragging(false)"
+                @drop.stop="setDragging(false)"
             >
                 <div class="file-input-container">
                     <div class="attach-file-icon">
@@ -44,9 +44,9 @@
                     :required="required"
                     :multiple="multiple"
                     :accept="accept"
-                    @change="updateValue($event)"
-                    @focus="onFocus"
-                    @blur="onBlur"
+                    @change.stop="updateValue($event)"
+                    @focus.stop="onFocus"
+                    @blur.stop="onBlur"
                 />
 
                 <button

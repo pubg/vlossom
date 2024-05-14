@@ -15,19 +15,14 @@
                 <vs-button
                     :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
                     class="ok-button"
-                    aria-label="ok"
-                    dense
                     primary
                     @click="ok"
                 >
-                    {{ confirmInfo.okText || 'Ok' }}
+                    {{ confirmInfo.okText || 'OK' }}
                 </vs-button>
                 <vs-button
                     :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
                     class="cancel-button"
-                    aria-label="cancel"
-                    dense
-                    outline
                     @click="cancel"
                 >
                     {{ confirmInfo.cancelText || 'Cancel' }}

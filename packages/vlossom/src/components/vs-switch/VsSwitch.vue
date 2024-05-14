@@ -32,10 +32,10 @@
                 tabindex="0"
                 :disabled="disabled"
                 @click.stop="toggle()"
-                @keydown.space.prevent="toggle()"
-                @keydown.enter.prevent="toggle()"
-                @focus="onFocus"
-                @blur="onBlur"
+                @keydown.space.prevent.stop="toggle()"
+                @keydown.enter.prevent.stop="toggle()"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
             >
                 <span class="status-label" data-value="true" v-show="isChecked">
                     {{ trueLabel }}

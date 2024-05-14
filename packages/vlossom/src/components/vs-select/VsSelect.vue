@@ -19,7 +19,7 @@
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
-                @click="toggleOptions()"
+                @click.stop="toggleOptions()"
             >
                 <div v-if="multiple && selectedOptions.length" class="multiple-chips">
                     <div v-if="collapseChips" class="chips">
@@ -72,10 +72,11 @@
                     :readonly="readonly || !autocomplete"
                     :aria-required="required"
                     :value="inputLabel"
-                    @input="updateAutocompleteText"
-                    @focus="onFocus"
-                    @blur="onBlur"
-                    @keydown="onKeyDown"
+                    @input.stop="updateAutocompleteText"
+                    @focus.stop="onFocus"
+                    @blur.stop="onBlur"
+                    @keydown.stop="onKeyDown"
+                    @change.stop
                 />
 
                 <button
@@ -115,7 +116,7 @@
                             :aria-activedescendant="focusedOptionId"
                             class="options"
                             tabindex="-1"
-                            @keydown="onKeyDown"
+                            @keydown.stop="onKeyDown"
                         >
                             <li
                                 v-if="selectAll && multiple && loadedOptions.length"
@@ -134,7 +135,7 @@
                                         chased: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
                                     },
                                 ]"
-                                @mousemove="onMouseMove('all')"
+                                @mousemove.stop="onMouseMove('all')"
                                 @click.stop="selectAllOptions()"
                             >
                                 <slot name="select-all" :selected="isAllSelected">
@@ -158,7 +159,7 @@
                                         chased: isChasedOption(index),
                                     },
                                 ]"
-                                @mousemove="onMouseMove(option)"
+                                @mousemove.stop="onMouseMove(option)"
                                 @click.stop="selectOption(option.value)"
                             >
                                 <slot

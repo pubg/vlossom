@@ -24,7 +24,7 @@
                     type="button"
                     class="prepend"
                     aria-label="prepend-action"
-                    @click="$emit('prepend')"
+                    @click.stop="$emit('prepend')"
                 >
                     <slot name="prepend-button" />
                 </button>
@@ -43,10 +43,10 @@
                     :readonly="readonly"
                     :aria-required="required"
                     :placeholder="placeholder"
-                    @input="updateValue($event)"
-                    @focus="onFocus"
-                    @blur="onBlur"
-                    @keyup.enter="onEnter"
+                    @input.stop="updateValue($event)"
+                    @focus.stop="onFocus"
+                    @blur.stop="onBlur"
+                    @keyup.enter.stop="onEnter"
                     @change.stop
                 />
 
@@ -67,7 +67,7 @@
                     <slot name="append-content" />
                 </div>
 
-                <button v-if="hasAppendButton" class="append" aria-label="append-action" @click="$emit('append')">
+                <button v-if="hasAppendButton" class="append" aria-label="append-action" @click.stop="$emit('append')">
                     <slot name="append-button" />
                 </button>
             </div>

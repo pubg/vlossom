@@ -7,7 +7,7 @@
                 class="scroll-button scroll-left-button"
                 aria-label="scroll to the left"
                 :disabled="currentFocusedTab <= 0"
-                @click="scrollLeft"
+                @click.stop="scrollLeft"
             >
                 <vs-icon icon="goPrev" size="1.2rem" />
             </button>
@@ -35,7 +35,7 @@
                 class="scroll-button scroll-right-button"
                 aria-label="scroll to the right"
                 :disabled="currentFocusedTab >= tabs.length - 1"
-                @click="scrollRight"
+                @click.stop="scrollRight"
             >
                 <vs-icon icon="goNext" size="1.2rem" />
             </button>
