@@ -165,7 +165,7 @@ export const Indeterminate: Story = {
         },
         template: `
             <div >
-                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"/>
+                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"  v-bind="args" />
 				<div style="margin-top: 10px; margin-left: 30px;">
 					<vs-checkbox v-model="children[0]" check-label="Child 1" @update:modelValue="updateChild1" />
 					<vs-checkbox v-model="children[1]" check-label="Child 2" @update:modelValue="updateChild2" style="margin-top: 10px;" />
