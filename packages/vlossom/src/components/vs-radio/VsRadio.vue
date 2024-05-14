@@ -64,10 +64,6 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
         ariaLabel: { type: String, default: '' },
-        beforeChange: {
-            type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
-            default: null,
-        },
         checked: { type: Boolean, default: false },
         name: { type: String, required: true },
         radioLabel: { type: String, default: '' },
@@ -78,19 +74,8 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate'],
     setup(props, context) {
-        const {
-            beforeChange,
-            checked,
-            colorScheme,
-            label,
-            messages,
-            modelValue,
-            name,
-            radioValue,
-            required,
-            rules,
-            styleSet,
-        } = toRefs(props);
+        const { checked, colorScheme, label, messages, modelValue, name, radioValue, required, rules, styleSet } =
+            toRefs(props);
 
         const { emit } = context;
 
@@ -132,16 +117,7 @@ export default defineComponent({
 
         async function onToggle() {
             // radio change event value is always true
-            const beforeChangeFn = beforeChange.value;
-            const toValue = radioValue.value;
-            if (beforeChangeFn) {
-                const result = await beforeChangeFn(inputValue.value, toValue);
-                if (!result) {
-                    return;
-                }
-            }
-
-            inputValue.value = toValue;
+            inputValue.value = radioValue.value;
         }
 
         function onFocus(e: FocusEvent) {

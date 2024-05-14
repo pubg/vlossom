@@ -6,5 +6,4 @@ export interface VsCheckboxNodeStyleSet {
     labelFontColor?: string;
     labelFontSize?: string;
     selectedLabelFontColor?: string;
-    selectedLabelFontWeight?: string | number;
 }
