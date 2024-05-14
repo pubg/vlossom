@@ -1,5 +1,6 @@
 @use '@/styles/mixin' as *;
 
+$borderWidth: var(--vs-switch-borderWidth, 1px);
 $width: var(--vs-switch-width, fit-content);
 $height: var(--vs-switch-height, 2rem);
 $switchGap: 0.3rem;
@@ -9,10 +10,8 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     appearance: none;
     align-items: center;
     background-color: var(--vs-switch-falseBackgroundColor, var(--vs-no-color));
-    border-color: var(--vs-switch-falseBorderColor, var(--vs-comp-bg));
+    border: $borderWidth solid var(--vs-switch-falseBorderColor, var(--vs-line-color));
     border-radius: var(--vs-switch-borderRadius, 1rem);
-    border-style: solid;
-    border-width: var(--vs-switch-falseBorderWidth, 1px);
     color: var(--vs-switch-falseFontColor, var(--vs-comp-font));
     cursor: pointer;
     display: flex;
@@ -57,9 +56,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
     &.checked {
         background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-bg));
-        border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-bg));
-        border-style: solid;
-        border-width: var(--vs-switch-trueBorderWidth, 0);
+        border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-line-color));
         color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-bg));
 
         &::before {

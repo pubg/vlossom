@@ -9,7 +9,7 @@ $borderColor: var(--vs-file-input-borderColor, var(--vs-line-color));
     background-color: var(--vs-file-input-backgroundColor, var(--vs-no-color));
     border: $borderWidth $borderStyle $borderColor;
     border-radius: var(--vs-file-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
-    height: var(--vs-file-input-height, 2.5rem);
+    height: var(--vs-file-input-height, 2.6rem);
     outline: none;
     font-size: var(--vs-file-input-fontSize, 1rem);
     color: var(--vs-file-input-fontColor, var(--vs-comp-font));
