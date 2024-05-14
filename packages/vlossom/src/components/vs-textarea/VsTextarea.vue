@@ -26,10 +26,10 @@
                 :readonly="readonly"
                 :aria-required="required"
                 :placeholder="placeholder"
-                @input="updateValue($event)"
-                @focus="onFocus"
-                @blur="onBlur"
-                @keyup.enter="onEnter"
+                @input.stop="updateValue($event)"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+                @keyup.enter.stop="onEnter"
                 @change.stop
             />
 

@@ -11,7 +11,7 @@
                 :key="`th-${index}`"
                 :class="['table-th', { sortable: header.sortable }]"
                 :style="{ width: header.width }"
-                @click="updateSortTypes(header)"
+                @click.stop="updateSortTypes(header)"
             >
                 <slot :name="`header-${header.key}`" :header="header">
                     {{ header.label }}

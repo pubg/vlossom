@@ -9,7 +9,7 @@
                 v-if="!toastInfo.autoClose"
                 type="button"
                 class="close-button"
-                @click="closeToast"
+                @click.stop="closeToast"
                 aria-label="close"
             >
                 <vs-icon icon="close" size="20px" />

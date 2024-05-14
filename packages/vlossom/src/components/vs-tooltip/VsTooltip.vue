@@ -3,12 +3,12 @@
         <div
             ref="triggerRef"
             class="tooltip-trigger"
-            @mouseenter="onTriggerEnter"
-            @mouseleave="onTriggerLeave"
-            @click="onTriggerClick"
-            @focusin="onTriggerEnter"
-            @focusout="onTriggerLeave"
-            @keydown.esc="onTriggerLeave"
+            @mouseenter.stop="onTriggerEnter"
+            @mouseleave.stop="onTriggerLeave"
+            @click.stop="onTriggerClick"
+            @focusin.stop="onTriggerEnter"
+            @focusout.stop="onTriggerLeave"
+            @keydown.esc.stop="onTriggerLeave"
             tabindex="0"
         >
             <slot />
@@ -18,8 +18,8 @@
             <div
                 ref="tooltipRef"
                 :class="['tooltip', `vs-${computedColorScheme}`, `placement-${computedPlacement}`, `align-${align}`]"
-                @mouseenter="onTooltipEnter"
-                @mouseleave="onTooltipLeave"
+                @mouseenter.stop="onTooltipEnter"
+                @mouseleave.stop="onTooltipLeave"
             >
                 <div v-if="isVisible" class="tooltip-contents" :style="computedStyleSet" :class="animationClass">
                     <slot name="tooltip" />

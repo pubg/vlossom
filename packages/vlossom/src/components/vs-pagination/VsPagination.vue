@@ -22,7 +22,7 @@
                 :key="page"
                 :class="{ 'page-button': true, selected: page === selected }"
                 :aria-label="`go to page ${page}`"
-                @click="setPage(page)"
+                @click.stop="setPage(page)"
             >
                 <slot name="page" :page="page">
                     {{ page }}

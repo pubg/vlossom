@@ -1,6 +1,6 @@
 <template>
     <div class="vs-image" ref="vsImageRef" :style="computedStyleSet">
-        <img class="image" :src="computedSrc" :alt="alt" @error="onImageError" />
+        <img class="image" :src="computedSrc" :alt="alt" @error.stop="onImageError" />
         <span class="alt-text" v-if="isNoImage">{{ alt }}</span>
     </div>
 </template>
