@@ -25,12 +25,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
 import { ColorScheme, UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
-import { nextTick } from 'process';
 
 export default defineComponent({
     name: 'VsCheckboxNode',

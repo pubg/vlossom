@@ -112,6 +112,7 @@ describe('vs-checkbox-set', () => {
 
                 // when
                 await wrapper.find('input[value="B"]').trigger('click');
+                await nextTick();
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -131,6 +132,7 @@ describe('vs-checkbox-set', () => {
 
                 // when
                 await wrapper.setProps({ modelValue: ['B'] });
+                await nextTick();
 
                 // then
                 const checked = wrapper.findAll('input').filter((e) => e.element.checked);
@@ -178,6 +180,7 @@ describe('vs-checkbox-set', () => {
 
                 // when
                 await wrapper.find('input[value="b"]').trigger('click');
+                await nextTick();
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -197,6 +200,7 @@ describe('vs-checkbox-set', () => {
 
                 // when
                 await wrapper.setProps({ modelValue: ['b'] });
+                await nextTick();
 
                 // then
                 const checked = wrapper.findAll('input').filter((e) => e.element.checked);
