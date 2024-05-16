@@ -411,6 +411,41 @@ describe('vs-switch', () => {
         });
     });
 
+    describe('checked', () => {
+        it('checked를 설정하면 check 된 상태로 mount 된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                props: {
+                    checked: true,
+                },
+            });
+
+            // when
+            await nextTick();
+
+            // then
+            expect(wrapper.find('input').element.checked).toBe(true);
+        });
+
+        it('multiple일 때 checked를 설정하면 array에 값이 들어가 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                props: {
+                    multiple: true,
+                    checked: true,
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                },
+            });
+
+            // when
+            await nextTick();
+
+            // then
+            expect(wrapper.vm.inputValue).toEqual([true]);
+        });
+    });
+
     describe('disabled', () => {
         it('disabled 일 때는 modelValue가 업데이트되지 않는다', async () => {
             // given
