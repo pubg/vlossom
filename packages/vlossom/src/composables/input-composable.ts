@@ -203,7 +203,7 @@ export function useInput<T = unknown>(
         });
     }
 
-    const { id } = useInputForm(label, changed, valid, validate, clear);
+    const { id } = useInputForm(label, valid, changed, validate, clear);
 
     watch(changed, () => {
         emit('update:changed', changed.value);
