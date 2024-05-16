@@ -211,10 +211,6 @@ export function useInput<T = unknown>(
         emit('update:changed', changed.value);
     });
 
-    watch(changed, () => {
-        emit('update:changed', changed.value);
-    });
-
     return {
         changed,
         valid,
