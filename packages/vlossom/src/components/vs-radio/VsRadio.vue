@@ -83,7 +83,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
 
-        const inputValue = ref(modelValue.value);
+        const inputValue = ref(checked.value ? radioValue.value : modelValue.value);
 
         const isChecked = computed(() => {
             return utils.object.isEqual(inputValue.value, radioValue.value);
@@ -94,7 +94,8 @@ export default defineComponent({
                 return '';
             }
 
-            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            const radioElements = document.querySelectorAll(`input[name="${name.value}"]`);
+            const checkedRadioElement = Array.from(radioElements).find((el) => (el as HTMLInputElement).checked);
             return !checkedRadioElement ? 'required' : '';
         }
 

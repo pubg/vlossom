@@ -71,21 +71,6 @@ describe('useInput composable', () => {
     });
 
     describe('value binding (inputValue, modelValue)', () => {
-        it('modelValue 초깃값이 있으면 inputValue가 업데이트 된다', async () => {
-            // when
-            const wrapper = mount(InputComponent, {
-                props: {
-                    modelValue: 'test',
-                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                },
-            });
-
-            // then
-            expect(inputValue.value).toBe('test');
-            expect(wrapper.vm.changed).toBe(false);
-            expect(wrapper.vm.modelValue).toBe('test');
-        });
-
         it('inputValue 값을 업데이트 해서 modelValue를 업데이트 할 수 있다', async () => {
             // given
             const wrapper = mount(InputComponent, {

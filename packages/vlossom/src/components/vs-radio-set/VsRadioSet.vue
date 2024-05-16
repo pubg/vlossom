@@ -130,7 +130,8 @@ export default defineComponent({
                 return '';
             }
 
-            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            const radioElements = document.querySelectorAll(`input[name="${name.value}"]`);
+            const checkedRadioElement = Array.from(radioElements).find((el) => (el as HTMLInputElement).checked);
             return !checkedRadioElement ? 'required' : '';
         }
 

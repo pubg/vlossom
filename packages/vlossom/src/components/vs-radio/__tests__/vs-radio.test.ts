@@ -146,8 +146,7 @@ describe('vs-radio', () => {
             expect(wrapper.html()).toContain('error');
         });
 
-        // document.querySelector(`input[name="${name.value}"]:checked`) 에러 발생으로 인해 테스트 제외
-        describe.skip('required check', () => {
+        describe('required check', () => {
             let wrapper: ReturnType<typeof mountComponent>;
 
             afterEach(() => {

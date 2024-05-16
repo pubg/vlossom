@@ -93,6 +93,7 @@ export default defineComponent({
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
+        checked: { type: Boolean, default: false },
         multiple: { type: Boolean, default: false },
         trueLabel: { type: String, default: 'ON' },
         falseLabel: { type: String, default: 'OFF' },
@@ -115,6 +116,7 @@ export default defineComponent({
             required,
             rules,
             beforeChange,
+            checked,
             trueValue,
             falseValue,
             multiple,
@@ -150,7 +152,11 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = getInitialValue();
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true, inputValue.value);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
                 },
                 onClear: () => {
                     inputValue.value = getClearedValue();
@@ -185,6 +191,7 @@ export default defineComponent({
         }
 
         return {
+            inputValue,
             computedColorScheme,
             computedStyleSet,
             isChecked,

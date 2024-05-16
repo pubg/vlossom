@@ -171,10 +171,10 @@ export function useInput<T = unknown>(
     });
 
     onMounted(() => {
-        inputValue.value = modelValue.value;
         if (options?.callbacks?.onMounted) {
-            options.callbacks?.onMounted();
+            options.callbacks.onMounted();
         }
+
         checkMessages();
         checkRules();
 
@@ -198,6 +198,8 @@ export function useInput<T = unknown>(
         }
 
         nextTick(() => {
+            checkMessages();
+            checkRules();
             showRuleMessages.value = false;
             changed.value = false;
         });
