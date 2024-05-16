@@ -54,7 +54,7 @@
                 tabindex="-1"
                 :disabled="disabled || readonly"
                 :checked="isChecked"
-                @change="toggle()"
+                @change.stop="toggle()"
             />
 
             <template #messages v-if="!noMessage">
