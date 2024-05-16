@@ -130,7 +130,7 @@ export default defineComponent({
         'prepend',
         'append',
     ],
-    expose: ['focus', 'blur', 'select', 'clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur', 'select'],
     setup(props, context) {
         const {
             colorScheme,

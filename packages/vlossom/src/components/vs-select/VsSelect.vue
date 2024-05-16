@@ -274,7 +274,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['focus', 'blur', 'clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,

@@ -16,6 +16,7 @@
             </template>
 
             <vs-radio-node
+                ref="radioRef"
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
@@ -45,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
@@ -72,10 +73,12 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const { checked, colorScheme, label, messages, modelValue, name, radioValue, required, rules, styleSet } =
             toRefs(props);
+
+        const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -129,8 +132,17 @@ export default defineComponent({
             emit('blur', e);
         }
 
+        function focus() {
+            radioRef.value?.focus();
+        }
+
+        function blur() {
+            radioRef.value?.blur();
+        }
+
         return {
             id,
+            radioRef,
             isChecked,
             computedColorScheme,
             computedStyleSet,
@@ -142,6 +154,8 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            focus,
+            blur,
         };
     },
 });

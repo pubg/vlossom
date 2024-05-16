@@ -16,6 +16,7 @@
             </template>
 
             <div
+                ref="inputRef"
                 role="switch"
                 :class="[
                     'vs-switch',
@@ -65,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, PropType, computed, ref } from 'vue';
+import { defineComponent, toRefs, PropType, computed, ref, Ref } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -103,8 +104,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'update:valid', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
-
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,
@@ -123,6 +123,8 @@ export default defineComponent({
             modelValue,
             state,
         } = toRefs(props);
+
+        const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -190,7 +192,16 @@ export default defineComponent({
             emit('blur', e);
         }
 
+        function focus() {
+            inputRef.value?.focus();
+        }
+
+        function blur() {
+            inputRef.value?.blur();
+        }
+
         return {
+            inputRef,
             inputValue,
             computedColorScheme,
             computedStyleSet,
@@ -204,6 +215,8 @@ export default defineComponent({
             clear,
             id,
             boxGlowByState,
+            focus,
+            blur,
         };
     },
 });
