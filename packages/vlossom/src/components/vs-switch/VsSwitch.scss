@@ -6,68 +6,82 @@ $switchGap: 0.3rem;
 $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
 .vs-switch {
-    appearance: none;
-    align-items: center;
-    background-color: var(--vs-switch-falseBackgroundColor, var(--vs-light-backgroundColor));
-    border-color: var(--vs-switch-falseBorderColor, var(--vs-comp-color));
-    border-radius: var(--vs-switch-borderRadius, 1rem);
-    border-style: solid;
-    border-width: var(--vs-switch-falseBorderWidth, 1px);
-    color: var(--vs-switch-falseFontColor, var(--vs-font-color));
-    cursor: pointer;
-    display: flex;
-    font-size: var(--vs-switch-fontSize, 1rem);
-    height: $height;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     position: relative;
-    transition: all 0.4s, border 0s;
-    width: $width;
 
-    &:focus-visible {
-        @include focus-shadow;
-        outline: none;
-    }
-
-    .status-label {
-        display: block;
-        text-align: center;
-        user-select: none;
-        white-space: nowrap;
-        width: 100%;
-        word-break: break-all;
-        margin-left: 2px;
-        padding-left: calc($switchSize);
-        padding-right: 0;
-    }
-
-    &::before {
-        content: '';
-        background-color: var(--vs-switch-falseHandleColor, var(--vs-comp-backgroundColor-primary));
-        border-radius: 50%;
-        box-shadow: 2px 2px 2px 0 rgba(#000, 0.4);
-        height: $switchSize;
-        left: $switchGap;
-        width: $switchSize;
+    .switch-input {
         position: absolute;
-        transition: 0.4s;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: -1;
     }
 
-    &.checked {
-        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-color));
-        border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-color));
+    .switch-button {
+        appearance: none;
+        align-items: center;
+        background-color: var(--vs-switch-falseBackgroundColor, var(--vs-light-backgroundColor));
+        border-color: var(--vs-switch-falseBorderColor, var(--vs-comp-color));
+        border-radius: var(--vs-switch-borderRadius, 1rem);
         border-style: solid;
-        border-width: var(--vs-switch-trueBorderWidth, 0);
-        color: var(--vs-switch-trueFontColor, var(--vs-comp-color-primary));
+        border-width: var(--vs-switch-falseBorderWidth, 1px);
+        color: var(--vs-switch-falseFontColor, var(--vs-font-color));
+        cursor: pointer;
+        display: flex;
+        font-size: var(--vs-switch-fontSize, 0.8rem);
+        height: $height;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        position: relative;
+        transition:
+            all 0.4s,
+            border 0s;
+        width: $width;
+
+        &:focus-visible {
+            @include focus-shadow;
+            outline: none;
+        }
 
         &::before {
-            left: calc(100% - ($switchSize + $switchGap));
-            background-color: var(--vs-switch-trueHandleColor, var(--vs-comp-color-primary));
+            content: '';
+            background-color: var(--vs-switch-falseHandleColor, var(--vs-comp-backgroundColor-primary));
+            border-radius: 50%;
+            box-shadow: 2px 2px 2px 0 rgba(#000, 0.4);
+            height: $switchSize;
+            left: $switchGap;
+            width: $switchSize;
+            position: absolute;
+            transition: 0.4s;
+        }
+
+        &.checked {
+            background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-color));
+            border-color: var(--vs-switch-trueBorderColor, var(--vs-comp-color));
+            border-style: solid;
+            border-width: var(--vs-switch-trueBorderWidth, 0);
+            color: var(--vs-switch-trueFontColor, var(--vs-comp-color-primary));
+
+            &::before {
+                left: calc(100% - ($switchSize + $switchGap));
+                background-color: var(--vs-switch-trueHandleColor, var(--vs-comp-color-primary));
+            }
+
+            .status-label {
+                padding-left: 0;
+                padding-right: calc($switchSize);
+            }
         }
 
         .status-label {
-            padding-left: 0;
-            padding-right: calc($switchSize);
+            display: block;
+            text-align: center;
+            user-select: none;
+            white-space: nowrap;
+            width: 100%;
+            word-break: break-all;
+            margin-left: 2px;
+            padding-left: calc($switchSize);
+            padding-right: 0;
         }
     }
 
