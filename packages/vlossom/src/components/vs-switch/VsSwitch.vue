@@ -25,38 +25,39 @@
                     { checked: isChecked, disabled, readonly },
                 ]"
                 :style="computedStyleSet"
-                :aria-checked="isChecked"
-                :aria-disabled="disabled"
-                :aria-labelledby="id ? id : undefined"
-                :aria-readonly="readonly"
-                :aria-required="required"
-                tabindex="0"
-                :disabled="disabled"
-                @click.stop="toggle()"
-                @keydown.space.prevent.stop="toggle()"
-                @keydown.enter.prevent.stop="toggle()"
-                @focus.stop="onFocus"
-                @blur.stop="onBlur"
             >
-                <span class="status-label" data-value="true" v-show="isChecked">
-                    {{ trueLabel }}
-                </span>
-                <span class="status-label" data-value="false" v-show="!isChecked">
-                    {{ falseLabel }}
-                </span>
-            </div>
+                <input
+                    ref="inputRef"
+                    type="checkbox"
+                    class="switch-input"
+                    aria-hidden
+                    :id="id"
+                    :name="name"
+                    :disabled="disabled || readonly"
+                    :checked="isChecked"
+                    @change.stop="toggle()"
+                    @focus.stop="onFocus"
+                    @blur.stop="onBlur"
+                />
 
-            <input
-                type="checkbox"
-                style="display: none"
-                aria-hidden
-                :id="id"
-                :name="name"
-                tabindex="-1"
-                :disabled="disabled || readonly"
-                :checked="isChecked"
-                @change.stop="toggle()"
-            />
+                <div
+                    :class="['switch-button', { checked: isChecked }]"
+                    role="switch"
+                    :aria-checked="isChecked"
+                    :aria-disabled="disabled"
+                    :aria-labelledby="id ? id : undefined"
+                    :aria-readonly="readonly"
+                    :aria-required="required"
+                    @click.stop="toggle()"
+                >
+                    <span class="status-label" data-value="true" v-show="isChecked">
+                        {{ trueLabel }}
+                    </span>
+                    <span class="status-label" data-value="false" v-show="!isChecked">
+                        {{ falseLabel }}
+                    </span>
+                </div>
+            </div>
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
