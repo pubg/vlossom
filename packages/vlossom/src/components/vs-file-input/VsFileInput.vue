@@ -111,7 +111,8 @@ export default defineComponent({
             rules,
             state,
         } = toRefs(props);
-        const inputRef: Ref<HTMLInputElement | null> = ref(null);
+
+        const fileInputRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -160,8 +161,6 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const fileInputRef = ref<HTMLInputElement | null>(null);
-
         function onClear() {
             if (fileInputRef.value) {
                 fileInputRef.value.value = '';
@@ -209,11 +208,11 @@ export default defineComponent({
         }
 
         function focus() {
-            inputRef.value?.focus();
+            fileInputRef.value?.focus();
         }
 
         function blur() {
-            inputRef.value?.blur();
+            fileInputRef.value?.blur();
         }
 
         const dragging = ref(false);
@@ -224,13 +223,12 @@ export default defineComponent({
 
         return {
             id,
-            inputRef,
+            fileInputRef,
             classObj,
             computedColorScheme,
             computedStyleSet,
             inputValue,
             fileLabel,
-            fileInputRef,
             updateValue,
             hasValue,
             computedMessages,
