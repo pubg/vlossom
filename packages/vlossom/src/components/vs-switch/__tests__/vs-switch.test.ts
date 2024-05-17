@@ -19,7 +19,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
         it('modelValue를 업데이트할 수 있다', async () => {
             // given
@@ -52,7 +52,7 @@ describe('vs-switch', () => {
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
         it('modelValue가 null이면 false로 가공된다', async () => {
             // given
@@ -67,7 +67,7 @@ describe('vs-switch', () => {
             await nextTick();
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+            expect(wrapper.vm.isChecked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
         });
         it('modelValue가 undefined이면 false로 가공된다', async () => {
@@ -83,7 +83,7 @@ describe('vs-switch', () => {
             await nextTick();
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+            expect(wrapper.vm.isChecked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
         });
     });
@@ -102,7 +102,7 @@ describe('vs-switch', () => {
                     });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
                 it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
                     // given
@@ -116,7 +116,7 @@ describe('vs-switch', () => {
                     });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
             });
             describe('modelValue와 switch 값을 업데이트할 수 있다', () => {
@@ -155,7 +155,7 @@ describe('vs-switch', () => {
                     await wrapper.setProps({ modelValue: ['A'] });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
                 it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
                     // given
@@ -192,7 +192,7 @@ describe('vs-switch', () => {
                     await wrapper.setProps({ modelValue: [{ id: 'A' }] });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
             });
         });
@@ -210,7 +210,7 @@ describe('vs-switch', () => {
                     });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+                    expect(wrapper.vm.isChecked).toBe(false);
                 });
                 it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
                     // given
@@ -224,7 +224,7 @@ describe('vs-switch', () => {
                     });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+                    expect(wrapper.vm.isChecked).toBe(false);
                 });
             });
 
@@ -264,7 +264,7 @@ describe('vs-switch', () => {
                     await wrapper.setProps({ modelValue: 'A' });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
                 it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
                     // given
@@ -301,7 +301,7 @@ describe('vs-switch', () => {
                     await wrapper.setProps({ modelValue: { id: 'A' } });
 
                     // then
-                    expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+                    expect(wrapper.vm.isChecked).toBe(true);
                 });
             });
         });
@@ -319,7 +319,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
         it('switch 를 true로 업데이트하면 modelValue를 true-value 값으로 업데이트 한다', async () => {
             // given
@@ -373,7 +373,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
     });
     describe('true / false label', () => {
@@ -503,7 +503,7 @@ describe('vs-switch', () => {
                 await nextTick();
 
                 // then
-                expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+                expect(wrapper.vm.isChecked).toBe(false);
                 expect(wrapper.props('modelValue')).toEqual(['B']);
             });
         });
@@ -523,7 +523,7 @@ describe('vs-switch', () => {
                 await nextTick();
 
                 // then
-                expect(wrapper.find('.switch-button').attributes('aria-checked')).toBe('false');
+                expect(wrapper.vm.isChecked).toBe(false);
                 expect(wrapper.props('modelValue')).toBe(false);
             });
         });
