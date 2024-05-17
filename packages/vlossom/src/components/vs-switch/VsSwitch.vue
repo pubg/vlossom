@@ -15,33 +15,48 @@
                 <slot name="label" />
             </template>
 
-            <label
-                :class="['vs-switch', `vs-${computedColorScheme}`, boxGlowByState, { disabled, readonly }]"
+            <div
+                ref="inputRef"
+                role="switch"
+                :class="[
+                    'vs-switch',
+                    `vs-${computedColorScheme}`,
+                    boxGlowByState,
+                    { checked: isChecked, disabled, readonly },
+                ]"
                 :style="computedStyleSet"
+                :aria-checked="isChecked"
+                :aria-disabled="disabled"
+                :aria-labelledby="id ? id : undefined"
+                :aria-readonly="readonly"
+                :aria-required="required"
+                tabindex="0"
+                :disabled="disabled"
+                @click.stop="toggle()"
+                @keydown.space.prevent.stop="toggle()"
+                @keydown.enter.prevent.stop="toggle()"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
             >
-                <input
-                    ref="inputRef"
-                    type="checkbox"
-                    class="switch-input"
-                    :aria-label="ariaLabel"
-                    :id="id"
-                    :name="name"
-                    :disabled="disabled || readonly"
-                    :checked="isChecked"
-                    @change.stop="toggle()"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                />
+                <span class="status-label" data-value="true" v-show="isChecked">
+                    {{ trueLabel }}
+                </span>
+                <span class="status-label" data-value="false" v-show="!isChecked">
+                    {{ falseLabel }}
+                </span>
+            </div>
 
-                <div :class="['switch-button', { checked: isChecked }]" @click.stop="toggle()">
-                    <span class="status-label true-value" v-show="isChecked">
-                        {{ trueLabel }}
-                    </span>
-                    <span class="status-label false-value" v-show="!isChecked">
-                        {{ falseLabel }}
-                    </span>
-                </div>
-            </label>
+            <input
+                type="checkbox"
+                style="display: none"
+                aria-hidden
+                :id="id"
+                :name="name"
+                tabindex="-1"
+                :disabled="disabled || readonly"
+                :checked="isChecked"
+                @change.stop="toggle()"
+            />
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -75,7 +90,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
-        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
