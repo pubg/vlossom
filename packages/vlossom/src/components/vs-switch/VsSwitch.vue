@@ -34,10 +34,10 @@
                 />
 
                 <div :class="['switch-button', { checked: isChecked }]" @click.stop="toggle()">
-                    <span class="status-label" data-value="true" v-show="isChecked">
+                    <span class="status-label true-value" v-show="isChecked">
                         {{ trueLabel }}
                     </span>
-                    <span class="status-label" data-value="false" v-show="!isChecked">
+                    <span class="status-label false-value" v-show="!isChecked">
                         {{ falseLabel }}
                     </span>
                 </div>
