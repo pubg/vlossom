@@ -387,7 +387,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            const label = wrapper.find('.status-label[data-value=false]');
+            const label = wrapper.find('.false-value');
             expect(label.isVisible()).toBe(true);
             expect(label.text()).toBe('Rejected');
         });
@@ -405,7 +405,7 @@ describe('vs-switch', () => {
             await target.trigger('click');
 
             // then
-            const label = wrapper.find('.status-label[data-value=true]');
+            const label = wrapper.find('.true-value');
             expect(label.isVisible()).toBe(true);
             expect(label.text()).toBe('Approved');
         });
