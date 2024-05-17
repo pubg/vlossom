@@ -15,7 +15,7 @@
                 <slot name="label" />
             </template>
 
-            <div
+            <label
                 :class="['vs-switch', `vs-${computedColorScheme}`, boxGlowByState, { disabled, readonly }]"
                 :style="computedStyleSet"
             >
@@ -23,7 +23,7 @@
                     ref="inputRef"
                     type="checkbox"
                     class="switch-input"
-                    aria-hidden
+                    :aria-label="ariaLabel"
                     :id="id"
                     :name="name"
                     :disabled="disabled || readonly"
@@ -33,16 +33,7 @@
                     @blur.stop="onBlur"
                 />
 
-                <div
-                    :class="['switch-button', { checked: isChecked }]"
-                    role="switch"
-                    :aria-checked="isChecked"
-                    :aria-disabled="disabled"
-                    :aria-labelledby="id ? id : undefined"
-                    :aria-readonly="readonly"
-                    :aria-required="required"
-                    @click.stop="toggle()"
-                >
+                <div :class="['switch-button', { checked: isChecked }]" @click.stop="toggle()">
                     <span class="status-label" data-value="true" v-show="isChecked">
                         {{ trueLabel }}
                     </span>
@@ -50,7 +41,7 @@
                         {{ falseLabel }}
                     </span>
                 </div>
-            </div>
+            </label>
 
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -84,6 +75,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
+        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
