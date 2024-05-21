@@ -16,7 +16,7 @@
             </template>
 
             <div
-                ref="inputRef"
+                ref="switchRef"
                 role="switch"
                 :class="[
                     'vs-switch',
