@@ -138,7 +138,7 @@ export default defineComponent({
                     }
                 },
                 onChange: () => {
-                    if (!inputValue.value) {
+                    if (inputValue.value === undefined || inputValue.value === null) {
                         inputValue.value = getClearedValue();
                     }
                 },
