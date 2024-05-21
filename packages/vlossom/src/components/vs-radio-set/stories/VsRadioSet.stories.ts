@@ -106,6 +106,13 @@ export const Readonly: Story = {
     },
 };
 
+export const Required: Story = {
+    args: {
+        label: 'Radio Set (required)',
+        required: true,
+    },
+};
+
 export const Vertical: Story = {
     args: {
         vertical: true,

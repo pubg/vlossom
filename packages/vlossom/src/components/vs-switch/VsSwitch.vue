@@ -16,7 +16,7 @@
             </template>
 
             <div
-                ref="inputRef"
+                ref="switchRef"
                 role="switch"
                 :class="[
                     'vs-switch',
@@ -124,7 +124,7 @@ export default defineComponent({
             state,
         } = toRefs(props);
 
-        const inputRef: Ref<HTMLInputElement | null> = ref(null);
+        const switchRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -193,15 +193,15 @@ export default defineComponent({
         }
 
         function focus() {
-            inputRef.value?.focus();
+            switchRef.value?.focus();
         }
 
         function blur() {
-            inputRef.value?.blur();
+            switchRef.value?.blur();
         }
 
         return {
-            inputRef,
+            switchRef,
             inputValue,
             computedColorScheme,
             computedStyleSet,
