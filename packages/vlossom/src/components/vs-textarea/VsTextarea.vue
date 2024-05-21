@@ -119,7 +119,7 @@ export default defineComponent({
                 return '';
             }
 
-            return modifyStringValue(v);
+            return modifyStringValue(v.toString());
         }
 
         function onClear() {
