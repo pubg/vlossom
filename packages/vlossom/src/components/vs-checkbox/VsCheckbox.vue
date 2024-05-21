@@ -16,6 +16,7 @@
             </template>
 
             <vs-checkbox-node
+                ref="checkboxRef"
                 :color-scheme="computedColorScheme"
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
@@ -46,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -86,7 +87,7 @@ export default defineComponent({
         modelValue: { type: null, default: false },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             beforeChange,
@@ -102,6 +103,7 @@ export default defineComponent({
             multiple,
             styleSet,
         } = toRefs(props);
+        const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -163,8 +165,17 @@ export default defineComponent({
             emit('blur', e);
         }
 
+        function focus() {
+            checkboxRef.value?.focus();
+        }
+
+        function blur() {
+            checkboxRef.value?.blur();
+        }
+
         return {
             id,
+            checkboxRef,
             isChecked,
             computedColorScheme,
             computedStyleSet,
@@ -176,6 +187,8 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            focus,
+            blur,
         };
     },
 });

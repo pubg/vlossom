@@ -157,14 +157,13 @@ export function useInput<T = unknown>(
     watch(
         modelValue,
         (value) => {
+            if (value === inputValue.value) {
+                return;
+            }
             inputValue.value = value;
         },
         { deep: true },
     );
-
-    watch(changed, () => {
-        emit('update:changed', changed.value);
-    });
 
     const valid = computed(() => ruleMessages.value.length === 0);
     watch(valid, () => {
@@ -172,10 +171,10 @@ export function useInput<T = unknown>(
     });
 
     onMounted(() => {
-        inputValue.value = modelValue.value;
         if (options?.callbacks?.onMounted) {
-            options.callbacks?.onMounted();
+            options.callbacks.onMounted();
         }
+
         checkMessages();
         checkRules();
 
@@ -187,11 +186,10 @@ export function useInput<T = unknown>(
     const shake = ref(false);
     function validate(): boolean {
         showRuleMessages.value = true;
-        const isValid = ruleMessages.value.length === 0;
-        if (!isValid) {
+        if (!valid.value) {
             shake.value = !shake.value;
         }
-        return isValid;
+        return valid.value;
     }
 
     function clear() {
@@ -200,11 +198,18 @@ export function useInput<T = unknown>(
         }
 
         nextTick(() => {
+            checkMessages();
+            checkRules();
+            showRuleMessages.value = false;
             changed.value = false;
         });
     }
 
-    const { id } = useInputForm(label, changed, valid, validate, clear);
+    const { id } = useInputForm(label, valid, changed, validate, clear);
+
+    watch(changed, () => {
+        emit('update:changed', changed.value);
+    });
 
     return {
         changed,

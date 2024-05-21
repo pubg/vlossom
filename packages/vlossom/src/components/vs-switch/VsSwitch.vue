@@ -16,6 +16,7 @@
             </template>
 
             <div
+                ref="switchRef"
                 role="switch"
                 :class="[
                     'vs-switch',
@@ -54,7 +55,7 @@
                 tabindex="-1"
                 :disabled="disabled || readonly"
                 :checked="isChecked"
-                @change="toggle()"
+                @change.stop="toggle()"
             />
 
             <template #messages v-if="!noMessage">
@@ -65,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, PropType, computed, ref } from 'vue';
+import { defineComponent, toRefs, PropType, computed, ref, Ref } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -93,6 +94,7 @@ export default defineComponent({
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
         },
+        checked: { type: Boolean, default: false },
         multiple: { type: Boolean, default: false },
         trueLabel: { type: String, default: 'ON' },
         falseLabel: { type: String, default: 'OFF' },
@@ -102,8 +104,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'update:valid', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
-
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,
@@ -115,12 +116,15 @@ export default defineComponent({
             required,
             rules,
             beforeChange,
+            checked,
             trueValue,
             falseValue,
             multiple,
             modelValue,
             state,
         } = toRefs(props);
+
+        const switchRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -150,7 +154,11 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = getInitialValue();
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true, inputValue.value);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
                 },
                 onClear: () => {
                     inputValue.value = getClearedValue();
@@ -184,7 +192,17 @@ export default defineComponent({
             emit('blur', e);
         }
 
+        function focus() {
+            switchRef.value?.focus();
+        }
+
+        function blur() {
+            switchRef.value?.blur();
+        }
+
         return {
+            switchRef,
+            inputValue,
             computedColorScheme,
             computedStyleSet,
             isChecked,
@@ -197,6 +215,8 @@ export default defineComponent({
             clear,
             id,
             boxGlowByState,
+            focus,
+            blur,
         };
     },
 });

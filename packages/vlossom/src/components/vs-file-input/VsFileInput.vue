@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput, useStateClass } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -95,7 +95,7 @@ export default defineComponent({
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,
@@ -111,6 +111,8 @@ export default defineComponent({
             rules,
             state,
         } = toRefs(props);
+
+        const fileInputRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { emit } = context;
 
@@ -159,8 +161,6 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const fileInputRef = ref<HTMLInputElement | null>(null);
-
         function onClear() {
             if (fileInputRef.value) {
                 fileInputRef.value.value = '';
@@ -207,6 +207,14 @@ export default defineComponent({
             emit('blur', e);
         }
 
+        function focus() {
+            fileInputRef.value?.focus();
+        }
+
+        function blur() {
+            fileInputRef.value?.blur();
+        }
+
         const dragging = ref(false);
 
         function setDragging(value: boolean) {
@@ -215,12 +223,12 @@ export default defineComponent({
 
         return {
             id,
+            fileInputRef,
             classObj,
             computedColorScheme,
             computedStyleSet,
             inputValue,
             fileLabel,
-            fileInputRef,
             updateValue,
             hasValue,
             computedMessages,
@@ -230,6 +238,8 @@ export default defineComponent({
             validate,
             onFocus,
             onBlur,
+            focus,
+            blur,
             dragging,
             setDragging,
             boxGlowByState,

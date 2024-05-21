@@ -113,7 +113,7 @@ export const Readonly: Story = {
 
 export const Required: Story = {
     args: {
-        label: 'Label',
+        label: 'Radio (required)',
         required: true,
     },
 };

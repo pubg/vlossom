@@ -19,6 +19,7 @@
                 <vs-checkbox-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
+                    ref="checkboxRefs"
                     class="vs-checkbox-item"
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
@@ -54,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -96,7 +97,7 @@ export default defineComponent({
         },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,
@@ -113,6 +114,7 @@ export default defineComponent({
             required,
             rules,
         } = toRefs(props);
+        const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
 
         const { emit } = context;
 
@@ -192,10 +194,19 @@ export default defineComponent({
             emit('blur', option, e);
         }
 
+        function focus() {
+            checkboxRefs.value[0]?.focus();
+        }
+
+        function blur() {
+            checkboxRefs.value[0]?.blur();
+        }
+
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
             id,
+            checkboxRefs,
             optionIds,
             classObj,
             computedColorScheme,
@@ -212,6 +223,8 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            focus,
+            blur,
         };
     },
 });

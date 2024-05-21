@@ -19,6 +19,7 @@
                 <vs-radio-node
                     v-for="(option, index) in options"
                     :key="getOptionValue(option)"
+                    ref="radioRefs"
                     class="vs-radio-item"
                     :color-scheme="computedColorScheme"
                     :style-set="radioStyleSet"
@@ -54,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -88,7 +89,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate'],
+    expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,
@@ -105,6 +106,8 @@ export default defineComponent({
             required,
             rules,
         } = toRefs(props);
+
+        const radioRefs: Ref<HTMLInputElement[]> = ref([]);
 
         const { emit } = context;
 
@@ -130,7 +133,8 @@ export default defineComponent({
                 return '';
             }
 
-            const checkedRadioElement = document.querySelector(`input[name="${name.value}"]:checked`);
+            const radioElements = document.querySelectorAll(`input[name="${name.value}"]`);
+            const checkedRadioElement = Array.from(radioElements).find((el) => (el as HTMLInputElement).checked);
             return !checkedRadioElement ? 'required' : '';
         }
 
@@ -163,10 +167,19 @@ export default defineComponent({
             emit('blur', option, e);
         }
 
+        function focus() {
+            radioRefs.value[0]?.focus();
+        }
+
+        function blur() {
+            radioRefs.value[0]?.blur();
+        }
+
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
             id,
+            radioRefs,
             optionIds,
             classObj,
             computedColorScheme,
@@ -183,6 +196,8 @@ export default defineComponent({
             onToggle,
             onFocus,
             onBlur,
+            focus,
+            blur,
         };
     },
 });

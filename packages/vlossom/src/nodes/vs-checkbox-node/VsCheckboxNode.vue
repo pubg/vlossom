@@ -50,6 +50,7 @@ export default defineComponent({
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
+    expose: ['focus', 'blur'],
     setup(props, { emit }) {
         const { checked, indeterminate, disabled, readonly, state } = toRefs(props);
 
@@ -88,6 +89,14 @@ export default defineComponent({
             emit('blur', event);
         }
 
+        function focus() {
+            checkboxRef.value?.focus();
+        }
+
+        function blur() {
+            checkboxRef.value?.blur();
+        }
+
         watch(
             checked,
             (value) => {
@@ -107,6 +116,8 @@ export default defineComponent({
             onClick,
             onFocus,
             onBlur,
+            focus,
+            blur,
             convertToString: utils.string.convertToString,
             boxGlowByState,
             textGlowByState,

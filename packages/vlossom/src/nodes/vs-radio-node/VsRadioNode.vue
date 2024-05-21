@@ -2,6 +2,7 @@
     <div :class="['vs-radio-node', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
         <label class="radio-wrap">
             <input
+                ref="radioRef"
                 type="radio"
                 :class="['radio-input', boxGlowByState]"
                 :aria-label="ariaLabel"
@@ -11,9 +12,9 @@
                 :value="convertToString(value)"
                 :checked="checked"
                 :aria-required="required"
-                @change="toggle"
-                @focus="onFocus"
-                @blur="onBlur"
+                @change.stop="toggle"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
             />
 
             <span :class="['radio-label', textGlowByState]">
@@ -24,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { ColorScheme, UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
 import { utils } from '@/utils';
@@ -46,8 +47,11 @@ export default defineComponent({
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
+    expose: ['focus', 'blur'],
     setup(props, { emit }) {
         const { disabled, readonly, state } = toRefs(props);
+
+        const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { boxGlowByState, textGlowByState } = useStateClass(state);
 
@@ -69,11 +73,22 @@ export default defineComponent({
             emit('blur', event);
         }
 
+        function focus() {
+            radioRef.value?.focus();
+        }
+
+        function blur() {
+            radioRef.value?.blur();
+        }
+
         return {
+            radioRef,
             classObj,
             toggle,
             onFocus,
             onBlur,
+            focus,
+            blur,
             boxGlowByState,
             textGlowByState,
             convertToString: utils.string.convertToString,
