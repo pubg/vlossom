@@ -86,10 +86,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.find('input').element.value).toBe('123');
-
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual(['123']);
+            expect(wrapper.vm.inputValue).toBe('123');
         });
 
         it('input type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {

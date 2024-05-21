@@ -452,7 +452,7 @@ describe('vs-switch', () => {
     });
     describe('clear', () => {
         describe('multiple 이 true이고 v-model이 array 타입인 경우', () => {
-            it('clear 함수를 호출하면 true-value가 제외된 배열로 업데이트된다', async () => {
+            it('clear 함수를 호출하면 빈 배열로 업데이트된다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                     props: {
@@ -469,7 +469,7 @@ describe('vs-switch', () => {
 
                 // then
                 expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
-                expect(wrapper.props('modelValue')).toEqual(['B']);
+                expect(wrapper.props('modelValue')).toEqual([]);
             });
         });
 

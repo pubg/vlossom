@@ -343,8 +343,8 @@ describe('vs-checkbox', () => {
     });
 
     describe('clear', () => {
-        describe('multiple 이 true이고 v-model이 array 타입인 경우', () => {
-            it('clear 함수를 호출하면 true-value가 제외된 배열로 업데이트된다', async () => {
+        describe('multiple 이 true인 경우', () => {
+            it('clear 함수를 호출하면 빈 배열로 업데이트된다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
                     props: {
@@ -361,7 +361,7 @@ describe('vs-checkbox', () => {
 
                 // then
                 expect(wrapper.vm.isChecked).toBe(false);
-                expect(wrapper.props('modelValue')).toEqual(['B']);
+                expect(wrapper.props('modelValue')).toEqual([]);
             });
         });
 

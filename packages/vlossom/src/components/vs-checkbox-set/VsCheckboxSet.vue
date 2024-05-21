@@ -114,6 +114,7 @@ export default defineComponent({
             required,
             rules,
         } = toRefs(props);
+
         const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
 
         const { emit } = context;
@@ -145,7 +146,7 @@ export default defineComponent({
         );
 
         function requiredCheck() {
-            return required.value && inputValue.value.length === 0 ? 'required' : '';
+            return required.value && inputValue.value && inputValue.value.length === 0 ? 'required' : '';
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
@@ -159,6 +160,11 @@ export default defineComponent({
                         inputValue.value = [];
                     }
                 },
+                onChange: () => {
+                    if (!inputValue.value) {
+                        inputValue.value = [];
+                    }
+                },
                 onClear: () => {
                     inputValue.value = [];
                 },
@@ -166,6 +172,9 @@ export default defineComponent({
         });
 
         function isChecked(option: any) {
+            if (!inputValue.value) {
+                return false;
+            }
             return inputValue.value.some((v: any) => utils.object.isEqual(v, getOptionValue(option)));
         }
 

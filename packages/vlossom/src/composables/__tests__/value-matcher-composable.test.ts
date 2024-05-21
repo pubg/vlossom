@@ -4,27 +4,41 @@ import { useValueMatcher } from '@/composables';
 
 describe('value-matcher-composable', () => {
     describe('isMatched', () => {
-        describe('multiple 이 true 이고 modelValue 가 array 타입인 경우,', () => {
-            it('inputValue 중 하나라도 trueValue와 일치하면 true를 반환한다 ', () => {
+        it('inputValue가 trueValue와 다르면 false를 반환한다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+
+            // then
+            expect(isMatched.value).toBe(false);
+        });
+
+        it('inputValue가 trueValue와 같으면 true를 반환한다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('true value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+
+            // then
+            expect(isMatched.value).toBe(true);
+        });
+
+        describe('multiple (true)', () => {
+            it('inputValue가 array가 아닌 경우 false를 반환한다', () => {
                 // given
                 const multiple = ref(true);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(isMatched.value).toBe(true);
-            });
-
-            it('inputValue 중 일치하는 요소가 없으면 false를 반환한다 ', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(4);
-                const falseValue = ref('falseValue');
+                const inputValue = ref('not array value');
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
@@ -32,15 +46,13 @@ describe('value-matcher-composable', () => {
                 // then
                 expect(isMatched.value).toBe(false);
             });
-        });
 
-        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
-            it('inputValue 와 trueValue 가 같은 경우, true를 반환한다', () => {
+            it('inputValue가 array이고, trueValue와 일치하는 요소가 있으면 true를 반환한다', () => {
                 // given
-                const multiple = ref(false);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref([1, 2, 3]);
-                const falseValue = ref('falseValue');
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
@@ -49,41 +61,12 @@ describe('value-matcher-composable', () => {
                 expect(isMatched.value).toBe(true);
             });
 
-            it('inputValue 와 trueValue 가 다른 경우, false를 반환한다', () => {
-                // given
-                const multiple = ref(false);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(isMatched.value).toBe(false);
-            });
-        });
-        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
-            it('inputValue 와 trueValue 가 같은 경우, true를 반환한다', () => {
+            it('inputValue가 array이고, trueValue와 일치하는 요소가 없으면 false를 반환한다', () => {
                 // given
                 const multiple = ref(true);
-                const inputValue = ref(1);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(isMatched.value).toBe(true);
-            });
-
-            it('inputValue 와 trueValue 가 다른 경우, false를 반환한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref(1);
-                const trueValue = ref([1, 2, 3]);
-                const falseValue = ref('falseValue');
+                const inputValue = ref(['some value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { isMatched } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
@@ -95,188 +78,214 @@ describe('value-matcher-composable', () => {
     });
 
     describe('getInitialValue', () => {
-        describe('multiple 이 true 이고 modelValue 가 array 타입인 경우,', () => {
-            it('inputValue를 그대로 반환한다', () => {
+        it('inputValue가 trueValue와 다르면 falseValue를 반환한다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getInitialValue();
+
+            // then
+            expect(result).toBe('false value');
+        });
+
+        it('inputValue가 trueValue와 같으면 trueValue를 반환한다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('true value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getInitialValue();
+
+            // then
+            expect(result).toBe('true value');
+        });
+
+        describe('multipe (true)', () => {
+            it('inputValue가 array가 아닌 경우 빈 배열을 반환한다', () => {
                 // given
                 const multiple = ref(true);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
+                const inputValue = ref('not array value');
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getInitialValue();
 
                 // then
-                expect(getInitialValue()).toEqual([1, 2, 3]);
+                expect(result).toEqual([]);
             });
-        });
 
-        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
-            it('modelValue가 trueValue와 같으면 trueValue를 반환한다', () => {
+            it('inputValue가 array이면 inputValue를 그대로 반환한다', () => {
                 // given
-                const multiple = ref(false);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref([1, 2, 3]);
-                const falseValue = ref('falseValue');
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getInitialValue();
 
                 // then
-                expect(getInitialValue()).toEqual([1, 2, 3]);
-            });
-
-            it('modelValue가 trueValue와 다르면 falseValue를 반환한다', () => {
-                // given
-                const multiple = ref(false);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getInitialValue()).toBe('falseValue');
-            });
-        });
-
-        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
-            it('modelValue가 trueValue와 같으면 trueValue를 반환한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref(1);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getInitialValue()).toBe(1);
-            });
-
-            it('modelValue가 trueValue와 다르면 falseValue를 반환한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref(0);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getInitialValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getInitialValue()).toBe('falseValue');
-            });
-        });
-    });
-
-    describe('getClearedValue', () => {
-        describe('multiple 이 true 이고 modelValue 가 array 타입인 경우,', () => {
-            it('trueValue와 같은 값들을 제거한 배열을 반환한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getClearedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getClearedValue()).toEqual([2, 3]);
-            });
-        });
-
-        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
-            it('falseValue를 반환한다', () => {
-                // given
-                const multiple = ref(false);
-                const inputValue = ref([1, 2, 3]);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getClearedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getClearedValue()).toBe('falseValue');
-            });
-        });
-
-        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
-            it('falseValue를 반환한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref(1);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
-
-                // when
-                const { getClearedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getClearedValue()).toBe('falseValue');
+                expect(result).toEqual(inputValue.value);
             });
         });
     });
 
     describe('getUpdatedValue', () => {
-        describe('multiple 이 true 이고 modelValue 가 array 타입인 경우,', () => {
-            it('toggled가 true이면 trueValue를 추가한 배열을 반환하고, false이면 trueValue를 제거한 배열을 반환한다', () => {
-                // given
-                const value = [1, 2, 3];
+        it('true 값으로 update된 값을 가져올 수 있다', () => {
+            // given
+            const truthy = true;
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
 
-                const multiple = ref(true);
-                const inputValue = ref(value);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
+            // when
+            const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getUpdatedValue(truthy);
 
-                // when
-                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-
-                // then
-                expect(getUpdatedValue(true, value)).toEqual([1, 2, 3, 1]);
-                expect(getUpdatedValue(false, value)).toEqual([2, 3]);
-            });
+            // then
+            expect(result).toBe('true value');
         });
 
-        describe('multiple 이 false 이고 modelValue 가 array 타입인 경우,', () => {
-            it('toggled가 true이면 trueValue를 반환하고, false이면 falseValue를 반환한다', () => {
-                // given
-                const value = 0;
+        it('false 값으로 update된 값을 가져올 수 있다', () => {
+            // given
+            const truthy = false;
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
 
-                const multiple = ref(false);
-                const inputValue = ref(value);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
+            // when
+            const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getUpdatedValue(truthy);
+
+            // then
+            expect(result).toBe('false value');
+        });
+
+        describe('multiple (true)', () => {
+            it('inputValue가 array가 아닌 경우 truthy하다면 trueValue가 포함된 array를 가져올 수 있다', () => {
+                // given
+                const truthy = true;
+                const multiple = ref(true);
+                const inputValue = ref('some value');
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
 
                 // when
                 const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getUpdatedValue(truthy);
 
                 // then
-                expect(getUpdatedValue(true, value)).toBe(1);
-                expect(getUpdatedValue(false, value)).toBe('falseValue');
+                expect(result).toEqual(['true value']);
+            });
+
+            it('inputValue가 array가 아닌 경우 truthy하지 않다면 빈 배열을 반환한다', () => {
+                // given
+                const truthy = false;
+                const multiple = ref(true);
+                const inputValue = ref('some value');
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getUpdatedValue(truthy);
+
+                // then
+                expect(result).toEqual([]);
+            });
+
+            it('truthy하다면 trueValue가 포함된 array를 가져올 수 있다', () => {
+                // given
+                const truthy = true;
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getUpdatedValue(truthy);
+
+                // then
+                expect(result).toEqual(['some value', 'true value', 'another value']);
+            });
+
+            it('truthy하더라도 이미 inputValue에 값이 존재한다면 더 추가되지 않는다', () => {
+                // given
+                const truthy = true;
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getUpdatedValue(truthy);
+
+                // then
+                expect(result).toEqual(['some value', 'true value', 'another value']);
+            });
+
+            it('truthy하지 않다면 trueValue를 제외한 배열을 반환한다', () => {
+                // given
+                const truthy = false;
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                const result = getUpdatedValue(truthy);
+
+                // then
+                expect(result).toEqual(['some value', 'another value']);
             });
         });
-        describe('multiple 이 true이고 modelValue 가 array 타입이 아닌 경우,', () => {
-            it('toggled가 true이면 trueValue를 반환하고, false이면 falseValue를 반환한다', () => {
-                // given
-                const value = 0;
+    });
 
-                const multiple = ref(true);
-                const inputValue = ref(value);
-                const trueValue = ref(1);
-                const falseValue = ref('falseValue');
+    describe('getClearedValue', () => {
+        it('multiple이 아닐 때는 falseValue를 반환한다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
 
-                // when
-                const { getUpdatedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            // when
+            const { getClearedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getClearedValue();
 
-                // then
-                expect(getUpdatedValue(true, value)).toBe(1);
-                expect(getUpdatedValue(false, value)).toBe('falseValue');
-            });
+            // then
+            expect(result).toBe('false value');
+        });
+
+        it('multiple인 경우 빈 배열을 반환한다', () => {
+            // given
+            const multiple = ref(true);
+            const inputValue = ref(['some value', 'true value', 'another value']);
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { getClearedValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            const result = getClearedValue();
+
+            // then
+            expect(result).toEqual([]);
         });
     });
 });

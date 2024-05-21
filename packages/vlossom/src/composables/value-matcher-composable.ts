@@ -7,11 +7,13 @@ export function useValueMatcher(
     trueValue: Ref<any>,
     falseValue: Ref<any>,
 ) {
-    const isArrayValue = computed(() => Array.isArray(inputValue.value));
-    const isMultipleValue = computed(() => multiple.value && isArrayValue.value);
+    const isNotArrayValue = computed(() => !Array.isArray(inputValue.value));
 
     const isMatched: ComputedRef<boolean> = computed(() => {
-        if (isMultipleValue.value) {
+        if (multiple.value) {
+            if (isNotArrayValue.value) {
+                return false;
+            }
             return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
         }
 
@@ -19,35 +21,44 @@ export function useValueMatcher(
     });
 
     function getInitialValue() {
-        if (isMultipleValue.value) {
+        if (multiple.value) {
+            if (isNotArrayValue.value) {
+                return [];
+            }
             return inputValue.value;
         }
+
         return utils.object.isEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
     }
 
-    function getClearedValue() {
-        if (isMultipleValue.value) {
-            return inputValue.value.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
-        }
-        return falseValue.value;
-    }
-
-    function getUpdatedValue(isTruthy: boolean, currentValue: any) {
-        if (isMultipleValue.value) {
+    function getUpdatedValue(isTruthy: boolean) {
+        if (multiple.value) {
+            const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
             if (isTruthy) {
-                return [...currentValue, trueValue.value];
+                const isAlreadyExist = arrayValue.some((v: any) => utils.object.isEqual(v, trueValue.value));
+                if (isAlreadyExist) {
+                    return arrayValue;
+                }
+                return [...arrayValue, trueValue.value];
             }
-            return currentValue.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
+            return arrayValue.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
         }
 
         return isTruthy ? trueValue.value : falseValue.value;
     }
 
+    function getClearedValue() {
+        if (multiple.value) {
+            return [];
+        }
+
+        return falseValue.value;
+    }
+
     return {
-        isArrayValue,
         isMatched,
         getInitialValue,
-        getClearedValue,
         getUpdatedValue,
+        getClearedValue,
     };
 }

@@ -399,7 +399,7 @@ export default defineComponent({
             }
 
             if (multiple.value) {
-                return inputValue.value.length > 0 ? '' : 'required';
+                return inputValue.value && inputValue.value.length > 0 ? '' : 'required';
             } else {
                 return inputValue.value ? '' : 'required';
             }
@@ -424,7 +424,12 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    if (multiple.value && !Array.isArray(modelValue.value)) {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    }
+                },
+                onChange: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
                         inputValue.value = [];
                     }
                 },
