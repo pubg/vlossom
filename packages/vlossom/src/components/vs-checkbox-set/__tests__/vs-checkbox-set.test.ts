@@ -98,6 +98,22 @@ describe('vs-checkbox-set', () => {
                 const checked = wrapper.findAll('input').filter((e) => e.element.checked);
                 expect(checked).toHaveLength(1);
                 expect(checked[0].element.value).toBe('A');
+                expect(wrapper.vm.inputValue).toEqual(['A']);
+            });
+
+            it('modelValue가 null인 경우 빈 배열로 보정된다', () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                    props: {
+                        // @ts-expect-error: for null test
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                    },
+                });
+
+                // then
+                expect(wrapper.vm.inputValue).toEqual([]);
             });
 
             it('modelValue를 업데이트 할 수 있다', async () => {
@@ -118,6 +134,24 @@ describe('vs-checkbox-set', () => {
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
                 expect(updateModelValueEvent).toHaveLength(1);
                 expect(updateModelValueEvent?.[0]).toEqual([['A', 'B']]);
+            });
+
+            it('modelValue에 null을 할당하면 빈 배열로 보정된다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                    props: {
+                        modelValue: ['A'],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                    },
+                });
+
+                // when
+                // @ts-expect-error: for null test
+                await wrapper.setProps({ modelValue: null });
+
+                // then
+                expect(wrapper.vm.inputValue).toEqual([]);
             });
 
             it('modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {

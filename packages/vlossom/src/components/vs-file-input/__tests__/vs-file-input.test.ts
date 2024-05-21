@@ -47,7 +47,7 @@ describe('vs-file-input', () => {
                 expect(updateModelValueEvent?.[0]).toEqual([file]);
             });
 
-            it('multiple 모드가 아닐 때 modelValue가 배열이라면 null로 가공해준다', async () => {
+            it('modelValue가 배열이라면 null로 가공해준다', async () => {
                 //given
                 wrapper = mount(VsFileInput, {
                     props: {
@@ -63,6 +63,22 @@ describe('vs-file-input', () => {
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
                 expect(updateModelValueEvent).toHaveLength(1);
                 expect(updateModelValueEvent?.[0]).toEqual([null]);
+            });
+
+            it('modelValue에 array를 할당하면 null로 보정한다', async () => {
+                // given
+                wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: [] });
+
+                // then
+                expect(wrapper.vm.inputValue).toBe(null);
             });
         });
 
@@ -212,7 +228,7 @@ describe('vs-file-input', () => {
                 expect(updateModelValueEvent?.[0]).toEqual([[file, file2]]);
             });
 
-            it('multiple 모드일 때 modelValue가 배열이 아니라면 빈 베열로 가공해준다', async () => {
+            it('modelValue가 배열이 아니라면 빈 배열로 보정한다', async () => {
                 // given
                 wrapper = mount(VsFileInput, {
                     props: {
@@ -226,9 +242,24 @@ describe('vs-file-input', () => {
                 await nextTick();
 
                 // then
-                const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                expect(updateModelValueEvent).toHaveLength(1);
-                expect(updateModelValueEvent?.[0]).toEqual([[]]);
+                expect(wrapper.vm.inputValue).toEqual([]);
+            });
+
+            it('modelValue에 배열이 아닌 값을 할당하면 빈 배열로 보정한다', async () => {
+                // given
+                wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: file,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
+                // when
+                await nextTick();
+
+                // then
+                expect(wrapper.vm.inputValue).toEqual([]);
             });
         });
 

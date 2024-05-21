@@ -325,6 +325,39 @@ describe('vs-select', () => {
                 expect(updateModelValueEvent?.[0]).toEqual([['A', 'B', 'C']]);
             });
 
+            it('modelValue가 null이면 빈 배열로 보정한다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                        multiple: true,
+                    },
+                });
+
+                // then
+                expect(wrapper.vm.inputValue).toEqual([]);
+            });
+
+            it('modelValue를 null로 할당하면 빈 배열로 보정한다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                    props: {
+                        modelValue: ['A', 'B'],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        options: ['A', 'B', 'C'],
+                        multiple: true,
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: null });
+
+                // then
+                expect(wrapper.vm.inputValue).toEqual([]);
+            });
+
             it('modelValue를 바꿔서 select 값을 업데이트 할 수 있다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {

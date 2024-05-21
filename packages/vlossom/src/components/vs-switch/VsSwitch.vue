@@ -161,8 +161,8 @@ export default defineComponent({
                     }
                 },
                 onChange: () => {
-                    if (multiple.value && !inputValue.value) {
-                        inputValue.value = [];
+                    if (!inputValue.value) {
+                        inputValue.value = getClearedValue();
                     }
                 },
                 onClear: () => {

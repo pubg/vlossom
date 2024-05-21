@@ -73,6 +73,26 @@ describe('vs-textarea', () => {
             // then
             expect(wrapper.find('textarea').element.value).toBe('');
             expect(wrapper.props('modelValue')).toBe('');
+            expect(wrapper.vm.inputValue).toBe('');
+        });
+
+        it('modelValue에 null을 할당하면 빈 문자열로 보정한다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                },
+            });
+
+            // when
+            // @ts-expect-error: for null test
+            await wrapper.setProps({ modelValue: null });
+
+            // then
+            expect(wrapper.find('textarea').element.value).toBe('');
+            expect(wrapper.props('modelValue')).toBe('');
+            expect(wrapper.vm.inputValue).toBe('');
         });
     });
 

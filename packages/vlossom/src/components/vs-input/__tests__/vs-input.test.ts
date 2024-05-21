@@ -11,120 +11,154 @@ function mountComponent() {
 
 describe('vs-input', () => {
     describe('v-model', () => {
-        it('modelValue의 string 타입 초깃값을 설정할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: 'initialText',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
+        describe('string type', () => {
+            it('modelValue의 string 타입 초깃값을 설정할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 'initialText',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // then
+                expect(wrapper.find('input').element.value).toBe('initialText');
             });
 
-            // then
-            expect(wrapper.find('input').element.value).toBe('initialText');
+            it('modelValue를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: '',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.find('input').setValue('test');
+
+                // then
+                const updateModelValueEvent = wrapper.emitted('update:modelValue');
+                expect(updateModelValueEvent).toHaveLength(1);
+                expect(updateModelValueEvent?.[0]).toEqual(['test']);
+            });
+
+            it('modelValue를 바꿔서 input 값을 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: '',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: 'test' });
+
+                // then
+                expect(wrapper.find('input').element.value).toBe('test');
+            });
+
+            it('modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 123,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await nextTick();
+
+                // then
+                expect(wrapper.find('input').element.value).toBe('123');
+                expect(wrapper.vm.inputValue).toBe('123');
+            });
+
+            it('modelValue에 null을 할당하면 빈 문자열로 가공해준다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 'hello',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: null });
+
+                // then
+                expect(wrapper.vm.inputValue).toBe('');
+            });
         });
 
-        it('modelValue의 number 타입 초깃값을 설정할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: 123,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.Number,
-                },
+        describe('number type', () => {
+            it('modelValue의 number 타입 초깃값을 설정할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 123,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        type: InputType.Number,
+                    },
+                });
+
+                // then
+                expect(wrapper.find('input').element.value).toBe('123');
             });
 
-            // then
-            expect(wrapper.find('input').element.value).toBe('123');
-        });
+            it('modelValue를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 8008,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        type: InputType.Number,
+                    },
+                });
 
-        it('modelValue를 업데이트 할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: '',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
+                // when
+                await wrapper.find('input').setValue(8080);
+
+                // then
+                expect(wrapper.vm.inputValue).toBe(8080);
             });
 
-            // when
-            await wrapper.find('input').setValue('test');
+            it('modelValue를 바꿔서 input 값을 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: 5000,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        type: InputType.Number,
+                    },
+                });
 
-            // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual(['test']);
-        });
+                // when
+                await wrapper.setProps({ modelValue: 6000 });
 
-        it('modelValue를 바꿔서 input 값을 업데이트 할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: '',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
+                // then
+                expect(wrapper.vm.inputValue).toBe(6000);
             });
 
-            // when
-            await wrapper.setProps({ modelValue: 'test' });
+            it('modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                    props: {
+                        modelValue: '123',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        type: InputType.Number,
+                    },
+                });
 
-            // then
-            expect(wrapper.find('input').element.value).toBe('test');
-        });
+                // when
+                await nextTick();
 
-        it('input type이 number가 아닐 때 modelValue의 타입이 string이 아니면 string 타입으로 가공해준다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: 123,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
+                // then
+                expect(wrapper.find('input').element.value).toBe('123');
+                expect(wrapper.vm.inputValue).toBe(123);
             });
-
-            // when
-            await nextTick();
-
-            // then
-            expect(wrapper.find('input').element.value).toBe('123');
-            expect(wrapper.vm.inputValue).toBe('123');
-        });
-
-        it('input type이 number 일 때 modelValue의 타입이 number가 아니면 number 타입으로 가공해준다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: '123',
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.Number,
-                },
-            });
-
-            // when
-            await nextTick();
-
-            // then
-            expect(wrapper.find('input').element.value).toBe('123');
-
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([123]);
-        });
-
-        it('modelValue가 null이고 input type이 number가 아니면 빈 문자열로 가공해준다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                props: {
-                    modelValue: null,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
-            });
-
-            // when
-            await nextTick();
-
-            // then
-            expect(wrapper.find('input').element.value).toBe('');
-            expect(wrapper.props('modelValue')).toBe('');
         });
     });
 

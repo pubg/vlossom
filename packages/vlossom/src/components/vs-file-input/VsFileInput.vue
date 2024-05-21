@@ -173,17 +173,26 @@ export default defineComponent({
             }
         }
 
+        function correctEmptyValue() {
+            if (multiple.value && !Array.isArray(inputValue.value)) {
+                if (fileInputRef.value) {
+                    fileInputRef.value.value = '';
+                }
+                inputValue.value = [];
+            } else if (!multiple.value && Array.isArray(inputValue.value)) {
+                if (fileInputRef.value) {
+                    fileInputRef.value.value = '';
+                }
+                inputValue.value = null;
+            }
+        }
+
         const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
             messages,
             rules: allRules,
             callbacks: {
-                onMounted: () => {
-                    if (multiple.value && !Array.isArray(inputValue.value)) {
-                        inputValue.value = [];
-                    } else if (!multiple.value && Array.isArray(inputValue.value)) {
-                        inputValue.value = null;
-                    }
-                },
+                onMounted: correctEmptyValue,
+                onChange: correctEmptyValue,
                 onClear,
             },
         });
