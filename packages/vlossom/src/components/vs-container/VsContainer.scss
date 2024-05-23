@@ -1,7 +1,12 @@
 .vs-container {
-    // for grid css
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    // for container query
-    container-type: inline-size;
+    position: relative;
+    width: 100%;
+
+    .grid {
+        // for grid css
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        // for container query
+        container-type: inline-size;
+    }
 }

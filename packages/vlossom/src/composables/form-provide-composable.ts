@@ -27,7 +27,7 @@ export function useFormProvide() {
         delete validObj.value[id];
     }
 
-    function getFormProvide(): VsFormProvide {
+    function getDefaultFormProvide(): VsFormProvide {
         return {
             labelObj,
             changedObj,
@@ -51,6 +51,6 @@ export function useFormProvide() {
         updateChanged,
         updateValid,
         removeFromForm,
-        getFormProvide,
+        getDefaultFormProvide,
     };
 }

@@ -22,3 +22,7 @@ export const CSS_POSITION = ['static', 'relative', 'absolute', 'fixed', 'sticky'
 export const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
 
 export const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+export const VS_FORM = 'vs-form';
+
+export const VS_LAYOUT = 'vs-layout';

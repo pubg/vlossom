@@ -29,7 +29,7 @@ import { utils } from '@/utils';
 
 export default defineComponent({
     props: {
-        styleSet: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
+        styleSet: { type: Object as PropType<{ [key: string]: any }> },
         closeOnEsc: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
         isModal: { type: Boolean, default: true },
@@ -39,11 +39,14 @@ export default defineComponent({
         const { styleSet, closeOnEsc } = toRefs(props);
 
         const convertedStyleSet = computed(() => {
-            return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
-                const propName = key.split('-').pop();
-                acc[`--vs-dialog-node-${propName}`] = value;
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.entries(styleSet.value || {}).reduce(
+                (acc, [key, value]) => {
+                    const propName = key.split('-').pop();
+                    acc[`--vs-dialog-node-${propName}`] = value;
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const hasHeader = computed(() => !!slots['header']);

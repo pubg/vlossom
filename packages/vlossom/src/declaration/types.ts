@@ -130,6 +130,17 @@ export interface VsFormProvide {
     removeFromForm: (id: string) => void;
 }
 
+export interface VsLayoutProvide {
+    isNavOpen: Ref<boolean>;
+    header: Ref<{ position: CssPosition; height: string }>;
+    footer: Ref<{ position: CssPosition; height: string }>;
+    drawer: Ref<{ placement: Placement; size: string }>;
+    toggleNav: () => void;
+    setHeaderLayout: (position: CssPosition, height: string) => void;
+    setFooterLayout: (position: CssPosition, height: string) => void;
+    setDrawerLayout: (placement: Placement, size: string) => void;
+}
+
 export type Align = (typeof ALIGNS)[number];
 
 export type TextAlign =

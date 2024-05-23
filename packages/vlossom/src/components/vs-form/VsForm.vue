@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, provide, watch } from 'vue';
-import { VsComponent, type VsFormProvide } from '@/declaration';
+import { VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
 import { useFormProvide } from '@/composables';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
@@ -23,9 +23,9 @@ export default defineComponent({
     emits: ['update:changed', 'update:valid', 'error'],
     expose: ['validate', 'clear'],
     setup(_, { emit }) {
-        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getFormProvide } = useFormProvide();
+        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getDefaultFormProvide } = useFormProvide();
 
-        provide<VsFormProvide>('vs-form', getFormProvide());
+        provide<VsFormProvide>(VS_FORM, getDefaultFormProvide());
 
         const isValid = computed(() => Object.values(validObj.value).every((v) => v));
         const isChanged = computed(() => Object.values(changedObj.value).some((v) => v));

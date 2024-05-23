@@ -1,6 +1,11 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
+html,
 body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-weight: 400;
     font-family:
         'Pretendard Variable',
         Pretendard,
@@ -17,8 +22,6 @@ body {
         'Segoe UI Emoji',
         'Segoe UI Symbol',
         sans-serif;
-    font-weight: 400;
-    position: relative;
 }
 
 .vs-inline-gap:has(+ .vs-inline-gap) {

@@ -78,7 +78,7 @@ import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './
 import { useTablePagination } from './composables/useTablePagination';
 
 export default defineComponent({
-    name: 'vs-table-body',
+    name: 'VsTableBody',
     components: {
         draggable,
         VsTableBodyRow,

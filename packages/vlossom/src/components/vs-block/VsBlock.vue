@@ -1,17 +1,22 @@
 <template>
-    <div :class="['vs-block', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+    <vs-wrapper
+        :class="['vs-block', `vs-${computedColorScheme}`]"
+        :style="computedStyleSet"
+        :grid="grid"
+        :width="width"
+    >
         <div v-if="hasTitle" class="block-header">
             <slot name="title" />
         </div>
         <div class="block-content">
             <slot />
         </div>
-    </div>
+    </vs-wrapper>
 </template>
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsBlockStyleSet } from './types';
@@ -20,6 +25,7 @@ const name = VsComponent.VsBlock;
 export default defineComponent({
     name,
     props: {
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsBlockStyleSet> },
     },

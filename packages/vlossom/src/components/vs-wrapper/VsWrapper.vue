@@ -1,7 +1,7 @@
 <template>
-    <div class="vs-wrapper" :class="responsiveClasses" :style="responsiveStyles">
+    <component :is="tag" class="vs-wrapper" :class="responsiveClasses" :style="responsiveStyles">
         <slot />
-    </div>
+    </component>
 </template>
 
 <script lang="ts">
@@ -13,6 +13,7 @@ export default defineComponent({
     name: VsComponent.VsWrapper,
     props: {
         grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
+        tag: { type: String, default: 'div' },
         width: { type: [String, Object] as PropType<string | Breakpoints>, default: null },
     },
     setup(props) {

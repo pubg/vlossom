@@ -25,7 +25,9 @@ $variables: (
     width-base: 100%,
 
     // z-index
-    dialog-z-index: 1000,
+    bar-z-index: 100,
+    app-bar-z-index: 1000,
+    dialog-z-index: 5000,
     toast-z-index: 9999
 );
 

@@ -31,7 +31,7 @@ import { type TableHeader, SortType } from './types';
 import { useSortableHeader } from './composables/useSortableHeader';
 
 export default defineComponent({
-    name: 'vs-table-header',
+    name: 'VsTableHeader',
     components: { VsIcon },
     props: {
         draggable: { type: Boolean, default: false },

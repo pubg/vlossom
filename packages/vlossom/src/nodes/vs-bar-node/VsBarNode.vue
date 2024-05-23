@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-bar-node', `vs-${colorScheme}`, { ...classObj }]" :style="computedStyle">
+    <div :class="['vs-bar-node', `vs-${colorScheme}`, { primary }]" :style="computedStyleSet">
         <div class="vs-bar-node-content">
             <slot />
         </div>
@@ -13,50 +13,45 @@ import type { Align, ColorScheme, CssPosition } from '@/declaration';
 export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<'default' | ColorScheme>, required: true },
-        styleSet: { type: Object as PropType<{ [key: string]: any }>, default: () => ({}) },
+        styleSet: { type: Object as PropType<{ [key: string]: any }> },
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { styleSet, height, position, primary, verticalAlign } = toRefs(props);
+        const { styleSet, height, position, verticalAlign } = toRefs(props);
 
-        const convertedStyleSet = computed(() => {
-            return Object.entries(styleSet.value).reduce((acc, [key, value]) => {
-                const propName = key.split('-').pop();
-                acc[`--vs-bar-node-${propName}`] = value;
-                return acc;
-            }, {} as { [key: string]: any });
-        });
+        const computedStyleSet = computed(() => {
+            const convertedStyleSet = Object.entries(styleSet.value || {}).reduce(
+                (acc, [key, value]) => {
+                    const propName = key.split('-').pop();
+                    acc[`--vs-bar-node-${propName}`] = value;
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
 
-        const classObj = computed(() => ({
-            primary: primary.value,
-        }));
-
-        const computedStyle = computed(() => {
-            const style = { ...convertedStyleSet.value };
             if (height.value) {
-                style['--vs-bar-node-height'] = height.value;
+                convertedStyleSet['--vs-bar-node-height'] = height.value;
             }
             if (position.value) {
-                style['--vs-bar-node-position'] = position.value;
+                convertedStyleSet['--vs-bar-node-position'] = position.value;
             }
 
             if (verticalAlign.value === 'start') {
-                style.alignItems = 'flex-start';
+                convertedStyleSet.alignItems = 'flex-start';
             } else if (verticalAlign.value === 'end') {
-                style.alignItems = 'flex-end';
+                convertedStyleSet.alignItems = 'flex-end';
             } else {
-                style.alignItems = 'center';
+                convertedStyleSet.alignItems = 'center';
             }
 
-            return style;
+            return convertedStyleSet;
         });
 
         return {
-            computedStyle,
-            classObj,
+            computedStyleSet,
         };
     },
 });

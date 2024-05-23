@@ -2,8 +2,7 @@ import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref } from 'vue';
 import { useFormProvide, useInputForm } from '@/composables';
-
-import type { VsFormProvide } from '@/declaration';
+import { VS_FORM, type VsFormProvide } from '@/declaration';
 
 describe('form-composable', () => {
     // parameters
@@ -39,8 +38,8 @@ describe('form-composable', () => {
         validateSpy.mockClear();
         clearSpy.mockClear();
 
-        formProvide = useFormProvide().getFormProvide();
-        wrapper = createWrapper({ 'vs-form': formProvide });
+        formProvide = useFormProvide().getDefaultFormProvide();
+        wrapper = createWrapper({ [VS_FORM]: formProvide });
     });
 
     afterEach(() => {

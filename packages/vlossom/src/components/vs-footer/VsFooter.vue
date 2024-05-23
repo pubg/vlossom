@@ -12,14 +12,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, watch, inject, type PropType } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { defineComponent, toRefs, computed, watch, inject, type PropType, getCurrentInstance } from 'vue';
+import { useColorScheme, useLayout, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
-import { VsComponent } from '@/declaration';
+import { VS_LAYOUT, VsComponent } from '@/declaration';
 
 import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsFooterStyleSet } from './types';
-import type { LayoutAttrs } from '../vs-layout/types';
 
 const name = VsComponent.VsFooter;
 export default defineComponent({
@@ -48,27 +47,35 @@ export default defineComponent({
                 style['--vs-footer-left'] = 0;
             }
 
+            if (position.value === 'absolute') {
+                style['--vs-footer-zIndex'] = 100; // var(bar-z-index)
+            }
+
+            if (position.value === 'fixed') {
+                style['--vs-footer-zIndex'] = 1000; // var(app-bar-z-index)
+            }
+
             return style;
         });
 
         const computedStyleSet = computed(() => {
-            return { ...footerStyleSet.value, ...defaultInsetStyle.value };
+            return { ...defaultInsetStyle.value, ...footerStyleSet.value };
         });
 
-        const layoutAttrs: LayoutAttrs | undefined = inject('layoutAttrs');
-        watch(
-            computedStyleSet,
-            (style) => {
-                if (!layoutAttrs) {
-                    return;
-                }
-                layoutAttrs.footer = {
-                    position: position.value || style['--vs-footer-position'] || 'static',
-                    height: height.value || style['--vs-footer-height'] || 'auto',
-                };
-            },
-            { immediate: true, deep: true },
-        );
+        // only for vs-layout children
+        const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
+        if (isLayoutChild) {
+            const { getDefaultLayoutProvide } = useLayout();
+            const { setFooterLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
+            watch(
+                [position, height],
+                ([newPosition, newHeight]) => {
+                    setFooterLayout(newPosition, newHeight);
+                },
+                { immediate: true },
+            );
+        }
 
         return {
             computedColorScheme,
