@@ -45,7 +45,7 @@ describe('vs-file-input', () => {
                 expect(wrapper.vm.inputValue).toEqual(file);
             });
 
-            it('modelValue가 배열이라면 null로 가공해준다', async () => {
+            it('modelValue의 초깃값이 배열이라면 null로 보정한다', async () => {
                 //given
                 wrapper = mount(VsFileInput, {
                     props: {
@@ -61,7 +61,7 @@ describe('vs-file-input', () => {
                 expect(wrapper.vm.inputValue).toBe(null);
             });
 
-            it('modelValue의 초깃값이 배열이라면 null로 보정한다', async () => {
+            it('modelValue에 배열을 할당하면 null로 보정한다', async () => {
                 // given
                 wrapper = mount(VsFileInput, {
                     props: {
