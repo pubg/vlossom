@@ -86,7 +86,7 @@ describe('vs-switch', () => {
             expect(wrapper.vm.isChecked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
         });
-        it('modelValue에 null을 할당해도 false-value로 보정해준다', async () => {
+        it('modelValue에 null을 할당해도 falseValue로 보정해준다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -175,7 +175,7 @@ describe('vs-switch', () => {
                 expect(wrapper.vm.inputValue).toEqual([]);
             });
 
-            it('switch 값을 true로 업데이트하면 true-value가 modelValue배열에 포함된다', async () => {
+            it('switch 값을 true로 업데이트하면 trueValue가 modelValue배열에 포함된다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                     props: {
@@ -253,7 +253,7 @@ describe('vs-switch', () => {
     });
 
     describe('true / false value', () => {
-        it('true-value, false-value를 설정할 수 있다', async () => {
+        it('trueValue, falseValue를 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -267,7 +267,7 @@ describe('vs-switch', () => {
             // then
             expect(wrapper.vm.isChecked).toBe(true);
         });
-        it('switch 를 true로 업데이트하면 modelValue를 true-value 값으로 업데이트 한다', async () => {
+        it('switch 를 true로 업데이트하면 modelValue를 trueValue 값으로 업데이트 한다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -287,7 +287,7 @@ describe('vs-switch', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual('A');
         });
-        it('switch를 false로 업데이트하면 modelValue를 false-value 값으로 업데이트 한다', async () => {
+        it('switch를 false로 업데이트하면 modelValue를 falseValue 값으로 업데이트 한다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -307,7 +307,7 @@ describe('vs-switch', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual('B');
         });
-        it('object 타입 true-value, false-value를 설정할 수 있다', () => {
+        it('object 타입 trueValue, falseValue를 설정할 수 있다', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -420,7 +420,7 @@ describe('vs-switch', () => {
         });
 
         describe('multiple 이 false 이거나 v-model이 array 타입이 아닌 경우', () => {
-            it('clear 함수를 호출하면 false-value 값으로 업데이트 할 수 있다', async () => {
+            it('clear 함수를 호출하면 falseValue 값으로 업데이트 할 수 있다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                     props: {

@@ -174,16 +174,17 @@ export default defineComponent({
         }
 
         function correctEmptyValue() {
-            if (multiple.value && !Array.isArray(inputValue.value)) {
+            const isArrayInputValue = Array.isArray(inputValue.value);
+            if (multiple.value) {
                 if (fileInputRef.value) {
                     fileInputRef.value.value = '';
                 }
-                inputValue.value = [];
-            } else if (!multiple.value && Array.isArray(inputValue.value)) {
+                inputValue.value = isArrayInputValue ? inputValue.value : [];
+            } else {
                 if (fileInputRef.value) {
                     fileInputRef.value.value = '';
                 }
-                inputValue.value = null;
+                inputValue.value = isArrayInputValue ? null : inputValue.value;
             }
         }
 

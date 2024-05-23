@@ -42,9 +42,7 @@ describe('vs-file-input', () => {
                 await nextTick();
 
                 // then
-                const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                expect(updateModelValueEvent).toHaveLength(1);
-                expect(updateModelValueEvent?.[0]).toEqual([file]);
+                expect(wrapper.vm.inputValue).toEqual(file);
             });
 
             it('modelValue가 배열이라면 null로 가공해준다', async () => {
@@ -60,12 +58,10 @@ describe('vs-file-input', () => {
                 await nextTick();
 
                 // then
-                const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                expect(updateModelValueEvent).toHaveLength(1);
-                expect(updateModelValueEvent?.[0]).toEqual([null]);
+                expect(wrapper.vm.inputValue).toBe(null);
             });
 
-            it('modelValue에 array를 할당하면 null로 보정한다', async () => {
+            it('modelValue의 초깃값이 배열이라면 null로 보정한다', async () => {
                 // given
                 wrapper = mount(VsFileInput, {
                     props: {
