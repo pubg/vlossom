@@ -1,9 +1,7 @@
 <template>
-    <div class="vs-form">
-        <vs-container>
-            <slot />
-        </vs-container>
-    </div>
+    <vs-container tag="form">
+        <slot />
+    </vs-container>
 </template>
 
 <script lang="ts">
