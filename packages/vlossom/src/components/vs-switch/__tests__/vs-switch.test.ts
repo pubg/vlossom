@@ -19,7 +19,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
         it('modelValue를 업데이트할 수 있다', async () => {
             // given
@@ -52,7 +52,7 @@ describe('vs-switch', () => {
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
         it('modelValue가 null이면 false로 가공된다', async () => {
             // given
@@ -67,7 +67,7 @@ describe('vs-switch', () => {
             await nextTick();
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
+            expect(wrapper.vm.isChecked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
         });
         it('modelValue가 undefined이면 false로 가공된다', async () => {
@@ -83,231 +83,177 @@ describe('vs-switch', () => {
             await nextTick();
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
+            expect(wrapper.vm.isChecked).toBe(false);
             expect(wrapper.props('modelValue')).toBe(false);
         });
+        it('modelValue에 null을 할당해도 falseValue로 보정해준다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                props: {
+                    modelValue: false,
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    trueValue: 'hello',
+                    falseValue: 'world',
+                },
+            });
+
+            // when
+            await wrapper.setProps({ modelValue: null });
+
+            // then
+            expect(wrapper.vm.isChecked).toBe(false);
+            expect(wrapper.vm.inputValue).toBe('world');
+            expect(wrapper.props('modelValue')).toBe('world');
+        });
     });
+
     describe('v-model ( array )', () => {
-        describe('multiple 이 true인 경우', () => {
-            describe('modelValue의 초깃값을 설정할 수 있다', () => {
-                it('modelValue 초깃값의 원소 중 하나라도 trueValue와 일치하면 switch의 값은 true이다', () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: ['A'],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
-
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+        describe('initial value', () => {
+            it('modelValue가 null인 경우 빈 배열로 보정된다', () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: [{ id: 'A' }],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
-                });
+                // then
+                expect(wrapper.vm.isChecked).toBe(false);
+                expect(wrapper.vm.inputValue).toEqual([]);
             });
-            describe('modelValue와 switch 값을 업데이트할 수 있다', () => {
-                it('switch 값을 true로 업데이트하면 true-value가 modelValue배열에 포함된다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: [],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    const target = wrapper.find('div.vs-switch');
-                    await target.trigger('click');
-
-                    // then
-                    const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                    expect(updateModelValueEvent).toHaveLength(1);
-                    expect(updateModelValueEvent?.[0][0]).toEqual(['A']);
+            it('modelValue 초깃값의 원소 중 하나라도 trueValue와 일치하면 switch의 값은 true이다', () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: ['A'],
+                        trueValue: 'A',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: [],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    await wrapper.setProps({ modelValue: ['A'] });
-
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+                // then
+                expect(wrapper.vm.isChecked).toBe(true);
+                expect(wrapper.vm.inputValue).toEqual(['A']);
+            });
+            it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: [{ id: 'A' }],
+                        trueValue: { id: 'A' },
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: [],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    const target = wrapper.find('div.vs-switch');
-                    await target.trigger('click');
-
-                    // then
-                    const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                    expect(updateModelValueEvent).toHaveLength(1);
-                    expect(updateModelValueEvent?.[0][0]).toEqual([{ id: 'A' }]);
-                });
-                it('object array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: true,
-                            modelValue: [],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
-
-                    // when
-                    await wrapper.setProps({ modelValue: [{ id: 'A' }] });
-
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
-                });
+                // then
+                expect(wrapper.vm.isChecked).toBe(true);
             });
         });
-        describe('multiple 이 false인 경우', () => {
-            describe('modelValue의 초깃값을 설정할 수 있다', () => {
-                it('modelValue 초깃값의 원소 중에 trueValue와 일치하는 것이 있더라도 switch의 값은 false이다', () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: ['A'],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
+        describe('modelValue와 switch 값을 업데이트할 수 있다', () => {
+            it('modelValue에 null을 할당하면 빈 배열로 보정된다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: ['A'],
+                        trueValue: 'A',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: [{ id: 'A' }],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
-                });
+                // when
+                await wrapper.setProps({ modelValue: null });
+
+                // then
+                expect(wrapper.vm.isChecked).toBe(false);
+                expect(wrapper.vm.inputValue).toEqual([]);
             });
 
-            describe('modelValue와 switch 값을 업데이트할 수 있다', () => {
-                it('switch 값을 true로 업데이트하면 modelValue가 true-value로 변경된다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: [],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
-
-                    // when
-                    const target = wrapper.find('div.vs-switch');
-                    await target.trigger('click');
-
-                    // then
-                    const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                    expect(updateModelValueEvent).toHaveLength(1);
-                    expect(updateModelValueEvent?.[0][0]).toEqual('A');
+            it('switch 값을 true로 업데이트하면 trueValue가 modelValue배열에 포함된다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: [],
+                        trueValue: 'A',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: [],
-                            trueValue: 'A',
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    await wrapper.setProps({ modelValue: 'A' });
+                // when
+                const target = wrapper.find('div.vs-switch');
+                await target.trigger('click');
 
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+                // then
+                const updateModelValueEvent = wrapper.emitted('update:modelValue');
+                expect(updateModelValueEvent).toHaveLength(1);
+                expect(updateModelValueEvent?.[0][0]).toEqual(['A']);
+            });
+            it('array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: [],
+                        trueValue: 'A',
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: [],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    const target = wrapper.find('div.vs-switch');
-                    await target.trigger('click');
+                // when
+                await wrapper.setProps({ modelValue: ['A'] });
 
-                    // then
-                    const updateModelValueEvent = wrapper.emitted('update:modelValue');
-                    expect(updateModelValueEvent).toHaveLength(1);
-                    expect(updateModelValueEvent?.[0][0]).toEqual({ id: 'A' });
+                // then
+                expect(wrapper.vm.isChecked).toBe(true);
+            });
+            it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: [],
+                        trueValue: { id: 'A' },
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
-                it('object array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
-                    // given
-                    const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
-                        props: {
-                            multiple: false,
-                            modelValue: [],
-                            trueValue: { id: 'A' },
-                            'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        },
-                    });
 
-                    // when
-                    await wrapper.setProps({ modelValue: { id: 'A' } });
+                // when
+                const target = wrapper.find('div.vs-switch');
+                await target.trigger('click');
 
-                    // then
-                    expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+                // then
+                const updateModelValueEvent = wrapper.emitted('update:modelValue');
+                expect(updateModelValueEvent).toHaveLength(1);
+                expect(updateModelValueEvent?.[0][0]).toEqual([{ id: 'A' }]);
+            });
+            it('object array 타입 modelValue를 바꿔서 switch의 값을 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
+                    props: {
+                        multiple: true,
+                        modelValue: [],
+                        trueValue: { id: 'A' },
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
+
+                // when
+                await wrapper.setProps({ modelValue: [{ id: 'A' }] });
+
+                // then
+                expect(wrapper.vm.isChecked).toBe(true);
             });
         });
     });
+
     describe('true / false value', () => {
-        it('true-value, false-value를 설정할 수 있다', async () => {
+        it('trueValue, falseValue를 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -319,9 +265,9 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
-        it('switch 를 true로 업데이트하면 modelValue를 true-value 값으로 업데이트 한다', async () => {
+        it('switch 를 true로 업데이트하면 modelValue를 trueValue 값으로 업데이트 한다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -341,7 +287,7 @@ describe('vs-switch', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual('A');
         });
-        it('switch를 false로 업데이트하면 modelValue를 false-value 값으로 업데이트 한다', async () => {
+        it('switch를 false로 업데이트하면 modelValue를 falseValue 값으로 업데이트 한다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -361,7 +307,7 @@ describe('vs-switch', () => {
             expect(updateModelValueEvent).toHaveLength(1);
             expect(updateModelValueEvent?.[0][0]).toEqual('B');
         });
-        it('object 타입 true-value, false-value를 설정할 수 있다', () => {
+        it('object 타입 trueValue, falseValue를 설정할 수 있다', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                 props: {
@@ -373,7 +319,7 @@ describe('vs-switch', () => {
             });
 
             // then
-            expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('true');
+            expect(wrapper.vm.isChecked).toBe(true);
         });
     });
     describe('true / false label', () => {
@@ -452,7 +398,7 @@ describe('vs-switch', () => {
     });
     describe('clear', () => {
         describe('multiple 이 true이고 v-model이 array 타입인 경우', () => {
-            it('clear 함수를 호출하면 true-value가 제외된 배열로 업데이트된다', async () => {
+            it('clear 함수를 호출하면 빈 배열로 업데이트된다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                     props: {
@@ -468,13 +414,13 @@ describe('vs-switch', () => {
                 await nextTick();
 
                 // then
-                expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
-                expect(wrapper.props('modelValue')).toEqual(['B']);
+                expect(wrapper.vm.isChecked).toBe(false);
+                expect(wrapper.props('modelValue')).toEqual([]);
             });
         });
 
         describe('multiple 이 false 이거나 v-model이 array 타입이 아닌 경우', () => {
-            it('clear 함수를 호출하면 false-value 값으로 업데이트 할 수 있다', async () => {
+            it('clear 함수를 호출하면 falseValue 값으로 업데이트 할 수 있다', async () => {
                 // given
                 const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch, {
                     props: {
@@ -488,7 +434,7 @@ describe('vs-switch', () => {
                 await nextTick();
 
                 // then
-                expect(wrapper.find('div.vs-switch').attributes('aria-checked')).toBe('false');
+                expect(wrapper.vm.isChecked).toBe(false);
                 expect(wrapper.props('modelValue')).toBe(false);
             });
         });

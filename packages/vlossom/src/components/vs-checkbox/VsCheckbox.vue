@@ -132,9 +132,14 @@ export default defineComponent({
             callbacks: {
                 onMounted: () => {
                     if (checked.value) {
-                        inputValue.value = getUpdatedValue(true, inputValue.value);
+                        inputValue.value = getUpdatedValue(true);
                     } else {
                         inputValue.value = getInitialValue();
+                    }
+                },
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
+                        inputValue.value = getClearedValue();
                     }
                 },
                 onClear: () => {
@@ -144,7 +149,7 @@ export default defineComponent({
         });
 
         async function onToggle(c: boolean) {
-            const toValue = getUpdatedValue(c, inputValue.value);
+            const toValue = getUpdatedValue(c);
 
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {

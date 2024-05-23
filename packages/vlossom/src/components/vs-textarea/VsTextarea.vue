@@ -114,6 +114,14 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
+        function convertValue(v: string): string {
+            if (!v) {
+                return '';
+            }
+
+            return modifyStringValue(v.toString());
+        }
+
         function onClear() {
             inputValue.value = '';
         }
@@ -123,7 +131,10 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = modelValue.value || '';
+                    inputValue.value = convertValue(inputValue.value);
+                },
+                onChange: () => {
+                    inputValue.value = convertValue(inputValue.value);
                 },
                 onClear,
             },
@@ -131,8 +142,7 @@ export default defineComponent({
 
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
-            const targetValue = target.value || '';
-            inputValue.value = modifyStringValue(targetValue);
+            inputValue.value = target.value || '';
         }
 
         const textareaRef: Ref<HTMLInputElement | null> = ref(null);

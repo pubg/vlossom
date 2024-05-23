@@ -137,22 +137,26 @@ export function useInput<T = unknown>(
         return innerMessages.value;
     });
 
-    watch(inputValue, (value, oldValue) => {
-        emit('update:modelValue', value);
-        if (options?.callbacks?.onChange) {
-            options.callbacks.onChange(value, oldValue);
-        }
+    watch(
+        inputValue,
+        (value, oldValue) => {
+            emit('update:modelValue', value);
+            if (options?.callbacks?.onChange) {
+                options.callbacks.onChange(value, oldValue);
+            }
 
-        checkMessages();
-        checkRules();
+            checkMessages();
+            checkRules();
 
-        if (!isInitialized.value) {
-            return;
-        }
-        changed.value = true;
-        showRuleMessages.value = true;
-        emit('change', value);
-    });
+            if (!isInitialized.value) {
+                return;
+            }
+            changed.value = true;
+            showRuleMessages.value = true;
+            emit('change', value);
+        },
+        { deep: true },
+    );
 
     watch(
         modelValue,

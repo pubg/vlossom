@@ -155,9 +155,14 @@ export default defineComponent({
             callbacks: {
                 onMounted: () => {
                     if (checked.value) {
-                        inputValue.value = getUpdatedValue(true, inputValue.value);
+                        inputValue.value = getUpdatedValue(true);
                     } else {
                         inputValue.value = getInitialValue();
+                    }
+                },
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
+                        inputValue.value = getClearedValue();
                     }
                 },
                 onClear: () => {
@@ -171,7 +176,7 @@ export default defineComponent({
                 return;
             }
 
-            const toValue = getUpdatedValue(!isChecked.value, inputValue.value);
+            const toValue = getUpdatedValue(!isChecked.value);
 
             const beforeChangeFn = beforeChange.value;
             if (beforeChangeFn) {

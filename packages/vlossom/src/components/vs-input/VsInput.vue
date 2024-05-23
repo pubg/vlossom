@@ -113,7 +113,10 @@ export default defineComponent({
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         type: { type: String as PropType<InputType>, default: InputType.Text },
         // v-model
-        modelValue: { type: [String, Number] as PropType<InputValueType>, default: '' },
+        modelValue: {
+            type: [String, Number] as PropType<InputValueType>,
+            default: null,
+        },
         modelModifiers: {
             type: Object as PropType<StringModifiers>,
             default: () => ({}),
@@ -171,7 +174,7 @@ export default defineComponent({
         const isNumberInput = computed(() => type.value === InputType.Number);
 
         function convertValue(v: InputValueType | undefined): InputValueType {
-            if (!v) {
+            if (v === undefined || v === null || v === '') {
                 return isNumberInput.value ? null : '';
             }
 
@@ -179,14 +182,13 @@ export default defineComponent({
                 return Number(v);
             }
 
-            return v.toString();
+            return modifyStringValue(v.toString());
         }
 
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
         function onClear() {
-            const emptyValue = convertValue(null);
-            inputValue.value = emptyValue;
+            inputValue.value = null;
         }
 
         const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
@@ -194,7 +196,10 @@ export default defineComponent({
             rules: allRules,
             callbacks: {
                 onMounted: () => {
-                    inputValue.value = convertValue(modelValue.value);
+                    inputValue.value = convertValue(inputValue.value);
+                },
+                onChange: () => {
+                    inputValue.value = convertValue(inputValue.value);
                 },
                 onClear,
             },
@@ -202,14 +207,7 @@ export default defineComponent({
 
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
-            const targetValue = target.value || '';
-            let converted = convertValue(targetValue);
-
-            if (typeof converted === 'string') {
-                converted = modifyStringValue(converted);
-            }
-
-            inputValue.value = converted;
+            inputValue.value = target.value || '';
         }
 
         const hasPrependButton = computed(() => !!slots['prepend-button']);
