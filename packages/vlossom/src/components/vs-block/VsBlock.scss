@@ -3,11 +3,11 @@ $borderStyle: var(--vs-block-borderStyle, solid);
 $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
 
 .vs-block {
-    border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
-    border-radius: var(--vs-block-borderRadius, 0.4rem);
-    overflow: hidden;
     position: relative;
     width: 100%;
+    overflow: auto;
+    border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
+    border-radius: var(--vs-block-borderRadius, 0.4rem);
 
     .block-header {
         background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-backgroundColor));
