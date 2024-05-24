@@ -5,6 +5,7 @@
     color: var(--vs-section-fontColor, var(--vs-font-color));
     padding: var(--vs-section-padding, 2.8rem 3.2rem);
     position: relative;
+    overflow: auto;
 
     .section-title {
         margin: var(--vs-section-titleMargin, 0 0 1.2rem 0);
