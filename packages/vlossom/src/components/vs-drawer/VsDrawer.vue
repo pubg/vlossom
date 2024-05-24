@@ -110,11 +110,19 @@ export default defineComponent({
         watch(isOpen, (val) => {
             if (dimmed.value) {
                 if (val && !hasContainer.value) {
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.paddingRight = '15px';
+                    if (document.body.scrollHeight > window.innerHeight) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.style.paddingRight = '0.4rem';
+                    }
+
+                    if (document.body.scrollWidth > window.innerWidth) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.style.paddingBottom = '0.4rem';
+                    }
                 } else {
                     document.body.style.overflow = '';
                     document.body.style.paddingRight = '';
+                    document.body.style.paddingBottom = '';
                 }
             }
 
