@@ -5,16 +5,15 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs } from 'vue';
-import { useResponsive } from '@/composables';
-import { VsComponent, type Breakpoints } from '@/declaration';
+import { defineComponent, toRefs } from 'vue';
+import { getResponsiveProps, useResponsive } from '@/composables';
+import { VsComponent } from '@/declaration';
 
 export default defineComponent({
     name: VsComponent.VsWrapper,
     props: {
-        grid: { type: Object as PropType<Breakpoints>, default: () => ({}) },
+        ...getResponsiveProps(),
         tag: { type: String, default: 'div' },
-        width: { type: [String, Object] as PropType<string | Breakpoints>, default: null },
     },
     setup(props) {
         const { width, grid } = toRefs(props);

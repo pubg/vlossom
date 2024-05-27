@@ -15,7 +15,7 @@
 import { defineComponent, toRefs, computed, watch, inject, type PropType, getCurrentInstance } from 'vue';
 import { useColorScheme, useLayout, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
-import { VS_LAYOUT, VsComponent } from '@/declaration';
+import { VS_LAYOUT, VsComponent, APP_LAYOUT_Z_INDEX, LAYOUT_Z_INDEX } from '@/declaration';
 
 import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsFooterStyleSet } from './types';
@@ -40,7 +40,7 @@ export default defineComponent({
         const { computedStyleSet: footerStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
 
         const defaultInsetStyle = computed(() => {
-            const style: { [ley: string]: any } = {};
+            const style: { [key: string]: string | number } = {};
 
             if (position.value === 'absolute' || position.value === 'fixed') {
                 style['--vs-footer-bottom'] = 0;
@@ -48,11 +48,9 @@ export default defineComponent({
             }
 
             if (position.value === 'absolute') {
-                style['--vs-footer-zIndex'] = 100; // var(bar-z-index)
-            }
-
-            if (position.value === 'fixed') {
-                style['--vs-footer-zIndex'] = 1000; // var(app-bar-z-index)
+                style['--vs-footer-zIndex'] = LAYOUT_Z_INDEX;
+            } else if (position.value === 'fixed') {
+                style['--vs-footer-zIndex'] = APP_LAYOUT_Z_INDEX;
             }
 
             return style;
