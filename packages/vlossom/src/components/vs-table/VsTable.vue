@@ -2,7 +2,11 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense' : '']" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
-                <caption v-if="caption">{{ caption }}</caption>
+                <caption v-if="caption">
+                    {{
+                        caption
+                    }}
+                </caption>
                 <vs-table-header
                     :headers="headers"
                     :draggable="canDrag"
@@ -123,7 +127,11 @@ export default defineComponent({
             default: null,
         },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
-        items: { type: Array as PropType<any[]>, default: () => [] as any[], required: true },
+        items: {
+            type: Array as PropType<any[]>,
+            default: () => [] as any[],
+            required: true,
+        },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
         loading: { type: Boolean, default: false },
         pagination: { type: Boolean, default: false },
@@ -133,7 +141,10 @@ export default defineComponent({
         },
         pageEdgeButtons: { type: Boolean, default: false },
         search: { type: String, default: '' },
-        searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
+        searchableKeys: {
+            type: Array as PropType<string[]>,
+            default: () => [] as string[],
+        },
         selectable: { type: Boolean, default: false },
         totalLength: { type: Number },
         // v-model
