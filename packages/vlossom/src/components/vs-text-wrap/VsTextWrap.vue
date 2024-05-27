@@ -26,7 +26,9 @@
             </div>
 
             <template #tooltip>
-                <slot />
+                <slot name="tooltip">
+                    <slot />
+                </slot>
             </template>
         </vs-tooltip>
     </div>
