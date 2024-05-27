@@ -6,7 +6,7 @@
     white-space: nowrap;
     max-height: var(--vs-button-maxHeight, 3rem);
     padding: var(--vs-button-padding, 0.4rem 1rem);
-    border: 1px solid var(--vs-line-color);
+    border: var(--vs-button-border, 1px solid var(--vs-line-color));
     border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     cursor: pointer;
     font-size: var(--vs-button-fontSize, 0.9rem);
@@ -64,7 +64,7 @@
     &.primary {
         background-color: var(--vs-button-backgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-button-fontColor, var(--vs-primary-comp-font));
-        border: 1px solid var(--vs-primary-comp-bg);
+        border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
 
         &:hover {
             background-color: var(--vs-button-hoverBackgroundColor, var(--vs-primary-comp-bg-hover));
@@ -97,7 +97,7 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid var(--vs-primary-comp-bg));
+        border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
         color: var(--vs-button-fontColor, var(--vs-primary-comp-bg));
         font-weight: var(--vs-button-fontWeight, 500);
 
