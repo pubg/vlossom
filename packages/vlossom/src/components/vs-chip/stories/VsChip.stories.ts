@@ -94,7 +94,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{color}}" primary style="margin-bottom: 0.3rem;">
+                    <vs-chip color-scheme="{{color}}" primary closable style="margin-bottom: 0.3rem;">
                         Chip
                     </vs-chip>
                 `)}
@@ -151,7 +151,7 @@ export const ClickEventWithPrimary: Story = {
         template: `
             <div style="display:flex; align-items:center; flex-wrap: wrap;">
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')" :style-set="{padding: '0 1rem'}" style="margin-bottom: 0.3rem;">
+                    <vs-chip color-scheme="{{ color }}" @click="onClick('{{ color }}')" :primary="isSelected('{{ color }}')" style="margin-bottom: 0.3rem;">
                         <template #icon>
                             <vs-icon v-if="isSelected('{{ color }}')" icon="check" size="16px" />
                         </template>
@@ -175,13 +175,12 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             backgroundColor: '#1e88e5',
+            border: '3px solid #304d30',
             borderRadius: '0.2rem',
             fontColor: 'white',
             fontSize: '1.2rem',
             fontWeight: '500',
-            height: '2rem',
-            minHeight: '1rem',
-            outlineBorder: '3px solid #304d30',
+            height: '1rem',
             padding: '0.8rem 1.5rem',
         },
     },

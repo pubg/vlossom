@@ -87,8 +87,7 @@ const vsChip: VsChipStyleSet = {
     backgroundColor: '#a5d6ad',
     borderRadius: '1.2rem',
     fontColor: '#304d30',
-    height: '3rem',
-    minHeight: '2rem',
+    height: '2rem',
     padding: '0.8rem 1.5rem',
 };
 
