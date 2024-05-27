@@ -10,9 +10,9 @@
         caption {
             caption-side: top;
             text-align: center;
-            padding-bottom: 1rem;
+            padding-bottom: 0.6rem;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             color: var(--vs-font-color);
         }
 
@@ -25,7 +25,7 @@
             td {
                 display: flex;
                 align-items: center;
-                padding: 0.4rem 1.2rem;
+                padding: 0.2rem 0.8rem;
                 text-align: left;
 
                 .table-data {
@@ -44,7 +44,7 @@
             th {
                 color: var(--vs-comp-font);
                 height: 3.6rem;
-                font-size: 1.1rem;
+                font-size: 0.9rem;
                 font-weight: 700;
 
                 &.draggable-th,
@@ -75,7 +75,7 @@
 
             td {
                 min-height: 4.8rem;
-                font-size: 1.1rem;
+                font-size: 0.9rem;
 
                 &.draggable-td {
                     padding-right: 0;
@@ -111,7 +111,7 @@
                         }
 
                         &:hover {
-                            box-shadow: 0 0 4px var(--vs-comp-bg);
+                            box-shadow: 0 0 4px var(--vs-comp-bg-hover);
                         }
 
                         &:disabled {
@@ -127,7 +127,7 @@
                     border-top: 1px dashed var(--vs-line-color);
                     border-left: 1px dashed var(--vs-line-color);
                     border-right: 1px dashed var(--vs-line-color);
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     box-shadow: var(--vs-table-expand-box-shadow-up), var(--vs-table-expand-box-shadow-down);
                 }
 
@@ -170,7 +170,7 @@
 
             p {
                 font-weight: 500;
-                font-size: 2rem;
+                font-size: 1.2rem;
             }
         }
     }
@@ -200,13 +200,13 @@
 
     thead tr {
         th {
-            height: 3.2rem;
+            min-height: 2rem;
         }
     }
 
     tbody tr {
         td {
-            min-height: 3.2rem;
+            min-height: 2rem;
         }
     }
 }
@@ -256,7 +256,7 @@
                     display: block;
                     line-height: 3rem;
                     margin-right: 1.4rem;
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     font-weight: 700;
                 }
 
