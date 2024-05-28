@@ -9,12 +9,12 @@
         border-spacing: 0 !important;
 
         caption {
-            caption-side: top;
-            text-align: center;
-            padding-bottom: 0.9rem;
-            font-weight: bold;
-            font-size: 0.92rem;
-            color: var(--vs-font-color);
+            caption-side: var(--vs-table-captionSide, top);
+            text-align: var(--vs-table-captionTextAlign, center);
+            padding: 1rem 0;
+            color: var(--vs-table-captionFontColor, var(--vs-font-color));
+            font-size: var(--vs-table-captionFontSize, 0.92rem);
+            font-weight: var(--vs-table-captionFontWeight, bold);
         }
 
         tr {
@@ -40,14 +40,18 @@
         }
 
         thead tr {
-            background-color: var(--vs-comp-bg);
-            border: var(--vs-table-border, 1px solid var(--vs-line-color));
+            background-color: var(--vs-table-headerBackgroundColor, var(--vs-comp-bg));
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
             th {
-                color: var(--vs-comp-font);
-                height: 2.7rem;
-                font-size: 0.9rem;
-                font-weight: 600;
+                color: var(--vs-table-headerFontColor, var(--vs-comp-font));
+                font-size: var(--vs-table-headerFontSize, 0.9rem);
+                font-weight: var(--vs-table-headerFontWeight, 600);
+                height: var(--vs-table-headerHeight, 2.7rem);
+
+                .vs-checkbox-node .select-all {
+                    background-color: red;
+                }
 
                 &.draggable-th,
                 &.expandable-th {
@@ -67,17 +71,19 @@
         tbody tr {
             position: relative;
             transition: background-color 0.2s;
-            border-bottom: 1px solid var(--vs-gray-200);
-            color: var(--vs-font-color);
+            background-color: var(--vs-table-bodyBackgroundColor, var(--vs-area-bg));
+            border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-gray-200));
+            color: var(--vs-table-bodyFontColor, var(--vs-font-color));
 
             &.selected {
-                background-color: var(--vs-area-bg-hover);
-                color: var(--vs-comp-font);
+                background-color: var(--vs-table-selectedBackgroundColor, var(--vs-area-bg-hover));
+                color: var(--vs-table-selectedFontColor, var(--vs-comp-font));
             }
 
             td {
-                min-height: 3rem;
-                font-size: 0.9rem;
+                min-height: var(--vs-table-bodyMinHeight, 3rem);
+                font-size: var(--vs-table-bodyFontSize, 0.9rem);
+                font-weight: var(--vs-table-bodyFontWeight, 400);
 
                 &.draggable-td {
                     padding-right: 0;
@@ -97,8 +103,8 @@
                         width: 1.6rem;
                         height: 1.6rem;
                         border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
-                        border: var(--vs-table-border, 1px solid var(--vs-line-color));
-                        background-color: var(--vs-comp-bg);
+                        border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
+                        background-color: var(--vs-table-bodyBackgroundColor, var(--vs-comp-bg));
 
                         i {
                             color: var(--vs-comp-font);
@@ -159,8 +165,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            border: 1px solid var(--vs-font-color);
+            border: var(--vs-table-hoverBorder, 1px solid var(--vs-font-color));
             pointer-events: none;
         }
 
@@ -195,7 +200,6 @@
 }
 
 .vs-table.dense .table-wrap table {
-
     thead tr {
         th {
             height: 2.2rem;
