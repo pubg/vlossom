@@ -11,8 +11,8 @@
             >
                 <vs-icon icon="goPrev" size="1.2rem" />
             </button>
-            <div class="tabs-container">
-                <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine }">
+            <div class="tabs-container" ref="tabsContainerRef">
+                <ul role="tablist" :class="{ bottomLine }">
                     <li
                         v-for="(tab, index) in tabs"
                         ref="tabRefs"
