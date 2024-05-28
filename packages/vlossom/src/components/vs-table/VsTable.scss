@@ -71,7 +71,7 @@
         tbody tr {
             position: relative;
             transition: background-color 0.2s;
-            background-color: var(--vs-table-bodyBackgroundColor, var(--vs-area-bg));
+            background-color: var(--vs-table-bodyBackgroundColor, transparent);
             border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-gray-200));
             color: var(--vs-table-bodyFontColor, var(--vs-font-color));
 
