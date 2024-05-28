@@ -25,7 +25,7 @@ const meta: Meta<typeof VsDrawer> = {
         template: `
             <div>
                 <div v-for="(size, index) in SIZES" :style="{...containerStyle, marginBottom: '12px' }">
-                    Render in this  
+                    Render in this
                     <vs-button @click="onClick(index)">{{size}}</vs-button>
                     <vs-drawer v-model="isOpens[index]" :size="size" v-bind="args">
                         <div :style="contentStyle">
@@ -35,17 +35,17 @@ const meta: Meta<typeof VsDrawer> = {
                 </div>
 
                 <div v-for="(placement, index) in PLACEMENTS" :style="{...containerStyle, marginBottom: '12px' }">
-                    Render in this  
+                    Render in this
                     <vs-button @click="onClick(index+5)">{{placement}}</vs-button>
                     <vs-drawer v-model="isOpens[index+5]" :placement="placement" v-bind="args">
                         <div :style="contentStyle">
-                           {{placement}} 
+                           {{placement}}
                         </div>
                     </vs-drawer>
                 </div>
 
                 <div :style="containerStyle">
-                    Render in this  
+                    Render in this
                     <vs-button @click="onClick(9)">Open Drawer</vs-button>
                     <vs-drawer v-model="isOpens[9]" size="xl" v-bind="args">
                         <template #header>
@@ -71,9 +71,6 @@ const meta: Meta<typeof VsDrawer> = {
         placement,
         size,
         colorScheme,
-    },
-    args: {
-        hasContainer: true,
     },
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
