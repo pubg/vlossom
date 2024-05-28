@@ -293,3 +293,36 @@ export const Expandable: Story = {
         chromatic: chromaticParameters.theme,
     },
 };
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: {
+            bodyBackgroundColor: '#ffffff',
+            bodyBorder: '1px solid #dcD6f7',
+            bodyFontColor: '#0f4c75',
+            bodyFontSize: '0.9rem',
+            bodyMinHeight: '3rem',
+            captionFontColor: '#0f4c75',
+            captionFontSize: '0.9rem',
+            captionFontWeight: '600',
+            captionSide: 'bottom',
+            headerBackgroundColor: '#DEFCF9',
+            headerBorder: '1px solid #DCD6F7',
+            headerFontColor: '#0f4c75',
+            headerFontSize: '1rem',
+            headerFontWeight: '700',
+            headerHeight: '3rem',
+            hoverBorder: '2px solid #DCD6F7',
+            selectedBackgroundColor: '#DCD6F7',
+            selectedFontColor: '#0f4c75',
+        },
+        caption: 'Table 1: Fruit Shopping List',
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+        caption: 'Table 1: Fruit Shopping List',
+    },
+};
