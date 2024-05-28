@@ -292,67 +292,11 @@ describe('vs-input', () => {
     });
 
     describe('prepend / append', () => {
-        it('prepend button slot을 설정할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                slots: {
-                    'prepend-button': 'this is button content',
-                },
-            });
-
-            // then
-            expect(wrapper.find('button.prepend').exists()).toBe(true);
-            expect(wrapper.html()).toContain('this is button content');
-        });
-
-        it('append button slot을 설정할 수 있다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                slots: {
-                    'append-button': 'this is button content',
-                },
-            });
-
-            // then
-            expect(wrapper.find('button.append').exists()).toBe(true);
-            expect(wrapper.html()).toContain('this is button content');
-        });
-
-        it('prepend button을 클릭하면 prepend 이벤트를 발생시킨다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                slots: {
-                    'prepend-button': 'this is button content',
-                },
-            });
-
-            // when
-            await wrapper.find('button.prepend').trigger('click');
-
-            // then
-            expect(wrapper.emitted('prepend')).toHaveLength(1);
-        });
-
-        it('append button을 클릭하면 append 이벤트를 발생시킨다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                slots: {
-                    'append-button': 'this is button content',
-                },
-            });
-
-            // when
-            await wrapper.find('button.append').trigger('click');
-
-            // then
-            expect(wrapper.emitted('append')).toHaveLength(1);
-        });
-
         it('prepend content slot을 설정할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'prepend-content': 'this is content',
+                    prepend: 'this is content',
                 },
             });
 
@@ -365,7 +309,7 @@ describe('vs-input', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
                 slots: {
-                    'append-content': 'this is content',
+                    append: 'this is content',
                 },
             });
 
@@ -409,24 +353,6 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.emitted('enter')).toHaveLength(1);
-        });
-
-        it('prepend button과 append button이 있을 경우 prepend, append 이벤트도 함께 발생시킨다', async () => {
-            // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
-                slots: {
-                    'prepend-button': 'this is button content',
-                    'append-button': 'this is button content',
-                },
-            });
-
-            // when
-            await wrapper.find('input').trigger('keyup.enter');
-
-            // then
-            expect(wrapper.emitted('enter')).toHaveLength(1);
-            expect(wrapper.emitted('prepend')).toHaveLength(1);
-            expect(wrapper.emitted('append')).toHaveLength(1);
         });
     });
 

@@ -19,18 +19,8 @@
                 :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
                 :style="computedStyleSet"
             >
-                <button
-                    v-if="hasPrependButton"
-                    type="button"
-                    class="prepend"
-                    aria-label="prepend-action"
-                    @click.stop="$emit('prepend')"
-                >
-                    <slot name="prepend-button" />
-                </button>
-
-                <div v-if="hasPrependContent" class="prepend">
-                    <slot name="prepend-content" />
+                <div v-if="$slots['prepend']" class="prepend">
+                    <slot name="prepend" />
                 </div>
 
                 <input
@@ -38,6 +28,7 @@
                     :id="id"
                     :type="type"
                     :value="inputValue"
+                    :autocomplete="autocomplete ? 'on' : 'off'"
                     :name="name"
                     :disabled="disabled"
                     :readonly="readonly"
@@ -63,13 +54,9 @@
                     <vs-icon icon="close" :size="dense ? 16 : 20" />
                 </button>
 
-                <div v-if="hasAppendContent" class="append">
-                    <slot name="append-content" />
+                <div v-if="$slots['append']" class="append">
+                    <slot name="append" />
                 </div>
-
-                <button v-if="hasAppendButton" class="append" aria-label="append-action" @click.stop="$emit('append')">
-                    <slot name="append-button" />
-                </button>
             </div>
 
             <template #messages v-if="!noMessage">
@@ -106,6 +93,7 @@ export default defineComponent({
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
+        autocomplete: { type: Boolean, default: false },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         dense: { type: Boolean, default: false },
@@ -152,7 +140,7 @@ export default defineComponent({
             state,
         } = toRefs(props);
 
-        const { slots, emit } = context;
+        const { emit } = context;
 
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
@@ -210,12 +198,6 @@ export default defineComponent({
             inputValue.value = target.value || '';
         }
 
-        const hasPrependButton = computed(() => !!slots['prepend-button']);
-        const hasAppendButton = computed(() => !!slots['append-button']);
-
-        const hasPrependContent = computed(() => !!slots['prepend-content']);
-        const hasAppendContent = computed(() => !!slots['append-content']);
-
         const inputRef: Ref<HTMLInputElement | null> = ref(null);
 
         function focus() {
@@ -240,14 +222,6 @@ export default defineComponent({
 
         function onEnter() {
             emit('enter');
-
-            if (hasPrependButton.value) {
-                emit('prepend');
-            }
-
-            if (hasAppendButton.value) {
-                emit('append');
-            }
         }
 
         function clearWithFocus() {
@@ -264,10 +238,6 @@ export default defineComponent({
             inputValue,
             updateValue,
             inputRef,
-            hasPrependButton,
-            hasAppendButton,
-            hasPrependContent,
-            hasAppendContent,
             computedMessages,
             shake,
             focus,
