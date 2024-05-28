@@ -47,7 +47,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-table v-bind="args" color-scheme="{{ color }}" />
+                    <vs-table v-bind="args" color-scheme="{{ color }}" :style="{ marginBottom: '20px' }"/>
                 `)}
             </div>
         `,
@@ -126,7 +126,7 @@ export const Search: Story = {
                 </vs-input>
                 <vs-table v-bind="args" :search="search">
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value"></vs-switch>
+                        <vs-switch v-model="value" no-label no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -168,7 +168,7 @@ export const Filter: Story = {
                 <vs-block style="margin-bottom: 0.8rem">
                     <h3 style="margin-bottom: 0.5rem">Filter</h3>
                     <vs-select v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
-                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false"/>
+                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false" no-label no-message/>
                 </vs-block>
                 <vs-table v-bind="args" :filter="filter"/>
             </div>
@@ -263,7 +263,7 @@ export const ItemSlot: Story = {
                         <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value"></vs-switch>
+                        <vs-switch v-model="value" no-label no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>
