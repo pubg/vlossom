@@ -1,35 +1,28 @@
 import { Ref, ref } from 'vue';
-import { CssPosition, Placement, VsLayoutProvide } from '@/declaration';
+import { BarLayout, DrawerLayout, VsLayoutProvide } from '@/declaration';
 
 export function useLayout() {
-    const isNavOpen = ref(false);
-    const header: Ref<{ position: CssPosition; height: string }> = ref({ position: 'relative', height: '' });
-    const footer: Ref<{ position: CssPosition; height: string }> = ref({ position: 'relative', height: '' });
-    const drawer: Ref<{ placement: Placement; size: string }> = ref({ placement: 'left', size: '' });
+    const header: Ref<BarLayout> = ref({ position: 'relative', height: '' });
+    const footer: Ref<BarLayout> = ref({ position: 'relative', height: '' });
+    const drawer: Ref<DrawerLayout> = ref({ drawerOpen: false, placement: 'left', size: '' });
 
-    function toggleNav() {
-        isNavOpen.value = !isNavOpen.value;
+    function setHeaderLayout(headerLayout: BarLayout) {
+        header.value = headerLayout;
     }
 
-    function setHeaderLayout(position: CssPosition, height: string) {
-        header.value = { position, height };
+    function setFooterLayout(footerLayout: BarLayout) {
+        footer.value = footerLayout;
     }
 
-    function setFooterLayout(position: CssPosition, height: string) {
-        footer.value = { position, height };
-    }
-
-    function setDrawerLayout(placement: Placement, size: string) {
-        drawer.value = { placement, size };
+    function setDrawerLayout(drawerLayout: DrawerLayout) {
+        drawer.value = drawerLayout;
     }
 
     function getDefaultLayoutProvide(): VsLayoutProvide {
         return {
-            isNavOpen,
             header,
             footer,
             drawer,
-            toggleNav,
             setHeaderLayout,
             setFooterLayout,
             setDrawerLayout,
@@ -37,11 +30,9 @@ export function useLayout() {
     }
 
     return {
-        isNavOpen,
         header,
         footer,
         drawer,
-        toggleNav,
         setHeaderLayout,
         setFooterLayout,
         setDrawerLayout,

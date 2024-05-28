@@ -48,9 +48,9 @@ export default defineComponent({
             }
 
             if (position.value === 'absolute') {
-                style['--vs-footer-zIndex'] = LAYOUT_Z_INDEX;
+                style['--vs-footer-zIndex'] = LAYOUT_Z_INDEX - 1;
             } else if (position.value === 'fixed') {
-                style['--vs-footer-zIndex'] = APP_LAYOUT_Z_INDEX;
+                style['--vs-footer-zIndex'] = APP_LAYOUT_Z_INDEX - 1;
             }
 
             return style;
@@ -69,7 +69,7 @@ export default defineComponent({
             watch(
                 [position, height],
                 ([newPosition, newHeight]) => {
-                    setFooterLayout(newPosition, newHeight);
+                    setFooterLayout({ position: newPosition, height: newHeight });
                 },
                 { immediate: true },
             );

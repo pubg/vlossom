@@ -68,8 +68,8 @@ describe('vs-container', () => {
         it.skip('vs-layout의 자식인 경우라면 layoutStyles에 header height, footer height만큼 padding을 설정한다', () => {
             // given
             const layoutProvide = useLayout().getDefaultLayoutProvide();
-            layoutProvide.setHeaderLayout('absolute', '100px');
-            layoutProvide.setFooterLayout('absolute', '50px');
+            layoutProvide.setHeaderLayout({ position: 'absolute', height: '100px' });
+            layoutProvide.setFooterLayout({ position: 'absolute', height: '50px' });
 
             // when
             const containerWrapper = mount(VsContainer);

@@ -69,7 +69,7 @@ export default defineComponent({
             watch(
                 [position, height],
                 ([newPosition, newHeight]) => {
-                    setHeaderLayout(newPosition, newHeight);
+                    setHeaderLayout({ position: newPosition, height: newHeight });
                 },
                 { immediate: true },
             );

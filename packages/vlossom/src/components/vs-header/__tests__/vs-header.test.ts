@@ -92,7 +92,7 @@ describe('vs-header', () => {
             });
 
             // then
-            expect(setHeaderLayoutSpy).toHaveBeenCalledWith('absolute', '100px');
+            expect(setHeaderLayoutSpy).toHaveBeenCalledWith({ position: 'absolute', height: '100px' });
         });
 
         it('vs-layout의 자식이 아니라면 layout provide에 header layout 값을 세팅하지 않는다', () => {

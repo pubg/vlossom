@@ -47,7 +47,7 @@ $sizes: xs, sm, md, lg, xl;
         // size
         &.left,
         &.right {
-            max-width: var(--vs-drawer-width, var(--vs-drawer-width-sm));
+            max-width: var(--vs-drawer-width);
             max-height: var(--vs-drawer-height);
 
             @each $size in $sizes {

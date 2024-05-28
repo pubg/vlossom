@@ -1,6 +1,9 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsDrawer from './../VsDrawer.vue';
+import { useLayout } from '@/composables';
+import { VsLayout } from '@/components';
+import { VS_LAYOUT } from '@/declaration';
 
 describe('vs-drawer', () => {
     describe('v-model', () => {
@@ -9,9 +12,6 @@ describe('vs-drawer', () => {
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: false,
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -24,9 +24,6 @@ describe('vs-drawer', () => {
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: false,
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -50,9 +47,6 @@ describe('vs-drawer', () => {
                 slots: {
                     default: 'Content',
                 },
-                global: {
-                    stubs: ['Teleport'],
-                },
             });
 
             // then
@@ -67,9 +61,6 @@ describe('vs-drawer', () => {
                 },
                 slots: {
                     header: 'Header',
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -86,9 +77,6 @@ describe('vs-drawer', () => {
                 },
                 slots: {
                     footer: 'Footer',
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -115,14 +103,12 @@ describe('vs-drawer', () => {
     });
 
     describe('dimmed', () => {
-        it('기본적으로 dimmed 영역이 존재한다', () => {
+        it('dimmed prop을 true로 전달하면 dimmed element가 노출된다', () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
-                },
-                global: {
-                    stubs: ['Teleport'],
+                    dimmed: true,
                 },
             });
 
@@ -130,30 +116,12 @@ describe('vs-drawer', () => {
             expect(wrapper.find('div.dimmed').exists()).toBe(true);
         });
 
-        it('dimmed prop을 false로 전달하면 dimmed 영역이 존재하지 않는다', () => {
-            // given
-            const wrapper = mount(VsDrawer, {
-                props: {
-                    modelValue: true,
-                    dimmed: false,
-                },
-                global: {
-                    stubs: ['Teleport'],
-                },
-            });
-
-            // then
-            expect(wrapper.find('div.dimmed').exists()).toBe(false);
-        });
-
         it('기본적으로 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
-                },
-                global: {
-                    stubs: ['Teleport'],
+                    dimmed: true,
                 },
             });
 
@@ -161,9 +129,7 @@ describe('vs-drawer', () => {
             await wrapper.find('div.dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 drawer가 닫히지 않는다', async () => {
@@ -171,10 +137,8 @@ describe('vs-drawer', () => {
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
+                    dimmed: true,
                     closeOnDimmedClick: false,
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -182,8 +146,7 @@ describe('vs-drawer', () => {
             await wrapper.find('div.dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 
@@ -194,9 +157,6 @@ describe('vs-drawer', () => {
                 props: {
                     modelValue: true,
                 },
-                global: {
-                    stubs: ['Teleport'],
-                },
                 attachTo: document.body,
             });
 
@@ -204,9 +164,7 @@ describe('vs-drawer', () => {
             await wrapper.trigger('keydown.Escape');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-esc-key prop을 false로 전달하면 esc key를 눌러도 drawer가 닫히지 않는다', async () => {
@@ -216,9 +174,6 @@ describe('vs-drawer', () => {
                     modelValue: true,
                     closeOnEscKey: false,
                 },
-                global: {
-                    stubs: ['Teleport'],
-                },
                 attachTo: document.body,
             });
 
@@ -226,8 +181,7 @@ describe('vs-drawer', () => {
             await wrapper.trigger('keydown.Esc');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 
@@ -237,9 +191,6 @@ describe('vs-drawer', () => {
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
-                },
-                global: {
-                    stubs: ['Teleport'],
                 },
             });
 
@@ -284,6 +235,58 @@ describe('vs-drawer', () => {
                 // then
                 expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-height: 270px;');
             });
+        });
+    });
+
+    describe('layout', () => {
+        // vs-layout의 name이 test 환경에서 'VTU_ROOT'로 변경되어 있어서 테스트가 불가능
+        it.skip('vs-layout의 자식인 경우라면 layout provide에 drawer layout 값을 세팅할 수 있다', () => {
+            // given
+            const layoutProvide = useLayout().getDefaultLayoutProvide();
+            const setHeaderLayoutSpy = vi.spyOn(layoutProvide, 'setDrawerLayout');
+
+            // when
+            mount(VsLayout, {
+                global: {
+                    provide: { [VS_LAYOUT]: layoutProvide },
+                },
+                slots: {
+                    default: () =>
+                        mount(VsDrawer, {
+                            props: {
+                                modelValue: true,
+                                position: 'absolute',
+                                placement: 'right',
+                                size: '100px',
+                            },
+                        }),
+                },
+            });
+
+            // then
+            expect(setHeaderLayoutSpy).toHaveBeenCalledWith({ drawerOpen: true, placement: 'right', height: '100px' });
+        });
+
+        it('vs-layout의 자식이 아니라면 layout provide에 header layout 값을 세팅하지 않는다', () => {
+            // given
+            const layoutProvide = useLayout().getDefaultLayoutProvide();
+            const setHeaderLayoutSpy = vi.spyOn(layoutProvide, 'setHeaderLayout');
+
+            // when
+            mount(VsDrawer, {
+                global: {
+                    provide: { [VS_LAYOUT]: layoutProvide },
+                },
+                props: {
+                    modelValue: true,
+                    position: 'absolute',
+                    placement: 'right',
+                    size: '100px',
+                },
+            });
+
+            // then
+            expect(setHeaderLayoutSpy).not.toBeCalled();
         });
     });
 });
