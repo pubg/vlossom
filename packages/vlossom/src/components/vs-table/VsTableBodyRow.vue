@@ -1,7 +1,7 @@
 <template>
     <tr :style="trStyle" :class="[{ skeleton: loading }, rowState]">
         <td class="draggable-td handle" v-if="draggable">
-            <vs-icon v-if="!loading" icon="drag" size="1.8rem" />
+            <vs-icon v-if="!loading" icon="drag" size="1.6rem" />
         </td>
         <td class="selectable-td" v-if="selectable">
             <div v-if="loading" class="skeleton"></div>
