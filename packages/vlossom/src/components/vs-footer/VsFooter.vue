@@ -1,7 +1,7 @@
 <template>
     <vs-bar-node
         :color-scheme="computedColorScheme"
-        :style-set="{ ...defaultInsetStyle, ...computedStyleSet }"
+        :style-set="computedStyleSet"
         :height="height"
         :position="position"
         :primary="primary"
@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, type PropType } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { defineComponent, toRefs, computed, watch, inject, type PropType, getCurrentInstance } from 'vue';
+import { useColorScheme, useLayout, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
-import { VsComponent } from '@/declaration';
+import { VS_LAYOUT, VsComponent, APP_LAYOUT_Z_INDEX, LAYOUT_Z_INDEX } from '@/declaration';
 
 import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsFooterStyleSet } from './types';
@@ -33,27 +33,51 @@ export default defineComponent({
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { colorScheme, styleSet, position } = toRefs(props);
+        const { colorScheme, styleSet, height, position } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
+        const { computedStyleSet: footerStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
 
         const defaultInsetStyle = computed(() => {
-            const style: { [ley: string]: any } = {};
+            const style: { [key: string]: string | number } = {};
 
             if (position.value === 'absolute' || position.value === 'fixed') {
                 style['--vs-footer-bottom'] = 0;
                 style['--vs-footer-left'] = 0;
             }
 
+            if (position.value === 'absolute') {
+                style['--vs-footer-zIndex'] = LAYOUT_Z_INDEX - 1;
+            } else if (position.value === 'fixed') {
+                style['--vs-footer-zIndex'] = APP_LAYOUT_Z_INDEX - 1;
+            }
+
             return style;
         });
+
+        const computedStyleSet = computed(() => {
+            return { ...defaultInsetStyle.value, ...footerStyleSet.value };
+        });
+
+        // only for vs-layout children
+        const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
+        if (isLayoutChild) {
+            const { getDefaultLayoutProvide } = useLayout();
+            const { setFooterLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
+            watch(
+                [position, height],
+                ([newPosition, newHeight]) => {
+                    setFooterLayout({ position: newPosition, height: newHeight });
+                },
+                { immediate: true },
+            );
+        }
 
         return {
             computedColorScheme,
             computedStyleSet,
-            defaultInsetStyle,
         };
     },
 });

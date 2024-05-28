@@ -14,12 +14,6 @@
         padding: var(--vs-dialog-node-padding, 2rem);
     }
 
-    .dialog-header {
-        color: var(--vs-dialog-node-headerFontColor, var(--vs-font-color));
-        font-size: var(--vs-dialog-node-headerFontSize, 1.25rem);
-        font-weight: var(--vs-dialog-node-headerFontWeight, 600);
-    }
-
     .dialog-body {
         overflow-y: auto;
         flex: 1;
@@ -32,11 +26,5 @@
                 display: none;
             }
         }
-    }
-
-    .dialog-footer {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
     }
 }

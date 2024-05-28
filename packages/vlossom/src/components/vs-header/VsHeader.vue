@@ -1,7 +1,7 @@
 <template>
     <vs-bar-node
         :color-scheme="computedColorScheme"
-        :style-set="{ ...defaultInsetStyle, ...computedStyleSet }"
+        :style-set="computedStyleSet"
         :height="height"
         :position="position"
         :primary="primary"
@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, type PropType } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { defineComponent, toRefs, computed, watch, inject, type PropType, getCurrentInstance } from 'vue';
+import { useColorScheme, useLayout, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
-import { VsComponent } from '@/declaration';
+import { VS_LAYOUT, VsComponent, APP_LAYOUT_Z_INDEX, LAYOUT_Z_INDEX } from '@/declaration';
 
 import type { Align, ColorScheme, CssPosition } from '@/declaration';
 import type { VsHeaderStyleSet } from './types';
@@ -33,27 +33,51 @@ export default defineComponent({
         verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { colorScheme, styleSet, position } = toRefs(props);
+        const { colorScheme, styleSet, position, height } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsHeaderStyleSet>(name, styleSet);
+        const { computedStyleSet: headerStyleSet } = useStyleSet<VsHeaderStyleSet>(name, styleSet);
 
-        const defaultInsetStyle = computed(() => {
-            const style: { [ley: string]: any } = {};
+        const defaultPositionStyle = computed(() => {
+            const style: { [key: string]: string | number } = {};
 
             if (position.value === 'absolute' || position.value === 'fixed') {
                 style['--vs-header-top'] = 0;
                 style['--vs-header-left'] = 0;
             }
 
+            if (position.value === 'absolute') {
+                style['--vs-header-zIndex'] = LAYOUT_Z_INDEX;
+            } else if (position.value === 'fixed') {
+                style['--vs-header-zIndex'] = APP_LAYOUT_Z_INDEX;
+            }
+
             return style;
         });
+
+        const computedStyleSet = computed(() => {
+            return { ...defaultPositionStyle.value, ...headerStyleSet.value };
+        });
+
+        // only for vs-layout children
+        const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
+        if (isLayoutChild) {
+            const { getDefaultLayoutProvide } = useLayout();
+            const { setHeaderLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
+            watch(
+                [position, height],
+                ([newPosition, newHeight]) => {
+                    setHeaderLayout({ position: newPosition, height: newHeight });
+                },
+                { immediate: true },
+            );
+        }
 
         return {
             computedColorScheme,
             computedStyleSet,
-            defaultInsetStyle,
         };
     },
 });

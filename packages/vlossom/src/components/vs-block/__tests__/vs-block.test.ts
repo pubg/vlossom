@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import Vsblock from '../VsBlock.vue';
+import Vsblock from './../VsBlock.vue';
 
 describe('vs-block', () => {
     it('title slot을 설정하지 않으면 block-header 영역이 없다', () => {

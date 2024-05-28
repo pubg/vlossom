@@ -1,26 +1,93 @@
 <template>
-    <div class="vs-container" :style="containerStyle">
+    <component :is="tag" :class="['vs-container', { grid }]" :style="computedStyles">
         <slot />
-    </div>
+    </component>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { VsComponent } from '@/declaration';
+import { computed, defineComponent, getCurrentInstance, inject, toRefs } from 'vue';
+import { VS_LAYOUT, VsComponent } from '@/declaration';
+import { utils } from '@/utils';
+import { useLayout } from '@/composables';
 
+const name = VsComponent.VsContainer;
 export default defineComponent({
-    name: VsComponent.VsContainer,
+    name,
     props: {
-        rowGap: { type: [Number, String], default: 0 },
-        columnGap: { type: [Number, String], default: 0 },
-    },
-    computed: {
-        containerStyle(): { [key: string]: any } {
-            return {
-                rowGap: isNaN(Number(this.rowGap)) ? this.rowGap : `${this.rowGap}px`,
-                columnGap: isNaN(Number(this.columnGap)) ? this.columnGap : `${this.columnGap}px`,
-            };
+        columnGap: {
+            type: [Number, String],
+            default: 0,
+            validator: (value, props) => {
+                if (!props.grid && !!value) {
+                    utils.log.propWarning(name, 'column-gap', 'column-gap is only available when grid is true');
+                    return false;
+                }
+                return true;
+            },
         },
+        grid: { type: Boolean, default: false },
+        rowGap: {
+            type: [Number, String],
+            default: 0,
+            validator: (value, props) => {
+                if (!props.grid && !!value) {
+                    utils.log.propWarning(name, 'row-gap', 'row-gap is only available when grid is true');
+                    return false;
+                }
+                return true;
+            },
+        },
+        tag: { type: String, default: 'div' },
+    },
+    setup(props) {
+        const { columnGap, grid, rowGap } = toRefs(props);
+
+        const gridStyles = computed(() => {
+            if (!grid.value) {
+                return {};
+            }
+
+            return {
+                rowGap: isNaN(Number(rowGap.value)) ? rowGap.value : `${rowGap.value}px`,
+                columnGap: isNaN(Number(columnGap.value)) ? columnGap.value : `${columnGap.value}px`,
+            };
+        });
+
+        // only for vs-layout children
+        const { getDefaultLayoutProvide } = useLayout();
+        const { header, footer } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
+        const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
+        const layoutStyles = computed(() => {
+            if (!isLayoutChild) {
+                return {};
+            }
+
+            const style: { [key: string]: string | number } = {};
+            const needPadding = ['absolute', 'fixed'];
+
+            const { position: headerPosition, height: headerHeight } = header.value;
+            if (needPadding.includes(headerPosition)) {
+                style.paddingTop = headerHeight;
+            }
+
+            const { position: footerPosition, height: footerHeight } = footer.value;
+            if (needPadding.includes(footerPosition)) {
+                style.paddingBottom = footerHeight;
+            }
+
+            return style;
+        });
+
+        const computedStyles = computed(() => {
+            return { ...gridStyles.value, ...layoutStyles.value };
+        });
+
+        return {
+            gridStyles,
+            layoutStyles,
+            computedStyles,
+        };
     },
 });
 </script>

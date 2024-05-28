@@ -43,8 +43,8 @@ export { default as VsHeader } from './vs-header/VsHeader.vue';
 export { type VsImageStyleSet } from './vs-image/types';
 export { default as VsImage } from './vs-image/VsImage.vue';
 
-export { default as VsIndexView } from './vs-index-view/VsIndexView.vue';
 export { default as VsIndexItem } from './vs-index-view/VsIndexItem.vue';
+export { default as VsIndexView } from './vs-index-view/VsIndexView.vue';
 
 export { InputType, type VsInputStyleSet } from './vs-input/types';
 export { default as VsInput } from './vs-input/VsInput.vue';
@@ -54,10 +54,10 @@ export { default as VsInputWrapper } from './vs-input-wrapper/VsInputWrapper.vue
 export { type VsLabelValueStyleSet } from './vs-label-value/types';
 export { default as VsLabelValue } from './vs-label-value/VsLabelValue.vue';
 
+export { default as VsLayout } from './vs-layout/VsLayout.vue';
+
 export { type VsLoadingStyleSet } from './vs-loading/types';
 export { default as VsLoading } from './vs-loading/VsLoading.vue';
-
-export { default as VsMain } from './vs-main/VsMain.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
@@ -100,11 +100,11 @@ export { default as VsTable } from './vs-table/VsTable.vue';
 export { type VsTabsStyleSet } from './vs-tabs/types';
 export { default as VsTabs } from './vs-tabs/VsTabs.vue';
 
-export { type VsTextareaStyleSet } from './vs-textarea/types';
-export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
-
 export { type VsTextWrapStyleSet } from './vs-text-wrap/types';
 export { default as VsTextWrap } from './vs-text-wrap/VsTextWrap.vue';
+
+export { type VsTextareaStyleSet } from './vs-textarea/types';
+export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
 
 export { type VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
@@ -119,47 +119,48 @@ export { default as VsWrapper } from './vs-wrapper/VsWrapper.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
-        VsAccordion: typeof import('./')['VsAccordion'];
-        VsAvatar: typeof import('./')['VsAvatar'];
-        VsBlock: typeof import('./')['VsBlock'];
-        VsButton: typeof import('./')['VsButton'];
-        VsCheckbox: typeof import('./')['VsCheckbox'];
-        VsCheckboxSet: typeof import('./')['VsCheckboxSet'];
-        VsChip: typeof import('./')['VsChip'];
-        VsContainer: typeof import('./')['VsContainer'];
-        VsDivider: typeof import('./')['VsDivider'];
-        VsDrawer: typeof import('./')['VsDrawer'];
-        VsFileInput: typeof import('./')['VsFileInput'];
-        VsFocusTrap: typeof import('./')['VsFocusTrap'];
-        VsFooter: typeof import('./')['VsFooter'];
-        VsForm: typeof import('./')['VsForm'];
-        VsHeader: typeof import('./')['VsHeader'];
-        VsImage: typeof import('./')['VsImage'];
-        VsIndexView: typeof import('./')['VsIndexView'];
-        VsIndexItem: typeof import('./')['VsIndexItem'];
-        VsInput: typeof import('./')['VsInput'];
-        VsInputWrapper: typeof import('./')['VsInputWrapper'];
-        VsLabelValue: typeof import('./')['VsLabelValue'];
-        VsLoading: typeof import('./')['VsLoading'];
-        VsMessage: typeof import('./')['VsMessage'];
-        VsModal: typeof import('./')['VsModal'];
-        VsNotice: typeof import('./')['VsNotice'];
-        VsPage: typeof import('./')['VsPage'];
-        VsPagination: typeof import('./')['VsPagination'];
-        VsProgress: typeof import('./')['VsProgress'];
-        VsRadio: typeof import('./')['VsRadio'];
-        VsRadioSet: typeof import('./')['VsRadioSet'];
-        VsSection: typeof import('./')['VsSection'];
-        VsSelect: typeof import('./')['VsSelect'];
-        VsStepper: typeof import('./')['VsStepper'];
-        VsSwitch: typeof import('./')['VsSwitch'];
-        VsTable: typeof import('./')['VsTable'];
-        VsTabs: typeof import('./')['VsTabs'];
-        VsTextarea: typeof import('./')['VsTextarea'];
-        VsTextWrap: typeof import('./')['VsTextWrap'];
-        VsThemeButton: typeof import('./')['VsThemeButton'];
-        VsTooltip: typeof import('./')['VsTooltip'];
-        VsValueTag: typeof import('./')['VsValueTag'];
-        VsWrapper: typeof import('./')['VsWrapper'];
+        VsAccordion: (typeof import('./'))['VsAccordion'];
+        VsAvatar: (typeof import('./'))['VsAvatar'];
+        VsBlock: (typeof import('./'))['VsBlock'];
+        VsButton: (typeof import('./'))['VsButton'];
+        VsCheckbox: (typeof import('./'))['VsCheckbox'];
+        VsCheckboxSet: (typeof import('./'))['VsCheckboxSet'];
+        VsChip: (typeof import('./'))['VsChip'];
+        VsContainer: (typeof import('./'))['VsContainer'];
+        VsDivider: (typeof import('./'))['VsDivider'];
+        VsDrawer: (typeof import('./'))['VsDrawer'];
+        VsFileInput: (typeof import('./'))['VsFileInput'];
+        VsFocusTrap: (typeof import('./'))['VsFocusTrap'];
+        VsFooter: (typeof import('./'))['VsFooter'];
+        VsForm: (typeof import('./'))['VsForm'];
+        VsHeader: (typeof import('./'))['VsHeader'];
+        VsImage: (typeof import('./'))['VsImage'];
+        VsIndexItem: (typeof import('./'))['VsIndexItem'];
+        VsIndexView: (typeof import('./'))['VsIndexView'];
+        VsInput: (typeof import('./'))['VsInput'];
+        VsInputWrapper: (typeof import('./'))['VsInputWrapper'];
+        VsLabelValue: (typeof import('./'))['VsLabelValue'];
+        VsLayout: (typeof import('./'))['VsLayout'];
+        VsLoading: (typeof import('./'))['VsLoading'];
+        VsMessage: (typeof import('./'))['VsMessage'];
+        VsModal: (typeof import('./'))['VsModal'];
+        VsNotice: (typeof import('./'))['VsNotice'];
+        VsPage: (typeof import('./'))['VsPage'];
+        VsPagination: (typeof import('./'))['VsPagination'];
+        VsProgress: (typeof import('./'))['VsProgress'];
+        VsRadio: (typeof import('./'))['VsRadio'];
+        VsRadioSet: (typeof import('./'))['VsRadioSet'];
+        VsSection: (typeof import('./'))['VsSection'];
+        VsSelect: (typeof import('./'))['VsSelect'];
+        VsStepper: (typeof import('./'))['VsStepper'];
+        VsSwitch: (typeof import('./'))['VsSwitch'];
+        VsTable: (typeof import('./'))['VsTable'];
+        VsTabs: (typeof import('./'))['VsTabs'];
+        VsTextWrap: (typeof import('./'))['VsTextWrap'];
+        VsTextarea: (typeof import('./'))['VsTextarea'];
+        VsThemeButton: (typeof import('./'))['VsThemeButton'];
+        VsTooltip: (typeof import('./'))['VsTooltip'];
+        VsValueTag: (typeof import('./'))['VsValueTag'];
+        VsWrapper: (typeof import('./'))['VsWrapper'];
     }
 }

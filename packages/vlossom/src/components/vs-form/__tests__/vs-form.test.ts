@@ -25,6 +25,16 @@ describe('vs-form', () => {
         wrapper.unmount();
     });
 
+    describe('autocomplete', () => {
+        it('form element에 autocomplete를 설정할 수 있다', async () => {
+            // when
+            await wrapper.setProps({ autocomplete: true });
+
+            // then
+            expect(wrapper.find('form').attributes('autocomplete')).toBe('on');
+        });
+    });
+
     describe('validate', () => {
         it('validate 함수를 실행하면, validateFlag가 바뀐다', async () => {
             // when

@@ -1,56 +1,38 @@
-import { placement, size, colorScheme } from '@/storybook';
+import { placement, size, colorScheme, LOREM_IPSUM } from '@/storybook';
 import { userEvent, within } from '@storybook/test';
 import { ref } from 'vue';
-import { VsIcon } from '@/icons';
 import VsDrawer from './../VsDrawer.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-const DrawerCloseButton = {
-    components: { VsIcon },
-    template: `
-        <vs-icon icon="close" style="cursor: pointer" />
-    `,
-};
-
-const contentStyle = {
+const wrapperStyle = {
     display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1rem',
-};
-
-const containerStyle = {
-    backgroundColor: 'rgba(0, 0, 0, 0.02)',
-    border: '1px solid rgb(240, 240, 240)',
-    borderRadius: '4px',
-    color: 'var(--vs-font-color)',
-    height: '800px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '300px',
     overflow: 'hidden',
-    position: 'relative',
-    padding: '2rem',
-    width: '600px',
 };
 
 const meta: Meta<typeof VsDrawer> = {
     title: 'Components/Layout Components/VsDrawer',
     component: VsDrawer,
     render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
+        components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
 
-            return { args, isOpen, contentStyle };
+            return { args, isOpen, wrapperStyle };
         },
         template: `
-            <vs-button @click="isOpen = true">Open Drawer</vs-button>
-            <vs-drawer v-model="isOpen" v-bind="args">
-                <div :style="contentStyle">
-                    Here is drawer body
-                    <drawer-close-button @click="isOpen = false" />
-                </div>
-            </vs-drawer>
+            <div :style="wrapperStyle">
+                <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
+                <vs-drawer v-model="isOpen" v-bind="args">
+                    This is drawer
+                </vs-drawer>
+            </div>
         `,
     }),
     tags: ['autodocs'],
@@ -73,7 +55,7 @@ export const Default: Story = {};
 
 export const Placement: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
+        components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
             const placements = placement.options;
@@ -81,7 +63,7 @@ export const Placement: Story = {
 
             function setPlacement(value: string) {
                 currentPlacement.value = value;
-                isOpen.value = true;
+                isOpen.value = !isOpen.value;
             }
 
             return {
@@ -89,19 +71,16 @@ export const Placement: Story = {
                 placements,
                 currentPlacement,
                 setPlacement,
-                contentStyle,
+                wrapperStyle,
             };
         },
         template: `
-            <div>
+            <div :style="wrapperStyle">
 				<vs-button v-for="placement in placements" :key="placement" @click="setPlacement(placement)">
                     {{ placement }}
 				</vs-button>
                 <vs-drawer v-model="isOpen" :placement="currentPlacement">
-                    <div :style="contentStyle">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
-                    </div>
+                    This is drawer
                 </vs-drawer>
             </div>
         `,
@@ -111,7 +90,7 @@ export const Placement: Story = {
 
 export const Size: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
+        components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
             const sizes = [...size.options, '500px'];
@@ -119,21 +98,18 @@ export const Size: Story = {
 
             function setSize(value: string) {
                 currentSize.value = value;
-                isOpen.value = true;
+                isOpen.value = !isOpen.value;
             }
 
-            return { isOpen, sizes, currentSize, setSize, contentStyle };
+            return { isOpen, sizes, currentSize, setSize, wrapperStyle };
         },
         template: `
-            <div>
+            <div :style="wrapperStyle">
                 <vs-button v-for="size in sizes" :key="size" @click="setSize(size)">
                     {{ size }}
                 </vs-button>
-                <vs-drawer v-model="isOpen" :size="currentSize">
-                    <div :style="contentStyle">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
-                    </div>
+                <vs-drawer v-model="isOpen" :size="currentSize" dimmed>
+                    This is drawer body
                 </vs-drawer>
             </div>
         `,
@@ -141,102 +117,53 @@ export const Size: Story = {
     play: () => {},
 };
 
-export const Header: Story = {
+export const Slots: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
+        components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
 
-            return { isOpen, contentStyle };
+            return { isOpen, wrapperStyle };
         },
         template: `
-            <div>
-                <vs-button @click="isOpen = true">Open Drawer</vs-button>
-                <vs-drawer v-model="isOpen">
+            <div :style="wrapperStyle">
+                <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
+                <vs-drawer v-model="isOpen" size="md">
                     <template #header>
                         <div style="padding: 1rem; border-bottom: 1px solid rgb(240, 240, 240); display:flex; justify-content: space-between">
-                            Here is drawer header
-                            <drawer-close-button @click="isOpen = false" />
+                            This is drawer header
                         </div>
                     </template>
 
-                    <div :style="contentStyle">
-                        Here is drawer body
-                    </div>
-                </vs-drawer>
-            </div>
-        `,
-    }),
-};
-
-export const Footer: Story = {
-    render: () => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
-        setup() {
-            const isOpen = ref(false);
-
-            return { isOpen, contentStyle };
-        },
-        template: `
-            <div>
-                <vs-button @click="isOpen = true">Open Drawer</vs-button>
-                <vs-drawer v-model="isOpen">
-                    <div :style="contentStyle">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
+                    <div>
+                        This is drawer body
                     </div>
 
                     <template #footer>
-                        <div style="padding: 1rem; border-top: 1px solid rgb(240, 240, 240)">Here is drawer footer</div>
+                        <div style="padding: 1rem; border-top: 1px solid rgb(240, 240, 240)">This is drawer footer</div>
                     </template>
                 </vs-drawer>
             </div>
         `,
     }),
-};
-
-export const HasContainer: Story = {
-    render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
-        setup() {
-            const isOpen = ref(false);
-
-            return { args, isOpen, containerStyle, contentStyle };
-        },
-        template: `
-            <div :style="containerStyle">
-                Render in this
-                <vs-button @click="isOpen = true">Button</vs-button>
-                <vs-drawer v-model="isOpen" v-bind="args">
-                    <div :style="contentStyle">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
-                    </div>
-                </vs-drawer>
-            </div>
-        `,
-    }),
-    args: {
-        hasContainer: true,
-        size: 'md',
-    },
 };
 
 export const HideScroll: Story = {
     render: (args: any) => ({
-        components: { VsDrawer, DrawerCloseButton, VsButton },
+        components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
 
-            return { args, isOpen, contentStyle };
+            return { args, isOpen, wrapperStyle, LOREM_IPSUM };
         },
         template: `
-            <div>
-                <vs-button @click="isOpen = true">Open Drawer</vs-button>
+            <div :style="wrapperStyle">
+                <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
                 <vs-drawer v-model="isOpen" v-bind="args">
-                    <div :style="{...contentStyle, height: '1500px'}">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
+                    <div :style="{ height: '1500px' }">
+                        {{ LOREM_IPSUM }}
+                        {{ LOREM_IPSUM }}
+                        {{ LOREM_IPSUM }}
                     </div>
                 </vs-drawer>
             </div>
@@ -245,26 +172,24 @@ export const HideScroll: Story = {
     args: {
         hideScroll: true,
     },
+    play: () => {},
 };
 
 export const InitialFocusRef: Story = {
     render: () => ({
-        components: { VsDrawer, DrawerCloseButton, VsInput, VsButton },
+        components: { VsDrawer, VsInput, VsButton },
         setup() {
             const isOpen = ref(false);
             const inputRef = ref(null);
 
-            return { isOpen, contentStyle, inputRef };
+            return { isOpen, inputRef, wrapperStyle };
         },
         template: `
-            <div>
-                <vs-button @click="isOpen = true">Open Drawer</vs-button>
-                <vs-drawer v-model="isOpen" :initialFocusRef="inputRef">
-                    <div :style="contentStyle">
-                        Here is drawer body
-                        <drawer-close-button @click="isOpen = false" />
-                    </div>
-                    <vs-input ref="inputRef" />
+            <div :style="wrapperStyle">
+                <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
+                <vs-drawer v-model="isOpen" :initialFocusRef="inputRef" size="md" dimmed>
+                    <vs-input ref="inputRef" label="Name" placeholder="enter your name" />
+                    <vs-input label="What do you like?" placeholder="enter your favorites       " />
                 </vs-drawer>
             </div>
         `,

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsSection from '@/components/vs-section/VsSection.vue';
+import VsSection from './../VsSection.vue';
 
 describe('vs-section', () => {
     it('title slot을 설정하지 않으면 section-title 영역이 없다', () => {

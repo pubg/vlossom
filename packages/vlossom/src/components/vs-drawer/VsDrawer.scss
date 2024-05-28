@@ -1,18 +1,12 @@
 $sizes: xs, sm, md, lg, xl;
 
 .vs-drawer {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: var(--vs-drawer-zIndex, var(--vs-dialog-z-index));
-
-    &.has-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
 
     .dimmed {
         position: absolute;
@@ -53,7 +47,7 @@ $sizes: xs, sm, md, lg, xl;
         // size
         &.left,
         &.right {
-            max-width: var(--vs-drawer-width, var(--vs-drawer-width-sm));
+            max-width: var(--vs-drawer-width);
             max-height: var(--vs-drawer-height);
 
             @each $size in $sizes {

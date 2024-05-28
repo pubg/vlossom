@@ -1,14 +1,12 @@
 <template>
-    <div class="vs-form">
-        <vs-container>
-            <slot />
-        </vs-container>
-    </div>
+    <vs-container tag="form" :autocomplete="autocomplete ? 'on' : 'off'">
+        <slot />
+    </vs-container>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, provide, watch } from 'vue';
-import { VsComponent, type VsFormProvide } from '@/declaration';
+import { VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
 import { useFormProvide } from '@/composables';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
@@ -16,6 +14,7 @@ export default defineComponent({
     name: VsComponent.VsForm,
     components: { VsContainer },
     props: {
+        autocomplete: { type: Boolean, default: false },
         // v-model
         changed: { type: Boolean, default: false },
         valid: { type: Boolean, default: true },
@@ -23,9 +22,9 @@ export default defineComponent({
     emits: ['update:changed', 'update:valid', 'error'],
     expose: ['validate', 'clear'],
     setup(_, { emit }) {
-        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getFormProvide } = useFormProvide();
+        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getDefaultFormProvide } = useFormProvide();
 
-        provide<VsFormProvide>('vs-form', getFormProvide());
+        provide<VsFormProvide>(VS_FORM, getDefaultFormProvide());
 
         const isValid = computed(() => Object.values(validObj.value).every((v) => v));
         const isChanged = computed(() => Object.values(changedObj.value).some((v) => v));

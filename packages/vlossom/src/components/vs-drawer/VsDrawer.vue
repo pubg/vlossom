@@ -1,44 +1,63 @@
 <template>
-    <Teleport to="body" :disabled="hasContainer">
-        <Transition name="drawer" :duration="300">
-            <div
-                v-if="isOpen"
-                :class="['vs-drawer', { 'has-container': hasContainer }]"
-                :style="{
-                    ...computedStyleSet,
-                    ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
-                }"
-            >
-                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-                <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
-                    <vs-dialog-node
-                        :class="['drawer-dialog', `vs-${computedColorScheme}`, placement, hasSpecifiedSize ? '' : size]"
-                        :style-set="computedStyleSet"
-                        :close-on-esc="closeOnEsc"
-                        :hide-scroll="hideScroll"
-                        :isModal="dimmed"
-                        @close="() => (isOpen = false)"
-                    >
-                        <template #header v-if="hasHeader">
-                            <slot name="header" />
-                        </template>
-                        <slot />
-                        <template #footer v-if="hasFooter">
-                            <slot name="footer" />
-                        </template>
-                    </vs-dialog-node>
-                </vs-focus-trap>
-            </div>
-        </Transition>
-    </Teleport>
+    <Transition name="drawer" :duration="300">
+        <div
+            v-if="isOpen"
+            class="vs-drawer"
+            :style="{
+                ...computedStyleSet,
+                ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
+            }"
+        >
+            <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
+            <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
+                <vs-dialog-node
+                    :class="['drawer-dialog', `vs-${computedColorScheme}`, placement, hasSpecifiedSize ? '' : size]"
+                    :style-set="computedStyleSet"
+                    :close-on-esc="closeOnEsc"
+                    :hide-scroll="hideScroll"
+                    :isModal="dimmed"
+                    @close="() => (isOpen = false)"
+                >
+                    <template #header v-if="$slots['header']">
+                        <slot name="header" />
+                    </template>
+                    <slot />
+                    <template #footer v-if="$slots['footer']">
+                        <slot name="footer" />
+                    </template>
+                </vs-dialog-node>
+            </vs-focus-trap>
+        </div>
+    </Transition>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
-import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
+import {
+    defineComponent,
+    inject,
+    ref,
+    toRefs,
+    watch,
+    computed,
+    type PropType,
+    getCurrentInstance,
+    ComputedRef,
+} from 'vue';
+import { useColorScheme, useLayout, useStyleSet } from '@/composables';
+import { VsFocusTrap } from '@/components';
 import { VsDialogNode } from '@/nodes';
-import { VsComponent, Placement, Size, SIZES, type ColorScheme, PLACEMENTS } from '@/declaration';
+import {
+    VsComponent,
+    Placement,
+    Size,
+    SIZES,
+    PLACEMENTS,
+    LAYOUT_Z_INDEX,
+    APP_LAYOUT_Z_INDEX,
+    type ColorScheme,
+    type CssPosition,
+    VS_LAYOUT,
+} from '@/declaration';
 import { utils } from '@/utils';
 
 import type { VsDrawerStyleSet } from './types';
@@ -53,22 +72,25 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
-        dimmed: { type: Boolean, default: true },
-        hasContainer: { type: Boolean, default: false },
+        dimmed: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
-        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
+        initialFocusRef: {
+            type: [Object, undefined] as PropType<HTMLElement | null>,
+            default: null,
+        },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
-        size: { type: String as PropType<Size | string>, default: '' },
+        position: { type: String as PropType<CssPosition>, default: 'absolute' },
+        size: { type: String as PropType<Size | string>, default: 'sm' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, placement, size } =
+    setup(props, { emit }) {
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, placement, position, size } =
             toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
@@ -77,57 +99,96 @@ export default defineComponent({
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
-        const sizeStyleSet = computed(() => {
+        const positionStyle = computed(() => {
+            const style: { [key: string]: string | number } = { position: position.value };
+
+            if (position.value === 'absolute') {
+                style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX;
+            } else if (position.value === 'fixed') {
+                style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX;
+            }
+
+            return style;
+        });
+
+        const sizeStyle = computed(() => {
+            const style: { [key: string]: string } = {};
+
             if (hasSpecifiedSize.value) {
                 if (placement.value === 'top' || placement.value === 'bottom') {
-                    return { '--vs-drawer-height': size.value };
+                    style['--vs-drawer-height'] = size.value;
                 }
 
                 if (placement.value === 'left' || placement.value === 'right') {
-                    return { '--vs-drawer-width': size.value };
+                    style['--vs-drawer-width'] = size.value;
+                }
+            } else {
+                if (placement.value === 'left' || placement.value === 'right') {
+                    style['--vs-drawer-width'] = `var(--vs-drawer-width-${size.value})`;
                 }
             }
 
-            return {};
+            return style;
         });
 
-        const computedStyleSet = computed(() => {
+        const computedStyleSet: ComputedRef<{ [key: string]: string }> = computed(() => {
             return {
                 ...drawerStyleSet.value,
-                ...sizeStyleSet.value,
+                ...positionStyle.value,
+                ...sizeStyle.value,
             };
         });
 
-        const hasHeader = computed(() => !!slots['header']);
-        const hasFooter = computed(() => !!slots['footer']);
-
         const isOpen = ref(modelValue.value);
 
-        watch(modelValue, (val) => {
-            isOpen.value = val;
-        });
+        watch(
+            modelValue,
+            (val) => {
+                isOpen.value = val;
+            },
+            { immediate: true },
+        );
 
-        watch(isOpen, (val) => {
-            if (dimmed.value) {
-                if (val && !hasContainer.value) {
-                    if (document.body.scrollHeight > window.innerHeight) {
-                        document.body.style.overflow = 'hidden';
-                        document.body.style.paddingRight = '0.4rem';
-                    }
+        watch(
+            isOpen,
+            (val) => {
+                if (dimmed.value) {
+                    if (val && position.value === 'fixed') {
+                        if (document.body.scrollHeight > window.innerHeight) {
+                            document.body.style.overflow = 'hidden';
+                            document.body.style.paddingRight = '0.4rem';
+                        }
 
-                    if (document.body.scrollWidth > window.innerWidth) {
-                        document.body.style.overflow = 'hidden';
-                        document.body.style.paddingBottom = '0.4rem';
+                        if (document.body.scrollWidth > window.innerWidth) {
+                            document.body.style.overflow = 'hidden';
+                            document.body.style.paddingBottom = '0.4rem';
+                        }
                     }
-                } else {
-                    document.body.style.overflow = '';
-                    document.body.style.paddingRight = '';
-                    document.body.style.paddingBottom = '';
                 }
-            }
 
-            emit('update:modelValue', val);
-        });
+                emit('update:modelValue', val);
+            },
+            { immediate: true },
+        );
+
+        // only for vs-layout children
+        const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
+        if (isLayoutChild) {
+            const { getDefaultLayoutProvide } = useLayout();
+            const { setDrawerLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
+            watch(
+                [isOpen, placement, sizeStyle],
+                ([newDrawerOpen, newPlacement, newSize]) => {
+                    setDrawerLayout({
+                        drawerOpen: newDrawerOpen,
+                        placement: newPlacement,
+                        size: newSize['--vs-drawer-width'],
+                    });
+                },
+                { immediate: true },
+            );
+        }
 
         function clickDimmed() {
             if (closeOnDimmedClick.value) {
@@ -141,8 +202,6 @@ export default defineComponent({
             hasSpecifiedSize,
             isOpen,
             clickDimmed,
-            hasHeader,
-            hasFooter,
         };
     },
 });
