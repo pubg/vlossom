@@ -2,8 +2,7 @@
 
 $checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-primary-comp-bg));
 $checkbox-size: var(--vs-checkbox-checkboxSize, 1.6rem);
-$checkbox-hover-label-color: var(--vs-checkbox-hoverLabelFontColor, var(--vs-comp-bg-hover));
-$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-comp-bg-active));
+$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));
 
 .vs-checkbox-node {
     position: relative;
@@ -54,13 +53,6 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
     &.checked {
         .checkbox-label {
             color: $checkbox-selected-label-color;
-        }
-    }
-
-    &:hover {
-        .checkbox-label {
-            font-weight: var(--vs-checkbox-hoverLabelFontWeight, 500);
-            color: $checkbox-hover-label-color;
         }
     }
 
