@@ -44,7 +44,18 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
+import {
+    computed,
+    defineComponent,
+    toRefs,
+    ref,
+    watch,
+    onMounted,
+    onUpdated,
+    onUnmounted,
+    type Ref,
+    type PropType,
+} from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
@@ -237,9 +248,22 @@ export default defineComponent({
             scrollTo(targetIndex);
         }
 
+        function updateAfterWidth() {
+            if (!tabsContainerRef.value) {
+                return;
+            }
+            const scrollWidth = tabsContainerRef.value.scrollWidth;
+            tabsContainerRef.value?.style.setProperty('--after-width', `${scrollWidth}px`);
+        }
+
         onMounted(() => {
             calculateScrollCount();
             window.addEventListener('resize', calculateScrollCount);
+            updateAfterWidth();
+        });
+
+        onUpdated(() => {
+            updateAfterWidth();
         });
 
         onUnmounted(() => {

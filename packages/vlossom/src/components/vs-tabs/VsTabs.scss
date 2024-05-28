@@ -11,9 +11,21 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
         display: inline-flex;
         list-style: none;
         overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
 
         &.bottomLine {
-            border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+            padding-bottom: 0.2rem;
+            &::after {
+                content: '';
+                position: absolute;
+                height: 1px;
+                width: var(--after-width, 100%);
+                left: 0;
+                right: 0;
+                top: var(--vs-tabs-height, 1.7rem);
+                background-color: var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+            }
         }
 
         .tab {
