@@ -5,7 +5,5 @@ export interface VsRadioNodeStyleSet {
     labelFontSize?: string;
     radioColor?: string;
     radioSize?: string;
-    hoverLabelFontColor?: string;
-    hoverLabelFontWeight?: string;
     selectedLabelFontColor?: string;
 }

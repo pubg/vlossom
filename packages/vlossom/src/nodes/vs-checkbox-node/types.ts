@@ -5,7 +5,5 @@ export interface VsCheckboxNodeStyleSet {
     focusBoxShadow?: string;
     labelFontColor?: string;
     labelFontSize?: string;
-    hoverLabelFontColor?: string;
-    hoverLabelFontWeight?: string;
     selectedLabelFontColor?: string;
 }
