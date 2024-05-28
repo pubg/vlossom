@@ -7,6 +7,7 @@
         min-height: 1.5rem;
         color: var(--vs-comp-font);
         font-size: 0.9rem;
+        margin-bottom: 0.15rem;
 
         &.disabled {
             @include disabled;

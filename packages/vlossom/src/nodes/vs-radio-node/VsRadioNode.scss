@@ -8,6 +8,8 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
 .vs-radio-node {
     position: relative;
     display: flex;
+    align-items: center;
+    height: var(--vs-radio-height, 2.4rem);
 
     .radio-wrap {
         position: relative;
@@ -43,12 +45,17 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
             color: var(--vs-radio-labelFontColor, var(--vs-comp-font));
             font-size: var(--vs-radio-labelFontSize, 1rem);
             padding: 0.2rem 0;
+            white-space: nowrap;
 
             &:before {
                 content: '';
                 background-color: var(--vs-area-bg);
                 width: $radio-size;
                 height: $radio-size;
+                min-width: $radio-size;
+                min-height: $radio-size;
+                max-width: $radio-size;
+                max-height: $radio-size;
                 border-radius: var(--vs-radio-borderRadius, 50%);
                 margin-right: 0.5rem;
                 transition: 0.25s ease;

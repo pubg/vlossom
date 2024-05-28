@@ -55,13 +55,13 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
     }
 
     &.checked {
-        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-comp-bg));
-        border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-line-color));
-        color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-bg));
+        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
+        border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-primary-comp-bg));
+        color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
 
         &::before {
             left: calc(100% - ($switchSize + $switchGap));
-            background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-bg));
+            background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
         }
 
         .status-label {

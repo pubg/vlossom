@@ -9,8 +9,9 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     user-select: none;
+    height: var(--vs-checkbox-height, 2.4rem);
 
     .checkbox-wrap {
         position: relative;
@@ -45,6 +46,7 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
         user-select: none;
         padding-left: 0.4rem;
         cursor: pointer;
+        white-space: nowrap;
         transition: 0.25s ease;
         color: var(--vs-checkbox-labelFontColor, var(--vs-comp-font));
         font-size: var(--vs-checkbox-labelFontSize, 1rem);

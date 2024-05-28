@@ -87,7 +87,7 @@
                     tabindex="-1"
                     @click.stop="onClear()"
                 >
-                    <vs-icon icon="close" :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 14 : 16" />
                 </button>
 
                 <div class="arrow-box">
@@ -141,6 +141,7 @@
                                 <slot name="select-all" :selected="isAllSelected">
                                     <span>Select All</span>
                                 </slot>
+                                <vs-divider :style="{ margin: 0 }" :style-set="{ lineColor: 'var(--vs-line-color)' }" />
                             </li>
                             <li
                                 v-for="(option, index) in loadedOptions"
@@ -204,18 +205,19 @@ import {
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
-import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsChip from '@/components/vs-chip/VsChip.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon },
+    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon, VsDivider },
     props: {
         ...getInputProps<any, []>(),
         ...getInputOptionProps(),

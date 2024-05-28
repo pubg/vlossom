@@ -51,7 +51,7 @@
                     tabindex="-1"
                     @click.stop="clearWithFocus()"
                 >
-                    <vs-icon icon="close" :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 14 : 16" />
                 </button>
 
                 <div v-if="$slots['append']" class="append">
