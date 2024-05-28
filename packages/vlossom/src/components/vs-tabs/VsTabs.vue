@@ -11,24 +11,26 @@
             >
                 <vs-icon icon="goPrev" size="1.2rem" />
             </button>
-            <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine }">
-                <li
-                    v-for="(tab, index) in tabs"
-                    ref="tabRefs"
-                    :key="tab"
-                    :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
-                    role="tab"
-                    :aria-selected="isSelected(index)"
-                    :aria-disabled="isDisabled(index)"
-                    :tabindex="isSelected(index) ? 0 : -1"
-                    @click.stop="selectTab(index)"
-                    @keydown.stop="handleKeydown"
-                >
-                    <slot :name="tab" :index="index">
-                        {{ tab }}
-                    </slot>
-                </li>
-            </ul>
+            <div class="tabs-container">
+                <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine }">
+                    <li
+                        v-for="(tab, index) in tabs"
+                        ref="tabRefs"
+                        :key="tab"
+                        :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
+                        role="tab"
+                        :aria-selected="isSelected(index)"
+                        :aria-disabled="isDisabled(index)"
+                        :tabindex="isSelected(index) ? 0 : -1"
+                        @click.stop="selectTab(index)"
+                        @keydown.stop="handleKeydown"
+                    >
+                        <slot :name="tab" :index="index">
+                            {{ tab }}
+                        </slot>
+                    </li>
+                </ul>
+            </div>
             <button
                 v-if="showScrollButtons"
                 type="button"
@@ -44,18 +46,7 @@
 </template>
 
 <script lang="ts">
-import {
-    computed,
-    defineComponent,
-    toRefs,
-    ref,
-    watch,
-    onMounted,
-    onUpdated,
-    onUnmounted,
-    type Ref,
-    type PropType,
-} from 'vue';
+import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
@@ -248,22 +239,9 @@ export default defineComponent({
             scrollTo(targetIndex);
         }
 
-        function updateAfterWidth() {
-            if (!tabsContainerRef.value) {
-                return;
-            }
-            const scrollWidth = tabsContainerRef.value.scrollWidth;
-            tabsContainerRef.value?.style.setProperty('--scroll-width', `${scrollWidth}px`);
-        }
-
         onMounted(() => {
             calculateScrollCount();
             window.addEventListener('resize', calculateScrollCount);
-            updateAfterWidth();
-        });
-
-        onUpdated(() => {
-            updateAfterWidth();
         });
 
         onUnmounted(() => {
