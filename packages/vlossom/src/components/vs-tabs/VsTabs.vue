@@ -253,7 +253,7 @@ export default defineComponent({
                 return;
             }
             const scrollWidth = tabsContainerRef.value.scrollWidth;
-            tabsContainerRef.value?.style.setProperty('--after-width', `${scrollWidth}px`);
+            tabsContainerRef.value?.style.setProperty('--scroll-width', `${scrollWidth}px`);
         }
 
         onMounted(() => {
