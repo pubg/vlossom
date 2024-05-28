@@ -171,7 +171,7 @@ export const Prepend: Story = {
         template: `
             <vs-input v-bind="args">
                 <template #prepend>
-                    <button :style="{ width: '100%', height: '100%', color: 'white' }">
+                    <button :style="{ width: '100%', height: '100%', color: 'white' }" aria-label="check">
                         <vs-icon icon="success" size="24px" />
                     </button>
                 </template>
@@ -195,7 +195,7 @@ export const Append: Story = {
         template: `
             <vs-input v-bind="args">
                 <template #append>
-                    <button :style="{ width: '100%', height: '100%', color: 'white' }">
+                    <button :style="{ width: '100%', height: '100%', color: 'white' }" aria-label="check">
                         <vs-icon icon="success" size="24px" />
                     </button>
                 </template>
