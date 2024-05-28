@@ -13,8 +13,8 @@
             text-align: var(--vs-table-captionTextAlign, center);
             padding: 1rem 0;
             color: var(--vs-table-captionFontColor, var(--vs-font-color));
-            font-size: var(--vs-table-captionFontSize, 0.92rem);
-            font-weight: var(--vs-table-captionFontWeight, bold);
+            font-size: var(--vs-table-captionFontSize, 0.9rem);
+            font-weight: var(--vs-table-captionFontWeight);
         }
 
         tr {
