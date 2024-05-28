@@ -1,4 +1,4 @@
-import { placement, size, colorScheme } from '@/storybook';
+import { placement, size, colorScheme, LOREM_IPSUM } from '@/storybook';
 import { userEvent, within } from '@storybook/test';
 import { ref } from 'vue';
 import VsDrawer from './../VsDrawer.vue';
@@ -154,14 +154,16 @@ export const HideScroll: Story = {
         setup() {
             const isOpen = ref(false);
 
-            return { args, isOpen, wrapperStyle };
+            return { args, isOpen, wrapperStyle, LOREM_IPSUM };
         },
         template: `
             <div :style="wrapperStyle">
                 <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
                 <vs-drawer v-model="isOpen" v-bind="args">
                     <div :style="{ height: '1500px' }">
-                        This is drawer body
+                        {{ LOREM_IPSUM }}
+                        {{ LOREM_IPSUM }}
+                        {{ LOREM_IPSUM }}
                     </div>
                 </vs-drawer>
             </div>
@@ -170,6 +172,7 @@ export const HideScroll: Story = {
     args: {
         hideScroll: true,
     },
+    play: () => {},
 };
 
 export const InitialFocusRef: Story = {
@@ -185,8 +188,8 @@ export const InitialFocusRef: Story = {
             <div :style="wrapperStyle">
                 <vs-button @click="isOpen = !isOpen">Toggle Drawer</vs-button>
                 <vs-drawer v-model="isOpen" :initialFocusRef="inputRef" size="md" dimmed>
-                    This is drawer body
-                    <vs-input ref="inputRef" />
+                    <vs-input ref="inputRef" label="Name" placeholder="enter your name" />
+                    <vs-input label="What do you like?" placeholder="enter your favorites       " />
                 </vs-drawer>
             </div>
         `,
