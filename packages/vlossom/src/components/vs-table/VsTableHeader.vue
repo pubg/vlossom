@@ -4,7 +4,6 @@
             <th class="draggable-th" v-if="draggable">drag</th>
             <th class="selectable-th" v-if="selectable" aria-label="select">
                 <slot name="check" />
-                select
             </th>
             <th
                 v-for="(header, index) in headers"
@@ -17,7 +16,7 @@
                     {{ header.label }}
                 </slot>
                 <span v-if="header.sortable" class="sort-icon">
-                    <vs-icon :icon="getSortIcon(sortTypes[header.key])" size="1.4rem" />
+                    <vs-icon :icon="getSortIcon(sortTypes[header.key])" size="1.2rem" />
                 </span>
             </th>
             <th class="expandable-th" v-if="expandable">expand</th>
