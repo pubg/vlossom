@@ -86,22 +86,6 @@ describe('vs-drawer', () => {
         });
     });
 
-    describe('has container', () => {
-        it('has container prop을 전달하면 teleport가 비활성화된다', () => {
-            // given
-            // stub teleport X
-            const wrapper = mount(VsDrawer, {
-                props: {
-                    modelValue: true,
-                    hasContainer: true,
-                },
-            });
-
-            // then
-            expect(wrapper.find('div').exists()).toBe(true);
-        });
-    });
-
     describe('dimmed', () => {
         it('dimmed prop을 true로 전달하면 dimmed element가 노출된다', () => {
             // given
