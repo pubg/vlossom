@@ -17,7 +17,7 @@
                         v-for="(tab, index) in tabs"
                         ref="tabRefs"
                         :key="tab"
-                        :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
+                        :class="['tab', { selected: isSelected(index), disabled: isDisabled(index) }]"
                         role="tab"
                         :aria-selected="isSelected(index)"
                         :aria-disabled="isDisabled(index)"
