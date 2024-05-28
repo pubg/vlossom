@@ -25,6 +25,7 @@
                 :disabled="disabled"
                 :readonly="readonly"
                 :aria-required="required"
+                :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"
                 @input.stop="updateValue($event)"
                 @focus.stop="onFocus"
@@ -67,6 +68,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
+        autocomplete: { type: Boolean, default: false },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         // v-model

@@ -221,6 +221,21 @@ describe('vs-input', () => {
         });
     });
 
+    describe('autocomplete', () => {
+        it('input element에 autocomplete를 설정할 수 있다', () => {
+            // given
+            // when
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsInput, {
+                props: {
+                    autocomplete: true,
+                },
+            });
+
+            // then
+            expect(wrapper.find('input').attributes('autocomplete')).toBe('on');
+        });
+    });
+
     describe('clear', () => {
         it('value가 있으면 clear 버튼이 활성화된다', async () => {
             // given

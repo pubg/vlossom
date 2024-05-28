@@ -155,6 +155,21 @@ describe('vs-textarea', () => {
         });
     });
 
+    describe('autocomplete', () => {
+        it('input element에 autocomplete를 설정할 수 있다', () => {
+            // given
+            // when
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+                props: {
+                    autocomplete: true,
+                },
+            });
+
+            // then
+            expect(wrapper.find('textarea').attributes('autocomplete')).toBe('on');
+        });
+    });
+
     describe('clear', () => {
         it('clear 함수를 호출하면 textarea 값을 초기화 할 수 있다', async () => {
             // given

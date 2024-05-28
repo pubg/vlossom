@@ -1,5 +1,5 @@
 <template>
-    <vs-container tag="form">
+    <vs-container tag="form" :autocomplete="autocomplete ? 'on' : 'off'">
         <slot />
     </vs-container>
 </template>
@@ -14,6 +14,7 @@ export default defineComponent({
     name: VsComponent.VsForm,
     components: { VsContainer },
     props: {
+        autocomplete: { type: Boolean, default: false },
         // v-model
         changed: { type: Boolean, default: false },
         valid: { type: Boolean, default: true },

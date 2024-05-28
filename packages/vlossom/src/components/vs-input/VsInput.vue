@@ -93,9 +93,9 @@ export default defineComponent({
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),
-        autocomplete: { type: Boolean, default: false },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
+        autocomplete: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
         min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
