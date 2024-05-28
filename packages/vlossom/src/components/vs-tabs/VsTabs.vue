@@ -11,24 +11,26 @@
             >
                 <vs-icon icon="goPrev" size="1.2rem" />
             </button>
-            <ul role="tablist" ref="tabsContainerRef" :class="{ bottomLine }">
-                <li
-                    v-for="(tab, index) in tabs"
-                    ref="tabRefs"
-                    :key="tab"
-                    :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
-                    role="tab"
-                    :aria-selected="isSelected(index)"
-                    :aria-disabled="isDisabled(index)"
-                    :tabindex="isSelected(index) ? 0 : -1"
-                    @click.stop="selectTab(index)"
-                    @keydown.stop="handleKeydown"
-                >
-                    <slot :name="tab" :index="index">
-                        {{ tab }}
-                    </slot>
-                </li>
-            </ul>
+            <div class="tabs-container" ref="tabsContainerRef">
+                <ul role="tablist" :class="{ bottomLine }">
+                    <li
+                        v-for="(tab, index) in tabs"
+                        ref="tabRefs"
+                        :key="tab"
+                        :class="['tab', { primary: isSelected(index), disabled: isDisabled(index) }]"
+                        role="tab"
+                        :aria-selected="isSelected(index)"
+                        :aria-disabled="isDisabled(index)"
+                        :tabindex="isSelected(index) ? 0 : -1"
+                        @click.stop="selectTab(index)"
+                        @keydown.stop="handleKeydown"
+                    >
+                        <slot :name="tab" :index="index">
+                            {{ tab }}
+                        </slot>
+                    </li>
+                </ul>
+            </div>
             <button
                 v-if="showScrollButtons"
                 type="button"

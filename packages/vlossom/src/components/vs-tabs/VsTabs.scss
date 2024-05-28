@@ -6,52 +6,56 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
     overflow-x: hidden;
     user-select: none;
 
-    ul {
-        align-items: center;
-        display: inline-flex;
-        list-style: none;
+    .tabs-container {
         overflow-x: auto;
-        scrollbar-width: thin;
+        padding-bottom: 0.2rem;
 
-        &.bottomLine {
-            border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
-        }
-
-        .tab {
+        ul {
             align-items: center;
-            background: transparent;
-            color: var(--vs-tabs-fontColor, var(--vs-comp-color));
-            cursor: pointer;
             display: inline-flex;
-            font-size: var(--vs-tabs-fontSize, 1rem);
-            font-weight: $fontWeight;
-            height: var(--vs-tabs-height, auto);
-            justify-content: center;
-            padding: var(--vs-tabs-padding, 0.2rem 1rem);
-            text-align: center;
-            transition: color 0.1s;
-            width: var(--vs-tabs-tabWidth, auto);
-            min-width: fit-content;
+            list-style: none;
+            flex-wrap: nowrap;
 
-            &:not(:last-child) {
-                margin-right: var(--vs-tabs-gap, 0.3rem);
+            &.bottomLine {
+                border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
             }
 
-            &:hover {
-                background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
-            }
+            .tab {
+                align-items: center;
+                background: transparent;
+                color: var(--vs-tabs-fontColor, var(--vs-comp-color));
+                cursor: pointer;
+                display: inline-flex;
+                font-size: var(--vs-tabs-fontSize, 1rem);
+                font-weight: $fontWeight;
+                height: var(--vs-tabs-height, auto);
+                justify-content: center;
+                padding: var(--vs-tabs-padding, 0.2rem 1rem);
+                text-align: center;
+                transition: color 0.1s;
+                width: var(--vs-tabs-tabWidth, auto);
+                min-width: fit-content;
 
-            &:focus {
-                outline: none;
-            }
+                &:not(:last-child) {
+                    margin-right: var(--vs-tabs-gap, 0.3rem);
+                }
 
-            &.primary {
-                border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));
-                font-weight: calc($fontWeight + 200);
-            }
+                &:hover {
+                    background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
+                }
 
-            &.disabled {
-                @include disabled;
+                &:focus {
+                    outline: none;
+                }
+
+                &.primary {
+                    border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));
+                    font-weight: calc($fontWeight + 200);
+                }
+
+                &.disabled {
+                    @include disabled;
+                }
             }
         }
     }
