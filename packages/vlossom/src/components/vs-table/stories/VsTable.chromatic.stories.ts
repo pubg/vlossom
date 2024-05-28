@@ -47,7 +47,7 @@ const meta: Meta<typeof VsTable> = {
             
                 <vs-table v-bind="args" dense :style="{ marginBottom: '50px' }"/>
 
-                <div :style="{ marginBottom: '0px' }">
+                <div :style="{ marginBottom: '50px' }">
                     <vs-table v-bind="args" selectable v-model:selected-items="selected" :style="{ marginBottom: '50px' }" />
                     <div style="margin-top: 1rem;">
                         <h4>selected items :</h4>
@@ -56,25 +56,25 @@ const meta: Meta<typeof VsTable> = {
                 </div>
 
                 <div :style="{ marginBottom: '50px' }">
-                    <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem">
-                        <template #prepend-content>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="margin-left: 0.5rem">
+                    <vs-input v-bind="args" v-model="search" placeholder="Search">
+                        <template #prepend>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#FFFFFF">
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </template>
                     </vs-input>
                     <vs-table v-bind="args" :search="search">
                         <template #item-checked="{ value }">
-                            <vs-switch v-model="value"></vs-switch>
+                            <vs-switch v-model="value" no-label no-message></vs-switch>
                         </template>
                     </vs-table>
                 </div>
 
                 <div :style="{ marginBottom: '50px' }">
-                    <vs-block style="margin-bottom: 0.8rem">
+                    <vs-block v-bind="args" style="margin-bottom: 0.8rem">
                         <h3 style="margin-bottom: 0.5rem">Filter</h3>
-                        <vs-select v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
-                        <vs-switch v-model="checked" label="checked" true-label="true" false-label="false"/>
+                        <vs-select v-bind="args" v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
+                        <vs-switch v-bind="args" v-model="checked" label="checked" true-label="true" false-label="false"/>
                     </vs-block>
                     <vs-table v-bind="args" :filter="filter"/>
                 </div>
@@ -90,10 +90,10 @@ const meta: Meta<typeof VsTable> = {
                 <div  :style="{ marginBottom: '50px' }">
                     <vs-table v-bind="args">
                         <template #item-desc="{ value }">
-                            <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
+                            <vs-text-wrap copy no-tooltip width="18rem">{{ value }}</vs-text-wrap>
                         </template>
                 	    <template #item-checked="{ value }">
-                	        <vs-switch v-model="value"></vs-switch>
+                	        <vs-switch v-model="value" no-label no-message></vs-switch>
                         </template>
                     </vs-table>
                 </div>
@@ -101,10 +101,10 @@ const meta: Meta<typeof VsTable> = {
                 <div  :style="{ marginBottom: '50px' }">
                     <vs-table v-bind="args">
                 	    <template #item-desc="{ value }">
-                		    <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
+                		    <vs-text-wrap copy no-tooltip width="18rem">{{ value }}</vs-text-wrap>
                 	    </template>
                 	    <template #item-checked="{ value }">
-                		    <vs-switch v-model="value"></vs-switch>
+                		    <vs-switch v-model="value" no-label no-message></vs-switch>
                 	    </template>
                     </vs-table>
                 </div>

@@ -27,6 +27,7 @@ import type {
     VsSelectStyleSet,
     VsStepperStyleSet,
     VsSwitchStyleSet,
+    VsTableStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -269,6 +270,26 @@ const vsSwitch: VsSwitchStyleSet = {
     width: '100px',
 };
 
+const vsTable: VsTableStyleSet = {
+    bodyBackgroundColor: 'transparent',
+    bodyBorder: '1px solid #eeeeee',
+    bodyFontColor: '#393E46',
+    bodyFontSize: '1rem',
+    bodyMinHeight: '2.5rem',
+    captionFontColor: '#393E46',
+    captionFontSize: '1rem',
+    captionFontWeight: '600',
+    captionTextAlign: 'left',
+    headerBackgroundColor: '#222831',
+    headerFontColor: '#00adb5',
+    headerFontSize: '1rem',
+    headerFontWeight: '500',
+    headerHeight: '2.5rem',
+    hoverBorder: '1px solid #00adb5',
+    selectedBackgroundColor: '#00adb5',
+    selectedFontColor: '#eeeeee',
+};
+
 const vsTabs: VsTabsStyleSet = {
     backgroundColor: '#008db2',
     borderBottomColor: '#0288d1',
@@ -346,6 +367,7 @@ export const styleSet: StyleSet = {
     VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },
     VsSwitch: { myStyleSet: vsSwitch },
+    VsTable: { myStyleSet: vsTable },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
     VsTextWrap: { myStyleSet: vsTextWrap },

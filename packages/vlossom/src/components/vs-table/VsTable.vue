@@ -224,13 +224,13 @@ export default defineComponent({
                 return h.width || 'minmax(20rem, 1fr)';
             });
             if (hasSelectable.value) {
-                gridColumns.unshift('4.8rem');
+                gridColumns.unshift('3.4rem');
             }
             if (canDrag.value) {
                 gridColumns.unshift('3rem');
             }
             if (hasExpand.value) {
-                gridColumns.push('4.4rem');
+                gridColumns.push('3rem');
             }
             return { gridTemplateColumns: gridColumns.join(' ') };
         });

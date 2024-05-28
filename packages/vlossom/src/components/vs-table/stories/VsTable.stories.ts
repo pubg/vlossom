@@ -47,7 +47,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-table v-bind="args" color-scheme="{{ color }}" />
+                    <vs-table v-bind="args" color-scheme="{{ color }}" :style="{ marginBottom: '20px' }"/>
                 `)}
             </div>
         `,
@@ -118,7 +118,7 @@ export const Search: Story = {
         template: `
             <div>
                 <vs-input v-model="search" placeholder="Search" style="padding: 0.5rem">
-                    <template #prepend-content>
+                    <template #prepend>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" style="margin-left: 0.5rem">
                             <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                         </svg>
@@ -126,7 +126,7 @@ export const Search: Story = {
                 </vs-input>
                 <vs-table v-bind="args" :search="search">
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value"></vs-switch>
+                        <vs-switch v-model="value" no-label no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -168,7 +168,7 @@ export const Filter: Story = {
                 <vs-block style="margin-bottom: 0.8rem">
                     <h3 style="margin-bottom: 0.5rem">Filter</h3>
                     <vs-select v-model="id" :options="options" label="id" no-clear style="margin-bottom: 0.5rem"/>
-                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false"/>
+                    <vs-switch v-model="checked" label="checked" true-label="true" false-label="false" no-label no-message/>
                 </vs-block>
                 <vs-table v-bind="args" :filter="filter"/>
             </div>
@@ -263,7 +263,7 @@ export const ItemSlot: Story = {
                         <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value"></vs-switch>
+                        <vs-switch v-model="value" no-label no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -291,5 +291,38 @@ export const Expandable: Story = {
     }),
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+};
+
+export const StyleSet: Story = {
+    args: {
+        styleSet: {
+            bodyBackgroundColor: '#ffffff',
+            bodyBorder: '1px solid #dcD6f7',
+            bodyFontColor: '#0f4c75',
+            bodyFontSize: '0.9rem',
+            bodyMinHeight: '3rem',
+            captionFontColor: '#0f4c75',
+            captionFontSize: '0.9rem',
+            captionFontWeight: '600',
+            captionSide: 'bottom',
+            headerBackgroundColor: '#DEFCF9',
+            headerBorder: '1px solid #DCD6F7',
+            headerFontColor: '#0f4c75',
+            headerFontSize: '1rem',
+            headerFontWeight: '700',
+            headerHeight: '3rem',
+            hoverBorder: '2px solid #DCD6F7',
+            selectedBackgroundColor: '#DCD6F7',
+            selectedFontColor: '#0f4c75',
+        },
+        caption: 'Table 1: Fruit Shopping List',
+    },
+};
+
+export const PreDefinedStyleSet: Story = {
+    args: {
+        styleSet: 'myStyleSet',
+        caption: 'Table 1: Fruit Shopping List',
     },
 };
