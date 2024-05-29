@@ -80,7 +80,6 @@ export const StyleSet: Story = {
             backgroundColor: '#000',
             bottom: 0,
             fontColor: '#fff',
-            alignItems: 'flex-start',
             height: '60px',
             left: 0,
             padding: '10px',

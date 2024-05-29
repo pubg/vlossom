@@ -79,7 +79,6 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#000',
             fontColor: '#fff',
-            alignItems: 'flex-start',
             height: '60px',
             left: 0,
             padding: '10px',
