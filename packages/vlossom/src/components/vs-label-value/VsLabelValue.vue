@@ -25,7 +25,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: '' },
+        verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
@@ -44,7 +44,7 @@ export default defineComponent({
             } else if (verticalAlign.value === 'bottom') {
                 return { alignItems: 'flex-end' };
             }
-            return {};
+            return { alignItems: 'center' };
         });
 
         const classObj = computed(() => ({
