@@ -84,32 +84,4 @@ describe('vs-bar-node', () => {
             expect(wrapper.attributes().style.includes('position: relative;')).toBe(true);
         });
     });
-
-    describe('verticalAlign', () => {
-        it('props verticalAlign:start일 때, 컴포넌트 스타일에 align-items: flex-start;가 적용된다 ', () => {
-            //given
-            const wrapper = mount(VsBarNode, {
-                props: {
-                    colorScheme: 'default',
-                    verticalAlign: 'start',
-                },
-            });
-
-            //then
-            expect(wrapper.attributes().style.includes('align-items: flex-start;')).toBe(true);
-        });
-
-        it('props verticalAlign:end일 때, 컴포넌트 스타일에 align-items: flex-end;가 적용된다 ', () => {
-            //given
-            const wrapper = mount(VsBarNode, {
-                props: {
-                    colorScheme: 'default',
-                    verticalAlign: 'end',
-                },
-            });
-
-            //then
-            expect(wrapper.attributes().style.includes('align-items: flex-end;')).toBe(true);
-        });
-    });
 });

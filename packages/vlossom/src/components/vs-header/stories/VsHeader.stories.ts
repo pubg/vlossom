@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, align, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
 import VsHeader from './../VsHeader.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -25,7 +25,6 @@ const meta: Meta<typeof VsHeader> = {
     },
     argTypes: {
         colorScheme,
-        verticalAlign: align,
         position: cssPosition,
     },
 };
@@ -73,18 +72,6 @@ export const Primary: Story = {
     },
 };
 
-export const VerticalAlignStart: Story = {
-    args: {
-        verticalAlign: 'start',
-    },
-};
-
-export const VerticalAlignEnd: Story = {
-    args: {
-        verticalAlign: 'end',
-    },
-};
-
 export const StyleSet: Story = {
     args: {
         position: undefined,
@@ -92,6 +79,7 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#000',
             fontColor: '#fff',
+            alignItems: 'flex-start',
             height: '60px',
             left: 0,
             padding: '10px',

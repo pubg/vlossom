@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, computed, type PropType } from 'vue';
-import type { Align, ColorScheme, CssPosition } from '@/declaration';
+import type { ColorScheme, CssPosition } from '@/declaration';
 
 export default defineComponent({
     props: {
@@ -17,10 +17,9 @@ export default defineComponent({
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
-        const { styleSet, height, position, verticalAlign } = toRefs(props);
+        const { styleSet, height, position } = toRefs(props);
 
         const computedStyleSet = computed(() => {
             const convertedStyleSet = Object.entries(styleSet.value || {}).reduce(
@@ -37,14 +36,6 @@ export default defineComponent({
             }
             if (position.value) {
                 convertedStyleSet['--vs-bar-node-position'] = position.value;
-            }
-
-            if (verticalAlign.value === 'start') {
-                convertedStyleSet.alignItems = 'flex-start';
-            } else if (verticalAlign.value === 'end') {
-                convertedStyleSet.alignItems = 'flex-end';
-            } else {
-                convertedStyleSet.alignItems = 'center';
             }
 
             return convertedStyleSet;

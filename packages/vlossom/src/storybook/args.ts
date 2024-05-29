@@ -10,6 +10,11 @@ export const align = {
     options: ['center', 'start', 'end'],
 };
 
+export const verticalAlign = {
+    control: 'select',
+    options: ['middle', 'top', 'bottom'],
+};
+
 export const placement = {
     control: 'select',
     options: PLACEMENTS,

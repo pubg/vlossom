@@ -5,6 +5,7 @@ export interface VsBarNodeStyleSet {
     bottom?: string | number;
     boxShadow?: string;
     display?: string;
+    alignItems?: string;
     flex?: string;
     fontColor?: string;
     height?: string;
