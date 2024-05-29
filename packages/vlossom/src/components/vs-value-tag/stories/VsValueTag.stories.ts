@@ -78,7 +78,7 @@ export const StyleSet: Story = {
             fontSize: '1.5rem',
             fontWeight: '550',
             padding: '0.18rem',
-            labelWidth: '4rem',
+            labelWidth: '5rem',
             lineHeight: '3rem',
             width: '20rem',
         },
