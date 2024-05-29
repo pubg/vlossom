@@ -311,7 +311,7 @@ export const StyleSet: Story = {
             headerFontColor: '#0f4c75',
             headerFontSize: '1rem',
             headerFontWeight: '700',
-            headerHeight: '3rem',
+            headerMinHeight: '3rem',
             hoverBorder: '2px solid #DCD6F7',
             selectedBackgroundColor: '#DCD6F7',
             selectedFontColor: '#0f4c75',

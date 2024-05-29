@@ -47,7 +47,7 @@
                 color: var(--vs-table-headerFontColor, var(--vs-comp-font));
                 font-size: var(--vs-table-headerFontSize, 0.9rem);
                 font-weight: var(--vs-table-headerFontWeight, 600);
-                height: var(--vs-table-headerHeight, 2.7rem);
+                min-height: var(--vs-table-headerMinHeight, 2.7rem);
 
                 .vs-checkbox-node .select-all {
                     background-color: red;

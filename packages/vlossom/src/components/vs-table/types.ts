@@ -45,7 +45,7 @@ export interface VsTableStyleSet {
     headerFontColor?: string;
     headerFontSize?: string;
     headerFontWeight?: string;
-    headerHeight?: string;
+    headerMinHeight?: string;
     hoverBorder?: string;
     selectedBackgroundColor?: string;
     selectedFontColor?: string;

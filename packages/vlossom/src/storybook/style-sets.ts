@@ -278,7 +278,7 @@ const vsTable: VsTableStyleSet = {
     headerFontColor: '#00adb5',
     headerFontSize: '1rem',
     headerFontWeight: '500',
-    headerHeight: '2.5rem',
+    headerMinHeight: '2.5rem',
     hoverBorder: '1px solid #00adb5',
     selectedBackgroundColor: '#00adb5',
     selectedFontColor: '#eeeeee',
