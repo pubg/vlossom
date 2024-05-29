@@ -77,7 +77,7 @@
 
             &.selected {
                 background-color: var(--vs-table-selectedBackgroundColor, var(--vs-area-bg-hover));
-                color: var(--vs-table-selectedFontColor, var(--vs-comp-font));
+                color: var(--vs-table-selectedFontColor, var(--vs-font-color));
             }
 
             td {
