@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, align, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
 import VsFooter from './../VsFooter.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -25,7 +25,6 @@ const meta: Meta<typeof VsFooter> = {
     },
     argTypes: {
         colorScheme,
-        verticalAlign: align,
         position: cssPosition,
     },
 };
@@ -70,18 +69,6 @@ export const Primary: Story = {
     },
     parameters: {
         chromatic: chromaticParameters.theme,
-    },
-};
-
-export const VerticalAlignTop: Story = {
-    args: {
-        verticalAlign: 'start',
-    },
-};
-
-export const VerticalAlignBottom: Story = {
-    args: {
-        verticalAlign: 'end',
     },
 };
 

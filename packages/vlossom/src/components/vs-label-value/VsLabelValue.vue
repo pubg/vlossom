@@ -14,7 +14,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme, type Align } from '@/declaration';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsLabelValueStyleSet } from './types';
 
@@ -25,7 +25,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<Align>, default: '' },
+        verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
     setup(props, { slots }) {
         const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
@@ -39,12 +39,12 @@ export default defineComponent({
         const hasActions = computed((): boolean => !!slots['actions']);
 
         const align = computed(() => {
-            if (verticalAlign.value === 'start') {
+            if (verticalAlign.value === 'top') {
                 return { alignItems: 'flex-start' };
-            } else if (verticalAlign.value === 'end') {
+            } else if (verticalAlign.value === 'bottom') {
                 return { alignItems: 'flex-end' };
             }
-            return {};
+            return { alignItems: 'center' };
         });
 
         const classObj = computed(() => ({

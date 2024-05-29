@@ -5,7 +5,6 @@
         :height="height"
         :position="position"
         :primary="primary"
-        :verticalAlign="verticalAlign"
     >
         <slot />
     </vs-bar-node>
@@ -17,7 +16,7 @@ import { useColorScheme, useLayout, useStyleSet } from '@/composables';
 import { VsBarNode } from '@/nodes';
 import { VS_LAYOUT, VsComponent, APP_LAYOUT_Z_INDEX, LAYOUT_Z_INDEX } from '@/declaration';
 
-import type { Align, ColorScheme, CssPosition } from '@/declaration';
+import type { ColorScheme, CssPosition } from '@/declaration';
 import type { VsHeaderStyleSet } from './types';
 
 const name = VsComponent.VsHeader;
@@ -30,7 +29,6 @@ export default defineComponent({
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<Align>, default: '' },
     },
     setup(props) {
         const { colorScheme, styleSet, position, height } = toRefs(props);

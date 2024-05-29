@@ -3,8 +3,6 @@
     bottom: var(--vs-bar-node-bottom, auto);
     box-shadow: var(--vs-bar-node-boxShadow, none);
     color: var(--vs-bar-node-fontColor, var(--vs-comp-color));
-    display: var(--vs-bar-node-display, flex);
-    flex: var(--vs-bar-node-flex, 1 1 auto);
     height: var(--vs-bar-node-height, auto);
     left: var(--vs-bar-node-left, auto);
     padding: var(--vs-bar-node-padding);

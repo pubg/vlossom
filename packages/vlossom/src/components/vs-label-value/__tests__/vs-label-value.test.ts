@@ -32,7 +32,7 @@ describe('vs-label-value', () => {
         expect(wrapper.html()).toContain('<div>action</div>');
     });
 
-    it('props verticalAlgin:start일 때, label, value, actions의 스타일에 align-items: flex-start;가 적용된다 ', () => {
+    it('props verticalAlign:top일 때, label, value, actions의 스타일에 align-items: flex-start;가 적용된다 ', () => {
         //given
         const wrapper = mount(VsLabelValue, {
             slots: {
@@ -41,7 +41,7 @@ describe('vs-label-value', () => {
                 actions: '<div>action</div>',
             },
             props: {
-                verticalAlign: 'start',
+                verticalAlign: 'top',
             },
         });
 
@@ -51,7 +51,7 @@ describe('vs-label-value', () => {
         expect(wrapper.find('.actions').attributes().style.includes('align-items: flex-start;')).toBe(true);
     });
 
-    it('props verticalAlgin:end일 때, label, value, actions의 스타일에 align-items: flex-end;가 적용된다 ', () => {
+    it('props verticalAlign:bottom일 때, label, value, actions의 스타일에 align-items: flex-end;가 적용된다 ', () => {
         //given
         const wrapper = mount(VsLabelValue, {
             slots: {
@@ -60,7 +60,7 @@ describe('vs-label-value', () => {
                 actions: '<div>action</div>',
             },
             props: {
-                verticalAlign: 'end',
+                verticalAlign: 'bottom',
             },
         });
 
