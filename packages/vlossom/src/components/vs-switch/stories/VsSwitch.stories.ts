@@ -150,7 +150,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container row-gap="5px">
+            <vs-container grid row-gap="5px">
                 <vs-switch v-bind="args" />
                 <vs-switch v-bind="args" />
             </vs-container>
