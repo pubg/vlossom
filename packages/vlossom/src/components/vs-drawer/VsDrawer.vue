@@ -38,6 +38,7 @@ import {
     ref,
     toRefs,
     watch,
+    onMounted,
     computed,
     type PropType,
     getCurrentInstance,
@@ -140,6 +141,11 @@ export default defineComponent({
         });
 
         const isOpen = ref(modelValue.value);
+        const originalOverflow = ref('');
+
+        onMounted(() => {
+            originalOverflow.value = document.body.style.overflow;
+        });
 
         watch(
             modelValue,
@@ -152,17 +158,23 @@ export default defineComponent({
         watch(
             isOpen,
             (val) => {
-                if (dimmed.value) {
-                    if (val && position.value === 'fixed') {
-                        if (document.body.scrollHeight > window.innerHeight) {
-                            document.body.style.overflow = 'hidden';
-                            document.body.style.paddingRight = '0.4rem';
-                        }
+                if (dimmed.value && position.value === 'fixed') {
+                    if (val) {
+                        setTimeout(() => {
+                            if (document.body.scrollHeight > window.innerHeight) {
+                                document.body.style.overflow = 'hidden';
+                                document.body.style.paddingRight = '0.4rem';
+                            }
 
-                        if (document.body.scrollWidth > window.innerWidth) {
-                            document.body.style.overflow = 'hidden';
-                            document.body.style.paddingBottom = '0.4rem';
-                        }
+                            if (document.body.scrollWidth > window.innerWidth) {
+                                document.body.style.overflow = 'hidden';
+                                document.body.style.paddingBottom = '0.4rem';
+                            }
+                        });
+                    } else {
+                        document.body.style.overflow = originalOverflow.value;
+                        document.body.style.paddingRight = '0';
+                        document.body.style.paddingBottom = '0';
                     }
                 }
 
