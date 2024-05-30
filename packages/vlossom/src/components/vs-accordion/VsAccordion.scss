@@ -40,7 +40,7 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
         .accordion-content {
             box-sizing: border-box;
             background-color: var(--vs-accordion-contentBackgroundColor, var(--vs-no-color));
-            color: var(--vs-accordion-contentFontColor, var(--vs-comp-font));
+            color: var(--vs-accordion-contentFontColor, var(--vs-font-color));
             padding: var(--vs-accordion-contentPadding, 0.8rem 1.6rem);
         }
     }
