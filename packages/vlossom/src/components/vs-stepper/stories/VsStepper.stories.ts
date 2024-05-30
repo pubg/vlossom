@@ -103,7 +103,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container column-gap="40px">
+            <vs-container grid column-gap="40px">
 				<vs-stepper v-bind="args" />
 				<vs-stepper v-bind="args" />
             </vs-container>

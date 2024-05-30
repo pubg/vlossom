@@ -124,7 +124,7 @@ export const Width: Story = {
             return { args };
         },
         template: `
-			<vs-container row-gap="20px">
+			<vs-container grid row-gap="20px">
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> First Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
@@ -159,7 +159,7 @@ export const WidthWithTabs: Story = {
             return { args, tabAList, tabBList, tabA, tabB, updateTabA, updateTabB };
         },
         template: `
-			<vs-container row-gap="20px">
+			<vs-container grid row-gap="20px">
 				<vs-wrapper :width="args.width" :grid="args.grid">
 					<vs-tabs :tabs="tabAList" v-model="tabA" @update:modelValue="updateTabA" v-bind="args"/>
 					<vs-index-view v-model="tabA" v-bind="args">
@@ -190,7 +190,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-			<vs-container column-gap="40px">
+			<vs-container grid column-gap="40px">
 				<vs-index-view v-bind="args">
 					<vs-index-item key="A"><h1> First Index View </h1>${LOREM_IPSUM}</vs-index-item>
 				</vs-index-view>
@@ -225,7 +225,7 @@ export const GridWithTabs: Story = {
             return { args, tabAList, tabBList, tabA, tabB, updateTabA, updateTabB };
         },
         template: `
-        <vs-container column-gap="40px">
+        <vs-container grid column-gap="40px">
 			<vs-wrapper :width="args.width" :grid="args.grid">
 				<vs-tabs :tabs="tabAList" v-model="tabA" @update:modelValue="updateTabA" v-bind="args"/>
 				<vs-index-view v-model="tabA" v-bind="args">
