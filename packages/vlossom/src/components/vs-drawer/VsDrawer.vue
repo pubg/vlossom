@@ -158,8 +158,8 @@ export default defineComponent({
         watch(
             isOpen,
             (val) => {
-                if (dimmed.value) {
-                    if (val && position.value === 'fixed') {
+                if (dimmed.value && position.value === 'fixed') {
+                    if (val) {
                         setTimeout(() => {
                             if (document.body.scrollHeight > window.innerHeight) {
                                 document.body.style.overflow = 'hidden';
