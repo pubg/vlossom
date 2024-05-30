@@ -21,7 +21,7 @@ $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
 
     .block-content {
         background-color: var(--vs-block-backgroundColor, var(--vs-no-color));
-        color: var(--vs-block-contentFontColor, var(--vs-comp-font));
+        color: var(--vs-block-contentFontColor, var(--vs-font-color));
         font-weight: var(--vs-block-fontWeight, 400);
         padding: var(--vs-block-padding, 1rem 1.2rem);
     }
