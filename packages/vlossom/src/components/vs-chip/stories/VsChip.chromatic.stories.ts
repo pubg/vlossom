@@ -22,7 +22,7 @@ const meta: Meta<typeof VsChip> = {
 				
                 <vs-chip v-bind="args" no-round>Chip</vs-chip>
 
-                <vs-chip>
+                <vs-chip v-bind="args">
                     <template #icon>
                         <vs-icon icon="check" size="16px"/>
                     </template>
