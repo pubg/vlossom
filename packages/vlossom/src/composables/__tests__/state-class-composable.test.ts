@@ -13,11 +13,11 @@ describe('state-class-composable', () => {
 
         // then
         expect(classes).toEqual([
-            'vs-box-glow-idle',
-            'vs-box-glow-info',
-            'vs-box-glow-success',
-            'vs-box-glow-warning',
-            'vs-box-glow-error',
+            'vs-state-box-idle',
+            'vs-state-box-info',
+            'vs-state-box-success',
+            'vs-state-box-warning',
+            'vs-state-box-error',
         ]);
     });
 

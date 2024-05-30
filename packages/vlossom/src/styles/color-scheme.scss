@@ -17,11 +17,13 @@ $colors: map.keys($palette);
     --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
     --vs-comp-bg-active: #{darken(#ffffff, 15%)};
     --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
+    --vs-comp-shadow: rgba(0, 0, 0, 0.16);
 
     --vs-primary-comp-font: var(--vs-white);
     --vs-primary-comp-bg: var(--vs-black);
     --vs-primary-comp-bg-hover: #{lighten(#000000, 10%)};
     --vs-primary-comp-bg-active: #{lighten(#000000, 20%)};
+    --vs-primary-comp-shadow: rgba(255, 255, 255, 0.3);
 
     --vs-font-color: var(--vs-gray-800);
 
@@ -29,7 +31,8 @@ $colors: map.keys($palette);
 
     --vs-area-bg: var(--vs-white);
     --vs-area-bg-hover: #{darken(#ffffff, 5%)};
-    --vs-area-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.16);
+    --vs-area-bg-active: #{darken(#ffffff, 10%)};
+    --vs-area-shadow-outer: 0 0 1rem 0 var(--vs-comp-shadow);
 
     --vs-table-expand-box-shadow-up: inset 0 3px 8px rgba(100, 100, 100, 0.3);
     --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(50, 50, 50, 0.15);
@@ -47,19 +50,22 @@ $colors: map.keys($palette);
         --vs-comp-bg-hover: #{lighten(#000000, 10%)};
         --vs-comp-bg-active: #{lighten(#000000, 20%)};
         --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
+        --vs-comp-shadow: rgba(255, 255, 255, 0.16);
 
         --vs-primary-comp-font: var(--vs-black);
         --vs-primary-comp-bg: var(--vs-white);
         --vs-primary-comp-bg-hover: #{darken(#ffffff, 5%)};
         --vs-primary-comp-bg-active: #{darken(#ffffff, 10%)};
+        --vs-primary-comp-shadow: rgba(0, 0, 0, 0.4);
 
         --vs-font-color: var(--vs-gray-50);
 
-        --vs-line-color: var(--vs-gray-500);
+        --vs-line-color: var(--vs-gray-300);
 
         --vs-area-bg: var(--vs-black);
-        --vs-area-bg-hover: #{lighten(#000000, 5%)};
-        --vs-area-shadow: 0 0 0.5rem 0 rgba(255, 255, 255, 0.16);
+        --vs-area-bg-hover: #{lighten(#000000, 12%)};
+        --vs-area-bg-active: #{lighten(#000000, 16%)};
+        --vs-area-shadow-outer: 0 0 0.5rem 0 var(--vs-comp-shadow);
 
         --vs-table-expand-box-shadow-up: inset 0 3px 6px rgba(255, 255, 255, 0.2);
         --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(255, 255, 255, 0.15);
@@ -76,18 +82,21 @@ $colors: map.keys($palette);
                 map.get($palette, $color, 500) 0%,
                 map.get($palette, $color, 300) 100%
             );
+            --vs-comp-shadow: rgba(0, 0, 0, 0.25);
 
             --vs-primary-comp-font: #{lighten(map.get($palette, $color, 50), 50%)};
             --vs-primary-comp-bg: #{map.get($palette, $color, 500)};
             --vs-primary-comp-bg-hover: #{lighten(map.get($palette, $color, 500), 2%)};
             --vs-primary-comp-bg-active: #{lighten(map.get($palette, $color, 500), 4%)};
+            --vs-primary-comp-shadow: rgba(0, 0, 0, 0.25);
 
             --vs-font-color: #{map.get($palette, $color, 800)};
 
-            --vs-line-color: #{map.get($palette, $color, 100)};
+            --vs-line-color: #{map.get($palette, $color, 200)};
 
-            --vs-area-bg: #{lighten(map.get($palette, $color, 50), 4%)};
+            --vs-area-bg: #{lighten(map.get($palette, $color, 50), 2%)};
             --vs-area-bg-hover: #{map.get($palette, $color, 50)};
+            --vs-area-bg-active: #{darken(map.get($palette, $color, 50), 3%)};
         }
     }
 
@@ -96,8 +105,11 @@ $colors: map.keys($palette);
             .vs-#{$color} {
                 --vs-font-color: #{lighten(map.get($palette, $color, 50), 3%)};
 
+                --vs-line-color: #{map.get($palette, $color, 400)};
+
                 --vs-area-bg: #{darken(map.get($palette, $color, 900), 5%)};
                 --vs-area-bg-hover: #{map.get($palette, $color, 900)};
+                --vs-area-bg-active: #{lighten(map.get($palette, $color, 900), 5%)};
             }
         }
     }

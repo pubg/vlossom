@@ -1,7 +1,7 @@
 .vs-section {
     background-color: var(--vs-section-backgroundColor, var(--vs-area-bg));
     border-radius: var(--vs-section-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
-    box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow));
+    box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow-outer));
     color: var(--vs-section-fontColor, var(--vs-font-color));
     padding: var(--vs-section-padding, 2rem);
     position: relative;

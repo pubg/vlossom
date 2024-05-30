@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsStepper from '@/components/vs-stepper/VsStepper.vue';
 import { mockConsoleError } from '@/test/setup';
+import VsStepper from './../VsStepper.vue';
 
 function mountComponent() {
     return mount(VsStepper);

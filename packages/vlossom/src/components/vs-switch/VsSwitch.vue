@@ -15,49 +15,45 @@
                 <slot name="label" />
             </template>
 
-            <div
-                ref="switchRef"
-                role="switch"
-                :class="[
-                    'vs-switch',
-                    `vs-${computedColorScheme}`,
-                    boxGlowByState,
-                    { checked: isChecked, disabled, readonly },
-                ]"
-                :style="computedStyleSet"
-                :aria-checked="isChecked"
-                :aria-disabled="disabled"
-                :aria-labelledby="id ? id : undefined"
-                :aria-readonly="readonly"
-                :aria-required="required"
-                tabindex="0"
-                :disabled="disabled"
-                @click.stop="toggle()"
-                @keydown.space.prevent.stop="toggle()"
-                @keydown.enter.prevent.stop="toggle()"
-                @focus.stop="onFocus"
-                @blur.stop="onBlur"
-            >
-                <span class="status-label" data-value="true" v-show="isChecked">
-                    {{ trueLabel }}
-                </span>
-                <span class="status-label" data-value="false" v-show="!isChecked">
-                    {{ falseLabel }}
-                </span>
+            <div :class="['vs-switch', `vs-${computedColorScheme}`]">
+                <div
+                    ref="switchRef"
+                    role="switch"
+                    :class="['vs-switch-button', boxGlowByState, { checked: isChecked, disabled, readonly }]"
+                    :style="computedStyleSet"
+                    :aria-checked="isChecked"
+                    :aria-disabled="disabled"
+                    :aria-labelledby="id ? id : undefined"
+                    :aria-readonly="readonly"
+                    :aria-required="required"
+                    tabindex="0"
+                    :disabled="disabled"
+                    @click.stop="toggle()"
+                    @keydown.space.prevent.stop="toggle()"
+                    @keydown.enter.prevent.stop="toggle()"
+                    @focus.stop="onFocus"
+                    @blur.stop="onBlur"
+                >
+                    <span class="status-label" data-value="true" v-show="isChecked">
+                        {{ trueLabel }}
+                    </span>
+                    <span class="status-label" data-value="false" v-show="!isChecked">
+                        {{ falseLabel }}
+                    </span>
+                </div>
+
+                <input
+                    type="checkbox"
+                    style="display: none"
+                    aria-hidden
+                    :id="id"
+                    :name="name"
+                    tabindex="-1"
+                    :disabled="disabled || readonly"
+                    :checked="isChecked"
+                    @change.stop="toggle()"
+                />
             </div>
-
-            <input
-                type="checkbox"
-                style="display: none"
-                aria-hidden
-                :id="id"
-                :name="name"
-                tabindex="-1"
-                :disabled="disabled || readonly"
-                :checked="isChecked"
-                @change.stop="toggle()"
-            />
-
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
             </template>

@@ -8,39 +8,24 @@ $box-glow: (
 );
 
 $text-glow: (
-    'info': var(--vs-light-blue-500),
-    'success': var(--vs-green-500),
-    'error': var(--vs-red-500),
-    'warning': var(--vs-orange-500),
+    'info': var(--vs-light-blue-400),
+    'success': var(--vs-green-400),
+    'error': var(--vs-red-400),
+    'warning': var(--vs-orange-400),
 );
 
 @each $state, $color in $box-glow {
-    .vs-box-glow-#{$state} {
-        --vs-box-glow-color: #{$color};
-        animation: box-glow 1.2s ease-out infinite alternate;
+    .vs-state-box-#{$state} {
+        --vs-state-box-color: #{$color};
+        outline: 3px solid var(--vs-state-box-color);
+        outline-offset: 2px;
     }
 }
 
 @each $state, $color in $text-glow {
     .vs-text-glow-#{$state} {
         --vs-text-glow-color: #{$color};
-        animation: text-glow 1.2s ease-out infinite alternate;
-    }
-}
-
-@keyframes box-glow {
-    0% {
-        box-shadow: 0 0 0 0 transparent;
-    }
-    100% {
-        box-shadow: 0 0 5px 2px var(--vs-box-glow-color);
-    }
-}
-@keyframes text-glow {
-    from {
-        text-shadow: 0 0 0 transparent;
-    }
-    to {
-        text-shadow: 0 0 4px var(--vs-text-glow-color);
+        outline: 3px solid var(--vs-state-box-color);
+        outline-offset: 2px;
     }
 }

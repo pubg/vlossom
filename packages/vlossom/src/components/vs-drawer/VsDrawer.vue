@@ -45,7 +45,7 @@ import {
     ComputedRef,
 } from 'vue';
 import { useColorScheme, useLayout, useStyleSet } from '@/composables';
-import { VsFocusTrap } from '@/components';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 import {
     VsComponent,

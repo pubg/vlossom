@@ -15,7 +15,7 @@
             aria-label="close"
             @click.stop="$emit('close')"
         >
-            <vs-icon icon="close" size="12px" />
+            <vs-icon icon="close" size="13px" />
         </button>
     </div>
 </template>

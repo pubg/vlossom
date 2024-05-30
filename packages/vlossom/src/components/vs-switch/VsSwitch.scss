@@ -7,74 +7,78 @@ $switchGap: 0.3rem;
 $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
 .vs-switch {
-    appearance: none;
-    align-items: center;
-    background-color: var(--vs-switch-falseBackgroundColor, var(--vs-no-color));
-    border: $borderWidth solid var(--vs-switch-falseBorderColor, var(--vs-line-color));
-    border-radius: var(--vs-switch-borderRadius, 1rem);
-    color: var(--vs-switch-falseFontColor, var(--vs-comp-font));
-    cursor: pointer;
     display: flex;
-    font-size: var(--vs-switch-fontSize, 1rem);
-    height: $height;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    position: relative;
-    transition:
-        all 0.4s,
-        border 0s;
-    width: $width;
+    align-items: center;
+    min-height: 2.4rem;
 
-    &:focus-visible {
-        @include focus-shadow;
-        outline: none;
-    }
+    .vs-switch-button {
+        appearance: none;
+        align-items: center;
+        background-color: var(--vs-switch-falseBackgroundColor, var(--vs-no-color));
+        border: $borderWidth solid var(--vs-switch-falseBorderColor, var(--vs-line-color));
+        border-radius: var(--vs-switch-borderRadius, 1rem);
+        color: var(--vs-switch-falseFontColor, var(--vs-font-color));
+        cursor: pointer;
+        display: flex;
+        font-size: var(--vs-switch-fontSize, 0.8rem);
+        height: $height;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        position: relative;
+        transition: border 0s;
+        width: $width;
 
-    .status-label {
-        display: block;
-        text-align: center;
-        user-select: none;
-        white-space: nowrap;
-        width: 100%;
-        word-break: break-all;
-        margin-left: 2px;
-        padding-left: calc($switchSize);
-        padding-right: 0;
-    }
-
-    &::before {
-        content: '';
-        background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
-        border-radius: 50%;
-        box-shadow: 2px 2px 2px 0 rgba(#000, 0.4);
-        height: $switchSize;
-        left: $switchGap;
-        width: $switchSize;
-        position: absolute;
-        transition: 0.4s;
-    }
-
-    &.checked {
-        background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
-        border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-primary-comp-bg));
-        color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
-
-        &::before {
-            left: calc(100% - ($switchSize + $switchGap));
-            background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
+        &:focus-visible {
+            @include focus-outline;
         }
 
         .status-label {
-            padding-left: 0;
-            padding-right: calc($switchSize);
+            display: block;
+            text-align: center;
+            user-select: none;
+            white-space: nowrap;
+            width: 100%;
+            word-break: break-all;
+            margin-left: 2px;
+            padding-left: calc($switchSize * 1.1);
+            padding-right: 0;
         }
-    }
 
-    &.disabled {
-        @include disabled;
-    }
+        &::before {
+            content: '';
+            background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
+            border-radius: 50%;
+            box-shadow: 2px 2px 5px 0 var(--vs-comp-shadow);
+            height: $switchSize;
+            left: $switchGap;
+            width: $switchSize;
+            position: absolute;
+            transition: 0.4s;
+        }
 
-    &.readonly {
-        @include readonly;
+        &.checked {
+            background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
+            border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-primary-comp-bg));
+            color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
+
+            &::before {
+                left: calc(100% - ($switchSize + $switchGap));
+                background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
+                box-shadow: 2px 2px 5px 0 var(--vs-primary-comp-shadow);
+            }
+
+            .status-label {
+                padding-left: 0;
+                padding-right: calc($switchSize * 1.1);
+            }
+        }
+
+        &.disabled {
+            @include disabled;
+        }
+
+        &.readonly {
+            @include readonly;
+        }
     }
 }

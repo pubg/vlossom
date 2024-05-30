@@ -36,10 +36,10 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
             cursor: pointer;
         }
 
-        // TODO: focus box-shadow
-        // .check-icon ~ .checkbox-input:focus-visible {
-        //     box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 1rem $checkbox-color);
-        // }
+        &:focus-within {
+            @include focus-outline;
+            outline-offset: 0;
+        }
     }
 
     .checkbox-label {
@@ -48,8 +48,8 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
         cursor: pointer;
         white-space: nowrap;
         transition: 0.25s ease;
-        color: var(--vs-checkbox-labelFontColor, var(--vs-comp-font));
-        font-size: var(--vs-checkbox-labelFontSize, 1rem);
+        color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
+        font-size: var(--vs-checkbox-labelFontSize, 0.9rem);
     }
 
     &.checked {

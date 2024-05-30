@@ -31,7 +31,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -187,7 +187,7 @@ describe('vs-switch', () => {
                 });
 
                 // when
-                const target = wrapper.find('div.vs-switch');
+                const target = wrapper.find('div.vs-switch-button');
                 await target.trigger('click');
 
                 // then
@@ -224,7 +224,7 @@ describe('vs-switch', () => {
                 });
 
                 // when
-                const target = wrapper.find('div.vs-switch');
+                const target = wrapper.find('div.vs-switch-button');
                 await target.trigger('click');
 
                 // then
@@ -279,7 +279,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -299,7 +299,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -347,7 +347,7 @@ describe('vs-switch', () => {
                 },
             });
 
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -369,7 +369,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -389,7 +389,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            const target = wrapper.find('div.vs-switch');
+            const target = wrapper.find('div.vs-switch-button');
             await target.trigger('click');
 
             // then
@@ -523,7 +523,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            await wrapper.find('div.vs-switch').trigger('click');
+            await wrapper.find('div.vs-switch-button').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -542,7 +542,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            await wrapper.find('div.vs-switch').trigger('click');
+            await wrapper.find('div.vs-switch-button').trigger('click');
 
             // then
             const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -555,15 +555,17 @@ describe('vs-switch', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch);
             // when
-            await wrapper.find('div.vs-switch').trigger('focus');
+            await wrapper.find('div.vs-switch-button').trigger('focus');
             // then
             expect(wrapper.emitted('focus')).toHaveLength(1);
         });
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch);
+
             // when
-            await wrapper.find('div.vs-switch').trigger('blur');
+            await wrapper.find('div.vs-switch-button').trigger('blur');
+
             // then
             expect(wrapper.emitted('blur')).toHaveLength(1);
         });

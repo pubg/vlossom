@@ -1,6 +1,6 @@
-@mixin focus-shadow {
-    box-shadow: var(--vs-area-shadow);
-    transition: box-shadow 0.1s linear;
+@mixin focus-outline {
+    outline: 1px solid var(--vs-line-color);
+    outline-offset: 2px;
 }
 
 @mixin disabled {

@@ -19,6 +19,7 @@
             align-items: center;
             flex-wrap: nowrap;
             overflow-x: auto;
+            overflow-y: hidden;
 
             .chip-others {
                 margin-left: 0.2rem;
@@ -33,7 +34,7 @@
         border: none;
         outline: none;
         background-color: transparent;
-        color: var(--vs-select-fontColor, var(--vs-comp-font));
+        color: var(--vs-select-fontColor, var(--vs-font-color));
         cursor: pointer;
         min-width: 2rem;
 
@@ -49,7 +50,7 @@
         padding-right: 0.6rem;
         opacity: 0;
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-primary-comp-bg-active));
+        color: var(--vs-input-clearButtonColor, var(--vs-font-color));
         background: none;
         border: none;
         cursor: pointer;
@@ -91,7 +92,7 @@
     }
 
     &:has(input:focus-visible) {
-        @include focus-shadow;
+        @include focus-outline;
     }
 }
 
@@ -112,14 +113,14 @@
             padding: 0 1.2rem;
             height: var(--vs-select-height, 2.4rem);
             line-height: var(--vs-select-height, 2.4rem);
-            color: var(--vs-select-fontColor, var(--vs-comp-font));
+            color: var(--vs-select-fontColor, var(--vs-font-color));
             cursor: pointer;
             user-select: none;
             font-size: var(--vs-select-fontSize, 0.9rem);
 
             &:not(.selected).chased {
-                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-comp-bg-hover));
-                color: var(--vs-select-hoverOptionColor, var(--vs-comp-font));
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-area-bg-hover));
+                color: var(--vs-select-hoverOptionColor, var(--vs-font-color));
             }
 
             &.select-all {
@@ -130,8 +131,8 @@
             }
 
             &.selected {
-                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-bg-active));
-                color: var(--vs-select-selectedOptionColor, var(--vs-comp-font));
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-area-bg-active));
+                color: var(--vs-select-selectedOptionColor, var(--vs-font-color));
                 font-weight: 600;
             }
         }
@@ -143,6 +144,11 @@
             line-height: var(--vs-select-height, 2rem);
             font-size: var(--vs-select-fontSize, 0.8rem);
         }
+    }
+
+    &.closing {
+        user-select: none;
+        pointer-events: none;
     }
 }
 

@@ -23,7 +23,7 @@
                 @drop.stop="setDragging(false)"
             >
                 <div class="attach-file-icon">
-                    <vs-icon icon="attachFile" :size="dense ? 16 : 20" />
+                    <vs-icon icon="attachFile" :size="dense ? 18 : 22" />
                 </div>
                 <div class="label-box">
                     <div :class="['label-wrap', { placeholder: placeholder && !hasValue }]">

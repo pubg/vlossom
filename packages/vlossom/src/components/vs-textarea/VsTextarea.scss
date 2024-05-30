@@ -7,12 +7,11 @@
     width: 100%;
     height: var(--vs-textarea-height, 10rem);
     background-color: var(--vs-textarea-backgroundColor, var(--vs-no-color));
-    color: var(--vs-textarea-fontColor, var(--vs-comp-font));
+    color: var(--vs-textarea-fontColor, var(--vs-font-color));
     font-size: var(--vs-textarea-fontSize, 0.9rem);
     border: var(--vs-textarea-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-textarea-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     padding: 0.6rem;
-    outline: none;
     resize: vertical;
 
     &.disabled {
@@ -20,6 +19,6 @@
     }
 
     &:focus-within {
-        @include focus-shadow;
+        @include focus-outline;
     }
 }

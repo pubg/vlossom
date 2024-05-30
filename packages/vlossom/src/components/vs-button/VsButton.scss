@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 .vs-button {
     position: relative;
     display: inline-flex;
@@ -55,7 +57,7 @@
     }
 
     &:focus-visible {
-        box-shadow: 0 0 0.6rem 0 var(--vs-comp-bg-active);
+        @include focus-outline;
     }
 }
 

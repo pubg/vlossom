@@ -35,9 +35,8 @@
                         <vs-chip
                             v-if="selectedOptions.length > 1"
                             class="chip-others"
-                            color-scheme="light-blue"
+                            :color-scheme="colorScheme"
                             :style-set="collapseChipStyleSets"
-                            primary
                         >
                             + {{ selectedOptions.length - 1 }}
                         </vs-chip>
@@ -102,7 +101,12 @@
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
                     <div
                         ref="optionsRef"
-                        :class="['options-container', `vs-${computedColorScheme}`, { dense: dense }, animationClass]"
+                        :class="[
+                            'options-container',
+                            `vs-${computedColorScheme}`,
+                            animationClass,
+                            { dense: dense, closing: isClosing },
+                        ]"
                         :style="computedStyleSet"
                     >
                         <div v-if="$slots['options-header']" @click.stop>
@@ -314,12 +318,16 @@ export default defineComponent({
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
                 fontColor: computedStyleSet.value['--vs-select-chipFontColor'] as string,
+                height: dense.value ? '1.2rem' : '1.6rem',
+                fontSize: dense.value ? '0.7rem' : '0.8rem',
             }),
         );
         const collapseChipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
                 fontColor: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
+                height: dense.value ? '1.2rem' : '1.6rem',
+                fontSize: dense.value ? '0.7rem' : '0.8rem',
             }),
         );
 
@@ -353,7 +361,7 @@ export default defineComponent({
             multiple,
         );
 
-        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
+        const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
@@ -487,6 +495,7 @@ export default defineComponent({
             isVisible,
             inputLabel,
             isOpen,
+            isClosing,
             toggleOptions,
             closeOptions,
             listboxRef,
