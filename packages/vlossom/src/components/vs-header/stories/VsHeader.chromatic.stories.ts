@@ -1,4 +1,4 @@
-import { colorScheme, align, cssPosition, LOREM_IPSUM } from '@/storybook';
+import { colorScheme, cssPosition, LOREM_IPSUM } from '@/storybook';
 import VsHeader from './../VsHeader.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -39,7 +39,6 @@ const meta: Meta<typeof VsHeader> = {
     },
     argTypes: {
         colorScheme,
-        verticalAlign: align,
         position: cssPosition,
     },
 };
