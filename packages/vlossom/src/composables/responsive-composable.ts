@@ -8,7 +8,7 @@ function hasValue(value: any) {
 }
 
 function convertWidth(width: string | number) {
-    if (isNaN(Number(width)) && typeof width === 'string') {
+    if (typeof width === 'string' && isNaN(Number(width))) {
         return width;
     } else {
         return `${width}px`;
