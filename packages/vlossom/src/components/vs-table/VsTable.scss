@@ -49,10 +49,6 @@
                 font-weight: var(--vs-table-headerFontWeight, 600);
                 min-height: var(--vs-table-headerMinHeight, 2.7rem);
 
-                .vs-checkbox-node .select-all {
-                    background-color: red;
-                }
-
                 &.draggable-th,
                 &.expandable-th {
                     visibility: hidden;
