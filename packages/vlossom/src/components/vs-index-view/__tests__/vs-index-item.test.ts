@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsIndexItem from '../VsIndexItem.vue';
+import VsIndexItem from './../VsIndexItem.vue';
 
 describe('vs-index-item', () => {
     describe('slot', () => {

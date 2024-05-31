@@ -2,7 +2,7 @@ import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { ref } from 'vue';
 import { UIState } from '@/declaration';
 import { options } from './constants';
-import VsCheckboxSet from '../VsCheckboxSet.vue';
+import VsCheckboxSet from './../VsCheckboxSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

@@ -1,5 +1,5 @@
 import { colorScheme, getMetaArguments } from '@/storybook';
-import VsStepper from '../VsStepper.vue';
+import VsStepper from './../VsStepper.vue';
 import { stepLength, disabledArgTypes, steps } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -18,7 +18,7 @@ const meta: Meta<typeof VsStepper> = {
                 <vs-stepper v-bind="args"  :style="{ marginBottom: '20px' }"/>
 
                 <vs-stepper v-bind="args" :disabled="disabledArrs" />
-                
+
                 <vs-stepper v-bind="args" gap="100px" />
             </div>
         `,

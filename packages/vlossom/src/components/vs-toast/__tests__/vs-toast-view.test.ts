@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import { store } from '@/stores';
-import VsToastView from '../VsToastView.vue';
+import VsToastView from './../VsToastView.vue';
 
 import type { ToastInfo } from '@/plugins';
 

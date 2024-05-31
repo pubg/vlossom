@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue';
-import type { TableHeader, TableItem } from '../types';
+import type { TableHeader, TableItem } from './../types';
 import { utils } from '@/utils';
 
 export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<string[]>) {

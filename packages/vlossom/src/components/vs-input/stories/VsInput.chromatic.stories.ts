@@ -1,8 +1,8 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
-import { InputType } from '../types';
-import VsInput from '../VsInput.vue';
+import { InputType } from './../types';
+import VsInput from './../VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof VsInput> = {
         template: `
             <div>
                 <vs-input v-bind="args" label="Input" :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-input v-bind="args" v-model="modelValue"  label="Input" :style="{ marginBottom: '12px' }"/>
 
                 <vs-input  v-bind="args" label="Required Input" required :style="{ marginBottom: '12px' }"/>
@@ -29,9 +29,9 @@ const meta: Meta<typeof VsInput> = {
                 <vs-input v-bind="args" label="Disabled Input" disabled :style="{ marginBottom: '12px' }"/>
 
                 <vs-input v-bind="args" label="Input with Messages"  :messages="messages" :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-input v-bind="args" label="Dense Input" dense :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-input v-bind="args" label="Input with Prepend Button" dense :style="{ marginBottom: '12px' }">
                     <template #prepend-button>
                         <svg aria-label="edit" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
@@ -42,7 +42,7 @@ const meta: Meta<typeof VsInput> = {
 
                 <vs-input v-bind="args" label="Input with Append Button" dense :style="{ marginBottom: '12px' }">
                     <template #append-button>
-                        <vs-icon icon="check" /> 
+                        <vs-icon icon="check" />
                     </template>
                 </vs-input>
 

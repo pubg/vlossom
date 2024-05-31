@@ -8,7 +8,7 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { UIState } from '@/declaration';
-import VsSwitch from '../VsSwitch.vue';
+import VsSwitch from './../VsSwitch.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

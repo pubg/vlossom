@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
-import VsNotice from '../VsNotice.vue';
+import VsNotice from './../VsNotice.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { VsComponent } from '@/declaration';
-import { useStyleSet } from '../style-set-composable';
+import { useStyleSet } from './../style-set-composable';
 import { store } from '@/stores';
 
 import type { VsButtonStyleSet } from '@/components';

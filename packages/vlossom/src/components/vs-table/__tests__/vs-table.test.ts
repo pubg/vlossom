@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsTable from '../VsTable.vue';
-import { TableHeader } from '../types';
+import VsTable from './../VsTable.vue';
+import { TableHeader } from './../types';
 import { nextTick } from 'vue';
 
 function mountComponent() {

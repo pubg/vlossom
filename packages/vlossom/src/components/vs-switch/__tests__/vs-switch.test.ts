@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import VsSwitch from '../VsSwitch.vue';
+import VsSwitch from './../VsSwitch.vue';
 
 function mountComponent() {
     return mount(VsSwitch);

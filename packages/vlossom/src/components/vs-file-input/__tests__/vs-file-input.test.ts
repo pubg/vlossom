@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsFileInput from '../VsFileInput.vue';
+import VsFileInput from './../VsFileInput.vue';
 import { nextTick } from 'vue';
 
 function mountComponent() {

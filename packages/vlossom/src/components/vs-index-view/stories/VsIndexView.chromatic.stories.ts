@@ -1,6 +1,6 @@
 import { ref } from 'vue';
-import VsIndexView from '../VsIndexView.vue';
-import VsIndexItem from '../VsIndexItem.vue';
+import VsIndexView from './../VsIndexView.vue';
+import VsIndexItem from './../VsIndexItem.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsDivider from '@/components/vs-divider/VsDivider.vue';
 import { CompA } from './CompA';

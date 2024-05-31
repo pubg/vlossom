@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ref } from 'vue';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
-import { useColorScheme } from '../color-scheme-composable';
+import { useColorScheme } from './../color-scheme-composable';
 
 describe('useColorScheme composable', () => {
     it('use colorScheme prop first if it exists', () => {

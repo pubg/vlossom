@@ -1,7 +1,7 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { UIState } from '@/declaration';
 import { ref } from 'vue';
-import VsSelect from '../VsSelect.vue';
+import VsSelect from './../VsSelect.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -42,18 +42,18 @@ const meta: Meta<typeof VsSelect> = {
                 <vs-select v-bind="args" label="Required Select" required :style="{ marginBottom: '12px' }"/>
 
                 <vs-select v-bind="args" label="Readonly Select" readonly :style="{ marginBottom: '12px' }"/>
-				
+
                 <vs-select v-bind="args" label="Disabled Select" disabled :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-select v-bind="args" label="Select with Messages" :messages="messages" :style="{ marginBottom: '12px' }"/>
-				
+
                 <vs-select v-bind="args" label="Dense Select" dense :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-select v-bind="args" v-model="modelValue1" label="Select Multiple" multiple :style="{ marginBottom: '12px' }"/>
 
                 <vs-select v-bind="args" v-model="modelValue2" label="Select with ClosableChips" multiple closableChips :style="{ marginBottom: '12px' }"/>
-                
-                <vs-select v-bind="args" v-model="modelValue3" label="Select with CollapseChips" multiple collapseChips />				
+
+                <vs-select v-bind="args" v-model="modelValue3" label="Select with CollapseChips" multiple collapseChips />
             </div>`,
     }),
     argTypes: {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsLabelValue from '../VsLabelValue.vue';
+import VsLabelValue from './../VsLabelValue.vue';
 
 describe('vs-label-value', () => {
     it('slot으로 label, value를 설정할 수 있다', () => {

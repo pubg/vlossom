@@ -1,5 +1,5 @@
 import { colorScheme, LOREM_IPSUM } from '@/storybook';
-import VsLabelValue from '../VsLabelValue.vue';
+import VsLabelValue from './../VsLabelValue.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -19,7 +19,7 @@ const meta: Meta<typeof VsLabelValue> = {
                 <vs-label-value v-bind="args" verticalAlign="align"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
 
                 <vs-label-value v-bind="args" verticalAlign="end"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
-                
+
                 <vs-label-value v-bind="args" primary><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
 
                 <vs-label-value v-bind="args">

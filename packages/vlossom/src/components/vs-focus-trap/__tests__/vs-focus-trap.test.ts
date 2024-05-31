@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick, ref, defineComponent, Ref } from 'vue';
-import VsFocusTrap from '../VsFocusTrap.vue';
+import VsFocusTrap from './../VsFocusTrap.vue';
 
 const Component = defineComponent({
     template: `

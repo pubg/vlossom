@@ -1,6 +1,6 @@
 import { colorScheme } from '@/storybook';
-import VsTabs from '../VsTabs.vue';
-import { SCROLL_BUTTONS } from '../types';
+import VsTabs from './../VsTabs.vue';
+import { SCROLL_BUTTONS } from './../types';
 import { tabLength, disabledArgTypes, tabs } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -17,11 +17,11 @@ const meta: Meta<typeof VsTabs> = {
         template: `
             <div>
                 <vs-tabs v-bind="args" :style="{ marginBottom: '20px' }"/>
-                				
+
                 <vs-tabs v-bind="args" :disabled="disabledArrs" :style="{ marginBottom: '20px' }"/>
-                
+
                 <vs-tabs v-bind="args" scrollButtons="show" :style="{ marginBottom: '20px' }"/>
-                
+
                 <vs-tabs v-bind="args" dense/>
             </div>`,
     }),

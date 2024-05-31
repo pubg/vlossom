@@ -1,6 +1,6 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { UIState } from '@/declaration';
-import VsRadioSet from '../VsRadioSet.vue';
+import VsRadioSet from './../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
@@ -18,7 +18,7 @@ const meta: Meta<typeof VsRadioSet> = {
         template: `
             <div>
                 <vs-radio-set v-bind="args" label="Radio Set" :style="{ marginBottom: '12px' }"/>
-                
+
                 <vs-radio-set v-bind="args" v-model="modelValue" label="Radio Set" :style="{ marginBottom: '12px' }"/>
 
                 <vs-radio-set v-bind="args" label="Required Radio Set" required :style="{ marginBottom: '12px' }"/>

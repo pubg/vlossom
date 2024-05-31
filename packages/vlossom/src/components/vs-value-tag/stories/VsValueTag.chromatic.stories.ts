@@ -1,5 +1,5 @@
 import { colorScheme } from '@/storybook';
-import VsValueTag from '../VsValueTag.vue';
+import VsValueTag from './../VsValueTag.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -13,9 +13,9 @@ const meta: Meta<typeof VsValueTag> = {
         },
         template: `
             <div>
-                <vs-value-tag v-bind="args" :style="{ marginBottom: '12px' }"><template #label>label</template><template #value>value</template></vs-value-tag>		
+                <vs-value-tag v-bind="args" :style="{ marginBottom: '12px' }"><template #label>label</template><template #value>value</template></vs-value-tag>
 
-                <vs-value-tag v-bind="args" primary><template #label>label</template><template #value>value</template></vs-value-tag>				
+                <vs-value-tag v-bind="args" primary><template #label>label</template><template #value>value</template></vs-value-tag>
             </div>`,
     }),
     argTypes: {

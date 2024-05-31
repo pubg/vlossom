@@ -1,5 +1,5 @@
 import { colorScheme } from '@/storybook';
-import VsNotice from '../VsNotice.vue';
+import VsNotice from './../VsNotice.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof VsNotice> = {
                     <template #title><span>Please Note 📌</span></template>
                     Hello! This is Vlossom Notice Content
                 </vs-notice>
-                
+
                 <vs-notice v-bind="args" :primary="false">Hello! This is Vlossom Notice Content</vs-notice>
             </div>`,
     }),

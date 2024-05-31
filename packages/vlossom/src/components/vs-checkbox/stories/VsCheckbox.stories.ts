@@ -10,7 +10,7 @@ import { computed, ref } from 'vue';
 import { UIState } from '@/declaration';
 import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsCheckbox from '../VsCheckbox.vue';
+import VsCheckbox from './../VsCheckbox.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

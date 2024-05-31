@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate, verticalAlign, LOREM_IPSUM } from '@/storybook';
-import VsLabelValue from '../VsLabelValue.vue';
+import VsLabelValue from './../VsLabelValue.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

@@ -1,6 +1,6 @@
 import { ref } from 'vue';
-import VsIndexView from '../VsIndexView.vue';
-import VsIndexItem from '../VsIndexItem.vue';
+import VsIndexView from './../VsIndexView.vue';
+import VsIndexItem from './../VsIndexItem.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';

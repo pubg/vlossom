@@ -2,7 +2,7 @@ import { computed, ref, type Ref } from 'vue';
 import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsStepper from '../VsStepper.vue';
+import VsStepper from './../VsStepper.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 import { disabledArgTypes, steps } from './constants';

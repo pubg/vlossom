@@ -9,8 +9,8 @@ import {
 } from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
-import { InputType } from '../types';
-import VsInput from '../VsInput.vue';
+import { InputType } from './../types';
+import VsInput from './../VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

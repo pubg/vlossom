@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { useVlossom } from '@/vlossom-framework';
 import { nextTick } from 'vue';
-import VsThemeButton from '../VsThemeButton.vue';
+import VsThemeButton from './../VsThemeButton.vue';
 
 function mountComponent() {
     return mount(VsThemeButton);

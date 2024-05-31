@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsTextWrap from '../VsTextWrap.vue';
+import VsTextWrap from './../VsTextWrap.vue';
 
 function mountComponent() {
     return mount(VsTextWrap);

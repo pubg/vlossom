@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { stringUtil } from '../string';
+import { stringUtil } from './../string';
 
 describe('string util', () => {
     describe('createID', () => {

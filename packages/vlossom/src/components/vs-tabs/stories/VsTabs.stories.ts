@@ -1,9 +1,9 @@
 import { ref } from 'vue';
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
-import VsTabs from '../VsTabs.vue';
+import VsTabs from './../VsTabs.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { VsIcon } from '@/icons';
-import { SCROLL_BUTTONS } from '../types';
+import { SCROLL_BUTTONS } from './../types';
 import { disabledArgTypes, tabs } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

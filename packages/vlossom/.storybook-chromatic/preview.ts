@@ -1,5 +1,5 @@
 import { setup } from '@storybook/vue3';
-import { createVlossom, useVlossom } from '../src';
+import { createVlossom, useVlossom } from './../src';
 import './../src/styles/index.scss';
 
 import type { Preview } from '@storybook/vue3';

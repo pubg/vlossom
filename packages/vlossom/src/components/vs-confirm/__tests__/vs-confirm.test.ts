@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import { store } from '@/stores';
-import VsConfirm from '../VsConfirm.vue';
+import VsConfirm from './../VsConfirm.vue';
 
 describe('vs-confirm', () => {
     let originalResolve: (result: boolean) => void = () => {};
