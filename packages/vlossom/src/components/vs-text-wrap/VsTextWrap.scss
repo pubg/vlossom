@@ -8,7 +8,7 @@
     align-items: center;
 
     .text-wrap-contents {
-        color: var(--vs-comp-font);
+        color: var(--vs-font-color);
         position: relative;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -20,7 +20,7 @@
     .text-wrap-buttons {
         > button {
             &.copy-button {
-                color: var(--vs-text-wrap-copyIconColor, var(--vs-comp-font));
+                color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo-500));
 
                 .copied {
                     color: green;
@@ -28,7 +28,7 @@
             }
 
             &.link-button {
-                color: var(--vs-text-wrap-linkIconColor, var(--vs-comp-font));
+                color: var(--vs-text-wrap-linkIconColor, var(--vs-blue-500));
             }
         }
 
