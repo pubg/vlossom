@@ -3,7 +3,7 @@ import { utils } from '@/utils';
 
 import type { Breakpoints } from '@/declaration';
 
-function hasValue(value: any) {
+function hasValue(value: any): value is string | number | Breakpoints {
     return value !== undefined && value !== null && value !== '';
 }
 
@@ -60,16 +60,16 @@ export function useResponsive(
             if (utils.object.isPlainObject(width.value)) {
                 const { base, sm, md, lg, xl } = width.value;
                 const widthStyles = {
-                    ...(hasValue(base) && { ['--vs-width-base']: convertWidth(base!) }),
-                    ...(hasValue(sm) && { ['--vs-width-sm']: convertWidth(sm!) }),
-                    ...(hasValue(md) && { ['--vs-width-md']: convertWidth(md!) }),
-                    ...(hasValue(lg) && { ['--vs-width-lg']: convertWidth(lg!) }),
-                    ...(hasValue(xl) && { ['--vs-width-xl']: convertWidth(xl!) }),
+                    ...(hasValue(base) && { ['--vs-width-base']: convertWidth(base) }),
+                    ...(hasValue(sm) && { ['--vs-width-sm']: convertWidth(sm) }),
+                    ...(hasValue(md) && { ['--vs-width-md']: convertWidth(md) }),
+                    ...(hasValue(lg) && { ['--vs-width-lg']: convertWidth(lg) }),
+                    ...(hasValue(xl) && { ['--vs-width-xl']: convertWidth(xl) }),
                 };
 
                 Object.assign(styles, widthStyles);
             } else {
-                styles['width'] = convertWidth(width.value!);
+                styles['width'] = convertWidth(width.value);
             }
         }
 
