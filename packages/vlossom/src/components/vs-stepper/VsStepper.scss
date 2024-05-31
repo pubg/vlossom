@@ -6,7 +6,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
     -webkit-tap-highlight-color: transparent;
 
     .item-line {
-        background-color: var(--vs-comp-bg);
+        background-color: var(--vs-comp-bg-active);
         height: 0.2rem;
         left: $stepButtonW;
         right: $stepButtonW;
@@ -15,7 +15,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
         transform: translateY(-50%);
 
         .progress-line {
-            background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
+            background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
             height: 100%;
             opacity: 0.8;
             transition: width 0.2s;
@@ -42,9 +42,9 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
             .item-step {
                 align-items: center;
                 background-color: var(--vs-comp-bg);
+                color: var(--vs-comp-font);
                 border: 1px solid var(--vs-line-color);
                 border-radius: 50%;
-                color: var(--vs-comp-font);
                 display: flex;
                 font-size: $fontSize;
                 font-weight: 600;
@@ -80,25 +80,28 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
                 outline: none;
             }
 
-            &.previous,
-            &.selected {
+            &.previous {
                 .item-step {
+                    border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
                 }
 
                 .item-name {
-                    color: var(--vs-stepper-labelFontColor, var(--vs-comp-font));
+                    color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg-active));
                 }
             }
 
             &.selected {
                 .item-step {
-                    border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
+                    border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
+                    background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
+                    color: var(--vs-primary-comp-font);
                 }
 
                 .item-name {
                     font-weight: 600;
+                    color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg));
                 }
             }
 

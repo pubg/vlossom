@@ -75,8 +75,8 @@ $colors: map.keys($palette);
         .vs-#{$color} {
             --vs-comp-font: #{map.get($palette, $color, 800)};
             --vs-comp-bg: #{map.get($palette, $color, 100)};
-            --vs-comp-bg-hover: #{darken(map.get($palette, $color, 100), 5%)};
-            --vs-comp-bg-active: #{darken(map.get($palette, $color, 100), 15%)};
+            --vs-comp-bg-hover: #{darken(map.get($palette, $color, 100), 6%)};
+            --vs-comp-bg-active: #{darken(map.get($palette, $color, 100), 12%)};
             --vs-comp-bg-gradient: linear-gradient(
                 45deg,
                 map.get($palette, $color, 500) 0%,
