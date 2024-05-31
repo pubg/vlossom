@@ -1,8 +1,9 @@
 .vs-dialog {
     display: flex;
     flex-direction: column;
-    background-color: var(--vs-dialog-node-backgroundColor, var(--vs-comp-bg));
-    color: var(--vs-dialog-node-contentFontColor, var(--vs-comp-font));
+    background-color: var(--vs-dialog-node-backgroundColor, var(--vs-area-bg));
+    color: var(--vs-dialog-node-contentFontColor, var(--vs-font-color));
+    box-shadow: var(--vs-dialog-boxShadow, 0 0 6px 4px var(--vs-comp-shadow));
     border-radius: var(--vs-dialog-node-borderRadius, 0);
     width: var(--vs-dialog-node-width, auto);
     height: var(--vs-dialog-node-height, auto);

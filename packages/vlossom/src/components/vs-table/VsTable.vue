@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, dense ? 'dense' : '']" :style="computedStyleSet">
+    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <caption v-if="caption">
@@ -95,6 +95,7 @@ import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, wat
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
+import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
 
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
@@ -103,7 +104,6 @@ import VsSelect from '@/components/vs-select/VsSelect.vue';
 import { VsCheckboxNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
-import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
 
 const name = VsComponent.VsTable;
 

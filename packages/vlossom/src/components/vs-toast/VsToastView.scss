@@ -22,13 +22,13 @@
 }
 
 .vs-toast {
-    background-image: var(--vs-comp-bg-gradient);
-    box-shadow: 0 0.4rem 0.3rem 0 rgba(#000, 0.3);
+    background-color: var(--vs-comp-bg);
+    color: var(--vs-comp-font);
+    border: 1px solid var(--vs-line-color);
     display: flex;
     justify-content: center;
     border-radius: calc(var(--vs-radius-ratio) * 0.5rem);
-    color: #fff;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin: 0.4rem 0;
     pointer-events: auto;
     width: fit-content;

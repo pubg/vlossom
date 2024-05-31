@@ -29,6 +29,7 @@
 
             &.link-button {
                 color: var(--vs-text-wrap-linkIconColor, var(--vs-blue-500));
+                transform: rotate(135deg);
             }
         }
 

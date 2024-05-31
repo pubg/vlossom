@@ -8,7 +8,10 @@
             <slot name="title">
                 <strong class="title">{{ title }}</strong>
             </slot>
-            <vs-divider :color-scheme="colorScheme" :style-set="{ lineColor: primary ? 'white' : '' }" vertical />
+            <vs-divider
+                :style-set="{ lineColor: primary ? 'var(--vs-primary-comp-font)' : 'var(--vs-comp-font)' }"
+                vertical
+            />
             <div>
                 <slot />
             </div>

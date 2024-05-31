@@ -94,7 +94,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-chip color-scheme="{{color}}" primary closable style="margin-bottom: 0.3rem;">
+                    <vs-chip color-scheme="{{color}}" primary style="margin-bottom: 0.3rem;">
                         Chip
                     </vs-chip>
                 `)}

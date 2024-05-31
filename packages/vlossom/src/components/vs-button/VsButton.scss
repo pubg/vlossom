@@ -107,8 +107,12 @@
         color: var(--vs-button-fontColor, var(--vs-primary-comp-bg));
         font-weight: var(--vs-button-fontWeight, 500);
 
-        &:after {
-            background: var(--gray-200);
+        &:hover {
+            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-area-bg-hover));
+        }
+
+        &:active {
+            background-color: var(--vs-button-activeBackgroundColor, var(--vs-area-bg-active));
         }
     }
 }

@@ -16,7 +16,6 @@ $colors: map.keys($palette);
     --vs-comp-bg: var(--vs-white);
     --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
     --vs-comp-bg-active: #{darken(#ffffff, 15%)};
-    --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
     --vs-comp-shadow: rgba(0, 0, 0, 0.16);
 
     --vs-primary-comp-font: var(--vs-white);
@@ -27,7 +26,7 @@ $colors: map.keys($palette);
 
     --vs-font-color: var(--vs-gray-800);
 
-    --vs-line-color: var(--vs-gray-200);
+    --vs-line-color: var(--vs-gray-400);
 
     --vs-area-bg: var(--vs-white);
     --vs-area-bg-hover: #{darken(#ffffff, 5%)};
@@ -49,7 +48,6 @@ $colors: map.keys($palette);
         --vs-comp-bg: var(--vs-black);
         --vs-comp-bg-hover: #{lighten(#000000, 10%)};
         --vs-comp-bg-active: #{lighten(#000000, 20%)};
-        --vs-comp-bg-gradient: linear-gradient(45deg, var(--vs-gray-600) 0%, var(--vs-gray-300) 100%);
         --vs-comp-shadow: rgba(255, 255, 255, 0.16);
 
         --vs-primary-comp-font: var(--vs-black);
@@ -77,11 +75,6 @@ $colors: map.keys($palette);
             --vs-comp-bg: #{map.get($palette, $color, 100)};
             --vs-comp-bg-hover: #{darken(map.get($palette, $color, 100), 6%)};
             --vs-comp-bg-active: #{darken(map.get($palette, $color, 100), 12%)};
-            --vs-comp-bg-gradient: linear-gradient(
-                45deg,
-                map.get($palette, $color, 500) 0%,
-                map.get($palette, $color, 300) 100%
-            );
             --vs-comp-shadow: rgba(0, 0, 0, 0.25);
 
             --vs-primary-comp-font: #{lighten(map.get($palette, $color, 50), 50%)};
