@@ -16,7 +16,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
+            expect(wrapper.find('div.vs-dialog')?.isVisible()).toBe(false);
         });
 
         it('modelValue가 true이면 drawer가 열린다', async () => {
@@ -27,13 +27,11 @@ describe('vs-drawer', () => {
                 },
             });
 
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
-
             // when
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(true);
+            expect(wrapper.find('div.vs-dialog')?.isVisible()).toBe(true);
         });
     });
 

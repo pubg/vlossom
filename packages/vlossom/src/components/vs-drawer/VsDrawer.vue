@@ -1,7 +1,7 @@
 <template>
     <Transition name="drawer" :duration="300">
         <div
-            v-if="isOpen"
+            v-show="isOpen"
             class="vs-drawer"
             :style="{
                 ...computedStyleSet,
