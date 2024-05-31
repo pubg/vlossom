@@ -86,8 +86,8 @@ $colors: map.keys($palette);
 
             --vs-primary-comp-font: #{lighten(map.get($palette, $color, 50), 50%)};
             --vs-primary-comp-bg: #{map.get($palette, $color, 500)};
-            --vs-primary-comp-bg-hover: #{lighten(map.get($palette, $color, 500), 2%)};
-            --vs-primary-comp-bg-active: #{lighten(map.get($palette, $color, 500), 4%)};
+            --vs-primary-comp-bg-hover: #{lighten(map.get($palette, $color, 500), 5%)};
+            --vs-primary-comp-bg-active: #{lighten(map.get($palette, $color, 500), 10%)};
             --vs-primary-comp-shadow: rgba(0, 0, 0, 0.25);
 
             --vs-font-color: #{map.get($palette, $color, 800)};
