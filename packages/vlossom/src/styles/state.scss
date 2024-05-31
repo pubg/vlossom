@@ -29,18 +29,3 @@
         --vs-state-box-color: var(--vs-state-box-color-warning);
     }
 }
-
-$text-glow: (
-    'info': var(--vs-light-blue-400),
-    'success': var(--vs-green-400),
-    'error': var(--vs-red-400),
-    'warning': var(--vs-orange-400),
-);
-
-@each $state, $color in $text-glow {
-    .vs-text-glow-#{$state} {
-        --vs-text-glow-color: #{$color};
-        outline: 3px solid var(--vs-state-box-color);
-        outline-offset: 2px;
-    }
-}

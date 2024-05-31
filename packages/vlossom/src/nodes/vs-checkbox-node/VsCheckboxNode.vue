@@ -18,7 +18,7 @@
                 @blur.stop="onBlur"
             />
         </div>
-        <label v-if="label || $slots['label']" :for="id" :class="['checkbox-label', textGlowByState]">
+        <label v-if="label || $slots['label']" :for="id" class="checkbox-label">
             <slot name="label">{{ label }}</slot>
         </label>
     </div>
@@ -54,7 +54,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { checked, indeterminate, disabled, readonly, state } = toRefs(props);
 
-        const { stateClasses, textGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -120,7 +120,6 @@ export default defineComponent({
             blur,
             convertToString: utils.string.convertToString,
             stateClasses,
-            textGlowByState,
         };
     },
 });

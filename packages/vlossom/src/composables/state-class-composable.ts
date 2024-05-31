@@ -12,10 +12,7 @@ export function useStateClass(state: Ref<UIState>) {
         };
     });
 
-    const textGlowByState = computed(() => `vs-text-glow-${state.value}`);
-
     return {
         stateClasses,
-        textGlowByState,
     };
 }

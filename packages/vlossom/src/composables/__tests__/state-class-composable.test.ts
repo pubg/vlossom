@@ -4,37 +4,35 @@ import { useStateClass } from '@/composables';
 import { ref } from 'vue';
 
 describe('state-class-composable', () => {
-    it('boxGlowByState class', () => {
-        // given
-        const states = [UIState.Idle, UIState.Info, UIState.Success, UIState.Warning, UIState.Error];
+    describe('stateClasses class', () => {
+        it('stated', () => {
+            // given
+            const stated = [UIState.Info, UIState.Success, UIState.Error, UIState.Warning];
 
-        // when
-        const classes = states.map((state) => useStateClass(ref(state)).boxGlowByState.value);
+            // when
+            const classes = stated.map((state) => useStateClass(ref(state)).stateClasses.value);
 
-        // then
-        expect(classes).toEqual([
-            'vs-state-box-idle',
-            'vs-state-box-info',
-            'vs-state-box-success',
-            'vs-state-box-warning',
-            'vs-state-box-error',
-        ]);
-    });
+            // then
+            expect(classes).toEqual([
+                { 'vs-state-box': true, 'vs-state-box-info': true },
+                { 'vs-state-box': true, 'vs-state-box-success': true },
+                { 'vs-state-box': true, 'vs-state-box-error': true },
+                { 'vs-state-box': true, 'vs-state-box-warning': true },
+            ]);
+        });
 
-    it('textGlowByState class', () => {
-        // given
-        const states = [UIState.Idle, UIState.Info, UIState.Success, UIState.Warning, UIState.Error];
+        it('not stated', () => {
+            // given
+            const notStated = [UIState.Idle, UIState.Selected];
 
-        // when
-        const classes = states.map((state) => useStateClass(ref(state)).textGlowByState.value);
+            // when
+            const classes = notStated.map((state) => useStateClass(ref(state)).stateClasses.value);
 
-        // then
-        expect(classes).toEqual([
-            'vs-text-glow-idle',
-            'vs-text-glow-info',
-            'vs-text-glow-success',
-            'vs-text-glow-warning',
-            'vs-text-glow-error',
-        ]);
+            // then
+            expect(classes).toEqual([
+                { 'vs-state-box': false, 'vs-state-box-idle': false },
+                { 'vs-state-box': false, 'vs-state-box-selected': false },
+            ]);
+        });
     });
 });

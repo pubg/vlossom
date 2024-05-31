@@ -9,7 +9,6 @@
             :no-message="noMessage"
             :required="required"
             :shake="shake"
-            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />

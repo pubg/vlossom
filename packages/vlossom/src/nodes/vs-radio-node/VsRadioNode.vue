@@ -17,7 +17,7 @@
                 @blur.stop="onBlur"
             />
 
-            <span :class="['radio-label', textGlowByState]">
+            <span class="radio-label">
                 <slot name="label">{{ label }}</slot>
             </span>
         </label>
@@ -53,7 +53,7 @@ export default defineComponent({
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
-        const { stateClasses, textGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const classObj = computed(() => ({
             disabled: disabled.value,
@@ -90,7 +90,6 @@ export default defineComponent({
             focus,
             blur,
             stateClasses,
-            textGlowByState,
             convertToString: utils.string.convertToString,
         };
     },
