@@ -3,6 +3,11 @@
     outline-offset: 2px;
 }
 
+@mixin state-box {
+    outline: 3px solid var(--vs-state-box-color);
+    outline-offset: 2px;
+}
+
 @mixin disabled {
     opacity: 0.5;
     filter: grayscale(0.7);

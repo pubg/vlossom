@@ -17,7 +17,7 @@
 
             <div
                 ref="triggerRef"
-                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
                 @click.stop="toggleOptions()"
             >
@@ -331,7 +331,7 @@ export default defineComponent({
             }),
         );
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -525,7 +525,7 @@ export default defineComponent({
             inputRef,
             focus,
             blur,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

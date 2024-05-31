@@ -36,6 +36,11 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
             cursor: pointer;
         }
 
+        &.vs-state-box {
+            @include state-box;
+            outline-offset: 0;
+        }
+
         &:focus-within {
             @include focus-outline;
             outline-offset: 0;

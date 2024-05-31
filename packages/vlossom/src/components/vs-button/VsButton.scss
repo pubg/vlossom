@@ -56,6 +56,10 @@
         pointer-events: none;
     }
 
+    &.vs-state-box {
+        @include state-box;
+    }
+
     &:focus-visible {
         @include focus-outline;
     }

@@ -17,7 +17,7 @@
 
             <textarea
                 ref="textareaRef"
-                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
                 :id="id"
                 :value="inputValue"
@@ -104,7 +104,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsTextareaStyleSet>(name, styleSet);
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
@@ -191,7 +191,7 @@ export default defineComponent({
             onFocus,
             onBlur,
             onEnter,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

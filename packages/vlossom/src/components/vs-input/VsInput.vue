@@ -16,7 +16,7 @@
             </template>
 
             <div
-                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
             >
                 <div v-if="$slots['prepend']" class="prepend">
@@ -148,7 +148,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
@@ -249,7 +249,7 @@ export default defineComponent({
             onBlur,
             onEnter,
             clearWithFocus,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

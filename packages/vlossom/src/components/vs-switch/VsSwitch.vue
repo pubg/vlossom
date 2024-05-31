@@ -19,7 +19,7 @@
                 <div
                     ref="switchRef"
                     role="switch"
-                    :class="['vs-switch-button', boxGlowByState, { checked: isChecked, disabled, readonly }]"
+                    :class="['vs-switch-button', stateClasses, { checked: isChecked, disabled, readonly }]"
                     :style="computedStyleSet"
                     :aria-checked="isChecked"
                     :aria-disabled="disabled"
@@ -128,7 +128,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet(name, styleSet);
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const inputValue = ref(modelValue.value);
 
@@ -215,7 +215,7 @@ export default defineComponent({
             validate,
             clear,
             id,
-            boxGlowByState,
+            stateClasses,
             focus,
             blur,
         };

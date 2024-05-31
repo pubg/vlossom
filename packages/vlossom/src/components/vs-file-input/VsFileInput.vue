@@ -16,7 +16,7 @@
             </template>
 
             <div
-                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
@@ -119,7 +119,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -251,7 +251,7 @@ export default defineComponent({
             blur,
             dragging,
             setDragging,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

@@ -28,6 +28,10 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
         transition: border 0s;
         width: $width;
 
+        &.vs-state-box {
+            @include state-box;
+        }
+
         &:focus-visible {
             @include focus-outline;
         }

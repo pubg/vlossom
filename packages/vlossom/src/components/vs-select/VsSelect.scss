@@ -91,7 +91,11 @@
         @include readonly;
     }
 
-    &:has(input:focus-visible) {
+    &.vs-state-box {
+        @include state-box;
+    }
+
+    &:focus-within {
         @include focus-outline;
     }
 }
