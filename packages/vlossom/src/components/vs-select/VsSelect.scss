@@ -37,9 +37,14 @@
         color: var(--vs-select-fontColor, var(--vs-font-color));
         cursor: pointer;
         min-width: 2rem;
+        line-height: 1rem;
 
         &.autocomplete {
             cursor: default;
+        }
+
+        &:not(.autocomplete)::selection {
+            background: none;
         }
     }
 

@@ -64,13 +64,13 @@
                     aria-controls="vs-select-options"
                     :aria-autocomplete="autocomplete ? 'list' : undefined"
                     :aria-activedescendant="focusedOptionId"
-                    :class="{ autocomplete: autocomplete }"
+                    :class="{ autocomplete }"
                     :disabled="disabled"
                     :placeholder="placeholder"
                     :readonly="readonly || !autocomplete"
                     :aria-required="required"
                     :value="inputLabel"
-                    @input.stop="updateAutocompleteText"
+                    @input.stop="onInput"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
                     @keydown.stop="onKeyDown"
@@ -362,11 +362,9 @@ export default defineComponent({
             useToggleOptions(disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
-            autocomplete,
             computedOptions,
             getOptionLabel,
             isOpen,
-            select,
         );
 
         const { listboxRef, loadedOptions } = useInfiniteScroll(filteredOptions, lazyLoadNum, isOpen);
@@ -457,11 +455,19 @@ export default defineComponent({
 
         function onFocus(e: FocusEvent) {
             focusing.value = true;
+
+            if (autocomplete.value) {
+                select();
+            }
             emit('focus', e);
         }
 
         function onBlur(e: FocusEvent) {
             focusing.value = false;
+
+            if (autocomplete.value) {
+                autocompleteText.value = inputLabel.value;
+            }
             emit('blur', e);
         }
 
@@ -484,6 +490,14 @@ export default defineComponent({
                 return computedPlacement.value === 'top' ? 'fade-leave-bottom' : 'fade-leave-top';
             }
         });
+
+        function onInput(e: Event) {
+            // Open options on typing after focused by tab key
+            if (autocomplete.value && !isOpen.value) {
+                isOpen.value = true;
+            }
+            updateAutocompleteText(e);
+        }
 
         return {
             id,
@@ -532,6 +546,7 @@ export default defineComponent({
             focus,
             blur,
             stateClasses,
+            onInput,
         };
     },
 });
