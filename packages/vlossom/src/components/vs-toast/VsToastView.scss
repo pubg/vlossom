@@ -41,10 +41,23 @@
         position: relative;
 
         button {
-            color: #fff;
+            color: var(--vs-comp-font);
             position: absolute;
-            top: 0;
-            right: 6px;
+            top: 5px;
+            right: 5px;
+            padding: 1px;
+            border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                background-color: var(--vs-comp-bg-hover);
+            }
+
+            &:active {
+                background-color: var(--vs-comp-bg-active);
+            }
         }
     }
 }

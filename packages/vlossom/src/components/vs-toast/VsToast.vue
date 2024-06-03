@@ -12,7 +12,7 @@
                 @click.stop="closeToast"
                 aria-label="close"
             >
-                <vs-icon icon="close" size="20px" />
+                <vs-icon icon="close" size="14px" />
             </button>
         </div>
     </div>
