@@ -29,7 +29,7 @@
                     :name="name"
                     :readonly="readonly"
                     :required="required"
-                    :state="state"
+                    :state="computedState"
                     :value="getOptionValue(option)"
                     @toggle="onToggle(option, $event)"
                     @focus="onFocus(option, $event)"
@@ -112,6 +112,7 @@ export default defineComponent({
             readonly,
             required,
             rules,
+            state,
         } = toRefs(props);
 
         const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -150,25 +151,32 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    if (!inputValue.value) {
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        if (!inputValue.value) {
+                            inputValue.value = [];
+                        }
+                    },
+                    onChange: () => {
+                        if (!inputValue.value) {
+                            inputValue.value = [];
+                        }
+                    },
+                    onClear: () => {
                         inputValue.value = [];
-                    }
-                },
-                onChange: () => {
-                    if (!inputValue.value) {
-                        inputValue.value = [];
-                    }
-                },
-                onClear: () => {
-                    inputValue.value = [];
+                    },
                 },
             },
-        });
+        );
 
         function isChecked(option: any) {
             if (!inputValue.value) {
@@ -218,6 +226,7 @@ export default defineComponent({
             optionIds,
             classObj,
             computedColorScheme,
+            computedState,
             checkboxStyleSet,
             checkboxSetStyleSet,
             isChecked,

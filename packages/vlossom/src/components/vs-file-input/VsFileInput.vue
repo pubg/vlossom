@@ -118,8 +118,6 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
 
-        const { stateClasses } = useStateClass(state);
-
         const classObj = computed(() => ({
             dense: dense.value,
             disabled: disabled.value,
@@ -186,15 +184,24 @@ export default defineComponent({
             }
         }
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: correctEmptyValue,
-                onChange: correctEmptyValue,
-                onClear,
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: correctEmptyValue,
+                    onChange: correctEmptyValue,
+                    onClear,
+                },
             },
-        });
+        );
+
+        const { stateClasses } = useStateClass(computedState);
 
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;

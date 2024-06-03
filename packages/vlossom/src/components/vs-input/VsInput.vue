@@ -76,7 +76,7 @@ import {
     useStringModifier,
     useStateClass,
 } from '@/composables';
-import { VsComponent, type ColorScheme, StringModifiers } from '@/declaration';
+import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
@@ -147,8 +147,6 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
-        const { stateClasses } = useStateClass(state);
-
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
@@ -178,19 +176,28 @@ export default defineComponent({
             inputValue.value = null;
         }
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    inputValue.value = convertValue(inputValue.value);
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        inputValue.value = convertValue(inputValue.value);
+                    },
+                    onChange: () => {
+                        inputValue.value = convertValue(inputValue.value);
+                    },
+                    onClear,
                 },
-                onChange: () => {
-                    inputValue.value = convertValue(inputValue.value);
-                },
-                onClear,
             },
-        });
+        );
+
+        const { stateClasses } = useStateClass(computedState);
 
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
