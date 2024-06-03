@@ -11,7 +11,7 @@
         </span>
 
         <span class="loading-icon">
-            <vs-icon icon="rotateRight" class="rotate-ani" :size="dense ? 15 : 20" />
+            <vs-icon icon="rotateRight" :size="dense ? 15 : 20" />
         </span>
     </button>
 </template>

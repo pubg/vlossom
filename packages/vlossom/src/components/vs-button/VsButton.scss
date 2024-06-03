@@ -131,6 +131,10 @@
         transform: translate(-50%, -50%);
         line-height: 1;
         font-size: 0;
+        
+        .vs-icon {
+            animation: rotate 2s linear infinite;
+        }
     }
 
     &.loading {
@@ -143,10 +147,6 @@
         .loading-icon {
             visibility: visible;
         }
-    }
-
-    .rotate-ani {
-        animation: rotate 2s linear infinite;
     }
 }
 
