@@ -6,11 +6,13 @@
         :disabled="disabled"
         :aria-label="loading ? 'loading' : undefined"
     >
-        <span v-if="!loading" class="content">
+        <span class="content">
             <slot />
         </span>
 
-        <vs-icon v-if="loading" class="loading-icon" icon="rotateRight" :size="dense ? 20 : 24" />
+        <span class="loading-icon">
+            <vs-icon class="rotate" icon="rotateRight" :size="dense ? 15 : 20" />
+        </span>
     </button>
 </template>
 
