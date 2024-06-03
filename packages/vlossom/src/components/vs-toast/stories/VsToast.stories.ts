@@ -105,8 +105,8 @@ export const AutoClose: Story = {
             return { args };
         },
         template: `
-			<vs-button @click="$vs.toast.show(args.text, { timeout: args.timeout })">Auto Closing Toast (after {{args.timeout}}ms)</vs-button>
-			<vs-button @click="$vs.toast.show(args.text, { autoClose: false })">Manual Closing Show Toast</vs-button>
+			<vs-button @click="$vs.toast.show(args.text, { timeout: args.timeout, colorScheme: args.colorScheme })">Auto Closing Toast (after {{args.timeout}}ms)</vs-button>
+			<vs-button @click="$vs.toast.show(args.text, { autoClose: false, colorScheme: args.colorScheme })">Manual Closing Toast</vs-button>
 		`,
     }),
     args: {
