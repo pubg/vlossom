@@ -1,6 +1,6 @@
 import { setup } from '@storybook/vue3';
-import { createVlossom, useVlossom } from '../src';
-import { styleSet } from '../src/storybook/style-sets';
+import { createVlossom, useVlossom } from './../src';
+import { styleSet } from './../src/storybook/style-sets';
 import './../src/styles/index.scss';
 
 import type { Preview } from '@storybook/vue3';

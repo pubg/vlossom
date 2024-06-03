@@ -29,5 +29,24 @@ export enum SortType {
 }
 
 export interface VsTableStyleSet {
-    //[TODO] add style set
+    bodyBackgroundColor?: string;
+    bodyBorder?: string;
+    bodyFontColor?: string;
+    bodyFontSize?: string;
+    bodyFontWeight?: string;
+    bodyMinHeight?: string;
+    captionFontColor?: string;
+    captionFontSize?: string;
+    captionFontWeight?: string;
+    captionSide?: string;
+    captionTextAlign?: string;
+    headerBackgroundColor?: string;
+    headerBorder?: string;
+    headerFontColor?: string;
+    headerFontSize?: string;
+    headerFontWeight?: string;
+    headerMinHeight?: string;
+    hoverBorder?: string;
+    selectedBackgroundColor?: string;
+    selectedFontColor?: string;
 }

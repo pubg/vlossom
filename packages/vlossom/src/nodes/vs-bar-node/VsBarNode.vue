@@ -1,8 +1,6 @@
 <template>
-    <div :class="['vs-bar-node', `vs-${colorScheme}`, { primary }]" :style="computedStyleSet">
-        <div class="vs-bar-node-content">
-            <slot />
-        </div>
+    <div :class="['vs-bar-node', `vs-${colorScheme}`, { primary }]" :style="computedStyle">
+        <slot />
     </div>
 </template>
 
@@ -21,8 +19,8 @@ export default defineComponent({
     setup(props) {
         const { styleSet, height, position } = toRefs(props);
 
-        const computedStyleSet = computed(() => {
-            const convertedStyleSet = Object.entries(styleSet.value || {}).reduce(
+        const computedStyle = computed(() => {
+            const convertedStyle = Object.entries(styleSet.value || {}).reduce(
                 (acc, [key, value]) => {
                     const propName = key.split('-').pop();
                     acc[`--vs-bar-node-${propName}`] = value;
@@ -32,17 +30,17 @@ export default defineComponent({
             );
 
             if (height.value) {
-                convertedStyleSet['--vs-bar-node-height'] = height.value;
+                convertedStyle['--vs-bar-node-height'] = height.value;
             }
             if (position.value) {
-                convertedStyleSet['--vs-bar-node-position'] = position.value;
+                convertedStyle['--vs-bar-node-position'] = position.value;
             }
 
-            return convertedStyleSet;
+            return convertedStyle;
         });
 
         return {
-            computedStyleSet,
+            computedStyle,
         };
     },
 });

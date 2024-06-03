@@ -40,13 +40,17 @@ export function useSelectOption(
         }
     }
 
-    function selectAllOptions() {
-        inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
-    }
-
     const isAllSelected = computed(() => {
         return computedOptions.value.length === (inputValue.value || []).length;
     });
+
+    function selectAllOptions() {
+        if (isAllSelected.value) {
+            inputValue.value = [];
+        } else {
+            inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
+        }
+    }
 
     function removeSelected(option: any) {
         if (!multiple.value) {

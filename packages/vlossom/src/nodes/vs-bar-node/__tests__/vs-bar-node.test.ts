@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsBarNode from '../VsBarNode.vue';
+import VsBarNode from './../VsBarNode.vue';
 
 describe('vs-bar-node', () => {
     describe('slot', () => {

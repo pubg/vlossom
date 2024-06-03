@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
-import VsDivider from '../VsDivider.vue';
+import VsDivider from './../VsDivider.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

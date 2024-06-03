@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ToastStore } from '../toast-store';
+import { ToastStore } from './../toast-store';
 import type { Align, Placement } from '@/declaration';
 
 describe('toast store', () => {

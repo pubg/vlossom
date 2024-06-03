@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate, verticalAlign, LOREM_IPSUM } from '@/storybook';
-import VsLabelValue from '../VsLabelValue.vue';
+import VsLabelValue from './../VsLabelValue.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -35,7 +35,9 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-label-value color-scheme="{{ color }}"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
+                    <vs-label-value color-scheme="{{ color }}" :style="{marginBottom: '8px'}">
+                        <template #label>label</template><template #value>${LOREM_IPSUM}</template>
+                    </vs-label-value>
                 `)}
             </div>
         `,
@@ -54,7 +56,9 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-label-value color-scheme="{{ color }}" primary><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
+                    <vs-label-value color-scheme="{{ color }}" primary :style="{marginBottom: '8px'}">
+                        <template #label>label</template><template #value>${LOREM_IPSUM}</template>
+                    </vs-label-value>
                 `)}
             </div>
         `,

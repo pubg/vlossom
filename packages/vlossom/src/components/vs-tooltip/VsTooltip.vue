@@ -56,7 +56,7 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
-        margin: { type: Number, default: 2 },
+        margin: { type: Number, default: 8 },
         placement: {
             type: String as PropType<Placement>,
             default: 'top',

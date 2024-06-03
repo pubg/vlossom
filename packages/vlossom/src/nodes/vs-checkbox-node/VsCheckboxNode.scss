@@ -1,23 +1,24 @@
 @use '@/styles/mixin' as *;
 
-$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-comp-color));
+$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-primary-comp-bg));
 $checkbox-size: var(--vs-checkbox-checkboxSize, 1.6rem);
-$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $checkbox-color);
+$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));
 
 .vs-checkbox-node {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     user-select: none;
+    height: var(--vs-checkbox-height, 2.4rem);
 
     .checkbox-wrap {
         position: relative;
         display: flex;
         align-items: center;
         color: $checkbox-color;
-        border-radius: var(--vs-checkbox-borderRadius, 0.2rem);
+        border-radius: var(--vs-checkbox-borderRadius, calc(var(--vs-radius-ratio) * 0.2rem));
         overflow: hidden;
 
         .check-icon {
@@ -35,28 +36,28 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, $check
             cursor: pointer;
         }
 
-        // TODO: focus box-shadow
-        // .check-icon ~ .checkbox-input:focus-visible {
-        //     box-shadow: var(--vs-checkbox-focusBoxShadow, 0 0 1rem $checkbox-color);
-        // }
+        &.vs-state-box {
+            @include state-box;
+            outline-offset: 0;
+        }
+
+        &:focus-within {
+            @include focus-outline;
+            outline-offset: 0;
+        }
     }
 
     .checkbox-label {
         user-select: none;
         padding-left: 0.4rem;
         cursor: pointer;
+        white-space: nowrap;
         transition: 0.25s ease;
         color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
-        font-size: var(--vs-checkbox-labelFontSize, 1rem);
+        font-size: var(--vs-checkbox-labelFontSize, 0.9rem);
     }
 
     &.checked {
-        .checkbox-label {
-            color: $checkbox-selected-label-color;
-        }
-    }
-
-    &:hover {
         .checkbox-label {
             color: $checkbox-selected-label-color;
         }

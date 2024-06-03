@@ -1,282 +1,108 @@
 @use 'sass:map';
+@use 'sass:color';
 @use 'palette' as *;
 
-$colorScheme-light: (
-    'default': (
-        area-backgroundColor: #ffffff,
-        comp-backgroundColor: var(--vs-indigo-100),
-        comp-color: var(--vs-indigo-700),
-        comp-backgroundColor-primary: var(--vs-indigo-700),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-indigo-700),
-        gradient-color: linear-gradient(45deg, var(--vs-indigo-600) 0%, var(--vs-indigo-300) 100%),
-        line-color: var(--vs-grey-700),
-        light-backgroundColor: transparentize(map.get($palette, indigo, 100), 0.8),
-    ),
-    'red': (
-        area-backgroundColor: transparentize(map.get($palette, red, 50), 0.5),
-        comp-backgroundColor: var(--vs-red-100),
-        comp-color: var(--vs-red-600),
-        comp-backgroundColor-primary: var(--vs-red-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-red-600),
-        gradient-color: linear-gradient(45deg, var(--vs-red-600) 0%, var(--vs-red-400) 100%),
-        line-color: var(--vs-red-600),
-        light-backgroundColor: transparentize(map.get($palette, red, 200), 0.8),
-    ),
-    'orange': (
-        area-backgroundColor: transparentize(map.get($palette, orange, 50), 0.45),
-        comp-backgroundColor: var(--vs-orange-100),
-        comp-color: var(--vs-orange-700),
-        comp-backgroundColor-primary: var(--vs-orange-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-orange-600),
-        gradient-color: linear-gradient(45deg, var(--vs-orange-600) 0%, var(--vs-orange-400) 100%),
-        line-color: var(--vs-orange-500),
-        light-backgroundColor: transparentize(map.get($palette, orange, 200), 0.8),
-    ),
-    'yellow': (
-        area-backgroundColor: transparentize(map.get($palette, yellow, 50), 0.45),
-        comp-backgroundColor: var(--vs-yellow-200),
-        comp-color: var(--vs-yellow-900),
-        comp-backgroundColor-primary: var(--vs-yellow-800),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-yellow-600),
-        gradient-color: linear-gradient(45deg, var(--vs-yellow-600) 0%, var(--vs-yellow-600) 100%),
-        line-color: var(--vs-yellow-900),
-        light-backgroundColor: transparentize(map.get($palette, yellow, 200), 0.8),
-    ),
-    'yellow-green': (
-        area-backgroundColor: transparentize(map.get($palette, yellow-green, 50), 0.45),
-        comp-backgroundColor: var(--vs-yellow-green-200),
-        comp-color: var(--vs-yellow-green-900),
-        comp-backgroundColor-primary: var(--vs-yellow-green-800),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-yellow-green-600),
-        gradient-color: linear-gradient(45deg, var(--vs-yellow-green-600) 0%, var(--vs-yellow-green-400) 100%),
-        line-color: var(--vs-yellow-green-900),
-        light-backgroundColor: transparentize(map.get($palette, yellow-green, 200), 0.8),
-    ),
-    'green': (
-        area-backgroundColor: transparentize(map.get($palette, green, 50), 0.45),
-        comp-backgroundColor: var(--vs-green-100),
-        comp-color: var(--vs-green-800),
-        comp-backgroundColor-primary: var(--vs-green-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-green-600),
-        gradient-color: linear-gradient(45deg, var(--vs-green-600) 0%, var(--vs-green-400) 100%),
-        line-color: var(--vs-green-600),
-        light-backgroundColor: transparentize(map.get($palette, green, 200), 0.8),
-    ),
-    'teal': (
-        area-backgroundColor: transparentize(map.get($palette, teal, 50), 0.45),
-        comp-backgroundColor: var(--vs-teal-100),
-        comp-color: var(--vs-teal-800),
-        comp-backgroundColor-primary: var(--vs-teal-700),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-teal-600),
-        gradient-color: linear-gradient(45deg, var(--vs-teal-600) 0%, var(--vs-teal-400) 100%),
-        line-color: var(--vs-teal-600),
-        light-backgroundColor: transparentize(map.get($palette, teal, 200), 0.8),
-    ),
-    'light-blue': (
-        area-backgroundColor: transparentize(map.get($palette, light-blue, 50), 0.45),
-        comp-backgroundColor: var(--vs-light-blue-100),
-        comp-color: var(--vs-light-blue-800),
-        comp-backgroundColor-primary: var(--vs-light-blue-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-light-blue-600),
-        gradient-color: linear-gradient(45deg, var(--vs-light-blue-600) 0%, var(--vs-light-blue-300) 100%),
-        line-color: var(--vs-light-blue-600),
-        light-backgroundColor: transparentize(map.get($palette, light-blue, 200), 0.8),
-    ),
-    'blue': (
-        area-backgroundColor: transparentize(map.get($palette, blue, 50), 0.45),
-        comp-backgroundColor: var(--vs-blue-100),
-        comp-color: var(--vs-blue-600),
-        comp-backgroundColor-primary: var(--vs-blue-500),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-blue-500),
-        gradient-color: linear-gradient(45deg, var(--vs-blue-600) 0%, var(--vs-blue-300) 100%),
-        line-color: var(--vs-blue-500),
-        light-backgroundColor: transparentize(map.get($palette, blue, 200), 0.8),
-    ),
-    'indigo': (
-        area-backgroundColor: transparentize(map.get($palette, indigo, 100), 0.45),
-        comp-backgroundColor: var(--vs-indigo-100),
-        comp-color: var(--vs-indigo-700),
-        comp-backgroundColor-primary: var(--vs-indigo-700),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-indigo-700),
-        gradient-color: linear-gradient(45deg, var(--vs-indigo-600) 0%, var(--vs-indigo-300) 100%),
-        line-color: var(--vs-indigo-700),
-        light-backgroundColor: transparentize(map.get($palette, indigo, 200), 0.8),
-    ),
-    'purple': (
-        area-backgroundColor: transparentize(map.get($palette, purple, 50), 0.45),
-        comp-backgroundColor: var(--vs-purple-100),
-        comp-color: var(--vs-purple-600),
-        comp-backgroundColor-primary: var(--vs-purple-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-purple-600),
-        gradient-color: linear-gradient(45deg, var(--vs-purple-600) 0%, var(--vs-purple-200) 100%),
-        line-color: var(--vs-purple-600),
-        light-backgroundColor: transparentize(map.get($palette, purple, 200), 0.8),
-    ),
-    'pink': (
-        area-backgroundColor: transparentize(map.get($palette, pink, 50), 0.45),
-        comp-backgroundColor: var(--vs-pink-100),
-        comp-color: var(--vs-pink-700),
-        comp-backgroundColor-primary: var(--vs-pink-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-pink-600),
-        gradient-color: linear-gradient(45deg, var(--vs-pink-400) 0%, var(--vs-pink-200) 100%),
-        line-color: var(--vs-pink-600),
-        light-backgroundColor: transparentize(map.get($palette, pink, 200), 0.8),
-    ),
-    'brown': (
-        area-backgroundColor: transparentize(map.get($palette, brown, 50), 0.45),
-        comp-backgroundColor: var(--vs-brown-100),
-        comp-color: var(--vs-brown-600),
-        comp-backgroundColor-primary: var(--vs-brown-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-brown-600),
-        gradient-color: linear-gradient(45deg, var(--vs-brown-500) 0%, var(--vs-brown-300) 100%),
-        line-color: var(--vs-brown-600),
-        light-backgroundColor: transparentize(map.get($palette, brown, 200), 0.8),
-    ),
-    'grey': (
-        area-backgroundColor: transparentize(map.get($palette, grey, 50), 0.45),
-        comp-backgroundColor: var(--vs-grey-100),
-        comp-color: var(--vs-grey-600),
-        comp-backgroundColor-primary: var(--vs-grey-600),
-        comp-color-primary: var(--vs-grey-50),
-        comp-border-color: var(--vs-grey-600),
-        gradient-color: linear-gradient(45deg, var(--vs-grey-600) 0%, var(--vs-grey-300) 100%),
-        line-color: var(--vs-grey-600),
-        light-backgroundColor: transparentize(map.get($palette, grey, 200), 0.8),
-    ),
-    'black': (
-        area-backgroundColor: transparentize(map.get($palette, grey, 50), 0.45),
-        comp-backgroundColor: var(--vs-grey-300),
-        comp-color: black,
-        comp-backgroundColor-primary: black,
-        comp-color-primary: white,
-        comp-border-color: black,
-        gradient-color: linear-gradient(45deg, var(--vs-grey-900) 0%, var(--vs-grey-600) 100%),
-        line-color: black,
-        light-backgroundColor: transparentize(map.get($palette, grey, 50), 0.8),
-    ),
-);
-
-$colorScheme-dark: (
-    'default': (
-        area-backgroundColor: #14151f,
-        comp-border-color: var(--vs-indigo-400),
-        line-color: var(--vs-grey-300),
-        light-backgroundColor: transparentize(map.get($palette, indigo, 300), 0.8),
-    ),
-    'red': (
-        area-backgroundColor: transparentize(map.get($palette, red, 400), 0.9),
-        comp-border-color: var(--vs-red-500),
-        line-color: var(--vs-red-300),
-        light-backgroundColor: transparentize(map.get($palette, red, 300), 0.8),
-    ),
-    'orange': (
-        area-backgroundColor: transparentize(map.get($palette, orange, 400), 0.9),
-        comp-border-color: var(--vs-orange-500),
-        line-color: var(--vs-orange-300),
-        light-backgroundColor: transparentize(map.get($palette, orange, 300), 0.8),
-    ),
-    'yellow': (
-        area-backgroundColor: transparentize(map.get($palette, yellow, 400), 0.9),
-        comp-border-color: var(--vs-yellow-500),
-        line-color: var(--vs-yellow-300),
-        light-backgroundColor: transparentize(map.get($palette, yellow, 300), 0.5),
-    ),
-    'yellow-green': (
-        area-backgroundColor: transparentize(map.get($palette, yellow-green, 400), 0.9),
-        comp-border-color: var(--vs-yellow-green-500),
-        line-color: var(--vs-yellow-green-300),
-        light-backgroundColor: transparentize(map.get($palette, yellow-green, 300), 0.8),
-    ),
-    'green': (
-        area-backgroundColor: transparentize(map.get($palette, green, 400), 0.9),
-        comp-border-color: var(--vs-green-400),
-        line-color: var(--vs-green-400),
-        light-backgroundColor: transparentize(map.get($palette, green, 300), 0.8),
-    ),
-    'teal': (
-        area-backgroundColor: transparentize(map.get($palette, teal, 400), 0.9),
-        comp-border-color: var(--vs-teal-400),
-        line-color: var(--vs-teal-400),
-        light-backgroundColor: transparentize(map.get($palette, teal, 300), 0.8),
-    ),
-    'light-blue': (
-        area-backgroundColor: transparentize(map.get($palette, light-blue, 400), 0.9),
-        comp-border-color: var(--vs-light-blue-400),
-        line-color: var(--vs-light-blue-400),
-        light-backgroundColor: transparentize(map.get($palette, light-blue, 300), 0.8),
-    ),
-    'blue': (
-        area-backgroundColor: transparentize(map.get($palette, blue, 400), 0.9),
-        comp-border-color: var(--vs-blue-400),
-        line-color: var(--vs-blue-400),
-        light-backgroundColor: transparentize(map.get($palette, blue, 300), 0.8),
-    ),
-    'indigo': (
-        area-backgroundColor: transparentize(map.get($palette, indigo, 400), 0.8),
-        comp-border-color: var(--vs-indigo-400),
-        line-color: var(--vs-indigo-400),
-        light-backgroundColor: transparentize(map.get($palette, indigo, 300), 0.8),
-    ),
-    'purple': (
-        area-backgroundColor: transparentize(map.get($palette, purple, 400), 0.9),
-        comp-border-color: var(--vs-purple-400),
-        line-color: var(--vs-purple-400),
-        light-backgroundColor: transparentize(map.get($palette, purple, 300), 0.8),
-    ),
-    'pink': (
-        area-backgroundColor: transparentize(map.get($palette, pink, 400), 0.9),
-        comp-border-color: var(--vs-pink-400),
-        line-color: var(--vs-pink-400),
-        light-backgroundColor: transparentize(map.get($palette, pink, 300), 0.8),
-    ),
-    'brown': (
-        area-backgroundColor: transparentize(map.get($palette, brown, 400), 0.9),
-        comp-border-color: var(--vs-brown-400),
-        line-color: var(--vs-brown-400),
-        light-backgroundColor: transparentize(map.get($palette, brown, 300), 0.8),
-    ),
-    'grey': (
-        area-backgroundColor: transparentize(map.get($palette, grey, 400), 0.9),
-        comp-border-color: var(--vs-grey-400),
-        line-color: var(--vs-grey-400),
-        light-backgroundColor: transparentize(map.get($palette, grey, 300), 0.8),
-    ),
-    'black': (
-        area-backgroundColor: transparentize(map.get($palette, grey, 400), 0.9),
-        comp-border-color: var(--vs-grey-400),
-        line-color: var(--vs-grey-400),
-        light-backgroundColor: transparentize(map.get($palette, grey, 300), 0.8),
-    ),
-);
+$colors: map.keys($palette);
 
 :root {
-    @each $color, $map in $colorScheme-light {
+    --vs-app-background-color: var(--vs-app-bg-color-light);
+    --vs-dimmed-background-color: var(--vs-dimmed-bg-light);
+
+    --vs-no-color: var(--vs-white);
+    --vs-no-color-inverse: var(--vs-black);
+    --vs-no-color-font: var(--vs-gray-800);
+
+    --vs-comp-font: var(--vs-gray-800);
+    --vs-comp-bg: var(--vs-white);
+    --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
+    --vs-comp-bg-active: #{darken(#ffffff, 15%)};
+    --vs-comp-shadow: rgba(0, 0, 0, 0.16);
+
+    --vs-primary-comp-font: var(--vs-white);
+    --vs-primary-comp-bg: var(--vs-black);
+    --vs-primary-comp-bg-hover: #{lighten(#000000, 10%)};
+    --vs-primary-comp-bg-active: #{lighten(#000000, 20%)};
+    --vs-primary-comp-shadow: rgba(255, 255, 255, 0.3);
+
+    --vs-font-color: var(--vs-gray-800);
+
+    --vs-line-color: var(--vs-gray-400);
+
+    --vs-area-bg: var(--vs-white);
+    --vs-area-bg-hover: #{darken(#ffffff, 5%)};
+    --vs-area-bg-active: #{darken(#ffffff, 10%)};
+    --vs-area-shadow-outer: 0 0 1rem 0 var(--vs-comp-shadow);
+
+    --vs-table-expand-box-shadow-up: inset 0 3px 8px rgba(100, 100, 100, 0.3);
+    --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(50, 50, 50, 0.15);
+
+    .vs-dark {
+        --vs-app-background-color: var(--vs-app-bg-color-dark);
+        --vs-dimmed-background-color: var(--vs-dimmed-bg-dark);
+
+        --vs-no-color: var(--vs-black);
+        --vs-no-color-inverse: var(--vs-white);
+        --vs-no-color-font: var(--vs-gray-50);
+
+        --vs-comp-font: var(--vs-gray-50);
+        --vs-comp-bg: var(--vs-black);
+        --vs-comp-bg-hover: #{lighten(#000000, 10%)};
+        --vs-comp-bg-active: #{lighten(#000000, 20%)};
+        --vs-comp-shadow: rgba(255, 255, 255, 0.16);
+
+        --vs-primary-comp-font: var(--vs-black);
+        --vs-primary-comp-bg: var(--vs-white);
+        --vs-primary-comp-bg-hover: #{darken(#ffffff, 5%)};
+        --vs-primary-comp-bg-active: #{darken(#ffffff, 10%)};
+        --vs-primary-comp-shadow: rgba(0, 0, 0, 0.4);
+
+        --vs-font-color: var(--vs-gray-50);
+
+        --vs-line-color: var(--vs-gray-300);
+
+        --vs-area-bg: var(--vs-black);
+        --vs-area-bg-hover: #{lighten(#000000, 12%)};
+        --vs-area-bg-active: #{lighten(#000000, 16%)};
+        --vs-area-shadow-outer: 0 0 0.5rem 0 var(--vs-comp-shadow);
+
+        --vs-table-expand-box-shadow-up: inset 0 3px 6px rgba(255, 255, 255, 0.2);
+        --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(255, 255, 255, 0.15);
+    }
+
+    @each $color in $colors {
         .vs-#{$color} {
-            @each $key, $value in $map {
-                --vs-#{$key}: #{$value};
-            }
+            --vs-comp-font: #{map.get($palette, $color, 800)};
+            --vs-comp-bg: #{map.get($palette, $color, 100)};
+            --vs-comp-bg-hover: #{darken(map.get($palette, $color, 100), 6%)};
+            --vs-comp-bg-active: #{darken(map.get($palette, $color, 100), 12%)};
+            --vs-comp-shadow: rgba(0, 0, 0, 0.25);
+
+            --vs-primary-comp-font: #{lighten(map.get($palette, $color, 50), 50%)};
+            --vs-primary-comp-bg: #{map.get($palette, $color, 500)};
+            --vs-primary-comp-bg-hover: #{lighten(map.get($palette, $color, 500), 5%)};
+            --vs-primary-comp-bg-active: #{lighten(map.get($palette, $color, 500), 10%)};
+            --vs-primary-comp-shadow: rgba(0, 0, 0, 0.25);
+
+            --vs-font-color: #{map.get($palette, $color, 800)};
+
+            --vs-line-color: #{map.get($palette, $color, 200)};
+
+            --vs-area-bg: #{lighten(map.get($palette, $color, 50), 2%)};
+            --vs-area-bg-hover: #{map.get($palette, $color, 50)};
+            --vs-area-bg-active: #{darken(map.get($palette, $color, 50), 3%)};
         }
     }
 
     .vs-dark {
-        @each $color, $map in $colorScheme-dark {
+        @each $color in $colors {
             .vs-#{$color} {
-                @each $key, $value in $map {
-                    --vs-#{$key}: #{$value};
-                }
+                --vs-font-color: #{lighten(map.get($palette, $color, 50), 3%)};
+
+                --vs-line-color: #{map.get($palette, $color, 400)};
+
+                --vs-area-bg: #{darken(map.get($palette, $color, 900), 5%)};
+                --vs-area-bg-hover: #{map.get($palette, $color, 900)};
+                --vs-area-bg-active: #{lighten(map.get($palette, $color, 900), 5%)};
             }
         }
     }

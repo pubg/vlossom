@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsPage from '../VsPage.vue';
+import VsPage from './../VsPage.vue';
 
 describe('vs-page', () => {
     it('title, description slot을 모두 설정하지 않으면 page-header 영역이 없다 ', () => {

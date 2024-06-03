@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsTooltip from '../VsTooltip.vue';
+import VsTooltip from './../VsTooltip.vue';
 
 function mountComponent() {
     return mount(VsTooltip);

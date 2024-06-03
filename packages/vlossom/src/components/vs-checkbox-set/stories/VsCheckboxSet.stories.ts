@@ -1,8 +1,9 @@
 import { chromaticParameters, colorScheme, getMetaArguments, state, getStateTemplate } from '@/storybook';
 import { UIState } from '@/declaration';
 import { useVlossom } from '@/vlossom-framework';
+import { options } from './constants';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsCheckboxSet from '../VsCheckboxSet.vue';
+import VsCheckboxSet from './../VsCheckboxSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -22,7 +23,7 @@ const meta: Meta<typeof VsCheckboxSet> = {
         state,
     },
     args: {
-        options: ['Apple', 'Banana', 'Carrot'],
+        options,
     },
 };
 

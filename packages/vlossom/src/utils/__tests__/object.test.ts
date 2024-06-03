@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { objectUtil } from '../object';
+import { objectUtil } from './../object';
 
 describe('object util', () => {
     describe('isEqual', () => {

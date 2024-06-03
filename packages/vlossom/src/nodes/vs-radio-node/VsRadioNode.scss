@@ -1,13 +1,15 @@
 @use '@/styles/mixin' as *;
 
-$radio-color: var(--vs-radio-radioColor, var(--vs-comp-color));
+$radio-color: var(--vs-radio-radioColor, var(--vs-primary-comp-bg));
 $radio-size: var(--vs-radio-radioSize, 1.25rem);
-$radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, $radio-color);
+$radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, var(--vs-primary-comp-bg));
 $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
 
 .vs-radio-node {
     position: relative;
     display: flex;
+    align-items: center;
+    height: var(--vs-radio-height, 2.4rem);
 
     .radio-wrap {
         position: relative;
@@ -31,7 +33,8 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
 
             &:focus-visible + .radio-label {
                 &:before {
-                    box-shadow: $radio-selected-inset-box-shadow, var(--vs-radio-focusBoxShadow, 0 0 1rem $radio-color);
+                    @include focus-outline;
+                    outline-offset: 3px;
                 }
             }
         }
@@ -39,24 +42,32 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
         .radio-label {
             display: flex;
             align-items: center;
-            transition: 0.25s ease;
             color: var(--vs-radio-labelFontColor, var(--vs-font-color));
-            font-size: var(--vs-radio-labelFontSize, 1rem);
+            font-size: var(--vs-radio-labelFontSize, 0.9rem);
             padding: 0.2rem 0;
+            white-space: nowrap;
+            outline: none;
 
-            &:hover {
-                color: $radio-selected-label-color;
-            }
             &:before {
                 content: '';
-                background-color: var(--vs-area-backgroundColor);
+                background-color: transparent;
                 width: $radio-size;
                 height: $radio-size;
+                min-width: $radio-size;
+                min-height: $radio-size;
+                max-width: $radio-size;
+                max-height: $radio-size;
                 border-radius: var(--vs-radio-borderRadius, 50%);
                 margin-right: 0.5rem;
-                transition: 0.25s ease;
-                box-shadow: inset 0 0 0 0.06rem $radio-color;
+                transition: box-shadow 0.25s ease;
+                box-shadow: inset 0 0 0 0.12rem $radio-color;
             }
+        }
+    }
+
+    &.vs-state-box {
+        .radio-label:before {
+            @include state-box;
         }
     }
 

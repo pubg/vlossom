@@ -1,15 +1,13 @@
 import { computed, ref, type Ref } from 'vue';
-import { colorScheme, getColorSchemeTemplate, getMetaArguments, numberArray } from '@/storybook';
+import { colorScheme, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import { chromaticParameters } from '@/storybook/parameters';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsStepper from '../VsStepper.vue';
+import VsStepper from './../VsStepper.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
+import { disabledArgTypes, steps } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const arrayArgTypes = numberArray(3, true);
-const steps = ['step1', 'step2', 'step3'];
 
 const meta: Meta<typeof VsStepper> = {
     title: 'Components/Layout Components/VsStepper',
@@ -24,7 +22,7 @@ const meta: Meta<typeof VsStepper> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
-        disabled: arrayArgTypes,
+        disabled: disabledArgTypes,
     },
     args: {
         steps,

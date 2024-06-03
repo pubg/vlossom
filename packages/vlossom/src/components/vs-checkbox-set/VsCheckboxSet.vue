@@ -8,7 +8,6 @@
             :no-message="noMessage"
             :required="required"
             :shake="shake"
-            :state="state"
             group-label
         >
             <template #label v-if="!noLabel">

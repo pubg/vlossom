@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 .vs-button {
     position: relative;
     display: inline-flex;
@@ -5,19 +7,28 @@
     align-items: center;
     white-space: nowrap;
     max-height: var(--vs-button-maxHeight, 3rem);
-    padding: var(--vs-button-padding, 0.4rem 1.2rem);
-    border: none;
-    border-radius: var(--vs-button-borderRadius, 0.4rem);
+    padding: var(--vs-button-padding, 0.4rem 1rem);
+    border: var(--vs-button-border, 1px solid var(--vs-line-color));
+    border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     cursor: pointer;
-    font-size: var(--vs-button-fontSize, 1rem);
-    font-weight: var(--vs-button-fontWeight, 400);
-    background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor));
-    color: var(--vs-button-fontColor, var(--vs-comp-color));
+    font-size: var(--vs-button-fontSize, 0.9rem);
+    font-weight: var(--vs-button-fontWeight, 500);
+    background-color: var(--vs-button-backgroundColor, var(--vs-comp-bg));
+    color: var(--vs-button-fontColor, var(--vs-comp-font));
     overflow: hidden;
+    box-sizing: border-box;
 
     .content {
         display: flex;
         align-items: center;
+    }
+
+    &:hover {
+        background-color: var(--vs-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
+    }
+
+    &:active {
+        background-color: var(--vs-button-activeBackgroundColor, var(--vs-comp-bg-active));
     }
 
     &:after {
@@ -45,16 +56,29 @@
         pointer-events: none;
     }
 
+    &.vs-state-box {
+        @include state-box;
+    }
+
     &:focus-visible {
-        box-shadow: 0 0 0.6rem 0 var(--vs-comp-border-color);
+        @include focus-outline;
     }
 }
 
 // primary {
 .vs-button {
     &.primary {
-        background-color: var(--vs-button-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-button-fontColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-button-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-button-fontColor, var(--vs-primary-comp-font));
+        border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
+
+        &:hover {
+            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-primary-comp-bg-hover));
+        }
+
+        &:active {
+            background-color: var(--vs-button-activeBackgroundColor, var(--vs-primary-comp-bg-active));
+        }
     }
 }
 
@@ -62,14 +86,14 @@
 .vs-button {
     &.dense {
         padding: var(--vs-button-padding, 0.2rem 0.8rem);
-        border-radius: var(--vs-button-borderRadius, 0.4rem);
-        font-size: var(--vs-button-fontSize, 1rem);
+        border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.3rem));
+        font-size: var(--vs-button-fontSize, 0.8rem);
         max-height: var(--vs-button-maxHeight, 2.4rem);
     }
 
     &.large {
         padding: var(--vs-button-padding, 0.6rem 1.4rem);
-        border-radius: var(--vs-button-borderRadius, 0.6rem);
+        border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
         font-size: var(--vs-button-fontSize, 1.2rem);
         max-height: var(--vs-button-maxHeight, 3.7rem);
     }
@@ -79,12 +103,16 @@
 .vs-button {
     &.outline {
         background: none;
-        border: var(--vs-button-outlineBorder, 1px solid var(--vs-comp-border-color));
-        color: var(--vs-button-fontColor, var(--vs-comp-border-color));
+        border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
+        color: var(--vs-button-fontColor, var(--vs-primary-comp-bg));
         font-weight: var(--vs-button-fontWeight, 500);
 
-        &:after {
-            background: var(--grey-200);
+        &:hover {
+            background-color: var(--vs-button-hoverBackgroundColor, var(--vs-area-bg-hover));
+        }
+
+        &:active {
+            background-color: var(--vs-button-activeBackgroundColor, var(--vs-area-bg-active));
         }
     }
 }

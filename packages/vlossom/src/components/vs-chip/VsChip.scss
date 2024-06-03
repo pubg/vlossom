@@ -1,53 +1,40 @@
 .vs-chip {
-    button {
-        all: unset;
-    }
-
-    align-items: center;
-    background-color: var(--vs-chip-backgroundColor, var(--vs-comp-backgroundColor));
-    border: var(--vs-chip-outlineBorder, 1px solid var(--vs-comp-color), 0);
-    border-radius: var(--vs-chip-borderRadius, 1.3rem);
-    color: var(--vs-chip-fontColor, var(--vs-comp-color));
-    display: inline-flex;
-    font-size: var(--vs-chip-fontSize, 1rem);
-    font-weight: var(--vs-button-fontWeight, 400);
-    height: var(--vs-chip-height, 1.2rem);
-    justify-content: center;
-    min-height: var(--vs-chip-minHeight, 1.4rem);
-    padding: var(--vs-chip-padding, 0.2rem 0.6rem);
     position: relative;
-    overflow: hidden;
-
-    &:after {
-        background: #ffffff;
-        content: '';
-        display: block;
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        top: 0;
-        transition: all 0.4s ease-out;
-        width: 120%;
-    }
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg));
+    border: var(--vs-chip-border, 1px solid var(--vs-line-color));
+    border-radius: var(--vs-chip-borderRadius, 0.8rem);
+    color: var(--vs-chip-fontColor, var(--vs-comp-font));
+    font-size: var(--vs-chip-fontSize, 0.9rem);
+    font-weight: var(--vs-chip-fontWeight, 400);
+    min-height: var(--vs-chip-height, 1.6rem);
+    height: var(--vs-chip-height, 1.6rem);
+    padding: var(--vs-chip-padding, 0.2rem 0.5rem);
+    user-select: none;
 
     .icon-container {
-        align-items: center;
-        border-radius: 50%;
         display: inline-flex;
+        align-items: center;
         justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: var(--vs-chip-border, 1px solid var(--vs-line-color));
+        height: calc(var(--vs-chip-height, 1.4rem) * 0.8);
+        width: calc(var(--vs-chip-height, 1.4rem) * 0.8);
     }
 
     .close-button {
-        background-color: rgba(255, 255, 255, 0.7);
         cursor: pointer;
-        height: calc(var(--vs-chip-height, 1.2rem) * 0.8);
-        width: calc(var(--vs-chip-height, 1.2rem) * 0.8);
+        margin-left: 0.1rem;
+    }
 
-        &.primary {
-            background-color: var(--vs-light-backgroundColor);
-        }
+    &:has(.chip-icon) {
+        padding-left: 0.2rem;
+    }
+    &:has(.close-button) {
+        padding-right: 0.2rem;
     }
 
     .vs-chip-content {
@@ -58,25 +45,42 @@
         white-space: nowrap;
     }
 
+    &:hover {
+        background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-comp-bg-hover));
+    }
+
+    &:active {
+        background-color: var(--vs-chip-activeBackgroundColor, var(--vs-comp-bg-active));
+    }
+
     &.noRound {
-        border-radius: 0.25rem;
+        border-radius: 0.1rem;
         .chip-icon {
-            border-radius: 0.25rem;
+            border-radius: 0.1rem;
         }
     }
 
     &.clickable {
         cursor: pointer;
-
-        &:active:after {
-            opacity: 0.6;
-            transition: 0s;
-            width: 0%;
-        }
     }
 
     &.primary {
-        background-color: var(--vs-chip-backgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-chip-fontColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-chip-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-chip-fontColor, var(--vs-primary-comp-font));
+        border: var(--vs-chip-border, 1px solid var(--vs-primary-comp-bg));
+
+        .icon-container {
+            background-color: var(--vs-white);
+            color: var(--vs-gray-900);
+            border: var(--vs-chip-border, 1px solid var(--vs-line-color));
+        }
+
+        &:hover {
+            background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-primary-comp-bg-hover));
+        }
+
+        &:active {
+            background-color: var(--vs-chip-activeBackgroundColor, var(--vs-primary-comp-bg-active));
+        }
     }
 }

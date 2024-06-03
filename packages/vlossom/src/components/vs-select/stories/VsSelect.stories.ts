@@ -6,7 +6,7 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import VsSelect from '../VsSelect.vue';
+import VsSelect from './../VsSelect.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

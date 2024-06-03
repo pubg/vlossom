@@ -22,6 +22,34 @@ export function getResponsiveProps() {
     };
 }
 
+export function getGridProps(name: string) {
+    return {
+        columnGap: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string, props: any) => {
+                if (!props.grid && !!value) {
+                    utils.log.propWarning(name, 'column-gap', 'column-gap is only available when grid is true');
+                    return false;
+                }
+                return true;
+            },
+        },
+        grid: { type: Boolean, default: false },
+        rowGap: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string, props: any) => {
+                if (!props.grid && !!value) {
+                    utils.log.propWarning(name, 'row-gap', 'row-gap is only available when grid is true');
+                    return false;
+                }
+                return true;
+            },
+        },
+    };
+}
+
 export function useResponsive(
     width: Ref<string | number | Breakpoints | null>,
     grid: Ref<string | number | Breakpoints | null>,

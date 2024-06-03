@@ -1,5 +1,5 @@
 import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/storybook';
-import VsValueTag from '../VsValueTag.vue';
+import VsValueTag from './../VsValueTag.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -34,7 +34,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-value-tag color-scheme="{{ color }}">
+                    <vs-value-tag color-scheme="{{ color }}" :style="{ marginBottom: '8px' }">
                         <template #label>label</template>
                         <template #value>value</template>
                     </vs-value-tag>
@@ -56,7 +56,7 @@ export const Primary: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-value-tag color-scheme="{{ color }}" primary>
+                    <vs-value-tag color-scheme="{{ color }}" primary :style="{ marginBottom: '8px' }">
                         <template #label>label</template>
                         <template #value>value</template>
                     </vs-value-tag>
@@ -78,7 +78,7 @@ export const StyleSet: Story = {
             fontSize: '1.5rem',
             fontWeight: '550',
             padding: '0.18rem',
-            labelWidth: '4rem',
+            labelWidth: '5rem',
             lineHeight: '3rem',
             width: '20rem',
         },

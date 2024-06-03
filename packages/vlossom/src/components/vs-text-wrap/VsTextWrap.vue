@@ -20,13 +20,15 @@
                     </button>
 
                     <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
-                        <vs-icon size="1.2rem" icon="link" />
+                        <vs-icon size="1.4rem" icon="link" />
                     </button>
                 </div>
             </div>
 
             <template #tooltip>
-                <slot />
+                <slot name="tooltip">
+                    <slot />
+                </slot>
             </template>
         </vs-tooltip>
     </div>

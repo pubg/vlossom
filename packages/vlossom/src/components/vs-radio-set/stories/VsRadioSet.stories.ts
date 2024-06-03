@@ -8,7 +8,7 @@ import {
 } from '@/storybook';
 import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsRadioSet from '../VsRadioSet.vue';
+import VsRadioSet from './../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 

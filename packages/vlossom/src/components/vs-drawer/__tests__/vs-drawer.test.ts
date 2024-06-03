@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsDrawer from './../VsDrawer.vue';
 import { useLayout } from '@/composables';
-import { VsLayout } from '@/components';
 import { VS_LAYOUT } from '@/declaration';
+import { VsLayout } from '@/components';
+import VsDrawer from './../VsDrawer.vue';
 
 describe('vs-drawer', () => {
     describe('v-model', () => {

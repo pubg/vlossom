@@ -1,29 +1,11 @@
 import { size, colorScheme } from '@/storybook';
-import { defineComponent, ref } from 'vue';
+import { ref } from 'vue';
 import VsModal from './../VsModal.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
+import { ModalCloseButton, containerStyle } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
-
-const ModalCloseButton = defineComponent({
-    components: { VsButton },
-    template: `
-        <vs-button>Close</vs-button>
-    `,
-});
-
-const containerStyle = {
-    backgroundColor: 'rgba(0, 0, 0, 0.02)',
-    border: '1px solid rgb(240, 240, 240)',
-    borderRadius: '4px',
-    color: 'var(--vs-font-color)',
-    height: '800px',
-    overflow: 'hidden',
-    position: 'relative',
-    padding: '2rem',
-    width: '600px',
-};
 
 const meta: Meta<typeof VsModal> = {
     title: 'Components/Layout Components/VsModal',
@@ -63,7 +45,7 @@ type Story = StoryObj<typeof VsModal>;
 export const Default: Story = {};
 
 export const Size: Story = {
-    render: () => ({
+    render: (args: any) => ({
         components: { VsModal, ModalCloseButton, VsButton },
         setup() {
             const isOpen = ref(false);
@@ -75,7 +57,7 @@ export const Size: Story = {
                 isOpen.value = true;
             }
 
-            return { isOpen, sizes, currentSize, setSize };
+            return { args, isOpen, sizes, currentSize, setSize };
         },
         template: `
             <div>

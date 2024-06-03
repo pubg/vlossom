@@ -27,6 +27,7 @@ import type {
     VsSelectStyleSet,
     VsStepperStyleSet,
     VsSwitchStyleSet,
+    VsTableStyleSet,
     VsTabsStyleSet,
     VsTextareaStyleSet,
     VsTextWrapStyleSet,
@@ -87,8 +88,7 @@ const vsChip: VsChipStyleSet = {
     backgroundColor: '#a5d6ad',
     borderRadius: '1.2rem',
     fontColor: '#304d30',
-    height: '3rem',
-    minHeight: '2rem',
+    height: '2rem',
     padding: '0.8rem 1.5rem',
 };
 
@@ -104,9 +104,7 @@ const vsDrawer: VsDrawerStyleSet = {
 };
 
 const vsFileInput: VsFileInputStyleSet = {
-    borderColor: '#D4E7C5',
-    borderWidth: '1px',
-    borderStyle: 'solid',
+    border: '1px solid #D4E7C5',
     backgroundColor: '#D4E7C5',
     fontColor: '#99BC85',
     clearButtonColor: '#436850',
@@ -115,7 +113,7 @@ const vsFileInput: VsFileInputStyleSet = {
 };
 
 const vsFooter: VsFooterStyleSet = {
-    backgroundColor: 'grey',
+    backgroundColor: 'gray',
     bottom: 0,
     fontColor: '#fff',
     height: '32px',
@@ -125,7 +123,7 @@ const vsFooter: VsFooterStyleSet = {
 };
 
 const vsHeader: VsHeaderStyleSet = {
-    backgroundColor: 'grey',
+    backgroundColor: 'gray',
     bottom: 'auto',
     fontColor: '#fff',
     height: '32px',
@@ -254,7 +252,6 @@ const vsSwitch: VsSwitchStyleSet = {
     borderRadius: '100px',
     falseBackgroundColor: '#de1a24',
     falseBorderColor: '#000',
-    falseBorderWidth: '0',
     falseFontColor: '#fff',
     falseHandleColor: '#fff',
     fontSize: '1.2rem',
@@ -262,10 +259,29 @@ const vsSwitch: VsSwitchStyleSet = {
     height: '50px',
     trueBackgroundColor: '#056517',
     trueBorderColor: 'ivory',
-    trueBorderWidth: '0',
     trueFontColor: '#fff',
     trueHandleColor: '#fff',
     width: '100px',
+};
+
+const vsTable: VsTableStyleSet = {
+    bodyBackgroundColor: 'transparent',
+    bodyBorder: '1px solid #eeeeee',
+    bodyFontColor: '#393E46',
+    bodyFontSize: '1rem',
+    bodyMinHeight: '2.5rem',
+    captionFontColor: '#393E46',
+    captionFontSize: '1rem',
+    captionFontWeight: '600',
+    captionTextAlign: 'left',
+    headerBackgroundColor: '#222831',
+    headerFontColor: '#00adb5',
+    headerFontSize: '1rem',
+    headerFontWeight: '500',
+    headerMinHeight: '2.5rem',
+    hoverBorder: '1px solid #00adb5',
+    selectedBackgroundColor: '#00adb5',
+    selectedFontColor: '#eeeeee',
 };
 
 const vsTabs: VsTabsStyleSet = {
@@ -345,6 +361,7 @@ export const styleSet: StyleSet = {
     VsSelect: { myStyleSet: vsSelect },
     VsStepper: { myStyleSet: vsStepper },
     VsSwitch: { myStyleSet: vsSwitch },
+    VsTable: { myStyleSet: vsTable },
     VsTabs: { myStyleSet: vsTabs },
     VsTextarea: { myStyleSet: vsTextarea },
     VsTextWrap: { myStyleSet: vsTextWrap },

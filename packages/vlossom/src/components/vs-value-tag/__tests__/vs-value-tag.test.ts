@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsValueTag from '../VsValueTag.vue';
+import VsValueTag from './../VsValueTag.vue';
 
 describe('vs-value-tag', () => {
     it('slot으로 label, value를 설정할 수 있다', () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ConfirmStore } from '../confirm-store';
+import { ConfirmStore } from './../confirm-store';
 
 describe('confirm store', () => {
     it('confirm store의 상태를 가져올 수 있다', () => {

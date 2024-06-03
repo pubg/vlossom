@@ -8,7 +8,7 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { UIState } from '@/declaration';
-import VsSwitch from '../VsSwitch.vue';
+import VsSwitch from './../VsSwitch.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -164,11 +164,9 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            falseBorderWidth: '0px',
             falseBackgroundColor: '#000',
             falseFontColor: '#fff',
             falseHandleColor: '#fff',
-            trueBorderWidth: '2px',
             trueBorderColor: '#000',
             trueBackgroundColor: '#fff',
             trueFontColor: '#000',

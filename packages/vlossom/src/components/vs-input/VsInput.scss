@@ -5,18 +5,18 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: var(--vs-input-backgroundColor, var(--vs-plain-backgroundColor));
+    background-color: var(--vs-input-backgroundColor, var(--vs-no-color));
     box-sizing: border-box;
-    border: var(--vs-input-border, solid 1px var(--vs-comp-border-color));
-    border-radius: var(--vs-input-borderRadius, 0.4rem);
-    height: var(--vs-input-height, 2.5rem);
+    border: var(--vs-input-border, solid 1px var(--vs-line-color));
+    border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+    height: var(--vs-input-height, 2.4rem);
 
     input {
         width: 100%;
         padding: 0 0.8rem;
         border: none;
         outline: none;
-        font-size: var(--vs-input-fontSize, 1rem);
+        font-size: var(--vs-input-fontSize, 0.9rem);
         background-color: transparent;
         color: var(--vs-input-fontColor, var(--vs-font-color));
     }
@@ -30,27 +30,23 @@
         min-width: 3rem;
         height: 100%;
         border: none;
-
-        &:focus-visible {
-            box-shadow: 0 0 0.6rem 0 var(--vs-comp-border-color);
-        }
     }
 
     .prepend {
-        background-color: var(--vs-input-prependBackgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-input-prependColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-input-prependBackgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-prependColor, var(--vs-primary-comp-font));
     }
 
     .append {
-        background-color: var(--vs-input-appendBackgroundColor, var(--vs-comp-backgroundColor-primary));
-        color: var(--vs-input-appendColor, var(--vs-comp-color-primary));
+        background-color: var(--vs-input-appendBackgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-appendColor, var(--vs-primary-comp-font));
     }
 
     .clear-button {
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        color: var(--vs-input-clearButtonColor, var(--vs-primary-comp-bg-active));
         opacity: 0;
         transition: opacity 0.4s;
         background: none;
@@ -68,17 +64,21 @@
         @include disabled;
     }
 
+    &.vs-state-box {
+        @include state-box;
+    }
+
     &:focus-within {
-        @include focus-shadow;
+        @include focus-outline;
     }
 }
 
 .vs-input {
     &.dense {
-        height: var(--vs-input-height, 2.2rem);
+        height: var(--vs-input-height, 2rem);
 
         input {
-            font-size: var(--vs-input-fontSize, 0.9rem);
+            font-size: var(--vs-input-fontSize, 0.8rem);
         }
     }
 }

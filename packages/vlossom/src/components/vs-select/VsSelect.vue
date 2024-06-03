@@ -9,7 +9,6 @@
             :no-message="noMessage"
             :required="required"
             :shake="shake"
-            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
@@ -17,7 +16,7 @@
 
             <div
                 ref="triggerRef"
-                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
                 @click.stop="toggleOptions()"
             >
@@ -35,9 +34,8 @@
                         <vs-chip
                             v-if="selectedOptions.length > 1"
                             class="chip-others"
-                            color-scheme="light-blue"
+                            :color-scheme="colorScheme"
                             :style-set="collapseChipStyleSets"
-                            primary
                         >
                             + {{ selectedOptions.length - 1 }}
                         </vs-chip>
@@ -87,7 +85,7 @@
                     tabindex="-1"
                     @click.stop="onClear()"
                 >
-                    <vs-icon icon="close" :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 14 : 16" />
                 </button>
 
                 <div class="arrow-box">
@@ -102,7 +100,12 @@
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
                     <div
                         ref="optionsRef"
-                        :class="['options-container', `vs-${computedColorScheme}`, { dense: dense }, animationClass]"
+                        :class="[
+                            'options-container',
+                            `vs-${computedColorScheme}`,
+                            animationClass,
+                            { dense: dense, closing: isClosing },
+                        ]"
                         :style="computedStyleSet"
                     >
                         <div v-if="$slots['options-header']" @click.stop>
@@ -141,6 +144,7 @@
                                 <slot name="select-all" :selected="isAllSelected">
                                     <span>Select All</span>
                                 </slot>
+                                <vs-divider :style="{ margin: 0 }" :style-set="{ lineColor: 'var(--vs-line-color)' }" />
                             </li>
                             <li
                                 v-for="(option, index) in loadedOptions"
@@ -204,18 +208,19 @@ import {
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsSelectStyleSet } from './types';
-import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsChip from '@/components/vs-chip/VsChip.vue';
+import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon },
+    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon, VsDivider },
     props: {
         ...getInputProps<any, []>(),
         ...getInputOptionProps(),
@@ -312,16 +317,20 @@ export default defineComponent({
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
                 fontColor: computedStyleSet.value['--vs-select-chipFontColor'] as string,
+                height: dense.value ? '1.2rem' : '1.6rem',
+                fontSize: dense.value ? '0.7rem' : '0.8rem',
             }),
         );
         const collapseChipStyleSets = computed(
             (): VsChipStyleSet => ({
                 backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
                 fontColor: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
+                height: dense.value ? '1.2rem' : '1.6rem',
+                fontSize: dense.value ? '0.7rem' : '0.8rem',
             }),
         );
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -351,7 +360,7 @@ export default defineComponent({
             multiple,
         );
 
-        const { isOpen, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
+        const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
@@ -485,6 +494,7 @@ export default defineComponent({
             isVisible,
             inputLabel,
             isOpen,
+            isClosing,
             toggleOptions,
             closeOptions,
             listboxRef,
@@ -514,7 +524,7 @@ export default defineComponent({
             inputRef,
             focus,
             blur,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsTabs from '../VsTabs.vue';
+import VsTabs from './../VsTabs.vue';
 import { mockConsoleError } from '@/test/setup';
 import { utils } from '@/utils';
 

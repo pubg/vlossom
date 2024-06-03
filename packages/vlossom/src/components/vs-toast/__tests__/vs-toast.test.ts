@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { UIState } from '@/declaration';
-import VsToast from '../VsToast.vue';
+import VsToast from './../VsToast.vue';
 
 describe('vs-toast', () => {
     describe('toastInfo', () => {

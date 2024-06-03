@@ -3,6 +3,7 @@ import { useOverlay, usePositioning } from '@/composables';
 
 export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>) {
     const isOpen = ref(false);
+    const isClosing = ref(false);
 
     function toggleOptions() {
         if (disabled.value || readonly.value) {
@@ -49,10 +50,13 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
             });
         } else {
             document.removeEventListener('click', onOutsideClick);
+            isClosing.value = true;
 
             // delay for animation
             setTimeout(() => {
                 disappear();
+                // for disable click on options
+                isClosing.value = false;
             }, 500);
         }
     });
@@ -61,5 +65,5 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
         document.removeEventListener('click', onOutsideClick);
     });
 
-    return { isOpen, isVisible, computedPlacement, toggleOptions, closeOptions, triggerRef, optionsRef };
+    return { isOpen, isClosing, isVisible, computedPlacement, toggleOptions, closeOptions, triggerRef, optionsRef };
 }

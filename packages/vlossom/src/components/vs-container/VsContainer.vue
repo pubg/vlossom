@@ -7,36 +7,13 @@
 <script lang="ts">
 import { computed, defineComponent, getCurrentInstance, inject, toRefs } from 'vue';
 import { VS_LAYOUT, VsComponent } from '@/declaration';
-import { utils } from '@/utils';
-import { useLayout } from '@/composables';
+import { getGridProps, useLayout } from '@/composables';
 
 const name = VsComponent.VsContainer;
 export default defineComponent({
     name,
     props: {
-        columnGap: {
-            type: [Number, String],
-            default: 0,
-            validator: (value, props) => {
-                if (!props.grid && !!value) {
-                    utils.log.propWarning(name, 'column-gap', 'column-gap is only available when grid is true');
-                    return false;
-                }
-                return true;
-            },
-        },
-        grid: { type: Boolean, default: false },
-        rowGap: {
-            type: [Number, String],
-            default: 0,
-            validator: (value, props) => {
-                if (!props.grid && !!value) {
-                    utils.log.propWarning(name, 'row-gap', 'row-gap is only available when grid is true');
-                    return false;
-                }
-                return true;
-            },
-        },
+        ...getGridProps(name),
         tag: { type: String, default: 'div' },
     },
     setup(props) {

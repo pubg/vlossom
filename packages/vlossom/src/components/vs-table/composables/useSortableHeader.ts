@@ -1,16 +1,19 @@
 import { Ref, ref, watch } from 'vue';
-import { SortType, TableHeader } from '../types';
+import { SortType, TableHeader } from './../types';
 
 export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
     const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
     const initSortTypes = () => {
-        sortTypes.value = headers.value.reduce((acc, { key, sortable = false }) => {
-            if (sortable) {
-                acc[key] = SortType.NONE;
-            }
-            return acc;
-        }, {} as { [key: string]: SortType });
+        sortTypes.value = headers.value.reduce(
+            (acc, { key, sortable = false }) => {
+                if (sortable) {
+                    acc[key] = SortType.NONE;
+                }
+                return acc;
+            },
+            {} as { [key: string]: SortType },
+        );
     };
 
     watch(headers, initSortTypes, { immediate: true });

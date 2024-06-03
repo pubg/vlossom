@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { TableItem } from '../types';
+import { TableItem } from './../types';
 
 export function useTablePagination() {
     function getPagedTableItems(

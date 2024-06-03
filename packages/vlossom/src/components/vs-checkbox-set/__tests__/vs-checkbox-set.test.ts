@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import VsCheckboxSet from '../VsCheckboxSet.vue';
+import VsCheckboxSet from './../VsCheckboxSet.vue';
 
 function mountComponent() {
     return mount(VsCheckboxSet);

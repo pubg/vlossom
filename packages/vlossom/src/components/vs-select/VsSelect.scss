@@ -2,21 +2,24 @@
 
 .vs-select {
     display: flex;
-    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
-    border-radius: var(--vs-select-borderRadius, 0.4rem);
-    min-height: var(--vs-select-height, 2.5rem);
-    font-size: var(--vs-select-fontSize, 1rem);
+    background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
+    border: var(--vs-select-border, solid 1px var(--vs-line-color));
+    height: var(--vs-select-height, 2.4rem);
+    line-height: var(--vs-select-height, 2.4rem);
+    border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+    font-size: var(--vs-select-fontSize, 0.9rem);
 
     .multiple-chips {
         display: flex;
-        padding: 0 0.6rem;
+        padding-left: 0.6rem;
         overflow: hidden;
 
         .chips {
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
 
             .chip-others {
                 margin-left: 0.2rem;
@@ -27,7 +30,7 @@
 
     input {
         flex: 1;
-        padding: 0 1rem;
+        padding: 0 0.8rem;
         border: none;
         outline: none;
         background-color: transparent;
@@ -47,7 +50,7 @@
         padding-right: 0.6rem;
         opacity: 0;
         transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-comp-border-color));
+        color: var(--vs-input-clearButtonColor, var(--vs-font-color));
         background: none;
         border: none;
         cursor: pointer;
@@ -75,8 +78,9 @@
     }
 
     &.dense {
-        height: var(--vs-select-height, 2.2rem);
-        font-size: var(--vs-select-fontSize, 0.9rem);
+        height: var(--vs-select-height, 2rem);
+        line-height: var(--vs-select-height, 2rem);
+        font-size: var(--vs-select-fontSize, 0.8rem);
     }
 
     &.disabled {
@@ -87,16 +91,21 @@
         @include readonly;
     }
 
-    &:has(input:focus-visible) {
-        @include focus-shadow;
+    &.vs-state-box {
+        @include state-box;
+    }
+
+    &:focus-within {
+        @include focus-outline;
     }
 }
 
 .options-container {
     z-index: 900;
-    background-color: var(--vs-select-backgroundColor, var(--vs-plain-backgroundColor));
-    border: var(--vs-select-border, solid 0.0625rem var(--vs-comp-border-color));
-    border-radius: var(--vs-select-borderRadius, 0.4rem);
+    background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
+    border: var(--vs-select-border, solid 1px var(--vs-line-color));
+    border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+    overflow: hidden;
 
     .options {
         max-height: 25rem;
@@ -106,40 +115,44 @@
 
         li {
             padding: 0 1.2rem;
-            min-height: var(--vs-select-height, 2.5rem);
-            line-height: var(--vs-select-height, 2.5rem);
+            height: var(--vs-select-height, 2.4rem);
+            line-height: var(--vs-select-height, 2.4rem);
             color: var(--vs-select-fontColor, var(--vs-font-color));
             cursor: pointer;
             user-select: none;
-
-            &.selected {
-                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-comp-backgroundColor));
-                color: var(--vs-select-selectedOptionColor, var(--vs-comp-color));
-                font-weight: 600;
-            }
+            font-size: var(--vs-select-fontSize, 0.9rem);
 
             &:not(.selected).chased {
-                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-light-backgroundColor));
-                color: var(--vs-select-hoverOptionColor, var(--vs-comp-border-color));
-                font-weight: 600;
+                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-area-bg-hover));
+                color: var(--vs-select-hoverOptionColor, var(--vs-font-color));
             }
 
             &.select-all {
-                background-color: var(--vs-light-backgroundColor);
+                background-color: var(--vs-no-color);
                 padding: 0.4 0.4rem;
-                height: 3.2rem;
-                display: flex;
-                align-items: center;
+                height: var(--vs-select-height, 2.4rem);
+                line-height: var(--vs-select-height, 2.4rem);
+            }
+
+            &.selected {
+                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-area-bg-active));
+                color: var(--vs-select-selectedOptionColor, var(--vs-font-color));
+                font-weight: 600;
             }
         }
     }
 
     &.dense {
         li {
-            min-height: var(--vs-select-height, 2.2rem);
-            line-height: var(--vs-select-height, 2.2rem);
-            font-size: var(--vs-select-fontSize, 0.9rem);
+            height: var(--vs-select-height, 2rem);
+            line-height: var(--vs-select-height, 2rem);
+            font-size: var(--vs-select-fontSize, 0.8rem);
         }
+    }
+
+    &.closing {
+        user-select: none;
+        pointer-events: none;
     }
 }
 

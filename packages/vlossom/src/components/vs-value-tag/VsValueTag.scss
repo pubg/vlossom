@@ -1,24 +1,29 @@
 .vs-value-tag {
     display: flex;
     align-items: center;
-    padding: var(--vs-value-tag-padding, 0.12rem);
-    border-radius: var(--vs-value-tag-borderRadius, 0.2rem);
-    font-size: var(--vs-value-tag-fontSize, 1.2rem);
+    border: 1px solid var(--vs-line-color);
+    border-radius: var(--vs-value-tag-borderRadius, calc(var(--vs-radius-ratio) * 0.2rem));
+    overflow: hidden;
+    font-size: var(--vs-value-tag-fontSize, 1rem);
     font-weight: var(--vs-value-tag-fontWeight, 400);
     width: var(--vs-value-tag-width, 100%);
     line-height: var(--vs-value-tag-lineHeight, 2.2rem);
-    background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor));
 
     .label {
+        display: flex;
+        justify-content: left;
+        align-items: center;
         padding: 0 1.2rem 0 0.8rem;
-        color: var(--vs-value-tag-fontColor, var(--vs-comp-color));
+        background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-bg));
+        color: var(--vs-value-tag-fontColor, var(--vs-comp-font));
+        border-right: 1px solid var(--vs-line-color);
         width: var(--vs-value-tag-labelWidth, '100%');
     }
 
     .value {
         flex: 1;
         padding: 0 0.8rem;
-        background-color: var(--vs-plain-backgroundColor);
+        background-color: var(--vs-no-color);
         color: var(--vs-font-color);
     }
 }
@@ -26,10 +31,12 @@
 // Primary {
 .vs-value-tag {
     &.primary {
-        background-color: var(--vs-value-tag-backgroundColor, var(--vs-comp-backgroundColor-primary));
+        border: 1px solid var(--vs-primary-comp-bg);
 
         .label {
-            color: var(--vs-value-tag-fontColor, var(--vs-comp-color-primary));
+            background-color: var(--vs-value-tag-backgroundColor, var(--vs-primary-comp-bg));
+            color: var(--vs-value-tag-fontColor, var(--vs-primary-comp-font));
+            border-right: 1px solid var(--vs-primary-comp-bg);
         }
     }
 }

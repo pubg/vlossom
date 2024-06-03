@@ -1,5 +1,11 @@
 <template>
-    <vs-container tag="form" :autocomplete="autocomplete ? 'on' : 'off'">
+    <vs-container
+        tag="form"
+        :grid="grid"
+        :column-gap="columnGap"
+        :row-gap="rowGap"
+        :autocomplete="autocomplete ? 'on' : 'off'"
+    >
         <slot />
     </vs-container>
 </template>
@@ -7,13 +13,15 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, provide, watch } from 'vue';
 import { VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
-import { useFormProvide } from '@/composables';
+import { getGridProps, useFormProvide } from '@/composables';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
+const name = VsComponent.VsForm;
 export default defineComponent({
-    name: VsComponent.VsForm,
+    name,
     components: { VsContainer },
     props: {
+        ...getGridProps(name),
         autocomplete: { type: Boolean, default: false },
         // v-model
         changed: { type: Boolean, default: false },

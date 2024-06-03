@@ -2,6 +2,7 @@
 $fontWeight: var(--vs-tabs-fontWeight, 400);
 
 .vs-tabs {
+    position: relative;
     display: flex;
     overflow-x: hidden;
     user-select: none;
@@ -11,26 +12,28 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
         padding-bottom: 0.2rem;
 
         ul {
-            align-items: center;
             display: inline-flex;
+            align-items: center;
             list-style: none;
             flex-wrap: nowrap;
 
             &.bottomLine {
-                border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-comp-border-color));
+                border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-primary-comp-bg));
             }
 
             .tab {
-                align-items: center;
-                background: transparent;
-                color: var(--vs-tabs-fontColor, var(--vs-comp-color));
-                cursor: pointer;
+                position: relative;
                 display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                color: var(--vs-tabs-fontColor, var(--vs-font-color));
+                border-bottom: 2px solid transparent;
+                cursor: pointer;
                 font-size: var(--vs-tabs-fontSize, 1rem);
                 font-weight: $fontWeight;
                 height: var(--vs-tabs-height, auto);
-                justify-content: center;
-                padding: var(--vs-tabs-padding, 0.2rem 1rem);
+                padding: var(--vs-tabs-padding, 0.6rem 1.2rem);
                 text-align: center;
                 transition: color 0.1s;
                 width: var(--vs-tabs-tabWidth, auto);
@@ -41,15 +44,17 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
                 }
 
                 &:hover {
-                    background-color: var(--vs-tabs-backgroundColor, var(--vs-light-backgroundColor));
+                    background-color: var(--vs-tabs-backgroundColor, var(--vs-area-bg-hover));
                 }
 
                 &:focus {
                     outline: none;
                 }
 
-                &.primary {
-                    border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-comp-backgroundColor-primary));
+                &.selected {
+                    background-color: var(--vs-tabs-backgroundColor, var(--vs-area-bg-active));
+                    color: var(--vs-primary-comp-bg-active);
+                    border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-primary-comp-bg-active));
                     font-weight: calc($fontWeight + 200);
                 }
 
@@ -62,13 +67,13 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
     &.dense {
         .tab {
-            padding: var(--vs-tabs-padding, 0.2rem);
+            padding: var(--vs-tabs-padding, 0.2rem 0.4rem);
         }
     }
 
     .scroll-button {
         width: 1rem;
-        color: var(--vs-comp-color);
+        color: var(--vs-comp-font);
 
         &.scroll-left-button {
             margin-right: 0.5rem;

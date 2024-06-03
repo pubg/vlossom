@@ -1,6 +1,6 @@
 import { beforeEach, afterEach, describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsNotice from '../VsNotice.vue';
+import VsNotice from './../VsNotice.vue';
 
 function mountComponent() {
     return mount(VsNotice);

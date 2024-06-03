@@ -10,7 +10,7 @@ import { computed, ref } from 'vue';
 import { UIState } from '@/declaration';
 import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsCheckbox from '../VsCheckbox.vue';
+import VsCheckbox from './../VsCheckbox.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -165,7 +165,7 @@ export const Indeterminate: Story = {
         },
         template: `
             <div >
-                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"/>
+                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"  v-bind="args" />
 				<div style="margin-top: 10px; margin-left: 30px;">
 					<vs-checkbox v-model="children[0]" check-label="Child 1" @update:modelValue="updateChild1" />
 					<vs-checkbox v-model="children[1]" check-label="Child 2" @update:modelValue="updateChild2" style="margin-top: 10px;" />

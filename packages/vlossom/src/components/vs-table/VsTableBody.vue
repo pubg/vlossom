@@ -53,7 +53,7 @@
     <tbody v-if="!loading && computedTableItems.length === 0">
         <slot name="empty">
             <div class="table-empty">
-                <vs-icon size="6rem" icon="noData"></vs-icon>
+                <vs-icon size="5rem" icon="noData"></vs-icon>
                 <p>NO DATA</p>
             </div>
         </slot>

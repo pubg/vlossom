@@ -6,14 +6,15 @@
 
     table {
         min-width: 100%;
+        border-spacing: 0 !important;
 
         caption {
-            caption-side: top;
-            text-align: center;
-            padding-bottom: 1rem;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--vs-font-color);
+            caption-side: var(--vs-table-captionSide, top);
+            text-align: var(--vs-table-captionTextAlign, center);
+            padding: 1rem 0;
+            color: var(--vs-table-captionFontColor, var(--vs-font-color));
+            font-size: var(--vs-table-captionFontSize, 0.9rem);
+            font-weight: var(--vs-table-captionFontWeight);
         }
 
         tr {
@@ -25,7 +26,7 @@
             td {
                 display: flex;
                 align-items: center;
-                padding: 0.4rem 1.2rem;
+                padding: 0.1rem 0.6rem;
                 text-align: left;
 
                 .table-data {
@@ -39,13 +40,14 @@
         }
 
         thead tr {
-            background-color: var(--vs-comp-backgroundColor);
+            background-color: var(--vs-table-headerBackgroundColor, var(--vs-comp-bg));
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
             th {
-                color: var(--vs-comp-color);
-                height: 3.6rem;
-                font-size: 1.1rem;
-                font-weight: 700;
+                color: var(--vs-table-headerFontColor, var(--vs-comp-font));
+                font-size: var(--vs-table-headerFontSize, 0.9rem);
+                font-weight: var(--vs-table-headerFontWeight, 600);
+                min-height: var(--vs-table-headerMinHeight, 2.7rem);
 
                 &.draggable-th,
                 &.expandable-th {
@@ -65,17 +67,19 @@
         tbody tr {
             position: relative;
             transition: background-color 0.2s;
-            border-bottom: 1px solid var(--vs-grey-200);
-            color: var(--vs-font-color);
+            background-color: var(--vs-table-bodyBackgroundColor, transparent);
+            border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-gray-200));
+            color: var(--vs-table-bodyFontColor, var(--vs-font-color));
 
             &.selected {
-                background-color: var(--vs-blue-100);
-                color: var(--vs-blue-800);
+                background-color: var(--vs-table-selectedBackgroundColor, var(--vs-area-bg-hover));
+                color: var(--vs-table-selectedFontColor, var(--vs-font-color));
             }
 
             td {
-                min-height: 4.8rem;
-                font-size: 1.1rem;
+                min-height: var(--vs-table-bodyMinHeight, 3rem);
+                font-size: var(--vs-table-bodyFontSize, 0.9rem);
+                font-weight: var(--vs-table-bodyFontWeight, 400);
 
                 &.draggable-td {
                     padding-right: 0;
@@ -94,11 +98,12 @@
                         justify-content: center;
                         width: 1.6rem;
                         height: 1.6rem;
-                        border-radius: 0.2rem;
-                        background-color: var(--vs-comp-backgroundColor);
+                        border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
+                        border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
+                        background-color: var(--vs-table-bodyBackgroundColor, var(--vs-comp-bg));
 
                         i {
-                            color: var(--vs-comp-color);
+                            color: var(--vs-comp-font);
                             pointer-events: none;
                             transform: rotate(180deg);
                             transition: transform 0.4s;
@@ -111,7 +116,7 @@
                         }
 
                         &:hover {
-                            box-shadow: 0 0 4px var(--vs-comp-backgroundColor);
+                            box-shadow: 0 0 4px var(--vs-comp-bg-hover);
                         }
 
                         &:disabled {
@@ -127,15 +132,15 @@
                     border-top: 1px dashed var(--vs-line-color);
                     border-left: 1px dashed var(--vs-line-color);
                     border-right: 1px dashed var(--vs-line-color);
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     box-shadow: var(--vs-table-expand-box-shadow-up), var(--vs-table-expand-box-shadow-down);
                 }
 
                 .skeleton {
                     width: 95%;
                     height: 60%;
-                    border-radius: 0.4rem;
-                    background-color: var(--vs-grey-200);
+                    border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
+                    background-color: var(--vs-gray-200);
                     animation: skeleton-loading 0.6s infinite alternate;
                 }
             }
@@ -156,21 +161,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background-color: var(--vs-area-backgroundColor);
+            border: var(--vs-table-hoverBorder, 1px solid var(--vs-font-color));
             pointer-events: none;
         }
 
         .table-empty {
-            border-bottom: 1px solid var(--vs-grey-200);
-            padding: 4.8rem 0;
-            font-weight: 400;
+            border-bottom: 1px solid var(--vs-gray-400);
+            padding: 2.2rem 0;
             text-align: center;
-            opacity: 0.4;
+            opacity: 0.3;
 
             p {
-                font-weight: 500;
-                font-size: 2rem;
+                padding-top: 0.2rem;
+                font-weight: 600;
+                font-size: 1.2rem;
             }
         }
     }
@@ -180,9 +184,10 @@
     position: relative;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0.2rem 0;
+    margin: 0.6rem 0;
 
     .pagination-options {
         width: 10rem;
@@ -191,22 +196,15 @@
 }
 
 .vs-table.dense .table-wrap table {
-    tr {
-        th,
-        td {
-            padding: 0.1rem 1.2rem;
-        }
-    }
-
     thead tr {
         th {
-            height: 3.2rem;
+            min-height: 2rem;
         }
     }
 
     tbody tr {
         td {
-            min-height: 3.2rem;
+            min-height: 2rem;
         }
     }
 }
@@ -222,10 +220,10 @@
             }
             th:first-child {
                 color: transparent;
-                height: 3.2rem;
+                height: 2.2rem;
             }
-            margin-bottom: 0.8rem;
-            border: 1px solid var(--vs-line-color);
+            margin-bottom: 0.4rem;
+            border: 1px solid var(--vs-gray-200);
         }
 
         table {
@@ -236,8 +234,8 @@
         table tbody tr {
             display: flex !important;
             flex-direction: column;
-            margin: 0.8rem 0 0 0;
-            border: 1px solid var(--vs-line-color);
+            margin: 0.4rem 0 0 0;
+            border: 1px solid var(--vs-gray-200);
 
             &:first-of-type {
                 margin-top: 0;
@@ -246,17 +244,17 @@
             td {
                 display: flex;
                 justify-content: space-between;
-                padding: 0.8rem 1.2rem !important;
-                border-top: 1px dashed var(--vs-line-color);
+                padding: 0.4rem 1rem !important;
+                border-top: 1px dashed var(--vs-gray-200);
                 overflow-x: auto;
 
                 &::before {
                     content: attr(data-label);
-                    color: var(--vs-comp-color);
+                    color: var(--vs-comp-font);
                     display: block;
                     line-height: 3rem;
                     margin-right: 1.4rem;
-                    font-size: 1.1rem;
+                    font-size: 0.9rem;
                     font-weight: 700;
                 }
 
@@ -276,6 +274,7 @@
                 }
 
                 &.expandable-td {
+                    padding: 0.4rem !important;
                     button {
                         flex: 1;
                     }
@@ -298,7 +297,7 @@
         }
 
         .table-empty {
-            border-top: 1px solid var(--vs-grey-200);
+            border-top: 1px solid var(--vs-gray-200);
         }
     }
 }

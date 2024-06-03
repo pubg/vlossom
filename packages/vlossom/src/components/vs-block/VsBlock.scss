@@ -7,23 +7,23 @@ $borderColor: var(--vs-block-borderColor, var(--vs-line-color));
     width: 100%;
     overflow: auto;
     border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
-    border-radius: var(--vs-block-borderRadius, 0.4rem);
+    border-radius: var(--vs-block-borderRadius, calc(var(--vs-radius-ratio) * 0.5rem));
 
     .block-header {
-        background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-backgroundColor));
+        background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-bg));
         border-bottom: $borderWidth $borderStyle $borderColor;
-        color: var(--vs-block-headerFontColor, var(--vs-comp-color));
+        color: var(--vs-block-headerFontColor, var(--vs-comp-font));
         font-weight: var(--vs-block-headerFontWeight, 500);
-        padding: var(--vs-block-headerPadding, 0.8rem 2rem);
+        padding: var(--vs-block-headerPadding, 1rem 1.2rem);
         position: relative;
         width: 100%;
     }
 
     .block-content {
-        background-color: var(--vs-block-backgroundColor, var(--vs-plain-backgroundColor));
+        background-color: var(--vs-block-backgroundColor, var(--vs-no-color));
         color: var(--vs-block-contentFontColor, var(--vs-font-color));
         font-weight: var(--vs-block-fontWeight, 400);
-        padding: var(--vs-block-padding, 1.6rem 2rem);
+        padding: var(--vs-block-padding, 1rem 1.2rem);
     }
 }
 

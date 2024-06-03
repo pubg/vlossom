@@ -1,7 +1,7 @@
 <template>
     <button
         type="button"
-        :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]"
+        :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
         :style="computedStyleSet"
         :disabled="disabled"
         :aria-label="loading ? 'loading' : undefined"
@@ -16,8 +16,8 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
+import { VsComponent, UIState, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
 
 import type { VsButtonStyleSet } from './types';
@@ -36,11 +36,14 @@ export default defineComponent({
         mobileFull: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
+        state: { type: String as PropType<UIState>, default: UIState.Idle },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary } = toRefs(props);
+        const { colorScheme, styleSet, dense, large, loading, mobileFull, outline, primary, state } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
+
+        const { stateClasses } = useStateClass(state);
 
         const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(name, styleSet);
 
@@ -57,6 +60,7 @@ export default defineComponent({
             computedColorScheme,
             computedStyleSet,
             classObj,
+            stateClasses,
         };
     },
 });

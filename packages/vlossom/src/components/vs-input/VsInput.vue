@@ -9,14 +9,13 @@
             :no-message="noMessage"
             :required="required"
             :shake="shake"
-            :state="state"
         >
             <template #label v-if="!noLabel">
                 <slot name="label" />
             </template>
 
             <div
-                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, boxGlowByState]"
+                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
             >
                 <div v-if="$slots['prepend']" class="prepend">
@@ -51,7 +50,7 @@
                     tabindex="-1"
                     @click.stop="clearWithFocus()"
                 >
-                    <vs-icon icon="close" :size="dense ? 16 : 20" />
+                    <vs-icon icon="close" :size="dense ? 14 : 16" />
                 </button>
 
                 <div v-if="$slots['append']" class="append">
@@ -148,7 +147,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
-        const { boxGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
@@ -249,7 +248,7 @@ export default defineComponent({
             onBlur,
             onEnter,
             clearWithFocus,
-            boxGlowByState,
+            stateClasses,
         };
     },
 });

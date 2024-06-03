@@ -8,7 +8,10 @@
             <slot name="title">
                 <strong class="title">{{ title }}</strong>
             </slot>
-            <vs-divider :color-scheme="colorScheme" :style-set="{ lineColor: primary ? 'white' : '' }" vertical />
+            <vs-divider
+                :style-set="{ lineColor: primary ? 'var(--vs-primary-comp-font)' : 'var(--vs-comp-font)' }"
+                vertical
+            />
             <div>
                 <slot />
             </div>
@@ -35,7 +38,7 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet> },
-        primary: { type: Boolean, default: false },
+        primary: { type: Boolean, default: true },
         title: { type: String, default: 'Notice' },
         // v-model
         modelValue: { type: Boolean, default: true },

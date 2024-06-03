@@ -12,7 +12,7 @@
             <slot name="header" />
         </header>
 
-        <div :class="['dialog-body', { 'hide-scroll': hideScroll }]" :id="bodyId">
+        <div :class="['dialog-body', { 'hide-scroll': hideScroll }]" :id="bodyId" tabindex="0">
             <slot />
         </div>
 

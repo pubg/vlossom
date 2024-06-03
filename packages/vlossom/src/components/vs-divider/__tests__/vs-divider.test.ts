@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import VsDivider from '../VsDivider.vue';
+import VsDivider from './../VsDivider.vue';
 
 describe('vs-divider', () => {
     describe('horizontal / vertical', () => {

@@ -1,10 +1,10 @@
 <template>
-    <div :class="['vs-radio-node', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
+    <div :class="['vs-radio-node', `vs-${colorScheme}`, { ...classObj }, stateClasses]" :style="styleSet">
         <label class="radio-wrap">
             <input
                 ref="radioRef"
                 type="radio"
-                :class="['radio-input', boxGlowByState]"
+                class="radio-input"
                 :aria-label="ariaLabel"
                 :id="id"
                 :disabled="disabled || readonly"
@@ -17,7 +17,7 @@
                 @blur.stop="onBlur"
             />
 
-            <span :class="['radio-label', textGlowByState]">
+            <span class="radio-label">
                 <slot name="label">{{ label }}</slot>
             </span>
         </label>
@@ -53,7 +53,7 @@ export default defineComponent({
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
-        const { boxGlowByState, textGlowByState } = useStateClass(state);
+        const { stateClasses } = useStateClass(state);
 
         const classObj = computed(() => ({
             disabled: disabled.value,
@@ -89,8 +89,7 @@ export default defineComponent({
             onBlur,
             focus,
             blur,
-            boxGlowByState,
-            textGlowByState,
+            stateClasses,
             convertToString: utils.string.convertToString,
         };
     },
