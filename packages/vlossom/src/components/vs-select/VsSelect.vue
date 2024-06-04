@@ -330,8 +330,6 @@ export default defineComponent({
             }),
         );
 
-        const { stateClasses } = useStateClass(state);
-
         const inputRef = ref<HTMLInputElement | null>(null);
 
         function focus() {
@@ -428,23 +426,32 @@ export default defineComponent({
             }
         }
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    if (multiple.value && !Array.isArray(inputValue.value)) {
-                        inputValue.value = [];
-                    }
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        if (multiple.value && !Array.isArray(inputValue.value)) {
+                            inputValue.value = [];
+                        }
+                    },
+                    onChange: () => {
+                        if (multiple.value && !Array.isArray(inputValue.value)) {
+                            inputValue.value = [];
+                        }
+                    },
+                    onClear,
                 },
-                onChange: () => {
-                    if (multiple.value && !Array.isArray(inputValue.value)) {
-                        inputValue.value = [];
-                    }
-                },
-                onClear,
             },
-        });
+        );
+
+        const { stateClasses } = useStateClass(computedState);
 
         const focusing = ref(false);
 

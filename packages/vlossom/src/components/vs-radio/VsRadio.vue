@@ -26,7 +26,7 @@
                 :name="name"
                 :readonly="readonly"
                 :required="required"
-                :state="state"
+                :state="computedState"
                 :value="radioValue"
                 @toggle="onToggle"
                 @focus="onFocus"
@@ -74,8 +74,19 @@ export default defineComponent({
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
     expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
-        const { checked, colorScheme, label, messages, modelValue, name, radioValue, required, rules, styleSet } =
-            toRefs(props);
+        const {
+            checked,
+            colorScheme,
+            label,
+            messages,
+            modelValue,
+            name,
+            radioValue,
+            required,
+            rules,
+            state,
+            styleSet,
+        } = toRefs(props);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -103,20 +114,27 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    if (checked.value) {
-                        inputValue.value = radioValue.value;
-                    }
-                },
-                onClear: () => {
-                    inputValue.value = null;
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        if (checked.value) {
+                            inputValue.value = radioValue.value;
+                        }
+                    },
+                    onClear: () => {
+                        inputValue.value = null;
+                    },
                 },
             },
-        });
+        );
 
         async function onToggle() {
             // radio change event value is always true
@@ -144,6 +162,7 @@ export default defineComponent({
             radioRef,
             isChecked,
             computedColorScheme,
+            computedState,
             computedStyleSet,
             inputValue,
             computedMessages,

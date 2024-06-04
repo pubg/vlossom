@@ -62,7 +62,7 @@ export function useInput<T = unknown>(
     options?: InputComponentOptions<T>,
 ) {
     const { emit } = ctx;
-    const { messages = ref([]), rules = ref([]) } = options || {};
+    const { messages = ref([]), rules = ref([]), state = ref(UIState.Idle) } = options || {};
 
     const changed = ref(false);
     const isInitialized = ref(false);
@@ -215,6 +215,8 @@ export function useInput<T = unknown>(
         emit('update:changed', changed.value);
     });
 
+    const computedState = computed(() => (showRuleMessages.value && !valid.value ? UIState.Error : state.value));
+
     return {
         changed,
         valid,
@@ -224,5 +226,6 @@ export function useInput<T = unknown>(
         validate,
         clear,
         id,
+        computedState,
     };
 }

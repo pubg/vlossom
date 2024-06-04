@@ -127,8 +127,6 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet(name, styleSet);
 
-        const { stateClasses } = useStateClass(state);
-
         const inputValue = ref(modelValue.value);
 
         const {
@@ -144,27 +142,36 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    if (checked.value) {
-                        inputValue.value = getUpdatedValue(true);
-                    } else {
-                        inputValue.value = getInitialValue();
-                    }
-                },
-                onChange: () => {
-                    if (inputValue.value === undefined || inputValue.value === null) {
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        if (checked.value) {
+                            inputValue.value = getUpdatedValue(true);
+                        } else {
+                            inputValue.value = getInitialValue();
+                        }
+                    },
+                    onChange: () => {
+                        if (inputValue.value === undefined || inputValue.value === null) {
+                            inputValue.value = getClearedValue();
+                        }
+                    },
+                    onClear: () => {
                         inputValue.value = getClearedValue();
-                    }
-                },
-                onClear: () => {
-                    inputValue.value = getClearedValue();
+                    },
                 },
             },
-        });
+        );
+
+        const { stateClasses } = useStateClass(computedState);
 
         async function toggle() {
             if (disabled.value || readonly.value) {
