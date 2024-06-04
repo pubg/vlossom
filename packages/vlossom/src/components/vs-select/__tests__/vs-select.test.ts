@@ -590,6 +590,77 @@ describe('vs-select', () => {
             expect(wrapper.findAll('li.option')).toHaveLength(1);
             expect(wrapper.html()).toContain('banana');
         });
+
+        it('autocomplete가 true이면, 기존에 인풋에 입력된 텍스트가 있으면 onFous시에 해당 텍스트가 select된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    autocomplete: true,
+                    options: ['apple', 'banana', 'carrot'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            const input = wrapper.find('input');
+            await input.setValue('apple');
+            await input.trigger('focus');
+
+            // then
+            expect(input.element.value).toBe('apple');
+            expect(input.element.selectionEnd).toBe('apple'.length);
+        });
+
+        it('autocomplete가 false이면 기존에 입력된 텍스트가 있어도 onFous시에 텍스트가 select되지 않는다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    autocomplete: false,
+                    options: ['apple', 'banana', 'carrot'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            const input = wrapper.find('input');
+            await input.setValue('apple');
+            await input.trigger('focus');
+
+            // then
+            expect(input.element.selectionEnd).toBe(0);
+        });
+
+        it('autocomplete가 true이면, input 이벤트가 발생할 때 옵션 리스트가 열리고, 옵션 필터가 초기화된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    autocomplete: true,
+                    options: ['apple', 'banana', 'carrot'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            const input = wrapper.find('input');
+            await input.setValue('apple');
+            await input.trigger('input');
+
+            // then
+            expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
+            expect(wrapper.vm.filteredOptions).toHaveLength(3);
+        });
     });
 
     describe('focus management', () => {
