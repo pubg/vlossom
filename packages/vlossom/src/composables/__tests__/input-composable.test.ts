@@ -416,7 +416,6 @@ describe('useInput composable', () => {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                    required: true,
                     rules: [(v: string) => (v ? '' : 'required')],
                 },
             });
@@ -433,7 +432,6 @@ describe('useInput composable', () => {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                    required: true,
                     rules: [(v: string) => (v ? '' : 'required')],
                     state: UIState.Success,
                 },
@@ -451,7 +449,6 @@ describe('useInput composable', () => {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                    required: true,
                     rules: [(v: string) => (v ? '' : 'required')],
                     state: UIState.Success,
                 },
@@ -474,7 +471,6 @@ describe('useInput composable', () => {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                    required: true,
                     rules: [(v: string) => (v ? '' : 'required')],
                     state: UIState.Success,
                 },
@@ -499,7 +495,6 @@ describe('useInput composable', () => {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
-                    required: true,
                     rules: [(v: string) => (v ? '' : 'required')],
                     state: UIState.Success,
                 },
