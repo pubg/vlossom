@@ -27,7 +27,7 @@
                 :name="name"
                 :readonly="readonly"
                 :required="required"
-                :state="state"
+                :state="computedState"
                 :value="trueValue"
                 @toggle="onToggle"
                 @focus="onFocus"
@@ -97,6 +97,7 @@ export default defineComponent({
             messages,
             required,
             rules,
+            state,
             trueValue,
             falseValue,
             multiple,
@@ -125,27 +126,34 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, shake, validate, clear, id } = useInput(inputValue, modelValue, context, label, {
-            messages,
-            rules: allRules,
-            callbacks: {
-                onMounted: () => {
-                    if (checked.value) {
-                        inputValue.value = getUpdatedValue(true);
-                    } else {
-                        inputValue.value = getInitialValue();
-                    }
-                },
-                onChange: () => {
-                    if (inputValue.value === undefined || inputValue.value === null) {
+        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+            inputValue,
+            modelValue,
+            context,
+            label,
+            {
+                messages,
+                rules: allRules,
+                state,
+                callbacks: {
+                    onMounted: () => {
+                        if (checked.value) {
+                            inputValue.value = getUpdatedValue(true);
+                        } else {
+                            inputValue.value = getInitialValue();
+                        }
+                    },
+                    onChange: () => {
+                        if (inputValue.value === undefined || inputValue.value === null) {
+                            inputValue.value = getClearedValue();
+                        }
+                    },
+                    onClear: () => {
                         inputValue.value = getClearedValue();
-                    }
-                },
-                onClear: () => {
-                    inputValue.value = getClearedValue();
+                    },
                 },
             },
-        });
+        );
 
         async function onToggle(c: boolean) {
             const toValue = getUpdatedValue(c);
@@ -182,6 +190,7 @@ export default defineComponent({
             checkboxRef,
             isChecked,
             computedColorScheme,
+            computedState,
             computedStyleSet,
             inputValue,
             computedMessages,

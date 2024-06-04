@@ -34,14 +34,14 @@ describe('useInput composable', () => {
         inputValue.value = '';
     });
 
-    const InputComponent = defineComponent({
+    const TestInputComponent = defineComponent({
         render: () => null,
         props: {
             modelValue: { type: String, default: '' },
             ...getInputProps<string, []>(),
         },
         setup(props, ctx) {
-            const { modelValue, label, messages, rules } = toRefs(props);
+            const { modelValue, label, messages, rules, state } = toRefs(props);
 
             return {
                 ...useInput(inputValue, modelValue, ctx, label, {
@@ -52,6 +52,7 @@ describe('useInput composable', () => {
                     },
                     messages,
                     rules,
+                    state,
                 }),
             };
         },
@@ -73,7 +74,7 @@ describe('useInput composable', () => {
     describe('value binding (inputValue, modelValue)', () => {
         it('inputValue 값을 업데이트 해서 modelValue를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
@@ -94,7 +95,7 @@ describe('useInput composable', () => {
 
         it('modelValue를 바꿔서 inputValue 값을 바꿀 수 있다', async () => {
             // given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
@@ -116,7 +117,7 @@ describe('useInput composable', () => {
         it('mount 시점에 onMounted callback을 실행한다', () => {
             // given
             // when
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
@@ -129,7 +130,7 @@ describe('useInput composable', () => {
 
         it('inputValue가 변경되면 onChange callback을 실행한다', async () => {
             // given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
@@ -155,7 +156,7 @@ describe('useInput composable', () => {
                 { state: UIState.Success, text: 'success message' },
                 { state: UIState.Warning, text: 'warning message' },
             ];
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     messages,
                 },
@@ -173,7 +174,7 @@ describe('useInput composable', () => {
                 { state: UIState.Success, text: 'success message' },
                 { state: UIState.Warning, text: 'warning message' },
             ];
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     messages: [() => messages[0], () => messages[1], () => messages[2]],
                 },
@@ -191,7 +192,7 @@ describe('useInput composable', () => {
                 { state: UIState.Success, text: 'success message' },
                 { state: UIState.Warning, text: 'warning message' },
             ];
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     messages: [
                         () => Promise.resolve(messages[0]),
@@ -212,7 +213,7 @@ describe('useInput composable', () => {
 
         it('messages가 바뀌면 바뀐 message를 반영할 수 있다', async () => {
             // given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     messages: [
                         { state: UIState.Info, text: 'info message' },
@@ -236,7 +237,7 @@ describe('useInput composable', () => {
     describe('rules', () => {
         it('rule이 설정되었어도 값의 변경이 없다면 message가 없다', () => {
             //given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     rules: [(v: string) => (v ? '' : 'required')],
                 },
@@ -251,7 +252,7 @@ describe('useInput composable', () => {
 
         it('값이 유효하면 rule error message가 없다', async () => {
             //given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     rules: [(v: string) => (v ? '' : 'required')],
                 },
@@ -271,7 +272,7 @@ describe('useInput composable', () => {
 
         it('값이 유효하지 않으면 rule error message가 있다', async () => {
             //given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     rules: [(v: string) => (v ? '' : 'required')],
                 },
@@ -293,7 +294,7 @@ describe('useInput composable', () => {
 
         it('PromiseLike의 rule도 체크할 수 있다', async () => {
             //given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     rules: [
                         (v: string) => Promise.resolve(v ? '' : 'required'),
@@ -321,7 +322,7 @@ describe('useInput composable', () => {
         it('기존 message가 있으면 rule 체크 결과를 danger 타입으로 추가한다', async () => {
             // given
             const infoMsg: StateMessage = { state: UIState.Info, text: 'info message' };
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     messages: [infoMsg],
                     rules: [(v: string) => (v ? '' : 'required')],
@@ -348,7 +349,7 @@ describe('useInput composable', () => {
     describe('validate', () => {
         it('validate 함수를 호출하면 변경이 없어도 message가 노출된다', async () => {
             //given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     rules: [(v: string) => (v ? '' : 'required')],
                 },
@@ -369,7 +370,7 @@ describe('useInput composable', () => {
         describe('shake', () => {
             it('validate를 호출 했을 때 값이 유효하면 shake 값(boolean)에 변화가 없다', async () => {
                 // given
-                const wrapper = mount(InputComponent, {
+                const wrapper = mount(TestInputComponent, {
                     props: {
                         rules: [(v: string) => (v ? '' : 'required')],
                     },
@@ -390,7 +391,7 @@ describe('useInput composable', () => {
 
             it('validate를 호출 했을 때 값이 유효하지 않으면 shake 값(boolean)이 바뀐다', async () => {
                 // given
-                const wrapper = mount(InputComponent, {
+                const wrapper = mount(TestInputComponent, {
                     props: {
                         rules: [(v: string) => (v ? '' : 'required')],
                     },
@@ -408,10 +409,114 @@ describe('useInput composable', () => {
         });
     });
 
+    describe('computedState', () => {
+        it('기본 state는 idle이다', async () => {
+            // given
+            const wrapper = mount(TestInputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                    rules: [(v: string) => (v ? '' : 'required')],
+                },
+            });
+
+            // then
+            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.valid).toBe(false);
+            expect(wrapper.vm.computedState).toBe(UIState.Idle);
+        });
+
+        it('state가 주입되면 해당 state를 반환한다', async () => {
+            // given
+            const wrapper = mount(TestInputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                    rules: [(v: string) => (v ? '' : 'required')],
+                    state: UIState.Success,
+                },
+            });
+
+            // then
+            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.valid).toBe(false);
+            expect(wrapper.vm.computedState).toBe(UIState.Success);
+        });
+
+        it('값의 변경이 있어도 valid하다면 주입된 state를 반환한다', async () => {
+            // given
+            const wrapper = mount(TestInputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                    rules: [(v: string) => (v ? '' : 'required')],
+                    state: UIState.Success,
+                },
+            });
+
+            // when
+            await nextTick();
+            inputValue.value = 'test';
+            await nextTick();
+
+            // then
+            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.vm.valid).toBe(true);
+            expect(wrapper.vm.computedState).toBe(UIState.Success);
+        });
+
+        it('valid하지 않은 값이 입력되면 주입된 state와 관계없이 error state를 반환한다', async () => {
+            // given
+            const wrapper = mount(TestInputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                    rules: [(v: string) => (v ? '' : 'required')],
+                    state: UIState.Success,
+                },
+            });
+
+            // when
+            await nextTick();
+            inputValue.value = 'test';
+            await nextTick();
+            inputValue.value = '';
+            await nextTick();
+
+            // then
+            expect(wrapper.vm.changed).toBe(true);
+            expect(wrapper.vm.valid).toBe(false);
+            expect(wrapper.vm.computedState).toBe(UIState.Error);
+        });
+
+        it('valid하지 않을 때 validate를 호출하면 변경이 없어도 error state를 반환한다', async () => {
+            // given
+            const wrapper = mount(TestInputComponent, {
+                props: {
+                    modelValue: '',
+                    'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
+                    rules: [(v: string) => (v ? '' : 'required')],
+                    state: UIState.Success,
+                },
+            });
+
+            // when
+            await nextTick();
+            const result = wrapper.vm.validate();
+            await nextTick();
+
+            // then
+            expect(result).toBe(false);
+            expect(wrapper.vm.changed).toBe(false);
+            expect(wrapper.vm.valid).toBe(false);
+            expect(wrapper.vm.computedState).toBe(UIState.Error);
+        });
+    });
+
     describe('clear', () => {
         it('clear 함수를 호출하면 onClear callback이 실행된다', async () => {
             // given
-            const wrapper = mount(InputComponent, {
+            const wrapper = mount(TestInputComponent, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (v: string) => wrapper.setProps({ modelValue: v }),
