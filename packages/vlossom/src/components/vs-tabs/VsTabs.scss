@@ -53,9 +53,9 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
 
                 &.selected {
                     background-color: var(--vs-tabs-backgroundColor, var(--vs-area-bg-active));
-                    color: var(--vs-primary-comp-bg-active);
-                    border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-primary-comp-bg-active));
-                    font-weight: calc($fontWeight + 200);
+                    color: var(--vs-tabs-selectedFontColor, var(--vs-primary-comp-bg));
+                    border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-primary-comp-bg));
+                    text-shadow: 0 0 0.8px currentColor;
                 }
 
                 &.disabled {

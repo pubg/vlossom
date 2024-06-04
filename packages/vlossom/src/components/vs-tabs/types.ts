@@ -7,6 +7,7 @@ export interface VsTabsStyleSet {
     gap?: string;
     height?: string;
     padding?: string;
+    selectedFontColor?: string;
     tabWidth?: string;
 }
 
