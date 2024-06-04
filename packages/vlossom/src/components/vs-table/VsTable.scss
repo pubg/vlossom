@@ -7,9 +7,10 @@
     table {
         min-width: 100%;
         border-spacing: 0 !important;
+        margin-bottom: 0.6rem;
 
         caption {
-            caption-side: var(--vs-table-captionSide, top);
+            caption-side: var(--vs-table-captionSide, bottom);
             text-align: var(--vs-table-captionTextAlign, center);
             padding: 1rem 0;
             color: var(--vs-table-captionFontColor, var(--vs-font-color));
@@ -40,11 +41,11 @@
         }
 
         thead tr {
-            background-color: var(--vs-table-headerBackgroundColor, var(--vs-comp-bg));
+            background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
             border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
             th {
-                color: var(--vs-table-headerFontColor, var(--vs-comp-font));
+                color: var(--vs-table-headerFontColor, var(--vs-font-color));
                 font-size: var(--vs-table-headerFontSize, 0.9rem);
                 font-weight: var(--vs-table-headerFontWeight, 600);
                 min-height: var(--vs-table-headerMinHeight, 2.7rem);
@@ -68,7 +69,7 @@
             position: relative;
             transition: background-color 0.2s;
             background-color: var(--vs-table-bodyBackgroundColor, transparent);
-            border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-gray-200));
+            border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
             color: var(--vs-table-bodyFontColor, var(--vs-font-color));
 
             &.selected {
@@ -116,7 +117,7 @@
                         }
 
                         &:hover {
-                            box-shadow: 0 0 4px var(--vs-comp-bg-hover);
+                            box-shadow: 0 0 4px var(--vs-comp-shadow);
                         }
 
                         &:disabled {
@@ -140,7 +141,7 @@
                     width: 95%;
                     height: 60%;
                     border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
-                    background-color: var(--vs-gray-200);
+                    background-color: var(--vs-gray-light);
                     animation: skeleton-loading 0.6s infinite alternate;
                 }
             }
@@ -166,7 +167,7 @@
         }
 
         .table-empty {
-            border-bottom: 1px solid var(--vs-gray-400);
+            border-bottom: 1px solid var(--vs-line-color);
             padding: 2.2rem 0;
             text-align: center;
             opacity: 0.3;
@@ -187,7 +188,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0.6rem 0;
+    margin-bottom: 0.6rem;
 
     .pagination-options {
         width: 10rem;
@@ -221,9 +222,10 @@
             th:first-child {
                 color: transparent;
                 height: 2.2rem;
+                padding-left: 1rem;
             }
             margin-bottom: 0.4rem;
-            border: 1px solid var(--vs-gray-200);
+            border: 1px solid var(--vs-line-color);
         }
 
         table {
@@ -235,7 +237,7 @@
             display: flex !important;
             flex-direction: column;
             margin: 0.4rem 0 0 0;
-            border: 1px solid var(--vs-gray-200);
+            border: 1px solid var(--vs-line-color);
 
             &:first-of-type {
                 margin-top: 0;
@@ -244,13 +246,25 @@
             td {
                 display: flex;
                 justify-content: space-between;
-                padding: 0.4rem 1rem !important;
-                border-top: 1px dashed var(--vs-gray-200);
+                padding: 0.4rem 1rem;
+                border-top: 1px dashed var(--vs-line-color);
                 overflow-x: auto;
 
-                &::before {
+                &.selectable-td {
+                    &:before {
+                        display: none;
+                    }
+
+                    justify-content: flex-start;
+                }
+
+                .table-data {
+                    justify-content: flex-end;
+                }
+
+                &:before {
                     content: attr(data-label);
-                    color: var(--vs-comp-font);
+                    color: var(--vs-primary-comp-bg-active);
                     display: block;
                     line-height: 3rem;
                     margin-right: 1.4rem;
@@ -270,11 +284,12 @@
                     }
                 }
                 &.expanded-row-content {
-                    border-top: none;
+                    border: none;
+                    box-shadow: none;
                 }
 
                 &.expandable-td {
-                    padding: 0.4rem !important;
+                    padding: 0.4rem;
                     button {
                         flex: 1;
                     }
@@ -282,7 +297,7 @@
 
                 &.expanded-row-content {
                     display: flex !important;
-                    padding-top: 0;
+                    padding-top: 0.5rem;
                     padding-bottom: 1.2rem;
 
                     .expand-contents {
@@ -297,7 +312,7 @@
         }
 
         .table-empty {
-            border-top: 1px solid var(--vs-gray-200);
+            border-top: 1px solid var(--vs-line-color);
         }
     }
 }

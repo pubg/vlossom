@@ -58,9 +58,19 @@ export const ColorScheme: Story = {
 };
 
 export const Caption: Story = {
-    args: {
-        caption: 'Fruit Shopping List',
-    },
+    render: (args: any) => ({
+        components: { VsTable },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-table v-bind="args">
+                <template #caption>
+                    This is a table caption
+                </template>
+            </vs-table>
+        `,
+    }),
 };
 
 export const Dense: Story = {
@@ -243,7 +253,7 @@ export const HeaderSlot: Story = {
                     </template>
                     <template #header-checked="{ header }">
                         Liked
-                    </template> 
+                    </template>
                 </vs-table>
             </div>
         `,
@@ -316,13 +326,11 @@ export const StyleSet: Story = {
             selectedBackgroundColor: '#DCD6F7',
             selectedFontColor: '#0f4c75',
         },
-        caption: 'Table 1: Fruit Shopping List',
     },
 };
 
 export const PreDefinedStyleSet: Story = {
     args: {
         styleSet: 'myStyleSet',
-        caption: 'Table 1: Fruit Shopping List',
     },
 };

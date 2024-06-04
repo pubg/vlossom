@@ -12,6 +12,7 @@
     opacity: 0.5;
     filter: grayscale(0.7);
     pointer-events: none;
+    cursor: default;
 }
 
 @mixin readonly {

@@ -20,15 +20,15 @@
     .text-wrap-buttons {
         > button {
             &.copy-button {
-                color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo-500));
+                color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo));
 
                 .copied {
-                    color: green;
+                    color: var(--vs-green);
                 }
             }
 
             &.link-button {
-                color: var(--vs-text-wrap-linkIconColor, var(--vs-blue-500));
+                color: var(--vs-text-wrap-linkIconColor, var(--vs-light-blue));
                 transform: rotate(135deg);
             }
         }

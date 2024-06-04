@@ -79,6 +79,8 @@ describe('VsTable', () => {
                 props: {
                     headers,
                     items,
+                },
+                slots: {
                     caption: 'CAPTION',
                 },
             });
