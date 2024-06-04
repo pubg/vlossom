@@ -33,7 +33,7 @@ $vs-theme-button-height: 2rem;
         transition:
             opacity 0.4s ease-out,
             transform 0.4s ease-out;
-        color: var(--vs-theme-button-fontColor, var(--vs-orange-400));
+        color: var(--vs-theme-button-fontColor, var(--vs-orange));
 
         &.on {
             opacity: 1;

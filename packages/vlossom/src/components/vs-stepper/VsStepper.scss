@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 $fontSize: var(--vs-stepper-fontSize, 1rem);
 $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
 
@@ -6,8 +8,8 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
     -webkit-tap-highlight-color: transparent;
 
     .item-line {
-        background-color: var(--vs-comp-bg-active);
-        height: 0.2rem;
+        background-color: var(--vs-area-bg-active);
+        height: 0.3rem;
         left: $stepButtonW;
         right: $stepButtonW;
         position: absolute;
@@ -94,9 +96,12 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
 
             &.selected {
                 .item-step {
-                    border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
+                    border: 1px solid var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
+
+                    outline: 3px solid var(--vs-primary-comp-bg);
+                    outline-offset: 3px;
                 }
 
                 .item-name {
@@ -106,17 +111,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
             }
 
             &.disabled {
-                cursor: default;
-
-                .item-step {
-                    background-color: var(--vs-gray-100);
-                    color: transparentize(#adadad, 0.6);
-                }
-
-                .item-name {
-                    color: var(--vs-gray-200);
-                    opacity: 0.6;
-                }
+                @include disabled;
             }
         }
     }

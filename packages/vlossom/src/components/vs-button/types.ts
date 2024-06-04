@@ -7,6 +7,6 @@ export interface VsButtonStyleSet {
     fontSize?: string;
     fontWeight?: string | number;
     hoverBackgroundColor?: string;
-    maxHeight?: string;
+    height?: string;
     padding?: string;
 }

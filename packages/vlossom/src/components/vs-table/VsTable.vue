@@ -2,10 +2,8 @@
     <div :class="['vs-table', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
-                <caption v-if="caption">
-                    {{
-                        caption
-                    }}
+                <caption v-if="$slots['caption']">
+                    <slot name="caption" />
                 </caption>
                 <vs-table-header
                     :headers="headers"
