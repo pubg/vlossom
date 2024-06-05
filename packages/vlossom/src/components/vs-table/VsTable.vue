@@ -94,6 +94,7 @@
 <script lang="ts">
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
+import { useTableParams } from './composables/useTableParams';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
 import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
@@ -166,9 +167,16 @@ export default defineComponent({
             default: () => [] as any[],
         },
     },
-    emits: ['update:itemsPerPage', 'update:page', 'update:pagedItems', 'update:selectedItems', 'update:totalItems'],
+    emits: [
+        'update:itemsPerPage',
+        'update:page',
+        'update:pagedItems',
+        'update:params',
+        'update:selectedItems',
+        'update:totalItems',
+    ],
     expose: ['expand'],
-    setup(props, { slots, emit }) {
+    setup(props, ctx) {
         const {
             colorScheme,
             styleSet,
@@ -189,6 +197,7 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
+            const slots = ctx.slots;
             return Object.keys(slots).reduce(
                 (acc, slotName) => {
                     if (slotName.startsWith('header-')) {
@@ -201,6 +210,7 @@ export default defineComponent({
         });
 
         const itemSlots = computed(() => {
+            const slots = ctx.slots;
             return Object.keys(slots).reduce(
                 (acc, slotName) => {
                     if (slotName.startsWith('item-') || slotName === 'expand') {
@@ -255,7 +265,7 @@ export default defineComponent({
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
-        const hasExpand = computed(() => !!slots['expand']);
+        const hasExpand = computed(() => !!ctx.slots['expand']);
         const tableBodyRef: Ref<typeof VsTableBody | null> = ref(null);
 
         const expand = (index: number) => {
@@ -277,7 +287,7 @@ export default defineComponent({
         watch(innerPage, (p: number) => {
             isSelectedAll.value = false;
             emitSelectedItems([]);
-            emit('update:page', p);
+            ctx.emit('update:page', p);
         });
 
         watch(
@@ -297,7 +307,7 @@ export default defineComponent({
         watch(innerItemsPerPage, (p: number) => {
             isSelectedAll.value = false;
             emitSelectedItems([]);
-            emit('update:itemsPerPage', p);
+            ctx.emit('update:itemsPerPage', p);
         });
 
         watch(
@@ -313,16 +323,18 @@ export default defineComponent({
             { immediate: true },
         );
 
+        useTableParams(innerPage, innerItemsPerPage, sortTypes, computedSearchText, ctx);
+
         function emitSelectedItems(items: any[]) {
-            emit('update:selectedItems', items);
+            ctx.emit('update:selectedItems', items);
         }
 
         function emitPagedItems(items: any[]) {
-            emit('update:pagedItems', items);
+            ctx.emit('update:pagedItems', items);
         }
 
         function emitTotalItems(items: any[]) {
-            emit('update:totalItems', items);
+            ctx.emit('update:totalItems', items);
         }
 
         return {
