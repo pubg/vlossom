@@ -439,6 +439,7 @@ describe('vs-switch', () => {
             });
         });
     });
+
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
@@ -452,13 +453,14 @@ describe('vs-switch', () => {
 
             // when
             await nextTick();
-            await wrapper.find('input').setValue(false);
+            await wrapper.setProps({ modelValue: false });
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
             expect(wrapper.html()).toContain('required');
         });
     });
+
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
@@ -506,7 +508,7 @@ describe('vs-switch', () => {
             });
 
             // when
-            await wrapper.find('input').setValue(true);
+            await wrapper.find('div.vs-switch-button').trigger('click');
 
             // then
             expect(beforeChange).toHaveBeenCalledWith(false, true);
@@ -555,16 +557,17 @@ describe('vs-switch', () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch);
             // when
-            await wrapper.find('div.vs-switch-button').trigger('focus');
+            await wrapper.find('input[type="checkbox"]').trigger('focus');
             // then
             expect(wrapper.emitted('focus')).toHaveLength(1);
         });
+
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsSwitch);
 
             // when
-            await wrapper.find('div.vs-switch-button').trigger('blur');
+            await wrapper.find('input[type="checkbox"]').trigger('blur');
 
             // then
             expect(wrapper.emitted('blur')).toHaveLength(1);

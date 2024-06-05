@@ -14,25 +14,25 @@
                 <slot name="label" />
             </template>
 
-            <div :class="['vs-switch', `vs-${computedColorScheme}`]">
-                <div
+            <div
+                :class="['vs-switch', `vs-${computedColorScheme}`, { checked: isChecked, disabled, readonly }]"
+                :style="computedStyleSet"
+            >
+                <input
                     ref="switchRef"
-                    role="switch"
-                    :class="['vs-switch-button', stateClasses, { checked: isChecked, disabled, readonly }]"
-                    :style="computedStyleSet"
-                    :aria-checked="isChecked"
-                    :aria-disabled="disabled"
-                    :aria-labelledby="id ? id : undefined"
-                    :aria-readonly="readonly"
+                    class="vs-switch-input"
+                    type="checkbox"
+                    :id="id"
+                    :name="name"
+                    :disabled="disabled || readonly"
+                    :checked="isChecked"
+                    :aria-label="'switch -' + label"
                     :aria-required="required"
-                    tabindex="0"
-                    :disabled="disabled"
-                    @click.stop="toggle()"
-                    @keydown.space.prevent.stop="toggle()"
-                    @keydown.enter.prevent.stop="toggle()"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
-                >
+                />
+
+                <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
                     <span class="status-label" data-value="true" v-show="isChecked">
                         {{ trueLabel }}
                     </span>
@@ -40,18 +40,6 @@
                         {{ falseLabel }}
                     </span>
                 </div>
-
-                <input
-                    type="checkbox"
-                    style="display: none"
-                    aria-hidden
-                    :id="id"
-                    :name="name"
-                    tabindex="-1"
-                    :disabled="disabled || readonly"
-                    :checked="isChecked"
-                    @change.stop="toggle()"
-                />
             </div>
             <template #messages v-if="!noMessage">
                 <slot name="messages" />
@@ -173,7 +161,7 @@ export default defineComponent({
 
         const { stateClasses } = useStateClass(computedState);
 
-        async function toggle() {
+        async function onClick() {
             if (disabled.value || readonly.value) {
                 return;
             }
@@ -213,7 +201,7 @@ export default defineComponent({
             computedColorScheme,
             computedStyleSet,
             isChecked,
-            toggle,
+            onClick,
             onFocus,
             onBlur,
             computedMessages,
