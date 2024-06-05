@@ -154,7 +154,15 @@ export function useFocusControl(
         }
     });
 
-    watch(filteredOptions, resetFocusInfo);
+    watch([isOpen, filteredOptions], (newValues, oldValues) => {
+        const previouslyOpened = oldValues[0];
+        const currentlyOpen = newValues[0];
+
+        if (!previouslyOpened && currentlyOpen) {
+            return;
+        }
+        resetFocusInfo();
+    });
 
     function isChasedOption(optionIndex: number) {
         return (
