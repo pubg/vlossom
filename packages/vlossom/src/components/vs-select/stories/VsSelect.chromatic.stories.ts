@@ -51,9 +51,9 @@ const meta: Meta<typeof VsSelect> = {
 
                 <vs-select v-bind="args" v-model="modelValue1" label="Select Multiple" multiple :style="{ marginBottom: '12px' }"/>
 
-                <vs-select v-bind="args" v-model="modelValue2" label="Select with ClosableChips" multiple closableChips :style="{ marginBottom: '12px' }"/>
+                <vs-select v-bind="args" v-model="modelValue2" label="Select Multiple with ClosableChips" multiple closableChips :style="{ marginBottom: '12px' }"/>
 
-                <vs-select v-bind="args" v-model="modelValue3" label="Select with CollapseChips" multiple collapseChips />
+                <vs-select v-bind="args" v-model="modelValue3" label="Select Multiple with CollapseChips" multiple collapseChips />
             </div>`,
     }),
     argTypes: {
