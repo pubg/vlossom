@@ -502,8 +502,9 @@ describe('vs-select', () => {
                 attachTo: document.body,
             });
 
-            // when
             await wrapper.find('input').trigger('click');
+
+            // when
             await vi.advanceTimersByTime(0);
             document.body.click();
             await nextTick();
@@ -511,6 +512,31 @@ describe('vs-select', () => {
 
             // then
             expect(document.body.querySelector('ul.vs-select-options')).toBeNull();
+        });
+
+        it('multiple 상태의 select의 옵션 리스트가 열려 있을 때 해당 select의 옵션을 선택해도 리스트가 닫히지 않는다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    options: ['A', 'B', 'C'],
+                    multiple: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+                attachTo: document.body,
+            });
+
+            await wrapper.find('input').trigger('click');
+
+            // when
+            await wrapper.findAll('ul.vs-select-options li.option')[1].trigger('click');
+            await nextTick();
+
+            // then
+            expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
         });
     });
 
