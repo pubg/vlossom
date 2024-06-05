@@ -19,14 +19,15 @@
                 :style="computedStyleSet"
             >
                 <input
+                    type="checkbox"
                     ref="switchRef"
                     class="vs-switch-input"
-                    type="checkbox"
                     :id="id"
                     :name="name"
                     :disabled="disabled || readonly"
                     :checked="isChecked"
-                    :aria-label="'switch -' + label"
+                    :value="convertToString(trueValue)"
+                    :aria-label="ariaLabel || 'switch ' + label"
                     :aria-required="required"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
@@ -59,6 +60,7 @@ import {
     useValueMatcher,
     useStateClass,
 } from '@/composables';
+import { utils } from '@/utils';
 import { ColorScheme, VsComponent } from '@/declaration';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 
@@ -73,6 +75,7 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
+        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
@@ -212,6 +215,7 @@ export default defineComponent({
             stateClasses,
             focus,
             blur,
+            convertToString: utils.string.convertToString,
         };
     },
 });
