@@ -605,6 +605,11 @@ describe('vs-select', () => {
                 },
             });
 
+            wrapper.vm.filteredOptions = [
+                { id: '1', value: 'apple' },
+                { id: '2', value: 'banana' },
+            ];
+
             // when
             const input = wrapper.find('input');
             await input.setValue('apple');
