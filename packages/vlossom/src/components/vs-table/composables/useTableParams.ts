@@ -16,7 +16,7 @@ export function useTableParams(
         searchText: searchText.value,
     }));
 
-    let oldParams: typeof params.value | null = null;
+    let oldParams: TableParams | null = null;
 
     watch(
         params,
