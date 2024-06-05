@@ -18,6 +18,9 @@
     }
 
     .text-wrap-buttons {
+        display: flex;
+        align-items: center;
+
         > button {
             &.copy-button {
                 color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo));
@@ -28,8 +31,12 @@
             }
 
             &.link-button {
-                color: var(--vs-text-wrap-linkIconColor, var(--vs-light-blue));
-                transform: rotate(135deg);
+                overflow: hidden;
+
+                .link-icon {
+                    color: var(--vs-text-wrap-linkIconColor, var(--vs-light-blue));
+                    transform: rotate(135deg);
+                }
             }
         }
 
