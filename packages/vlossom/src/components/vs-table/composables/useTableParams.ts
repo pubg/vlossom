@@ -25,10 +25,6 @@ export function useTableParams(
                 return;
             }
 
-            if (oldParams.value && oldParams.value.searchText !== params.value.searchText) {
-                page.value = 1;
-            }
-
             ctx.emit('update:params', params.value);
             oldParams.value = params.value;
         },
