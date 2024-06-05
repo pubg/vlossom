@@ -155,7 +155,10 @@ export function useFocusControl(
     });
 
     watch([isOpen, filteredOptions], (newValues, oldValues) => {
-        if (!oldValues[0] && newValues[0]) {
+        const previouslyOpened = oldValues[0];
+        const currentlyOpen = newValues[0];
+
+        if (!previouslyOpened && currentlyOpen) {
             return;
         }
         resetFocusInfo();
