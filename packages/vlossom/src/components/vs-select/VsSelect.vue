@@ -146,7 +146,12 @@
                                 <slot name="select-all" :selected="isAllSelected">
                                     <span>Select All</span>
                                 </slot>
-                                <vs-divider :style="{ margin: 0 }" :style-set="{ lineColor: 'var(--vs-line-color)' }" />
+                                <div class="select-all-divider">
+                                    <vs-divider
+                                        :style="{ margin: 0 }"
+                                        :style-set="{ lineColor: 'var(--vs-line-color)' }"
+                                    />
+                                </div>
                             </li>
                             <li
                                 v-for="(option, index) in loadedOptions"
@@ -376,6 +381,8 @@ export default defineComponent({
             if (autocomplete.value) {
                 autocompleteText.value = '';
             }
+
+            closeOptions();
         }
 
         const { computedMessages, computedState, shake, validate, clear, id } = useInput(
