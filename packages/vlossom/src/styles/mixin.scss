@@ -17,6 +17,7 @@
 
 @mixin readonly {
     pointer-events: none;
+    cursor: default;
 }
 
 @mixin responsive {

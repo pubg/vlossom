@@ -1,15 +1,14 @@
 export interface VsSwitchStyleSet {
     borderRadius?: string;
-    borderWidth?: string;
     falseBackgroundColor?: string;
-    falseBorderColor?: string;
+    falseBorder?: string;
     falseFontColor?: string;
     falseHandleColor?: string;
     fontSize?: string;
     handleSize?: string;
     height?: string;
     trueBackgroundColor?: string;
-    trueBorderColor?: string;
+    trueBorder?: string;
     trueFontColor?: string;
     trueHandleColor?: string;
     width?: string;

@@ -193,12 +193,12 @@ describe('vs-modal', () => {
             expect(updateModelValueEvent?.[0]).toEqual([false]);
         });
 
-        it('close-on-esc-key prop을 false로 전달하면 esc key를 눌러도 modal이 닫히지 않는다', async () => {
+        it('close-on-esc prop을 false로 전달하면 esc key를 눌러도 modal이 닫히지 않는다', async () => {
             // given
             const wrapper = mount(VsModal, {
                 props: {
                     modelValue: true,
-                    closeOnEscKey: false,
+                    closeOnEsc: false,
                 },
                 global: {
                     stubs: ['Teleport'],
