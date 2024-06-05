@@ -1,4 +1,4 @@
-import { ComputedRef, Ref, computed, watch } from 'vue';
+import { ComputedRef, Ref, computed, watch, ref } from 'vue';
 import { utils } from '@/utils';
 import { SortType, TableParams } from './../types';
 
@@ -16,21 +16,21 @@ export function useTableParams(
         searchText: searchText.value,
     }));
 
-    let oldParams: TableParams | null = null;
+    let oldParams: Ref<TableParams | null> = ref(null);
 
     watch(
         params,
         () => {
-            if (utils.object.isEqual(oldParams, params.value)) {
+            if (utils.object.isEqual(oldParams.value, params.value)) {
                 return;
             }
 
-            if (oldParams && oldParams.searchText !== params.value.searchText) {
+            if (oldParams.value && oldParams.value.searchText !== params.value.searchText) {
                 page.value = 1;
             }
 
             ctx.emit('update:params', params.value);
-            oldParams = params.value;
+            oldParams.value = params.value;
         },
         { deep: true, immediate: true },
     );

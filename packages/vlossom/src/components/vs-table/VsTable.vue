@@ -191,13 +191,13 @@ export default defineComponent({
             searchText,
             totalLength,
         } = toRefs(props);
+        const { emit, slots } = ctx;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            const slots = ctx.slots;
             return Object.keys(slots).reduce(
                 (acc, slotName) => {
                     if (slotName.startsWith('header-')) {
@@ -210,7 +210,6 @@ export default defineComponent({
         });
 
         const itemSlots = computed(() => {
-            const slots = ctx.slots;
             return Object.keys(slots).reduce(
                 (acc, slotName) => {
                     if (slotName.startsWith('item-') || slotName === 'expand') {
@@ -265,7 +264,7 @@ export default defineComponent({
 
         const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
-        const hasExpand = computed(() => !!ctx.slots['expand']);
+        const hasExpand = computed(() => !!slots['expand']);
         const tableBodyRef: Ref<typeof VsTableBody | null> = ref(null);
 
         const expand = (index: number) => {
@@ -287,7 +286,7 @@ export default defineComponent({
         watch(innerPage, (p: number) => {
             isSelectedAll.value = false;
             emitSelectedItems([]);
-            ctx.emit('update:page', p);
+            emit('update:page', p);
         });
 
         watch(
@@ -307,7 +306,7 @@ export default defineComponent({
         watch(innerItemsPerPage, (p: number) => {
             isSelectedAll.value = false;
             emitSelectedItems([]);
-            ctx.emit('update:itemsPerPage', p);
+            emit('update:itemsPerPage', p);
         });
 
         watch(
@@ -326,15 +325,15 @@ export default defineComponent({
         useTableParams(innerPage, innerItemsPerPage, sortTypes, computedSearchText, ctx);
 
         function emitSelectedItems(items: any[]) {
-            ctx.emit('update:selectedItems', items);
+            emit('update:selectedItems', items);
         }
 
         function emitPagedItems(items: any[]) {
-            ctx.emit('update:pagedItems', items);
+            emit('update:pagedItems', items);
         }
 
         function emitTotalItems(items: any[]) {
-            ctx.emit('update:totalItems', items);
+            emit('update:totalItems', items);
         }
 
         return {
