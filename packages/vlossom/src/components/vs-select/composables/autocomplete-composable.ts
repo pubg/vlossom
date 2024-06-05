@@ -9,9 +9,8 @@ export function useAutocomplete(
     const autocompleteText = ref('');
     const filteredOptions: Ref<{ id: string; value: any }[]> = ref([...computedOptions.value]);
 
-    function updateAutocompleteText(event: Event) {
-        const target = event.target as HTMLInputElement;
-        autocompleteText.value = target.value;
+    function updateAutocompleteText(text: string) {
+        autocompleteText.value = text;
     }
 
     watch(

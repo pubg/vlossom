@@ -457,6 +457,7 @@ export default defineComponent({
             focusing.value = true;
 
             if (autocomplete.value) {
+                e.preventDefault();
                 select();
             }
             emit('focus', e);
@@ -496,7 +497,9 @@ export default defineComponent({
             if (autocomplete.value && !isOpen.value) {
                 isOpen.value = true;
             }
-            updateAutocompleteText(e);
+
+            const target = e.target as HTMLInputElement;
+            updateAutocompleteText(target.value);
         }
 
         return {
