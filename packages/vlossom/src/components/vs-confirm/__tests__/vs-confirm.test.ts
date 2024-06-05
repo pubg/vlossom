@@ -128,4 +128,22 @@ describe('vs-confirm', () => {
         expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
         expect(store.dialog.pop).toHaveBeenCalledTimes(1);
     });
+
+    it('close-on-esc prop을 false로 전달하면 Escape 키를 눌러도 close 이벤트를 emit 하지 않는다', () => {
+        // given
+        const wrapper = mount(VsConfirm, {
+            props: {
+                confirmInfo: {
+                    text: 'This is Confirm Text',
+                    closeOnEsc: false,
+                },
+            },
+        });
+
+        // when
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+        // then
+        expect(wrapper.emitted('close')).toBeFalsy();
+    });
 });
