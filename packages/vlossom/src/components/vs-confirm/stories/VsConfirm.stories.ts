@@ -25,6 +25,7 @@ const meta: Meta = {
                     cancelText: args.cancelText,
                     size: args.size,
                     colorScheme: args.colorScheme,
+                    closeOnEsc: args.closeOnEsc,
                 });
                 showResult.value = true;
             }
@@ -49,6 +50,7 @@ export const Default: OpenStory = {
         text: 'Are you sure?',
         okText: '',
         cancelText: '',
+        closeOnEsc: true,
     },
     argTypes: {
         size,

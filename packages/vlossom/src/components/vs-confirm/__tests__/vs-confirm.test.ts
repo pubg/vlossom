@@ -12,11 +12,8 @@ describe('vs-confirm', () => {
         originalResolve = store.confirm.executeResolve;
         originalPop = store.dialog.pop;
 
-        store.confirm.executeResolve = vi
-            .spyOn(store.confirm, 'executeResolve')
-            .mockImplementation(() => undefined).mockClear;
-
-        store.dialog.pop = vi.spyOn(store.dialog, 'pop').mockImplementation(() => undefined).mockClear;
+        store.confirm.executeResolve = vi.fn();
+        store.dialog.pop = vi.fn();
     });
 
     afterEach(() => {
@@ -79,9 +76,6 @@ describe('vs-confirm', () => {
 
     it('ok 버튼을 클릭하면 resolve 가 true 로 이행되고 confirm dialog가 닫힌다', async () => {
         // given
-        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(() => vi.fn());
-        vi.spyOn(store.dialog, 'pop').mockImplementation(() => vi.fn());
-
         const wrapper = mount(VsConfirm, {
             props: {
                 confirmInfo: {
@@ -105,9 +99,6 @@ describe('vs-confirm', () => {
 
     it('cancel 버튼을 클릭하면 resolve 가 false 로 이행되고 confirm dialog가 닫힌다', async () => {
         // given
-        vi.spyOn(store.confirm, 'executeResolve').mockImplementation(() => vi.fn());
-        vi.spyOn(store.dialog, 'pop').mockImplementation(() => vi.fn());
-
         const wrapper = mount(VsConfirm, {
             props: {
                 confirmInfo: {
@@ -127,5 +118,44 @@ describe('vs-confirm', () => {
         expect(wrapper.vm.isOpen).toBe(false);
         expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
         expect(store.dialog.pop).toHaveBeenCalledTimes(1);
+    });
+
+    it('close-on-esc 옵션을 전달하지 않으면 기본으로 true로 설정되며, esc key를 눌렀을 때 confirm dialog가 닫힌다', async () => {
+        // given
+        const wrapper = mount(VsConfirm, {
+            props: {
+                confirmInfo: {
+                    text: 'This is Confirm Text',
+                },
+            },
+        });
+
+        // when
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        await nextTick();
+
+        // then
+        expect(wrapper.vm.isOpen).toBe(false);
+        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
+    });
+
+    it('close-on-esc 옵션을 false로 전달하면 esc key를 눌러도 confirm dialog가 닫히지 않는다', async () => {
+        // given
+        const wrapper = mount(VsConfirm, {
+            props: {
+                confirmInfo: {
+                    text: 'This is Confirm Text',
+                    closeOnEsc: false,
+                },
+            },
+        });
+
+        // when
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+        await nextTick();
+
+        // then
+        expect(wrapper.vm.isOpen).toBe(true);
+        expect(store.dialog.pop).not.toHaveBeenCalled();
     });
 });

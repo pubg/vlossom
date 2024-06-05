@@ -154,7 +154,7 @@ describe('vs-drawer', () => {
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
-                    closeOnEscKey: false,
+                    closeOnEsc: false,
                 },
                 attachTo: document.body,
             });

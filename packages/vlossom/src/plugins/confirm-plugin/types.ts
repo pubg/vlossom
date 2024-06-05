@@ -5,6 +5,7 @@ export interface ConfirmOptions {
     cancelText?: string;
     colorScheme?: ColorScheme;
     size?: Size | string;
+    closeOnEsc?: boolean;
 }
 
 export interface ConfirmInfo extends ConfirmOptions {

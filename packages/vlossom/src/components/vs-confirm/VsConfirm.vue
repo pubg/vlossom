@@ -4,7 +4,7 @@
         :style-set="dialogStylSet"
         :size="confirmInfo.size || 'sm'"
         :close-on-dimmed-click="false"
-        :close-on-esc="false"
+        :close-on-esc="confirmInfo.closeOnEsc ?? true"
         :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
     >
         <div class="confirm-text scale-up-center">
