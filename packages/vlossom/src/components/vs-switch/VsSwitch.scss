@@ -1,39 +1,30 @@
 @use '@/styles/mixin' as *;
 
-$borderWidth: var(--vs-switch-borderWidth, 1px);
-$width: var(--vs-switch-width, fit-content);
-$height: var(--vs-switch-height, 2rem);
 $switchGap: 0.3rem;
 $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
 .vs-switch {
+    position: relative;
     display: flex;
     align-items: center;
     min-height: 2.4rem;
 
     .vs-switch-button {
-        appearance: none;
-        align-items: center;
-        background-color: var(--vs-switch-falseBackgroundColor, var(--vs-no-color));
-        border: $borderWidth solid var(--vs-switch-falseBorderColor, var(--vs-line-color));
-        border-radius: var(--vs-switch-borderRadius, 1rem);
-        color: var(--vs-switch-falseFontColor, var(--vs-font-color));
-        cursor: pointer;
-        display: flex;
-        font-size: var(--vs-switch-fontSize, 0.8rem);
-        height: $height;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
         position: relative;
-        transition: border 0s;
-        width: $width;
+        display: flex;
+        align-items: center;
+        width: var(--vs-switch-width, fit-content);
+        height: var(--vs-switch-height, 2rem);
+        padding: 0 0.8rem;
+        border: var(--vs-switch-falseBorder, 1px solid var(--vs-line-color));
+        border-radius: var(--vs-switch-borderRadius, 1rem);
+        background-color: var(--vs-switch-falseBackgroundColor, var(--vs-area-bg));
+        color: var(--vs-switch-falseFontColor, var(--vs-font-color));
+        font-size: var(--vs-switch-fontSize, 0.8rem);
+        cursor: pointer;
 
         &.vs-state-box {
             @include state-box;
-        }
-
-        &:focus-visible {
-            @include focus-outline;
         }
 
         .status-label {
@@ -44,7 +35,7 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
             width: 100%;
             word-break: break-all;
             margin-left: 2px;
-            padding-left: calc($switchSize * 1.1);
+            padding-left: $switchSize;
             padding-right: 0;
         }
 
@@ -57,12 +48,22 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
             left: $switchGap;
             width: $switchSize;
             position: absolute;
-            transition: 0.4s;
+            transition: 0.3s;
         }
+    }
 
-        &.checked {
+    .vs-switch-input {
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
+    &.checked {
+        .vs-switch-button {
             background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
-            border: $borderWidth solid var(--vs-switch-trueBorderColor, var(--vs-primary-comp-bg));
+            border: var(--vs-switch-trueBorder, 1px solid var(--vs-primary-comp-bg));
             color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
 
             &::before {
@@ -73,16 +74,22 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
 
             .status-label {
                 padding-left: 0;
-                padding-right: calc($switchSize * 1.1);
+                padding-right: $switchSize;
             }
         }
+    }
 
-        &.disabled {
-            @include disabled;
+    &:focus-within {
+        .vs-switch-button {
+            @include focus-outline;
         }
+    }
 
-        &.readonly {
-            @include readonly;
-        }
+    &.disabled {
+        @include disabled;
+    }
+
+    &.readonly {
+        @include readonly;
     }
 }
