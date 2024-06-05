@@ -590,6 +590,34 @@ describe('vs-select', () => {
             expect(wrapper.findAll('li.option')).toHaveLength(1);
             expect(wrapper.html()).toContain('banana');
         });
+
+        it('autocomplete가 true이면, input 이벤트가 발생할 때 옵션 리스트가 열리고, 옵션 필터가 초기화된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    autocomplete: true,
+                    options: ['apple', 'banana', 'carrot'],
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            wrapper.vm.filteredOptions = [
+                { id: '1', value: 'apple' },
+                { id: '2', value: 'banana' },
+            ];
+
+            // when
+            const input = wrapper.find('input');
+            await input.setValue('apple');
+
+            // then
+            expect(wrapper.find('ul#vs-select-options').exists()).toBe(true);
+            expect(wrapper.vm.filteredOptions).toHaveLength(3);
+        });
     });
 
     describe('focus management', () => {
