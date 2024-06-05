@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTable from './../VsTable.vue';
-import { TableHeader } from './../types';
+import { TableHeader, TableParams } from './../types';
 import { nextTick } from 'vue';
 
 function mountComponent() {
@@ -395,6 +395,93 @@ describe('VsTable', () => {
             const expandedContent = wrapper.findAll('tr .expanded-row-content').at(0);
             expect(expandedContent?.isVisible()).toBe(true);
             expect(expandedContent?.text()).toContain('Additional Text for Apple');
+        });
+    });
+
+    describe('table params', () => {
+        it('page 변경 시 update:params event가 emit된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    paginationOptions: [{ label: '2', value: 2 }],
+                },
+            });
+
+            // when
+            await wrapper.setProps({ page: 2 });
+            await nextTick();
+
+            // then
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            expect(updateParamsEvent).toBeTruthy();
+            expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('page', 2);
+        });
+
+        it('itemsPerPage 변경 시 update:params event가 emit된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    paginationOptions: [
+                        { label: '2', value: 2 },
+                        { label: '3', value: 3 },
+                    ],
+                },
+            });
+
+            // when
+            await wrapper.setProps({ itemsPerPage: 3 });
+            await nextTick();
+
+            // then
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            expect(updateParamsEvent).toBeTruthy();
+            expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('itemsPerPage', 3);
+        });
+
+        it('searchText 변경 시 update:params event가 emit된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                },
+            });
+
+            // when
+            await wrapper.setProps({ searchText: 'text' });
+            await nextTick();
+
+            // then
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            expect(updateParamsEvent).toBeTruthy();
+            expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('searchText', 'text');
+        });
+
+        it('sort type 변경 시 update:params event가 emit된다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                },
+            });
+
+            // when
+            const nameHeader = wrapper
+                .findAll('th')
+                .filter((th) => th.text().includes('Name'))
+                .at(0);
+            await nameHeader?.trigger('click');
+            await nextTick();
+
+            // then
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            expect(updateParamsEvent).toBeTruthy();
+            expect(updateParamsEvent?.[1]?.[0]?.['sortTypes']).toHaveProperty('name', 1);
         });
     });
 });
