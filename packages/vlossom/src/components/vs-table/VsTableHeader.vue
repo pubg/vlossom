@@ -1,5 +1,18 @@
 <template>
     <thead>
+        <tr v-if="search" class="search">
+            <th>
+                <vs-icon class="search-icon" icon="search" size="26px" />
+                <vs-input
+                    class="search-input"
+                    :placeholder="searchPlaceholder"
+                    @change="emitSearchText"
+                    no-label
+                    no-message
+                    dense
+                />
+            </th>
+        </tr>
         <tr :style="trStyle">
             <th class="draggable-th" v-if="draggable">drag</th>
             <th class="selectable-th" v-if="selectable" aria-label="select">
@@ -26,16 +39,19 @@
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue';
 import { VsIcon } from '@/icons';
-import { type TableHeader, SortType } from './types';
+import VsInput from '@/components/vs-input/VsInput.vue';
+import { SortType, type TableHeader } from './types';
 import { useSortableHeader } from './composables/useSortableHeader';
 
 export default defineComponent({
     name: 'VsTableHeader',
-    components: { VsIcon },
+    components: { VsIcon, VsInput },
     props: {
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
         headers: { type: Array as PropType<TableHeader[]>, required: true },
+        search: { type: Boolean, default: false },
+        searchPlaceholder: { type: String, default: 'search' },
         selectable: { type: Boolean, default: false },
         trStyle: {
             type: Object as PropType<{ [key: string]: any }>,
@@ -47,13 +63,17 @@ export default defineComponent({
             default: () => ({}),
         },
     },
-    emits: ['update:sortTypes'],
+    emits: ['change:searchText', 'update:sortTypes'],
     setup(props, context) {
         const { headers } = toRefs(props);
 
         const { updateSortTypes, getSortIcon } = useSortableHeader(headers, context);
 
-        return { updateSortTypes, getSortIcon };
+        function emitSearchText(searchText: string) {
+            context.emit('change:searchText', searchText);
+        }
+
+        return { updateSortTypes, getSortIcon, emitSearchText };
     },
 });
 </script>

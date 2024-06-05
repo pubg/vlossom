@@ -14,7 +14,7 @@ const meta: Meta<typeof VsTable> = {
         setup() {
             const selected = items.slice(0, 2);
 
-            const search = ref('');
+            const searchText = ref('');
 
             const id: Ref<string | number> = ref('all');
             const checked = ref('false');
@@ -37,14 +37,14 @@ const meta: Meta<typeof VsTable> = {
                 { label: '4', value: 4 },
                 { label: 'All', value: -1 },
             ];
-            return { args, selected, search, id, checked, options, filter, paginationOptions };
+            return { args, selected, searchText, id, checked, options, filter, paginationOptions };
         },
         template: `
             <div>
                 <vs-table v-bind="args" :style="{ marginBottom: '50px' }"/>
 
                 <vs-table v-bind="args" caption="Fruit Shopping List" :style="{ marginBottom: '50px' }"/>
-            
+
                 <vs-table v-bind="args" dense :style="{ marginBottom: '50px' }"/>
 
                 <div :style="{ marginBottom: '50px' }">
@@ -55,15 +55,17 @@ const meta: Meta<typeof VsTable> = {
                     </div>
                 </div>
 
+                <vs-table v-bind="args" search :style="{ marginBottom: '50px' }"/>
+
                 <div :style="{ marginBottom: '50px' }">
-                    <vs-input v-bind="args" v-model="search" placeholder="Search">
+                    <vs-input v-bind="args" v-model="searchText" placeholder="Search">
                         <template #prepend>
                             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#FFFFFF">
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
                             </svg>
                         </template>
                     </vs-input>
-                    <vs-table v-bind="args" :search="search">
+                    <vs-table v-bind="args" :search-text="searchText">
                         <template #item-checked="{ value }">
                             <vs-switch v-model="value" no-label no-message></vs-switch>
                         </template>
@@ -80,7 +82,7 @@ const meta: Meta<typeof VsTable> = {
                 </div>
 
                 <vs-table v-bind="args" draggable :style="{ marginBottom: '50px' }"/>
-                 
+
                 <vs-table v-bind="args" pagination pageEdgeButtons :paginationOptions="paginationOptions" :style="{ marginBottom: '50px' }"/>
 
                 <vs-table v-bind="args" loading :style="{ marginBottom: '50px' }"/>

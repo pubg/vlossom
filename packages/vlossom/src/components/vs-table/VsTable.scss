@@ -44,6 +44,31 @@
             background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
             border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
+            &.search {
+                position: relative;
+                width: 100%;
+                display: flex;
+                border-bottom: none;
+
+                th {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    padding: 0.6rem;
+                    padding-right: 1rem;
+
+                    .search-icon {
+                        color: var(--vs-primary-comp-bg);
+                        margin-right: 0.8rem;
+                        flex-shrink: 0;
+                    }
+                    .search-input {
+                        flex-grow: 1;
+                    }
+                }
+            }
+
             th {
                 color: var(--vs-table-headerFontColor, var(--vs-font-color));
                 font-size: var(--vs-table-headerFontSize, 0.9rem);

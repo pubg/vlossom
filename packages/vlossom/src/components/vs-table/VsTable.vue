@@ -9,10 +9,13 @@
                     :headers="headers"
                     :draggable="canDrag"
                     :expandable="hasExpand"
+                    :search="search"
+                    :search-placeholder="searchPlaceholder"
                     :selectable="hasSelectable"
                     :loading="loading"
                     :tr-style="trStyle"
                     v-model:sort-types="sortTypes"
+                    @change:search-text="updateInnerSearchText"
                 >
                     <template #check>
                         <vs-checkbox-node
@@ -39,7 +42,7 @@
                     :hasExpand="hasExpand"
                     :rows="rows"
                     :loading="loading"
-                    :search="search"
+                    :search-text="computedSearchText"
                     :searchable-keys="searchableKeys"
                     :selectable="hasSelectable"
                     :selected-items="selectedItems"
@@ -138,7 +141,9 @@ export default defineComponent({
             default: () => DEFAULT_TABLE_PAGE_COUNT,
         },
         pageEdgeButtons: { type: Boolean, default: false },
-        search: { type: String, default: '' },
+        search: { type: Boolean, default: false },
+        searchPlaceholder: { type: String, default: 'search' },
+        searchText: { type: String, default: '' },
         searchableKeys: {
             type: Array as PropType<string[]>,
             default: () => [] as string[],
@@ -169,12 +174,13 @@ export default defineComponent({
             styleSet,
             draggable,
             headers,
-            selectable,
             itemsPerPage,
             page,
             pagination,
             paginationOptions,
             rows,
+            selectable,
+            searchText,
             totalLength,
         } = toRefs(props);
 
@@ -204,6 +210,14 @@ export default defineComponent({
                 },
                 {} as { [key: string]: any },
             );
+        });
+
+        const innerSearchText = ref('');
+        function updateInnerSearchText(text: string) {
+            innerSearchText.value = text;
+        }
+        const computedSearchText = computed(() => {
+            return searchText.value || innerSearchText.value;
         });
 
         const canDrag = computed(() => {
@@ -314,6 +328,7 @@ export default defineComponent({
         return {
             computedColorScheme,
             computedStyleSet,
+            computedSearchText,
             headerSlots,
             itemSlots,
             trStyle,
@@ -321,6 +336,8 @@ export default defineComponent({
             hasExpand,
             isSelectedAll,
             utils,
+            innerSearchText,
+            updateInnerSearchText,
             innerPage,
             innerItemsPerPage,
             paginationLength,

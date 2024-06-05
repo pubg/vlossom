@@ -101,7 +101,7 @@ export default defineComponent({
         loading: { type: Boolean, default: false },
         pagination: { type: Boolean, default: false },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
-        search: { type: String, default: '' },
+        searchText: { type: String, default: '' },
         searchableKeys: { type: Array as PropType<string[]>, default: () => [] as string[] },
         selectable: { type: Boolean, default: false },
         selectedItems: {
@@ -135,7 +135,7 @@ export default defineComponent({
         const {
             headers,
             items,
-            search,
+            searchText,
             searchableKeys,
             filter,
             sortTypes,
@@ -164,7 +164,7 @@ export default defineComponent({
         const { getPagedTableItems } = useTablePagination();
 
         function getResultTableItems() {
-            const searched = getSearchedTableItems(innerTableItems.value, search);
+            const searched = getSearchedTableItems(innerTableItems.value, searchText);
             const filtered = getFilteredTableItems(searched, filter);
             const sorted = getSortedTableItems(filtered, sortTypes);
             return sorted;

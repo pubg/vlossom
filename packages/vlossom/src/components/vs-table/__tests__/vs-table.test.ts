@@ -163,22 +163,52 @@ describe('VsTable', () => {
     });
 
     describe('search', () => {
-        it('search props를 통해 입력된 키워드로 table item들을 검색할 수 있다 (단, searchable:false인 key는 검색 대상에서 제외된다)', async () => {
+        it('search 영역이 있고, 값이 업데이트 되면 table item들을 검색할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
                     headers,
                     items,
-                    search: '',
+                    search: true,
                 },
             });
 
             // when
-            await wrapper.setProps({ search: 'apple' });
+            await nextTick();
+            const input = wrapper.find('.search input');
+            (input.element as any).value = 'apple';
+            await input.trigger('input');
+            await nextTick();
+
+            // then
+            expect(wrapper.find('.search').exists()).toBe(true);
+            const visibleRows = wrapper.findAll('tbody tr').filter((node) => node.isVisible());
+            expect(visibleRows).toHaveLength(1);
+            const containsApple = visibleRows.some((row) => row.text().includes('Apple'));
+            const containsDurian = visibleRows.some((row) => row.text().includes('Durian'));
+            expect(containsApple).toBe(true);
+            expect(containsDurian).toBe(false);
+        });
+    });
+
+    describe('search text', () => {
+        it('searchText props를 통해 입력된 키워드로 table item들을 검색할 수 있다 (단, searchable:false인 key는 검색 대상에서 제외된다)', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers,
+                    items,
+                    searchText: '',
+                },
+            });
+
+            // when
+            await wrapper.setProps({ searchText: 'apple' });
             await nextTick();
 
             // then
             const visibleRows = wrapper.findAll('tbody tr').filter((node) => node.isVisible());
+            expect(visibleRows).toHaveLength(1);
             const containsApple = visibleRows.some((row) => row.text().includes('Apple'));
             const containsDurian = visibleRows.some((row) => row.text().includes('Durian'));
             expect(containsApple).toBe(true);
