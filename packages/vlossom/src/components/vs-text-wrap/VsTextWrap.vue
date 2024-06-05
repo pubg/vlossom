@@ -20,7 +20,7 @@
                     </button>
 
                     <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
-                        <vs-icon size="1.4rem" icon="link" />
+                        <vs-icon size="1.4rem" class="link-icon" icon="link" />
                     </button>
                 </div>
             </div>
