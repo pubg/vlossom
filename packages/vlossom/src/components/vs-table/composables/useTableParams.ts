@@ -1,6 +1,6 @@
-import { Ref, computed, watch } from 'vue';
+import { ComputedRef, Ref, computed, watch } from 'vue';
 import { utils } from '@/utils';
-import { SortType } from './../types';
+import { SortType, TableParams } from './../types';
 
 export function useTableParams(
     page: Ref<number>,
@@ -9,7 +9,7 @@ export function useTableParams(
     searchText: Ref<string>,
     ctx: any,
 ) {
-    const params = computed(() => ({
+    const params: ComputedRef<TableParams> = computed(() => ({
         page: page.value,
         itemsPerPage: itemsPerPage.value,
         sortTypes: sortTypes.value,
