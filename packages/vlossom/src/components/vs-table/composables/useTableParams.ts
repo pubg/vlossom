@@ -16,7 +16,7 @@ export function useTableParams(
         searchText: searchText.value,
     }));
 
-    let oldParams: Ref<TableParams | null> = ref(null);
+    const oldParams: Ref<TableParams | null> = ref(null);
 
     watch(
         params,
