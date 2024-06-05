@@ -2,49 +2,58 @@
 
 .vs-select {
     display: flex;
+    align-items: center;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 1px var(--vs-line-color));
-    height: var(--vs-select-height, 2.4rem);
+    min-height: var(--vs-select-height, 2.4rem);
     line-height: var(--vs-select-height, 2.4rem);
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     font-size: var(--vs-select-fontSize, 0.9rem);
 
-    .multiple-chips {
-        display: flex;
-        padding-left: 0.6rem;
-        overflow: hidden;
+    .select-wrap {
+        flex: 1;
 
-        .chips {
+        .multiple-chips {
             display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            overflow-y: hidden;
+            padding-left: 0.6rem;
+            overflow: hidden;
 
-            .chip-others {
-                margin-left: 0.2rem;
-                padding: 0 0.8rem;
+            .chips {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-top: 0.3rem;
+
+                .select-chip {
+                    margin-top: 0.1rem;
+                    margin-bottom: 0.1rem;
+                }
+                .chip-others {
+                    margin-left: 0.2rem;
+                    padding: 0 0.8rem;
+                }
             }
         }
-    }
 
-    input {
-        flex: 1;
-        padding: 0 0.8rem;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        color: var(--vs-select-fontColor, var(--vs-font-color));
-        cursor: pointer;
-        min-width: 2rem;
-        line-height: 1rem;
+        input {
+            padding: 0 0.8rem;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: var(--vs-select-fontColor, var(--vs-font-color));
+            cursor: pointer;
+            min-width: 2rem;
+            line-height: 1rem;
 
-        &.autocomplete {
-            cursor: default;
-        }
+            &.autocomplete {
+                cursor: default;
+            }
 
-        &:not(.autocomplete)::selection {
-            background: none;
+            &:not(.autocomplete)::selection {
+                background: none;
+            }
         }
     }
 
@@ -83,7 +92,7 @@
     }
 
     &.dense {
-        height: var(--vs-select-height, 2rem);
+        min-height: var(--vs-select-height, 2rem);
         line-height: var(--vs-select-height, 2rem);
         font-size: var(--vs-select-fontSize, 0.8rem);
     }
@@ -149,7 +158,7 @@
 
     &.dense {
         li {
-            height: var(--vs-select-height, 2rem);
+            min-height: var(--vs-select-height, 2rem);
             line-height: var(--vs-select-height, 2rem);
             font-size: var(--vs-select-fontSize, 0.8rem);
         }

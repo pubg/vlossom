@@ -64,6 +64,7 @@
                         flex-shrink: 0;
                     }
                     .search-input {
+                        font-weight: 400;
                         flex-grow: 1;
                     }
                 }
@@ -187,7 +188,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border: var(--vs-table-hoverBorder, 1px solid var(--vs-font-color));
+            border: var(--vs-table-hoverBorder, 1px solid var(--vs-line-color));
             pointer-events: none;
         }
 

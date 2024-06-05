@@ -50,6 +50,7 @@ export function useSelectOption(
         } else {
             inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
         }
+        closeOptions();
     }
 
     function removeSelected(option: any) {

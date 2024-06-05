@@ -20,63 +20,66 @@
                 :style="computedStyleSet"
                 @click.stop="toggleOptions()"
             >
-                <div v-if="multiple && selectedOptions.length" class="multiple-chips">
-                    <div v-if="collapseChips" class="chips">
-                        <vs-chip
-                            :color-scheme="colorScheme"
-                            :style-set="chipStyleSets"
-                            :closable="closableChips"
-                            primary
-                            @close="removeSelected(selectedOptions[0].value)"
-                        >
-                            {{ getOptionLabel(selectedOptions[0].value) }}
-                        </vs-chip>
-                        <vs-chip
-                            v-if="selectedOptions.length > 1"
-                            class="chip-others"
-                            :color-scheme="colorScheme"
-                            :style-set="collapseChipStyleSets"
-                        >
-                            + {{ selectedOptions.length - 1 }}
-                        </vs-chip>
+                <div class="select-wrap">
+                    <div v-if="multiple && selectedOptions.length" class="multiple-chips">
+                        <div v-if="collapseChips" class="chips">
+                            <vs-chip
+                                class="select-chip"
+                                :color-scheme="colorScheme"
+                                :style-set="chipStyleSets"
+                                :closable="closableChips"
+                                primary
+                                @close="removeSelected(selectedOptions[0].value)"
+                            >
+                                {{ getOptionLabel(selectedOptions[0].value) }}
+                            </vs-chip>
+                            <vs-chip
+                                v-if="selectedOptions.length > 1"
+                                class="select-chip chip-others"
+                                :color-scheme="colorScheme"
+                                :style-set="collapseChipStyleSets"
+                            >
+                                + {{ selectedOptions.length - 1 }}
+                            </vs-chip>
+                        </div>
+                        <div v-else class="chips">
+                            <vs-chip
+                                class="select-chip"
+                                v-for="option in selectedOptions"
+                                :key="`selected-${option.id}`"
+                                :color-scheme="colorScheme"
+                                :style-set="chipStyleSets"
+                                :closable="closableChips"
+                                primary
+                                @close="removeSelected(option.value)"
+                            >
+                                {{ getOptionLabel(option.value) }}
+                            </vs-chip>
+                        </div>
                     </div>
-                    <div v-else class="chips">
-                        <vs-chip
-                            v-for="option in selectedOptions"
-                            :key="`selected-${option.id}`"
-                            :color-scheme="colorScheme"
-                            :style-set="chipStyleSets"
-                            :closable="closableChips"
-                            primary
-                            @close="removeSelected(option.value)"
-                        >
-                            {{ getOptionLabel(option.value) }}
-                        </vs-chip>
-                    </div>
+
+                    <input
+                        ref="inputRef"
+                        :id="id"
+                        role="combobox"
+                        :aria-expanded="isOpen || isVisible"
+                        :aria-label="ariaLabel"
+                        aria-controls="vs-select-options"
+                        :aria-autocomplete="autocomplete ? 'list' : undefined"
+                        :aria-activedescendant="focusedOptionId"
+                        :class="{ autocomplete }"
+                        :disabled="disabled"
+                        :placeholder="placeholder"
+                        :readonly="readonly || !autocomplete"
+                        :aria-required="required"
+                        :value="inputLabel"
+                        @input.stop="onInput"
+                        @focus.stop="onFocus"
+                        @blur.stop="onBlur"
+                        @keydown.stop="onKeyDown"
+                        @change.stop
+                    />
                 </div>
-
-                <input
-                    ref="inputRef"
-                    :id="id"
-                    role="combobox"
-                    :aria-expanded="isOpen || isVisible"
-                    :aria-label="ariaLabel"
-                    aria-controls="vs-select-options"
-                    :aria-autocomplete="autocomplete ? 'list' : undefined"
-                    :aria-activedescendant="focusedOptionId"
-                    :class="{ autocomplete }"
-                    :disabled="disabled"
-                    :placeholder="placeholder"
-                    :readonly="readonly || !autocomplete"
-                    :aria-required="required"
-                    :value="inputLabel"
-                    @input.stop="onInput"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                    @keydown.stop="onKeyDown"
-                    @change.stop
-                />
-
                 <button
                     v-if="!noClear && selectedOptions.length && !readonly && !disabled"
                     type="button"
