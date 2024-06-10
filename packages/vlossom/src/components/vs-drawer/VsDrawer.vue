@@ -87,7 +87,7 @@ export default defineComponent({
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         position: { type: String as PropType<CssPosition>, default: 'absolute' },
-        size: { type: String as PropType<Size | string>, default: 'sm' },
+        size: { type: [String, Number] as PropType<Size | string | number>, default: 'sm' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -118,12 +118,14 @@ export default defineComponent({
             const style: { [key: string]: string } = {};
 
             if (hasSpecifiedSize.value) {
+                const convertedSize = isNaN(Number(size.value)) ? size.value : `${size.value}px`;
+
                 if (placement.value === 'top' || placement.value === 'bottom') {
-                    style['--vs-drawer-height'] = size.value;
+                    style['--vs-drawer-height'] = convertedSize as string;
                 }
 
                 if (placement.value === 'left' || placement.value === 'right') {
-                    style['--vs-drawer-width'] = size.value;
+                    style['--vs-drawer-width'] = convertedSize as string;
                 }
             } else {
                 if (placement.value === 'left' || placement.value === 'right') {
