@@ -161,7 +161,7 @@ export const StyleSet: Story = {
             checkboxColor: '#81c798',
             checkboxSize: '2rem',
             checkboxGap: '3rem',
-            flexWrap: 'nowrap'
+            flexWrap: 'nowrap',
         },
     },
 };

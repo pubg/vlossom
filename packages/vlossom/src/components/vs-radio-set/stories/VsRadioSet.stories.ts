@@ -163,7 +163,7 @@ export const StyleSet: Story = {
             radioColor: '#18a865',
             radioSize: '2.4rem',
             radioGap: '8rem',
-            flexWrap: 'nowrap'
+            flexWrap: 'nowrap',
         },
     },
 };
