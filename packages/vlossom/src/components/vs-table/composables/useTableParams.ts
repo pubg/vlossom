@@ -16,17 +16,14 @@ export function useTableParams(
         searchText: searchText.value,
     }));
 
-    const oldParams: Ref<TableParams | null> = ref(null);
-
     watch(
         params,
-        () => {
-            if (utils.object.isEqual(oldParams.value, params.value)) {
+        (newParams, oldParams) => {
+            if (utils.object.isEqual(oldParams, newParams)) {
                 return;
             }
 
-            ctx.emit('update', params.value);
-            oldParams.value = params.value;
+            ctx.emit('update', newParams);
         },
         { deep: true, immediate: true },
     );
