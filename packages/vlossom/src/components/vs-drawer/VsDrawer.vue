@@ -134,8 +134,8 @@ export default defineComponent({
 
         const computedStyleSet: ComputedRef<{ [key: string]: string }> = computed(() => {
             return {
-                ...drawerStyleSet.value,
                 ...positionStyle.value,
+                ...drawerStyleSet.value,
                 ...sizeStyle.value,
             };
         });
