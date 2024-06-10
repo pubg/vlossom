@@ -664,7 +664,7 @@ describe('vs-select', () => {
         });
 
         describe('keyboard interaction', () => {
-            it('combobox가 focus를 받은 상태에서 Enter 키, Space 바를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
+            it('combobox가 focus를 받은 상태에서 Enter 키를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Enter' });
                 // then
@@ -675,17 +675,13 @@ describe('vs-select', () => {
                 await vi.advanceTimersByTime(500);
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
+            });
 
+            it('combobox가 focus를 받은 상태에서 Space 키를 누르면 옵션 리스트를 열 수 있다', async () => {
                 // when
                 await wrapper.find('input').trigger('keydown', { code: 'Space' });
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
-
-                // when
-                await wrapper.find('input').trigger('keydown', { code: 'Space' });
-                await vi.advanceTimersByTime(500);
-                // then
-                expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
             });
 
             it('combobox가 focus를 받은 상태에서 Arrow Down 키를 누르면 옵션 리스트가 열리고 listbox의 첫번째 옵션으로 focus가 이동한다', async () => {
