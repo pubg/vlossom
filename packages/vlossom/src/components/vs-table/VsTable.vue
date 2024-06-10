@@ -94,6 +94,7 @@
 <script lang="ts">
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
+import { useTableParams } from './composables/useTableParams';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
 import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
@@ -166,9 +167,16 @@ export default defineComponent({
             default: () => [] as any[],
         },
     },
-    emits: ['update:itemsPerPage', 'update:page', 'update:pagedItems', 'update:selectedItems', 'update:totalItems'],
+    emits: [
+        'update',
+        'update:itemsPerPage',
+        'update:page',
+        'update:pagedItems',
+        'update:selectedItems',
+        'update:totalItems',
+    ],
     expose: ['expand'],
-    setup(props, { slots, emit }) {
+    setup(props, ctx) {
         const {
             colorScheme,
             styleSet,
@@ -183,6 +191,7 @@ export default defineComponent({
             searchText,
             totalLength,
         } = toRefs(props);
+        const { emit, slots } = ctx;
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -312,6 +321,8 @@ export default defineComponent({
             },
             { immediate: true },
         );
+
+        useTableParams(innerPage, innerItemsPerPage, sortTypes, computedSearchText, ctx);
 
         function emitSelectedItems(items: any[]) {
             emit('update:selectedItems', items);

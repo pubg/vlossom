@@ -64,13 +64,13 @@ export default defineComponent({
         },
     },
     emits: ['change:searchText', 'update:sortTypes'],
-    setup(props, context) {
+    setup(props, ctx) {
         const { headers } = toRefs(props);
 
-        const { updateSortTypes, getSortIcon } = useSortableHeader(headers, context);
+        const { updateSortTypes, getSortIcon } = useSortableHeader(headers, ctx);
 
         function emitSearchText(searchText: string) {
-            context.emit('change:searchText', searchText);
+            ctx.emit('change:searchText', searchText);
         }
 
         return { updateSortTypes, getSortIcon, emitSearchText };
