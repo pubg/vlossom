@@ -53,6 +53,13 @@ export function useFocusControl(
         event.preventDefault();
     }
 
+    function onSpaceKey(event: KeyboardEvent) {
+        if (isOpen.value && focusedIndex.value !== -1) {
+            selectFocusedOption();
+            event.preventDefault();
+        }
+    }
+
     function onEnterKey(event: KeyboardEvent) {
         if (isOpen.value) {
             if (focusedIndex.value !== -1) {
@@ -102,8 +109,10 @@ export function useFocusControl(
                 onArrowUpKey(event);
                 break;
             case 'Enter':
-            case 'Space':
                 onEnterKey(event);
+                break;
+            case 'Space':
+                onSpaceKey(event);
                 break;
             case 'Escape':
                 onEscapeKey(event);
