@@ -231,4 +231,116 @@ describe('vs-modal', () => {
             expect(wrapper.findComponent({ name: 'VsFocusTrap' }).exists()).toBe(true);
         });
     });
+
+    describe('size', () => {
+        describe('size prop이 style set 보다 우선된다', () => {
+            it('width', () => {
+                // given
+                const wrapper = mount(VsModal, {
+                    props: {
+                        modelValue: true,
+                        size: '270px',
+                        styleSet: { width: '320px' },
+                    },
+                    global: {
+                        stubs: ['Teleport'],
+                    },
+                });
+
+                // then
+                expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-width: 270px;');
+            });
+
+            it('height', () => {
+                // given
+                const wrapper = mount(VsModal, {
+                    props: {
+                        modelValue: true,
+                        size: '270px',
+                        styleSet: { height: '320px' },
+                    },
+                    global: {
+                        stubs: ['Teleport'],
+                    },
+                });
+
+                // then
+                expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-height: 270px;');
+            });
+        });
+
+        it('size prop이 SIZE 배열의 원소 중 하나인 경우, 해당 값이 dialog node의 클래스로 지정된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                    placement: 'top',
+                    size: 'lg',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('.modal-dialog').classes()).toContain('lg');
+        });
+
+        it('size prop이 숫자로 변환가능한 경우 해당 값이 px로 전환되어 width와 height로 지정된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                    placement: 'top',
+                    size: '20',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-width: 20px;');
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-height: 20px;');
+        });
+
+        it('size prop이 숫자로 변환가능하지 않은 경우 해당 값이 width와 height로 지정된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                    placement: 'top',
+                    size: '20%',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-width: 20%;');
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-height: 20%;');
+        });
+
+        it('size prop이 object 타입인 경우 width와 height가 각각 지정된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                    placement: 'top',
+                    size: {
+                        width: 20,
+                        height: 30,
+                    },
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-width: 20px;');
+            expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-height: 30px;');
+        });
+    });
 });
