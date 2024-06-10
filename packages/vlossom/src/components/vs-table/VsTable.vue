@@ -168,10 +168,10 @@ export default defineComponent({
         },
     },
     emits: [
+        'update',
         'update:itemsPerPage',
         'update:page',
         'update:pagedItems',
-        'update:params',
         'update:selectedItems',
         'update:totalItems',
     ],

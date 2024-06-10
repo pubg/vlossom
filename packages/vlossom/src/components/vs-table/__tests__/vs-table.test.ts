@@ -399,7 +399,7 @@ describe('VsTable', () => {
     });
 
     describe('table params', () => {
-        it('page 변경 시 update:params event가 emit된다', async () => {
+        it('page 변경 시 update event가 emit된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -414,12 +414,12 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update');
             expect(updateParamsEvent).toBeTruthy();
             expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('page', 2);
         });
 
-        it('itemsPerPage 변경 시 update:params event가 emit된다', async () => {
+        it('itemsPerPage 변경 시 update event가 emit된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -437,12 +437,12 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update');
             expect(updateParamsEvent).toBeTruthy();
             expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('itemsPerPage', 3);
         });
 
-        it('searchText 변경 시 update:params event가 emit된다', async () => {
+        it('searchText 변경 시 update event가 emit된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -456,12 +456,12 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update');
             expect(updateParamsEvent).toBeTruthy();
             expect(updateParamsEvent?.[1]?.[0]).toHaveProperty('searchText', 'text');
         });
 
-        it('sort type 변경 시 update:params event가 emit된다', async () => {
+        it('sort type 변경 시 update event가 emit된다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
                 props: {
@@ -479,7 +479,7 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update:params');
+            const updateParamsEvent: TableParams[][] | undefined = wrapper.emitted('update');
             expect(updateParamsEvent).toBeTruthy();
             expect(updateParamsEvent?.[1]?.[0]?.['sortTypes']).toHaveProperty('name', 1);
         });

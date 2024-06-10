@@ -25,7 +25,7 @@ export function useTableParams(
                 return;
             }
 
-            ctx.emit('update:params', params.value);
+            ctx.emit('update', params.value);
             oldParams.value = params.value;
         },
         { deep: true, immediate: true },
