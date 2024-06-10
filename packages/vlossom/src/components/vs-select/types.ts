@@ -11,6 +11,7 @@ export interface VsSelectStyleSet {
     height?: string;
     hoverOptionBackgroundColor?: string;
     hoverOptionColor?: string;
+    optionsHeight?: string;
     selectedOptionBackgroundColor?: string;
     selectedOptionColor?: string;
 }
