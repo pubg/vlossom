@@ -2,7 +2,9 @@ import { customAlphabet } from 'nanoid';
 
 export const stringUtil = {
     createID(size = 10): string {
-        const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        // element ID should not start with a number
+        // https://www.w3schools.com/html/html_id.asp
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
         const nanoid = customAlphabet(chars, size);
         return nanoid();
     },
