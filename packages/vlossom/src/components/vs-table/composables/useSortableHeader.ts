@@ -2,10 +2,10 @@ import { Ref, ref, watch } from 'vue';
 import { SortType, TableHeader } from './../types';
 
 export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
-    const sortTypes: Ref<{ [key: string]: SortType }> = ref({});
+    const innerSortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
     const initSortTypes = () => {
-        sortTypes.value = headers.value.reduce(
+        innerSortTypes.value = headers.value.reduce(
             (acc, { key, sortable = false }) => {
                 if (sortable) {
                     acc[key] = SortType.NONE;
@@ -22,15 +22,17 @@ export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
         if (!sortable) {
             return;
         }
-        Object.keys(sortTypes.value).forEach((sortKey: string) => {
+        const newSortTypes = { ...innerSortTypes.value };
+        Object.keys(innerSortTypes.value).forEach((sortKey: string) => {
             if (key === sortKey) {
-                const type = sortTypes.value[sortKey];
-                sortTypes.value[sortKey] = (type + 1) % 3;
+                const type = innerSortTypes.value[sortKey];
+                newSortTypes[sortKey] = (type + 1) % 3;
             } else {
-                sortTypes.value[sortKey] = SortType.NONE;
+                newSortTypes[sortKey] = SortType.NONE;
             }
         });
-        ctx.emit('update:sortTypes', sortTypes.value);
+        innerSortTypes.value = newSortTypes;
+        ctx.emit('update:sortTypes', newSortTypes);
     }
 
     function getSortIcon(type: SortType) {

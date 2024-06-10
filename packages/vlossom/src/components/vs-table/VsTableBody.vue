@@ -69,13 +69,13 @@ import { useTableFilter } from './composables/useTableFilter';
 import { useTableSort } from './composables/useTableSort';
 import { useTableExpand } from './composables/useTableExpand';
 import { useTableSelect } from './composables/useTableSelect';
+import { useTablePagination } from './composables/useTablePagination';
 import { VsIcon } from '@/icons';
 import { VsCheckboxNode } from '@/nodes';
 import { utils } from '@/utils';
 
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
-import { useTablePagination } from './composables/useTablePagination';
 
 export default defineComponent({
     name: 'VsTableBody',
