@@ -1,14 +1,22 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="MODAL_CLOSE_DELAY">
-            <div v-if="isOpen" :class="['vs-modal', { 'has-container': hasContainer }]" :style="computedStyleSet">
-                <div class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-                <vs-focus-trap :initial-focus-ref="initialFocusRef">
+        <Transition name="modal" :duration="CLOSE_DELAY">
+            <div
+                v-if="isOpen"
+                :class="['vs-modal', { 'has-container': hasContainer }]"
+                :style="{
+                    ...computedStyleSet,
+                    ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
+                }"
+            >
+                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
+                <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
                         :class="['modal-dialog', `vs-${computedColorScheme}`, size]"
                         :style-set="computedStyleSet"
                         :close-on-esc="closeOnEsc"
                         :hide-scroll="hideScroll"
+                        :isModal="dimmed"
                         @close="() => (isOpen = false)"
                     >
                         <template #header v-if="hasHeader">
@@ -26,16 +34,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, Size, type ColorScheme } from '@/declaration';
+import { VsComponent, Size, type ColorScheme, SCROLLBAR_WIDTH } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
-const MODAL_CLOSE_DELAY = 200;
+const CLOSE_DELAY = 200;
 
 export default defineComponent({
     name,
@@ -45,6 +53,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
+        dimmed: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
@@ -54,7 +63,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, hasContainer } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -64,6 +73,11 @@ export default defineComponent({
         const hasFooter = computed(() => !!slots['footer']);
 
         const isOpen = ref(modelValue.value);
+        const originalOverflow = ref('');
+
+        onMounted(() => {
+            originalOverflow.value = document.body.style.overflow;
+        });
 
         watch(modelValue, (val) => {
             isOpen.value = val;
@@ -71,19 +85,31 @@ export default defineComponent({
 
         watch(
             isOpen,
-            (val) => {
-                if (val && !hasContainer.value) {
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.paddingRight = '15px';
-                } else {
-                    setTimeout(() => {
-                        document.body.style.overflow = '';
-                        document.body.style.paddingRight = '';
-                    }, MODAL_CLOSE_DELAY);
+            (open) => {
+                if (dimmed.value && !hasContainer.value) {
+                    if (open) {
+                        setTimeout(() => {
+                            if (document.body.scrollHeight > window.innerHeight) {
+                                document.body.style.overflow = 'hidden';
+                                document.body.style.paddingRight = SCROLLBAR_WIDTH;
+                            }
+
+                            if (document.body.scrollWidth > window.innerWidth) {
+                                document.body.style.overflow = 'hidden';
+                                document.body.style.paddingBottom = SCROLLBAR_WIDTH;
+                            }
+                        });
+                    } else {
+                        setTimeout(() => {
+                            document.body.style.overflow = originalOverflow.value;
+                            document.body.style.paddingRight = '0';
+                            document.body.style.paddingBottom = '0';
+                        }, CLOSE_DELAY);
+                    }
                 }
 
-                if (val !== modelValue.value) {
-                    emit('update:modelValue', val);
+                if (open !== modelValue.value) {
+                    emit('update:modelValue', open);
                 }
             },
             { immediate: true },
@@ -102,7 +128,7 @@ export default defineComponent({
             clickDimmed,
             hasHeader,
             hasFooter,
-            MODAL_CLOSE_DELAY,
+            CLOSE_DELAY,
         };
     },
 });
