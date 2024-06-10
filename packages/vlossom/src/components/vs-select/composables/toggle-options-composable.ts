@@ -1,7 +1,9 @@
 import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlay, usePositioning } from '@/composables';
 
-export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>) {
+export function useToggleOptions(id: string, disabled: Ref<boolean>, readonly: Ref<boolean>) {
+    useOverlay();
+
     const isOpen = ref(false);
     const isClosing = ref(false);
 
@@ -21,8 +23,6 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
         isOpen.value = false;
     }
 
-    useOverlay();
-
     const triggerRef: Ref<HTMLElement | null> = ref(null);
     const optionsRef: Ref<HTMLElement | null> = ref(null);
 
@@ -31,14 +31,17 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
         optionsRef as Ref<HTMLElement>,
     );
 
-    function onOutsideClick() {
-        if (isOpen.value) {
+    function onOutsideClick(e: MouseEvent) {
+        const target = e.target as HTMLElement;
+
+        // check if click outside of select
+        if (isOpen.value && target.closest(`#${id}`) === null && target.closest('.vs-select-options') === null) {
             closeOptions();
         }
     }
 
-    watch(isOpen, (newValue) => {
-        if (newValue) {
+    watch(isOpen, (opened) => {
+        if (opened) {
             appear({
                 align: 'start',
                 placement: 'bottom',
@@ -46,10 +49,10 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
             });
 
             setTimeout(() => {
-                document.addEventListener('click', onOutsideClick);
+                document.addEventListener('click', onOutsideClick, true);
             });
         } else {
-            document.removeEventListener('click', onOutsideClick);
+            document.removeEventListener('click', onOutsideClick, true);
             isClosing.value = true;
 
             // delay for animation
@@ -62,7 +65,7 @@ export function useToggleOptions(disabled: Ref<boolean>, readonly: Ref<boolean>)
     });
 
     onBeforeUnmount(() => {
-        document.removeEventListener('click', onOutsideClick);
+        document.removeEventListener('click', onOutsideClick, true);
     });
 
     return { isOpen, isClosing, isVisible, computedPlacement, toggleOptions, closeOptions, triggerRef, optionsRef };

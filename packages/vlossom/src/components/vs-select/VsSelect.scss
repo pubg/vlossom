@@ -105,14 +105,14 @@
     }
 }
 
-.options-container {
+.vs-options-container {
     z-index: 900;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     overflow: hidden;
 
-    .options {
+    .vs-select-options {
         max-height: 25rem;
         overflow: auto;
         list-style-type: none;

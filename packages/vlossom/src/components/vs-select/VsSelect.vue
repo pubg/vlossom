@@ -101,7 +101,7 @@
                     <div
                         ref="optionsRef"
                         :class="[
-                            'options-container',
+                            'vs-options-container',
                             `vs-${computedColorScheme}`,
                             animationClass,
                             { dense: dense, closing: isClosing },
@@ -113,11 +113,10 @@
                         </div>
                         <ul
                             ref="listboxRef"
-                            id="vs-select-options"
                             role="listbox"
+                            class="vs-select-options"
                             :aria-multi-selectable="multiple"
                             :aria-activedescendant="focusedOptionId"
-                            class="options"
                             tabindex="-1"
                             @keydown.stop="onKeyDown"
                         >
@@ -350,54 +349,6 @@ export default defineComponent({
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
 
-        const { getOptionLabel, getOptionValue } = useInputOption(
-            inputValue,
-            options,
-            optionLabel,
-            optionValue,
-            multiple,
-        );
-
-        const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
-            useToggleOptions(disabled, readonly);
-
-        const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
-            computedOptions,
-            getOptionLabel,
-            isOpen,
-        );
-
-        const { listboxRef, loadedOptions } = useInfiniteScroll(filteredOptions, lazyLoadNum, isOpen);
-
-        const { selectOption, selectAllOptions, isSelectedOption, isAllSelected, removeSelected, selectedOptions } =
-            useSelectOption(
-                inputValue,
-                computedOptions,
-                getOptionLabel,
-                getOptionValue,
-                multiple,
-                closeOptions,
-                autocomplete,
-                autocompleteText,
-                focus,
-            );
-
-        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, isChasedOption, focusedOptionId } =
-            useFocusControl(
-                disabled,
-                readonly,
-                isOpen,
-                closeOptions,
-                selectAll,
-                isAllSelected,
-                selectedOptions,
-                filteredOptions,
-                loadedOptions,
-                selectOption,
-                selectAllOptions,
-                focus,
-            );
-
         function requiredCheck() {
             if (!required.value) {
                 return '';
@@ -450,6 +401,54 @@ export default defineComponent({
         );
 
         const { stateClasses } = useStateClass(computedState);
+
+        const { getOptionLabel, getOptionValue } = useInputOption(
+            inputValue,
+            options,
+            optionLabel,
+            optionValue,
+            multiple,
+        );
+
+        const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
+            useToggleOptions(id, disabled, readonly);
+
+        const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            computedOptions,
+            getOptionLabel,
+            isOpen,
+        );
+
+        const { listboxRef, loadedOptions } = useInfiniteScroll(filteredOptions, lazyLoadNum, isOpen);
+
+        const { selectOption, selectAllOptions, isSelectedOption, isAllSelected, removeSelected, selectedOptions } =
+            useSelectOption(
+                inputValue,
+                computedOptions,
+                getOptionLabel,
+                getOptionValue,
+                multiple,
+                closeOptions,
+                autocomplete,
+                autocompleteText,
+                focus,
+            );
+
+        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, isChasedOption, focusedOptionId } =
+            useFocusControl(
+                disabled,
+                readonly,
+                isOpen,
+                closeOptions,
+                selectAll,
+                isAllSelected,
+                selectedOptions,
+                filteredOptions,
+                loadedOptions,
+                selectOption,
+                selectAllOptions,
+                focus,
+            );
 
         const focusing = ref(false);
 
