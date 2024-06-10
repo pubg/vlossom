@@ -54,21 +54,23 @@ export function useFocusControl(
     }
 
     function onSpaceKey(event: KeyboardEvent) {
-        if (isOpen.value && focusedIndex.value !== -1) {
+        if (!isOpen.value) {
+            isOpen.value = true;
+        } else if (focusedIndex.value !== -1) {
             selectFocusedOption();
-            event.preventDefault();
+        } else {
+            return;
         }
+        event.preventDefault();
     }
 
     function onEnterKey(event: KeyboardEvent) {
-        if (isOpen.value) {
-            if (focusedIndex.value !== -1) {
-                selectFocusedOption();
-            } else {
-                closeOptions();
-            }
-        } else {
+        if (!isOpen.value) {
             isOpen.value = true;
+        } else if (focusedIndex.value !== -1) {
+            selectFocusedOption();
+        } else {
+            closeOptions();
         }
 
         event.preventDefault();
@@ -82,11 +84,7 @@ export function useFocusControl(
     }
 
     function onTabKey() {
-        if (isOpen.value) {
-            if (focusedIndex.value !== -1) {
-                selectFocusedOption();
-            }
-
+        if (isOpen.value && focusedIndex.value !== -1) {
             closeOptions();
         }
     }
