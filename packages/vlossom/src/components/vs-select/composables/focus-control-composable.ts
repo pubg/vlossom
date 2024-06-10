@@ -84,7 +84,10 @@ export function useFocusControl(
     }
 
     function onTabKey() {
-        if (isOpen.value && focusedIndex.value !== -1) {
+        if (isOpen.value) {
+            if (focusedIndex.value !== -1) {
+                selectFocusedOption();
+            }
             closeOptions();
         }
     }
