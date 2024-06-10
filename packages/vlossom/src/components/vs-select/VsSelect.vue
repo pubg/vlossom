@@ -15,6 +15,7 @@
             </template>
 
             <div
+                :id="id"
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
@@ -24,7 +25,6 @@
                     <input
                         v-if="!(multiple && !autocomplete && selectedOptions.length)"
                         ref="inputRef"
-                        :id="id"
                         role="combobox"
                         :class="['vs-select-input', { autocomplete }]"
                         :aria-expanded="isOpen || isVisible"
