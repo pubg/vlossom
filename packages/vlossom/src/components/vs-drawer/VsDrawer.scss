@@ -48,7 +48,7 @@ $sizes: xs, sm, md, lg, xl;
         &.left,
         &.right {
             max-width: var(--vs-drawer-width);
-            min-width: fit-content;
+            min-width: 200px;
 
             @each $size in $sizes {
                 &.#{$size} {
@@ -60,6 +60,8 @@ $sizes: xs, sm, md, lg, xl;
         &.top,
         &.bottom {
             max-height: var(--vs-drawer-height);
+            min-height: 100px;
+
             @each $size in $sizes {
                 &.#{$size} {
                     max-height: var(--vs-drawer-height-#{$size});
