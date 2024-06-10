@@ -1,6 +1,7 @@
 .vs-radio-set {
     display: flex;
     align-items: center;
+    flex-wrap: var(--vs-radio-set-flexWrap, wrap);
 
     &.vertical {
         flex-direction: column;
