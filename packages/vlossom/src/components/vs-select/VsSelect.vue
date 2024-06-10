@@ -26,12 +26,12 @@
                         ref="inputRef"
                         :id="id"
                         role="combobox"
+                        :class="['vs-select-input', { autocomplete }]"
                         :aria-expanded="isOpen || isVisible"
                         :aria-label="ariaLabel"
                         aria-controls="vs-select-options"
                         :aria-autocomplete="autocomplete ? 'list' : undefined"
                         :aria-activedescendant="focusedOptionId"
-                        :class="{ autocomplete }"
                         :disabled="disabled"
                         :placeholder="placeholder"
                         :readonly="readonly || !autocomplete"
@@ -154,13 +154,8 @@
                             <li
                                 v-for="(option, index) in loadedOptions"
                                 :key="option.id"
-                                :id="option.id"
                                 role="option"
-                                :aria-label="getOptionLabel(option.value)"
-                                :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
-                                :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
-                                :aria-setsize="filteredOptions.length"
-                                :aria-posinset="(selectAll ? 2 : 1) + index"
+                                :id="option.id"
                                 :class="[
                                     'vs-option',
                                     {
@@ -168,6 +163,11 @@
                                         chased: isChasedOption(index),
                                     },
                                 ]"
+                                :aria-label="getOptionLabel(option.value)"
+                                :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
+                                :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
+                                :aria-setsize="filteredOptions.length"
+                                :aria-posinset="(selectAll ? 2 : 1) + index"
                                 @mousemove.stop="onMouseMove(option)"
                                 @click.stop="selectOption(option.value)"
                             >

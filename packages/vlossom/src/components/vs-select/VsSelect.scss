@@ -12,7 +12,7 @@
     .select-wrap {
         flex: 1;
 
-        input {
+        .vs-select-input {
             padding: 0 0.8rem;
             border: none;
             outline: none;
@@ -58,7 +58,7 @@
             }
 
             &.autocompleted {
-                padding-bottom: 0.3rem;
+                padding-bottom: 0.4rem;
             }
         }
     }
