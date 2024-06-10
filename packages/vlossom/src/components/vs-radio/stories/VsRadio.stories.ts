@@ -157,7 +157,6 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            focusBoxShadow: '0 0 0 3px #81c798',
             labelFontColor: '#ac77c8',
             labelFontSize: '1.5rem',
             radioColor: '#41c798',

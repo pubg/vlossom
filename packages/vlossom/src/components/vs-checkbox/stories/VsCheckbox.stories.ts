@@ -224,7 +224,6 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             borderRadius: '1.3rem',
-            focusBoxShadow: '0 0 0 3px #81c798',
             labelFontColor: '#a0b0b9',
             labelFontSize: '0.8rem',
             checkboxColor: '#81c798',

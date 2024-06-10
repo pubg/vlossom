@@ -155,13 +155,13 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            borderRadius: '0.8rem',
-            focusBoxShadow: '0 0 0 3px #81c798',
+            borderRadius: '0.1rem',
             labelFontColor: '#a0b0b9',
-            labelFontSize: '0.8rem',
+            labelFontSize: '1.2rem',
             checkboxColor: '#81c798',
-            checkboxSize: '4rem',
+            checkboxSize: '2rem',
             checkboxGap: '3rem',
+            flexWrap: 'nowrap',
         },
     },
 };

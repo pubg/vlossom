@@ -1,6 +1,7 @@
 .vs-checkbox-set {
     display: flex;
     align-items: center;
+    flex-wrap: var(--vs-checkbox-set-flexWrap, wrap);
 
     &.vertical {
         flex-direction: column;
