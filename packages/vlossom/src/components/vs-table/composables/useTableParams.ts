@@ -1,4 +1,4 @@
-import { ComputedRef, Ref, computed, watch, ref } from 'vue';
+import { ComputedRef, Ref, computed, watch } from 'vue';
 import { utils } from '@/utils';
 import { SortType, TableParams } from './../types';
 
