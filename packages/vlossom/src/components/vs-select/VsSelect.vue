@@ -26,9 +26,10 @@
                         v-if="!(multiple && !autocomplete && selectedOptions.length)"
                         ref="inputRef"
                         role="combobox"
+                        :id="`${id}-input`"
                         :class="['vs-select-input', { autocomplete }]"
                         :aria-expanded="isOpen || isVisible"
-                        :aria-label="ariaLabel"
+                        :aria-label="ariaLabel || label || 'select input'"
                         aria-controls="vs-select-options"
                         :aria-autocomplete="autocomplete ? 'list' : undefined"
                         :aria-activedescendant="focusedOptionId"
@@ -419,12 +420,26 @@ export default defineComponent({
             multiple,
         );
 
+        const inputLabel = computed(() => {
+            if (focusing.value && autocomplete.value) {
+                return autocompleteText.value;
+            }
+
+            if (multiple.value) {
+                return '';
+            }
+
+            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
+        });
+
         const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(id, disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            autocomplete,
             computedOptions,
             getOptionLabel,
+            inputLabel,
             isOpen,
         );
 
@@ -474,23 +489,8 @@ export default defineComponent({
         function onBlur(e: FocusEvent) {
             focusing.value = false;
 
-            if (autocomplete.value) {
-                autocompleteText.value = inputLabel.value;
-            }
             emit('blur', e);
         }
-
-        const inputLabel = computed(() => {
-            if (focusing.value && autocomplete.value) {
-                return autocompleteText.value;
-            }
-
-            if (multiple.value) {
-                return '';
-            }
-
-            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
-        });
 
         const animationClass = computed(() => {
             if (isOpen.value) {
