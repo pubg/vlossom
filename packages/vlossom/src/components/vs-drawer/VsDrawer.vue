@@ -67,6 +67,8 @@ import type { VsDrawerStyleSet } from './types';
 const name = VsComponent.VsDrawer;
 const CLOSE_DELAY = 300;
 
+type SizeProp = Size | string | number;
+
 export default defineComponent({
     name,
     components: { VsDialogNode, VsFocusTrap },
@@ -87,7 +89,7 @@ export default defineComponent({
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         position: { type: String as PropType<CssPosition>, default: 'absolute' },
-        size: { type: String as PropType<Size | string>, default: 'sm' },
+        size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -118,16 +120,14 @@ export default defineComponent({
             const style: { [key: string]: string } = {};
 
             if (hasSpecifiedSize.value) {
+                const convertedSize = utils.string.convertToStringSize(size.value);
+
                 if (placement.value === 'top' || placement.value === 'bottom') {
-                    style['--vs-drawer-height'] = size.value;
+                    style['--vs-drawer-height'] = convertedSize;
                 }
 
                 if (placement.value === 'left' || placement.value === 'right') {
-                    style['--vs-drawer-width'] = size.value;
-                }
-            } else {
-                if (placement.value === 'left' || placement.value === 'right') {
-                    style['--vs-drawer-width'] = `var(--vs-drawer-width-${size.value})`;
+                    style['--vs-drawer-width'] = convertedSize;
                 }
             }
 

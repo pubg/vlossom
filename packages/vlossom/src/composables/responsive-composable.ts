@@ -7,14 +7,6 @@ function hasValue(value: any): value is string | number | Breakpoints {
     return value !== undefined && value !== null && value !== '';
 }
 
-function convertWidth(width: string | number) {
-    if (typeof width === 'string' && isNaN(Number(width))) {
-        return width;
-    } else {
-        return `${width}px`;
-    }
-}
-
 export function getResponsiveProps() {
     return {
         width: { type: [String, Number, Object] as PropType<string | number | Breakpoints>, default: null },
@@ -88,16 +80,16 @@ export function useResponsive(
             if (utils.object.isPlainObject(width.value)) {
                 const { base, sm, md, lg, xl } = width.value;
                 const widthStyles = {
-                    ...(hasValue(base) && { ['--vs-width-base']: convertWidth(base) }),
-                    ...(hasValue(sm) && { ['--vs-width-sm']: convertWidth(sm) }),
-                    ...(hasValue(md) && { ['--vs-width-md']: convertWidth(md) }),
-                    ...(hasValue(lg) && { ['--vs-width-lg']: convertWidth(lg) }),
-                    ...(hasValue(xl) && { ['--vs-width-xl']: convertWidth(xl) }),
+                    ...(hasValue(base) && { ['--vs-width-base']: utils.string.convertToStringSize(base) }),
+                    ...(hasValue(sm) && { ['--vs-width-sm']: utils.string.convertToStringSize(sm) }),
+                    ...(hasValue(md) && { ['--vs-width-md']: utils.string.convertToStringSize(md) }),
+                    ...(hasValue(lg) && { ['--vs-width-lg']: utils.string.convertToStringSize(lg) }),
+                    ...(hasValue(xl) && { ['--vs-width-xl']: utils.string.convertToStringSize(xl) }),
                 };
 
                 Object.assign(styles, widthStyles);
             } else {
-                styles['width'] = convertWidth(width.value);
+                styles['width'] = utils.string.convertToStringSize(width.value);
             }
         }
 

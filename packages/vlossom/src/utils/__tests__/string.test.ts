@@ -79,4 +79,41 @@ describe('string util', () => {
             expect(result).toBe(String(value));
         });
     });
+
+    describe('convertToStringSize', () => {
+        const { convertToStringSize } = stringUtil;
+
+        it('number 타입으로 변환할 수 없는 string 타입 패러미터가 입력되면, 그대로 리턴한다', () => {
+            // Given
+            const size = '10%';
+
+            // When
+            const result = convertToStringSize(size);
+
+            // Then
+            expect(result).toBe(size);
+        });
+
+        it('number 타입으로 변환할 수 있는 string 타입 패러미터가 입력되면, suffix로 "px"를 붙여서 리턴한다', () => {
+            // Given
+            const size = '10';
+
+            // When
+            const result = convertToStringSize(size);
+
+            // Then
+            expect(result).toBe(`${size}px`);
+        });
+
+        it('number 타입 패러미터가 입력되면, string 타입으로 변환한 후 suffix로 "px"를 붙여서 리턴한다', () => {
+            // Given
+            const size = 10;
+
+            // When
+            const result = convertToStringSize(size);
+
+            // Then
+            expect(result).toBe(`${size}px`);
+        });
+    });
 });
