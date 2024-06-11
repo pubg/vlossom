@@ -1,5 +1,5 @@
 <template>
-    <Transition name="drawer" :duration="300">
+    <Transition name="drawer" :duration="CLOSE_DELAY">
         <div
             v-show="isOpen"
             class="vs-drawer"
@@ -55,15 +55,17 @@ import {
     PLACEMENTS,
     LAYOUT_Z_INDEX,
     APP_LAYOUT_Z_INDEX,
+    SCROLLBAR_WIDTH,
+    VS_LAYOUT,
     type ColorScheme,
     type CssPosition,
-    VS_LAYOUT,
 } from '@/declaration';
 import { utils } from '@/utils';
 
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
+const CLOSE_DELAY = 300;
 
 export default defineComponent({
     name,
@@ -157,28 +159,30 @@ export default defineComponent({
 
         watch(
             isOpen,
-            (val) => {
+            (open) => {
                 if (dimmed.value && position.value === 'fixed') {
-                    if (val) {
+                    if (open) {
                         setTimeout(() => {
                             if (document.body.scrollHeight > window.innerHeight) {
                                 document.body.style.overflow = 'hidden';
-                                document.body.style.paddingRight = '0.4rem';
+                                document.body.style.paddingRight = SCROLLBAR_WIDTH;
                             }
 
                             if (document.body.scrollWidth > window.innerWidth) {
                                 document.body.style.overflow = 'hidden';
-                                document.body.style.paddingBottom = '0.4rem';
+                                document.body.style.paddingBottom = SCROLLBAR_WIDTH;
                             }
                         });
                     } else {
-                        document.body.style.overflow = originalOverflow.value;
-                        document.body.style.paddingRight = '0';
-                        document.body.style.paddingBottom = '0';
+                        setTimeout(() => {
+                            document.body.style.overflow = originalOverflow.value;
+                            document.body.style.paddingRight = '0';
+                            document.body.style.paddingBottom = '0';
+                        }, CLOSE_DELAY);
                     }
                 }
 
-                emit('update:modelValue', val);
+                emit('update:modelValue', open);
             },
             { immediate: true },
         );
@@ -214,6 +218,7 @@ export default defineComponent({
             hasSpecifiedSize,
             isOpen,
             clickDimmed,
+            CLOSE_DELAY,
         };
     },
 });
