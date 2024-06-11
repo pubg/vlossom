@@ -126,10 +126,10 @@
                         height: 1.6rem;
                         border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
                         border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
-                        background-color: var(--vs-table-bodyBackgroundColor, var(--vs-comp-bg));
+                        background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
 
                         i {
-                            color: var(--vs-comp-font);
+                            color: var(--vs-table-headerFontColor, var(--vs-font-color));
                             pointer-events: none;
                             transform: rotate(180deg);
                             transition: transform 0.4s;
@@ -154,10 +154,10 @@
                 &.expanded-row-content {
                     display: grid;
                     grid-column: 1/-1;
-                    padding: 0 1rem;
-                    border-top: 1px dashed var(--vs-line-color);
-                    border-left: 1px dashed var(--vs-line-color);
-                    border-right: 1px dashed var(--vs-line-color);
+                    padding: 1.2rem 1.4rem;
+                    border-top: 1px dotted var(--vs-line-color);
+                    border-left: 1px dotted var(--vs-line-color);
+                    border-right: 1px dotted var(--vs-line-color);
                     font-size: 0.9rem;
                     box-shadow: var(--vs-table-expand-box-shadow-up), var(--vs-table-expand-box-shadow-down);
                 }
