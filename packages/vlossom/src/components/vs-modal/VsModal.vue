@@ -96,15 +96,11 @@ export default defineComponent({
                     const convertedHeight = utils.string.convertToStringSize(height);
                     style['--vs-modal-height'] = convertedHeight;
                 }
-            } else {
-                if (hasSpecifiedSize.value) {
-                    const convertedSize = utils.string.convertToStringSize(size.value);
+            } else if (hasSpecifiedSize.value) {
+                const convertedSize = utils.string.convertToStringSize(size.value);
 
-                    style['--vs-modal-width'] = convertedSize;
-                    style['--vs-modal-height'] = convertedSize;
-                } else {
-                    style['--vs-modal-width'] = `var(--vs-modal-width-${size.value})`;
-                }
+                style['--vs-modal-width'] = convertedSize;
+                style['--vs-modal-height'] = convertedSize;
             }
 
             return style;

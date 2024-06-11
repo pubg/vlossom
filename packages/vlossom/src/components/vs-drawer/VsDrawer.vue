@@ -129,10 +129,6 @@ export default defineComponent({
                 if (placement.value === 'left' || placement.value === 'right') {
                     style['--vs-drawer-width'] = convertedSize;
                 }
-            } else {
-                if (placement.value === 'left' || placement.value === 'right') {
-                    style['--vs-drawer-width'] = `var(--vs-drawer-width-${size.value})`;
-                }
             }
 
             return style;
