@@ -21,8 +21,8 @@
         border-radius: 50%;
         background-color: var(--vs-white);
         border: var(--vs-chip-border, 1px solid var(--vs-line-color));
-        height: calc(var(--vs-chip-height, 1.35rem) * 0.8);
-        width: calc(var(--vs-chip-height, 1.35rem) * 0.8);
+        height: calc(var(--vs-chip-height, 1.6rem) * 0.6);
+        width: calc(var(--vs-chip-height, 1.6rem) * 0.6);
     }
 
     .close-button {

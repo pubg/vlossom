@@ -2,76 +2,99 @@
 
 .vs-select {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
-    border: var(--vs-select-border, solid 1px var(--vs-line-color));
-    height: var(--vs-select-height, 2.4rem);
-    line-height: var(--vs-select-height, 2.4rem);
+    border: var(--vs-select-border, 1px solid var(--vs-line-color));
+    min-height: var(--vs-select-height, 2.4rem);
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     font-size: var(--vs-select-fontSize, 0.9rem);
 
-    .multiple-chips {
-        display: flex;
-        padding-left: 0.6rem;
-        overflow: hidden;
+    .vs-select-wrap {
+        .vs-select-input {
+            width: 100%;
+            height: var(--vs-select-height, 2.4rem);
+            padding: 0 0.8rem;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: var(--vs-select-fontColor, var(--vs-font-color));
+            cursor: pointer;
 
-        .chips {
+            &.autocomplete {
+                cursor: default;
+            }
+
+            &:not(.autocomplete)::selection {
+                background: none;
+            }
+        }
+
+        .multiple-chips {
             display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            overflow-y: hidden;
+            padding-left: 0.6rem;
+            overflow: hidden;
 
-            .chip-others {
-                margin-left: 0.2rem;
-                padding: 0 0.8rem;
+            .chips {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+
+                .select-chip {
+                    margin-top: 0.1rem;
+                    margin-bottom: 0.1rem;
+                }
+                .chip-others {
+                    margin-left: 0.2rem;
+                    padding: 0 0.8rem;
+                }
+
+                &.multiple-only {
+                    padding-bottom: 0.3rem;
+                }
+            }
+
+            &.autocompleted {
+                padding-bottom: 0.4rem;
             }
         }
     }
 
-    input {
-        flex: 1;
-        padding: 0 0.8rem;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        color: var(--vs-select-fontColor, var(--vs-font-color));
-        cursor: pointer;
-        min-width: 2rem;
-        line-height: 1rem;
+    .vs-select-side {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 2.4rem;
 
-        &.autocomplete {
-            cursor: default;
-        }
-
-        &:not(.autocomplete)::selection {
+        .clear-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 0.6rem;
+            opacity: 1;
+            transition: opacity 0.4s;
+            color: var(--vs-input-clearButtonColor, var(--vs-font-color));
             background: none;
+            border: none;
+            cursor: pointer;
         }
-    }
 
-    .clear-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-right: 0.6rem;
-        opacity: 0;
-        transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-font-color));
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
+        .arrow-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-right: 0.6rem;
 
-    .arrow-box {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        padding-right: 0.6rem;
+            .arrow-icon {
+                transition: transform 0.2s ease-out;
 
-        .arrow-icon {
-            transition: transform 0.2s ease-out;
-
-            &.arrow-up {
-                transform: rotate(180deg);
+                &.arrow-up {
+                    transform: rotate(180deg);
+                }
             }
         }
     }
@@ -83,9 +106,12 @@
     }
 
     &.dense {
-        height: var(--vs-select-height, 2rem);
-        line-height: var(--vs-select-height, 2rem);
+        min-height: var(--vs-select-height, 2rem);
         font-size: var(--vs-select-fontSize, 0.8rem);
+
+        .vs-select-input {
+            height: var(--vs-select-height, 2rem);
+        }
     }
 
     &.disabled {
@@ -108,49 +134,58 @@
 .vs-options-container {
     z-index: 900;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
-    border: var(--vs-select-border, solid 1px var(--vs-line-color));
+    border: var(--vs-select-border, 1px solid var(--vs-line-color));
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     overflow: hidden;
 
+    .options-header {
+        position: relative;
+        border-bottom: var(--vs-select-border, 1px solid var(--vs-line-color));
+    }
+
+    .options-footer {
+        position: relative;
+        border-top: var(--vs-select-border, 1px solid var(--vs-line-color));
+    }
+
     .vs-select-options {
-        max-height: 25rem;
+        max-height: var(--vs-select-optionsHeight, 25rem);
         overflow: auto;
         list-style-type: none;
         outline: none;
+    }
 
-        li {
-            padding: 0 1.2rem;
-            height: var(--vs-select-height, 2.4rem);
-            line-height: var(--vs-select-height, 2.4rem);
-            color: var(--vs-select-fontColor, var(--vs-font-color));
-            cursor: pointer;
-            user-select: none;
-            font-size: var(--vs-select-fontSize, 0.9rem);
+    .vs-option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 1.2rem;
+        min-height: var(--vs-select-height, 2.4rem);
+        background-color: var(--vs-no-color);
+        color: var(--vs-select-fontColor, var(--vs-font-color));
+        cursor: pointer;
+        user-select: none;
+        font-size: var(--vs-select-fontSize, 0.9rem);
 
-            &:not(.selected).chased {
-                background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-area-bg-hover));
-                color: var(--vs-select-hoverOptionColor, var(--vs-font-color));
-            }
+        &.select-all {
+            border-bottom: var(--vs-select-border, 1px solid var(--vs-line-color));
+        }
 
-            &.select-all {
-                background-color: var(--vs-no-color);
-                padding: 0.4 0.4rem;
-                height: var(--vs-select-height, 2.4rem);
-                line-height: var(--vs-select-height, 2.4rem);
-            }
+        &.selected {
+            background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-area-bg-active));
+            color: var(--vs-select-selectedOptionColor, var(--vs-font-color));
+            font-weight: 600;
+        }
 
-            &.selected {
-                background-color: var(--vs-select-selectedOptionBackgroundColor, var(--vs-area-bg-active));
-                color: var(--vs-select-selectedOptionColor, var(--vs-font-color));
-                font-weight: 600;
-            }
+        &.chased {
+            background-color: var(--vs-select-hoverOptionBackgroundColor, var(--vs-area-bg-hover));
+            color: var(--vs-select-hoverOptionColor, var(--vs-font-color));
         }
     }
 
     &.dense {
-        li {
-            height: var(--vs-select-height, 2rem);
-            line-height: var(--vs-select-height, 2rem);
+        .vs-option {
+            min-height: var(--vs-select-height, 2rem);
             font-size: var(--vs-select-fontSize, 0.8rem);
         }
     }

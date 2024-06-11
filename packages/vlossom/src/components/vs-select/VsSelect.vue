@@ -15,86 +15,96 @@
             </template>
 
             <div
+                :id="id"
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
                 @click.stop="toggleOptions()"
             >
-                <div v-if="multiple && selectedOptions.length" class="multiple-chips">
-                    <div v-if="collapseChips" class="chips">
-                        <vs-chip
-                            :color-scheme="colorScheme"
-                            :style-set="chipStyleSets"
-                            :closable="closableChips"
-                            primary
-                            @close="removeSelected(selectedOptions[0].value)"
-                        >
-                            {{ getOptionLabel(selectedOptions[0].value) }}
-                        </vs-chip>
-                        <vs-chip
-                            v-if="selectedOptions.length > 1"
-                            class="chip-others"
-                            :color-scheme="colorScheme"
-                            :style-set="collapseChipStyleSets"
-                        >
-                            + {{ selectedOptions.length - 1 }}
-                        </vs-chip>
-                    </div>
-                    <div v-else class="chips">
-                        <vs-chip
-                            v-for="option in selectedOptions"
-                            :key="`selected-${option.id}`"
-                            :color-scheme="colorScheme"
-                            :style-set="chipStyleSets"
-                            :closable="closableChips"
-                            primary
-                            @close="removeSelected(option.value)"
-                        >
-                            {{ getOptionLabel(option.value) }}
-                        </vs-chip>
+                <div class="vs-select-wrap">
+                    <input
+                        v-if="!(multiple && !autocomplete && selectedOptions.length)"
+                        ref="inputRef"
+                        role="combobox"
+                        :id="`${id}-input`"
+                        :class="['vs-select-input', { autocomplete }]"
+                        :aria-expanded="isOpen || isVisible"
+                        :aria-label="ariaLabel || label || 'select input'"
+                        aria-controls="vs-select-options"
+                        :aria-autocomplete="autocomplete ? 'list' : undefined"
+                        :aria-activedescendant="focusedOptionId"
+                        :disabled="disabled"
+                        :placeholder="placeholder"
+                        :readonly="readonly || !autocomplete"
+                        :aria-required="required"
+                        :value="inputLabel"
+                        @input.stop="onInput"
+                        @focus.stop="onFocus"
+                        @blur.stop="onBlur"
+                        @keydown.stop="onKeyDown"
+                        @change.stop
+                    />
+
+                    <div
+                        v-if="multiple && selectedOptions.length"
+                        :class="['multiple-chips', { autocompleted: autocomplete }]"
+                    >
+                        <div v-if="collapseChips" class="chips">
+                            <vs-chip
+                                class="select-chip"
+                                :color-scheme="colorScheme"
+                                :style-set="chipStyleSets"
+                                :closable="closableChips"
+                                primary
+                                @close="removeSelected(selectedOptions[0].value)"
+                            >
+                                {{ getOptionLabel(selectedOptions[0].value) }}
+                            </vs-chip>
+                            <vs-chip
+                                v-if="selectedOptions.length > 1"
+                                class="select-chip chip-others"
+                                :color-scheme="colorScheme"
+                                :style-set="collapseChipStyleSets"
+                            >
+                                + {{ selectedOptions.length - 1 }}
+                            </vs-chip>
+                        </div>
+                        <div v-else class="chips">
+                            <vs-chip
+                                class="select-chip"
+                                v-for="option in selectedOptions"
+                                :key="`selected-${option.id}`"
+                                :color-scheme="colorScheme"
+                                :style-set="chipStyleSets"
+                                :closable="closableChips"
+                                primary
+                                @close="removeSelected(option.value)"
+                            >
+                                {{ getOptionLabel(option.value) }}
+                            </vs-chip>
+                        </div>
                     </div>
                 </div>
+                <div class="vs-select-side">
+                    <button
+                        v-if="!noClear && selectedOptions.length && !readonly && !disabled"
+                        type="button"
+                        class="clear-button"
+                        aria-hidden="true"
+                        tabindex="-1"
+                        @click.stop="onClear()"
+                    >
+                        <vs-icon icon="close" :size="dense ? 14 : 16" />
+                    </button>
 
-                <input
-                    ref="inputRef"
-                    :id="id"
-                    role="combobox"
-                    :aria-expanded="isOpen || isVisible"
-                    :aria-label="ariaLabel"
-                    aria-controls="vs-select-options"
-                    :aria-autocomplete="autocomplete ? 'list' : undefined"
-                    :aria-activedescendant="focusedOptionId"
-                    :class="{ autocomplete }"
-                    :disabled="disabled"
-                    :placeholder="placeholder"
-                    :readonly="readonly || !autocomplete"
-                    :aria-required="required"
-                    :value="inputLabel"
-                    @input.stop="onInput"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                    @keydown.stop="onKeyDown"
-                    @change.stop
-                />
-
-                <button
-                    v-if="!noClear && selectedOptions.length && !readonly && !disabled"
-                    type="button"
-                    class="clear-button"
-                    aria-hidden="true"
-                    tabindex="-1"
-                    @click.stop="onClear()"
-                >
-                    <vs-icon icon="close" :size="dense ? 14 : 16" />
-                </button>
-
-                <div class="arrow-box">
-                    <vs-icon
-                        icon="keyboardArrowDown"
-                        :size="dense ? 16 : 20"
-                        class="arrow-icon"
-                        :class="{ 'arrow-up': isOpen }"
-                    />
+                    <div class="arrow-box">
+                        <vs-icon
+                            icon="keyboardArrowDown"
+                            :size="dense ? 16 : 20"
+                            class="arrow-icon"
+                            :class="{ 'arrow-up': isOpen }"
+                        />
+                    </div>
                 </div>
 
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
@@ -108,8 +118,32 @@
                         ]"
                         :style="computedStyleSet"
                     >
-                        <div v-if="$slots['options-header']" @click.stop>
+                        <div class="options-header" v-if="$slots['options-header']" @click.stop>
                             <slot name="options-header" />
+                        </div>
+                        <div
+                            v-if="selectAll && multiple && loadedOptions.length"
+                            id="vs-select-all"
+                            role="option"
+                            aria-label="select all"
+                            :aria-selected="multiple ? undefined : isAllSelected"
+                            :aria-checked="multiple ? isAllSelected : undefined"
+                            :aria-setsize="filteredOptions.length"
+                            :aria-posinset="1"
+                            :class="[
+                                'vs-option',
+                                'select-all',
+                                {
+                                    selected: isAllSelected,
+                                    chased: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
+                                },
+                            ]"
+                            @mousemove.stop="onMouseMove('all')"
+                            @click.stop="selectAllOptions()"
+                        >
+                            <slot name="select-all" :selected="isAllSelected">
+                                <span>Select All</span>
+                            </slot>
                         </div>
                         <ul
                             ref="listboxRef"
@@ -121,47 +155,22 @@
                             @keydown.stop="onKeyDown"
                         >
                             <li
-                                v-if="selectAll && multiple && loadedOptions.length"
-                                id="vs-select-all"
-                                role="option"
-                                aria-label="select all"
-                                :aria-selected="multiple ? undefined : isAllSelected"
-                                :aria-checked="multiple ? isAllSelected : undefined"
-                                :aria-setsize="filteredOptions.length"
-                                :aria-posinset="1"
-                                :class="[
-                                    'option',
-                                    'select-all',
-                                    {
-                                        selected: isAllSelected,
-                                        chased: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
-                                    },
-                                ]"
-                                @mousemove.stop="onMouseMove('all')"
-                                @click.stop="selectAllOptions()"
-                            >
-                                <slot name="select-all" :selected="isAllSelected">
-                                    <span>Select All</span>
-                                </slot>
-                                <vs-divider :style="{ margin: 0 }" :style-set="{ lineColor: 'var(--vs-line-color)' }" />
-                            </li>
-                            <li
                                 v-for="(option, index) in loadedOptions"
                                 :key="option.id"
-                                :id="option.id"
                                 role="option"
-                                :aria-label="getOptionLabel(option.value)"
-                                :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
-                                :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
-                                :aria-setsize="filteredOptions.length"
-                                :aria-posinset="(selectAll ? 2 : 1) + index"
+                                :id="option.id"
                                 :class="[
-                                    'option',
+                                    'vs-option',
                                     {
                                         selected: isSelectedOption(option.value),
                                         chased: isChasedOption(index),
                                     },
                                 ]"
+                                :aria-label="getOptionLabel(option.value)"
+                                :aria-selected="multiple ? undefined : isSelectedOption(option.value)"
+                                :aria-checked="multiple ? isSelectedOption(option.value) : undefined"
+                                :aria-setsize="filteredOptions.length"
+                                :aria-posinset="(selectAll ? 2 : 1) + index"
                                 @mousemove.stop="onMouseMove(option)"
                                 @click.stop="selectOption(option.value)"
                             >
@@ -176,9 +185,11 @@
                                     <span>{{ getOptionLabel(option.value) }}</span>
                                 </slot>
                             </li>
-                            <li v-if="!loadedOptions.length" @click.stop="closeOptions()">No Options</li>
+                            <li v-if="!loadedOptions.length" class="vs-option" @click.stop="closeOptions()">
+                                No Options
+                            </li>
                         </ul>
-                        <div v-if="$slots['options-footer']" @click.stop>
+                        <div class="options-footer" v-if="$slots['options-footer']" @click.stop>
                             <slot name="options-footer" />
                         </div>
                     </div>
@@ -212,14 +223,13 @@ import { utils } from '@/utils';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsChip from '@/components/vs-chip/VsChip.vue';
-import VsDivider from '@/components/vs-divider/VsDivider.vue';
 
 import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon, VsDivider },
+    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon },
     props: {
         ...getInputProps<any, []>(),
         ...getInputOptionProps(),
@@ -373,6 +383,8 @@ export default defineComponent({
             if (autocomplete.value) {
                 autocompleteText.value = '';
             }
+
+            closeOptions();
         }
 
         const { computedMessages, computedState, shake, validate, clear, id } = useInput(
@@ -410,12 +422,26 @@ export default defineComponent({
             multiple,
         );
 
+        const inputLabel = computed(() => {
+            if (focusing.value && autocomplete.value) {
+                return autocompleteText.value;
+            }
+
+            if (multiple.value) {
+                return '';
+            }
+
+            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
+        });
+
         const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
             useToggleOptions(id, disabled, readonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
+            autocomplete,
             computedOptions,
             getOptionLabel,
+            inputLabel,
             isOpen,
         );
 
@@ -465,23 +491,8 @@ export default defineComponent({
         function onBlur(e: FocusEvent) {
             focusing.value = false;
 
-            if (autocomplete.value) {
-                autocompleteText.value = inputLabel.value;
-            }
             emit('blur', e);
         }
-
-        const inputLabel = computed(() => {
-            if (focusing.value && autocomplete.value) {
-                return autocompleteText.value;
-            }
-
-            if (multiple.value) {
-                return '';
-            }
-
-            return selectedOptions.value[0] ? getOptionLabel(selectedOptions.value[0].value) : '';
-        });
 
         const animationClass = computed(() => {
             if (isOpen.value) {

@@ -10,7 +10,7 @@ export function useSelectOption(
     closeOptions: () => void,
     autocomplete: Ref<boolean>,
     autocompleteText: Ref<string>,
-    comboboxFocus: () => void,
+    focusOnInput: () => void,
 ) {
     function isSelectedOption(option: any) {
         if (multiple.value) {
@@ -32,12 +32,12 @@ export function useSelectOption(
         } else {
             inputValue.value = getOptionValue(option);
             closeOptions();
-            comboboxFocus();
 
             if (autocomplete.value) {
                 autocompleteText.value = getOptionLabel(option);
             }
         }
+        focusOnInput();
     }
 
     const isAllSelected = computed(() => {
@@ -50,6 +50,7 @@ export function useSelectOption(
         } else {
             inputValue.value = computedOptions.value.map((option) => getOptionValue(option.value));
         }
+        closeOptions();
     }
 
     function removeSelected(option: any) {
