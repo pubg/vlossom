@@ -72,21 +72,21 @@
                 :edgeButtons="pageEdgeButtons"
                 :color-scheme="colorScheme"
             />
-            <div class="pagination-options">
-                <vs-select
-                    v-model="innerItemsPerPage"
-                    :options="paginationOptions"
-                    :disabled="loading"
-                    :color-scheme="colorScheme"
-                    aria-label="pagination-options"
-                    option-label="label"
-                    option-value="value"
-                    no-clear
-                    no-label
-                    no-message
-                    dense
-                />
-            </div>
+            <vs-select
+                class="vs-pagination-options"
+                v-model="innerItemsPerPage"
+                :options="paginationOptions"
+                :disabled="loading"
+                :color-scheme="colorScheme"
+                width="10rem"
+                aria-label="pagination-options"
+                option-label="label"
+                option-value="value"
+                no-clear
+                no-label
+                no-message
+                dense
+            />
         </div>
     </div>
 </template>

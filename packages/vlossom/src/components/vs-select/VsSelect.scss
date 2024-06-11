@@ -2,25 +2,25 @@
 
 .vs-select {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
     background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, 1px solid var(--vs-line-color));
     min-height: var(--vs-select-height, 2.4rem);
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
     font-size: var(--vs-select-fontSize, 0.9rem);
 
-    .select-wrap {
-        flex: 1;
-
+    .vs-select-wrap {
         .vs-select-input {
+            width: 100%;
+            height: var(--vs-select-height, 2.4rem);
             padding: 0 0.8rem;
             border: none;
             outline: none;
             background-color: transparent;
             color: var(--vs-select-fontColor, var(--vs-font-color));
             cursor: pointer;
-            min-width: 2rem;
-            height: var(--vs-select-height, 2.4rem);
 
             &.autocomplete {
                 cursor: default;
@@ -63,30 +63,38 @@
         }
     }
 
-    .clear-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-right: 0.6rem;
-        opacity: 0;
-        transition: opacity 0.4s;
-        color: var(--vs-input-clearButtonColor, var(--vs-font-color));
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
-
-    .arrow-box {
+    .vs-select-side {
+        position: relative;
         display: flex;
         align-items: center;
-        cursor: pointer;
-        padding-right: 0.6rem;
+        justify-content: flex-end;
+        width: 2.4rem;
 
-        .arrow-icon {
-            transition: transform 0.2s ease-out;
+        .clear-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 0.6rem;
+            opacity: 1;
+            transition: opacity 0.4s;
+            color: var(--vs-input-clearButtonColor, var(--vs-font-color));
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
-            &.arrow-up {
-                transform: rotate(180deg);
+        .arrow-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-right: 0.6rem;
+
+            .arrow-icon {
+                transition: transform 0.2s ease-out;
+
+                &.arrow-up {
+                    transform: rotate(180deg);
+                }
             }
         }
     }
@@ -100,6 +108,10 @@
     &.dense {
         min-height: var(--vs-select-height, 2rem);
         font-size: var(--vs-select-fontSize, 0.8rem);
+
+        .vs-select-input {
+            height: var(--vs-select-height, 2rem);
+        }
     }
 
     &.disabled {
@@ -148,7 +160,7 @@
         display: flex;
         align-items: center;
         padding: 0 1.2rem;
-        height: var(--vs-select-height, 2.4rem);
+        min-height: var(--vs-select-height, 2.4rem);
         background-color: var(--vs-no-color);
         color: var(--vs-select-fontColor, var(--vs-font-color));
         cursor: pointer;
@@ -172,7 +184,7 @@
     }
 
     &.dense {
-        li {
+        .vs-option {
             min-height: var(--vs-select-height, 2rem);
             font-size: var(--vs-select-fontSize, 0.8rem);
         }

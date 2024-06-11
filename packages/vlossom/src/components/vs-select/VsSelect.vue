@@ -21,7 +21,7 @@
                 :style="computedStyleSet"
                 @click.stop="toggleOptions()"
             >
-                <div class="select-wrap">
+                <div class="vs-select-wrap">
                     <input
                         v-if="!(multiple && !autocomplete && selectedOptions.length)"
                         ref="inputRef"
@@ -85,24 +85,26 @@
                         </div>
                     </div>
                 </div>
-                <button
-                    v-if="!noClear && selectedOptions.length && !readonly && !disabled"
-                    type="button"
-                    class="clear-button"
-                    aria-hidden="true"
-                    tabindex="-1"
-                    @click.stop="onClear()"
-                >
-                    <vs-icon icon="close" :size="dense ? 14 : 16" />
-                </button>
+                <div class="vs-select-side">
+                    <button
+                        v-if="!noClear && selectedOptions.length && !readonly && !disabled"
+                        type="button"
+                        class="clear-button"
+                        aria-hidden="true"
+                        tabindex="-1"
+                        @click.stop="onClear()"
+                    >
+                        <vs-icon icon="close" :size="dense ? 14 : 16" />
+                    </button>
 
-                <div class="arrow-box">
-                    <vs-icon
-                        icon="keyboardArrowDown"
-                        :size="dense ? 16 : 20"
-                        class="arrow-icon"
-                        :class="{ 'arrow-up': isOpen }"
-                    />
+                    <div class="arrow-box">
+                        <vs-icon
+                            icon="keyboardArrowDown"
+                            :size="dense ? 16 : 20"
+                            class="arrow-icon"
+                            :class="{ 'arrow-up': isOpen }"
+                        />
+                    </div>
                 </div>
 
                 <Teleport to="#vs-overlay" v-if="isOpen || isVisible">

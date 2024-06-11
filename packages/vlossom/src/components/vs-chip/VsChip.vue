@@ -13,6 +13,7 @@
             type="button"
             class="icon-container close-button"
             aria-label="close"
+            tabindex="-1"
             @click.stop="$emit('close')"
         >
             <vs-icon icon="close" size="13px" />
