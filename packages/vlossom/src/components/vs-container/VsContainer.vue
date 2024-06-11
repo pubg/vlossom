@@ -8,6 +8,7 @@
 import { computed, defineComponent, getCurrentInstance, inject, toRefs } from 'vue';
 import { VS_LAYOUT, VsComponent } from '@/declaration';
 import { getGridProps, useLayout } from '@/composables';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsContainer;
 export default defineComponent({
@@ -25,8 +26,8 @@ export default defineComponent({
             }
 
             return {
-                rowGap: isNaN(Number(rowGap.value)) ? rowGap.value : `${rowGap.value}px`,
-                columnGap: isNaN(Number(columnGap.value)) ? columnGap.value : `${columnGap.value}px`,
+                rowGap: utils.string.convertToStringSize(rowGap.value),
+                columnGap: utils.string.convertToStringSize(columnGap.value),
             };
         });
 

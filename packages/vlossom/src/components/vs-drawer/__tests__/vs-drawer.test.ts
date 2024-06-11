@@ -191,9 +191,6 @@ describe('vs-drawer', () => {
                         size: '270px',
                         styleSet: { width: '320px' },
                     },
-                    global: {
-                        stubs: ['Teleport'],
-                    },
                 });
 
                 // then
@@ -208,9 +205,6 @@ describe('vs-drawer', () => {
                         placement: 'top',
                         size: '270px',
                         styleSet: { height: '320px' },
-                    },
-                    global: {
-                        stubs: ['Teleport'],
                     },
                 });
 

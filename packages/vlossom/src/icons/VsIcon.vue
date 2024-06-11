@@ -5,6 +5,7 @@
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { iconSvgs } from './icons';
+import { utils } from '@/utils';
 
 export default defineComponent({
     props: {
@@ -19,7 +20,7 @@ export default defineComponent({
                 return {};
             }
 
-            const iconSize = isNaN(Number(size.value)) ? size.value : `${size.value}px`;
+            const iconSize = utils.string.convertToStringSize(size.value);
             return {
                 width: iconSize,
                 height: iconSize,

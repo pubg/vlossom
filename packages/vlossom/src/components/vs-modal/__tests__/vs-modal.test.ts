@@ -231,4 +231,42 @@ describe('vs-modal', () => {
             expect(wrapper.findComponent({ name: 'VsFocusTrap' }).exists()).toBe(true);
         });
     });
+
+    describe('size', () => {
+        describe('size prop이 style set 보다 우선된다', () => {
+            it('width', () => {
+                // given
+                const wrapper = mount(VsModal, {
+                    props: {
+                        modelValue: true,
+                        size: '270px',
+                        styleSet: { width: '320px' },
+                    },
+                    global: {
+                        stubs: ['Teleport'],
+                    },
+                });
+
+                // then
+                expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-width: 270px;');
+            });
+
+            it('height', () => {
+                // given
+                const wrapper = mount(VsModal, {
+                    props: {
+                        modelValue: true,
+                        size: '270px',
+                        styleSet: { height: '320px' },
+                    },
+                    global: {
+                        stubs: ['Teleport'],
+                    },
+                });
+
+                // then
+                expect(wrapper.find('.vs-modal').attributes('style')).toContain('--vs-modal-height: 270px;');
+            });
+        });
+    });
 });
