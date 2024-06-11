@@ -155,9 +155,9 @@
                     display: grid;
                     grid-column: 1/-1;
                     padding: 0 1rem;
-                    border-top: 1px dashed var(--vs-line-color);
-                    border-left: 1px dashed var(--vs-line-color);
-                    border-right: 1px dashed var(--vs-line-color);
+                    border-top: 1px dotted var(--vs-line-color);
+                    border-left: 1px dotted var(--vs-line-color);
+                    border-right: 1px dotted var(--vs-line-color);
                     font-size: 0.9rem;
                     box-shadow: var(--vs-table-expand-box-shadow-up), var(--vs-table-expand-box-shadow-down);
                 }
