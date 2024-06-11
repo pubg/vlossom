@@ -33,66 +33,7 @@ export function useFocusControl(
         }
     }
 
-    function onArrowDownKey(event: KeyboardEvent) {
-        if (!isOpen.value && focusedIndex.value === -1) {
-            isOpen.value = true;
-        }
-
-        if (focusedIndex.value < (selectAll.value ? 1 : 0) + loadedOptions.value.length - 1) {
-            focusedIndex.value += 1;
-        }
-
-        event.preventDefault();
-    }
-
-    function onArrowUpKey(event: KeyboardEvent) {
-        if (focusedIndex.value > 0) {
-            focusedIndex.value -= 1;
-        }
-
-        event.preventDefault();
-    }
-
-    function onSpaceKey(event: KeyboardEvent) {
-        if (!isOpen.value) {
-            isOpen.value = true;
-        } else if (focusedIndex.value !== -1) {
-            selectFocusedOption();
-        } else {
-            return;
-        }
-        event.preventDefault();
-    }
-
-    function onEnterKey(event: KeyboardEvent) {
-        if (!isOpen.value) {
-            isOpen.value = true;
-        } else if (focusedIndex.value !== -1) {
-            selectFocusedOption();
-        } else {
-            closeOptions();
-        }
-
-        event.preventDefault();
-    }
-
-    function onEscapeKey(event: KeyboardEvent) {
-        closeOptions();
-        comboboxFocus();
-
-        event.preventDefault();
-    }
-
-    function onTabKey() {
-        if (isOpen.value) {
-            if (focusedIndex.value !== -1) {
-                selectFocusedOption();
-            }
-            closeOptions();
-        }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
+    function onComboboxKeydown(event: KeyboardEvent) {
         if (disabled.value || readonly.value) {
             return;
         }
@@ -102,27 +43,65 @@ export function useFocusControl(
             chasingMouse.value = false;
         }
 
-        switch (event.code) {
-            case 'ArrowDown':
-                onArrowDownKey(event);
-                break;
-            case 'ArrowUp':
-                onArrowUpKey(event);
-                break;
-            case 'Enter':
-                onEnterKey(event);
-                break;
-            case 'Space':
-                onSpaceKey(event);
-                break;
-            case 'Escape':
-                onEscapeKey(event);
-                break;
-            case 'Tab':
-                onTabKey();
-                break;
-            default:
-                break;
+        if (!isOpen.value) {
+            switch (event.code) {
+                case 'Enter':
+                case 'Space':
+                case 'ArrowDown':
+                case 'ArrowUp':
+                    isOpen.value = true;
+                    event.preventDefault();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            const lastIndex = (selectAll.value ? 1 : 0) + loadedOptions.value.length - 1;
+            switch (event.code) {
+                case 'Enter':
+                    if (focusedIndex.value !== -1) {
+                        selectFocusedOption();
+                    } else {
+                        closeOptions();
+                    }
+                    event.preventDefault();
+                    break;
+                case 'Escape':
+                    closeOptions();
+                    comboboxFocus();
+                    event.preventDefault();
+                    break;
+                case 'Space':
+                    if (focusedIndex.value !== -1) {
+                        selectFocusedOption();
+                        event.preventDefault();
+                    }
+                    break;
+                case 'ArrowDown':
+                    if (focusedIndex.value >= lastIndex) {
+                        focusedIndex.value = -1;
+                    } else {
+                        focusedIndex.value += 1;
+                    }
+                    event.preventDefault();
+                    break;
+                case 'ArrowUp':
+                    if (focusedIndex.value < 0) {
+                        focusedIndex.value = lastIndex;
+                    } else {
+                        focusedIndex.value -= 1;
+                    }
+                    event.preventDefault();
+                    break;
+                case 'Tab':
+                    if (focusedIndex.value !== -1) {
+                        selectFocusedOption();
+                    }
+                    closeOptions();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -191,11 +170,11 @@ export function useFocusControl(
 
     return {
         focusedIndex,
+        focusedOptionId,
         hoveredIndex,
         chasingMouse,
-        onKeyDown,
+        onComboboxKeydown,
         onMouseMove,
         isChasedOption,
-        focusedOptionId,
     };
 }
