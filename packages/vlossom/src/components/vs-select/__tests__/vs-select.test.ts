@@ -681,6 +681,7 @@ describe('vs-select', () => {
 
             it('combobox가 focus를 받은 상태에서 Arrow Down 키를 누르면 옵션 리스트가 열리고 listbox의 첫번째 옵션으로 focus가 이동한다', async () => {
                 // when
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Space' });
                 await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
 
                 // then
