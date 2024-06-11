@@ -74,9 +74,7 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsTextWrapStyleSet>(name, styleSet);
 
-        const computedWidth = computed(() => {
-            return isNaN(Number(width.value)) ? width.value : `${width.value}px`;
-        });
+        const computedWidth = computed(() => utils.string.convertToStringSize(width.value));
 
         const contentsRef: Ref<HTMLInputElement | null> = ref(null);
 

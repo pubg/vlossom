@@ -39,13 +39,14 @@ import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, Size, type ColorScheme, SCROLLBAR_WIDTH, SIZES } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
+import { utils } from '@/utils';
 
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
 const CLOSE_DELAY = 200;
 
-type SizeValue = Size | string | number;
+type SizeProp = Size | string | number;
 
 export default defineComponent({
     name,
@@ -60,7 +61,7 @@ export default defineComponent({
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
         size: {
-            type: [String, Number, Object] as PropType<SizeValue | { width: SizeValue; height: SizeValue }>,
+            type: [String, Number, Object] as PropType<SizeProp | { width: SizeProp; height: SizeProp }>,
             default: 'sm',
         },
         // v-model
@@ -85,22 +86,22 @@ export default defineComponent({
                 if (SIZES.includes(width as Size)) {
                     style['--vs-modal-width'] = `var(--vs-modal-width-${width})`;
                 } else {
-                    const convertedWidth = isNaN(Number(width)) ? width : `${width}px`;
-                    style['--vs-modal-width'] = convertedWidth as string;
+                    const convertedWidth = utils.string.convertToStringSize(width);
+                    style['--vs-modal-width'] = convertedWidth;
                 }
 
                 if (SIZES.includes(height as Size)) {
                     style['--vs-modal-height'] = `var(--vs-modal-height-${height})`;
                 } else {
-                    const convertedHeight = isNaN(Number(height)) ? height : `${height}px`;
-                    style['--vs-modal-height'] = convertedHeight as string;
+                    const convertedHeight = utils.string.convertToStringSize(height);
+                    style['--vs-modal-height'] = convertedHeight;
                 }
             } else {
                 if (hasSpecifiedSize.value) {
-                    const convertedSize = isNaN(Number(size.value)) ? size.value : `${size.value}px`;
+                    const convertedSize = utils.string.convertToStringSize(size.value);
 
-                    style['--vs-modal-width'] = convertedSize as string;
-                    style['--vs-modal-height'] = convertedSize as string;
+                    style['--vs-modal-width'] = convertedSize;
+                    style['--vs-modal-height'] = convertedSize;
                 } else {
                     style['--vs-modal-width'] = `var(--vs-modal-width-${size.value})`;
                 }

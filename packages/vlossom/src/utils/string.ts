@@ -25,4 +25,12 @@ export const stringUtil = {
         }
         return String(value);
     },
+
+    convertToStringSize(size: string | number): string {
+        if (typeof size === 'string' && isNaN(Number(size))) {
+            return size;
+        } else {
+            return `${size}px`;
+        }
+    },
 };
