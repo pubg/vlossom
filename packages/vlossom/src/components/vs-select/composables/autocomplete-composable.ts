@@ -2,8 +2,10 @@ import { ref, watch, type Ref } from 'vue';
 import { utils } from '@/utils';
 
 export function useAutocomplete(
+    autocomplete: Ref<boolean>,
     computedOptions: Ref<{ id: string; value: any }[]>,
     getOptionLabel: (option: any) => string,
+    inputLabel: Ref<string>,
     isOpen: Ref<boolean>,
 ) {
     const autocompleteText = ref('');
@@ -24,9 +26,13 @@ export function useAutocomplete(
         }, 300),
     );
 
-    watch(isOpen, (val) => {
-        if (val) {
+    watch(isOpen, (opened) => {
+        if (opened) {
             filteredOptions.value = [...computedOptions.value];
+        } else {
+            if (autocomplete.value) {
+                autocompleteText.value = inputLabel.value;
+            }
         }
     });
 

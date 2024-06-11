@@ -3,7 +3,7 @@
     border-radius: var(--vs-section-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
     box-shadow: var(--vs-section-boxShadow, var(--vs-area-shadow-outer));
     color: var(--vs-section-fontColor, var(--vs-font-color));
-    padding: var(--vs-section-padding, 2rem);
+    padding: var(--vs-section-padding, 2.4rem 3rem);
     position: relative;
     overflow: auto;
 
@@ -14,13 +14,13 @@
 
 @media screen and (max-width: 992px) {
     .vs-section {
-        padding: var(--vs-section-padding, 1.6rem);
+        padding: var(--vs-section-padding, 2rem 2.4rem);
     }
 }
 
 @media screen and (max-width: 768px) {
     .vs-section {
-        padding: var(--vs-section-padding, 1.2rem);
+        padding: var(--vs-section-padding, 1.6rem);
     }
 }
 

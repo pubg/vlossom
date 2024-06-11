@@ -8,6 +8,8 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
     user-select: none;
 
     .tabs-container {
+        position: relative;
+        width: 100%;
         overflow-x: auto;
         padding-bottom: 0.2rem;
 
@@ -16,6 +18,7 @@ $fontWeight: var(--vs-tabs-fontWeight, 400);
             align-items: center;
             list-style: none;
             flex-wrap: nowrap;
+            width: 100%;
 
             &.bottomLine {
                 border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-primary-comp-bg));

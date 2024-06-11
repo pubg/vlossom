@@ -31,10 +31,10 @@ describe('vs-select', () => {
             });
 
             //when
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // then
-            expect(wrapper.findAll('li.option')).toHaveLength(3);
+            expect(wrapper.findAll('.vs-option')).toHaveLength(3);
             expect(wrapper.html()).toContain('A');
             expect(wrapper.html()).toContain('B');
             expect(wrapper.html()).toContain('C');
@@ -60,10 +60,10 @@ describe('vs-select', () => {
             });
 
             //when
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // then
-            expect(wrapper.findAll('li.option')).toHaveLength(3);
+            expect(wrapper.findAll('.vs-option')).toHaveLength(3);
             expect(wrapper.html()).toContain('A');
             expect(wrapper.html()).toContain('B');
             expect(wrapper.html()).toContain('C');
@@ -123,7 +123,7 @@ describe('vs-select', () => {
             });
 
             //when
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // then
             expect(wrapper.html()).toContain('header');
@@ -146,7 +146,7 @@ describe('vs-select', () => {
             });
 
             //when
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // then
             expect(wrapper.html()).toContain('footer');
@@ -166,7 +166,7 @@ describe('vs-select', () => {
                 });
 
                 // then
-                expect(wrapper.find('input').element.value).toBe('A');
+                expect(wrapper.vm.inputRef?.value).toBe('A');
             });
 
             it('modelValue를 업데이트 할 수 있다', async () => {
@@ -185,8 +185,8 @@ describe('vs-select', () => {
                 });
 
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li.option')[1].trigger('click');
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.findAll('.vs-option')[1].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -208,7 +208,7 @@ describe('vs-select', () => {
                 await wrapper.setProps({ modelValue: 'B' });
 
                 // then
-                expect(wrapper.find('input').element.value).toBe('B');
+                expect(wrapper.vm.inputRef?.value).toBe('B');
             });
         });
 
@@ -234,7 +234,7 @@ describe('vs-select', () => {
                 });
 
                 // then
-                expect(wrapper.find('input').element.value).toBe('A');
+                expect(wrapper.vm.inputRef?.value).toBe('A');
             });
 
             it('modelValue를 업데이트 할 수 있다', async () => {
@@ -253,8 +253,8 @@ describe('vs-select', () => {
                 });
 
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li.option')[1].trigger('click');
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.findAll('.vs-option')[1].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -276,7 +276,7 @@ describe('vs-select', () => {
                 await wrapper.setProps({ modelValue: 'b' });
 
                 // then
-                expect(wrapper.find('input').element.value).toBe('B');
+                expect(wrapper.vm.inputRef?.value).toBe('B');
             });
         });
 
@@ -296,7 +296,7 @@ describe('vs-select', () => {
                 expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(2);
                 expect(wrapper.findAllComponents({ name: 'VsChip' })[0].html()).toContain('A');
                 expect(wrapper.findAllComponents({ name: 'VsChip' })[1].html()).toContain('B');
-                expect(wrapper.find('input').element.value).toBe('');
+                expect(wrapper.find('.vs-select-input').exists()).toBe(false);
             });
 
             it('modelValue를 업데이트 할 수 있다', async () => {
@@ -316,8 +316,8 @@ describe('vs-select', () => {
                 });
 
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li.option')[2].trigger('click');
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.findAll('.vs-option')[2].trigger('click');
 
                 // then
                 const updateModelValueEvent = wrapper.emitted('update:modelValue');
@@ -395,12 +395,12 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li.option')[1].trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.findAll('.vs-option')[1].trigger('click');
             await vi.advanceTimersByTime(500);
 
             // then
-            expect(wrapper.find('input').element.value).toBe('B');
+            expect(wrapper.vm.inputRef?.value).toBe('B');
             expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
         });
 
@@ -419,11 +419,10 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li.option')[1].trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.findAll('.vs-option')[1].trigger('click');
 
             // then
-            expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.findComponent({ name: 'VsChip' }).exists()).toBe(true);
             expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('B');
             expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
@@ -446,14 +445,14 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('click');
-            await wrapper.findAll('li.option')[1].trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.findAll('.vs-option')[1].trigger('click');
 
             // then
-            expect(wrapper.find('input').element.value).toBe('');
             expect(wrapper.findAllComponents({ name: 'VsChip' })).toHaveLength(1);
             expect(wrapper.findComponent({ name: 'VsChip' }).html()).toContain('A');
             expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
+            expect(wrapper.find('.vs-select-input').exists()).toBe(false);
         });
 
         it('selectAll이 true일 때 모든 옵션을 선택할 수 있는 옵션을 제공한다', async () => {
@@ -474,16 +473,12 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('click');
-            // then
-            expect(wrapper.find('ul.vs-select-options').html()).toContain('Select All');
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.find('.select-all').trigger('click');
 
-            // when
-            await wrapper.find('li.option').trigger('click');
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([['A', 'B', 'C']]);
+            expect(wrapper.find('.select-all').exists()).toBe(true);
+            expect(wrapper.vm.inputValue).toEqual(['A', 'B', 'C']);
         });
     });
 
@@ -502,7 +497,7 @@ describe('vs-select', () => {
                 attachTo: document.body,
             });
 
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // when
             await vi.advanceTimersByTime(0);
@@ -529,10 +524,10 @@ describe('vs-select', () => {
                 attachTo: document.body,
             });
 
-            await wrapper.find('input').trigger('click');
+            await wrapper.find('.vs-select').trigger('click');
 
             // when
-            await wrapper.findAll('ul.vs-select-options li.option')[1].trigger('click');
+            await wrapper.findAll('ul.vs-select-options .vs-option')[1].trigger('click');
             await nextTick();
 
             // then
@@ -608,12 +603,12 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('click');
-            await wrapper.find('input').setValue('ba');
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.find('.vs-select-input').setValue('ba');
             await vi.advanceTimersByTime(500);
 
             // then
-            expect(wrapper.findAll('li.option')).toHaveLength(1);
+            expect(wrapper.findAll('.vs-option')).toHaveLength(1);
             expect(wrapper.html()).toContain('banana');
         });
 
@@ -637,7 +632,7 @@ describe('vs-select', () => {
             ];
 
             // when
-            const input = wrapper.find('input');
+            const input = wrapper.find('.vs-select-input');
             await input.setValue('apple');
 
             // then
@@ -666,12 +661,12 @@ describe('vs-select', () => {
         describe('keyboard interaction', () => {
             it('combobox가 focus를 받은 상태에서 Enter 키를 누르면 옵션 리스트를 열고 닫을 수 있다', async () => {
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Enter' });
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
 
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Enter' });
                 await vi.advanceTimersByTime(500);
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
@@ -679,14 +674,14 @@ describe('vs-select', () => {
 
             it('combobox가 focus를 받은 상태에서 Space 키를 누르면 옵션 리스트를 열 수 있다', async () => {
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'Space' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Space' });
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
             });
 
             it('combobox가 focus를 받은 상태에서 Arrow Down 키를 누르면 옵션 리스트가 열리고 listbox의 첫번째 옵션으로 focus가 이동한다', async () => {
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
 
                 // then
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(true);
@@ -696,41 +691,41 @@ describe('vs-select', () => {
 
             it('옵션 리스트를 열고 Arrow Down 키를 누르면 listbox의 첫번째 옵션으로 focus가 이동하고 Enter 키를 누르면 그 옵션이 선택된다', async () => {
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
 
                 // then
                 const firstId = wrapper.find('ul.vs-select-options').find('li').attributes('id');
-                expect(wrapper.find('input').attributes('aria-activedescendant')).toBe(firstId);
+                expect(wrapper.find('.vs-select-input').attributes('aria-activedescendant')).toBe(firstId);
 
                 // when
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Enter' });
 
                 // then
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['B']);
-                expect(wrapper.find('input').element.value).toBe('B');
+                expect(wrapper.vm.inputRef?.value).toBe('B');
             });
 
             it('Arrow Up 키를 누르면 위에 있는 옵션으로 이동하고 Space 바를 누르면 그 옵션이 선택된다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowUp' });
-                await wrapper.find('input').trigger('keydown', { code: 'Space' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowUp' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Space' });
 
                 // then
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['A']);
-                expect(wrapper.find('input').element.value).toBe('A');
+                expect(wrapper.vm.inputRef?.value).toBe('A');
             });
 
             it('Escape 키를 누르면 옵션 리스트가 닫힌다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'Escape' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Escape' });
                 await vi.advanceTimersByTime(500);
 
                 // then
@@ -739,16 +734,16 @@ describe('vs-select', () => {
 
             it('Tab 키를 누르면 focus 중인 옵션이 선택되고 옵션 리스트가 닫힌다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'Tab' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Tab' });
                 await vi.advanceTimersByTime(500);
 
                 // then
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['B']);
-                expect(wrapper.find('input').element.value).toBe('B');
+                expect(wrapper.vm.inputRef?.value).toBe('B');
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
             });
 
@@ -757,16 +752,15 @@ describe('vs-select', () => {
                 wrapper.setProps({ multiple: true });
 
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'Tab' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Tab' });
                 await vi.advanceTimersByTime(500);
 
                 // then
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([['B']]);
-                expect(wrapper.find('input').element.value).toBe('');
                 expect(wrapper.find('ul.vs-select-options').exists()).toBe(false);
             });
         });
@@ -774,37 +768,37 @@ describe('vs-select', () => {
         describe('mouse event', () => {
             it('옵션 리스트에서 mouse move event가 발생되면 mouse가 올라가 있던 옵션 기준으로 focus가 이동한다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li.option')[1].trigger('mousemove');
-                await wrapper.find('input').trigger('keydown', { code: 'ArrowDown' });
-                await wrapper.find('input').trigger('keydown', { code: 'Enter' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.findAll('.vs-option')[1].trigger('mousemove');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'ArrowDown' });
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Enter' });
 
                 // then
                 expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
                 expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['C']);
-                expect(wrapper.find('input').element.value).toBe('C');
+                expect(wrapper.vm.inputRef?.value).toBe('C');
             });
         });
 
         describe('combobox focus', () => {
             it('옵션을 선택하고 옵션창이 닫히면 combobox로 focus가 간다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.findAll('li.option')[1].trigger('click');
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.findAll('.vs-option')[1].trigger('click');
                 await vi.advanceTimersByTime(500);
 
                 // then
-                expect(wrapper.find('input').element).toBe(document.activeElement);
+                expect(wrapper.find('.vs-select-input').element).toBe(document.activeElement);
             });
 
             it('Escape 키를 눌러서 옵션창이 닫히면 combobox로 focus가 간다', async () => {
                 // when
-                await wrapper.find('input').trigger('click');
-                await wrapper.find('input').trigger('keydown', { code: 'Escape' });
+                await wrapper.find('.vs-select').trigger('click');
+                await wrapper.find('.vs-select-input').trigger('keydown', { code: 'Escape' });
                 await vi.advanceTimersByTime(500);
 
                 // then
-                expect(wrapper.find('input').element).toBe(document.activeElement);
+                expect(wrapper.find('.vs-select-input').element).toBe(document.activeElement);
             });
         });
     });
@@ -860,7 +854,7 @@ describe('vs-select', () => {
             });
 
             // then
-            expect(wrapper.find('input').attributes('aria-label')).toBe('aria-label');
+            expect(wrapper.find('.vs-select-input').attributes('aria-label')).toBe('aria-label');
         });
     });
 
@@ -874,7 +868,7 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('focus');
+            await wrapper.find('.vs-select-input').trigger('focus');
 
             // then
             expect(wrapper.emitted('focus')).toHaveLength(1);
@@ -889,7 +883,7 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('blur');
+            await wrapper.find('.vs-select-input').trigger('blur');
 
             // then
             expect(wrapper.emitted('blur')).toHaveLength(1);
@@ -909,7 +903,7 @@ describe('vs-select', () => {
             });
 
             // when
-            await wrapper.find('input').trigger('mouseover');
+            await wrapper.find('.vs-select-input').trigger('mouseover');
             await wrapper.find('button.clear-button').trigger('click');
 
             // then

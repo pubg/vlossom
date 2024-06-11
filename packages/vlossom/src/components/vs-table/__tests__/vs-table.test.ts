@@ -309,7 +309,7 @@ describe('VsTable', () => {
 
             // then
             const paginationWrapper = wrapper.find('.table-pagination .vs-pagination');
-            const selectWrapper = wrapper.find('.pagination-options .vs-select');
+            const selectWrapper = wrapper.find('.vs-pagination-options');
             expect(paginationWrapper.exists()).toBe(true);
             expect(selectWrapper.exists()).toBe(true);
         });
