@@ -19,7 +19,7 @@
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
-                @click.stop="toggleOptions()"
+                @click.stop="onClickTrigger()"
             >
                 <div class="vs-select-wrap">
                     <input
@@ -41,7 +41,7 @@
                         @input.stop="onInput"
                         @focus.stop="onFocus"
                         @blur.stop="onBlur"
-                        @keydown.stop="onKeyDown"
+                        @keydown.stop="onComboboxKeydown"
                         @change.stop
                     />
 
@@ -152,7 +152,6 @@
                             :aria-multi-selectable="multiple"
                             :aria-activedescendant="focusedOptionId"
                             tabindex="-1"
-                            @keydown.stop="onKeyDown"
                         >
                             <li
                                 v-for="(option, index) in loadedOptions"
@@ -460,26 +459,34 @@ export default defineComponent({
                 focus,
             );
 
-        const { focusedIndex, hoveredIndex, chasingMouse, onKeyDown, onMouseMove, isChasedOption, focusedOptionId } =
-            useFocusControl(
-                disabled,
-                readonly,
-                isOpen,
-                closeOptions,
-                selectAll,
-                isAllSelected,
-                selectedOptions,
-                filteredOptions,
-                loadedOptions,
-                selectOption,
-                selectAllOptions,
-                focus,
-            );
+        const {
+            focusedIndex,
+            focusedOptionId,
+            hoveredIndex,
+            chasingMouse,
+            onComboboxKeydown,
+            onMouseMove,
+            isChasedOption,
+        } = useFocusControl(
+            disabled,
+            readonly,
+            isOpen,
+            closeOptions,
+            selectAll,
+            isAllSelected,
+            selectedOptions,
+            filteredOptions,
+            loadedOptions,
+            selectOption,
+            selectAllOptions,
+            focus,
+        );
 
         const focusing = ref(false);
 
         function onFocus(e: FocusEvent) {
             focusing.value = true;
+            console.log(e);
 
             if (autocomplete.value) {
                 e.preventDefault();
@@ -510,6 +517,11 @@ export default defineComponent({
 
             const target = e.target as HTMLInputElement;
             updateAutocompleteText(target.value);
+        }
+
+        function onClickTrigger() {
+            focus();
+            toggleOptions();
         }
 
         return {
@@ -549,7 +561,6 @@ export default defineComponent({
             focusedIndex,
             hoveredIndex,
             chasingMouse,
-            onKeyDown,
             onMouseMove,
             isChasedOption,
             focusedOptionId,
@@ -560,6 +571,8 @@ export default defineComponent({
             blur,
             stateClasses,
             onInput,
+            onComboboxKeydown,
+            onClickTrigger,
         };
     },
 });
