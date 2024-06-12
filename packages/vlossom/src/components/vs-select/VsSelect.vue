@@ -486,7 +486,6 @@ export default defineComponent({
 
         function onFocus(e: FocusEvent) {
             focusing.value = true;
-            console.log(e);
 
             if (autocomplete.value) {
                 e.preventDefault();
