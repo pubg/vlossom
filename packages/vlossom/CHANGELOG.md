@@ -1,5 +1,68 @@
 # Changelog
 
+## 1.0.0-beta.1 (2024-06-12)
+
+
+### Features
+
+* **Accessibility:** add aria-label on vs-radio, vs-radio-set, vs-checkbox, vs-checkbox-set ([#158](https://github.com/pubg/vlossom/issues/158)) ([8922843](https://github.com/pubg/vlossom/commit/8922843a0265c1b7335f4cbece13f56837b56ac3))
+* add stopPropagation on default html event ([#180](https://github.com/pubg/vlossom/issues/180)) ([39f812d](https://github.com/pubg/vlossom/commit/39f812deb7e2ba0d0533ca4f18c4119af4717007))
+* **beforeChange:** change beforeChange function parameters ([#161](https://github.com/pubg/vlossom/issues/161)) ([ca64bce](https://github.com/pubg/vlossom/commit/ca64bceeaa7d1fafaa1304de190d5f57f2c08131))
+* **input-component:** add error state on invalid input ([#197](https://github.com/pubg/vlossom/issues/197)) ([243a282](https://github.com/pubg/vlossom/commit/243a2826ee064bc93d065a658f510605fdeb0cc1))
+* **input-component:** clean up the entire interface of input components ([#181](https://github.com/pubg/vlossom/issues/181)) ([674ad83](https://github.com/pubg/vlossom/commit/674ad83007142dc2e35423ad33a756137375b7a1))
+* **input-component:** correct invalid input value ([#182](https://github.com/pubg/vlossom/issues/182)) ([e3ee38f](https://github.com/pubg/vlossom/commit/e3ee38f470b88473119a08f06de56f95520c171c))
+* **palette:** add representative color variables ([#199](https://github.com/pubg/vlossom/issues/199)) ([a1fb2ff](https://github.com/pubg/vlossom/commit/a1fb2ff6fa6f0e9a5acd6246544ab13ad4800ccf))
+* **responsive-composable:** modify width, grid types ([#192](https://github.com/pubg/vlossom/issues/192)) ([90cd693](https://github.com/pubg/vlossom/commit/90cd6939eaa0d9631d22cf806e5f7931d8be6f9d))
+* **scroll:** add vlossom scroll bar style (chromatic-build) ([#183](https://github.com/pubg/vlossom/issues/183)) ([373881b](https://github.com/pubg/vlossom/commit/373881bbd470919b616831b7f5745132c690aa25))
+* **storybook:** upgrade storybook & chromatic (chromatic-build) ([#162](https://github.com/pubg/vlossom/issues/162)) ([323b71f](https://github.com/pubg/vlossom/commit/323b71fdb8f0e7a02d055c6ebad10366d2d7993f))
+* **style:** refine entire component styles ([#191](https://github.com/pubg/vlossom/issues/191)) ([3d62374](https://github.com/pubg/vlossom/commit/3d62374e2ff397176b44a05c0e7173889e2d98fb))
+* **utils:** refine Vlossom utils ([#167](https://github.com/pubg/vlossom/issues/167)) ([9c7efc0](https://github.com/pubg/vlossom/commit/9c7efc00efd6563db527952afd9e71add7229315))
+* **VsButton:** add vs-button focus-visible box-shadow ([#155](https://github.com/pubg/vlossom/issues/155)) ([5f5a1c0](https://github.com/pubg/vlossom/commit/5f5a1c04520af2c816576ef11c91007c541b382e))
+* **VsCheckboxSet, VsRadioSet:** set flex-wrap:wrap as default style ([#209](https://github.com/pubg/vlossom/issues/209)) ([22ae84b](https://github.com/pubg/vlossom/commit/22ae84b872ee5e7a3d478a99740608a736eaed90))
+* **VsConfirm:** add closeOnEsc props to VsConfirm ([#203](https://github.com/pubg/vlossom/issues/203)) ([139a536](https://github.com/pubg/vlossom/commit/139a536d8758a29a5d5e5126b8cbaea335c5485a))
+* **VsDrawer:** add min-width and min-height style ([#210](https://github.com/pubg/vlossom/issues/210)) ([bc58591](https://github.com/pubg/vlossom/commit/bc585913dfaf7746fe5dfb0e3a67deb9fabfa39e))
+* **VsDrawer:** use v-show to render ([#193](https://github.com/pubg/vlossom/issues/193)) ([579c3e0](https://github.com/pubg/vlossom/commit/579c3e0901ac12d58b16903b74151faaeabbe939))
+* **VsInput:** remove prepend / append buttons ([#185](https://github.com/pubg/vlossom/issues/185)) ([91fe0b3](https://github.com/pubg/vlossom/commit/91fe0b3760502fab3359ee4a093e92f663ef229b))
+* **VsInputWrapper:** update label, message style ([#153](https://github.com/pubg/vlossom/issues/153)) ([44e0292](https://github.com/pubg/vlossom/commit/44e029279612e17019f3901fad0740d521c9d2d1))
+* **VsLabelValue:** use top, middle, bottom for verticalAlign ([#188](https://github.com/pubg/vlossom/issues/188)) ([e0054d0](https://github.com/pubg/vlossom/commit/e0054d0126eaa57a67c9593f6351aa3c591f54b7))
+* **VsLayout:** add component ([#168](https://github.com/pubg/vlossom/issues/168)) ([ad73172](https://github.com/pubg/vlossom/commit/ad73172448032cff14766bec1add5a2946e6f3b2))
+* **VsModal, VsDrawer:** modify size prop type ([#213](https://github.com/pubg/vlossom/issues/213)) ([412ecac](https://github.com/pubg/vlossom/commit/412ecacc42ee9ef7120333c2463428b8050bf6cb))
+* **VsModal:** add dimmed prop, fix scroll control bug ([#211](https://github.com/pubg/vlossom/issues/211)) ([719dc5c](https://github.com/pubg/vlossom/commit/719dc5c8690ff4e3910e886ada1a2b3f76e12ff0))
+* **VsTable:** add component  ([#166](https://github.com/pubg/vlossom/issues/166)) ([2a3c7f9](https://github.com/pubg/vlossom/commit/2a3c7f9fa70a0a2f0860b13c6463335900b878ca))
+* **VsTable:** add search input ([#201](https://github.com/pubg/vlossom/issues/201)) ([41f3f9b](https://github.com/pubg/vlossom/commit/41f3f9bef5b23ee7266564709f04c1000144761e))
+* **VsTable:** add useTableParams composable ([#205](https://github.com/pubg/vlossom/issues/205)) ([f932ac0](https://github.com/pubg/vlossom/commit/f932ac0fd1f543f887620d4eff1343e54cd84a8d))
+* **VsTable:** modify expand button and expanded row content style ([#214](https://github.com/pubg/vlossom/issues/214)) ([6ebed01](https://github.com/pubg/vlossom/commit/6ebed01000fd8a7f72f0f420e4bc3166d871d012))
+* **VsTabs:** modify selected tab style ([#200](https://github.com/pubg/vlossom/issues/200)) ([edbcd39](https://github.com/pubg/vlossom/commit/edbcd3976e03234061018189a938bb7f9f6345bf))
+* **VsTabs:** set scrollable's default value as true ([#172](https://github.com/pubg/vlossom/issues/172)) ([58f041a](https://github.com/pubg/vlossom/commit/58f041a9c531fa14318c5ce40e0bea2258a0caaf))
+* **VsTextWrap:** add check icon after copying ([#169](https://github.com/pubg/vlossom/issues/169)) ([e919cc9](https://github.com/pubg/vlossom/commit/e919cc9085924c9f33cd9ad285f0c3e0640663bf))
+* **VsToast:** change close button style ([#194](https://github.com/pubg/vlossom/issues/194)) ([c2992fe](https://github.com/pubg/vlossom/commit/c2992fe2a24352ced1846f47ce76f75797e7dc6d))
+* **VsTooltip:** add accessiblity features ([#170](https://github.com/pubg/vlossom/issues/170)) ([9f9e6e2](https://github.com/pubg/vlossom/commit/9f9e6e21c6ae284367147a3b76fdb95931da7666))
+
+
+### Bug Fixes
+
+* **objectUtil:** apply isPlainObject on typeof object ([#159](https://github.com/pubg/vlossom/issues/159)) ([a7380bf](https://github.com/pubg/vlossom/commit/a7380bfd0d4eac0e3dc5362535a2855bed3dfbc2))
+* **stories:** give grid props to stories using vs-container ([#190](https://github.com/pubg/vlossom/issues/190)) ([37d6dca](https://github.com/pubg/vlossom/commit/37d6dca69de4c32426380f06a222dededab3e957))
+* **VsButton:** modify loading icon position absolute ([#196](https://github.com/pubg/vlossom/issues/196)) ([ae3ee7c](https://github.com/pubg/vlossom/commit/ae3ee7c565a0046c41ffcf7b67aea2229a316bf3))
+* **VsCheckbox, VsCheckboxSet:** fix before-change input checked bug ([#179](https://github.com/pubg/vlossom/issues/179)) ([422791d](https://github.com/pubg/vlossom/commit/422791db0d8940dfed68f3bc9e5083c6b566e2e9))
+* **VsDrawer:** fix click bug on dimmed area ([#171](https://github.com/pubg/vlossom/issues/171)) ([fcf008a](https://github.com/pubg/vlossom/commit/fcf008a956280a45730c846faa6031bacceda559))
+* **VsDrawer:** fix computing order of styleSet ([#208](https://github.com/pubg/vlossom/issues/208)) ([3329bfd](https://github.com/pubg/vlossom/commit/3329bfdc0858a8a8f580cd5d6934edd0ed133305))
+* **VsDrawer:** initialize body overflow when closing drawer ([#189](https://github.com/pubg/vlossom/issues/189)) ([b0959e6](https://github.com/pubg/vlossom/commit/b0959e64dbfbedd1341e1c20250110f227f81960))
+* **VsPagination:** fix the position of page-button when overflox-x occurs ([#195](https://github.com/pubg/vlossom/issues/195)) ([64d2dcc](https://github.com/pubg/vlossom/commit/64d2dcca8b7161595899aa2dc3ade7ce19fac4f7))
+* **VsRadio,VsRadioSet:** create vs-radio-node and fix radio checked bug ([#152](https://github.com/pubg/vlossom/issues/152)) ([0a195c8](https://github.com/pubg/vlossom/commit/0a195c8a1d7c529ae3e0c55c48b9644e4265cb79))
+* **VsSelect:** allow vs-select multiple chips flex-wrap ([#206](https://github.com/pubg/vlossom/issues/206)) ([9487459](https://github.com/pubg/vlossom/commit/948745969649a60a203c0c784d0c97e4da223e31))
+* **VsSelect:** fix autocomplete options closing on space key press ([#212](https://github.com/pubg/vlossom/issues/212)) ([5cfb980](https://github.com/pubg/vlossom/commit/5cfb98022ba2c5a3ed5d283fd9f51a6500ea8d22))
+* **VsSelect:** fix vs-select autocomplete ([#198](https://github.com/pubg/vlossom/issues/198)) ([9b3b7eb](https://github.com/pubg/vlossom/commit/9b3b7ebc716164c8645c26865c6bbf93bca54ba3))
+* **VsSelect:** fix vs-select click outside ([#207](https://github.com/pubg/vlossom/issues/207)) ([98dbf9b](https://github.com/pubg/vlossom/commit/98dbf9baa2c8ab111a3d719c76caf1f493332fee))
+* **VsSwitch:** fix vs-swtich before-change ([#202](https://github.com/pubg/vlossom/issues/202)) ([d342696](https://github.com/pubg/vlossom/commit/d34269621ce0f206976a957b17ab1bdadebcca29))
+* **VsTabs:** remove scrobar-width css ([#184](https://github.com/pubg/vlossom/issues/184)) ([1be294b](https://github.com/pubg/vlossom/commit/1be294b6c818f53906dc8ceba5873959b3d7bc1e))
+* **VsTextWrap:** remove vs-text-wrap scroll ([#204](https://github.com/pubg/vlossom/issues/204)) ([22807c6](https://github.com/pubg/vlossom/commit/22807c6878e909015f511870432428e4cca9bda2))
+
+
+### Miscellaneous
+
+* update package version (1.0.0-alpha.2) ([#157](https://github.com/pubg/vlossom/issues/157)) ([7b2a849](https://github.com/pubg/vlossom/commit/7b2a8490d17648cc343c7b86de304c26f2a2f08e))
+
 ## 1.0.0-alpha.1 (2024-04-01)
 
 
