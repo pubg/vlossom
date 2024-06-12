@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0-beta.1](https://github.com/pubg/vlossom/compare/main...release-please--branches--main--components--vlossom) (2024-06-12)
+## 1.0.0-beta.1 (2024-06-12)
 
 
 ### Features
