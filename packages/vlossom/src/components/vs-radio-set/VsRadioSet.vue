@@ -2,7 +2,7 @@
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -23,11 +23,11 @@
                     :color-scheme="computedColorScheme"
                     :style-set="radioStyleSet"
                     :checked="isChecked(option)"
-                    :disabled="disabled"
+                    :disabled="computedDisabled"
                     :id="`${id}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
-                    :readonly="readonly"
+                    :readonly="computedReadonly"
                     :required="required"
                     :state="computedState"
                     :value="getOptionValue(option)"
@@ -119,11 +119,6 @@ export default defineComponent({
             styleSet,
         );
 
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
-
         const inputValue = ref(modelValue.value);
 
         const { getOptionLabel, getOptionValue } = useInputOption(inputValue, options, optionLabel, optionValue);
@@ -144,12 +139,13 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -158,8 +154,12 @@ export default defineComponent({
                         inputValue.value = null;
                     },
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         async function onToggle(option: any) {
             // radio change event value is always true
@@ -191,6 +191,8 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             radioStyleSet,
             radioSetStyleSet,
             isChecked,

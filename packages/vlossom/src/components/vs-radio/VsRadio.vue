@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="radioLabel ? '' : id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -20,11 +20,11 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
-                :disabled="disabled"
+                :disabled="computedDisabled"
                 :id="id"
                 :label="radioLabel"
                 :name="name"
-                :readonly="readonly"
+                :readonly="computedReadonly"
                 :required="required"
                 :state="computedState"
                 :value="radioValue"
@@ -78,6 +78,8 @@ export default defineComponent({
             checked,
             colorScheme,
             label,
+            disabled,
+            readonly,
             messages,
             modelValue,
             name,
@@ -114,12 +116,13 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -133,8 +136,7 @@ export default defineComponent({
                         inputValue.value = null;
                     },
                 },
-            },
-        );
+            });
 
         async function onToggle() {
             // radio change event value is always true
@@ -164,6 +166,8 @@ export default defineComponent({
             computedColorScheme,
             computedState,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             inputValue,
             computedMessages,
             shake,

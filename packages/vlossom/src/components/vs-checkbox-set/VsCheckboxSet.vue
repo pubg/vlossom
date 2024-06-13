@@ -2,7 +2,7 @@
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -23,11 +23,11 @@
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
-                    :disabled="disabled"
+                    :disabled="computedDisabled"
                     :id="`${id}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
-                    :readonly="readonly"
+                    :readonly="computedReadonly"
                     :required="required"
                     :state="computedState"
                     :value="getOptionValue(option)"
@@ -130,11 +130,6 @@ export default defineComponent({
             styleSet,
         );
 
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
-
         const inputValue = ref(modelValue.value);
 
         const { getOptionLabel, getOptionValue } = useInputOption(
@@ -151,12 +146,13 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -175,8 +171,12 @@ export default defineComponent({
                         inputValue.value = [];
                     },
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         function isChecked(option: any) {
             if (!inputValue.value) {
@@ -227,6 +227,8 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             checkboxStyleSet,
             checkboxSetStyleSet,
             isChecked,

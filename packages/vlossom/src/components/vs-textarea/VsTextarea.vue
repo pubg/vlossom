@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -21,8 +21,8 @@
                 :id="id"
                 :value="inputValue"
                 :name="name"
-                :disabled="disabled"
-                :readonly="readonly"
+                :disabled="computedDisabled"
+                :readonly="computedReadonly"
                 :aria-required="required"
                 :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"
@@ -87,6 +87,7 @@ export default defineComponent({
             modelValue,
             label,
             messages,
+            readonly,
             required,
             rules,
             max,
@@ -107,10 +108,6 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-        }));
-
         const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
         function convertValue(v: string): string {
@@ -125,12 +122,13 @@ export default defineComponent({
             inputValue.value = '';
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -143,8 +141,12 @@ export default defineComponent({
                     },
                     onClear,
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -184,6 +186,8 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedStyleSet,
+            computedReadonly,
+            computedDisabled,
             inputValue,
             updateValue,
             textareaRef,

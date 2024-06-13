@@ -1,6 +1,8 @@
 import { beforeEach, afterEach, describe, it, expect } from 'vitest';
-import { nextTick } from 'vue';
+import { defineComponent, inject, nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
+import { useFormProvide } from '@/composables';
+import { VS_FORM, VsFormProvide } from '@/declaration';
 import VsForm from './../VsForm.vue';
 
 function mountComponent() {
@@ -9,7 +11,23 @@ function mountComponent() {
 
 describe('vs-form', () => {
     let wrapper: ReturnType<typeof mountComponent>;
-
+    const SlotComponent = defineComponent({
+        template: `
+            <div>
+                disabled: {{ disabled }}
+                readonly: {{ readonly }}
+            </div>`,
+        setup() {
+            const { disabled, readonly } = inject<VsFormProvide>(
+                VS_FORM,
+                useFormProvide().getDefaultFormProvide(), // for no provide error
+            );
+            return {
+                disabled,
+                readonly,
+            };
+        },
+    });
     beforeEach(() => {
         wrapper = mount(VsForm, {
             props: {
@@ -17,6 +35,9 @@ describe('vs-form', () => {
                 'onUpdate:changed': (v: boolean) => wrapper.setProps({ changed: v }),
                 valid: false,
                 'onUpdate:valid': (v: boolean) => wrapper.setProps({ valid: v }),
+            },
+            slots: {
+                default: SlotComponent,
             },
         });
     });
@@ -71,6 +92,34 @@ describe('vs-form', () => {
             // then
             expect(valid).toBe(false);
             expect(wrapper.emitted('error')?.[0][0]).toEqual(['test']);
+        });
+    });
+
+    describe('disabled', () => {
+        it('disabled의 기본값은 false이다', () => {
+            expect(wrapper.html()).toContain('disabled: false');
+        });
+
+        it('disabled props가 설정되면 disabled 값을 provide 객체로 자식 Component(SlotComponent)에 전달한다', async () => {
+            // when
+            await wrapper.setProps({ disabled: true });
+
+            // then
+            expect(wrapper.html()).toContain('disabled: true');
+        });
+    });
+
+    describe('readonly', () => {
+        it('readonly의 기본값은 false이다', () => {
+            expect(wrapper.html()).toContain('readonly: false');
+        });
+
+        it('readonly props가 설정되면 readonly 값을 provide 객체로 자식 Component(SlotComponent)에 전달한다', async () => {
+            // when
+            await wrapper.setProps({ readonly: true });
+
+            // then
+            expect(wrapper.html()).toContain('readonly: true');
         });
     });
 

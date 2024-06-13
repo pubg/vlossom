@@ -12,7 +12,7 @@ describe('form-composable', () => {
     const validateSpy = vi.fn(() => true);
     const clearSpy = vi.fn();
 
-    const InputComponent = defineComponent({
+    const TestInputComponent = defineComponent({
         render: () => null,
         setup() {
             const { id } = useInputForm(label, valid, changed, validateSpy, clearSpy);
@@ -21,7 +21,7 @@ describe('form-composable', () => {
     });
 
     function createWrapper(provide: any = {}) {
-        return mount(InputComponent, {
+        return mount(TestInputComponent, {
             global: {
                 provide,
             },

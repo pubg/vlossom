@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -37,8 +37,8 @@
                     :id="id"
                     type="file"
                     :name="name"
-                    :disabled="disabled"
-                    :readonly="readonly"
+                    :disabled="computedDisabled || computedReadonly"
+                    :readonly="computedReadonly"
                     :required="required"
                     :multiple="multiple"
                     :accept="accept"
@@ -48,7 +48,7 @@
                 />
 
                 <button
-                    v-if="!noClear && hasValue && !readonly && !disabled"
+                    v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
                     class="clear-button"
                     aria-hidden="true"
                     tabindex="-1"
@@ -118,13 +118,6 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
 
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-            dragging: dragging.value,
-            readonly: readonly.value,
-        }));
-
         const inputValue = ref(modelValue.value);
 
         const hasValue = computed(() => {
@@ -184,12 +177,13 @@ export default defineComponent({
             }
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -198,8 +192,14 @@ export default defineComponent({
                     onChange: correctEmptyValue,
                     onClear,
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+            dragging: dragging.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -247,6 +247,8 @@ export default defineComponent({
             updateValue,
             hasValue,
             computedMessages,
+            computedDisabled,
+            computedReadonly,
             shake,
             onClear,
             clear,

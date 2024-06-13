@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -15,7 +15,11 @@
             </template>
 
             <div
-                :class="['vs-switch', `vs-${computedColorScheme}`, { checked: isChecked, disabled, readonly }]"
+                :class="[
+                    'vs-switch',
+                    `vs-${computedColorScheme}`,
+                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly },
+                ]"
                 :style="computedStyleSet"
             >
                 <input
@@ -24,7 +28,7 @@
                     class="vs-switch-input"
                     :id="id"
                     :name="name"
-                    :disabled="disabled || readonly"
+                    :disabled="computedDisabled || computedReadonly"
                     :checked="isChecked"
                     :value="convertToString(trueValue)"
                     :aria-label="ariaLabel || 'switch ' + label"
@@ -133,12 +137,13 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -159,13 +164,12 @@ export default defineComponent({
                         inputValue.value = getClearedValue();
                     },
                 },
-            },
-        );
+            });
 
         const { stateClasses } = useStateClass(computedState);
 
         async function onClick() {
-            if (disabled.value || readonly.value) {
+            if (computedDisabled.value || computedReadonly.value) {
                 return;
             }
 
@@ -203,6 +207,8 @@ export default defineComponent({
             inputValue,
             computedColorScheme,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             isChecked,
             onClick,
             onFocus,
