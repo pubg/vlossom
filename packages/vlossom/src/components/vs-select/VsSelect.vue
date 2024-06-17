@@ -273,7 +273,7 @@ export default defineComponent({
             },
         },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: 0 },
+        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         multiple: { type: Boolean, default: false },
         selectAll: {
             type: Boolean,
