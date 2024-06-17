@@ -104,6 +104,7 @@ export default defineComponent({
             falseValue,
             multiple,
             styleSet,
+            noDefaultRules,
         } = toRefs(props);
         const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -126,7 +127,7 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
 
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {
