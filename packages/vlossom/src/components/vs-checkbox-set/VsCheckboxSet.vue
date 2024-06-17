@@ -69,6 +69,7 @@ import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
+import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
 import type { VsCheckboxSetStyleSet } from './types';
 import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
@@ -88,6 +89,8 @@ export default defineComponent({
             type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
             default: null,
         },
+        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
+        min: { type: [Number, String], default: 0 },
         vertical: { type: Boolean, default: false },
         // v-model
         modelValue: {
@@ -113,6 +116,8 @@ export default defineComponent({
             required,
             rules,
             state,
+            max,
+            min,
         } = toRefs(props);
 
         const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -145,11 +150,9 @@ export default defineComponent({
             ref(true),
         );
 
-        function requiredCheck() {
-            return required.value && inputValue.value && inputValue.value.length === 0 ? 'required' : '';
-        }
+        const { requiredCheck, maxCheck, minCheck } = useVsCheckboxSetRules(required, max, min);
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
         const { computedMessages, computedState, shake, validate, clear, id } = useInput(
             inputValue,
