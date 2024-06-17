@@ -103,6 +103,7 @@ export default defineComponent({
             min,
             modelModifiers,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -117,7 +118,10 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
+        const allRules = computed(() => [
+            ...rules.value,
+            ...(noDefaultRules.value ? [] : [requiredCheck, maxCheck, minCheck]),
+        ]);
 
         function convertValue(v: string): string {
             if (!v) {

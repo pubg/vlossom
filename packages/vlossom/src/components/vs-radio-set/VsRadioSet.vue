@@ -105,6 +105,7 @@ export default defineComponent({
             required,
             rules,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const radioRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -137,7 +138,7 @@ export default defineComponent({
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
 
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {

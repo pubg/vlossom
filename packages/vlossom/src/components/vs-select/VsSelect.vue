@@ -333,6 +333,7 @@ export default defineComponent({
             state,
             max,
             min,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -379,7 +380,10 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsSelectRules(required, max, min, multiple);
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
+        const allRules = computed(() => [
+            ...rules.value,
+            ...(noDefaultRules.value ? [] : [requiredCheck, maxCheck, minCheck]),
+        ]);
 
         function onClear() {
             if (multiple.value) {
