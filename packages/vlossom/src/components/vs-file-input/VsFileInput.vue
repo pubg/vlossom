@@ -108,6 +108,7 @@ export default defineComponent({
             required,
             rules,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const fileInputRef: Ref<HTMLInputElement | null> = ref(null);
@@ -148,7 +149,7 @@ export default defineComponent({
             return required.value && !hasValue.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
 
         function onClear() {
             if (fileInputRef.value) {
