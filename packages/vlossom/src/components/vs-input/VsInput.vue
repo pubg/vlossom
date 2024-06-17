@@ -147,6 +147,7 @@ export default defineComponent({
             min,
             modelModifiers,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -175,7 +176,10 @@ export default defineComponent({
             return modifyStringValue(v.toString());
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
+        const allRules = computed(() => [
+            ...rules.value,
+            ...(noDefaultRules.value ? [] : [requiredCheck, maxCheck, minCheck]),
+        ]);
 
         function onClear() {
             inputValue.value = null;
