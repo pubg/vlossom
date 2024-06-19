@@ -20,11 +20,6 @@ export function useVsSelectRules(
 
     function maxCheck(v: any) {
         const limit = Number(max.value);
-
-        if (isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
-            return '';
-        }
-
         if (multiple.value) {
             return v && v.length > limit ? 'max number of items: ' + max.value : '';
         }
@@ -34,11 +29,6 @@ export function useVsSelectRules(
 
     function minCheck(v: any) {
         const limit = Number(min.value);
-
-        if (isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
-            return '';
-        }
-
         if (multiple.value) {
             return v && v.length < limit ? 'min number of items: ' + min.value : '';
         }
