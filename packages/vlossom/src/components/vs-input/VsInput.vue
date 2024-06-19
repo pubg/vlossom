@@ -96,8 +96,8 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         autocomplete: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
-        max: { type: Number, default: Number.MAX_SAFE_INTEGER },
-        min: { type: Number, default: Number.MIN_SAFE_INTEGER },
+        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
+        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
         type: { type: String as PropType<InputType>, default: InputType.Text },
         // v-model
         modelValue: {

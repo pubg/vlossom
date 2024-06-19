@@ -89,28 +89,8 @@ export default defineComponent({
             type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
             default: null,
         },
-        max: {
-            type: Number,
-            default: Number.MAX_SAFE_INTEGER,
-            validator: (prop: number) => {
-                const isValid = prop >= 1;
-                if (!isValid) {
-                    utils.log.propError(name, 'max', 'max must be 1 or more');
-                }
-                return isValid;
-            },
-        },
-        min: {
-            type: Number,
-            default: 0,
-            validator: (prop: number) => {
-                const isValid = prop >= 0;
-                if (!isValid) {
-                    utils.log.propError(name, 'min', 'min must be 0 or more');
-                }
-                return isValid;
-            },
-        },
+        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
+        min: { type: [Number, String], default: 0 },
         vertical: { type: Boolean, default: false },
         // v-model
         modelValue: {
