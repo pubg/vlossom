@@ -55,6 +55,7 @@ import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import { useVsTextareaRules } from './vs-textarea-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import { utils } from '@/utils';
 
 import type { InputValueType, VsTextareaStyleSet } from './types';
 
@@ -68,8 +69,28 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
         autocomplete: { type: Boolean, default: false },
-        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: 0 },
+        max: {
+            type: Number,
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (prop: number) => {
+                const isValid = prop >= 1;
+                if (!isValid) {
+                    utils.log.propError(name, 'max', 'max must be 1 or more');
+                }
+                return isValid;
+            },
+        },
+        min: {
+            type: Number,
+            default: 0,
+            validator: (prop: number) => {
+                const isValid = prop >= 0;
+                if (!isValid) {
+                    utils.log.propError(name, 'min', 'min must be 0 or more');
+                }
+                return isValid;
+            },
+        },
         // v-model
         modelValue: { type: String, default: '' },
         modelModifiers: {

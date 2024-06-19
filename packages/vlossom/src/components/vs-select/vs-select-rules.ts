@@ -2,8 +2,8 @@ import { Ref } from 'vue';
 
 export function useVsSelectRules(
     required: Ref<boolean>,
-    max: Ref<number | string>,
-    min: Ref<number | string>,
+    max: Ref<number>,
+    min: Ref<number>,
     multiple: Ref<boolean>,
 ) {
     function requiredCheck(v: any) {
@@ -19,28 +19,16 @@ export function useVsSelectRules(
     }
 
     function maxCheck(v: any) {
-        const limit = Number(max.value);
-
-        if (isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
-            return '';
-        }
-
         if (multiple.value) {
-            return v && v.length > limit ? 'max number of items: ' + max.value : '';
+            return v && v.length > max.value ? 'max number of items: ' + max.value : '';
         }
 
         return '';
     }
 
     function minCheck(v: any) {
-        const limit = Number(min.value);
-
-        if (isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
-            return '';
-        }
-
         if (multiple.value) {
-            return v && v.length < limit ? 'min number of items: ' + min.value : '';
+            return v && v.length < min.value ? 'min number of items: ' + min.value : '';
         }
 
         return '';

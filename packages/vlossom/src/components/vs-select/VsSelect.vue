@@ -272,8 +272,28 @@ export default defineComponent({
                 return isValid;
             },
         },
-        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: 0 },
+        max: {
+            type: Number,
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (prop: number) => {
+                const isValid = prop >= 1;
+                if (!isValid) {
+                    utils.log.propError(name, 'max', 'max must be 1 or more');
+                }
+                return isValid;
+            },
+        },
+        min: {
+            type: Number,
+            default: 0,
+            validator: (prop: number) => {
+                const isValid = prop >= 0;
+                if (!isValid) {
+                    utils.log.propError(name, 'min', 'min must be 0 or more');
+                }
+                return isValid;
+            },
+        },
         multiple: { type: Boolean, default: false },
         selectAll: {
             type: Boolean,
