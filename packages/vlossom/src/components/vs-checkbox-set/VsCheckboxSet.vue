@@ -90,7 +90,7 @@ export default defineComponent({
             default: null,
         },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        min: { type: [Number, String], default: 0 },
         vertical: { type: Boolean, default: false },
         // v-model
         modelValue: {
