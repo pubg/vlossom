@@ -21,6 +21,7 @@ jobs:
                   path: packages/vlossom
                   changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug Fixes","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false}]'
                   prerelease: true
+                  versioning-strategy: prerelease
             - name: Checkout Repository
               uses: actions/checkout@v4
               if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
