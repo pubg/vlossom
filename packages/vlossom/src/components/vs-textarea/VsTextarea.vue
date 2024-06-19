@@ -69,7 +69,7 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
         autocomplete: { type: Boolean, default: false },
         max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        min: { type: [Number, String], default: 0 },
         // v-model
         modelValue: { type: String, default: '' },
         modelModifiers: {
