@@ -100,9 +100,14 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
                 computePosition(attachInfo);
 
                 throttledComputePosition = utils.function.throttle(computePosition.bind(null, attachInfo), 30);
-                resizeObserver = new ResizeObserver(throttledComputePosition);
-                resizeObserver.observe(anchor.value);
-                resizeObserver.observe(attachment.value);
+
+                const hasResizeObserver = window && window.ResizeObserver !== undefined;
+                if (hasResizeObserver) {
+                    resizeObserver = new ResizeObserver(throttledComputePosition);
+                    resizeObserver.observe(anchor.value);
+                    resizeObserver.observe(attachment.value);
+                }
+
                 document.addEventListener('scroll', throttledComputePosition, true);
                 window.addEventListener('resize', throttledComputePosition, true);
             } catch (error: any) {
