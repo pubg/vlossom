@@ -84,6 +84,7 @@ import { VsIcon } from '@/icons';
 import { InputType } from './types';
 
 import type { InputValueType, VsInputStyleSet } from './types';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsInput;
 export default defineComponent({
@@ -96,8 +97,16 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         autocomplete: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
-        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
+        },
+        min: {
+            type: [Number, String],
+            default: Number.MIN_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
+        },
         type: { type: String as PropType<InputType>, default: InputType.Text },
         // v-model
         modelValue: {

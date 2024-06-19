@@ -275,26 +275,12 @@ export default defineComponent({
         max: {
             type: [Number, String],
             default: Number.MAX_SAFE_INTEGER,
-            validator: (value: number | string) => {
-                const limit = Number(value);
-                const isValid = !isNaN(limit) && limit <= Number.MAX_SAFE_INTEGER;
-                if (!isValid) {
-                    utils.log.propError(name, 'max', 'invalid max value');
-                }
-                return isValid;
-            },
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
         },
         min: {
             type: [Number, String],
             default: 0,
-            validator: (value: number | string) => {
-                const limit = Number(value);
-                const isValid = !isNaN(limit) && limit >= 0 && limit <= Number.MAX_SAFE_INTEGER;
-                if (!isValid) {
-                    utils.log.propError(name, 'min', 'invalid min value');
-                }
-                return isValid;
-            },
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
         },
         multiple: { type: Boolean, default: false },
         selectAll: {
