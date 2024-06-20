@@ -9,6 +9,7 @@
 * **Playground:** separate Playground component and add App.vue ([#217](https://github.com/pubg/vlossom/issues/217)) ([e7241af](https://github.com/pubg/vlossom/commit/e7241affa29245e09a2eb862fda4fc48694ab9ae))
 * **vs-select, vs-checkbox-set:** add max/min props and rules ([#219](https://github.com/pubg/vlossom/issues/219)) ([9eac351](https://github.com/pubg/vlossom/commit/9eac351f063c2c70a8c1f7d8c0ca81db20672f32))
 * **VsForm:** add vs-form disabled, readonly ([#223](https://github.com/pubg/vlossom/issues/223)) ([799699e](https://github.com/pubg/vlossom/commit/799699eff267212aa6f610b7aaa58159151cf9d1))
+* **input-components:** add noDefaultRules props ([#218](https://github.com/pubg/vlossom/issues/218)) ([36bb36d](https://github.com/pubg/vlossom/commit/36bb36dbdffff30933060083036a800a27e886c7))
 
 
 ### Bug Fixes
