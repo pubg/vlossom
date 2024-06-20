@@ -12,7 +12,6 @@ interface VsInputProps<T> {
     name: { type: StringConstructor; default: string };
     noClear: { type: BooleanConstructor; default: boolean };
     noDefaultRules: { type: BooleanConstructor; default: boolean };
-    noLabel: { type: BooleanConstructor; default: boolean };
     noMessage: { type: BooleanConstructor; default: boolean };
     placeholder: { type: StringConstructor; default: string };
     readonly: { type: BooleanConstructor; default: boolean };
@@ -38,7 +37,6 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
             name: { type: String, default: '' },
             noClear: { type: Boolean, default: false },
             noDefaultRules: { type: Boolean, default: false },
-            noLabel: { type: Boolean, default: false },
             noMessage: { type: Boolean, default: false },
             placeholder: { type: String, default: '' },
             readonly: { type: Boolean, default: false },
