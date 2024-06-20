@@ -37,7 +37,7 @@
                     :id="id"
                     type="file"
                     :name="name"
-                    :disabled="computedDisabled || computedReadonly"
+                    :disabled="computedDisabled"
                     :readonly="computedReadonly"
                     :required="required"
                     :multiple="multiple"
