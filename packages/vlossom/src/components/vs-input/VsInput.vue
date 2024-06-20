@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -29,8 +29,8 @@
                     :value="inputValue"
                     :autocomplete="autocomplete ? 'on' : 'off'"
                     :name="name"
-                    :disabled="disabled"
-                    :readonly="readonly"
+                    :disabled="computedDisabled"
+                    :readonly="computedReadonly"
                     :aria-required="required"
                     :placeholder="placeholder"
                     @input.stop="updateValue($event)"
@@ -41,7 +41,7 @@
                 />
 
                 <button
-                    v-if="!noClear && !readonly && !disabled"
+                    v-if="!noClear && !computedReadonly && !computedDisabled"
                     type="button"
                     class="clear-button"
                     :class="{ show: inputValue }"
@@ -140,6 +140,7 @@ export default defineComponent({
             modelValue,
             label,
             messages,
+            readonly,
             required,
             rules,
             max,
@@ -159,11 +160,6 @@ export default defineComponent({
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-        }));
 
         const isNumberInput = computed(() => type.value === InputType.Number);
 
@@ -185,12 +181,13 @@ export default defineComponent({
             inputValue.value = null;
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -203,8 +200,13 @@ export default defineComponent({
                     },
                     onClear,
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -254,6 +256,8 @@ export default defineComponent({
             updateValue,
             inputRef,
             computedMessages,
+            computedDisabled,
+            computedReadonly,
             shake,
             focus,
             blur,

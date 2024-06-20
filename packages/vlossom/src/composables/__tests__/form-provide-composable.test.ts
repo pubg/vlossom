@@ -2,6 +2,28 @@ import { describe, expect, it } from 'vitest';
 import { useFormProvide } from '@/composables';
 
 describe('form-provide-composable', () => {
+    it('disabled 값을 업데이트 할 수 있다', () => {
+        // given
+        const { disabled, setDisabled } = useFormProvide();
+
+        // when
+        setDisabled(true);
+
+        // then
+        expect(disabled.value).toBe(true);
+    });
+
+    it('readonly 값을 업데이트 할 수 있다', () => {
+        // given
+        const { readonly, setReadonly } = useFormProvide();
+
+        // when
+        setReadonly(true);
+
+        // then
+        expect(readonly.value).toBe(true);
+    });
+
     it('labelObj에 label 값이 업데이트 된다', () => {
         // given
         const { labelObj, updateLabel } = useFormProvide();

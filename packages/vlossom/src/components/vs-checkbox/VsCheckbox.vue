@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="checkLabel ? '' : id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -20,12 +20,12 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
-                :disabled="disabled"
+                :disabled="computedDisabled"
                 :id="id"
                 :indeterminate="indeterminate"
                 :label="checkLabel"
                 :name="name"
-                :readonly="readonly"
+                :readonly="computedReadonly"
                 :required="required"
                 :state="computedState"
                 :value="trueValue"
@@ -93,6 +93,8 @@ export default defineComponent({
             checked,
             colorScheme,
             label,
+            disabled,
+            readonly,
             modelValue,
             messages,
             required,
@@ -126,12 +128,13 @@ export default defineComponent({
 
         const allRules = computed(() => [...rules.value, requiredCheck]);
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -152,8 +155,7 @@ export default defineComponent({
                         inputValue.value = getClearedValue();
                     },
                 },
-            },
-        );
+            });
 
         async function onToggle(c: boolean) {
             const toValue = getUpdatedValue(c);
@@ -191,6 +193,8 @@ export default defineComponent({
             isChecked,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             computedStyleSet,
             inputValue,
             computedMessages,
