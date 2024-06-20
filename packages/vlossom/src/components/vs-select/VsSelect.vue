@@ -216,6 +216,7 @@ import {
 } from '@/composables';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import { useVsSelectRules } from './vs-select-rules';
 import { VsSelectStyleSet } from './types';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
@@ -271,6 +272,28 @@ export default defineComponent({
                 return isValid;
             },
         },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'max', 'max can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'max', value);
+            },
+        },
+        min: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'min', 'min can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'min', value);
+            },
+        },
         multiple: { type: Boolean, default: false },
         selectAll: {
             type: Boolean,
@@ -308,6 +331,8 @@ export default defineComponent({
             rules,
             selectAll,
             state,
+            max,
+            min,
         } = toRefs(props);
 
         const { emit } = context;
@@ -352,19 +377,9 @@ export default defineComponent({
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
 
-        function requiredCheck() {
-            if (!required.value) {
-                return '';
-            }
+        const { requiredCheck, maxCheck, minCheck } = useVsSelectRules(required, max, min, multiple);
 
-            if (multiple.value) {
-                return inputValue.value && inputValue.value.length > 0 ? '' : 'required';
-            } else {
-                return inputValue.value ? '' : 'required';
-            }
-        }
-
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
         function onClear() {
             if (multiple.value) {
