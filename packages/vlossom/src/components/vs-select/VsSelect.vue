@@ -275,12 +275,24 @@ export default defineComponent({
         max: {
             type: [Number, String],
             default: Number.MAX_SAFE_INTEGER,
-            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'max', 'max can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'max', value);
+            },
         },
         min: {
             type: [Number, String],
             default: 0,
-            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'min', 'min can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'min', value);
+            },
         },
         multiple: { type: Boolean, default: false },
         selectAll: {
