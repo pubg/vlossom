@@ -41,10 +41,15 @@ describe('useInput composable', () => {
             ...getInputProps<string, []>(),
         },
         setup(props, ctx) {
-            const { modelValue, label, messages, rules, state } = toRefs(props);
+            const { modelValue, label, messages, rules, state, disabled, readonly } = toRefs(props);
 
             return {
-                ...useInput(inputValue, modelValue, ctx, label, {
+                ...useInput(ctx, {
+                    inputValue,
+                    modelValue,
+                    label,
+                    disabled,
+                    readonly,
                     callbacks: {
                         onMounted: onMountedSpy,
                         onChange: onChangeSpy,

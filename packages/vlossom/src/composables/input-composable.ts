@@ -3,7 +3,7 @@ import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
 import { utils } from '@/utils';
 
-import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
+import type { StateMessage, Rule, Message, InputComponentParams } from '@/declaration';
 
 interface VsInputProps<T> {
     disabled: { type: BooleanConstructor; default: boolean };
@@ -54,15 +54,19 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
     return utils.object.omit(inputProps, excludes);
 }
 
-export function useInput<T = unknown>(
-    inputValue: Ref<T>,
-    modelValue: Ref<T>,
-    ctx: any,
-    label: Ref<string>,
-    options?: InputComponentOptions<T>,
-) {
+export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParams<T>) {
     const { emit } = ctx;
-    const { messages = ref([]), rules = ref([]), state = ref(UIState.Idle) } = options || {};
+    const {
+        inputValue,
+        modelValue,
+        label,
+        disabled = ref(false),
+        readonly = ref(false),
+        messages = ref([]),
+        rules = ref([]),
+        state = ref(UIState.Idle),
+        callbacks = {},
+    } = inputParams;
 
     const changed = ref(false);
     const isInitialized = ref(false);
@@ -141,8 +145,8 @@ export function useInput<T = unknown>(
         inputValue,
         (value, oldValue) => {
             emit('update:modelValue', value);
-            if (options?.callbacks?.onChange) {
-                options.callbacks.onChange(value, oldValue);
+            if (callbacks.onChange) {
+                callbacks.onChange(value, oldValue);
             }
 
             checkMessages();
@@ -175,8 +179,8 @@ export function useInput<T = unknown>(
     });
 
     onMounted(() => {
-        if (options?.callbacks?.onMounted) {
-            options.callbacks.onMounted();
+        if (callbacks.onMounted) {
+            callbacks.onMounted();
         }
 
         checkMessages();
@@ -197,8 +201,8 @@ export function useInput<T = unknown>(
     }
 
     function clear() {
-        if (options?.callbacks?.onClear) {
-            options.callbacks.onClear();
+        if (callbacks.onClear) {
+            callbacks.onClear();
         }
 
         nextTick(() => {
@@ -209,7 +213,11 @@ export function useInput<T = unknown>(
         });
     }
 
-    const { id } = useInputForm(label, valid, changed, validate, clear);
+    const { id, formDisabled, formReadonly } = useInputForm(label, valid, changed, validate, clear);
+
+    const computedDisabled = computed(() => disabled.value || formDisabled.value);
+
+    const computedReadonly = computed(() => readonly.value || formReadonly.value);
 
     watch(changed, () => {
         emit('update:changed', changed.value);
@@ -226,6 +234,8 @@ export function useInput<T = unknown>(
         validate,
         clear,
         id,
+        computedDisabled,
+        computedReadonly,
         computedState,
     };
 }

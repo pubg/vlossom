@@ -12,10 +12,11 @@ export function useInputForm(
 ) {
     const id = utils.string.createID();
 
-    const { validateFlag, clearFlag, updateLabel, updateChanged, updateValid, removeFromForm } = inject<VsFormProvide>(
-        VS_FORM,
-        useFormProvide().getDefaultFormProvide(), // for no provide error
-    );
+    const { disabled, readonly, validateFlag, clearFlag, updateLabel, updateChanged, updateValid, removeFromForm } =
+        inject<VsFormProvide>(
+            VS_FORM,
+            useFormProvide().getDefaultFormProvide(), // for no provide error
+        );
 
     watch(label, () => {
         updateLabel(id, label.value);
@@ -45,5 +46,7 @@ export function useInputForm(
 
     return {
         id,
+        formDisabled: disabled,
+        formReadonly: readonly,
     };
 }

@@ -103,7 +103,12 @@ export interface StateMessage {
 export type Rule<T = any> = ((v: T) => string) | ((v: T) => PromiseLike<string>);
 export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>);
 
-export interface InputComponentOptions<T = unknown> {
+export interface InputComponentParams<T = unknown> {
+    inputValue: Ref<T>;
+    modelValue: Ref<T>;
+    label: Ref<string>;
+    disabled?: Ref<boolean>;
+    readonly?: Ref<boolean>;
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
     state?: Ref<UIState>;
@@ -121,6 +126,8 @@ export interface StringModifiers {
 }
 
 export interface VsFormProvide {
+    disabled: Ref<boolean>;
+    readonly: Ref<boolean>;
     labelObj: Ref<Record<string, string>>;
     changedObj: Ref<Record<string, boolean>>;
     validObj: Ref<Record<string, boolean>>;

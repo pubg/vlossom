@@ -3,7 +3,7 @@
         <vs-input-wrapper
             :id="id"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
             :no-label="noLabel"
             :no-message="noMessage"
@@ -33,9 +33,9 @@
                         aria-controls="vs-select-options"
                         :aria-autocomplete="autocomplete ? 'list' : undefined"
                         :aria-activedescendant="focusedOptionId"
-                        :disabled="disabled"
+                        :disabled="computedDisabled"
                         :placeholder="placeholder"
-                        :readonly="readonly || !autocomplete"
+                        :readonly="computedReadonly || !autocomplete"
                         :aria-required="required"
                         :value="inputLabel"
                         @input.stop="onInput"
@@ -87,7 +87,7 @@
                 </div>
                 <div class="vs-select-side">
                     <button
-                        v-if="!noClear && selectedOptions.length && !readonly && !disabled"
+                        v-if="!noClear && selectedOptions.length && !computedReadonly && !computedDisabled"
                         type="button"
                         class="clear-button"
                         aria-hidden="true"
@@ -312,12 +312,6 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
-
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSelectStyleSet>(name, styleSet);
@@ -386,12 +380,13 @@ export default defineComponent({
             closeOptions();
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
-            inputValue,
-            modelValue,
-            context,
-            label,
-            {
+        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
+            useInput(context, {
+                inputValue,
+                modelValue,
+                label,
+                disabled,
+                readonly,
                 messages,
                 rules: allRules,
                 state,
@@ -408,8 +403,13 @@ export default defineComponent({
                     },
                     onClear,
                 },
-            },
-        );
+            });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -434,7 +434,7 @@ export default defineComponent({
         });
 
         const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
-            useToggleOptions(id, disabled, readonly);
+            useToggleOptions(id, computedDisabled, computedReadonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
             autocomplete,
@@ -468,8 +468,8 @@ export default defineComponent({
             onMouseMove,
             isChasedOption,
         } = useFocusControl(
-            disabled,
-            readonly,
+            computedDisabled,
+            computedReadonly,
             isOpen,
             closeOptions,
             selectAll,
@@ -528,6 +528,8 @@ export default defineComponent({
             classObj,
             computedColorScheme,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             chipStyleSets,
             collapseChipStyleSets,
             animationClass,
