@@ -138,8 +138,6 @@ export default defineComponent({
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
 
-        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
-
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {
                 inputValue,
@@ -148,7 +146,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onClear: () => {

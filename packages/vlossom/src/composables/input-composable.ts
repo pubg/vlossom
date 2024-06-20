@@ -66,6 +66,8 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         readonly = ref(false),
         messages = ref([]),
         rules = ref([]),
+        defaultRules = [],
+        noDefaultRules = ref(false),
         state = ref(UIState.Idle),
         callbacks = {},
     } = inputParams;
@@ -99,13 +101,20 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
     }
     watch(messages, checkMessages, { deep: true });
 
+    const computedRules = computed(() => {
+        if (noDefaultRules.value) {
+            return rules.value;
+        }
+
+        return [...defaultRules, ...rules.value];
+    });
     const showRuleMessages = ref(false);
     const ruleMessages: Ref<StateMessage[]> = ref([]);
     async function checkRules() {
         ruleMessages.value = [];
         const pendingRules: Promise<string>[] = [];
 
-        rules.value.forEach((rule) => {
+        computedRules.value.forEach((rule) => {
             const result = rule(inputValue.value);
             if (!result) {
                 return;
@@ -133,7 +142,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
 
         ruleMessages.value.push(...resolvedMessages);
     }
-    watch(rules, checkRules, { deep: true });
+    watch(computedRules, checkRules, { deep: true });
 
     const computedMessages: ComputedRef<StateMessage[]> = computed(() => {
         if (showRuleMessages.value) {

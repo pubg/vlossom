@@ -176,11 +176,6 @@ export default defineComponent({
             return modifyStringValue(v.toString());
         }
 
-        const allRules = computed(() => [
-            ...rules.value,
-            ...(noDefaultRules.value ? [] : [requiredCheck, maxCheck, minCheck]),
-        ]);
-
         function onClear() {
             inputValue.value = null;
         }
@@ -193,7 +188,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck, maxCheck, minCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

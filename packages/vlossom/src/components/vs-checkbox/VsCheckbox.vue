@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -127,8 +127,6 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
-
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {
                 inputValue,
@@ -137,7 +135,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

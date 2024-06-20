@@ -118,11 +118,6 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
-        const allRules = computed(() => [
-            ...rules.value,
-            ...(noDefaultRules.value ? [] : [requiredCheck, maxCheck, minCheck]),
-        ]);
-
         function convertValue(v: string): string {
             if (!v) {
                 return '';
@@ -143,7 +138,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck, maxCheck, minCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

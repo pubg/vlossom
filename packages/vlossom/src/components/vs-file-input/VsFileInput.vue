@@ -149,8 +149,6 @@ export default defineComponent({
             return required.value && !hasValue.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, ...(noDefaultRules.value ? [] : [requiredCheck])]);
-
         function onClear() {
             if (fileInputRef.value) {
                 fileInputRef.value.value = '';
@@ -186,7 +184,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: correctEmptyValue,

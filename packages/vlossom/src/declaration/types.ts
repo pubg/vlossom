@@ -111,6 +111,8 @@ export interface InputComponentParams<T = unknown> {
     readonly?: Ref<boolean>;
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
+    defaultRules?: Rule<T>[];
+    noDefaultRules?: Ref<boolean>;
     state?: Ref<UIState>;
     callbacks?: {
         onChange?: (newValue: T, oldValue: T) => void;
