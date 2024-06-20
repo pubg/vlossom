@@ -126,6 +126,7 @@ export default defineComponent({
             state,
             max,
             min,
+            noDefaultRules,
         } = toRefs(props);
 
         const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -155,8 +156,6 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsCheckboxSetRules(required, max, min);
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
-
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {
                 inputValue,
@@ -165,7 +164,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck, maxCheck, minCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

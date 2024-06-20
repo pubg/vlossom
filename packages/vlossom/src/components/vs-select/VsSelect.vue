@@ -333,6 +333,7 @@ export default defineComponent({
             state,
             max,
             min,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -379,8 +380,6 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsSelectRules(required, max, min, multiple);
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
-
         function onClear() {
             if (multiple.value) {
                 inputValue.value = [];
@@ -403,7 +402,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck, maxCheck, minCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

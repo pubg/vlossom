@@ -11,6 +11,7 @@ interface VsInputProps<T> {
     messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
     name: { type: StringConstructor; default: string };
     noClear: { type: BooleanConstructor; default: boolean };
+    noDefaultRules: { type: BooleanConstructor; default: boolean };
     noLabel: { type: BooleanConstructor; default: boolean };
     noMessage: { type: BooleanConstructor; default: boolean };
     placeholder: { type: StringConstructor; default: string };
@@ -36,6 +37,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
             messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
             name: { type: String, default: '' },
             noClear: { type: Boolean, default: false },
+            noDefaultRules: { type: Boolean, default: false },
             noLabel: { type: Boolean, default: false },
             noMessage: { type: Boolean, default: false },
             placeholder: { type: String, default: '' },
@@ -64,6 +66,8 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         readonly = ref(false),
         messages = ref([]),
         rules = ref([]),
+        defaultRules = [],
+        noDefaultRules = ref(false),
         state = ref(UIState.Idle),
         callbacks = {},
     } = inputParams;
@@ -97,13 +101,20 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
     }
     watch(messages, checkMessages, { deep: true });
 
+    const computedRules = computed(() => {
+        if (noDefaultRules.value) {
+            return rules.value;
+        }
+
+        return [...defaultRules, ...rules.value];
+    });
     const showRuleMessages = ref(false);
     const ruleMessages: Ref<StateMessage[]> = ref([]);
     async function checkRules() {
         ruleMessages.value = [];
         const pendingRules: Promise<string>[] = [];
 
-        rules.value.forEach((rule) => {
+        computedRules.value.forEach((rule) => {
             const result = rule(inputValue.value);
             if (!result) {
                 return;
@@ -131,7 +142,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
 
         ruleMessages.value.push(...resolvedMessages);
     }
-    watch(rules, checkRules, { deep: true });
+    watch(computedRules, checkRules, { deep: true });
 
     const computedMessages: ComputedRef<StateMessage[]> = computed(() => {
         if (showRuleMessages.value) {

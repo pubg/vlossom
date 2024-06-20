@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, PropType, computed, ref, Ref } from 'vue';
+import { defineComponent, toRefs, PropType, ref, Ref } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -112,6 +112,7 @@ export default defineComponent({
             multiple,
             modelValue,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const switchRef: Ref<HTMLInputElement | null> = ref(null);
@@ -135,8 +136,6 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
         const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
             useInput(context, {
                 inputValue,
@@ -145,7 +144,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {

@@ -103,6 +103,7 @@ export default defineComponent({
             min,
             modelModifiers,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -116,8 +117,6 @@ export default defineComponent({
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
-
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
 
         function convertValue(v: string): string {
             if (!v) {
@@ -139,7 +138,9 @@ export default defineComponent({
                 disabled,
                 readonly,
                 messages,
-                rules: allRules,
+                rules,
+                defaultRules: [requiredCheck, maxCheck, minCheck],
+                noDefaultRules,
                 state,
                 callbacks: {
                     onMounted: () => {
