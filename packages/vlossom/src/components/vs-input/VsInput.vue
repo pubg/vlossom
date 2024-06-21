@@ -30,6 +30,7 @@
                     :name="name"
                     :disabled="computedDisabled"
                     :readonly="computedReadonly"
+                    :aria-label="ariaLabel"
                     :aria-required="required"
                     :placeholder="placeholder"
                     @input.stop="updateValue($event)"

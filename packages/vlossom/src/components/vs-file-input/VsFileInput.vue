@@ -41,6 +41,7 @@
                     :required="required"
                     :multiple="multiple"
                     :accept="accept"
+                    :aria-label="ariaLabel"
                     @change.stop="updateValue($event)"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"

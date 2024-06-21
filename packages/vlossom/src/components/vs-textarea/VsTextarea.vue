@@ -22,6 +22,7 @@
                 :name="name"
                 :disabled="computedDisabled"
                 :readonly="computedReadonly"
+                :aria-label="ariaLabel"
                 :aria-required="required"
                 :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"

@@ -76,7 +76,7 @@ export default defineComponent({
     name: VsComponent.VsRadioSet,
     components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
-        ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

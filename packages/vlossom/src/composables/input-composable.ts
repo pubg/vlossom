@@ -6,6 +6,7 @@ import { utils } from '@/utils';
 import type { StateMessage, Rule, Message, InputComponentParams } from '@/declaration';
 
 interface VsInputProps<T> {
+    ariaLabel: { type: StringConstructor; default: null };
     disabled: { type: BooleanConstructor; default: boolean };
     label: { type: StringConstructor; default: string };
     messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
@@ -31,6 +32,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
     const inputProps: VsInputProps<T> = Object.assign(
         {},
         {
+            ariaLabel: { type: String, default: null },
             disabled: { type: Boolean, default: false },
             label: { type: String, default: '' },
             messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
