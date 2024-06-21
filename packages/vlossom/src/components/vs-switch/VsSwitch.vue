@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -25,7 +25,7 @@
                     type="checkbox"
                     ref="switchRef"
                     class="vs-switch-input"
-                    :id="id"
+                    :id="computedId"
                     :name="name"
                     :disabled="computedDisabled || computedReadonly"
                     :checked="isChecked"
@@ -98,7 +98,7 @@ export default defineComponent({
             colorScheme,
             styleSet,
             disabled,
-            label,
+            id,
             messages,
             readonly,
             required,
@@ -134,36 +134,44 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = getUpdatedValue(true);
-                        } else {
-                            inputValue.value = getInitialValue();
-                        }
-                    },
-                    onChange: () => {
-                        if (inputValue.value === undefined || inputValue.value === null) {
-                            inputValue.value = getClearedValue();
-                        }
-                    },
-                    onClear: () => {
-                        inputValue.value = getClearedValue();
-                    },
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
                 },
-            });
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
+                        inputValue.value = getClearedValue();
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = getClearedValue();
+                },
+            },
+        });
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -202,6 +210,7 @@ export default defineComponent({
         }
 
         return {
+            computedId,
             switchRef,
             inputValue,
             computedColorScheme,
@@ -216,7 +225,6 @@ export default defineComponent({
             shake,
             validate,
             clear,
-            id,
             stateClasses,
             focus,
             blur,

@@ -24,19 +24,6 @@ describe('form-provide-composable', () => {
         expect(readonly.value).toBe(true);
     });
 
-    it('labelObj에 label 값이 업데이트 된다', () => {
-        // given
-        const { labelObj, updateLabel } = useFormProvide();
-        const id = 'test';
-        const label = 'Test label';
-
-        // when
-        updateLabel(id, label);
-
-        // then
-        expect(labelObj.value[id]).toBe(label);
-    });
-
     it('changedObj에 changed 값이 업데이트 된다', () => {
         // given
         const { changedObj, updateChanged } = useFormProvide();
@@ -65,9 +52,8 @@ describe('form-provide-composable', () => {
 
     it('form에서 제거된다', () => {
         // given
-        const { labelObj, changedObj, validObj, removeFromForm } = useFormProvide();
+        const { changedObj, validObj, removeFromForm } = useFormProvide();
         const id = 'test';
-        labelObj.value[id] = 'test';
         changedObj.value[id] = true;
         validObj.value[id] = true;
 
@@ -75,7 +61,6 @@ describe('form-provide-composable', () => {
         removeFromForm(id);
 
         // then
-        expect(labelObj.value[id]).toBeUndefined();
         expect(changedObj.value[id]).toBeUndefined();
         expect(validObj.value[id]).toBeUndefined();
     });

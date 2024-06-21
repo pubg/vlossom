@@ -11,7 +11,7 @@ function mountComponent() {
 
 describe('vs-form', () => {
     let wrapper: ReturnType<typeof mountComponent>;
-    const SlotComponent = defineComponent({
+    const TestSlotComponent = defineComponent({
         template: `
             <div>
                 disabled: {{ disabled }}
@@ -37,7 +37,7 @@ describe('vs-form', () => {
                 'onUpdate:valid': (v: boolean) => wrapper.setProps({ valid: v }),
             },
             slots: {
-                default: SlotComponent,
+                default: TestSlotComponent,
             },
         });
     });
@@ -69,7 +69,7 @@ describe('vs-form', () => {
         it('valid 여부가 바뀌면 update:valid event가 emit된다', async () => {
             // when
             wrapper.vm.validObj = {
-                test: false,
+                testId: false,
             };
             await nextTick();
 
@@ -77,13 +77,10 @@ describe('vs-form', () => {
             expect(wrapper.emitted('update:valid')?.[0][0]).toBe(false);
         });
 
-        it('유효하지 않은 input의 label을 error 이벤트로 emit한다', async () => {
+        it('유효하지 않은 input의 id를 error 이벤트로 emit한다', async () => {
             // given
             wrapper.vm.validObj = {
-                test: false,
-            };
-            wrapper.vm.labelObj = {
-                test: 'test',
+                testId: false,
             };
 
             // when
@@ -91,7 +88,7 @@ describe('vs-form', () => {
 
             // then
             expect(valid).toBe(false);
-            expect(wrapper.emitted('error')?.[0][0]).toEqual(['test']);
+            expect(wrapper.emitted('error')?.[0][0]).toEqual(['testId']);
         });
     });
 
@@ -100,7 +97,7 @@ describe('vs-form', () => {
             expect(wrapper.html()).toContain('disabled: false');
         });
 
-        it('disabled props가 설정되면 disabled 값을 provide 객체로 자식 Component(SlotComponent)에 전달한다', async () => {
+        it('disabled props가 설정되면 disabled 값을 provide 객체로 자식 Component(TestSlotComponent)에 전달한다', async () => {
             // when
             await wrapper.setProps({ disabled: true });
 
@@ -114,7 +111,7 @@ describe('vs-form', () => {
             expect(wrapper.html()).toContain('readonly: false');
         });
 
-        it('readonly props가 설정되면 readonly 값을 provide 객체로 자식 Component(SlotComponent)에 전달한다', async () => {
+        it('readonly props가 설정되면 readonly 값을 provide 객체로 자식 Component(TestSlotComponent)에 전달한다', async () => {
             // when
             await wrapper.setProps({ readonly: true });
 
@@ -127,7 +124,7 @@ describe('vs-form', () => {
         it('변경이 있으면 update:changed event가 emit된다', async () => {
             // when
             wrapper.vm.changedObj = {
-                test: true,
+                testId: true,
             };
             await nextTick();
 

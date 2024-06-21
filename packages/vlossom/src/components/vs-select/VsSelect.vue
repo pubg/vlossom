@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -14,7 +14,7 @@
             </template>
 
             <div
-                :id="id"
+                :id="computedId"
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
@@ -25,7 +25,7 @@
                         v-if="!(multiple && !autocomplete && selectedOptions.length)"
                         ref="inputRef"
                         role="combobox"
-                        :id="`${id}-input`"
+                        :id="`${computedId}-input`"
                         :class="['vs-select-input', { autocomplete }]"
                         :aria-expanded="isOpen || isVisible"
                         :aria-label="ariaLabel"
@@ -317,7 +317,7 @@ export default defineComponent({
             dense,
             disabled,
             modelValue,
-            label,
+            id,
             lazyLoadNum,
             messages,
             multiple,
@@ -392,32 +392,40 @@ export default defineComponent({
             closeOptions();
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck, maxCheck, minCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (multiple.value && !Array.isArray(inputValue.value)) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onChange: () => {
-                        if (multiple.value && !Array.isArray(inputValue.value)) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onClear,
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    }
                 },
-            });
+                onChange: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    }
+                },
+                onClear,
+            },
+        });
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -448,7 +456,7 @@ export default defineComponent({
         });
 
         const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
-            useToggleOptions(id, computedDisabled, computedReadonly);
+            useToggleOptions(computedId, computedDisabled, computedReadonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
             autocomplete,
@@ -538,7 +546,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             classObj,
             computedColorScheme,
             computedStyleSet,

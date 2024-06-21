@@ -23,7 +23,7 @@
                     :style-set="radioStyleSet"
                     :checked="isChecked(option)"
                     :disabled="computedDisabled"
-                    :id="`${id}-${optionIds[index]}`"
+                    :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
                     :readonly="computedReadonly"
@@ -93,7 +93,7 @@ export default defineComponent({
             colorScheme,
             styleSet,
             disabled,
-            label,
+            id,
             modelValue,
             messages,
             name,
@@ -137,24 +137,32 @@ export default defineComponent({
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onClear: () => {
-                        inputValue.value = null;
-                    },
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onClear: () => {
+                    inputValue.value = null;
                 },
-            });
+            },
+        });
 
         const classObj = computed(() => ({
             disabled: computedDisabled.value,
@@ -185,7 +193,7 @@ export default defineComponent({
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
-            id,
+            computedId,
             radioRefs,
             optionIds,
             classObj,

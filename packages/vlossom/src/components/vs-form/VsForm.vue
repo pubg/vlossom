@@ -33,16 +33,8 @@ export default defineComponent({
     expose: ['validate', 'clear'],
     setup(props, { emit }) {
         const { disabled, readonly } = toRefs(props);
-        const {
-            labelObj,
-            validObj,
-            setDisabled,
-            setReadonly,
-            changedObj,
-            validateFlag,
-            clearFlag,
-            getDefaultFormProvide,
-        } = useFormProvide();
+        const { validObj, setDisabled, setReadonly, changedObj, validateFlag, clearFlag, getDefaultFormProvide } =
+            useFormProvide();
 
         provide<VsFormProvide>(VS_FORM, getDefaultFormProvide());
 
@@ -56,8 +48,7 @@ export default defineComponent({
             if (!isValid.value) {
                 // on error callback with invalid labels
                 const invalidIds = Object.keys(validObj.value).filter((id) => !validObj.value[id]);
-                const invalidLabels = invalidIds.map((id) => labelObj.value[id]);
-                emit('error', invalidLabels);
+                emit('error', invalidIds);
             }
 
             return isValid.value;
@@ -80,7 +71,6 @@ export default defineComponent({
         });
 
         return {
-            labelObj,
             changedObj,
             validObj,
             validateFlag,

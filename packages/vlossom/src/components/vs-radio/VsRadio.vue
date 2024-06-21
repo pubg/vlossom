@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="radioLabel ? '' : id"
+            :id="radioLabel ? '' : computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -20,7 +20,7 @@
                 :aria-label="ariaLabel"
                 :checked="isChecked"
                 :disabled="computedDisabled"
-                :id="id"
+                :id="computedId"
                 :label="radioLabel"
                 :name="name"
                 :readonly="computedReadonly"
@@ -75,7 +75,7 @@ export default defineComponent({
         const {
             checked,
             colorScheme,
-            label,
+            id,
             disabled,
             readonly,
             messages,
@@ -113,29 +113,37 @@ export default defineComponent({
             return !checkedRadioElement ? 'required' : '';
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = radioValue.value;
-                        }
-                    },
-                    onClear: () => {
-                        inputValue.value = null;
-                    },
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = radioValue.value;
+                    }
                 },
-            });
+                onClear: () => {
+                    inputValue.value = null;
+                },
+            },
+        });
 
         async function onToggle() {
             // radio change event value is always true
@@ -159,7 +167,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             radioRef,
             isChecked,
             computedColorScheme,

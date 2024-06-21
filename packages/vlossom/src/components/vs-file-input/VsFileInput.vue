@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -33,7 +33,7 @@
 
                 <input
                     ref="fileInputRef"
-                    :id="id"
+                    :id="computedId"
                     type="file"
                     :name="name"
                     :disabled="computedDisabled"
@@ -100,7 +100,7 @@ export default defineComponent({
             styleSet,
             dense,
             disabled,
-            label,
+            id,
             messages,
             modelValue,
             multiple,
@@ -176,24 +176,32 @@ export default defineComponent({
             }
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: correctEmptyValue,
-                    onChange: correctEmptyValue,
-                    onClear,
-                },
-            });
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: correctEmptyValue,
+                onChange: correctEmptyValue,
+                onClear,
+            },
+        });
 
         const classObj = computed(() => ({
             dense: dense.value,
@@ -238,7 +246,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             fileInputRef,
             classObj,
             computedColorScheme,

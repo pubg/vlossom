@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -17,7 +17,7 @@
                 ref="textareaRef"
                 :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
-                :id="id"
+                :id="computedId"
                 :value="inputValue"
                 :name="name"
                 :disabled="computedDisabled"
@@ -94,7 +94,7 @@ export default defineComponent({
             styleSet,
             disabled,
             modelValue,
-            label,
+            id,
             messages,
             readonly,
             required,
@@ -130,28 +130,36 @@ export default defineComponent({
             inputValue.value = '';
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck, maxCheck, minCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onChange: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onClear,
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    inputValue.value = convertValue(inputValue.value);
                 },
-            });
+                onChange: () => {
+                    inputValue.value = convertValue(inputValue.value);
+                },
+                onClear,
+            },
+        });
 
         const classObj = computed(() => ({
             disabled: computedDisabled.value,
@@ -192,7 +200,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             classObj,
             computedColorScheme,
             computedStyleSet,

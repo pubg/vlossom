@@ -8,6 +8,7 @@ import type { StateMessage, Rule, Message, InputComponentParams } from '@/declar
 interface VsInputProps<T> {
     ariaLabel: { type: StringConstructor; default: null };
     disabled: { type: BooleanConstructor; default: boolean };
+    id: { type: StringConstructor; default: string };
     label: { type: StringConstructor; default: string };
     messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
     name: { type: StringConstructor; default: string };
@@ -34,6 +35,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
         {
             ariaLabel: { type: String, default: null },
             disabled: { type: Boolean, default: false },
+            id: { type: String, default: '' },
             label: { type: String, default: '' },
             messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
             name: { type: String, default: '' },
@@ -61,7 +63,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
     const {
         inputValue,
         modelValue,
-        label,
+        id = ref(''),
         disabled = ref(false),
         readonly = ref(false),
         messages = ref([]),
@@ -71,6 +73,9 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         state = ref(UIState.Idle),
         callbacks = {},
     } = inputParams;
+
+    const innerId = utils.string.createID();
+    const computedId = computed(() => id.value || innerId);
 
     const changed = ref(false);
     const isInitialized = ref(false);
@@ -224,7 +229,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         });
     }
 
-    const { id, formDisabled, formReadonly } = useInputForm(label, valid, changed, validate, clear);
+    const { formDisabled, formReadonly } = useInputForm(computedId, valid, changed, validate, clear);
 
     const computedDisabled = computed(() => disabled.value || formDisabled.value);
 
@@ -244,7 +249,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         showRuleMessages,
         validate,
         clear,
-        id,
+        computedId,
         computedDisabled,
         computedReadonly,
         computedState,
