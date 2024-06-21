@@ -163,14 +163,24 @@ $palette: (
             #{'--vs-' + $color + '-' + $level}: #{$value};
         }
 
-        #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-200'});
         #{'--vs-' + $color}: var(#{'--vs-' + $color + '-500'});
+        #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-200'});
         #{'--vs-' + $color + '-deep'}: var(#{'--vs-' + $color + '-700'});
 
         .vs-dark {
-            #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-700'});
             #{'--vs-' + $color}: var(#{'--vs-' + $color + '-400'});
+            #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-700'});
             #{'--vs-' + $color + '-deep'}: var(#{'--vs-' + $color + '-200'});
+        }
+
+        .vs-text-#{$color} {
+            color: var(#{'--vs-' + $color});
+        }
+        .vs-text-#{$color}-light {
+            color: var(#{'--vs-' + $color + '-light'});
+        }
+        .vs-text-#{$color}-deep {
+            color: var(#{'--vs-' + $color + '-deep'});
         }
     }
 
