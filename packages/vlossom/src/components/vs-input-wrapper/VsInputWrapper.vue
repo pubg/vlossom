@@ -2,8 +2,8 @@
     <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
         <component :is="groupLabel ? 'fieldset' : 'div'">
             <component
+                v-if="label || $slots['label']"
                 :is="groupLabel ? 'legend' : 'label'"
-                v-if="!noLabel"
                 :for="groupLabel ? undefined : id || undefined"
                 class="vs-label"
             >
@@ -43,7 +43,6 @@ export default defineComponent({
         id: { type: String, default: '' },
         label: { type: String, default: '' },
         messages: { type: Array as PropType<StateMessage[]>, default: () => [] },
-        noLabel: { type: Boolean, default: false },
         noMessage: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
         shake: { type: Boolean, default: false },

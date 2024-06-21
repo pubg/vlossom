@@ -4,13 +4,12 @@
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
             group-label
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -77,7 +76,7 @@ export default defineComponent({
     name: VsComponent.VsRadioSet,
     components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
-        ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

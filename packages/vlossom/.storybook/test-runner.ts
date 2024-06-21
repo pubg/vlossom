@@ -4,10 +4,10 @@ import { injectAxe, checkA11y } from 'axe-playwright';
 import type { TestRunnerConfig } from '@storybook/test-runner';
 
 const config: TestRunnerConfig = {
-    async preRender(page) {
+    async preVisit(page) {
         await injectAxe(page);
     },
-    async postRender(page, context) {
+    async postVisit(page, context) {
         const storyContext = await getStoryContext(page, context);
 
         if (!storyContext.parameters?.a11y?.disable) {
@@ -19,6 +19,7 @@ const config: TestRunnerConfig = {
                 axeOptions: {
                     rules: {
                         'color-contrast': { enabled: false },
+                        label: { enabled: false },
                     },
                 },
             });

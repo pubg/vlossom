@@ -5,12 +5,11 @@
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -42,6 +41,7 @@
                     :required="required"
                     :multiple="multiple"
                     :accept="accept"
+                    :aria-label="ariaLabel"
                     @change.stop="updateValue($event)"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"

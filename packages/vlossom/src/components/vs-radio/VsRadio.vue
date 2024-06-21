@@ -5,12 +5,11 @@
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -63,7 +62,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
-        ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         name: { type: String, required: true },
         radioLabel: { type: String, default: '' },

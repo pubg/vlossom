@@ -6,13 +6,13 @@ import { utils } from '@/utils';
 import type { StateMessage, Rule, Message, InputComponentParams } from '@/declaration';
 
 interface VsInputProps<T> {
+    ariaLabel: { type: StringConstructor; default: null };
     disabled: { type: BooleanConstructor; default: boolean };
     label: { type: StringConstructor; default: string };
     messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
     name: { type: StringConstructor; default: string };
     noClear: { type: BooleanConstructor; default: boolean };
     noDefaultRules: { type: BooleanConstructor; default: boolean };
-    noLabel: { type: BooleanConstructor; default: boolean };
     noMessage: { type: BooleanConstructor; default: boolean };
     placeholder: { type: StringConstructor; default: string };
     readonly: { type: BooleanConstructor; default: boolean };
@@ -32,13 +32,13 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
     const inputProps: VsInputProps<T> = Object.assign(
         {},
         {
+            ariaLabel: { type: String, default: null },
             disabled: { type: Boolean, default: false },
             label: { type: String, default: '' },
             messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
             name: { type: String, default: '' },
             noClear: { type: Boolean, default: false },
             noDefaultRules: { type: Boolean, default: false },
-            noLabel: { type: Boolean, default: false },
             noMessage: { type: Boolean, default: false },
             placeholder: { type: String, default: '' },
             readonly: { type: Boolean, default: false },

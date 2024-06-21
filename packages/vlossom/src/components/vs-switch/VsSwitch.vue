@@ -5,12 +5,11 @@
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -31,7 +30,7 @@
                     :disabled="computedDisabled || computedReadonly"
                     :checked="isChecked"
                     :value="convertToString(trueValue)"
-                    :aria-label="ariaLabel || 'switch ' + label"
+                    :aria-label="ariaLabel"
                     :aria-required="required"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
@@ -79,7 +78,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
-        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,

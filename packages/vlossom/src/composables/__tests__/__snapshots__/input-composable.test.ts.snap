@@ -2,6 +2,10 @@
 
 exports[`getInputProps > input component에 필요한 props들을 가져올 수 있다 1`] = `
 {
+  "ariaLabel": {
+    "default": null,
+    "type": [Function],
+  },
   "changed": {
     "default": false,
     "type": [Function],
@@ -27,10 +31,6 @@ exports[`getInputProps > input component에 필요한 props들을 가져올 수 
     "type": [Function],
   },
   "noDefaultRules": {
-    "default": false,
-    "type": [Function],
-  },
-  "noLabel": {
     "default": false,
     "type": [Function],
   },
@@ -71,6 +71,10 @@ exports[`getInputProps > input component에 필요한 props들을 가져올 수 
 
 exports[`getInputProps > input props 중 제외할 props를 정할 수 있다 1`] = `
 {
+  "ariaLabel": {
+    "default": null,
+    "type": [Function],
+  },
   "changed": {
     "default": false,
     "type": [Function],
@@ -88,10 +92,6 @@ exports[`getInputProps > input props 중 제외할 props를 정할 수 있다 1`
     "type": [Function],
   },
   "noDefaultRules": {
-    "default": false,
-    "type": [Function],
-  },
-  "noLabel": {
     "default": false,
     "type": [Function],
   },

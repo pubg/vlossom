@@ -5,12 +5,11 @@
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -23,6 +22,7 @@
                 :name="name"
                 :disabled="computedDisabled"
                 :readonly="computedReadonly"
+                :aria-label="ariaLabel"
                 :aria-required="required"
                 :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"

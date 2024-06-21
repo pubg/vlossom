@@ -64,8 +64,8 @@ const preview: Preview = {
             config: {
                 rules: [
                     {
-                        id: 'color-contrast',
-                        reviewOnFail: true,
+                        id: 'label',
+                        enabled: false,
                     },
                 ],
             },

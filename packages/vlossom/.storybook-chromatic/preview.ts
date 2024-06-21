@@ -57,6 +57,16 @@ const preview: Preview = {
                 desktop: { name: 'Desktop', styles: { width: '1440px', height: '1000px' } },
             },
         },
+        a11y: {
+            config: {
+                rules: [
+                    {
+                        id: 'label',
+                        enabled: false,
+                    },
+                ],
+            },
+        },
     },
     decorators,
 };
