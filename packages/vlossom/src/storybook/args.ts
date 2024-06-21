@@ -1,44 +1,44 @@
 import { COLORS, CSS_POSITION, PLACEMENTS, SIZES, UIState } from '@/declaration';
 
 export const colorScheme = {
-    control: 'select',
+    control: 'select' as any,
     options: COLORS,
 };
 
 export const align = {
-    control: 'select',
+    control: 'select' as any,
     options: ['center', 'start', 'end'],
 };
 
 export const verticalAlign = {
-    control: 'select',
+    control: 'select' as any,
     options: ['middle', 'top', 'bottom'],
 };
 
 export const placement = {
-    control: 'select',
+    control: 'select' as any,
     options: PLACEMENTS,
 };
 
 export const size = {
-    control: 'select',
+    control: 'select' as any,
     options: SIZES,
 };
 
 export const state = {
-    control: 'select',
+    control: 'select' as any,
     options: [UIState.Idle, UIState.Info, UIState.Success, UIState.Warning, UIState.Error],
 };
 
 export function numberArray(length: number, multiSelect: boolean = false) {
     return {
-        control: multiSelect ? 'multi-select' : 'select',
+        control: (multiSelect ? 'multi-select' : 'select') as any,
         options: Array.from({ length }, (_, i) => i),
     };
 }
 
 export const cssPosition = {
-    control: 'select',
+    control: 'select' as any,
     options: CSS_POSITION,
 };
 
