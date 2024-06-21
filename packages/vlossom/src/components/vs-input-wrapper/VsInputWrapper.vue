@@ -16,7 +16,7 @@
             <slot />
         </component>
 
-        <div class="vs-messages" v-if="!noMessage && messages.length">
+        <div class="vs-messages" v-if="!noMessage">
             <slot name="messages">
                 <vs-message
                     class="message-item"

@@ -88,12 +88,12 @@ describe('vs-input-wrapper', () => {
             expect(wrapper.find('.vs-messages').exists()).toBe(false);
         });
 
-        it('message가 없다면 message 영역이 없다', () => {
+        it('message가 없어도 message 영역은 있다', () => {
             // given
             const wrapper = mount(VsInputWrapper);
 
             // then
-            expect(wrapper.find('.vs-messages').exists()).toBe(false);
+            expect(wrapper.find('.vs-messages').exists()).toBe(true);
         });
 
         it('message가 있다면 message 영역이 있다', () => {
