@@ -83,7 +83,6 @@
                 option-label="label"
                 option-value="value"
                 no-clear
-                no-label
                 no-message
                 dense
             />
