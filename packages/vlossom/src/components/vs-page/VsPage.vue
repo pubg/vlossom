@@ -1,12 +1,12 @@
 <template>
     <div class="vs-page" :style="computedStyleSet">
         <div class="page-header" v-if="hasTitle || hasDescription">
-            <h2 class="page-title" v-if="hasTitle">
+            <div class="page-title" v-if="hasTitle">
                 <slot name="title" />
-            </h2>
-            <p class="page-description" v-if="hasDescription">
+            </div>
+            <div class="page-description" v-if="hasDescription">
                 <slot name="description" />
-            </p>
+            </div>
         </div>
         <slot />
     </div>
