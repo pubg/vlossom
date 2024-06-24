@@ -33,7 +33,7 @@ export const ColorScheme: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-section v-bind="args" color-scheme="{{ color }}">This is Section Contents</vs-section>
+                    <vs-section v-bind="args" color-scheme="{{ color }}" :style="{ marginBottom: '20px' }">This is Section Contents</vs-section>
                 `)}
             </div>
         `,
@@ -51,7 +51,7 @@ export const HasTitle: Story = {
         },
         template: `
             <vs-section v-bind="args">
-                <template #title>This is Section Title</template>
+                <template #title><h3>This is Section Title</h3></template>
                 This is Section Content
             </vs-section>
         `,
