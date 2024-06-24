@@ -1,7 +1,7 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="checkLabel ? '' : id"
+            :id="checkLabel ? '' : computedId"
             :label="label"
             :disabled="computedDisabled"
             :messages="computedMessages"
@@ -20,7 +20,7 @@
                 :aria-label="ariaLabel"
                 :checked="isChecked"
                 :disabled="computedDisabled"
-                :id="id"
+                :id="computedId"
                 :indeterminate="indeterminate"
                 :label="checkLabel"
                 :name="name"
@@ -90,7 +90,7 @@ export default defineComponent({
             beforeChange,
             checked,
             colorScheme,
-            label,
+            id,
             disabled,
             readonly,
             modelValue,
@@ -125,36 +125,44 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = getUpdatedValue(true);
-                        } else {
-                            inputValue.value = getInitialValue();
-                        }
-                    },
-                    onChange: () => {
-                        if (inputValue.value === undefined || inputValue.value === null) {
-                            inputValue.value = getClearedValue();
-                        }
-                    },
-                    onClear: () => {
-                        inputValue.value = getClearedValue();
-                    },
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
                 },
-            });
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
+                        inputValue.value = getClearedValue();
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = getClearedValue();
+                },
+            },
+        });
 
         async function onToggle(c: boolean) {
             const toValue = getUpdatedValue(c);
@@ -187,7 +195,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             checkboxRef,
             isChecked,
             computedColorScheme,

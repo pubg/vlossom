@@ -106,7 +106,7 @@ export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T)
 export interface InputComponentParams<T = unknown> {
     inputValue: Ref<T>;
     modelValue: Ref<T>;
-    label: Ref<string>;
+    id?: Ref<string>;
     disabled?: Ref<boolean>;
     readonly?: Ref<boolean>;
     messages?: Ref<Message<T>[]>;
@@ -130,12 +130,10 @@ export interface StringModifiers {
 export interface VsFormProvide {
     disabled: Ref<boolean>;
     readonly: Ref<boolean>;
-    labelObj: Ref<Record<string, string>>;
     changedObj: Ref<Record<string, boolean>>;
     validObj: Ref<Record<string, boolean>>;
     validateFlag: Ref<boolean>;
     clearFlag: Ref<boolean>;
-    updateLabel: (id: string, label: string) => void;
     updateChanged: (id: string, changed: boolean) => void;
     updateValid: (id: string, valid: boolean) => void;
     removeFromForm: (id: string) => void;

@@ -14,6 +14,10 @@ exports[`getInputProps > input component에 필요한 props들을 가져올 수 
     "default": false,
     "type": [Function],
   },
+  "id": {
+    "default": "",
+    "type": [Function],
+  },
   "label": {
     "default": "",
     "type": [Function],
@@ -81,6 +85,10 @@ exports[`getInputProps > input props 중 제외할 props를 정할 수 있다 1`
   },
   "disabled": {
     "default": false,
+    "type": [Function],
+  },
+  "id": {
+    "default": "",
     "type": [Function],
   },
   "name": {

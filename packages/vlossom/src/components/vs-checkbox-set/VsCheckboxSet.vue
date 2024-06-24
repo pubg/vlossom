@@ -23,7 +23,7 @@
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
                     :disabled="computedDisabled"
-                    :id="`${id}-${optionIds[index]}`"
+                    :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
                     :readonly="computedReadonly"
@@ -113,7 +113,7 @@ export default defineComponent({
             styleSet,
             beforeChange,
             disabled,
-            label,
+            id,
             modelValue,
             messages,
             options,
@@ -155,34 +155,42 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsCheckboxSetRules(required, max, min);
 
-        const { computedMessages, computedState, computedDisabled, computedReadonly, shake, validate, clear, id } =
-            useInput(context, {
-                inputValue,
-                modelValue,
-                label,
-                disabled,
-                readonly,
-                messages,
-                rules,
-                defaultRules: [requiredCheck, maxCheck, minCheck],
-                noDefaultRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (!inputValue.value) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onChange: () => {
-                        if (!inputValue.value) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onClear: () => {
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (!inputValue.value) {
                         inputValue.value = [];
-                    },
+                    }
                 },
-            });
+                onChange: () => {
+                    if (!inputValue.value) {
+                        inputValue.value = [];
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = [];
+                },
+            },
+        });
 
         const classObj = computed(() => ({
             disabled: computedDisabled.value,
@@ -232,7 +240,7 @@ export default defineComponent({
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
-            id,
+            computedId,
             checkboxRefs,
             optionIds,
             classObj,
