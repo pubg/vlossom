@@ -1,16 +1,15 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="checkLabel ? '' : id"
+            :id="checkLabel ? '' : computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -20,12 +19,12 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
-                :disabled="disabled"
-                :id="id"
+                :disabled="computedDisabled"
+                :id="computedId"
                 :indeterminate="indeterminate"
                 :label="checkLabel"
                 :name="name"
-                :readonly="readonly"
+                :readonly="computedReadonly"
                 :required="required"
                 :state="computedState"
                 :value="trueValue"
@@ -46,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -71,7 +70,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
-        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
@@ -92,7 +90,9 @@ export default defineComponent({
             beforeChange,
             checked,
             colorScheme,
-            label,
+            id,
+            disabled,
+            readonly,
             modelValue,
             messages,
             required,
@@ -102,6 +102,7 @@ export default defineComponent({
             falseValue,
             multiple,
             styleSet,
+            noDefaultRules,
         } = toRefs(props);
         const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -124,36 +125,44 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = getUpdatedValue(true);
-                        } else {
-                            inputValue.value = getInitialValue();
-                        }
-                    },
-                    onChange: () => {
-                        if (inputValue.value === undefined || inputValue.value === null) {
-                            inputValue.value = getClearedValue();
-                        }
-                    },
-                    onClear: () => {
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
+                },
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
                         inputValue.value = getClearedValue();
-                    },
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = getClearedValue();
                 },
             },
-        );
+        });
 
         async function onToggle(c: boolean) {
             const toValue = getUpdatedValue(c);
@@ -186,11 +195,13 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             checkboxRef,
             isChecked,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             computedStyleSet,
             inputValue,
             computedMessages,

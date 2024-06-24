@@ -13,10 +13,12 @@ describe('vs-drawer', () => {
                 props: {
                     modelValue: false,
                 },
+                attachTo: document.body,
             });
 
             // then
-            expect(wrapper.find('div.vs-dialog')?.isVisible()).toBe(false);
+            expect(wrapper.vm.isOpen).toBe(false);
+            expect(wrapper.find('.vs-drawer').isVisible()).toBe(false);
         });
 
         it('modelValue가 true이면 drawer가 열린다', async () => {
@@ -25,13 +27,15 @@ describe('vs-drawer', () => {
                 props: {
                     modelValue: false,
                 },
+                attachTo: document.body,
             });
 
             // when
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('div.vs-dialog')?.isVisible()).toBe(true);
+            expect(wrapper.vm.isOpen).toBe(true);
+            expect(wrapper.find('.vs-drawer').isVisible()).toBe(true);
         });
     });
 

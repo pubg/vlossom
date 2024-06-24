@@ -1,16 +1,15 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -18,11 +17,12 @@
                 ref="textareaRef"
                 :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
-                :id="id"
+                :id="computedId"
                 :value="inputValue"
                 :name="name"
-                :disabled="disabled"
-                :readonly="readonly"
+                :disabled="computedDisabled"
+                :readonly="computedReadonly"
+                :aria-label="ariaLabel"
                 :aria-required="required"
                 :autocomplete="autocomplete ? 'on' : 'off'"
                 :placeholder="placeholder"
@@ -55,6 +55,7 @@ import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import { useVsTextareaRules } from './vs-textarea-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import { utils } from '@/utils';
 
 import type { InputValueType, VsTextareaStyleSet } from './types';
 
@@ -68,8 +69,16 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
         autocomplete: { type: Boolean, default: false },
-        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
+        },
+        min: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
+        },
         // v-model
         modelValue: { type: String, default: '' },
         modelModifiers: {
@@ -85,14 +94,16 @@ export default defineComponent({
             styleSet,
             disabled,
             modelValue,
-            label,
+            id,
             messages,
+            readonly,
             required,
             rules,
             max,
             min,
             modelModifiers,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -107,12 +118,6 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsTextareaRules(required, max, min);
 
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-        }));
-
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
-
         function convertValue(v: string): string {
             if (!v) {
                 return '';
@@ -125,26 +130,41 @@ export default defineComponent({
             inputValue.value = '';
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onChange: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onClear,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    inputValue.value = convertValue(inputValue.value);
                 },
+                onChange: () => {
+                    inputValue.value = convertValue(inputValue.value);
+                },
+                onClear,
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -180,10 +200,12 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             classObj,
             computedColorScheme,
             computedStyleSet,
+            computedReadonly,
+            computedDisabled,
             inputValue,
             updateValue,
             textareaRef,

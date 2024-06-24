@@ -12,11 +12,6 @@ export function useVsTextareaRules(required: Ref<boolean>, max: Ref<number | str
 
     function maxCheck(v: InputValueType) {
         const limit = Number(max.value);
-
-        if (isNaN(limit) || limit > Number.MAX_SAFE_INTEGER) {
-            return '';
-        }
-
         if (typeof v === 'string' && v.length > limit) {
             return 'max length: ' + max.value;
         }
@@ -26,11 +21,6 @@ export function useVsTextareaRules(required: Ref<boolean>, max: Ref<number | str
 
     function minCheck(v: InputValueType) {
         const limit = Number(min.value);
-
-        if (isNaN(limit) || limit < Number.MIN_SAFE_INTEGER) {
-            return '';
-        }
-
         if (typeof v === 'string' && v.length < limit) {
             return 'min length: ' + min.value;
         }

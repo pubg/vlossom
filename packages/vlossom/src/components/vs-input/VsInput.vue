@@ -1,16 +1,15 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -24,13 +23,14 @@
 
                 <input
                     ref="inputRef"
-                    :id="id"
+                    :id="computedId"
                     :type="type"
                     :value="inputValue"
                     :autocomplete="autocomplete ? 'on' : 'off'"
                     :name="name"
-                    :disabled="disabled"
-                    :readonly="readonly"
+                    :disabled="computedDisabled"
+                    :readonly="computedReadonly"
+                    :aria-label="ariaLabel"
                     :aria-required="required"
                     :placeholder="placeholder"
                     @input.stop="updateValue($event)"
@@ -41,7 +41,7 @@
                 />
 
                 <button
-                    v-if="!noClear && !readonly && !disabled"
+                    v-if="!noClear && !computedReadonly && !computedDisabled"
                     type="button"
                     class="clear-button"
                     :class="{ show: inputValue }"
@@ -84,6 +84,7 @@ import { VsIcon } from '@/icons';
 import { InputType } from './types';
 
 import type { InputValueType, VsInputStyleSet } from './types';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsInput;
 export default defineComponent({
@@ -96,8 +97,16 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         autocomplete: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
-        max: { type: [Number, String], default: Number.MAX_SAFE_INTEGER },
-        min: { type: [Number, String], default: Number.MIN_SAFE_INTEGER },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
+        },
+        min: {
+            type: [Number, String],
+            default: Number.MIN_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
+        },
         type: { type: String as PropType<InputType>, default: InputType.Text },
         // v-model
         modelValue: {
@@ -129,14 +138,16 @@ export default defineComponent({
             disabled,
             type,
             modelValue,
-            label,
+            id,
             messages,
+            readonly,
             required,
             rules,
             max,
             min,
             modelModifiers,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
@@ -150,11 +161,6 @@ export default defineComponent({
         const { modifyStringValue } = useStringModifier(modelModifiers);
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-        }));
 
         const isNumberInput = computed(() => type.value === InputType.Number);
 
@@ -170,32 +176,46 @@ export default defineComponent({
             return modifyStringValue(v.toString());
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck, maxCheck, minCheck]);
-
         function onClear() {
             inputValue.value = null;
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onChange: () => {
-                        inputValue.value = convertValue(inputValue.value);
-                    },
-                    onClear,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    inputValue.value = convertValue(inputValue.value);
                 },
+                onChange: () => {
+                    inputValue.value = convertValue(inputValue.value);
+                },
+                onClear,
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -236,7 +256,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             classObj,
             computedColorScheme,
             computedStyleSet,
@@ -245,6 +265,8 @@ export default defineComponent({
             updateValue,
             inputRef,
             computedMessages,
+            computedDisabled,
+            computedReadonly,
             shake,
             focus,
             blur,

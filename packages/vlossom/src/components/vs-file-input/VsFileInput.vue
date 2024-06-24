@@ -1,16 +1,15 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -34,21 +33,22 @@
 
                 <input
                     ref="fileInputRef"
-                    :id="id"
+                    :id="computedId"
                     type="file"
                     :name="name"
-                    :disabled="disabled"
-                    :readonly="readonly"
+                    :disabled="computedDisabled"
+                    :readonly="computedReadonly"
                     :required="required"
                     :multiple="multiple"
                     :accept="accept"
+                    :aria-label="ariaLabel"
                     @change.stop="updateValue($event)"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
                 />
 
                 <button
-                    v-if="!noClear && hasValue && !readonly && !disabled"
+                    v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
                     class="clear-button"
                     aria-hidden="true"
                     tabindex="-1"
@@ -100,7 +100,7 @@ export default defineComponent({
             styleSet,
             dense,
             disabled,
-            label,
+            id,
             messages,
             modelValue,
             multiple,
@@ -108,6 +108,7 @@ export default defineComponent({
             required,
             rules,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const fileInputRef: Ref<HTMLInputElement | null> = ref(null);
@@ -117,13 +118,6 @@ export default defineComponent({
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-            dragging: dragging.value,
-            readonly: readonly.value,
-        }));
 
         const inputValue = ref(modelValue.value);
 
@@ -155,8 +149,6 @@ export default defineComponent({
             return required.value && !hasValue.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
         function onClear() {
             if (fileInputRef.value) {
                 fileInputRef.value.value = '';
@@ -184,22 +176,39 @@ export default defineComponent({
             }
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: correctEmptyValue,
-                    onChange: correctEmptyValue,
-                    onClear,
-                },
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: correctEmptyValue,
+                onChange: correctEmptyValue,
+                onClear,
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+            dragging: dragging.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -237,7 +246,7 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             fileInputRef,
             classObj,
             computedColorScheme,
@@ -247,6 +256,8 @@ export default defineComponent({
             updateValue,
             hasValue,
             computedMessages,
+            computedDisabled,
+            computedReadonly,
             shake,
             onClear,
             clear,

@@ -37,14 +37,19 @@ describe('useInput composable', () => {
     const TestInputComponent = defineComponent({
         render: () => null,
         props: {
-            modelValue: { type: String, default: '' },
             ...getInputProps<string, []>(),
+            modelValue: { type: String, default: '' },
         },
         setup(props, ctx) {
-            const { modelValue, label, messages, rules, state } = toRefs(props);
+            const { modelValue, id, messages, rules, state, disabled, readonly } = toRefs(props);
 
             return {
-                ...useInput(inputValue, modelValue, ctx, label, {
+                ...useInput(ctx, {
+                    inputValue,
+                    modelValue,
+                    id,
+                    disabled,
+                    readonly,
                     callbacks: {
                         onMounted: onMountedSpy,
                         onChange: onChangeSpy,

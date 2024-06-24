@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, provide, watch } from 'vue';
+import { computed, defineComponent, nextTick, provide, toRefs, watch } from 'vue';
 import { VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
 import { getGridProps, useFormProvide } from '@/composables';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
@@ -23,14 +23,18 @@ export default defineComponent({
     props: {
         ...getGridProps(name),
         autocomplete: { type: Boolean, default: false },
+        disabled: { type: Boolean, default: false },
+        readonly: { type: Boolean, default: false },
         // v-model
         changed: { type: Boolean, default: false },
         valid: { type: Boolean, default: true },
     },
     emits: ['update:changed', 'update:valid', 'error'],
     expose: ['validate', 'clear'],
-    setup(_, { emit }) {
-        const { labelObj, validObj, changedObj, validateFlag, clearFlag, getDefaultFormProvide } = useFormProvide();
+    setup(props, { emit }) {
+        const { disabled, readonly } = toRefs(props);
+        const { validObj, setDisabled, setReadonly, changedObj, validateFlag, clearFlag, getDefaultFormProvide } =
+            useFormProvide();
 
         provide<VsFormProvide>(VS_FORM, getDefaultFormProvide());
 
@@ -44,8 +48,7 @@ export default defineComponent({
             if (!isValid.value) {
                 // on error callback with invalid labels
                 const invalidIds = Object.keys(validObj.value).filter((id) => !validObj.value[id]);
-                const invalidLabels = invalidIds.map((id) => labelObj.value[id]);
-                emit('error', invalidLabels);
+                emit('error', invalidIds);
             }
 
             return isValid.value;
@@ -54,6 +57,10 @@ export default defineComponent({
         function clear() {
             clearFlag.value = !clearFlag.value;
         }
+
+        watch(disabled, setDisabled, { immediate: true });
+
+        watch(readonly, setReadonly, { immediate: true });
 
         watch(isValid, (valid) => {
             emit('update:valid', valid);
@@ -64,7 +71,6 @@ export default defineComponent({
         });
 
         return {
-            labelObj,
             changedObj,
             validObj,
             validateFlag,

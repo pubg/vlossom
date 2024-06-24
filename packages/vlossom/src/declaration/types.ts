@@ -103,9 +103,16 @@ export interface StateMessage {
 export type Rule<T = any> = ((v: T) => string) | ((v: T) => PromiseLike<string>);
 export type Message<T = any> = StateMessage | ((v: T) => StateMessage) | ((v: T) => PromiseLike<StateMessage>);
 
-export interface InputComponentOptions<T = unknown> {
+export interface InputComponentParams<T = unknown> {
+    inputValue: Ref<T>;
+    modelValue: Ref<T>;
+    id?: Ref<string>;
+    disabled?: Ref<boolean>;
+    readonly?: Ref<boolean>;
     messages?: Ref<Message<T>[]>;
     rules?: Ref<Rule<T>[]>;
+    defaultRules?: Rule<T>[];
+    noDefaultRules?: Ref<boolean>;
     state?: Ref<UIState>;
     callbacks?: {
         onChange?: (newValue: T, oldValue: T) => void;
@@ -121,12 +128,12 @@ export interface StringModifiers {
 }
 
 export interface VsFormProvide {
-    labelObj: Ref<Record<string, string>>;
+    disabled: Ref<boolean>;
+    readonly: Ref<boolean>;
     changedObj: Ref<Record<string, boolean>>;
     validObj: Ref<Record<string, boolean>>;
     validateFlag: Ref<boolean>;
     clearFlag: Ref<boolean>;
-    updateLabel: (id: string, label: string) => void;
     updateChanged: (id: string, changed: boolean) => void;
     updateValid: (id: string, valid: boolean) => void;
     removeFromForm: (id: string) => void;

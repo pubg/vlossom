@@ -3,14 +3,19 @@ import { Ref, ref } from 'vue';
 import type { VsFormProvide } from '@/declaration';
 
 export function useFormProvide() {
-    const labelObj: Ref<Record<string, string>> = ref({});
+    const disabled = ref(false);
+    const readonly = ref(false);
     const changedObj: Ref<Record<string, boolean>> = ref({});
     const validObj: Ref<Record<string, boolean>> = ref({});
     const validateFlag = ref(false);
     const clearFlag = ref(false);
 
-    function updateLabel(id: string, label: string) {
-        labelObj.value[id] = label;
+    function setDisabled(value: boolean) {
+        disabled.value = value;
+    }
+
+    function setReadonly(value: boolean) {
+        readonly.value = value;
     }
 
     function updateChanged(id: string, changed: boolean) {
@@ -22,19 +27,18 @@ export function useFormProvide() {
     }
 
     function removeFromForm(id: string) {
-        delete labelObj.value[id];
         delete changedObj.value[id];
         delete validObj.value[id];
     }
 
     function getDefaultFormProvide(): VsFormProvide {
         return {
-            labelObj,
+            disabled,
+            readonly,
             changedObj,
             validObj,
             validateFlag,
             clearFlag,
-            updateLabel,
             updateChanged,
             updateValid,
             removeFromForm,
@@ -42,12 +46,14 @@ export function useFormProvide() {
     }
 
     return {
-        labelObj,
+        disabled,
+        readonly,
         changedObj,
         validObj,
         validateFlag,
         clearFlag,
-        updateLabel,
+        setDisabled,
+        setReadonly,
         updateChanged,
         updateValid,
         removeFromForm,

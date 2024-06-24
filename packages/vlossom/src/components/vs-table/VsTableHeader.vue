@@ -7,7 +7,6 @@
                     class="search-input"
                     :placeholder="searchPlaceholder"
                     @change="emitSearchText"
-                    no-label
                     no-message
                     dense
                 />

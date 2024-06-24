@@ -285,6 +285,47 @@ describe('vs-checkbox-set', () => {
             expect(wrapper.vm.computedMessages).toHaveLength(1);
             expect(wrapper.html()).toContain('required');
         });
+
+        it('최대로 선택 가능한 아이템 수를 max props를 통해 제한하고 체크할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    max: 1,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input[value="A"]').trigger('click');
+            await wrapper.find('input[value="B"]').trigger('click');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('max number of items: 1');
+        });
+
+        it('최소로 선택 가능한 아이템 수를 max props를 통해 제한하고 체크할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckboxSet, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    min: 2,
+                },
+            });
+
+            // when
+            await nextTick();
+            await wrapper.find('input[value="A"]').trigger('click');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('min number of items: 2');
+        });
     });
 
     describe('validate', () => {

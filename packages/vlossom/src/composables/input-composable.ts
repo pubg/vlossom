@@ -3,15 +3,17 @@ import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
 import { utils } from '@/utils';
 
-import type { StateMessage, Rule, Message, InputComponentOptions } from '@/declaration';
+import type { StateMessage, Rule, Message, InputComponentParams } from '@/declaration';
 
 interface VsInputProps<T> {
+    ariaLabel: { type: StringConstructor; default: null };
     disabled: { type: BooleanConstructor; default: boolean };
+    id: { type: StringConstructor; default: string };
     label: { type: StringConstructor; default: string };
     messages: { type: PropType<Message<T>[]>; default: () => Message<T>[] };
     name: { type: StringConstructor; default: string };
     noClear: { type: BooleanConstructor; default: boolean };
-    noLabel: { type: BooleanConstructor; default: boolean };
+    noDefaultRules: { type: BooleanConstructor; default: boolean };
     noMessage: { type: BooleanConstructor; default: boolean };
     placeholder: { type: StringConstructor; default: string };
     readonly: { type: BooleanConstructor; default: boolean };
@@ -31,12 +33,14 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
     const inputProps: VsInputProps<T> = Object.assign(
         {},
         {
+            ariaLabel: { type: String, default: null },
             disabled: { type: Boolean, default: false },
+            id: { type: String, default: '' },
             label: { type: String, default: '' },
             messages: { type: Array as PropType<Message<T>[]>, default: () => [] },
             name: { type: String, default: '' },
             noClear: { type: Boolean, default: false },
-            noLabel: { type: Boolean, default: false },
+            noDefaultRules: { type: Boolean, default: false },
             noMessage: { type: Boolean, default: false },
             placeholder: { type: String, default: '' },
             readonly: { type: Boolean, default: false },
@@ -54,15 +58,24 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
     return utils.object.omit(inputProps, excludes);
 }
 
-export function useInput<T = unknown>(
-    inputValue: Ref<T>,
-    modelValue: Ref<T>,
-    ctx: any,
-    label: Ref<string>,
-    options?: InputComponentOptions<T>,
-) {
+export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParams<T>) {
     const { emit } = ctx;
-    const { messages = ref([]), rules = ref([]), state = ref(UIState.Idle) } = options || {};
+    const {
+        inputValue,
+        modelValue,
+        id = ref(''),
+        disabled = ref(false),
+        readonly = ref(false),
+        messages = ref([]),
+        rules = ref([]),
+        defaultRules = [],
+        noDefaultRules = ref(false),
+        state = ref(UIState.Idle),
+        callbacks = {},
+    } = inputParams;
+
+    const innerId = utils.string.createID();
+    const computedId = computed(() => id.value || innerId);
 
     const changed = ref(false);
     const isInitialized = ref(false);
@@ -93,13 +106,20 @@ export function useInput<T = unknown>(
     }
     watch(messages, checkMessages, { deep: true });
 
+    const computedRules = computed(() => {
+        if (noDefaultRules.value) {
+            return rules.value;
+        }
+
+        return [...defaultRules, ...rules.value];
+    });
     const showRuleMessages = ref(false);
     const ruleMessages: Ref<StateMessage[]> = ref([]);
     async function checkRules() {
         ruleMessages.value = [];
         const pendingRules: Promise<string>[] = [];
 
-        rules.value.forEach((rule) => {
+        computedRules.value.forEach((rule) => {
             const result = rule(inputValue.value);
             if (!result) {
                 return;
@@ -127,7 +147,7 @@ export function useInput<T = unknown>(
 
         ruleMessages.value.push(...resolvedMessages);
     }
-    watch(rules, checkRules, { deep: true });
+    watch(computedRules, checkRules, { deep: true });
 
     const computedMessages: ComputedRef<StateMessage[]> = computed(() => {
         if (showRuleMessages.value) {
@@ -141,8 +161,8 @@ export function useInput<T = unknown>(
         inputValue,
         (value, oldValue) => {
             emit('update:modelValue', value);
-            if (options?.callbacks?.onChange) {
-                options.callbacks.onChange(value, oldValue);
+            if (callbacks.onChange) {
+                callbacks.onChange(value, oldValue);
             }
 
             checkMessages();
@@ -175,8 +195,8 @@ export function useInput<T = unknown>(
     });
 
     onMounted(() => {
-        if (options?.callbacks?.onMounted) {
-            options.callbacks.onMounted();
+        if (callbacks.onMounted) {
+            callbacks.onMounted();
         }
 
         checkMessages();
@@ -197,8 +217,8 @@ export function useInput<T = unknown>(
     }
 
     function clear() {
-        if (options?.callbacks?.onClear) {
-            options.callbacks.onClear();
+        if (callbacks.onClear) {
+            callbacks.onClear();
         }
 
         nextTick(() => {
@@ -209,7 +229,11 @@ export function useInput<T = unknown>(
         });
     }
 
-    const { id } = useInputForm(label, valid, changed, validate, clear);
+    const { formDisabled, formReadonly } = useInputForm(computedId, valid, changed, validate, clear);
+
+    const computedDisabled = computed(() => disabled.value || formDisabled.value);
+
+    const computedReadonly = computed(() => readonly.value || formReadonly.value);
 
     watch(changed, () => {
         emit('update:changed', changed.value);
@@ -225,7 +249,9 @@ export function useInput<T = unknown>(
         showRuleMessages,
         validate,
         clear,
-        id,
+        computedId,
+        computedDisabled,
+        computedReadonly,
         computedState,
     };
 }

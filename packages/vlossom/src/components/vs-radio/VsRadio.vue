@@ -1,16 +1,15 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="radioLabel ? '' : id"
+            :id="radioLabel ? '' : computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -20,11 +19,11 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
-                :disabled="disabled"
-                :id="id"
+                :disabled="computedDisabled"
+                :id="computedId"
                 :label="radioLabel"
                 :name="name"
-                :readonly="readonly"
+                :readonly="computedReadonly"
                 :required="required"
                 :state="computedState"
                 :value="radioValue"
@@ -63,7 +62,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },
-        ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         name: { type: String, required: true },
         radioLabel: { type: String, default: '' },
@@ -77,7 +75,9 @@ export default defineComponent({
         const {
             checked,
             colorScheme,
-            label,
+            id,
+            disabled,
+            readonly,
             messages,
             modelValue,
             name,
@@ -86,6 +86,7 @@ export default defineComponent({
             rules,
             state,
             styleSet,
+            noDefaultRules,
         } = toRefs(props);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
@@ -112,29 +113,37 @@ export default defineComponent({
             return !checkedRadioElement ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = radioValue.value;
-                        }
-                    },
-                    onClear: () => {
-                        inputValue.value = null;
-                    },
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = radioValue.value;
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = null;
                 },
             },
-        );
+        });
 
         async function onToggle() {
             // radio change event value is always true
@@ -158,12 +167,14 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             radioRef,
             isChecked,
             computedColorScheme,
             computedState,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             inputValue,
             computedMessages,
             shake,

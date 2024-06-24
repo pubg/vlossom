@@ -142,7 +142,7 @@ export const SearchText: Story = {
                 </vs-input>
                 <vs-table v-bind="args" :searchText="searchText">
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value" no-label no-message></vs-switch>
+                        <vs-switch v-model="value" no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -279,7 +279,7 @@ export const ItemSlot: Story = {
                         <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value" no-label no-message></vs-switch>
+                        <vs-switch v-model="value" no-message></vs-switch>
                     </template>
                 </vs-table>
             </div>

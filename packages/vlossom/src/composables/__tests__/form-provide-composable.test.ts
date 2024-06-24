@@ -2,17 +2,26 @@ import { describe, expect, it } from 'vitest';
 import { useFormProvide } from '@/composables';
 
 describe('form-provide-composable', () => {
-    it('labelObj에 label 값이 업데이트 된다', () => {
+    it('disabled 값을 업데이트 할 수 있다', () => {
         // given
-        const { labelObj, updateLabel } = useFormProvide();
-        const id = 'test';
-        const label = 'Test label';
+        const { disabled, setDisabled } = useFormProvide();
 
         // when
-        updateLabel(id, label);
+        setDisabled(true);
 
         // then
-        expect(labelObj.value[id]).toBe(label);
+        expect(disabled.value).toBe(true);
+    });
+
+    it('readonly 값을 업데이트 할 수 있다', () => {
+        // given
+        const { readonly, setReadonly } = useFormProvide();
+
+        // when
+        setReadonly(true);
+
+        // then
+        expect(readonly.value).toBe(true);
     });
 
     it('changedObj에 changed 값이 업데이트 된다', () => {
@@ -43,9 +52,8 @@ describe('form-provide-composable', () => {
 
     it('form에서 제거된다', () => {
         // given
-        const { labelObj, changedObj, validObj, removeFromForm } = useFormProvide();
+        const { changedObj, validObj, removeFromForm } = useFormProvide();
         const id = 'test';
-        labelObj.value[id] = 'test';
         changedObj.value[id] = true;
         validObj.value[id] = true;
 
@@ -53,7 +61,6 @@ describe('form-provide-composable', () => {
         removeFromForm(id);
 
         // then
-        expect(labelObj.value[id]).toBeUndefined();
         expect(changedObj.value[id]).toBeUndefined();
         expect(validObj.value[id]).toBeUndefined();
     });

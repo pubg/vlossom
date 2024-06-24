@@ -1,33 +1,36 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
             <div
-                :class="['vs-switch', `vs-${computedColorScheme}`, { checked: isChecked, disabled, readonly }]"
+                :class="[
+                    'vs-switch',
+                    `vs-${computedColorScheme}`,
+                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly },
+                ]"
                 :style="computedStyleSet"
             >
                 <input
                     type="checkbox"
                     ref="switchRef"
                     class="vs-switch-input"
-                    :id="id"
+                    :id="computedId"
                     :name="name"
-                    :disabled="disabled || readonly"
+                    :disabled="computedDisabled || computedReadonly"
                     :checked="isChecked"
                     :value="convertToString(trueValue)"
-                    :aria-label="ariaLabel || 'switch ' + label"
+                    :aria-label="ariaLabel"
                     :aria-required="required"
                     @focus.stop="onFocus"
                     @blur.stop="onBlur"
@@ -50,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, PropType, computed, ref, Ref } from 'vue';
+import { defineComponent, toRefs, PropType, ref, Ref } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
@@ -75,7 +78,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
-        ariaLabel: { type: String, default: '' },
         beforeChange: {
             type: Function as PropType<(from: any, to: any) => Promise<boolean> | null>,
             default: null,
@@ -96,7 +98,7 @@ export default defineComponent({
             colorScheme,
             styleSet,
             disabled,
-            label,
+            id,
             messages,
             readonly,
             required,
@@ -108,6 +110,7 @@ export default defineComponent({
             multiple,
             modelValue,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const switchRef: Ref<HTMLInputElement | null> = ref(null);
@@ -131,41 +134,49 @@ export default defineComponent({
             return required.value && !isChecked.value ? 'required' : '';
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (checked.value) {
-                            inputValue.value = getUpdatedValue(true);
-                        } else {
-                            inputValue.value = getInitialValue();
-                        }
-                    },
-                    onChange: () => {
-                        if (inputValue.value === undefined || inputValue.value === null) {
-                            inputValue.value = getClearedValue();
-                        }
-                    },
-                    onClear: () => {
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (checked.value) {
+                        inputValue.value = getUpdatedValue(true);
+                    } else {
+                        inputValue.value = getInitialValue();
+                    }
+                },
+                onChange: () => {
+                    if (inputValue.value === undefined || inputValue.value === null) {
                         inputValue.value = getClearedValue();
-                    },
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = getClearedValue();
                 },
             },
-        );
+        });
 
         const { stateClasses } = useStateClass(computedState);
 
         async function onClick() {
-            if (disabled.value || readonly.value) {
+            if (computedDisabled.value || computedReadonly.value) {
                 return;
             }
 
@@ -199,10 +210,13 @@ export default defineComponent({
         }
 
         return {
+            computedId,
             switchRef,
             inputValue,
             computedColorScheme,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             isChecked,
             onClick,
             onFocus,
@@ -211,7 +225,6 @@ export default defineComponent({
             shake,
             validate,
             clear,
-            id,
             stateClasses,
             focus,
             blur,

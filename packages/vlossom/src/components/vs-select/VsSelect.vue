@@ -1,21 +1,20 @@
 <template>
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
-            :id="id"
+            :id="computedId"
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
             <div
-                :id="id"
+                :id="computedId"
                 ref="triggerRef"
                 :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
                 :style="computedStyleSet"
@@ -26,16 +25,16 @@
                         v-if="!(multiple && !autocomplete && selectedOptions.length)"
                         ref="inputRef"
                         role="combobox"
-                        :id="`${id}-input`"
+                        :id="`${computedId}-input`"
                         :class="['vs-select-input', { autocomplete }]"
                         :aria-expanded="isOpen || isVisible"
-                        :aria-label="ariaLabel || label || 'select input'"
+                        :aria-label="ariaLabel"
                         aria-controls="vs-select-options"
                         :aria-autocomplete="autocomplete ? 'list' : undefined"
                         :aria-activedescendant="focusedOptionId"
-                        :disabled="disabled"
+                        :disabled="computedDisabled"
                         :placeholder="placeholder"
-                        :readonly="readonly || !autocomplete"
+                        :readonly="computedReadonly || !autocomplete"
                         :aria-required="required"
                         :value="inputLabel"
                         @input.stop="onInput"
@@ -87,7 +86,7 @@
                 </div>
                 <div class="vs-select-side">
                     <button
-                        v-if="!noClear && selectedOptions.length && !readonly && !disabled"
+                        v-if="!noClear && selectedOptions.length && !computedReadonly && !computedDisabled"
                         type="button"
                         class="clear-button"
                         aria-hidden="true"
@@ -216,6 +215,7 @@ import {
 } from '@/composables';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import { useVsSelectRules } from './vs-select-rules';
 import { VsSelectStyleSet } from './types';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
@@ -235,7 +235,6 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSelectStyleSet> },
-        ariaLabel: { type: String, default: '' },
         autocomplete: { type: Boolean, default: false },
         closableChips: {
             type: Boolean,
@@ -271,6 +270,28 @@ export default defineComponent({
                 return isValid;
             },
         },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'max', 'max can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'max', value);
+            },
+        },
+        min: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string, props) => {
+                if (!props.multiple && value) {
+                    utils.log.propError(name, 'min', 'min can only be used with multiple prop');
+                    return false;
+                }
+                return utils.props.checkValidNumber(name, 'min', value);
+            },
+        },
         multiple: { type: Boolean, default: false },
         selectAll: {
             type: Boolean,
@@ -296,7 +317,7 @@ export default defineComponent({
             dense,
             disabled,
             modelValue,
-            label,
+            id,
             lazyLoadNum,
             messages,
             multiple,
@@ -308,15 +329,12 @@ export default defineComponent({
             rules,
             selectAll,
             state,
+            max,
+            min,
+            noDefaultRules,
         } = toRefs(props);
 
         const { emit } = context;
-
-        const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -358,19 +376,7 @@ export default defineComponent({
             options.value.map((option) => ({ id: utils.string.createID(), value: option })),
         );
 
-        function requiredCheck() {
-            if (!required.value) {
-                return '';
-            }
-
-            if (multiple.value) {
-                return inputValue.value && inputValue.value.length > 0 ? '' : 'required';
-            } else {
-                return inputValue.value ? '' : 'required';
-            }
-        }
-
-        const allRules = computed(() => [...rules.value, requiredCheck]);
+        const { requiredCheck, maxCheck, minCheck } = useVsSelectRules(required, max, min, multiple);
 
         function onClear() {
             if (multiple.value) {
@@ -386,30 +392,46 @@ export default defineComponent({
             closeOptions();
         }
 
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (multiple.value && !Array.isArray(inputValue.value)) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onChange: () => {
-                        if (multiple.value && !Array.isArray(inputValue.value)) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onClear,
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    }
                 },
+                onChange: () => {
+                    if (multiple.value && !Array.isArray(inputValue.value)) {
+                        inputValue.value = [];
+                    }
+                },
+                onClear,
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            dense: dense.value,
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -434,7 +456,7 @@ export default defineComponent({
         });
 
         const { isOpen, isClosing, toggleOptions, closeOptions, triggerRef, optionsRef, isVisible, computedPlacement } =
-            useToggleOptions(id, disabled, readonly);
+            useToggleOptions(computedId, computedDisabled, computedReadonly);
 
         const { autocompleteText, filteredOptions, updateAutocompleteText } = useAutocomplete(
             autocomplete,
@@ -468,8 +490,8 @@ export default defineComponent({
             onMouseMove,
             isChasedOption,
         } = useFocusControl(
-            disabled,
-            readonly,
+            computedDisabled,
+            computedReadonly,
             isOpen,
             closeOptions,
             selectAll,
@@ -524,10 +546,12 @@ export default defineComponent({
         }
 
         return {
-            id,
+            computedId,
             classObj,
             computedColorScheme,
             computedStyleSet,
+            computedDisabled,
+            computedReadonly,
             chipStyleSets,
             collapseChipStyleSets,
             animationClass,

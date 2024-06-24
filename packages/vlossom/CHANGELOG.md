@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.0-beta.2 (2024-06-20)
+
+
+### Features
+
+* **anchor-positioning-composable:** add attachment resizing observer ([#221](https://github.com/pubg/vlossom/issues/221)) ([ad95018](https://github.com/pubg/vlossom/commit/ad9501852e658fcc9c41358f751500defb6b7f9c))
+* **Playground:** separate Playground component and add App.vue ([#217](https://github.com/pubg/vlossom/issues/217)) ([e7241af](https://github.com/pubg/vlossom/commit/e7241affa29245e09a2eb862fda4fc48694ab9ae))
+* **vs-select, vs-checkbox-set:** add max/min props and rules ([#219](https://github.com/pubg/vlossom/issues/219)) ([9eac351](https://github.com/pubg/vlossom/commit/9eac351f063c2c70a8c1f7d8c0ca81db20672f32))
+* **VsForm:** add vs-form disabled, readonly ([#223](https://github.com/pubg/vlossom/issues/223)) ([799699e](https://github.com/pubg/vlossom/commit/799699eff267212aa6f610b7aaa58159151cf9d1))
+* **input-components:** add noDefaultRules props ([#218](https://github.com/pubg/vlossom/issues/218)) ([36bb36d](https://github.com/pubg/vlossom/commit/36bb36dbdffff30933060083036a800a27e886c7))
+
+
+### Bug Fixes
+
+* **style:** remove app background-color transition ([#224](https://github.com/pubg/vlossom/issues/224)) ([7acb354](https://github.com/pubg/vlossom/commit/7acb3540cabf1802642e61fc4d95219642e665e8))
+* vuedraggable import declaration ([#215](https://github.com/pubg/vlossom/issues/215)) ([b699ea7](https://github.com/pubg/vlossom/commit/b699ea7213c8d5a44a0116f9969b08417828b6ee))
+
 ## 1.0.0-beta.1 (2024-06-12)
 
 

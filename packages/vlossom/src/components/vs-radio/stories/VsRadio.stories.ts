@@ -29,7 +29,6 @@ const meta: Meta<typeof VsRadio> = {
     },
     args: {
         radioLabel: 'Radio Input',
-        noLabel: true,
         noMessage: true,
         name: 'test',
         radioValue: 'test',
@@ -94,7 +93,6 @@ export const Disabled: Story = {
 export const Label: Story = {
     args: {
         label: 'Label',
-        noLabel: false,
     },
 };
 

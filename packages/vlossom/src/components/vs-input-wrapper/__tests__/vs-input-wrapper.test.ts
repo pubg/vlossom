@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsInputWrapper from './../VsInputWrapper.vue';
+import { UIState } from '@/declaration';
 
 describe('vs-input-wrapper', () => {
     describe('label', () => {
@@ -20,26 +21,26 @@ describe('vs-input-wrapper', () => {
             expect(label.text()).toBe('My Label');
         });
 
-        it('label을 설정하지 않아도 label 영역이 있다', () => {
+        it('label을 설정하지 않으면 label 영역이 없다', () => {
             // given
             const wrapper = mount(VsInputWrapper);
 
             // then
             const label = wrapper.find('label');
-            expect(label.exists()).toBe(true);
-            expect(label.text()).toBe('');
+            expect(label.exists()).toBe(false);
         });
 
-        it('noLabel props를 설정하면 label 영역이 없다', () => {
+        it('label slot을 넣으면 label 영역이 있다', () => {
             // given
             const wrapper = mount(VsInputWrapper, {
-                props: {
-                    noLabel: true,
+                slots: {
+                    label: 'My Label',
                 },
             });
 
             // then
-            expect(wrapper.find('label').exists()).toBe(false);
+            expect(wrapper.find('label').exists()).toBe(true);
+            expect(wrapper.find('label').text()).toBe('My Label');
         });
 
         it('required props를 설정하면 label 영역에 *이 표시된다', () => {
@@ -75,7 +76,7 @@ describe('vs-input-wrapper', () => {
     });
 
     describe('messages', () => {
-        it('noMessage props가 전달되면 message 영역이 보이지 않는다', () => {
+        it('noMessage props가 전달되면 message 영역이 없다', () => {
             // given
             const wrapper = mount(VsInputWrapper, {
                 props: {
@@ -85,6 +86,26 @@ describe('vs-input-wrapper', () => {
 
             // then
             expect(wrapper.find('.vs-messages').exists()).toBe(false);
+        });
+
+        it('message가 없어도 message 영역은 있다', () => {
+            // given
+            const wrapper = mount(VsInputWrapper);
+
+            // then
+            expect(wrapper.find('.vs-messages').exists()).toBe(true);
+        });
+
+        it('message가 있다면 message 영역이 있다', () => {
+            // given
+            const wrapper = mount(VsInputWrapper, {
+                props: {
+                    messages: [{ state: UIState.Info, text: 'Info Message' }],
+                },
+            });
+
+            // then
+            expect(wrapper.find('.vs-messages').exists()).toBe(true);
         });
     });
 

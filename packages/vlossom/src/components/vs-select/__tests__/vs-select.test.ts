@@ -911,6 +911,59 @@ describe('vs-select', () => {
             expect(wrapper.vm.computedMessages).toHaveLength(1);
             expect(wrapper.html()).toContain('required');
         });
+
+        it('multiple이 true일 때, 최대로 선택 가능한 아이템 수를 max props를 통해 제한하고 체크할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    max: 1,
+                    multiple: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.findAll('.vs-option')[1].trigger('click');
+            await wrapper.findAll('.vs-option')[2].trigger('click');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('max number of items: 1');
+        });
+
+        it('multiple이 true일 때, 최소로 선택 가능한 아이템 수를 min props를 통해 제한하고 체크할 수 있다', async () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                props: {
+                    modelValue: [],
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    options: ['A', 'B', 'C'],
+                    min: 2,
+                    multiple: true,
+                },
+                global: {
+                    stubs: {
+                        teleport: true,
+                    },
+                },
+            });
+
+            // when
+            await wrapper.find('.vs-select').trigger('click');
+            await wrapper.findAll('.vs-option')[1].trigger('click');
+
+            // then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.html()).toContain('min number of items: 2');
+        });
     });
 
     describe('validate', () => {

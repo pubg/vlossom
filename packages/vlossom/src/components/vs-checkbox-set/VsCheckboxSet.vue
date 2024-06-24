@@ -2,15 +2,14 @@
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
             group-label
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -23,11 +22,11 @@
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
-                    :disabled="disabled"
-                    :id="`${id}-${optionIds[index]}`"
+                    :disabled="computedDisabled"
+                    :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
-                    :readonly="readonly"
+                    :readonly="computedReadonly"
                     :required="required"
                     :state="computedState"
                     :value="getOptionValue(option)"
@@ -69,6 +68,7 @@ import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
 import { VsCheckboxNode } from '@/nodes';
+import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
 import type { VsCheckboxSetStyleSet } from './types';
 import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
@@ -79,7 +79,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
     props: {
-        ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -87,6 +87,16 @@ export default defineComponent({
         beforeChange: {
             type: Function as PropType<(from: any, to: any, option: any) => Promise<boolean> | null>,
             default: null,
+        },
+        max: {
+            type: [Number, String],
+            default: Number.MAX_SAFE_INTEGER,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'max', value),
+        },
+        min: {
+            type: [Number, String],
+            default: 0,
+            validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
         },
         vertical: { type: Boolean, default: false },
         // v-model
@@ -103,7 +113,7 @@ export default defineComponent({
             styleSet,
             beforeChange,
             disabled,
-            label,
+            id,
             modelValue,
             messages,
             options,
@@ -113,6 +123,9 @@ export default defineComponent({
             required,
             rules,
             state,
+            max,
+            min,
+            noDefaultRules,
         } = toRefs(props);
 
         const checkboxRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -130,11 +143,6 @@ export default defineComponent({
             styleSet,
         );
 
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
-
         const inputValue = ref(modelValue.value);
 
         const { getOptionLabel, getOptionValue } = useInputOption(
@@ -145,38 +153,49 @@ export default defineComponent({
             ref(true),
         );
 
-        function requiredCheck() {
-            return required.value && inputValue.value && inputValue.value.length === 0 ? 'required' : '';
-        }
+        const { requiredCheck, maxCheck, minCheck } = useVsCheckboxSetRules(required, max, min);
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onMounted: () => {
-                        if (!inputValue.value) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onChange: () => {
-                        if (!inputValue.value) {
-                            inputValue.value = [];
-                        }
-                    },
-                    onClear: () => {
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck, maxCheck, minCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onMounted: () => {
+                    if (!inputValue.value) {
                         inputValue.value = [];
-                    },
+                    }
+                },
+                onChange: () => {
+                    if (!inputValue.value) {
+                        inputValue.value = [];
+                    }
+                },
+                onClear: () => {
+                    inputValue.value = [];
                 },
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         function isChecked(option: any) {
             if (!inputValue.value) {
@@ -221,12 +240,14 @@ export default defineComponent({
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
-            id,
+            computedId,
             checkboxRefs,
             optionIds,
             classObj,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             checkboxStyleSet,
             checkboxSetStyleSet,
             isChecked,

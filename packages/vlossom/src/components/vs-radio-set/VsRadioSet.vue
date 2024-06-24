@@ -2,15 +2,14 @@
     <vs-wrapper :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
-            :disabled="disabled"
+            :disabled="computedDisabled"
             :messages="computedMessages"
-            :no-label="noLabel"
             :no-message="noMessage"
             :required="required"
             :shake="shake"
             group-label
         >
-            <template #label v-if="!noLabel">
+            <template #label v-if="label || $slots['label']">
                 <slot name="label" />
             </template>
 
@@ -23,11 +22,11 @@
                     :color-scheme="computedColorScheme"
                     :style-set="radioStyleSet"
                     :checked="isChecked(option)"
-                    :disabled="disabled"
-                    :id="`${id}-${optionIds[index]}`"
+                    :disabled="computedDisabled"
+                    :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
                     :name="name"
-                    :readonly="readonly"
+                    :readonly="computedReadonly"
                     :required="required"
                     :state="computedState"
                     :value="getOptionValue(option)"
@@ -77,7 +76,7 @@ export default defineComponent({
     name: VsComponent.VsRadioSet,
     components: { VsInputWrapper, VsWrapper, VsRadioNode },
     props: {
-        ...getInputProps<any[], ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -94,7 +93,7 @@ export default defineComponent({
             colorScheme,
             styleSet,
             disabled,
-            label,
+            id,
             modelValue,
             messages,
             name,
@@ -105,6 +104,7 @@ export default defineComponent({
             required,
             rules,
             state,
+            noDefaultRules,
         } = toRefs(props);
 
         const radioRefs: Ref<HTMLInputElement[]> = ref([]);
@@ -118,11 +118,6 @@ export default defineComponent({
             VsComponent.VsRadioSet,
             styleSet,
         );
-
-        const classObj = computed(() => ({
-            disabled: disabled.value,
-            readonly: readonly.value,
-        }));
 
         const inputValue = ref(modelValue.value);
 
@@ -142,24 +137,37 @@ export default defineComponent({
             return utils.object.isEqual(inputValue.value, getOptionValue(option));
         }
 
-        const allRules = computed(() => [...rules.value, requiredCheck]);
-
-        const { computedMessages, computedState, shake, validate, clear, id } = useInput(
+        const {
+            computedId,
+            computedMessages,
+            computedState,
+            computedDisabled,
+            computedReadonly,
+            shake,
+            validate,
+            clear,
+        } = useInput(context, {
             inputValue,
             modelValue,
-            context,
-            label,
-            {
-                messages,
-                rules: allRules,
-                state,
-                callbacks: {
-                    onClear: () => {
-                        inputValue.value = null;
-                    },
+            id,
+            disabled,
+            readonly,
+            messages,
+            rules,
+            defaultRules: [requiredCheck],
+            noDefaultRules,
+            state,
+            callbacks: {
+                onClear: () => {
+                    inputValue.value = null;
                 },
             },
-        );
+        });
+
+        const classObj = computed(() => ({
+            disabled: computedDisabled.value,
+            readonly: computedReadonly.value,
+        }));
 
         async function onToggle(option: any) {
             // radio change event value is always true
@@ -185,12 +193,14 @@ export default defineComponent({
         const optionIds = computed(() => options.value.map(() => utils.string.createID()));
 
         return {
-            id,
+            computedId,
             radioRefs,
             optionIds,
             classObj,
             computedColorScheme,
             computedState,
+            computedDisabled,
+            computedReadonly,
             radioStyleSet,
             radioSetStyleSet,
             isChecked,

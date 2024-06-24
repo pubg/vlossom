@@ -12,16 +12,17 @@ describe('form-composable', () => {
     const validateSpy = vi.fn(() => true);
     const clearSpy = vi.fn();
 
-    const InputComponent = defineComponent({
+    const TestInputComponent = defineComponent({
         render: () => null,
         setup() {
-            const { id } = useInputForm(label, valid, changed, validateSpy, clearSpy);
-            return { id };
+            const id = ref('input-id');
+            const { formDisabled, formReadonly } = useInputForm(id, valid, changed, validateSpy, clearSpy);
+            return { id, formDisabled, formReadonly };
         },
     });
 
     function createWrapper(provide: any = {}) {
-        return mount(InputComponent, {
+        return mount(TestInputComponent, {
             global: {
                 provide,
             },
@@ -44,41 +45,6 @@ describe('form-composable', () => {
 
     afterEach(() => {
         wrapper.unmount();
-    });
-
-    describe('labelObj', () => {
-        it('labelObj에 label 값이 업데이트 된다', () => {
-            // given
-            const id = wrapper.vm.id;
-
-            // then
-            expect(formProvide.labelObj.value[id]).toBe(label.value);
-        });
-
-        it('빈 라벨이라도 labelObj에 업데이트 된다', async () => {
-            // given
-            const id = wrapper.vm.id;
-
-            // when
-            label.value = '';
-            await nextTick();
-
-            // then
-            expect(formProvide.labelObj.value[id]).toBe(label.value);
-        });
-
-        it('label 값이 변경되면 labelObj도 변경된다', async () => {
-            // given
-            const id = wrapper.vm.id;
-            const newLabel = 'New label';
-
-            // when
-            label.value = newLabel;
-            await nextTick();
-
-            // then
-            expect(formProvide.labelObj.value[id]).toBe(newLabel);
-        });
     });
 
     describe('changedObj', () => {
@@ -163,18 +129,6 @@ describe('form-composable', () => {
     });
 
     describe('after unmount', () => {
-        it('labelObj에서 id에 해당하는 값이 삭제된다', async () => {
-            // given
-            const id = wrapper.vm.id;
-
-            // when
-            wrapper.unmount();
-            await nextTick();
-
-            // then
-            expect(formProvide.labelObj.value[id]).toBeUndefined();
-        });
-
         it('changedObj에서 id에 해당하는 값이 삭제된다', async () => {
             // given
             const id = wrapper.vm.id;
