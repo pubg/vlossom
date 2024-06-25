@@ -29,12 +29,10 @@ import {
     computed,
     getCurrentInstance,
     ComputedRef,
-    onBeforeUnmount,
-    onMounted,
-    type PropType,
     nextTick,
+    type PropType,
 } from 'vue';
-import { useColorScheme, useLayout, useScrollControl, useStyleSet } from '@/composables';
+import { useColorScheme, useDialogEsc, useLayout, useScrollControl, useStyleSet } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -50,7 +48,6 @@ import {
     type CssPosition,
     type SizeProp,
 } from '@/declaration';
-import { store } from '@/stores';
 import { utils } from '@/utils';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 
@@ -197,24 +194,8 @@ export default defineComponent({
             }
         }
 
-        function onPressEsc(event: KeyboardEvent) {
-            if (event.key === 'Escape' && store.dialog.getTopId() === id) {
-                isOpen.value = false;
-            }
-        }
-
-        onMounted(() => {
-            if (closeOnEsc.value) {
-                store.dialog.push(id);
-                document.addEventListener('keydown', onPressEsc);
-            }
-        });
-
-        onBeforeUnmount(() => {
-            if (closeOnEsc.value) {
-                store.dialog.pop();
-                document.removeEventListener('keydown', onPressEsc);
-            }
+        useDialogEsc(id, closeOnEsc, () => {
+            isOpen.value = false;
         });
 
         return {
