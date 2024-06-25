@@ -12,29 +12,29 @@ $colors: map.keys($palette);
     --vs-no-color-inverse: var(--vs-black);
     --vs-no-color-font: var(--vs-gray-800);
 
-    --vs-comp-font: var(--vs-gray-800);
-    --vs-comp-bg: var(--vs-white);
-    --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
-    --vs-comp-bg-active: #{darken(#ffffff, 15%)};
-    --vs-comp-shadow: rgba(0, 0, 0, 0.16);
+    .vs-default {
+        --vs-comp-font: var(--vs-gray-800);
+        --vs-comp-bg: var(--vs-white);
+        --vs-comp-bg-hover: #{darken(#ffffff, 5%)};
+        --vs-comp-bg-active: #{darken(#ffffff, 15%)};
+        --vs-comp-shadow: rgba(0, 0, 0, 0.16);
 
-    --vs-primary-comp-font: var(--vs-white);
-    --vs-primary-comp-bg: var(--vs-black);
-    --vs-primary-comp-bg-hover: #{lighten(#000000, 10%)};
-    --vs-primary-comp-bg-active: #{lighten(#000000, 20%)};
-    --vs-primary-comp-shadow: rgba(255, 255, 255, 0.3);
+        --vs-primary-comp-font: var(--vs-white);
+        --vs-primary-comp-bg: var(--vs-black);
+        --vs-primary-comp-bg-hover: #{lighten(#000000, 10%)};
+        --vs-primary-comp-bg-active: #{lighten(#000000, 20%)};
+        --vs-primary-comp-shadow: rgba(255, 255, 255, 0.3);
 
-    --vs-font-color: var(--vs-gray-800);
+        --vs-font-color: var(--vs-gray-800);
 
-    --vs-line-color: var(--vs-gray-400);
+        --vs-line-color: var(--vs-gray-400);
 
-    --vs-area-bg: var(--vs-white);
-    --vs-area-bg-hover: #{darken(#ffffff, 5%)};
-    --vs-area-bg-active: #{darken(#ffffff, 10%)};
+        --vs-area-bg: var(--vs-white);
+        --vs-area-bg-hover: #{darken(#ffffff, 5%)};
+        --vs-area-bg-active: #{darken(#ffffff, 10%)};
+    }
+
     --vs-area-shadow-outer: 0 0 1rem 0 var(--vs-comp-shadow);
-
-    --vs-table-expand-box-shadow-up: inset 0 3px 8px rgba(100, 100, 100, 0.3);
-    --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(50, 50, 50, 0.15);
 
     .vs-dark {
         --vs-app-background-color: var(--vs-app-bg-color-dark);
@@ -44,29 +44,29 @@ $colors: map.keys($palette);
         --vs-no-color-inverse: var(--vs-white);
         --vs-no-color-font: var(--vs-gray-50);
 
-        --vs-comp-font: var(--vs-gray-50);
-        --vs-comp-bg: var(--vs-black);
-        --vs-comp-bg-hover: #{lighten(#000000, 10%)};
-        --vs-comp-bg-active: #{lighten(#000000, 20%)};
-        --vs-comp-shadow: rgba(255, 255, 255, 0.25);
+        .vs-default {
+            --vs-comp-font: var(--vs-gray-50);
+            --vs-comp-bg: var(--vs-black);
+            --vs-comp-bg-hover: #{lighten(#000000, 10%)};
+            --vs-comp-bg-active: #{lighten(#000000, 20%)};
+            --vs-comp-shadow: rgba(255, 255, 255, 0.25);
 
-        --vs-primary-comp-font: var(--vs-black);
-        --vs-primary-comp-bg: var(--vs-white);
-        --vs-primary-comp-bg-hover: #{darken(#ffffff, 5%)};
-        --vs-primary-comp-bg-active: #{darken(#ffffff, 10%)};
-        --vs-primary-comp-shadow: rgba(0, 0, 0, 0.4);
+            --vs-primary-comp-font: var(--vs-black);
+            --vs-primary-comp-bg: var(--vs-white);
+            --vs-primary-comp-bg-hover: #{darken(#ffffff, 5%)};
+            --vs-primary-comp-bg-active: #{darken(#ffffff, 10%)};
+            --vs-primary-comp-shadow: rgba(0, 0, 0, 0.4);
 
-        --vs-font-color: var(--vs-gray-50);
+            --vs-font-color: var(--vs-gray-50);
 
-        --vs-line-color: var(--vs-gray-500);
+            --vs-line-color: var(--vs-gray-500);
 
-        --vs-area-bg: var(--vs-black);
-        --vs-area-bg-hover: #{lighten(#000000, 12%)};
-        --vs-area-bg-active: #{lighten(#000000, 16%)};
+            --vs-area-bg: var(--vs-black);
+            --vs-area-bg-hover: #{lighten(#000000, 12%)};
+            --vs-area-bg-active: #{lighten(#000000, 16%)};
+        }
+
         --vs-area-shadow-outer: 0 0 0.5rem 0 var(--vs-comp-shadow);
-
-        --vs-table-expand-box-shadow-up: inset 0 3px 6px rgba(255, 255, 255, 0.2);
-        --vs-table-expand-box-shadow-down: inset 0 -2px 4px rgba(255, 255, 255, 0.15);
     }
 
     @each $color in $colors {
