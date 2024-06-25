@@ -24,7 +24,7 @@ export default defineConfig({
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'),
             name: 'Vlossom',
-            fileName: 'vlossom',
+            fileName: (format) => `vlossom.${format}.js`,
         },
         rollupOptions: {
             external: ['vue'],

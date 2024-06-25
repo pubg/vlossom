@@ -38,16 +38,16 @@
         "dist",
         "src"
     ],
-    "main": "./dist/vlossom.umd.cjs",
-    "module": "./dist/vlossom.js",
-    "unpkg": "./dist/vlossom.umd.cjs",
-    "jsdelivr": "./dist/vlossom.umd.cjs",
+    "main": "./dist/vlossom.umd.js",
+    "module": "./dist/vlossom.es.js",
+    "unpkg": "./dist/vlossom.umd.js",
+    "jsdelivr": "./dist/vlossom.umd.js",
     "types": "./dist/index.d.ts",
     "typings": "./dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/vlossom.js",
-            "require": "./dist/vlossom.umd.cjs",
+            "import": "./dist/vlossom.es.js",
+            "require": "./dist/vlossom.umd.js",
             "types": "./dist/index.d.ts"
         },
         "./styles": "./dist/style.css"
