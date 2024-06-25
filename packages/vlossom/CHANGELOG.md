@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0-beta.2](https://github.com/pubg/vlossom/compare/v1.0.0-beta.2...v1.1.0-beta.2) (2024-06-25)
+
+
+### Features
+
+* **input-component:** no default label area & remove noLabel ([#226](https://github.com/pubg/vlossom/issues/226)) ([64a8fc0](https://github.com/pubg/vlossom/commit/64a8fc0ef729ebab8d60343f5d177d5a90e9bdb9))
+* **input-component:** remove labelObj from form-provide ([#228](https://github.com/pubg/vlossom/issues/228)) ([972d551](https://github.com/pubg/vlossom/commit/972d551533219f1233da1c648bce5fe1aa809858))
+* **style:** add text color classes ([#225](https://github.com/pubg/vlossom/issues/225)) ([7097aca](https://github.com/pubg/vlossom/commit/7097aca8017f3d3c36982eee37f0364056a964ba))
+
+
+### Bug Fixes
+
+* **color-shceme:** fix color-scheme applied to parent components inherited to child components ([#231](https://github.com/pubg/vlossom/issues/231)) ([e7ef2fe](https://github.com/pubg/vlossom/commit/e7ef2fe052ac3f66d147c20b752b453922b774ac))
+* **VsSection,VsPage:** change the elements surrounding the title and description slots to div ([#229](https://github.com/pubg/vlossom/issues/229)) ([0e4f280](https://github.com/pubg/vlossom/commit/0e4f280212ea1f76dc43f8247d26ab5ab5dfde71))
+* **VsSelect:** remove multiple props check for max, min props ([#230](https://github.com/pubg/vlossom/issues/230)) ([23c8c41](https://github.com/pubg/vlossom/commit/23c8c414744f102a3dad76b477822f3d4f575cf7))
+
 ## 1.0.0-beta.2 (2024-06-20)
 
 
