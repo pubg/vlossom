@@ -4,6 +4,7 @@ import { useLayout } from '@/composables';
 import { VS_LAYOUT } from '@/declaration';
 import { VsLayout } from '@/components';
 import VsDrawer from './../VsDrawer.vue';
+import { nextTick } from 'vue';
 
 describe('vs-drawer', () => {
     describe('v-model', () => {
@@ -62,13 +63,13 @@ describe('vs-drawer', () => {
                     modelValue: true,
                 },
                 slots: {
-                    header: 'Header',
+                    header: 'Header!',
                 },
             });
 
             // then
-            expect(wrapper.find('header').exists()).toBe(true);
-            expect(wrapper.find('header').text()).toBe('Header');
+            expect(wrapper.find('.vs-drawer-header').exists()).toBe(true);
+            expect(wrapper.find('.vs-drawer-header').text()).toBe('Header!');
         });
 
         it('footer slot을 전달하면 footer 영역에 slot 컨텐츠가 렌더링 된다', () => {
@@ -78,13 +79,13 @@ describe('vs-drawer', () => {
                     modelValue: true,
                 },
                 slots: {
-                    footer: 'Footer',
+                    footer: 'Footer!',
                 },
             });
 
             // then
-            expect(wrapper.find('footer').exists()).toBe(true);
-            expect(wrapper.find('footer').text()).toBe('Footer');
+            expect(wrapper.find('.vs-drawer-footer').exists()).toBe(true);
+            expect(wrapper.find('.vs-drawer-footer').text()).toBe('Footer!');
         });
     });
 
@@ -99,7 +100,7 @@ describe('vs-drawer', () => {
             });
 
             // then
-            expect(wrapper.find('div.dimmed').exists()).toBe(true);
+            expect(wrapper.find('.vs-drawer-dimmed').exists()).toBe(true);
         });
 
         it('기본적으로 dimmed 영역 클릭 시 drawer가 닫힌다', async () => {
@@ -108,11 +109,13 @@ describe('vs-drawer', () => {
                 props: {
                     modelValue: true,
                     dimmed: true,
+                    closeOnDimmedClick: true,
                 },
             });
 
             // when
-            await wrapper.find('div.dimmed').trigger('click');
+            await wrapper.find('.vs-drawer-dimmed').trigger('click');
+            await nextTick();
 
             // then
             expect(wrapper.vm.isOpen).toBe(false);
@@ -129,7 +132,7 @@ describe('vs-drawer', () => {
             });
 
             // when
-            await wrapper.find('div.dimmed').trigger('click');
+            await wrapper.find('.vs-drawer-dimmed').trigger('click');
 
             // then
             expect(wrapper.vm.isOpen).toBe(true);
@@ -193,12 +196,12 @@ describe('vs-drawer', () => {
                     props: {
                         modelValue: true,
                         size: '270px',
-                        styleSet: { width: '320px' },
+                        styleSet: { size: '320px' },
                     },
                 });
 
                 // then
-                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-width: 270px;');
+                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-size: 270px;');
             });
 
             it('height', () => {
@@ -208,12 +211,12 @@ describe('vs-drawer', () => {
                         modelValue: true,
                         placement: 'top',
                         size: '270px',
-                        styleSet: { height: '320px' },
+                        styleSet: { size: '320px' },
                     },
                 });
 
                 // then
-                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-height: 270px;');
+                expect(wrapper.find('.vs-drawer').attributes('style')).toContain('--vs-drawer-size: 270px;');
             });
         });
     });

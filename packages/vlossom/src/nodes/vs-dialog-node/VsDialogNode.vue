@@ -63,15 +63,17 @@ export default defineComponent({
         }
 
         onMounted(() => {
-            store.dialog.push(id);
             if (closeOnEsc.value) {
+                store.dialog.push(id);
                 document.addEventListener('keydown', onPressEsc);
             }
         });
 
         onBeforeUnmount(() => {
-            store.dialog.pop();
-            document.removeEventListener('keydown', onPressEsc);
+            if (closeOnEsc.value) {
+                store.dialog.pop();
+                document.removeEventListener('keydown', onPressEsc);
+            }
         });
 
         return {

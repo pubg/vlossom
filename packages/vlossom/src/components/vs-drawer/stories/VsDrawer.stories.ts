@@ -198,7 +198,7 @@ export const InitialFocusRef: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#FBE7C6', height: '500px', width: '200px' },
+        styleSet: { backgroundColor: '#FBE7C6', size: '500px' },
     },
 };
 

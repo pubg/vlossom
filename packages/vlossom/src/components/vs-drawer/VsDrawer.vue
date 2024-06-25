@@ -1,31 +1,19 @@
 <template>
-    <Transition name="drawer" :duration="CLOSE_DELAY">
-        <div
-            v-show="isOpen"
-            class="vs-drawer"
-            :style="{
-                ...computedStyleSet,
-                ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
-            }"
-        >
-            <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-            <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
-                <vs-dialog-node
-                    :class="['drawer-dialog', `vs-${computedColorScheme}`, placement, hasSpecifiedSize ? '' : size]"
-                    :style-set="computedStyleSet"
-                    :close-on-esc="closeOnEsc"
-                    :hide-scroll="hideScroll"
-                    :isModal="dimmed"
-                    @close="() => (isOpen = false)"
-                >
-                    <template #header v-if="$slots['header']">
+    <Transition name="drawer" :duration="DIALOG_DURATION">
+        <div v-show="isOpen" :class="['vs-drawer', `vs-${computedColorScheme}`, { dimmed }]" :style="computedStyleSet">
+            <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
+            <vs-focus-trap :focus-lock="focusLock" :initial-focus-ref="initialFocusRef" ref="focusTrapRef">
+                <div :class="['vs-drawer-wrap', placement, hasSpecifiedSize ? '' : size]">
+                    <div class="vs-drawer-header" v-if="$slots['header']">
                         <slot name="header" />
-                    </template>
-                    <slot />
-                    <template #footer v-if="$slots['footer']">
+                    </div>
+                    <div :class="['vs-drawer-body', { 'hide-scroll': hideScroll }]">
+                        <slot />
+                    </div>
+                    <div class="vs-drawer-footer" v-if="$slots['footer']">
                         <slot name="footer" />
-                    </template>
-                </vs-dialog-node>
+                    </div>
+                </div>
             </vs-focus-trap>
         </div>
     </Transition>
@@ -38,14 +26,15 @@ import {
     ref,
     toRefs,
     watch,
-    onMounted,
     computed,
-    type PropType,
     getCurrentInstance,
     ComputedRef,
+    onBeforeUnmount,
+    onMounted,
+    type PropType,
+    nextTick,
 } from 'vue';
-import { useColorScheme, useLayout, useStyleSet } from '@/composables';
-import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
+import { useColorScheme, useLayout, useScrollControl, useStyleSet } from '@/composables';
 import { VsDialogNode } from '@/nodes';
 import {
     VsComponent,
@@ -55,19 +44,20 @@ import {
     PLACEMENTS,
     LAYOUT_Z_INDEX,
     APP_LAYOUT_Z_INDEX,
-    SCROLLBAR_WIDTH,
     VS_LAYOUT,
+    DRAWER_SIZE,
+    DIALOG_DURATION,
     type ColorScheme,
     type CssPosition,
+    type SizeProp,
 } from '@/declaration';
+import { store } from '@/stores';
 import { utils } from '@/utils';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
-const CLOSE_DELAY = 300;
-
-type SizeProp = Size | string | number;
 
 export default defineComponent({
     name,
@@ -78,11 +68,13 @@ export default defineComponent({
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: false },
+        focusLock: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: {
             type: [Object, undefined] as PropType<HTMLElement | null>,
             default: null,
         },
+        open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Placement>,
             default: 'left',
@@ -95,12 +87,26 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, placement, position, size } =
-            toRefs(props);
+        const {
+            colorScheme,
+            styleSet,
+            modelValue,
+            closeOnDimmedClick,
+            closeOnEsc,
+            dimmed,
+            open,
+            placement,
+            position,
+            size,
+        } = toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
+
+        const id = utils.string.createID();
+        const isOpen = ref(open.value || modelValue.value);
+        const focusTrapRef = ref(null);
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
@@ -121,14 +127,9 @@ export default defineComponent({
 
             if (hasSpecifiedSize.value) {
                 const convertedSize = utils.string.convertToStringSize(size.value);
-
-                if (placement.value === 'top' || placement.value === 'bottom') {
-                    style['--vs-drawer-height'] = convertedSize;
-                }
-
-                if (placement.value === 'left' || placement.value === 'right') {
-                    style['--vs-drawer-width'] = convertedSize;
-                }
+                style['--vs-drawer-size'] = convertedSize;
+            } else {
+                style['--vs-drawer-size'] = DRAWER_SIZE[size.value as Size];
             }
 
             return style;
@@ -142,47 +143,32 @@ export default defineComponent({
             };
         });
 
-        const isOpen = ref(modelValue.value);
-        const originalOverflow = ref('');
-
-        onMounted(() => {
-            originalOverflow.value = document.body.style.overflow;
+        watch(modelValue, (val) => {
+            isOpen.value = val;
         });
 
-        watch(
-            modelValue,
-            (val) => {
-                isOpen.value = val;
-            },
-            { immediate: true },
-        );
-
+        const scrollControl = useScrollControl();
         watch(
             isOpen,
-            (open) => {
-                if (dimmed.value && position.value === 'fixed') {
-                    if (open) {
-                        setTimeout(() => {
-                            if (document.body.scrollHeight > window.innerHeight) {
-                                document.body.style.overflow = 'hidden';
-                                document.body.style.paddingRight = SCROLLBAR_WIDTH;
-                            }
-
-                            if (document.body.scrollWidth > window.innerWidth) {
-                                document.body.style.overflow = 'hidden';
-                                document.body.style.paddingBottom = SCROLLBAR_WIDTH;
-                            }
-                        });
-                    } else {
-                        setTimeout(() => {
-                            document.body.style.overflow = originalOverflow.value;
-                            document.body.style.paddingRight = '0';
-                            document.body.style.paddingBottom = '0';
-                        }, CLOSE_DELAY);
+            (val) => {
+                const needScrollLock = dimmed.value && position.value === 'fixed';
+                if (val) {
+                    if (needScrollLock) {
+                        scrollControl.disableScroll();
                     }
+                    nextTick(() => {
+                        (focusTrapRef.value as any)?.focus();
+                    });
+                } else {
+                    if (needScrollLock) {
+                        scrollControl.enableScroll();
+                    }
+                    nextTick(() => {
+                        (focusTrapRef.value as any)?.blur();
+                    });
                 }
 
-                emit('update:modelValue', open);
+                emit('update:modelValue', val);
             },
             { immediate: true },
         );
@@ -199,26 +185,47 @@ export default defineComponent({
                     setDrawerLayout({
                         drawerOpen: newDrawerOpen,
                         placement: newPlacement,
-                        size: newSize['--vs-drawer-width'],
+                        size: newSize['--vs-drawer-size'],
                     });
                 },
                 { immediate: true },
             );
         }
 
-        function clickDimmed() {
+        function onClickDimmed() {
             if (closeOnDimmedClick.value) {
                 isOpen.value = false;
             }
         }
+
+        function onPressEsc(event: KeyboardEvent) {
+            if (event.key === 'Escape' && store.dialog.getTopId() === id) {
+                isOpen.value = false;
+            }
+        }
+
+        onMounted(() => {
+            if (closeOnEsc.value) {
+                store.dialog.push(id);
+                document.addEventListener('keydown', onPressEsc);
+            }
+        });
+
+        onBeforeUnmount(() => {
+            if (closeOnEsc.value) {
+                store.dialog.pop();
+                document.removeEventListener('keydown', onPressEsc);
+            }
+        });
 
         return {
             computedColorScheme,
             computedStyleSet,
             hasSpecifiedSize,
             isOpen,
-            clickDimmed,
-            CLOSE_DELAY,
+            onClickDimmed,
+            DIALOG_DURATION,
+            focusTrapRef,
         };
     },
 });

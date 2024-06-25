@@ -100,7 +100,7 @@ const vsDivider: VsDividerStyleSet = {
 
 const vsDrawer: VsDrawerStyleSet = {
     backgroundColor: '#D4F1F4',
-    width: '100%',
+    size: '300px',
 };
 
 const vsFileInput: VsFileInputStyleSet = {
