@@ -32,9 +32,8 @@ $colors: map.keys($palette);
         --vs-area-bg: var(--vs-white);
         --vs-area-bg-hover: #{darken(#ffffff, 5%)};
         --vs-area-bg-active: #{darken(#ffffff, 10%)};
+        --vs-area-shadow-outer: 0 0 1rem 0 var(--vs-comp-shadow);
     }
-
-    --vs-area-shadow-outer: 0 0 1rem 0 var(--vs-comp-shadow);
 
     .vs-dark {
         --vs-app-background-color: var(--vs-app-bg-color-dark);
@@ -64,9 +63,8 @@ $colors: map.keys($palette);
             --vs-area-bg: var(--vs-black);
             --vs-area-bg-hover: #{lighten(#000000, 12%)};
             --vs-area-bg-active: #{lighten(#000000, 16%)};
+            --vs-area-shadow-outer: 0 0 0.5rem 0 var(--vs-comp-shadow);
         }
-
-        --vs-area-shadow-outer: 0 0 0.5rem 0 var(--vs-comp-shadow);
     }
 
     @each $color in $colors {
