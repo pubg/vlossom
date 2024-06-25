@@ -13,7 +13,7 @@ const meta: Meta<typeof VsSection> = {
         },
         template: `
             <vs-section v-bind="args" color-scheme="{{ color }}">
-                <template #title>Hello, vs-section!</template>
+                <template #title><h3>Hello, vs-section!</h3></template>
                 ${LOREM_IPSUM}
             </vs-section>`,
     }),

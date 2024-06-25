@@ -12,7 +12,7 @@ const meta: Meta<typeof VsPage> = {
         },
         template: `
         <vs-page v-bind="args">
-            <template #title>This is Page Title</template>
+            <template #title><h2>This is Page Title</h2></template>
             <template #description>This is Page Description</template>
             This is Page Content. Page Title and Page Description is added via slot.
         </vs-page>

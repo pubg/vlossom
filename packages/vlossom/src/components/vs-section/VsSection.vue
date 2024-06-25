@@ -7,9 +7,7 @@
         :width="width"
     >
         <div class="section-title" v-if="hasTitle">
-            <h3>
-                <slot name="title" />
-            </h3>
+            <slot name="title" />
         </div>
         <slot />
     </vs-wrapper>
