@@ -36,7 +36,7 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
 import { useColorScheme, useScrollControl, useStyleSet } from '@/composables';
-import { VsComponent, Size, SIZES, DIALOG_DURATION, type ColorScheme } from '@/declaration';
+import { VsComponent, Size, SIZES, DIALOG_DURATION, type ColorScheme, type SizeProp } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 import { utils } from '@/utils';
@@ -44,8 +44,6 @@ import { utils } from '@/utils';
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
-
-type SizeProp = Size | string | number;
 
 export default defineComponent({
     name,
