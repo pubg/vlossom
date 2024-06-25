@@ -35,7 +35,6 @@ import {
     nextTick,
 } from 'vue';
 import { useColorScheme, useLayout, useScrollControl, useStyleSet } from '@/composables';
-import { VsDialogNode } from '@/nodes';
 import {
     VsComponent,
     Placement,
@@ -61,7 +60,7 @@ const name = VsComponent.VsDrawer;
 
 export default defineComponent({
     name,
-    components: { VsDialogNode, VsFocusTrap },
+    components: { VsFocusTrap },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
