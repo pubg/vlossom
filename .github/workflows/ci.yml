@@ -76,4 +76,4 @@ jobs:
               run: npm ci
             - name: Build Docs
               run: npm run build
-              working-directory: ./packages/docs
+              working-directory: ./packages/document
