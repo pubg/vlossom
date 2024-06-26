@@ -32,7 +32,7 @@ import {
     nextTick,
     type PropType,
 } from 'vue';
-import { useColorScheme, useDialogEsc, useLayout, useBodyScroll, useStyleSet } from '@/composables';
+import { useColorScheme, useEscStack, useLayout, useBodyScroll, useStyleSet } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -194,7 +194,7 @@ export default defineComponent({
             }
         }
 
-        useDialogEsc(id, closeOnEsc, () => {
+        useEscStack(id, closeOnEsc, () => {
             isOpen.value = false;
         });
 

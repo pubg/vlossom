@@ -1,19 +1,25 @@
-import { OptionStore } from './option-store';
-import { DialogStore } from './dialog-store';
-import { ToastStore } from './toast-store';
 import { ConfirmStore } from './confirm-store';
+import { EscStackStore } from './esc-stack-store';
+import { OptionStore } from './option-store';
+import { ToastStore } from './toast-store';
 
 export class VsStore {
-    public option = new OptionStore();
-    private _dialog: DialogStore | null = null;
-    private _toast: ToastStore | null = null;
     private _confirm: ConfirmStore | null = null;
+    private _escStack: EscStackStore | null = null;
+    private _option: OptionStore | null = null;
+    private _toast: ToastStore | null = null;
 
-    public get dialog() {
-        if (!this._dialog) {
-            this._dialog = new DialogStore();
+    public get option() {
+        if (!this._option) {
+            this._option = new OptionStore();
         }
-        return this._dialog;
+        return this._option;
+    }
+    public get escStack() {
+        if (!this._escStack) {
+            this._escStack = new EscStackStore();
+        }
+        return this._escStack;
     }
 
     public get toast() {

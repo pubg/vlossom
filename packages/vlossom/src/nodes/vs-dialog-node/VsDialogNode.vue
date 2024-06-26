@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, toRefs, computed, type PropType } from 'vue';
 import { utils } from '@/utils';
-import { useDialogEsc } from '@/composables';
+import { useEscStack } from '@/composables';
 
 export default defineComponent({
     props: {
@@ -56,7 +56,7 @@ export default defineComponent({
         const headerId = `vs-dialog-header-${id}`;
         const bodyId = `vs-dialog-body-${id}`;
 
-        useDialogEsc(id, closeOnEsc, () => {
+        useEscStack(id, closeOnEsc, () => {
             emit('close');
         });
 

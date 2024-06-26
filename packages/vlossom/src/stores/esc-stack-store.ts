@@ -1,4 +1,4 @@
-export class DialogStore {
+export class EscStackStore {
     private idStack: string[] = [];
 
     push(id: string) {
