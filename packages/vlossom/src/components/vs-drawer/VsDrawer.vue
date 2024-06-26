@@ -32,7 +32,7 @@ import {
     nextTick,
     type PropType,
 } from 'vue';
-import { useColorScheme, useDialogEsc, useLayout, useScrollControl, useStyleSet } from '@/composables';
+import { useColorScheme, useDialogEsc, useLayout, useBodyScroll, useStyleSet } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -143,21 +143,21 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        const scrollControl = useScrollControl();
+        const bodyScroll = useBodyScroll();
         watch(
             isOpen,
             (val) => {
                 const needScrollLock = dimmed.value && position.value === 'fixed';
                 if (val) {
                     if (needScrollLock) {
-                        scrollControl.disableScroll();
+                        bodyScroll.lock();
                     }
                     nextTick(() => {
                         (focusTrapRef.value as any)?.focus();
                     });
                 } else {
                     if (needScrollLock) {
-                        scrollControl.enableScroll();
+                        bodyScroll.unlock();
                     }
                     nextTick(() => {
                         (focusTrapRef.value as any)?.blur();

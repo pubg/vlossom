@@ -2,12 +2,12 @@ import { onMounted, ref } from 'vue';
 import { SCROLLBAR_WIDTH } from '@/declaration';
 import { useScrollLock } from '@vueuse/core';
 
-export function useScrollControl() {
+export function useBodyScroll() {
     const originalPaddingRight = ref('0');
     const originalPaddingBottom = ref('0');
     const isLocked = useScrollLock(document.body);
 
-    function disableScroll() {
+    function lock() {
         setTimeout(() => {
             isLocked.value = true;
 
@@ -21,9 +21,10 @@ export function useScrollControl() {
         }, 0);
     }
 
-    function enableScroll() {
+    function unlock() {
         setTimeout(() => {
             isLocked.value = false;
+
             document.body.style.paddingRight = originalPaddingRight.value;
             document.body.style.paddingBottom = originalPaddingBottom.value;
         }, 0);
@@ -35,7 +36,8 @@ export function useScrollControl() {
     });
 
     return {
-        disableScroll,
-        enableScroll,
+        isLocked,
+        lock,
+        unlock,
     };
 }

@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
-import { useColorScheme, useScrollControl, useStyleSet } from '@/composables';
+import { useColorScheme, useBodyScroll, useStyleSet } from '@/composables';
 import { VsComponent, Size, SIZES, DIALOG_DURATION, type ColorScheme, type SizeProp } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
@@ -122,15 +122,15 @@ export default defineComponent({
             isOpen.value = val;
         });
 
-        const scrollControl = useScrollControl();
+        const bodyScroll = useBodyScroll();
         watch(
             isOpen,
             (open) => {
                 if (dimmed.value && !hasContainer.value) {
                     if (open) {
-                        scrollControl.disableScroll();
+                        bodyScroll.lock();
                     } else {
-                        scrollControl.enableScroll();
+                        bodyScroll.unlock();
                     }
                 }
 

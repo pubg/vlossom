@@ -8,7 +8,7 @@ export * from './input-modifier-composable';
 export * from './input-option-composable';
 export * from './layout-composable';
 export * from './responsive-composable';
-export * from './scroll-control-composable';
+export * from './scroll-lock-composable';
 export * from './state-class-composable';
 export * from './style-set-composable';
 export * from './value-matcher-composable';
