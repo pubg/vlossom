@@ -23,9 +23,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, onMounted, onBeforeUnmount, type PropType } from 'vue';
-import { store } from '@/stores';
+import { defineComponent, toRefs, computed, type PropType } from 'vue';
 import { utils } from '@/utils';
+import { useEscStack } from '@/composables';
 
 export default defineComponent({
     props: {
@@ -56,22 +56,8 @@ export default defineComponent({
         const headerId = `vs-dialog-header-${id}`;
         const bodyId = `vs-dialog-body-${id}`;
 
-        function onPressEsc(event: KeyboardEvent) {
-            if (event.key === 'Escape' && store.dialog.getTopId() === id) {
-                emit('close');
-            }
-        }
-
-        onMounted(() => {
-            store.dialog.push(id);
-            if (closeOnEsc.value) {
-                document.addEventListener('keydown', onPressEsc);
-            }
-        });
-
-        onBeforeUnmount(() => {
-            store.dialog.pop();
-            document.removeEventListener('keydown', onPressEsc);
+        useEscStack(id, closeOnEsc, () => {
+            emit('close');
         });
 
         return {

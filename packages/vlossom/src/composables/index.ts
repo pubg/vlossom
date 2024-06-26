@@ -1,5 +1,6 @@
 export * from './anchor-positioning-composable';
 export * from './color-scheme-composable';
+export * from './esc-stack-composable';
 export * from './form-provide-composable';
 export * from './input-composable';
 export * from './input-form-composable';
@@ -7,6 +8,7 @@ export * from './input-modifier-composable';
 export * from './input-option-composable';
 export * from './layout-composable';
 export * from './responsive-composable';
+export * from './scroll-lock-composable';
 export * from './state-class-composable';
 export * from './style-set-composable';
 export * from './value-matcher-composable';

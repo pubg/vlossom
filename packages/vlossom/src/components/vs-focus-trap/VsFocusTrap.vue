@@ -22,7 +22,7 @@ export default defineComponent({
         focusLock: { type: Boolean, default: true },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
     },
-    setup(props, { slots }) {
+    setup(props, { slots, expose }) {
         const { focusLock, initialFocusRef } = toRefs(props);
 
         const focusTrapRef: Ref<HTMLElement | null> = ref(null);
@@ -94,7 +94,7 @@ export default defineComponent({
             lastFocusable = focusables[focusables.length - 1];
         }
 
-        onMounted(() => {
+        function focus() {
             if (document.activeElement) {
                 previousFocused = document.activeElement as HTMLElement;
             }
@@ -106,15 +106,21 @@ export default defineComponent({
                     focusTrapRef.value?.focus();
                 }
             });
-        });
+        }
 
-        onBeforeUnmount(() => {
+        function blur() {
             deactivateCycle();
 
             if (previousFocused?.focus) {
                 previousFocused.focus();
             }
-        });
+        }
+
+        onMounted(focus);
+
+        onBeforeUnmount(blur);
+
+        expose({ focus, blur });
 
         function render() {
             if (!slots.default) {

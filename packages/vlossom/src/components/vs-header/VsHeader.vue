@@ -26,8 +26,8 @@ export default defineComponent({
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsHeaderStyleSet> },
-        height: { type: String, default: '' },
-        position: { type: String as PropType<CssPosition>, default: '' },
+        height: { type: String, default: '30px' },
+        position: { type: String as PropType<CssPosition>, default: 'absolute' },
         primary: { type: Boolean, default: false },
     },
     setup(props) {

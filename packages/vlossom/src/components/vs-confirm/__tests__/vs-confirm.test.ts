@@ -10,15 +10,15 @@ describe('vs-confirm', () => {
 
     beforeEach(() => {
         originalResolve = store.confirm.executeResolve;
-        originalPop = store.dialog.pop;
+        originalPop = store.escStack.pop;
 
         store.confirm.executeResolve = vi.fn();
-        store.dialog.pop = vi.fn();
+        store.escStack.pop = vi.fn();
     });
 
     afterEach(() => {
         store.confirm.executeResolve = originalResolve;
-        store.dialog.pop = originalPop;
+        store.escStack.pop = originalPop;
     });
 
     it('text를 렌더할 수 있다', async () => {
@@ -94,7 +94,7 @@ describe('vs-confirm', () => {
         // then
         expect(wrapper.vm.isOpen).toBe(false);
         expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
-        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
+        expect(store.escStack.pop).toHaveBeenCalledTimes(1);
     });
 
     it('cancel 버튼을 클릭하면 resolve 가 false 로 이행되고 confirm dialog가 닫힌다', async () => {
@@ -117,7 +117,7 @@ describe('vs-confirm', () => {
         // then
         expect(wrapper.vm.isOpen).toBe(false);
         expect(store.confirm.executeResolve).toHaveBeenCalledTimes(1);
-        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
+        expect(store.escStack.pop).toHaveBeenCalledTimes(1);
     });
 
     it('close-on-esc 옵션을 전달하지 않으면 기본으로 true로 설정되며, esc key를 눌렀을 때 confirm dialog가 닫힌다', async () => {
@@ -136,7 +136,7 @@ describe('vs-confirm', () => {
 
         // then
         expect(wrapper.vm.isOpen).toBe(false);
-        expect(store.dialog.pop).toHaveBeenCalledTimes(1);
+        expect(store.escStack.pop).toHaveBeenCalledTimes(1);
     });
 
     it('close-on-esc 옵션을 false로 전달하면 esc key를 눌러도 confirm dialog가 닫히지 않는다', async () => {
@@ -156,6 +156,6 @@ describe('vs-confirm', () => {
 
         // then
         expect(wrapper.vm.isOpen).toBe(true);
-        expect(store.dialog.pop).not.toHaveBeenCalled();
+        expect(store.escStack.pop).not.toHaveBeenCalled();
     });
 });

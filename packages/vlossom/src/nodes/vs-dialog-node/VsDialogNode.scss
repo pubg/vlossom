@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 .vs-dialog {
     display: flex;
     flex-direction: column;
@@ -16,16 +18,15 @@
     }
 
     .dialog-body {
-        overflow-y: auto;
         flex: 1;
+        overflow: auto;
 
         &.hide-scroll {
-            overflow: scroll;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-            &::-webkit-scrollbar {
-                display: none;
-            }
+            @include hide-scroll;
+        }
+
+        &.hide-scroll {
+            @include hide-scroll;
         }
     }
 }

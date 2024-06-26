@@ -145,9 +145,7 @@ describe('vs-modal', () => {
             await wrapper.find('div.dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 modal이 닫히지 않는다', async () => {
@@ -166,8 +164,7 @@ describe('vs-modal', () => {
             await wrapper.find('div.dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 
@@ -188,9 +185,7 @@ describe('vs-modal', () => {
             await wrapper.trigger('keydown.Escape');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-esc prop을 false로 전달하면 esc key를 눌러도 modal이 닫히지 않는다', async () => {
@@ -210,8 +205,7 @@ describe('vs-modal', () => {
             await wrapper.trigger('keydown.Esc');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 

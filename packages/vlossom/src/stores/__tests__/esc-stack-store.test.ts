@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { DialogStore } from './../dialog-store';
+import { EscStackStore } from '../esc-stack-store';
 
-describe('dialog store', () => {
+describe('esc stack store', () => {
     it('stack에서 가장 위에 있는 dialog id를 가져올 수 있다', () => {
         // given
-        const store = new DialogStore();
+        const store = new EscStackStore();
         store.push('dialog1');
         store.push('dialog2');
 

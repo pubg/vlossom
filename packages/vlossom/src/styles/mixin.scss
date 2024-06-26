@@ -20,6 +20,15 @@
     cursor: default;
 }
 
+@mixin hide-scroll {
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @mixin responsive {
     $width-base: var(--vs-width-base);
     $width-sm: var(--vs-width-sm);

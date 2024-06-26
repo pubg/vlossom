@@ -1,5 +1,7 @@
-import { VsDialogNodeStyleSet } from '@/nodes';
-
-export interface VsDrawerStyleSet extends VsDialogNodeStyleSet {
+export interface VsDrawerStyleSet {
+    backgroundColor?: string;
+    fontColor?: string;
+    padding?: string;
+    size?: string;
     zIndex?: string | number;
 }

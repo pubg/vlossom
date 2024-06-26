@@ -1,6 +1,6 @@
 <template>
     <Teleport to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="CLOSE_DELAY">
+        <Transition name="modal" :duration="DIALOG_DURATION">
             <div
                 v-if="isOpen"
                 :class="['vs-modal', { 'has-container': hasContainer }]"
@@ -10,7 +10,7 @@
                 }"
             >
                 <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-                <vs-focus-trap :focus-lock="dimmed" :initial-focus-ref="initialFocusRef">
+                <vs-focus-trap :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
                     <vs-dialog-node
                         :class="['modal-dialog', `vs-${computedColorScheme}`, hasSpecifiedSize ? '' : size]"
                         :style-set="computedStyleSet"
@@ -35,8 +35,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, Size, type ColorScheme, SCROLLBAR_WIDTH, SIZES } from '@/declaration';
+import { useColorScheme, useBodyScroll, useStyleSet } from '@/composables';
+import { VsComponent, Size, SIZES, DIALOG_DURATION, type ColorScheme, type SizeProp } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import { VsDialogNode } from '@/nodes';
 import { utils } from '@/utils';
@@ -44,9 +44,6 @@ import { utils } from '@/utils';
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
-const CLOSE_DELAY = 200;
-
-type SizeProp = Size | string | number;
 
 export default defineComponent({
     name,
@@ -57,6 +54,7 @@ export default defineComponent({
         closeOnDimmedClick: { type: Boolean, default: true },
         closeOnEsc: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: true },
+        focusLock: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
@@ -124,34 +122,19 @@ export default defineComponent({
             isOpen.value = val;
         });
 
+        const bodyScroll = useBodyScroll();
         watch(
             isOpen,
             (open) => {
                 if (dimmed.value && !hasContainer.value) {
                     if (open) {
-                        setTimeout(() => {
-                            if (document.body.scrollHeight > window.innerHeight) {
-                                document.body.style.overflow = 'hidden';
-                                document.body.style.paddingRight = SCROLLBAR_WIDTH;
-                            }
-
-                            if (document.body.scrollWidth > window.innerWidth) {
-                                document.body.style.overflow = 'hidden';
-                                document.body.style.paddingBottom = SCROLLBAR_WIDTH;
-                            }
-                        });
+                        bodyScroll.lock();
                     } else {
-                        setTimeout(() => {
-                            document.body.style.overflow = originalOverflow.value;
-                            document.body.style.paddingRight = '0';
-                            document.body.style.paddingBottom = '0';
-                        }, CLOSE_DELAY);
+                        bodyScroll.unlock();
                     }
                 }
 
-                if (open !== modelValue.value) {
-                    emit('update:modelValue', open);
-                }
+                emit('update:modelValue', open);
             },
             { immediate: true },
         );
@@ -168,7 +151,7 @@ export default defineComponent({
             hasSpecifiedSize,
             isOpen,
             clickDimmed,
-            CLOSE_DELAY,
+            DIALOG_DURATION,
         };
     },
 });

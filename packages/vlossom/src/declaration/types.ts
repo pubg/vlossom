@@ -185,6 +185,8 @@ export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
 
+export type SizeProp = Size | string | number;
+
 export interface LabelValue<T = any> {
     label: string;
     value: T;
