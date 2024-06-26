@@ -2,16 +2,12 @@
     <vs-wrapper :width="width" :grid="grid">
         <div class="vs-index-view">
             <template v-if="keepAlive">
-                <Transition enter-active-class="fade-in-bottom">
-                    <KeepAlive>
-                        <component :is="selectedComponent" role="tabpanel" tabindex="0" />
-                    </KeepAlive>
-                </Transition>
+                <KeepAlive>
+                    <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+                </KeepAlive>
             </template>
             <template v-else>
-                <Transition enter-active-class="fade-in-bottom">
-                    <component :is="selectedComponent" role="tabpanel" tabindex="0" />
-                </Transition>
+                <component :is="selectedComponent" role="tabpanel" tabindex="0" />
             </template>
         </div>
     </vs-wrapper>
