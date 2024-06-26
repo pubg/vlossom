@@ -10,15 +10,18 @@ $variables: (
     modal-width-md: 36%,
     modal-width-lg: 60%,
     modal-width-xl: 80%,
+
     grid-base: 12,
     width-base: 100%,
 
     // z-index
     bar-z-index: 100,
     app-bar-z-index: 1000,
-    dialog-z-index: 5000,
+    modal-z-index: 5000,
     toast-z-index: 9999
 );
+
+$sizes: xs, sm, md, lg, xl;
 
 :root {
     @each $key, $value in $variables {

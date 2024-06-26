@@ -1,71 +1,71 @@
 <template>
     <vs-modal
         v-model="isOpen"
-        :style-set="dialogStylSet"
-        :size="confirmInfo.size || 'sm'"
-        :close-on-dimmed-click="false"
-        :close-on-esc="confirmInfo.closeOnEsc ?? true"
-        :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
+        :color-scheme="colorScheme"
+        :style-set="styleSet"
+        :close-on-dimmed-click="closeOnDimmedClick"
+        :close-on-esc="closeOnEsc"
+        :dimmed="dimmed"
+        :focus-lock="focusLock"
+        :has-container="hasContainer"
+        :hide-scroll="hideScroll"
+        :initial-focus-ref="initialFocusRef"
+        :size="size"
     >
-        <div class="confirm-text scale-up-center">
-            <p v-html="confirmInfo.text"></p>
+        <div class="vs-confirm-text scale-up-center">
+            <p v-html="text"></p>
         </div>
         <template #footer>
-            <div class="confirm-footer">
-                <vs-button
-                    :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
-                    class="ok-button"
-                    primary
-                    @click="ok"
-                >
-                    {{ confirmInfo.okText || 'OK' }}
-                </vs-button>
-                <vs-button
-                    :color-scheme="computedColorScheme === 'default' ? undefined : computedColorScheme"
-                    class="cancel-button"
-                    @click="cancel"
-                >
-                    {{ confirmInfo.cancelText || 'Cancel' }}
-                </vs-button>
-            </div>
+            <slot name="footer">
+                <div class="vs-confirm-footer">
+                    <vs-button :color-scheme="colorScheme" class="vs-ok-button" primary @click="ok">
+                        {{ okText }}
+                    </vs-button>
+                    <vs-button :color-scheme="colorScheme" class="vs-cancel-button" @click="cancel">
+                        {{ cancelText }}
+                    </vs-button>
+                </div>
+            </slot>
         </template>
     </vs-modal>
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, ref, toRef, toRefs, watch } from 'vue';
-import { useColorScheme } from '@/composables';
-import { VsComponent } from '@/declaration';
+import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
+import { VsComponent, type ColorScheme } from '@/declaration';
 import { store } from '@/stores';
+import { getModalProps } from '@/composables';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
+import { VsModalStyleSet } from '@/components/vs-modal/types';
 
-import type { ConfirmInfo } from '@/plugins';
-
-const name = VsComponent.VsConfirm;
 export default defineComponent({
-    name,
+    name: VsComponent.VsConfirm,
     components: { VsButton, VsModal },
     props: {
-        confirmInfo: { type: Object as PropType<ConfirmInfo>, required: true },
+        ...getModalProps({ size: 'xs', closeOnDimmedClick: false }),
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
+        okText: { type: String, default: 'OK' },
+        cancelText: { type: String, default: 'Cancel' },
+        text: { type: String, required: true, default: '' },
         // v-model
         modelValue: { type: Boolean, default: true },
     },
     emits: ['update:modelValue'],
+    expose: ['ok', 'cancel'],
     setup(props, { emit }) {
-        const { confirmInfo, modelValue } = toRefs(props);
+        const { modelValue } = toRefs(props);
 
         const isOpen = ref(modelValue.value);
+
+        watch(modelValue, (val) => {
+            isOpen.value = val;
+        });
 
         watch(isOpen, (val) => {
             emit('update:modelValue', val);
         });
-
-        const { computedColorScheme } = useColorScheme(name, toRef(confirmInfo.value.colorScheme));
-
-        const dialogStylSet = {
-            padding: '0',
-        };
 
         function ok() {
             store.confirm.executeResolve(true);
@@ -79,8 +79,6 @@ export default defineComponent({
 
         return {
             isOpen,
-            computedColorScheme,
-            dialogStylSet,
             ok,
             cancel,
         };

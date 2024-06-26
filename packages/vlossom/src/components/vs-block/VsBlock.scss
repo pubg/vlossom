@@ -1,27 +1,26 @@
-$borderWidth: var(--vs-block-borderWidth, 1px);
-$borderStyle: var(--vs-block-borderStyle, solid);
-$borderColor: var(--vs-block-borderColor, var(--vs-line-color));
+$blockBorder: var(--vs-block-border, 1px solid var(--vs-line-color));
 
 .vs-block {
     position: relative;
     width: 100%;
     overflow: auto;
-    border: var(--vs-block-border, $borderWidth $borderStyle $borderColor);
+    border: $blockBorder;
+    color: var(--vs-block-fontColor, var(--vs-font-color));
+    background-color: var(--vs-block-backgroundColor, var(--vs-area-bg));
     border-radius: var(--vs-block-borderRadius, calc(var(--vs-radius-ratio) * 0.5rem));
 
     .block-header {
-        background-color: var(--vs-block-headerBackgroundColor, var(--vs-comp-bg));
-        border-bottom: $borderWidth $borderStyle $borderColor;
-        color: var(--vs-block-headerFontColor, var(--vs-comp-font));
-        font-weight: var(--vs-block-headerFontWeight, 500);
-        padding: var(--vs-block-headerPadding, 1rem 1.2rem);
         position: relative;
         width: 100%;
+        background-color: var(--vs-comp-bg);
+        border-bottom: $blockBorder;
+        color: var(--vs-comp-font);
+        padding: var(--vs-block-headerPadding, 1rem 1.2rem);
     }
 
     .block-content {
-        background-color: var(--vs-block-backgroundColor, var(--vs-no-color));
-        color: var(--vs-block-contentFontColor, var(--vs-font-color));
+        position: relative;
+        width: 100%;
         font-weight: var(--vs-block-fontWeight, 400);
         padding: var(--vs-block-padding, 1rem 1.2rem);
     }

@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
+@use '@/styles/variables' as *;
 
-$sizes: xs, sm, md, lg, xl;
 $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
 
 .vs-drawer {
@@ -9,7 +9,7 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: var(--vs-drawer-zIndex, var(--vs-dialog-z-index));
+    z-index: var(--vs-drawer-zIndex);
     pointer-events: none;
 
     &.dimmed {
@@ -28,18 +28,20 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
 
     .vs-drawer-wrap {
         position: absolute;
-        width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
+        width: 100%;
+        height: 100%;
         background-color: var(--vs-drawer-backgroundColor, var(--vs-area-bg));
         color: var(--vs-drawer-fontColor, var(--vs-font-color));
         pointer-events: auto;
 
         .vs-drawer-header {
+            position: relative;
             border-bottom: $drawer-border;
         }
         .vs-drawer-footer {
+            position: relative;
             border-top: $drawer-border;
         }
         .vs-drawer-body {

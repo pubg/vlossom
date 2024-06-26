@@ -1,5 +1,11 @@
-import { VsDialogNodeStyleSet } from '@/nodes';
-
-export interface VsModalStyleSet extends VsDialogNodeStyleSet {
+export interface VsModalStyleSet {
+    backgroundColor?: string;
+    borderRadius?: string;
+    boxShadow?: string;
+    fontColor?: string;
+    fontSize?: string;
+    height?: string;
+    width?: string;
+    padding?: string;
     zIndex?: string | number;
 }
