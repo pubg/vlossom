@@ -2,6 +2,7 @@
     <Teleport v-if="isOpen" to="body" :disabled="hasContainer">
         <Transition name="modal" :duration="MODAL_DURATION">
             <div
+                v-if="isOpen"
                 :class="['vs-modal', `vs-${computedColorScheme}`, { 'has-container': hasContainer, dimmed }]"
                 :style="computedStyleSet"
             >
