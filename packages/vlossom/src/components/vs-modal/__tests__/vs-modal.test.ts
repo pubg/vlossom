@@ -157,7 +157,7 @@ describe('vs-modal', () => {
             expect(modal.attributes('aria-describedby')).toBe(wrapper.find('.vs-modal-body').attributes('id'));
         });
 
-        it('isModal prop 값이 modal의 aria-modal 속성 값에 바인딩 된다', async () => {
+        it('aria-modal 속성이 있다', async () => {
             // given
             const wrapper = mount(VsModal, {
                 props: {
