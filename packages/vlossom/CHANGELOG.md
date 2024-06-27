@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0-beta.3](https://github.com/pubg/vlossom/compare/v1.0.0-beta.3...v1.1.0-beta.3) (2024-06-27)
+
+
+### Features
+
+* **VsDrawer:** rewrite vs-drawer component ([#236](https://github.com/pubg/vlossom/issues/236)) ([89443a5](https://github.com/pubg/vlossom/commit/89443a5de92b1cd03984480ddd9205db30cd63a8))
+* **VsModal, VsConfirm:** rewrite vs-modal, vs-confirm ([#237](https://github.com/pubg/vlossom/issues/237)) ([b86745b](https://github.com/pubg/vlossom/commit/b86745be41ef7728b667b6b9fd195a9a6700415a))
+
+
+### Bug Fixes
+
+* **color-scheme:** modify scss ([#233](https://github.com/pubg/vlossom/issues/233)) ([def67f9](https://github.com/pubg/vlossom/commit/def67f9f5a4fc632337cffc59562c5ef927c68b8))
+* **vs-index-view:** remove transition ([#235](https://github.com/pubg/vlossom/issues/235)) ([4512cbb](https://github.com/pubg/vlossom/commit/4512cbba9a140e00ae8b20067ecddb5e844f3511))
+
 ## 1.0.0-beta.3 (2024-06-25)
 
 
