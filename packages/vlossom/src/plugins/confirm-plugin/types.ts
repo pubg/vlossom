@@ -1,15 +1,20 @@
-import type { ColorScheme, Size } from '@/declaration';
+import type { ColorScheme, SizeProp } from '@/declaration';
+import { type VsModalStyleSet } from '@/components/vs-modal/types';
 
 export interface ConfirmOptions {
+    colorScheme?: ColorScheme;
+    styleSet?: string | VsModalStyleSet;
+    closeOnDimmedClick?: boolean;
+    closeOnEsc?: boolean;
+    dimmed?: boolean;
+    focusLock?: boolean;
+    hasContainer?: boolean;
+    hideScroll?: boolean;
+    initialFocusRef?: HTMLElement | null;
+    size?: SizeProp | { width?: SizeProp; height?: SizeProp };
+
     okText?: string;
     cancelText?: string;
-    colorScheme?: ColorScheme;
-    size?: Size | string;
-    closeOnEsc?: boolean;
-}
-
-export interface ConfirmInfo extends ConfirmOptions {
-    text: string;
 }
 
 export interface ConfirmPlugin {

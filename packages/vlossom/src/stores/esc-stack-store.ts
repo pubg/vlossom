@@ -6,7 +6,14 @@ export class EscStackStore {
     }
 
     pop() {
-        this.idStack.pop();
+        return this.idStack.pop();
+    }
+
+    remove(id: string) {
+        const index = this.idStack.indexOf(id);
+        if (index >= 0) {
+            this.idStack.splice(index, 1);
+        }
     }
 
     getTopId() {

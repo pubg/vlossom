@@ -1,32 +1,33 @@
 <template>
-    <Teleport to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="DIALOG_DURATION">
+    <Teleport v-if="isOpen" to="body" :disabled="hasContainer">
+        <Transition name="modal" :duration="MODAL_DURATION">
             <div
                 v-if="isOpen"
-                :class="['vs-modal', { 'has-container': hasContainer }]"
-                :style="{
-                    ...computedStyleSet,
-                    ...{ pointerEvents: dimmed && closeOnDimmedClick ? 'auto' : 'none' },
-                }"
+                :class="['vs-modal', `vs-${computedColorScheme}`, { 'has-container': hasContainer, dimmed }]"
+                :style="computedStyleSet"
             >
-                <div v-if="dimmed" class="dimmed" aria-hidden="true" @click.stop="clickDimmed()" />
-                <vs-focus-trap :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                    <vs-dialog-node
-                        :class="['modal-dialog', `vs-${computedColorScheme}`, hasSpecifiedSize ? '' : size]"
-                        :style-set="computedStyleSet"
-                        :close-on-esc="closeOnEsc"
-                        :hide-scroll="hideScroll"
-                        :isModal="dimmed"
-                        @close="() => (isOpen = false)"
+                <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
+                <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
+                    <div
+                        :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
+                        role="dialog"
+                        :aria-labelledby="hasHeader ? headerId : undefined"
+                        :aria-describedby="bodyId"
+                        :aria-label="hasHeader ? undefined : 'Modal'"
+                        :aria-modal="true"
                     >
-                        <template #header v-if="$slots['header']">
+                        <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
                             <slot name="header" />
-                        </template>
-                        <slot />
-                        <template #footer v-if="$slots['footer']">
+                        </header>
+
+                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]" tabindex="0">
+                            <slot />
+                        </div>
+
+                        <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
                             <slot name="footer" />
-                        </template>
-                    </vs-dialog-node>
+                        </footer>
+                    </div>
                 </vs-focus-trap>
             </div>
         </Transition>
@@ -35,10 +36,9 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
-import { useColorScheme, useBodyScroll, useStyleSet } from '@/composables';
-import { VsComponent, Size, SIZES, DIALOG_DURATION, type ColorScheme, type SizeProp } from '@/declaration';
+import { useColorScheme, useBodyScroll, useStyleSet, useEscClose, getModalProps } from '@/composables';
+import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
-import { VsDialogNode } from '@/nodes';
 import { utils } from '@/utils';
 
 import type { VsModalStyleSet } from './types';
@@ -47,27 +47,18 @@ const name = VsComponent.VsModal;
 
 export default defineComponent({
     name,
-    components: { VsDialogNode, VsFocusTrap },
+    components: { VsFocusTrap },
     props: {
+        ...getModalProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
-        closeOnDimmedClick: { type: Boolean, default: true },
-        closeOnEsc: { type: Boolean, default: true },
-        dimmed: { type: Boolean, default: true },
-        focusLock: { type: Boolean, default: true },
-        hasContainer: { type: Boolean, default: false },
-        hideScroll: { type: Boolean, default: false },
-        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
-        size: {
-            type: [String, Number, Object] as PropType<SizeProp | { width: SizeProp; height: SizeProp }>,
-            default: 'sm',
-        },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue'],
-    setup(props, { emit }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, dimmed, hasContainer, size } = toRefs(props);
+    setup(props, { emit, slots }) {
+        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
+            toRefs(props);
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
@@ -79,7 +70,7 @@ export default defineComponent({
             const style: { [key: string]: string } = {};
 
             if (typeof size.value === 'object') {
-                const { width, height } = size.value;
+                const { width = 'md', height = 'md' } = size.value;
 
                 if (SIZES.includes(width as Size)) {
                     style['--vs-modal-width'] = `var(--vs-modal-width-${width})`;
@@ -114,6 +105,12 @@ export default defineComponent({
         const isOpen = ref(modelValue.value);
         const originalOverflow = ref('');
 
+        const id = utils.string.createID();
+
+        const hasHeader = computed(() => !!slots['header']);
+        const headerId = `vs-modal-header-${id}`;
+        const bodyId = `vs-modal-body-${id}`;
+
         onMounted(() => {
             originalOverflow.value = document.body.style.overflow;
         });
@@ -139,19 +136,26 @@ export default defineComponent({
             { immediate: true },
         );
 
-        function clickDimmed() {
+        function onClickDimmed() {
             if (closeOnDimmedClick.value) {
                 isOpen.value = false;
             }
         }
+
+        useEscClose(id, closeOnEsc, isOpen, () => {
+            isOpen.value = false;
+        });
 
         return {
             computedColorScheme,
             computedStyleSet,
             hasSpecifiedSize,
             isOpen,
-            clickDimmed,
-            DIALOG_DURATION,
+            onClickDimmed,
+            MODAL_DURATION,
+            hasHeader,
+            headerId,
+            bodyId,
         };
     },
 });

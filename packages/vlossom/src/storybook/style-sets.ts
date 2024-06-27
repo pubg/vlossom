@@ -59,7 +59,7 @@ const vsAvatar: VsAvatarStyleSet = {
 
 const vsBlock: VsBlockStyleSet = {
     backgroundColor: '#000',
-    contentFontColor: '#fff',
+    fontColor: '#fff',
 };
 
 const vsButton: VsButtonStyleSet = {
@@ -164,8 +164,10 @@ const vsLoading: VsLoadingStyleSet = {
 
 const vsModal: VsModalStyleSet = {
     backgroundColor: '#FFF6E9',
-    contentFontColor: '#0D9276',
-    headerFontColor: '#40A2E3',
+    fontColor: '#0D9276',
+    fontSize: '1.2rem',
+    width: '50%',
+    height: '50%',
     padding: '3rem',
 };
 

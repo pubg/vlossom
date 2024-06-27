@@ -1,18 +1,18 @@
 <template>
-    <Transition name="drawer" :duration="DIALOG_DURATION">
+    <Transition name="drawer" :duration="MODAL_DURATION">
         <div v-show="isOpen" :class="['vs-drawer', `vs-${computedColorScheme}`, { dimmed }]" :style="computedStyleSet">
             <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
-            <vs-focus-trap :focus-lock="focusLock" :initial-focus-ref="initialFocusRef" ref="focusTrapRef">
+            <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
                 <div :class="['vs-drawer-wrap', placement, hasSpecifiedSize ? '' : size]">
-                    <div class="vs-drawer-header" v-if="$slots['header']">
+                    <header v-if="$slots['header']" class="vs-drawer-header">
                         <slot name="header" />
-                    </div>
+                    </header>
                     <div :class="['vs-drawer-body', { 'hide-scroll': hideScroll }]">
                         <slot />
                     </div>
-                    <div class="vs-drawer-footer" v-if="$slots['footer']">
+                    <footer v-if="$slots['footer']" class="vs-drawer-footer">
                         <slot name="footer" />
-                    </div>
+                    </footer>
                 </div>
             </vs-focus-trap>
         </div>
@@ -32,7 +32,7 @@ import {
     nextTick,
     type PropType,
 } from 'vue';
-import { useColorScheme, useEscStack, useLayout, useBodyScroll, useStyleSet } from '@/composables';
+import { useColorScheme, useEscClose, useLayout, useBodyScroll, useStyleSet } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -43,7 +43,7 @@ import {
     APP_LAYOUT_Z_INDEX,
     VS_LAYOUT,
     DRAWER_SIZE,
-    DIALOG_DURATION,
+    MODAL_DURATION,
     type ColorScheme,
     type CssPosition,
     type SizeProp,
@@ -194,7 +194,7 @@ export default defineComponent({
             }
         }
 
-        useEscStack(id, closeOnEsc, () => {
+        useEscClose(id, closeOnEsc, isOpen, () => {
             isOpen.value = false;
         });
 
@@ -204,7 +204,7 @@ export default defineComponent({
             hasSpecifiedSize,
             isOpen,
             onClickDimmed,
-            DIALOG_DURATION,
+            MODAL_DURATION,
             focusTrapRef,
         };
     },
