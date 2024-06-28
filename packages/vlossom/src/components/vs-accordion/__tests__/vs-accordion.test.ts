@@ -19,8 +19,8 @@ describe('vs-accordion', () => {
         });
 
         // then
-        expect(wrapper.find('summary').html()).toContain(title);
-        expect(wrapper.find('.accordion-content').html()).toContain(contents);
+        expect(wrapper.find('.vs-summary').html()).toContain(title);
+        expect(wrapper.find('.vs-accordion-content').html()).toContain(contents);
     });
 
     it('open 상태를 전달해서 accordion을 열어둘 수 있다', () => {
@@ -32,7 +32,7 @@ describe('vs-accordion', () => {
         });
 
         // then;
-        expect(wrapper.find('details').attributes('open')).exist;
+        expect(wrapper.find('.vs-details').attributes('open')).exist;
     });
 
     describe('v-model', () => {
@@ -49,7 +49,7 @@ describe('vs-accordion', () => {
             await wrapper.setProps({ modelValue: true });
 
             // then;
-            expect(wrapper.find('details').attributes('open')).exist;
+            expect(wrapper.find('.vs-details').attributes('open')).exist;
             expect(wrapper.emitted('update:modelValue')).toEqual([[true]]);
             expect(wrapper.emitted('toggle')).toEqual([[true]]);
         });
@@ -67,9 +67,22 @@ describe('vs-accordion', () => {
             await wrapper.setProps({ modelValue: false });
 
             // then;
-            expect(wrapper.find('details').attributes('open')).not.exist;
+            expect(wrapper.find('.vs-details').attributes('open')).not.exist;
             expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
             expect(wrapper.emitted('toggle')).toEqual([[false]]);
+        });
+
+        it('open을 설정하면 accordion이 열려있다', () => {
+            // given
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsAccordion, {
+                props: {
+                    open: true,
+                },
+            });
+
+            // then
+            expect(wrapper.find('.vs-details').attributes('open')).exist;
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 });

@@ -24,6 +24,16 @@ $variables: (
 $sizes: xs, sm, md, lg, xl;
 
 :root {
+    --vs-font-size-xs: 1rem;
+    --vs-font-size-sm: 1.2rem;
+    --vs-font-size: 1.4rem;
+    --vs-font-size-lg: 1.5rem;
+    --vs-font-size-xl: 1.8rem;
+
+    --vs-radius-sm: 0.4rem;
+    --vs-radius: 0.6rem;
+    --vs-radius-lg: 0.8rem;
+
     @each $key, $value in $variables {
         --vs-#{$key}: #{$value};
     }
