@@ -7,53 +7,55 @@ $blockBorder: var(--vs-block-border, 1px solid var(--vs-line-color));
     border: $blockBorder;
     color: var(--vs-block-fontColor, var(--vs-font-color));
     background-color: var(--vs-block-backgroundColor, var(--vs-area-bg));
-    border-radius: var(--vs-block-borderRadius, calc(var(--vs-radius-ratio) * 0.5rem));
+    border-radius: var(--vs-block-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
 
-    .block-header {
+    .vs-block-header {
         position: relative;
         width: 100%;
-        background-color: var(--vs-comp-bg);
+        background-color: var(--vs-block-titleBackgroundColor, var(--vs-comp-bg));
         border-bottom: $blockBorder;
-        color: var(--vs-comp-font);
-        padding: var(--vs-block-headerPadding, 1rem 1.2rem);
+        color: var(--vs-block-titleColor, var(--vs-comp-font));
+        font-size: var(--vs-block-titleFontSize, var(--vs-font-size-lg));
+        font-weight: var(--vs-block-titleFontWeight, 500);
+        padding: var(--vs-block-headerPadding, 1rem 1.8rem);
     }
 
-    .block-content {
+    .vs-block-content {
         position: relative;
         width: 100%;
         font-weight: var(--vs-block-fontWeight, 400);
-        padding: var(--vs-block-padding, 1rem 1.2rem);
+        padding: var(--vs-block-padding, 1rem 1.8rem);
     }
 }
 
 @media screen and (max-width: 992px) {
-    .vn-block {
-        .block-header {
+    .vs-block {
+        .vs-block-header {
             padding: 0.8rem 1.6rem;
         }
-        .block-content {
+        .vs-block-content {
             padding: 1.4rem 1.6rem;
         }
     }
 }
 
 @media screen and (max-width: 768px) {
-    .vn-block {
-        .block-header {
+    .vs-block {
+        .vs-block-header {
             padding: 0.8rem 1.2rem;
         }
-        .block-content {
+        .vs-block-content {
             padding: 1.2rem 1.2rem;
         }
     }
 }
 
 @media screen and (max-width: 576px) {
-    .vn-block {
-        .block-header {
+    .vs-block {
+        .vs-block-header {
             padding: 0.8rem 0.8rem;
         }
-        .block-content {
+        .vs-block-content {
             padding: 1rem 0.8rem;
         }
     }
