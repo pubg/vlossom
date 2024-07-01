@@ -270,7 +270,7 @@
             display: flex !important;
             flex-direction: column;
             margin: 0.4rem 0 0 0;
-            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
+            border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
 
             &:first-of-type {
                 margin-top: 0;
@@ -281,7 +281,7 @@
                 display: flex;
                 justify-content: space-between;
                 padding: 0.4rem 1rem !important;
-                border: var(--vs-table-headerBorder, 1px dotted var(--vs-line-color));
+                border: var(--vs-table-bodyBorder, 1px dotted var(--vs-line-color));
                 overflow-x: auto;
 
                 &.selectable-td {
@@ -345,7 +345,7 @@
         }
 
         .table-empty {
-            border-top: 1px solid var(--vs-line-color);
+            border-top: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
         }
     }
 }
