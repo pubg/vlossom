@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense }, { responsive }]" :style="computedStyleSet">
+    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense, responsive }]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <caption v-if="$slots['caption']">
