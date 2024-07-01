@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0-beta.4](https://github.com/pubg/vlossom/compare/v1.0.0-beta.4...v1.1.0-beta.4) (2024-07-01)
+
+
+### Features
+
+* **VsTable:** add responsive prop, modify mobile style ([#240](https://github.com/pubg/vlossom/issues/240)) ([8a7806a](https://github.com/pubg/vlossom/commit/8a7806ab1cd0b6d949cf15a18e8746dbfb2dd5a7))
+
+
+### Bug Fixes
+
+* change vs-wrapper to vs-responsive ([#238](https://github.com/pubg/vlossom/issues/238)) ([9fc69a2](https://github.com/pubg/vlossom/commit/9fc69a24aeab41a0b4ef5656f2aeea1c01dcf1f8))
+
 ## 1.0.0-beta.4 (2024-06-27)
 
 
