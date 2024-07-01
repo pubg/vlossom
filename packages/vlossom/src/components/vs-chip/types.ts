@@ -9,4 +9,5 @@ export interface VsChipStyleSet {
     height?: string;
     hoverBackgroundColor?: string;
     padding?: string;
+    width?: string;
 }
