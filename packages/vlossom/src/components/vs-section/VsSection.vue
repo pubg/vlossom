@@ -6,7 +6,7 @@
         :grid="grid"
         :width="width"
     >
-        <div class="section-title" v-if="hasTitle">
+        <div class="vs-section-title" v-if="hasTitle">
             <slot name="title" />
         </div>
         <slot />
