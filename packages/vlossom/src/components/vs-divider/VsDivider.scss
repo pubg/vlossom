@@ -1,9 +1,10 @@
+$divider-border: var(--vs-divider-border, 1px solid var(--vs-primary-comp-bg));
+
 @mixin vs-divider-horizontal {
     width: 100%;
     height: 0;
-    margin: 24px 0 24px 0;
-    border-top: var(--vs-divider-lineWidth, 1px) var(--vs-divider-lineStyle, solid)
-        var(--vs-divider-lineColor, var(--vs-primary-comp-bg));
+    margin: var(--vs-divider-margin, 1.6rem 0);
+    border-top: $divider-border;
     border-left: 0;
 }
 
@@ -11,10 +12,9 @@
     display: inline-block;
     width: 0;
     height: var(--vs-divider-verticalHeight, 2rem);
-    margin: 0 1.2rem 0 1.2rem;
+    margin: var(--vs-divider-marginVertical, 0 1.2rem);
     border-top: 0;
-    border-left: var(--vs-divider-lineWidth, 1px) var(--vs-divider-lineStyle, solid)
-        var(--vs-divider-lineColor, var(--vs-primary-comp-bg));
+    border-left: $divider-border;
 }
 
 .vs-divider {
@@ -29,9 +29,8 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@container (max-width: 768px) {
     .vs-divider.vertical.responsive {
         @include vs-divider-horizontal;
-        margin: 0;
     }
 }
