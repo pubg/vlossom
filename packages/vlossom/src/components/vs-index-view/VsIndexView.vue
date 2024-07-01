@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid">
+    <vs-responsive :width="width" :grid="grid">
         <div class="vs-index-view">
             <template v-if="keepAlive">
                 <KeepAlive>
@@ -10,20 +10,20 @@
                 <component :is="selectedComponent" role="tabpanel" tabindex="0" />
             </template>
         </div>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, toRefs } from 'vue';
 import { VsComponent } from '@/declaration';
 import { getResponsiveProps } from '@/composables';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 const name = VsComponent.VsIndexView;
 
 export default defineComponent({
     name,
-    components: { VsWrapper },
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         keepAlive: { type: Boolean, default: true },

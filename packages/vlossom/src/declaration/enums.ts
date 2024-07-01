@@ -32,6 +32,7 @@ export enum VsComponent {
     VsProgress = 'VsProgress',
     VsRadio = 'VsRadio',
     VsRadioSet = 'VsRadioSet',
+    VsResponsive = 'VsResponsive',
     VsSection = 'VsSection',
     VsSelect = 'VsSelect',
     VsStepper = 'VsStepper',
@@ -45,7 +46,6 @@ export enum VsComponent {
     VsToastView = 'VsToastView',
     VsTooltip = 'VsTooltip',
     VsValueTag = 'VsValueTag',
-    VsWrapper = 'VsWrapper',
 }
 
 export enum UIState {

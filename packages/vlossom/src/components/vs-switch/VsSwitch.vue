@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :id="computedId"
             :label="label"
@@ -49,7 +49,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -65,14 +65,14 @@ import {
 } from '@/composables';
 import { utils } from '@/utils';
 import { ColorScheme, VsComponent } from '@/declaration';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsSwitchStyleSet } from './types';
 
 const name = VsComponent.VsSwitch;
 export default defineComponent({
     name,
-    components: { VsWrapper },
+    components: { VsResponsive },
     props: {
         ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
         ...getResponsiveProps(),

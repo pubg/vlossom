@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
             :disabled="computedDisabled"
@@ -49,7 +49,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -66,7 +66,7 @@ import {
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsCheckboxNode } from '@/nodes';
 import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
@@ -77,7 +77,7 @@ const name = VsComponent.VsCheckboxSet;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsCheckboxNode },
+    components: { VsInputWrapper, VsResponsive, VsCheckboxNode },
     props: {
         ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),

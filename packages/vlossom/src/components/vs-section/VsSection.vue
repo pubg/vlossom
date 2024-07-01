@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper
+    <vs-responsive
         tag="section"
         :class="['vs-section', `vs-${computedColorScheme}`]"
         :style="computedStyleSet"
@@ -10,19 +10,21 @@
             <slot name="title" />
         </div>
         <slot />
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsSectionStyleSet } from './types';
 
 const name = VsComponent.VsSection;
 export default defineComponent({
     name,
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

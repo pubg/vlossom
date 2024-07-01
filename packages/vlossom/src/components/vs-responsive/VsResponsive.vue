@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" class="vs-wrapper" :class="responsiveClasses" :style="responsiveStyles">
+    <component :is="tag" class="vs-responsive" :class="responsiveClasses" :style="responsiveStyles">
         <slot />
     </component>
 </template>
@@ -10,7 +10,7 @@ import { getResponsiveProps, useResponsive } from '@/composables';
 import { VsComponent } from '@/declaration';
 
 export default defineComponent({
-    name: VsComponent.VsWrapper,
+    name: VsComponent.VsResponsive,
     props: {
         ...getResponsiveProps(),
         tag: { type: String, default: 'div' },
@@ -28,4 +28,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsWrapper.scss" />
+<style lang="scss" scoped src="./VsResponsive.scss" />
