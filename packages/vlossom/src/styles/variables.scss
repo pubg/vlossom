@@ -1,4 +1,24 @@
 $variables: (
+    // font
+    font-size-xs: 1rem,
+    font-size-sm: 1.2rem,
+    font-size: 1.4rem,
+    font-size-lg: 1.5rem,
+    font-size-xl: 1.8rem,
+
+    // radius
+    radius-sm: 0.4rem,
+    radius: 0.6rem,
+    radius-lg: 0.8rem,
+
+    // responsive
+    grid-base: 12,
+    width-base: 100%,
+    responsive-xl: 1200px,
+    responsive-lg: 992px,
+    responsive-md: 768px,
+    responsive-sm: 576px,
+
     // modal
     modal-height-xs: 20%,
     modal-height-sm: 32%,
@@ -11,9 +31,6 @@ $variables: (
     modal-width-lg: 60%,
     modal-width-xl: 80%,
 
-    grid-base: 12,
-    width-base: 100%,
-
     // z-index
     bar-z-index: 100,
     app-bar-z-index: 1000,
@@ -24,16 +41,6 @@ $variables: (
 $sizes: xs, sm, md, lg, xl;
 
 :root {
-    --vs-font-size-xs: 1rem;
-    --vs-font-size-sm: 1.2rem;
-    --vs-font-size: 1.4rem;
-    --vs-font-size-lg: 1.5rem;
-    --vs-font-size-xl: 1.8rem;
-
-    --vs-radius-sm: 0.4rem;
-    --vs-radius: 0.6rem;
-    --vs-radius-lg: 0.8rem;
-
     @each $key, $value in $variables {
         --vs-#{$key}: #{$value};
     }
