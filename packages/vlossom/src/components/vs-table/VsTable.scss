@@ -258,7 +258,7 @@
                 padding-left: 1rem;
             }
             margin-bottom: 0.4rem;
-            border: 1px solid var(--vs-line-color);
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
         }
 
         table {
@@ -270,17 +270,18 @@
             display: flex !important;
             flex-direction: column;
             margin: 0.4rem 0 0 0;
-            border: 1px solid var(--vs-line-color);
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
             &:first-of-type {
                 margin-top: 0;
+                padding-left: 0;
             }
 
             td {
                 display: flex;
                 justify-content: space-between;
-                padding: 0.4rem 1rem;
-                border-top: 1px dashed var(--vs-line-color);
+                padding: 0.4rem 1rem !important;
+                border: var(--vs-table-headerBorder, 1px dotted var(--vs-line-color));
                 overflow-x: auto;
 
                 &.selectable-td {
@@ -297,10 +298,9 @@
 
                 &:before {
                     content: attr(data-label);
-                    color: var(--vs-primary-comp-bg-active);
+                    color: var(--vs-table-headerFontColor, var(--vs-font-color));
                     display: block;
-                    line-height: 3rem;
-                    margin-right: 1.4rem;
+                    margin-right: 2rem;
                     font-size: 0.9rem;
                     font-weight: 700;
                 }
