@@ -310,6 +310,12 @@ export const Expandable: Story = {
     },
 };
 
+export const ResponsiveFalse: Story = {
+    args: {
+        responsive: false,
+    },
+};
+
 export const StyleSet: Story = {
     args: {
         styleSet: {
