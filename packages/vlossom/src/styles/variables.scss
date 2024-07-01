@@ -1,16 +1,4 @@
 $variables: (
-    // drawer
-    drawer-height-xs: 12%,
-    drawer-height-sm: 20%,
-    drawer-height-md: 32%,
-    drawer-height-lg: 60%,
-    drawer-height-xl: 80%,
-    drawer-width-xs: 10%,
-    drawer-width-sm: 16%,
-    drawer-width-md: 32%,
-    drawer-width-lg: 60%,
-    drawer-width-xl: 80%,
-
     // modal
     modal-height-xs: 20%,
     modal-height-sm: 32%,
@@ -22,15 +10,18 @@ $variables: (
     modal-width-md: 36%,
     modal-width-lg: 60%,
     modal-width-xl: 80%,
+
     grid-base: 12,
     width-base: 100%,
 
     // z-index
     bar-z-index: 100,
     app-bar-z-index: 1000,
-    dialog-z-index: 5000,
+    modal-z-index: 5000,
     toast-z-index: 9999
 );
+
+$sizes: xs, sm, md, lg, xl;
 
 :root {
     @each $key, $value in $variables {

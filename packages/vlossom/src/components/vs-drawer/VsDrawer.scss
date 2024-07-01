@@ -1,4 +1,7 @@
-$sizes: xs, sm, md, lg, xl;
+@use '@/styles/mixin' as *;
+@use '@/styles/variables' as *;
+
+$drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
 
 .vs-drawer {
     position: absolute;
@@ -6,99 +9,119 @@ $sizes: xs, sm, md, lg, xl;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: var(--vs-drawer-zIndex, var(--vs-dialog-z-index));
+    z-index: var(--vs-drawer-zIndex);
+    pointer-events: none;
 
-    .dimmed {
+    &.dimmed {
+        pointer-events: auto;
+    }
+
+    .vs-drawer-dimmed {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        opacity: 1;
         background-color: var(--vs-dimmed-background-color);
     }
 
-    .drawer-dialog {
+    .vs-drawer-wrap {
         position: absolute;
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
+        background-color: var(--vs-drawer-backgroundColor, var(--vs-area-bg));
+        color: var(--vs-drawer-fontColor, var(--vs-font-color));
         pointer-events: auto;
+
+        .vs-drawer-header {
+            position: relative;
+            border-bottom: $drawer-border;
+        }
+        .vs-drawer-footer {
+            position: relative;
+            border-top: $drawer-border;
+        }
+        .vs-drawer-body {
+            position: relative;
+            flex: auto;
+            overflow: auto;
+
+            &.hide-scroll {
+                @include hide-scroll;
+            }
+        }
 
         // placement
         &.top {
             top: 0;
             left: 0;
+            border-bottom: $drawer-border;
         }
 
         &.right {
             top: 0;
             right: 0;
+            border-left: $drawer-border;
         }
 
         &.bottom {
             bottom: 0;
             left: 0;
+            border-top: $drawer-border;
         }
 
         &.left {
             top: 0;
             left: 0;
+            border-right: $drawer-border;
         }
 
         // size
         &.left,
         &.right {
-            max-width: var(--vs-drawer-width);
+            max-width: var(--vs-drawer-size);
             min-width: 200px;
-
-            @each $size in $sizes {
-                &.#{$size} {
-                    max-width: var(--vs-drawer-width-#{$size});
-                }
-            }
         }
 
         &.top,
         &.bottom {
-            max-height: var(--vs-drawer-height);
+            max-height: var(--vs-drawer-size);
             min-height: 100px;
-
-            @each $size in $sizes {
-                &.#{$size} {
-                    max-height: var(--vs-drawer-height-#{$size});
-                }
-            }
         }
     }
 }
 
-.drawer-enter-active .dimmed,
-.drawer-leave-active .dimmed,
-.drawer-enter-active .drawer-dialog,
-.drawer-leave-active .drawer-dialog {
+.drawer-enter-active .vs-drawer-dimmed,
+.drawer-leave-active .vs-drawer-dimmed,
+.drawer-enter-active .vs-drawer-wrap,
+.drawer-leave-active .vs-drawer-wrap {
     transition: all 0.3s;
 }
 
-.drawer-enter-from .dimmed,
-.drawer-leave-to .dimmed {
+.drawer-enter-from .vs-drawer-dimmed,
+.drawer-leave-to .vs-drawer-dimmed {
     opacity: 0;
 }
 
-.drawer-enter-from .drawer-dialog.left,
-.drawer-leave-to .drawer-dialog.left {
+.drawer-enter-from .vs-drawer-wrap.left,
+.drawer-leave-to .vs-drawer-wrap.left {
     transform: translateX(-100%);
 }
 
-.drawer-enter-from .drawer-dialog.right,
-.drawer-leave-to .drawer-dialog.right {
+.drawer-enter-from .vs-drawer-wrap.right,
+.drawer-leave-to .vs-drawer-wrap.right {
     transform: translateX(100%);
 }
 
-.drawer-enter-from .drawer-dialog.bottom,
-.drawer-leave-to .drawer-dialog.bottom {
+.drawer-enter-from .vs-drawer-wrap.bottom,
+.drawer-leave-to .vs-drawer-wrap.bottom {
     transform: translateY(100%);
 }
 
-.drawer-enter-from .drawer-dialog.top,
-.drawer-leave-to .drawer-dialog.top {
+.drawer-enter-from .vs-drawer-wrap.top,
+.drawer-leave-to .vs-drawer-wrap.top {
     transform: translateY(-100%);
 }

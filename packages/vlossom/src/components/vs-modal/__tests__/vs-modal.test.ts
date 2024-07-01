@@ -16,7 +16,8 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
+            expect(wrapper.find('.vs-modal').exists()).toBe(false);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('modelValue가 true이면 modal이 열린다', async () => {
@@ -30,13 +31,14 @@ describe('vs-modal', () => {
                 },
             });
 
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(false);
+            expect(wrapper.find('.vs-modal').exists()).toBe(false);
 
             // when
             await wrapper.setProps({ modelValue: true });
 
             // then
-            expect(wrapper.find('div.vs-dialog').exists()).toBe(true);
+            expect(wrapper.find('.vs-modal').exists()).toBe(true);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 
@@ -74,8 +76,8 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('header').exists()).toBe(true);
-            expect(wrapper.find('header').text()).toBe('Header');
+            expect(wrapper.find('.vs-modal-header').exists()).toBe(true);
+            expect(wrapper.find('.vs-modal-header').text()).toBe('Header');
         });
 
         it('footer slot을 전달하면 footer 영역에 slot 컨텐츠가 렌더링 된다', () => {
@@ -93,8 +95,82 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('footer').exists()).toBe(true);
-            expect(wrapper.find('footer').text()).toBe('Footer');
+            expect(wrapper.find('.vs-modal-footer').exists()).toBe(true);
+            expect(wrapper.find('.vs-modal-footer').text()).toBe('Footer');
+        });
+    });
+
+    describe('aria attributes', () => {
+        it('header slot이 있는 경우 modal의 aria-lablledby 속성 값이 <header>의 id 가 된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                },
+                slots: {
+                    header: 'Header',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            const modal = wrapper.find('.vs-modal-wrap');
+            expect(modal.attributes('aria-labelledby')).toBe(wrapper.find('header').attributes('id'));
+            expect(modal.attributes('aria-label')).toBe(undefined);
+        });
+
+        it('header slot이 없는 경우 modal의 aria-lablledby 속성이 없고 대신 aria-label 속성 값이 Modal이 된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            const modal = wrapper.find('.vs-modal-wrap');
+            expect(modal.attributes('aria-labelledby')).toBe(undefined);
+            expect(modal.attributes('aria-label')).toBe('Modal');
+        });
+
+        it('modal body 요소의 id 값이 modal의 aria-describedby 속성 값이 된다', () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                },
+                slots: {
+                    default: 'Content',
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            const modal = wrapper.find('.vs-modal-wrap');
+            expect(modal.attributes('aria-describedby')).toBe(wrapper.find('.vs-modal-body').attributes('id'));
+        });
+
+        it('aria-modal 속성이 있다', async () => {
+            // given
+            const wrapper = mount(VsModal, {
+                props: {
+                    modelValue: true,
+                },
+                global: {
+                    stubs: ['Teleport'],
+                },
+            });
+
+            // then
+            const modal = wrapper.find('.vs-modal-wrap');
+            expect(modal.attributes('aria-modal')).toBe('true');
         });
     });
 
@@ -127,7 +203,7 @@ describe('vs-modal', () => {
             });
 
             // then
-            expect(wrapper.find('div.dimmed').exists()).toBe(true);
+            expect(wrapper.find('.vs-modal-dimmed').exists()).toBe(true);
         });
 
         it('dimmed 영역 클릭 시 modal이 닫힌다', async () => {
@@ -142,12 +218,10 @@ describe('vs-modal', () => {
             });
 
             // when
-            await wrapper.find('div.dimmed').trigger('click');
+            await wrapper.find('.vs-modal-dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 modal이 닫히지 않는다', async () => {
@@ -163,11 +237,10 @@ describe('vs-modal', () => {
             });
 
             // when
-            await wrapper.find('div.dimmed').trigger('click');
+            await wrapper.find('.vs-modal-dimmed').trigger('click');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 
@@ -188,9 +261,7 @@ describe('vs-modal', () => {
             await wrapper.trigger('keydown.Escape');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toHaveLength(1);
-            expect(updateModelValueEvent?.[0]).toEqual([false]);
+            expect(wrapper.vm.isOpen).toBe(false);
         });
 
         it('close-on-esc prop을 false로 전달하면 esc key를 눌러도 modal이 닫히지 않는다', async () => {
@@ -210,8 +281,7 @@ describe('vs-modal', () => {
             await wrapper.trigger('keydown.Esc');
 
             // then
-            const updateModelValueEvent = wrapper.emitted('update:modelValue');
-            expect(updateModelValueEvent).toBe(undefined);
+            expect(wrapper.vm.isOpen).toBe(true);
         });
     });
 

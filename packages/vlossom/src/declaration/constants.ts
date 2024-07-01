@@ -31,3 +31,13 @@ export const LAYOUT_Z_INDEX = 100;
 export const APP_LAYOUT_Z_INDEX = 1000;
 
 export const SCROLLBAR_WIDTH = '0.38rem';
+
+export const MODAL_DURATION = 300;
+
+export const DRAWER_SIZE = {
+    xs: '12%',
+    sm: '20%',
+    md: '40%',
+    lg: '60%',
+    xl: '80%',
+};

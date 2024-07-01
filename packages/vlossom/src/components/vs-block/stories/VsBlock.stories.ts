@@ -98,11 +98,8 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             borderRadius: '0.8rem',
-            contentFontWeight: '500',
+            fontWeight: '500',
             padding: '3rem 2rem',
-            headerFontColor: '#ffb300',
-            headerBackgroundColor: 'rgba(255, 246, 230, 1)',
-            headerFontWeight: '600',
         },
     },
 };

@@ -8,9 +8,8 @@ describe('confirm-plugin', () => {
     describe('confirmPlugin', () => {
         it('open 메서드가 Promise.resolve(true)를 리턴할 수 있다', async () => {
             // given
-            const confirmInfo = { text: 'Are you sure?' };
             store.confirm.setResolve(vi.fn());
-            const openPromise = confirm.open(confirmInfo.text);
+            const openPromise = confirm.open('Are you sure?');
 
             // when
             store.confirm.executeResolve(true);
@@ -21,11 +20,10 @@ describe('confirm-plugin', () => {
 
         it('open 메서드가 Promise.resolve(false)를 리턴할 수 있다', async () => {
             // given
-            const confirmInfo = { text: 'Are you sure?' };
             store.confirm.setResolve(vi.fn());
 
             // when
-            const openPromise = confirm.open(confirmInfo.text);
+            const openPromise = confirm.open('Are you sure?');
             store.confirm.executeResolve(false);
 
             // then
