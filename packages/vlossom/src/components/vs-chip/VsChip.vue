@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <span v-if="hasIcon" class="icon-container chip-icon">
+        <span v-if="hasIcon" class="vs-icon-container vs-chip-icon">
             <slot name="icon" />
         </span>
 
@@ -11,27 +11,23 @@
         <button
             v-if="closable"
             type="button"
-            class="icon-container close-button"
+            class="vs-icon-container vs-close-button"
             aria-label="close"
             tabindex="-1"
             @click.stop="$emit('close')"
         >
-            <vs-icon icon="close" size="13px" />
+            <vs-icon icon="close" size="14px" />
         </button>
     </div>
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, toRefs, useAttrs } from 'vue';
+import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
 
 import type { VsChipStyleSet } from './types';
-
-interface SetupContextAttrs {
-    onClick?: () => void;
-}
 
 const name = VsComponent.VsChip;
 export default defineComponent({
@@ -54,12 +50,9 @@ export default defineComponent({
 
         const hasIcon = computed((): boolean => !!slots['icon']);
 
-        const attrs: SetupContextAttrs = useAttrs();
-
         const classObj = computed(() => ({
-            noRound: noRound.value,
+            'no-round': noRound.value,
             primary: primary.value,
-            clickable: attrs.onClick ?? false,
         }));
 
         return {
