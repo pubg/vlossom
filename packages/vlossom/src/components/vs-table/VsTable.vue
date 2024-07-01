@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
+    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense }, { responsive }]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <caption v-if="$slots['caption']">
@@ -134,6 +134,7 @@ export default defineComponent({
             required: true,
         },
         rows: { type: Object as PropType<TableRow>, default: () => ({}) },
+        responsive: { type: Boolean, default: true },
         loading: { type: Boolean, default: false },
         pagination: { type: Boolean, default: false },
         paginationOptions: {
