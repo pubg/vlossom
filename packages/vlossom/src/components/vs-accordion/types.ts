@@ -1,7 +1,7 @@
 export interface VsAccordionStyleSet {
+    backgroundColor?: string;
     border?: string;
     borderRadius?: string;
-    backgroundColor?: string;
     fontColor?: string;
     fontSize?: string;
     padding?: string;

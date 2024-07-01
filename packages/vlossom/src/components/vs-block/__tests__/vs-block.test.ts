@@ -8,7 +8,7 @@ describe('vs-block', () => {
         const wrapper = mount(Vsblock);
 
         //then
-        expect(wrapper.find('.block-header').exists()).toBe(false);
+        expect(wrapper.find('.vs-block-header').exists()).toBe(false);
     });
 
     it('slot으로 title을 설정할 수 있다', () => {
@@ -20,7 +20,7 @@ describe('vs-block', () => {
         });
 
         // then
-        expect(wrapper.find('.block-header').exists()).toBe(true);
+        expect(wrapper.find('.vs-block-header').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>Title</div>');
     });
 

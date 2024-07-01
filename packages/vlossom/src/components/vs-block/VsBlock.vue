@@ -5,10 +5,10 @@
         :grid="grid"
         :width="width"
     >
-        <div v-if="hasTitle" class="block-header">
+        <div v-if="hasTitle" class="vs-block-header">
             <slot name="title" />
         </div>
-        <div class="block-content">
+        <div class="vs-block-content">
             <slot />
         </div>
     </vs-responsive>
