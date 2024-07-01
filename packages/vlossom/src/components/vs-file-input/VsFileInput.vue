@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :id="computedId"
             :label="label"
@@ -62,7 +62,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -70,7 +70,7 @@ import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput, useStateClass } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsIcon } from '@/icons';
 
 import type { InputValueType, VsFileInputStyleSet } from './types';
@@ -79,7 +79,7 @@ const name = VsComponent.VsFileInput;
 
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsIcon },
+    components: { VsInputWrapper, VsResponsive, VsIcon },
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),

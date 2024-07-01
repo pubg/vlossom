@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper class="vs-accordion" :width="width" :grid="grid">
+    <vs-responsive class="vs-accordion" :width="width" :grid="grid">
         <details :class="`vs-${computedColorScheme}`" :style="computedStyleSet" :open="isOpen" @toggle.stop="onToggle">
             <summary>
                 <slot name="title" />
@@ -8,21 +8,21 @@
                 <slot />
             </div>
         </details>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsAccordionStyleSet } from './types';
 
 const name = VsComponent.VsAccordion;
 export default defineComponent({
     name,
-    components: { VsWrapper },
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

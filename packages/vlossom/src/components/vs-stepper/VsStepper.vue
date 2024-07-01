@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid">
+    <vs-responsive :width="width" :grid="grid">
         <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
             <div class="item-line">
                 <div class="progress-line" :style="progressWidth" />
@@ -32,7 +32,7 @@
                 </li>
             </ul>
         </div>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -40,14 +40,14 @@ import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType 
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsStepperStyleSet } from './types';
 
 const name = VsComponent.VsStepper;
 export default defineComponent({
     name,
-    components: { VsWrapper },
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

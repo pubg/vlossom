@@ -115,7 +115,7 @@ export { default as VsTooltip } from './vs-tooltip/VsTooltip.vue';
 export { type VsValueTagStyleSet } from './vs-value-tag/types';
 export { default as VsValueTag } from './vs-value-tag/VsValueTag.vue';
 
-export { default as VsWrapper } from './vs-wrapper/VsWrapper.vue';
+export { default as VsResponsive } from './vs-responsive/VsResponsive.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
@@ -161,6 +161,6 @@ declare module 'vue' {
         VsThemeButton: (typeof import('./'))['VsThemeButton'];
         VsTooltip: (typeof import('./'))['VsTooltip'];
         VsValueTag: (typeof import('./'))['VsValueTag'];
-        VsWrapper: (typeof import('./'))['VsWrapper'];
+        VsResponsive: (typeof import('./'))['VsResponsive'];
     }
 }

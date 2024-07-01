@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :id="radioLabel ? '' : computedId"
             :label="label"
@@ -40,7 +40,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -49,14 +49,14 @@ import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInpu
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
 export default defineComponent({
     name: VsComponent.VsRadio,
-    components: { VsInputWrapper, VsWrapper, VsRadioNode },
+    components: { VsInputWrapper, VsResponsive, VsRadioNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),

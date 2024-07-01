@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import VsIndexView from './../VsIndexView.vue';
 import VsIndexItem from './../VsIndexItem.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsDivider from '@/components/vs-divider/VsDivider.vue';
 import { LOREM_IPSUM } from '@/storybook';
@@ -130,7 +130,7 @@ export const Width: Story = {
 
 export const WidthWithTabs: Story = {
     render: (args: any) => ({
-        components: { VsIndexView, VsIndexItem, VsContainer, VsWrapper, CompA },
+        components: { VsIndexView, VsIndexItem, VsContainer, VsResponsive, CompA },
         setup() {
             const tabAList = ['Tab A', 'Tab B'];
             const tabBList = ['Tab A', 'Tab B'];
@@ -148,21 +148,21 @@ export const WidthWithTabs: Story = {
         },
         template: `
 			<vs-container grid row-gap="20px">
-				<vs-wrapper :width="args.width" :grid="args.grid">
+				<vs-responsive :width="args.width" :grid="args.grid">
 					<vs-tabs :tabs="tabAList" v-model="tabA" @update:modelValue="updateTabA" v-bind="args"/>
 					<vs-index-view v-model="tabA" v-bind="args">
 						<vs-index-item key="A"> <CompA /> </vs-index-item>
 						<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 					</vs-index-view>
-				</vs-wrapper>
+				</vs-responsive>
 
-				<vs-wrapper :width="args.width" :grid="args.grid">
+				<vs-responsive :width="args.width" :grid="args.grid">
 					<vs-tabs :tabs="tabBList" v-model="tabB" @update:modelValue="updateTabB" v-bind="args"/>
 					<vs-index-view v-model="tabB" v-bind="args">
 						<vs-index-item key="A"> <CompA /> </vs-index-item>
 						<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 					</vs-index-view>
-				</vs-wrapper>
+				</vs-responsive>
 			</vs-container>
         `,
     }),
@@ -196,7 +196,7 @@ export const Grid: Story = {
 
 export const GridWithTabs: Story = {
     render: (args: any) => ({
-        components: { VsIndexView, VsIndexItem, VsContainer, VsWrapper, CompA },
+        components: { VsIndexView, VsIndexItem, VsContainer, VsResponsive, CompA },
         setup() {
             const tabAList = ['Tab A', 'Tab B'];
             const tabBList = ['Tab A', 'Tab B'];
@@ -214,21 +214,21 @@ export const GridWithTabs: Story = {
         },
         template: `
         <vs-container grid column-gap="40px">
-			<vs-wrapper :width="args.width" :grid="args.grid">
+			<vs-responsive :width="args.width" :grid="args.grid">
 				<vs-tabs :tabs="tabAList" v-model="tabA" @update:modelValue="updateTabA" v-bind="args"/>
 				<vs-index-view v-model="tabA" v-bind="args">
 					<vs-index-item key="A"> <CompA /> </vs-index-item>
 					<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 				</vs-index-view>
-			</vs-wrapper>
+			</vs-responsive>
 
-			<vs-wrapper :width="args.width" :grid="args.grid">
+			<vs-responsive :width="args.width" :grid="args.grid">
 				<vs-tabs :tabs="tabBList" v-model="tabB" @update:modelValue="updateTabB" v-bind="args"/>
 				<vs-index-view v-model="tabB" v-bind="args">
 					<vs-index-item key="A"> <CompA /> </vs-index-item>
 					<vs-index-item key="B"> This is the content of Component B </vs-index-item>
 				</vs-index-view>
-			</vs-wrapper>
+			</vs-responsive>
 		</vs-container>
         `,
     }),

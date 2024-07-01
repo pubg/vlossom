@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid">
+    <vs-responsive :width="width" :grid="grid">
         <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
             <button
                 v-if="showScrollButtons"
@@ -42,7 +42,7 @@
                 <vs-icon icon="goNext" size="1.2rem" />
             </button>
         </div>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -50,7 +50,7 @@ import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, 
 import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsIcon } from '@/icons';
 
 import type { VsTabsStyleSet, ScrollButton } from './types';
@@ -58,7 +58,7 @@ import type { VsTabsStyleSet, ScrollButton } from './types';
 const name = VsComponent.VsTabs;
 export default defineComponent({
     name,
-    components: { VsWrapper, VsIcon },
+    components: { VsResponsive, VsIcon },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

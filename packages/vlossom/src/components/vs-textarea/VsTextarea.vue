@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :id="computedId"
             :label="label"
@@ -37,7 +37,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -54,7 +54,7 @@ import {
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import { useVsTextareaRules } from './vs-textarea-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { utils } from '@/utils';
 
 import type { InputValueType, VsTextareaStyleSet } from './types';
@@ -62,7 +62,7 @@ import type { InputValueType, VsTextareaStyleSet } from './types';
 const name = VsComponent.VsTextarea;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper },
+    components: { VsInputWrapper, VsResponsive },
     props: {
         ...getInputProps<InputValueType, ['noClear']>('noClear'),
         ...getResponsiveProps(),

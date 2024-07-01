@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper :width="width" :grid="grid" v-show="visible">
+    <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :id="computedId"
             :label="label"
@@ -198,7 +198,7 @@
                 <slot name="messages" />
             </template>
         </vs-input-wrapper>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
@@ -219,7 +219,7 @@ import { useVsSelectRules } from './vs-select-rules';
 import { VsSelectStyleSet } from './types';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
-import VsWrapper from '@/components/vs-wrapper/VsWrapper.vue';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsChip from '@/components/vs-chip/VsChip.vue';
 
@@ -228,7 +228,7 @@ import type { VsChipStyleSet } from '@/components/vs-chip/types';
 const name = VsComponent.VsSelect;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsWrapper, VsChip, VsIcon },
+    components: { VsInputWrapper, VsResponsive, VsChip, VsIcon },
     props: {
         ...getInputProps<any, []>(),
         ...getInputOptionProps(),

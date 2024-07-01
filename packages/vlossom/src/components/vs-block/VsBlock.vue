@@ -1,5 +1,5 @@
 <template>
-    <vs-wrapper
+    <vs-responsive
         :class="['vs-block', `vs-${computedColorScheme}`]"
         :style="computedStyleSet"
         :grid="grid"
@@ -11,19 +11,21 @@
         <div class="block-content">
             <slot />
         </div>
-    </vs-wrapper>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsBlockStyleSet } from './types';
 
 const name = VsComponent.VsBlock;
 export default defineComponent({
     name,
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
