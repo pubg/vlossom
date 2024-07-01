@@ -41,7 +41,7 @@
     $grid-lg: var(--vs-grid-lg);
     $grid-xl: var(--vs-grid-xl);
 
-    .vs-responsive {
+    .vs-response {
         box-sizing: border-box;
         width: $width-base;
         grid-column-start: span $grid-base;
