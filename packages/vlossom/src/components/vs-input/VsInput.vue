@@ -43,7 +43,7 @@
                 <button
                     v-if="!noClear && !computedReadonly && !computedDisabled"
                     type="button"
-                    class="clear-button"
+                    class="vs-clear-button"
                     :class="{ show: inputValue }"
                     :disabled="!inputValue"
                     aria-hidden="true"

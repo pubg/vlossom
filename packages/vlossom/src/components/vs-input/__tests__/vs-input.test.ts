@@ -247,7 +247,7 @@ describe('vs-input', () => {
             });
 
             // then
-            const clearButton = wrapper.find<HTMLButtonElement>('button.clear-button');
+            const clearButton = wrapper.find<HTMLButtonElement>('button.vs-clear-button');
             expect(clearButton.element.disabled).toBeFalsy();
             expect(clearButton.classes()).toContain('show');
         });
@@ -265,7 +265,7 @@ describe('vs-input', () => {
             await wrapper.find('.vs-input').trigger('mouseover');
 
             // then
-            const clearButton = wrapper.find<HTMLButtonElement>('button.clear-button');
+            const clearButton = wrapper.find<HTMLButtonElement>('button.vs-clear-button');
             expect(clearButton.element.disabled).toBeTruthy();
             expect(clearButton.classes()).not.toContain('show');
         });

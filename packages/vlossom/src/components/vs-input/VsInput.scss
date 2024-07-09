@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: var(--vs-input-backgroundColor, var(--vs-no-color));
+    background-color: var(--vs-input-backgroundColor, transparent);
     box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
@@ -42,7 +42,7 @@
         color: var(--vs-input-appendColor, var(--vs-primary-comp-font));
     }
 
-    .clear-button {
+    .vs-clear-button {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -55,7 +55,7 @@
     }
 
     &:hover {
-        .clear-button.show {
+        .vs-clear-button.show {
             opacity: 1;
         }
     }

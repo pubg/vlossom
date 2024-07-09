@@ -93,9 +93,8 @@ const vsChip: VsChipStyleSet = {
 };
 
 const vsDivider: VsDividerStyleSet = {
-    lineColor: '#7071e8',
-    lineStyle: 'double',
-    lineWidth: '3px',
+    border: '1px solid #7071e8',
+    margin: '2rem 3rem',
 };
 
 const vsDrawer: VsDrawerStyleSet = {
@@ -107,9 +106,8 @@ const vsFileInput: VsFileInputStyleSet = {
     border: '1px solid #D4E7C5',
     backgroundColor: '#D4E7C5',
     fontColor: '#99BC85',
-    clearButtonColor: '#436850',
     fontSize: '0.8rem',
-    prependBackgroundColor: '#86A789',
+    iconBackgroundColor: '#86A789',
 };
 
 const vsFooter: VsFooterStyleSet = {

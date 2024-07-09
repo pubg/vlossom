@@ -70,7 +70,7 @@
         justify-content: flex-end;
         width: 2.4rem;
 
-        .clear-button {
+        .vs-clear-button {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,7 +100,7 @@
     }
 
     &:hover {
-        .clear-button {
+        .vs-clear-button {
             opacity: 1;
         }
     }

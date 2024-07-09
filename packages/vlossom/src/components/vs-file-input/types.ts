@@ -9,6 +9,6 @@ export interface VsFileInputStyleSet {
     fontColor?: string;
     fontSize?: string;
     height?: string;
-    prependBackgroundColor?: string;
-    prependColor?: string;
+    iconBackgroundColor?: string;
+    iconColor?: string;
 }

@@ -88,7 +88,7 @@
                     <button
                         v-if="!noClear && selectedOptions.length && !computedReadonly && !computedDisabled"
                         type="button"
-                        class="clear-button"
+                        class="vs-clear-button"
                         aria-hidden="true"
                         tabindex="-1"
                         @click.stop="onClear()"

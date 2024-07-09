@@ -9,7 +9,7 @@ $checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
     justify-content: flex-start;
     flex-wrap: nowrap;
     user-select: none;
-    height: var(--vs-checkbox-height, 3rem);
+    height: var(--vs-checkbox-height, var(--vs-input-height));
 
     .vs-checkbox-wrap {
         position: relative;

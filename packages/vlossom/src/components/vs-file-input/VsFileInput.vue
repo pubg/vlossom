@@ -20,11 +20,14 @@
                 @dragleave.stop="setDragging(false)"
                 @drop.stop="setDragging(false)"
             >
-                <div class="attach-file-icon">
-                    <vs-icon icon="attachFile" :size="dense ? 18 : 22" />
+                <div class="vs-attach-file-icon">
+                    <slot name="icon">
+                        <vs-icon icon="attachFile" :size="dense ? 16 : 18" />
+                    </slot>
                 </div>
-                <div class="label-box">
-                    <div :class="['label-wrap', { placeholder: placeholder && !hasValue }]">
+
+                <div class="vs-label-box">
+                    <div :class="['vs-label-wrap', { placeholder: placeholder && !hasValue }]">
                         <template v-if="dragging">{{ dropPlaceholder }}</template>
                         <template v-else-if="placeholder && !hasValue">{{ placeholder }}</template>
                         <template v-else-if="hasValue">{{ fileLabel }}</template>
@@ -33,6 +36,7 @@
 
                 <input
                     ref="fileInputRef"
+                    class="vs-file-input-ref"
                     :id="computedId"
                     type="file"
                     :name="name"
@@ -49,7 +53,7 @@
 
                 <button
                     v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
-                    class="clear-button"
+                    class="vs-clear-button"
                     aria-hidden="true"
                     tabindex="-1"
                     @click.stop="onClear()"
