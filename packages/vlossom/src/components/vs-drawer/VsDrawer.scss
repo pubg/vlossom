@@ -33,8 +33,8 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
         width: 100%;
         height: 100%;
         background-color: var(--vs-drawer-backgroundColor, var(--vs-area-bg));
-        color: var(--vs-drawer-fontColor, var(--vs-font-color));
         pointer-events: auto;
+        padding: var(--vs-drawer-padding, 0);
 
         .vs-drawer-header {
             position: relative;

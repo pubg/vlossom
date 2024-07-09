@@ -9,7 +9,7 @@
         >
             <div class="logo">
                 <vs-image src="/assets/vlossom-logo.png" :style-set="{ height: '40px', width: '40px' }" />
-                <span>Vlossom</span>
+                <h1>Vlossom</h1>
             </div>
             <vs-theme-button />
         </vs-header>
@@ -50,11 +50,11 @@ export default {
     .logo {
         display: flex;
         align-items: center;
+        padding-left: 2rem;
 
-        span {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-left: 10px;
+        h1 {
+            margin-left: 1.2rem;
+            font-size: 2.4rem;
         }
     }
 }
