@@ -1,6 +1,7 @@
 <template>
     <vs-container
         tag="form"
+        class="vs-form"
         :grid="grid"
         :column-gap="columnGap"
         :row-gap="rowGap"
