@@ -2,6 +2,7 @@
     <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"

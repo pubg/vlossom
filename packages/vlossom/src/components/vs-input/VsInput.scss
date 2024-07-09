@@ -10,6 +10,7 @@
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
     height: var(--vs-input-height, var(--vs-input-comp-height));
+    font-size: var(--vs-input-fontSize, var(--vs-font-size));
 
     input {
         width: 100%;
@@ -78,6 +79,7 @@
 .vs-input {
     &.dense {
         height: var(--vs-input-height, var(--vs-input-comp-height-dense));
+        font-size: var(--vs-input-fontSize, var(--vs-font-size-sm));
 
         input {
             font-size: var(--vs-input-fontSize, var(--vs-font-size-sm));

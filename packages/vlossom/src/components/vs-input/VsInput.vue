@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"

@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -64,7 +65,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive },
     props: {
-        ...getInputProps<InputValueType, ['dense', 'noClear']>('dense', 'noClear'),
+        ...getInputProps<InputValueType, ['noClear']>('noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },

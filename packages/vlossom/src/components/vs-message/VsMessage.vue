@@ -1,6 +1,6 @@
 <template>
-    <div :class="['vs-message', colorClass]">
-        <vs-icon class="message-icon" :icon="icon" size="0.9rem" />
+    <div :class="['vs-message', colorClass, { dense }]">
+        <vs-icon class="message-icon" :icon="icon" :size="dense ? '1.4rem' : '1.6rem'" />
         <span class="message-text">{{ message.text }}</span>
     </div>
 </template>
@@ -16,6 +16,7 @@ export default defineComponent({
     name: VsComponent.VsMessage,
     components: { VsIcon },
     props: {
+        dense: { type: Boolean, default: false },
         message: {
             type: Object as PropType<StateMessage>,
             required: true,
