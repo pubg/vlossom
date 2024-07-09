@@ -52,6 +52,7 @@ import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 
 import type { VsTabsStyleSet, ScrollButton } from './types';
@@ -59,7 +60,7 @@ import type { VsTabsStyleSet, ScrollButton } from './types';
 const name = VsComponent.VsTabs;
 export default defineComponent({
     name,
-    components: { VsResponsive, VsIcon },
+    components: { VsButton, VsIcon, VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

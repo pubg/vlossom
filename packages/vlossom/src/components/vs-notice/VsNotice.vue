@@ -9,7 +9,9 @@
                 <strong class="title">{{ title }}</strong>
             </slot>
             <vs-divider
-                :style-set="{ lineColor: primary ? 'var(--vs-primary-comp-font)' : 'var(--vs-comp-font)' }"
+                :style-set="{
+                    border: primary ? '1px solid var(--vs-primary-comp-font)' : '1px solid var(--vs-comp-font)',
+                }"
                 vertical
             />
             <div>

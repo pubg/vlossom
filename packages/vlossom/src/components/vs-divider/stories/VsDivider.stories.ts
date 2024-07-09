@@ -47,7 +47,7 @@ export const ColorScheme: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { lineColor: '#2d9596', lineStyle: 'dashed', lineWidth: '3px' },
+        styleSet: { border: '3px dashed #2d9596' },
     },
 };
 
@@ -96,8 +96,7 @@ export const VerticalWithMobileFull: Story = {
 export const VerticalWithStyleSet: Story = {
     args: {
         styleSet: {
-            lineColor: '#ef4040',
-            lineWidth: '2.5px',
+            border: '1px dashed red',
             verticalHeight: '4rem',
         },
         vertical: true,
