@@ -3,12 +3,12 @@ import { mount } from '@vue/test-utils';
 import VsSection from './../VsSection.vue';
 
 describe('vs-section', () => {
-    it('title slot을 설정하지 않으면 section-title 영역이 없다', () => {
+    it('title slot을 설정하지 않으면 section title 영역이 없다', () => {
         // given
         const wrapper = mount(VsSection);
 
         //then
-        expect(wrapper.find('.section-title').exists()).toBe(false);
+        expect(wrapper.find('.vs-section-title').exists()).toBe(false);
     });
 
     it('slot으로 title을 설정할 수 있다', () => {
@@ -20,7 +20,7 @@ describe('vs-section', () => {
         });
 
         // then
-        expect(wrapper.find('.section-title').exists()).toBe(true);
+        expect(wrapper.find('.vs-section-title').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>Title</div>');
     });
 

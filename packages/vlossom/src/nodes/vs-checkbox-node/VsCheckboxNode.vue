@@ -1,11 +1,11 @@
 <template>
     <div :class="['vs-checkbox-node', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
-        <div :class="['checkbox-wrap', stateClasses]">
-            <vs-icon class="check-icon" :icon="icon" />
+        <div :class="['vs-checkbox-wrap', stateClasses]">
+            <vs-icon class="vs-check-icon" :icon="icon" />
             <input
                 ref="checkboxRef"
                 type="checkbox"
-                class="checkbox-input"
+                class="vs-checkbox-input"
                 :aria-label="ariaLabel"
                 :id="id"
                 :disabled="disabled || readonly"
@@ -18,7 +18,7 @@
                 @blur.stop="onBlur"
             />
         </div>
-        <label v-if="label || $slots['label']" :for="id" class="checkbox-label">
+        <label v-if="label || $slots['label']" :for="id" class="vs-checkbox-label">
             <slot name="label">{{ label }}</slot>
         </label>
     </div>
