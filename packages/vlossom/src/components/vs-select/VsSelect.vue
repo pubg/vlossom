@@ -258,7 +258,6 @@ export default defineComponent({
                 return true;
             },
         },
-        dense: { type: Boolean, default: false },
         lazyLoadNum: {
             type: Number,
             default: 100,

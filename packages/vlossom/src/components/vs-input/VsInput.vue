@@ -96,7 +96,6 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         autocomplete: { type: Boolean, default: false },
-        dense: { type: Boolean, default: false },
         max: {
             type: [Number, String],
             default: Number.MAX_SAFE_INTEGER,

@@ -90,7 +90,6 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet> },
         accept: { type: String, default: '' },
-        dense: { type: Boolean, default: false },
         dropPlaceholder: { type: String, default: 'Drop file here...' },
         multiple: { type: Boolean, default: false },
         // v-model

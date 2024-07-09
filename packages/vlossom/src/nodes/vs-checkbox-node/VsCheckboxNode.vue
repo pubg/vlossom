@@ -39,6 +39,7 @@ export default defineComponent({
         styleSet: { type: Object as PropType<{ [key: string]: any }> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
+        dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
         indeterminate: { type: Boolean, default: false },
@@ -52,7 +53,7 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { checked, indeterminate, disabled, readonly, state } = toRefs(props);
+        const { checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
 
         const { stateClasses } = useStateClass(state);
 
@@ -60,6 +61,7 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             checked: checked.value,
+            dense: dense.value,
             disabled: disabled.value,
             readonly: readonly.value,
         }));

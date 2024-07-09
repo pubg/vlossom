@@ -7,6 +7,7 @@ import type { StateMessage, Rule, Message, InputComponentParams } from '@/declar
 
 interface VsInputProps<T> {
     ariaLabel: { type: StringConstructor; default: null };
+    dense: { type: BooleanConstructor; default: boolean };
     disabled: { type: BooleanConstructor; default: boolean };
     id: { type: StringConstructor; default: string };
     label: { type: StringConstructor; default: string };
@@ -34,6 +35,7 @@ export function getInputProps<T = unknown, K extends Array<keyof VsInputProps<T>
         {},
         {
             ariaLabel: { type: String, default: null },
+            dense: { type: Boolean, default: false },
             disabled: { type: Boolean, default: false },
             id: { type: String, default: '' },
             label: { type: String, default: '' },

@@ -22,6 +22,7 @@
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
+                    :dense="dense"
                     :disabled="computedDisabled"
                     :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"

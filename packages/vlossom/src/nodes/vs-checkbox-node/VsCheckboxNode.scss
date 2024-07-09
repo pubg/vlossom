@@ -54,6 +54,14 @@ $checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
         font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size));
     }
 
+    &.dense {
+        height: var(--vs-checkbox-height, var(--vs-input-height-dense));
+
+        .vs-checkbox-label {
+            font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size-sm));
+        }
+    }
+
     &.checked {
         .vs-checkbox-label {
             color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));

@@ -64,7 +64,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive },
     props: {
-        ...getInputProps<InputValueType, ['noClear']>('noClear'),
+        ...getInputProps<InputValueType, ['dense', 'noClear']>('dense', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },
