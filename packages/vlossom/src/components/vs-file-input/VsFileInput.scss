@@ -1,7 +1,7 @@
 @use '@/styles/mixin' as *;
 
-$file-input-height: var(--vs-file-input-height, var(--vs-input-height));
-$file-input-height-dense: var(--vs-file-input-height, var(--vs-input-height-dense));
+$file-input-height: var(--vs-file-input-height, var(--vs-input-comp-height));
+$file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height-dense));
 
 .vs-file-input {
     position: relative;

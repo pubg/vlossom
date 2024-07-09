@@ -8,15 +8,15 @@
     background-color: var(--vs-input-backgroundColor, transparent);
     box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
-    border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
-    height: var(--vs-input-height, 2.4rem);
+    border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
+    height: var(--vs-input-height, var(--vs-input-comp-height));
 
     input {
         width: 100%;
         padding: 0 0.8rem;
         border: none;
         outline: none;
-        font-size: var(--vs-input-fontSize, 0.9rem);
+        font-size: var(--vs-input-fontSize, var(--vs-font-size));
         background-color: transparent;
         color: var(--vs-input-fontColor, var(--vs-font-color));
     }
@@ -27,7 +27,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-width: 3rem;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding: 0 1rem;
         height: 100%;
         border: none;
     }
@@ -46,7 +48,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--vs-input-clearButtonColor, var(--vs-primary-comp-bg-active));
+        color: var(--vs-input-fontColor, var(--vs-font-color));
         opacity: 0;
         transition: opacity 0.4s;
         background: none;
@@ -75,10 +77,10 @@
 
 .vs-input {
     &.dense {
-        height: var(--vs-input-height, 2rem);
+        height: var(--vs-input-height, var(--vs-input-comp-height-dense));
 
         input {
-            font-size: var(--vs-input-fontSize, 0.8rem);
+            font-size: var(--vs-input-fontSize, var(--vs-font-size-sm));
         }
     }
 }

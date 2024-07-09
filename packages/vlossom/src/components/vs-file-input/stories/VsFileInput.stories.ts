@@ -178,10 +178,8 @@ export const StyleSet: Story = {
             border: '1px solid orange',
             backgroundColor: '#ffe0b2',
             fontColor: '#d84315',
-            clearButtonColor: '#FC6736',
             dragBackgroundColor: '#ffcc80',
             fontSize: '1.3rem',
-            prependBackgroundColor: '#ef6c00',
         },
     },
 };
