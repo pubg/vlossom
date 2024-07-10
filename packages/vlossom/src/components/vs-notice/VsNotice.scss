@@ -24,7 +24,7 @@
     .vs-notice-close-button {
         display: flex;
         cursor: pointer;
-        color: var(--vs-notice-contentFontColor, var(--vs-comp-font));
+        color: var(--vs-notice-fontColor, var(--vs-comp-font));
     }
 
     // primary
@@ -32,7 +32,7 @@
         background-color: var(--vs-notice-backgroundColor, var(--vs-primary-comp-bg));
 
         .vs-notice-contents {
-            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
+            color: var(--vs-notice-fontColor, var(--vs-primary-comp-font));
 
             .vs-notice-title {
                 color: var(--vs-notice-titleFontColor, var(--vs-primary-comp-font));
@@ -40,7 +40,7 @@
         }
 
         .vs-notice-close-button {
-            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
+            color: var(--vs-notice-fontColor, var(--vs-primary-comp-font));
         }
     }
 }

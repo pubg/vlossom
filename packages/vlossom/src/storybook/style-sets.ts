@@ -171,8 +171,8 @@ const vsModal: VsModalStyleSet = {
 
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#ffc100',
-    contentFontColor: '#fff',
-    contentFontSize: '1.5rem',
+    fontColor: '#fff',
+    fontSize: '1.5rem',
     titleFontColor: '#1e5631',
     titleFontSize: '1rem',
 };
