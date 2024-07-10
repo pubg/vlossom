@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-value-tag', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+    <div :class="['vs-value-tag', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div v-if="hasLabel" class="label">
             <slot name="label" />
         </div>
@@ -26,7 +26,7 @@ export default defineComponent({
     setup(props, { slots }) {
         const { colorScheme, styleSet, primary } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsValueTagStyleSet>(name, styleSet);
 
@@ -37,7 +37,7 @@ export default defineComponent({
         }));
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasLabel,
             classObj,

@@ -1,6 +1,6 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
+        <div :class="['vs-tabs', colorSchemeClass, { dense }]" :style="computedStyleSet">
             <vs-button
                 v-if="showScrollButtons"
                 class="vs-scroll-button scroll-left-button"
@@ -90,7 +90,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, disabled, scrollButtons, tabs, modelValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
@@ -251,7 +251,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             isSelected,
             isDisabled,

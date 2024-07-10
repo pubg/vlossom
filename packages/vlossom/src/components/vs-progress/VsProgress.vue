@@ -1,10 +1,5 @@
 <template>
-    <progress
-        :value="value"
-        :max="max"
-        :class="['vs-progress', `vs-${computedColorScheme}`]"
-        :style="computedStyleSet"
-    />
+    <progress :value="value" :max="max" :class="['vs-progress', colorSchemeClass]" :style="computedStyleSet" />
 </template>
 
 <script lang="ts">
@@ -26,12 +21,12 @@ export default defineComponent({
     setup(props) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsProgressStyleSet>(name, styleSet);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
         };
     },

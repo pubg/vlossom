@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-chip', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
+    <div :class="['vs-chip', 'vs-inline-gap', colorSchemeClass, classObj]" :style="computedStyleSet">
         <span v-if="hasIcon" class="vs-icon-container vs-chip-icon">
             <slot name="icon" />
         </span>
@@ -44,7 +44,7 @@ export default defineComponent({
     setup(props, { slots }) {
         const { colorScheme, noRound, primary, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsChipStyleSet>(name, styleSet);
 
@@ -57,7 +57,7 @@ export default defineComponent({
 
         return {
             hasIcon,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             classObj,
         };

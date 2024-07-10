@@ -17,7 +17,7 @@
             <div
                 :id="computedId"
                 ref="triggerRef"
-                :class="['vs-select', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
+                :class="['vs-select', colorSchemeClass, classObj, stateClasses]"
                 :style="computedStyleSet"
                 @click.stop="onClickTrigger()"
             >
@@ -112,7 +112,7 @@
                         ref="optionsRef"
                         :class="[
                             'vs-options-container',
-                            `vs-${computedColorScheme}`,
+                            colorSchemeClass,
                             animationClass,
                             { dense: dense, closing: isClosing },
                         ]"
@@ -328,7 +328,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSelectStyleSet>(name, styleSet);
         const chipStyleSets = computed(
@@ -540,7 +540,7 @@ export default defineComponent({
         return {
             computedId,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedDisabled,
             computedReadonly,

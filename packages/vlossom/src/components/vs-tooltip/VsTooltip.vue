@@ -17,7 +17,7 @@
         <Teleport to="#vs-overlay" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
-                :class="['tooltip', `vs-${computedColorScheme}`, `placement-${computedPlacement}`, `align-${align}`]"
+                :class="['tooltip', colorSchemeClass, `placement-${computedPlacement}`, `align-${align}`]"
                 @mouseenter.stop="onTooltipEnter"
                 @mouseleave.stop="onTooltipLeave"
             >
@@ -78,7 +78,7 @@ export default defineComponent({
             margin,
         } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTooltipStyleSet>(name, styleSet);
 
@@ -202,7 +202,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             animationClass,
             triggerRef,

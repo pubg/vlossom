@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense, responsive }]" :style="computedStyleSet">
+    <div :class="['vs-table', colorSchemeClass, { dense, responsive }]" :style="computedStyleSet">
         <div class="table-wrap">
             <table>
                 <caption v-if="$slots['caption']">
@@ -193,7 +193,7 @@ export default defineComponent({
         } = toRefs(props);
         const { emit, slots } = ctx;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
@@ -337,7 +337,7 @@ export default defineComponent({
         }
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedSearchText,
             headerSlots,

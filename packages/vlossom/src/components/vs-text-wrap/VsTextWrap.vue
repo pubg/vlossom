@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-text-wrap', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+    <div :class="['vs-text-wrap', colorSchemeClass]" :style="computedStyleSet">
         <vs-tooltip
             :color-scheme="colorScheme"
             :style-set="styleSet"
@@ -70,7 +70,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, link, width } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTextWrapStyleSet>(name, styleSet);
 
@@ -104,7 +104,7 @@ export default defineComponent({
             window.open(link.value, '_blank');
         }
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedWidth,
             contentsRef,

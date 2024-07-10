@@ -17,7 +17,7 @@
             <div
                 :class="[
                     'vs-switch',
-                    `vs-${computedColorScheme}`,
+                    colorSchemeClass,
                     { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly },
                 ]"
                 :style="computedStyleSet"
@@ -118,7 +118,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet(name, styleSet);
 
@@ -214,7 +214,7 @@ export default defineComponent({
             computedId,
             switchRef,
             inputValue,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedDisabled,
             computedReadonly,

@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-checkbox-node', `vs-${colorScheme}`, { ...classObj }]" :style="styleSet">
+    <div :class="['vs-checkbox-node', `vs-${colorScheme}`, classObj]" :style="styleSet">
         <div :class="['vs-checkbox-wrap', stateClasses]">
             <vs-icon class="vs-check-icon" :icon="icon" />
             <input

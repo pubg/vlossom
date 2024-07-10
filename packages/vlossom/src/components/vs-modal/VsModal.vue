@@ -3,7 +3,7 @@
         <Transition name="modal" :duration="MODAL_DURATION">
             <div
                 v-if="isOpen"
-                :class="['vs-modal', `vs-${computedColorScheme}`, { 'has-container': hasContainer, dimmed }]"
+                :class="['vs-modal', colorSchemeClass, { 'has-container': hasContainer, dimmed }]"
                 :style="computedStyleSet"
             >
                 <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
@@ -60,7 +60,7 @@ export default defineComponent({
         const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
             toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
@@ -147,7 +147,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasSpecifiedSize,
             isOpen,

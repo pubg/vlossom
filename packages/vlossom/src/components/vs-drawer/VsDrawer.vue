@@ -1,6 +1,6 @@
 <template>
     <Transition name="drawer" :duration="MODAL_DURATION">
-        <div v-show="isOpen" :class="['vs-drawer', `vs-${computedColorScheme}`, { dimmed }]" :style="computedStyleSet">
+        <div v-show="isOpen" :class="['vs-drawer', colorSchemeClass, { dimmed }]" :style="computedStyleSet">
             <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
                 <div :class="['vs-drawer-wrap', placement, hasSpecifiedSize ? '' : size]">
@@ -96,7 +96,7 @@ export default defineComponent({
             size,
         } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
@@ -199,7 +199,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasSpecifiedSize,
             isOpen,

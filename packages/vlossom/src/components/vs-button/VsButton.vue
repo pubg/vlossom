@@ -1,7 +1,7 @@
 <template>
     <button
         type="button"
-        :class="['vs-button', 'vs-inline-gap', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
+        :class="['vs-button', 'vs-inline-gap', colorSchemeClass, classObj, stateClasses]"
         :style="computedStyleSet"
         :disabled="disabled"
         :aria-label="loading ? 'loading' : undefined"
@@ -43,7 +43,7 @@ export default defineComponent({
     setup(props) {
         const { colorScheme, styleSet, dense, large, loading, responsive, outline, primary, state } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { stateClasses } = useStateClass(state);
 
@@ -59,7 +59,7 @@ export default defineComponent({
         }));
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             classObj,
             stateClasses,

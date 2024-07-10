@@ -1,10 +1,5 @@
 <template>
-    <vs-responsive
-        :class="['vs-block', `vs-${computedColorScheme}`]"
-        :style="computedStyleSet"
-        :grid="grid"
-        :width="width"
-    >
+    <vs-responsive :class="['vs-block', colorSchemeClass]" :style="computedStyleSet" :grid="grid" :width="width">
         <div v-if="hasTitle" class="vs-block-header">
             <slot name="title" />
         </div>
@@ -34,14 +29,14 @@ export default defineComponent({
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsBlockStyleSet>(name, styleSet);
 
         const hasTitle = computed(() => !!slots.title);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasTitle,
         };

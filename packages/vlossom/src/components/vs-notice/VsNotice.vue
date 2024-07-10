@@ -1,9 +1,5 @@
 <template>
-    <div
-        v-if="isVisible"
-        :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]"
-        :style="computedStyleSet"
-    >
+    <div v-if="isVisible" :class="['vs-notice', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div class="vs-notice-contents">
             <slot name="title">
                 <strong class="title">{{ title }}</strong>
@@ -49,7 +45,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, primary } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsNoticeStyleSet>(name, styleSet);
 
@@ -73,7 +69,7 @@ export default defineComponent({
         }));
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             isVisible,
             closeNotice,

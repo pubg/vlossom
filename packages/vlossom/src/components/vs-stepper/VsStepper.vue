@@ -1,6 +1,6 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
+        <div :class="['vs-stepper', colorSchemeClass]" :style="{ ...computedStyleSet, ...fixedWidth }">
             <div class="item-line">
                 <div class="progress-line" :style="progressWidth" />
             </div>
@@ -72,7 +72,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, disabled, gap, steps, modelValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
 
@@ -215,7 +215,7 @@ export default defineComponent({
         }
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             progressWidth,
             fixedWidth,

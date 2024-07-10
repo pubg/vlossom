@@ -16,7 +16,7 @@
 
             <textarea
                 ref="textareaRef"
-                :class="['vs-textarea', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
+                :class="['vs-textarea', colorSchemeClass, classObj, stateClasses]"
                 :style="computedStyleSet"
                 :id="computedId"
                 :value="inputValue"
@@ -111,7 +111,7 @@ export default defineComponent({
 
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTextareaStyleSet>(name, styleSet);
 
@@ -203,7 +203,7 @@ export default defineComponent({
         return {
             computedId,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedReadonly,
             computedDisabled,

@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-avatar', 'vs-inline-gap', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+    <div :class="['vs-avatar', 'vs-inline-gap', colorSchemeClass]" :style="computedStyleSet">
         <slot />
     </div>
 </template>
@@ -20,12 +20,12 @@ export default defineComponent({
     setup(props) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsAvatarStyleSet>(name, styleSet);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
         };
     },

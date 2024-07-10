@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-pagination', `vs-${computedColorScheme}`, disabled ? 'disabled' : '']" :style="computedStyleSet">
+    <div :class="['vs-pagination', colorSchemeClass, disabled ? 'disabled' : '']" :style="computedStyleSet">
         <button
             v-if="edgeButtons"
             class="page-button"
@@ -96,7 +96,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, length, showingLength } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsPaginationStyleSet>(name, styleSet);
 
@@ -176,7 +176,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             selected,
             pages,

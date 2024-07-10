@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-radio-node', `vs-${colorScheme}`, { ...classObj }, stateClasses]" :style="styleSet">
+    <div :class="['vs-radio-node', `vs-${colorScheme}`, classObj, stateClasses]" :style="styleSet">
         <label class="radio-wrap">
             <input
                 ref="radioRef"

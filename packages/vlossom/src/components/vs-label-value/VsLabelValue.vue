@@ -1,42 +1,42 @@
 <template>
-    <div :class="['vs-label-value', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <div v-if="hasLabel" class="cell label" :style="align">
-            <slot name="label" />
+    <vs-responsive :width="width" :grid="grid">
+        <div :class="['vs-label-value', colorSchemeClass, classObj]" :style="computedStyleSet">
+            <div v-if="$slots['label']" class="vs-cell label" :style="align">
+                <slot name="label" />
+            </div>
+            <div v-if="$slots['value']" class="vs-cell value" :style="align">
+                <slot name="value" />
+            </div>
+            <div v-if="$slots['actions']" class="vs-cell actions" :style="align">
+                <slot name="actions" />
+            </div>
         </div>
-        <div v-if="hasValue" class="cell value" :style="align">
-            <slot name="value" />
-        </div>
-        <div v-if="hasActions" class="cell actions" :style="align">
-            <slot name="actions" />
-        </div>
-    </div>
+    </vs-responsive>
 </template>
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsLabelValueStyleSet } from './types';
 
 const name = VsComponent.VsLabelValue;
+
 export default defineComponent({
     name,
     props: {
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
-    setup(props, { slots }) {
+    setup(props) {
         const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsLabelValueStyleSet>(name, styleSet);
-
-        const hasLabel = computed((): boolean => !!slots['label']);
-        const hasValue = computed((): boolean => !!slots['value']);
-        const hasActions = computed((): boolean => !!slots['actions']);
 
         const align = computed(() => {
             if (verticalAlign.value === 'top') {
@@ -53,12 +53,9 @@ export default defineComponent({
 
         return {
             align,
-            computedColorScheme,
             classObj,
+            colorSchemeClass,
             computedStyleSet,
-            hasLabel,
-            hasValue,
-            hasActions,
         };
     },
 });

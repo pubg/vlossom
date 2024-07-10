@@ -15,7 +15,7 @@
             </template>
 
             <div
-                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
+                :class="['vs-file-input', colorSchemeClass, classObj, stateClasses]"
                 :style="computedStyleSet"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
@@ -119,7 +119,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
 
@@ -253,7 +253,7 @@ export default defineComponent({
             computedId,
             fileInputRef,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             inputValue,
             fileLabel,

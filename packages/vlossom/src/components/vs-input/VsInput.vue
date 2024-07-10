@@ -14,10 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div
-                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
-                :style="computedStyleSet"
-            >
+            <div :class="['vs-input', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
                 <div v-if="$slots['prepend']" class="prepend">
                     <slot name="prepend" />
                 </div>
@@ -88,6 +85,7 @@ import type { InputValueType, VsInputStyleSet } from './types';
 import { utils } from '@/utils';
 
 const name = VsComponent.VsInput;
+
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsIcon },
@@ -154,7 +152,7 @@ export default defineComponent({
 
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
@@ -258,7 +256,7 @@ export default defineComponent({
         return {
             computedId,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             InputType,
             inputValue,

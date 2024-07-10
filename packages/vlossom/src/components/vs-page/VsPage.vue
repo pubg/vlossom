@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-page', `vs-${computedColorScheme}`]" :style="computedStyleSet">
+    <div :class="['vs-page', colorSchemeClass]" :style="computedStyleSet">
         <div class="vs-page-header" v-if="hasTitle || hasDescription">
             <div class="page-title" v-if="hasTitle">
                 <slot name="title" />
@@ -29,7 +29,7 @@ export default defineComponent({
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsPageStyleSet>(name, styleSet);
 
@@ -37,7 +37,7 @@ export default defineComponent({
         const hasDescription = computed((): boolean => !!slots['description']);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasTitle,
             hasDescription,
