@@ -21,7 +21,7 @@ describe('vs-page', () => {
 
         // then
         expect(wrapper.find('.vs-page-header').exists()).toBe(true);
-        expect(wrapper.find('.page-title').exists()).toBe(true);
+        expect(wrapper.find('.vs-page-title').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>Title</div>');
     });
 

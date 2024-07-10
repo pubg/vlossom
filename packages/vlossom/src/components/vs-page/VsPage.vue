@@ -1,7 +1,7 @@
 <template>
     <div :class="['vs-page', colorSchemeClass]" :style="computedStyleSet">
         <div class="vs-page-header" v-if="hasTitle || hasDescription">
-            <div class="page-title" v-if="hasTitle">
+            <div class="vs-page-title" v-if="hasTitle">
                 <slot name="title" />
             </div>
             <div class="vs-page-description" v-if="hasDescription">
