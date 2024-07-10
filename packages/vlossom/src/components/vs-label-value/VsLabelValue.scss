@@ -62,6 +62,8 @@
             &.label {
                 line-height: 1.4;
                 flex: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--vs-line-color);
             }
 
             &.actions {

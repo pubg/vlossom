@@ -1,10 +1,10 @@
 <template>
     <div :class="['vs-loading', colorSchemeClass]" :style="computedStyleSet">
-        <div class="rect1" />
-        <div class="rect2" />
-        <div class="rect3" />
-        <div class="rect4" />
-        <div class="rect5" />
+        <div class="vs-rect1" />
+        <div class="vs-rect2" />
+        <div class="vs-rect3" />
+        <div class="vs-rect4" />
+        <div class="vs-rect5" />
     </div>
 </template>
 
@@ -15,6 +15,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsLoadingStyleSet } from './types';
 
 const name = VsComponent.VsLoading;
+
 export default defineComponent({
     name,
     props: {
