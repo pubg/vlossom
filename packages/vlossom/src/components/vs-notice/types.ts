@@ -1,8 +1,9 @@
 export interface VsNoticeStyleSet {
     backgroundColor?: string;
-    contentFontColor?: string;
-    contentFontSize?: string;
-    contentFontWeight?: string | number;
+    fontColor?: string;
+    fontSize?: string;
+    fontWeight?: string | number;
+    padding?: string;
     titleFontColor?: string;
     titleFontSize?: string;
     titleFontWeight?: string | number;

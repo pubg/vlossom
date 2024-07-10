@@ -2,7 +2,7 @@
     <div v-if="isVisible" :class="['vs-notice', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div class="vs-notice-contents">
             <slot name="title">
-                <strong class="title">{{ title }}</strong>
+                <strong class="vs-notice-title">{{ title }}</strong>
             </slot>
             <vs-divider
                 :style-set="{
@@ -14,7 +14,7 @@
                 <slot />
             </div>
         </div>
-        <button type="button" class="close-button" @click.stop="closeNotice()" aria-label="close">
+        <button type="button" class="vs-notice-close-button" @click.stop="closeNotice()" aria-label="close">
             <vs-icon icon="close" size="20" />
         </button>
     </div>
