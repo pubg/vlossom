@@ -1,7 +1,7 @@
 @use '@/styles/mixin' as *;
 
 $radio-color: var(--vs-radio-radioColor, var(--vs-primary-comp-bg));
-$radio-size: var(--vs-radio-radioSize, 1.25rem);
+$radio-size: var(--vs-radio-radioSize, 1.8rem);
 $radio-selected-label-color: var(--vs-radio-selectedLabelFontColor, var(--vs-primary-comp-bg));
 $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color;
 
@@ -9,21 +9,21 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
     position: relative;
     display: flex;
     align-items: center;
-    height: var(--vs-radio-height, 2.4rem);
+    height: var(--vs-radio-height, var(--vs-input-comp-height));
 
-    .radio-wrap {
+    .vs-radio-wrap {
         position: relative;
         display: flex;
         align-items: center;
         user-select: none;
         cursor: pointer;
 
-        .radio-input {
+        .vs-radio-input {
             position: absolute;
             z-index: -1;
             opacity: 0;
 
-            &:checked + .radio-label {
+            &:checked + .vs-radio-label {
                 color: $radio-selected-label-color;
 
                 &:before {
@@ -31,7 +31,7 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
                 }
             }
 
-            &:focus-visible + .radio-label {
+            &:focus-visible + .vs-radio-label {
                 &:before {
                     @include focus-outline;
                     outline-offset: 3px;
@@ -39,11 +39,11 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
             }
         }
 
-        .radio-label {
+        .vs-radio-label {
             display: flex;
             align-items: center;
             color: var(--vs-radio-labelFontColor, var(--vs-font-color));
-            font-size: var(--vs-radio-labelFontSize, 0.9rem);
+            font-size: var(--vs-radio-labelFontSize, var(--vs-font-size));
             padding: 0.2rem 0;
             white-space: nowrap;
             outline: none;
@@ -65,8 +65,16 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
         }
     }
 
+    &.dense {
+        height: var(--vs-rado-height, var(--vs-input-comp-height-dense));
+
+        .vs-radio-label {
+            font-size: var(--vs-rado-labelFontSize, var(--vs-font-size-sm));
+        }
+    }
+
     &.vs-state-box {
-        .radio-label:before {
+        .vs-radio-label:before {
             @include state-box;
         }
     }

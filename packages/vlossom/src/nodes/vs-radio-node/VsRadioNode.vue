@@ -1,10 +1,10 @@
 <template>
     <div :class="['vs-radio-node', `vs-${colorScheme}`, classObj, stateClasses]" :style="styleSet">
-        <label class="radio-wrap">
+        <label class="vs-radio-wrap">
             <input
                 ref="radioRef"
                 type="radio"
-                class="radio-input"
+                class="vs-radio-input"
                 :aria-label="ariaLabel"
                 :id="id"
                 :disabled="disabled || readonly"
@@ -17,7 +17,7 @@
                 @blur.stop="onBlur"
             />
 
-            <span class="radio-label">
+            <span class="vs-radio-label">
                 <slot name="label">{{ label }}</slot>
             </span>
         </label>
@@ -37,6 +37,7 @@ export default defineComponent({
         styleSet: { type: Object as PropType<{ [key: string]: any }> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
+        dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, required: true },
         label: { type: String, default: '' },
@@ -49,13 +50,14 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { disabled, readonly, state } = toRefs(props);
+        const { dense, disabled, readonly, state } = toRefs(props);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
         const { stateClasses } = useStateClass(state);
 
         const classObj = computed(() => ({
+            dense: dense.value,
             disabled: disabled.value,
             readonly: readonly.value,
         }));

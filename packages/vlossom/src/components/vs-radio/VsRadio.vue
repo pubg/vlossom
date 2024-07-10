@@ -20,6 +20,7 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
+                :dense="dense"
                 :disabled="computedDisabled"
                 :id="computedId"
                 :label="radioLabel"
