@@ -1,3 +1,6 @@
+$chip-height: 2.4rem;
+$chip-height-dense: 2rem;
+
 .vs-chip {
     position: relative;
     display: inline-flex;
@@ -5,12 +8,12 @@
     align-items: center;
     background-color: var(--vs-chip-backgroundColor, var(--vs-comp-bg));
     border: var(--vs-chip-border, 1px solid var(--vs-line-color));
-    border-radius: var(--vs-chip-borderRadius, 1.2rem);
+    border-radius: var(--vs-chip-borderRadius, calc($chip-height / 2));
     color: var(--vs-chip-fontColor, var(--vs-comp-font));
     font-size: var(--vs-chip-fontSize, var(--vs-font-size));
     font-weight: var(--vs-chip-fontWeight, 400);
-    min-height: var(--vs-chip-height, 2.4rem);
-    height: var(--vs-chip-height, 2.4rem);
+    min-height: var(--vs-chip-height, $chip-height);
+    height: var(--vs-chip-height, $chip-height);
     width: var(--vs-chip-width, auto);
     padding: var(--vs-chip-padding, 0 0.8em);
     user-select: none;
@@ -22,8 +25,8 @@
         border-radius: 50%;
         background-color: var(--vs-white);
         border: var(--vs-chip-border, 1px solid var(--vs-line-color));
-        height: calc(var(--vs-chip-height, 2.4rem) * 0.75);
-        width: calc(var(--vs-chip-height, 2.4rem) * 0.75);
+        height: calc(var(--vs-chip-height, $chip-height) * 0.75);
+        width: calc(var(--vs-chip-height, $chip-height) * 0.75);
     }
 
     .vs-close-button {
@@ -43,6 +46,26 @@
         justify-content: center;
         padding: 0 0.5rem;
         white-space: nowrap;
+    }
+
+    &.dense {
+        border-radius: var(--vs-chip-borderRadius, calc($chip-height-dense / 2));
+        min-height: var(--vs-chip-height, $chip-height-dense);
+        height: var(--vs-chip-height, $chip-height-dense);
+        padding: var(--vs-chip-padding, 0 0.4em);
+        font-size: var(--vs-chip-fontSize, var(--vs-font-size-sm));
+
+        .vs-icon-container {
+            height: calc(var(--vs-chip-height, $chip-height-dense) * 0.75);
+            width: calc(var(--vs-chip-height, $chip-height-dense) * 0.75);
+        }
+
+        &:has(.vs-chip-icon) {
+            padding-left: 0.2rem;
+        }
+        &:has(.vs-close-button) {
+            padding-right: 0.2rem;
+        }
     }
 
     &:hover {

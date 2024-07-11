@@ -234,10 +234,10 @@ const vsSelect: VsSelectStyleSet = {
     border: '1px solid #637A9F',
     fontColor: '#637A9F',
     fontSize: '1rem',
-    hoverOptionBackgroundColor: '#C9D7DD',
-    hoverOptionColor: '#637A9F',
-    selectedOptionBackgroundColor: '#637A9F',
-    selectedOptionColor: '#FFF3CF',
+    optionHoverBackgroundColor: '#C9D7DD',
+    optionHoverFontColor: '#637A9F',
+    optionSelectedBackgroundColor: '#637A9F',
+    optionSelectedFontColor: '#FFF3CF',
 };
 
 const vsStepper: VsStepperStyleSet = {

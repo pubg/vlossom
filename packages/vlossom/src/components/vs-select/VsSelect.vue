@@ -47,14 +47,14 @@
 
                     <div
                         v-if="multiple && selectedOptions.length"
-                        :class="['multiple-chips', { autocompleted: autocomplete }]"
+                        :class="['vs-multiple-chips', { autocompleted: autocomplete }]"
                     >
-                        <div v-if="collapseChips" class="chips">
+                        <div v-if="collapseChips" class="vs-chips">
                             <vs-chip
-                                class="select-chip"
+                                class="vs-select-chip"
                                 :color-scheme="colorScheme"
-                                :style-set="chipStyleSets"
                                 :closable="closableChips"
+                                :dense="dense"
                                 primary
                                 @close="removeSelected(selectedOptions[0].value)"
                             >
@@ -62,21 +62,21 @@
                             </vs-chip>
                             <vs-chip
                                 v-if="selectedOptions.length > 1"
-                                class="select-chip chip-others"
+                                class="vs-select-chip chip-others"
                                 :color-scheme="colorScheme"
-                                :style-set="collapseChipStyleSets"
+                                :dense="dense"
                             >
                                 + {{ selectedOptions.length - 1 }}
                             </vs-chip>
                         </div>
-                        <div v-else class="chips">
+                        <div v-else class="vs-chips">
                             <vs-chip
-                                class="select-chip"
+                                class="vs-select-chip"
                                 v-for="option in selectedOptions"
                                 :key="`selected-${option.id}`"
                                 :color-scheme="colorScheme"
-                                :style-set="chipStyleSets"
                                 :closable="closableChips"
+                                :dense="dense"
                                 primary
                                 @close="removeSelected(option.value)"
                             >
@@ -97,11 +97,11 @@
                         <vs-icon icon="close" :size="dense ? 14 : 16" />
                     </button>
 
-                    <div class="arrow-box">
+                    <div class="vs-arrow-box">
                         <vs-icon
                             icon="keyboardArrowDown"
                             :size="dense ? 16 : 20"
-                            class="arrow-icon"
+                            class="vs-arrow-icon"
                             :class="{ 'arrow-up': isOpen }"
                         />
                     </div>
@@ -118,7 +118,7 @@
                         ]"
                         :style="computedStyleSet"
                     >
-                        <div class="options-header" v-if="$slots['options-header']" @click.stop>
+                        <div class="vs-options-header" v-if="$slots['options-header']" @click.stop>
                             <slot name="options-header" />
                         </div>
                         <div
@@ -188,7 +188,7 @@
                                 No Options
                             </li>
                         </ul>
-                        <div class="options-footer" v-if="$slots['options-footer']" @click.stop>
+                        <div class="vs-options-footer" v-if="$slots['options-footer']" @click.stop>
                             <slot name="options-footer" />
                         </div>
                     </div>
@@ -223,8 +223,6 @@ import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsChip from '@/components/vs-chip/VsChip.vue';
-
-import type { VsChipStyleSet } from '@/components/vs-chip/types';
 
 const name = VsComponent.VsSelect;
 export default defineComponent({
@@ -331,22 +329,6 @@ export default defineComponent({
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSelectStyleSet>(name, styleSet);
-        const chipStyleSets = computed(
-            (): VsChipStyleSet => ({
-                backgroundColor: computedStyleSet.value['--vs-select-chipBackgroundColor'] as string,
-                fontColor: computedStyleSet.value['--vs-select-chipFontColor'] as string,
-                height: dense.value ? '1.2rem' : '1.6rem',
-                fontSize: dense.value ? '0.7rem' : '0.8rem',
-            }),
-        );
-        const collapseChipStyleSets = computed(
-            (): VsChipStyleSet => ({
-                backgroundColor: computedStyleSet.value['--vs-select-collapseChipBackgroundColor'] as string,
-                fontColor: computedStyleSet.value['--vs-select-collapseChipFontColor'] as string,
-                height: dense.value ? '1.2rem' : '1.6rem',
-                fontSize: dense.value ? '0.7rem' : '0.8rem',
-            }),
-        );
 
         const inputRef = ref<HTMLInputElement | null>(null);
 
@@ -544,8 +526,6 @@ export default defineComponent({
             computedStyleSet,
             computedDisabled,
             computedReadonly,
-            chipStyleSets,
-            collapseChipStyleSets,
             animationClass,
             inputValue,
             computedMessages,

@@ -37,12 +37,13 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsChipStyleSet> },
         closable: { type: Boolean, default: false },
+        dense: { type: Boolean, default: false },
         noRound: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
     },
     emits: ['close'],
     setup(props, { slots }) {
-        const { colorScheme, noRound, primary, styleSet } = toRefs(props);
+        const { colorScheme, dense, noRound, primary, styleSet } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -51,6 +52,7 @@ export default defineComponent({
         const hasIcon = computed((): boolean => !!slots['icon']);
 
         const classObj = computed(() => ({
+            dense: dense.value,
             'no-round': noRound.value,
             primary: primary.value,
         }));
