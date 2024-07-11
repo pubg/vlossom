@@ -1,8 +1,8 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
         <div :class="['vs-stepper', colorSchemeClass]" :style="{ ...computedStyleSet, ...fixedWidth }">
-            <div class="item-line">
-                <div class="progress-line" :style="progressWidth" />
+            <div class="vs-item-line">
+                <div class="vs-progress-line" :style="progressWidth" />
             </div>
             <ul role="tablist">
                 <li
@@ -23,10 +23,10 @@
                     @click.stop="selectStep(index)"
                     @keydown.stop="handleKeydown"
                 >
-                    <div class="item-step">
+                    <div class="vs-item-step">
                         <slot :name="`${item}-step`" :item="item" :index="index"> {{ index + 1 }} </slot>
                     </div>
-                    <div class="item-name">
+                    <div class="vs-item-name">
                         <slot :name="`${item}-name`" :item="item" :index="index"> {{ item }} </slot>
                     </div>
                 </li>
