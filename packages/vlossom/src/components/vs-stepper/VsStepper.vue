@@ -4,10 +4,11 @@
             <div class="vs-item-line">
                 <div class="vs-progress-line" :style="progressWidth" />
             </div>
-            <ul role="tablist">
+            <ul role="tablist" class="vs-steps">
                 <li
                     v-for="(item, index) in steps"
                     ref="stepRefs"
+                    class="vs-step"
                     :key="item"
                     :class="[
                         {

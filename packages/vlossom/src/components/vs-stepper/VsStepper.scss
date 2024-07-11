@@ -24,7 +24,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
         }
     }
 
-    ul {
+    .vs-steps {
         align-items: center;
         display: flex;
         flex-direction: row;
@@ -33,7 +33,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
         list-style: none;
         margin-bottom: 4rem;
 
-        li {
+        .vs-step {
             align-items: center;
             cursor: pointer;
             display: flex;

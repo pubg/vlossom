@@ -18,7 +18,7 @@
                 :class="[
                     'vs-switch',
                     colorSchemeClass,
-                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly },
+                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly, dense },
                 ]"
                 :style="computedStyleSet"
             >
@@ -38,10 +38,10 @@
                 />
 
                 <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
-                    <span class="status-label" data-value="true" v-show="isChecked">
+                    <span class="vs-status-label" data-value="true" v-show="isChecked">
                         {{ trueLabel }}
                     </span>
-                    <span class="status-label" data-value="false" v-show="!isChecked">
+                    <span class="vs-status-label" data-value="false" v-show="!isChecked">
                         {{ falseLabel }}
                     </span>
                 </div>
