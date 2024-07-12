@@ -250,7 +250,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     }
 }
 
-@media screen and (max-width: 576px) {
+@container (max-width: 576px) {
     .vs-table.responsive .vs-table-wrap {
         margin-bottom: 2rem;
 
