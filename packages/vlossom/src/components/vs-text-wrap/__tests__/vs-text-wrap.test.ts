@@ -27,12 +27,12 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(100); // default enter delay (100ms)
-            window.document.body.querySelector('.tooltip')?.dispatchEvent(new Event('mouseenter'));
+            window.document.body.querySelector('.vs-tooltip-wrap')?.dispatchEvent(new Event('mouseenter'));
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('This is text wrap');
         });
     });
@@ -123,12 +123,12 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(100); // default enter delay (100ms)
-            window.document.body.querySelector('.tooltip')?.dispatchEvent(new Event('mouseenter'));
+            window.document.body.querySelector('.vs-tooltip-wrap')?.dispatchEvent(new Event('mouseenter'));
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
         });
     });
 
@@ -164,11 +164,11 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(150); // wait for setPosition end (50ms) + default enter delay (100ms)
 
             //then
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('placement-bottom');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('placement-bottom');
         });
     });
 
@@ -187,11 +187,11 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(100); // default enter delay (100ms)
 
             //then
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('align-end');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('align-end');
         });
     });
 });

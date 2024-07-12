@@ -2,7 +2,7 @@
     <div class="vs-tooltip">
         <div
             ref="triggerRef"
-            class="tooltip-trigger"
+            class="vs-tooltip-trigger"
             @mouseenter.stop="onTriggerEnter"
             @mouseleave.stop="onTriggerLeave"
             @click.stop="onTriggerClick"
@@ -17,11 +17,11 @@
         <Teleport to="#vs-overlay" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
-                :class="['tooltip', colorSchemeClass, `placement-${computedPlacement}`, `align-${align}`]"
+                :class="['vs-tooltip-wrap', colorSchemeClass, `placement-${computedPlacement}`, `align-${align}`]"
                 @mouseenter.stop="onTooltipEnter"
                 @mouseleave.stop="onTooltipLeave"
             >
-                <div v-if="isVisible" class="tooltip-contents" :style="computedStyleSet" :class="animationClass">
+                <div v-if="isVisible" class="vs-tooltip-contents" :style="computedStyleSet" :class="animationClass">
                     <slot name="tooltip" />
                 </div>
             </div>
@@ -55,7 +55,7 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
-        margin: { type: Number, default: 8 },
+        margin: { type: Number, default: 5 },
         placement: {
             type: String as PropType<Placement>,
             default: 'top',

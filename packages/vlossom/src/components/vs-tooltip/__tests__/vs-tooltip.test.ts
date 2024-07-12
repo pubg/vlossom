@@ -39,72 +39,72 @@ describe('vs-tooltip', () => {
 
         it('초기에는 trigger만 렌더되며 contents는 노출되지 않는다', () => {
             //then
-            expect(wrapper.find('.tooltip-trigger').exists()).toBe(true);
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(wrapper.find('.vs-tooltip-trigger').exists()).toBe(true);
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).not.toContain('Tooltip');
         });
 
         it('trigger에 마우스를 올렸을 때 contents가 노출된다', async () => {
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).toContain('Tooltip');
         });
 
         it('trigger에 마우스를 올렸다가 뗐을 때 contents가 사라진다', async () => {
             //when
-            wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(0);
 
-            wrapper.find('.tooltip-trigger').trigger('mouseleave');
+            wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
             await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).not.toContain('Tooltip');
         });
 
         it('tooltip trigger에 focus가 잡히면 contents가 나타난다', async () => {
             //when
-            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            wrapper.find('.vs-tooltip-trigger').find('button').element.focus();
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).toContain('Tooltip');
         });
 
         it('tooltip trigger에서 focus가 사라지면 contents가 사라진다', async () => {
             //when
-            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            wrapper.find('.vs-tooltip-trigger').find('button').element.focus();
             await vi.advanceTimersByTimeAsync(0);
 
-            wrapper.find('.tooltip-trigger').find('button').element.blur();
+            wrapper.find('.vs-tooltip-trigger').find('button').element.blur();
             await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).not.toContain('Tooltip');
         });
 
         it('tooltip trigger에 focus가 잡힌 상태에서 Escape 키를 누르면 contents가 사라진다.', async () => {
             //when
-            wrapper.find('.tooltip-trigger').find('button').element.focus();
+            wrapper.find('.vs-tooltip-trigger').find('button').element.focus();
             await vi.advanceTimersByTimeAsync(0);
 
-            wrapper.find('.tooltip-trigger').element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+            wrapper.find('.vs-tooltip-trigger').element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
             await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).not.toContain('Tooltip');
         });
@@ -127,12 +127,12 @@ describe('vs-tooltip', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
             //then
             expect(wrapper.vm.computedPlacement).toBe('bottom');
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('placement-bottom');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('placement-bottom');
         });
     });
 
@@ -153,11 +153,11 @@ describe('vs-tooltip', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip')?.classList).toContain('align-end');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('align-end');
         });
     });
 
@@ -178,11 +178,11 @@ describe('vs-tooltip', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('click');
+            await wrapper.find('.vs-tooltip-trigger').trigger('click');
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).toContain('Tooltip');
         });
@@ -205,12 +205,12 @@ describe('vs-tooltip', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(0);
-            window.document.body.querySelector('.tooltip')?.dispatchEvent(new Event('mouseenter'));
+            window.document.body.querySelector('.vs-tooltip-wrap')?.dispatchEvent(new Event('mouseenter'));
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).toContain('Tooltip');
         });
@@ -235,21 +235,21 @@ describe('vs-tooltip', () => {
 
             it('mousesenter가 100ms 지속되지 않으면 contents가 나타나지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
                 expect(window.document.body.innerHTML).not.toContain('Tooltip');
             });
 
             it('mousesenter가 100ms 지속되면 contents가 나타난다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(100);
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
                 expect(window.document.body.innerHTML).toContain('Tooltip');
             });
         });
@@ -275,21 +275,21 @@ describe('vs-tooltip', () => {
 
             it('mousesenter가 300ms 지속되지 않으면 contents가 나타나지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
                 expect(window.document.body.innerHTML).not.toContain('Tooltip');
             });
 
             it('mousesenter가 300ms 지속되면 contents가 나타난다.', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(300);
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
                 expect(window.document.body.innerHTML).toContain('Tooltip');
             });
         });
@@ -317,27 +317,27 @@ describe('vs-tooltip', () => {
 
             it('mousesenter 발생 후 mouseleave가 100ms 지속되지 않으면 contents가 사라지지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
 
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
                 expect(window.document.body.innerHTML).toContain('Tooltip');
             });
 
             it('mousesenter 발생 후 mouseleave가 100ms 지속되면 contents가 사라진다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
 
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(300); // wait for animation end (200ms) + leave delay (100ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
                 expect(window.document.body.innerHTML).not.toContain('Tooltip');
             });
         });
@@ -364,26 +364,26 @@ describe('vs-tooltip', () => {
 
             it('mousesenter 발생 후 mouseleave가 300ms 지속되지 않으면 contents가 사라지지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(200); // wait for animation end (200ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).not.toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).not.toBeNull();
                 expect(window.document.body.innerHTML).toContain('Tooltip');
             });
 
             it('mousesenter 발생 후 mouseleave가 300ms 지속되면 contents가 사라진다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(0);
 
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(500); // wait for animation end (200ms) + leave delay (300ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+                expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
                 expect(window.document.body.innerHTML).not.toContain('Tooltip');
             });
         });
@@ -412,23 +412,27 @@ describe('vs-tooltip', () => {
 
             it('trigger에 마우스를 올리면 fade in transition이 발생한다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toContain('fade-in-bottom');
+                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toContain(
+                    'fade-in-bottom',
+                );
             });
 
             it('trigger에 마우스를 올렸다가 떼면 fade out transition이 발생한다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toContain('fade-out-bottom');
+                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toContain(
+                    'fade-out-bottom',
+                );
             });
         });
 
@@ -455,23 +459,23 @@ describe('vs-tooltip', () => {
 
             it('trigger에 마우스를 올려도 fade in transition이 발생하지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toBeNull;
+                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBeNull;
             });
 
             it('trigger에 마우스를 올렸다가 떼도 fade out transition이 발생하지 않는다', async () => {
                 //when
-                await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
-                await wrapper.find('.tooltip-trigger').trigger('mouseleave');
+                await wrapper.find('.vs-tooltip-trigger').trigger('mouseleave');
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.tooltip-contents')?.classList).toBeNull;
+                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBeNull;
             });
         });
     });
@@ -493,11 +497,11 @@ describe('vs-tooltip', () => {
             });
 
             //when
-            await wrapper.find('.tooltip-trigger').trigger('mouseenter');
+            await wrapper.find('.vs-tooltip-trigger').trigger('mouseenter');
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.tooltip-contents')).toBeNull();
+            expect(window.document.body.querySelector('.vs-tooltip-contents')).toBeNull();
             expect(window.document.body.innerHTML).toContain('Hover Here!');
             expect(window.document.body.innerHTML).not.toContain('Tooltip');
         });

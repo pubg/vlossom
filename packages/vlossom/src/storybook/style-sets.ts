@@ -305,7 +305,6 @@ const vsTextWrap: VsTextWrapStyleSet = {
 };
 
 const vsTooltip: VsTooltipStyleSet = {
-    arrowColor: '#ffd1d1',
     arrowSize: '0.5rem',
     backgroundColor: '#ffe3e1',
     borderColor: '#ffd1d1',

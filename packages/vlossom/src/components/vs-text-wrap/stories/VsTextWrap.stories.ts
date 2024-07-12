@@ -133,7 +133,6 @@ export const Width: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            arrowColor: 'black',
             backgroundColor: 'white',
             borderColor: 'black',
             borderRadius: '0.4rem',
