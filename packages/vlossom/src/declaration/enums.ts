@@ -45,7 +45,6 @@ export enum VsComponent {
     VsToast = 'VsToast',
     VsToastView = 'VsToastView',
     VsTooltip = 'VsTooltip',
-    VsValueTag = 'VsValueTag',
 }
 
 export enum UIState {

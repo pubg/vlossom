@@ -32,11 +32,13 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
+        dense: { type: Boolean, default: false },
+        inline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
     setup(props) {
-        const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
+        const { colorScheme, styleSet, dense, inline, primary, verticalAlign } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -52,6 +54,9 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
+            inline: inline.value,
+            'vs-inline-gap': inline.value,
+            dense: dense.value,
             primary: primary.value,
         }));
 

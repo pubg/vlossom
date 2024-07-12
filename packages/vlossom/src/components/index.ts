@@ -82,6 +82,8 @@ export { default as VsRadio } from './vs-radio/VsRadio.vue';
 export { type VsRadioSetStyleSet } from './vs-radio-set/types';
 export { default as VsRadioSet } from './vs-radio-set/VsRadioSet.vue';
 
+export { default as VsResponsive } from './vs-responsive/VsResponsive.vue';
+
 export { type VsSectionStyleSet } from './vs-section/types';
 export { default as VsSection } from './vs-section/VsSection.vue';
 
@@ -111,11 +113,6 @@ export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
 
 export { type VsTooltipStyleSet } from './vs-tooltip/types';
 export { default as VsTooltip } from './vs-tooltip/VsTooltip.vue';
-
-export { type VsValueTagStyleSet } from './vs-value-tag/types';
-export { default as VsValueTag } from './vs-value-tag/VsValueTag.vue';
-
-export { default as VsResponsive } from './vs-responsive/VsResponsive.vue';
 
 declare module 'vue' {
     interface GlobalComponents {
@@ -150,6 +147,7 @@ declare module 'vue' {
         VsProgress: (typeof import('./'))['VsProgress'];
         VsRadio: (typeof import('./'))['VsRadio'];
         VsRadioSet: (typeof import('./'))['VsRadioSet'];
+        VsResponsive: (typeof import('./'))['VsResponsive'];
         VsSection: (typeof import('./'))['VsSection'];
         VsSelect: (typeof import('./'))['VsSelect'];
         VsStepper: (typeof import('./'))['VsStepper'];
@@ -160,7 +158,5 @@ declare module 'vue' {
         VsTextarea: (typeof import('./'))['VsTextarea'];
         VsThemeButton: (typeof import('./'))['VsThemeButton'];
         VsTooltip: (typeof import('./'))['VsTooltip'];
-        VsValueTag: (typeof import('./'))['VsValueTag'];
-        VsResponsive: (typeof import('./'))['VsResponsive'];
     }
 }

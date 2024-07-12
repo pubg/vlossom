@@ -33,7 +33,6 @@ import type {
     VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
-    VsValueTagStyleSet,
 } from '@/components';
 
 const vsAccordion: VsAccordionStyleSet = {
@@ -322,14 +321,6 @@ const vsThemeButton: VsThemeButtonStyleSet = {
     width: '2rem',
 };
 
-const vsValueTag: VsValueTagStyleSet = {
-    backgroundColor: '#b6c4b6',
-    fontColor: '#304d30',
-    fontSize: '1rem',
-    fontWeight: '480',
-    width: '50%',
-};
-
 export const styleSet: StyleSet = {
     VsAccordion: { myStyleSet: vsAccordion },
     VsAvatar: { myStyleSet: vsAvatar },
@@ -364,5 +355,4 @@ export const styleSet: StyleSet = {
     VsTextWrap: { myStyleSet: vsTextWrap },
     VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
-    VsValueTag: { myStyleSet: vsValueTag },
 };
