@@ -61,6 +61,7 @@ import { utils } from '@/utils';
 import type { InputValueType, VsTextareaStyleSet } from './types';
 
 const name = VsComponent.VsTextarea;
+
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive },
@@ -93,6 +94,7 @@ export default defineComponent({
         const {
             colorScheme,
             styleSet,
+            dense,
             disabled,
             modelValue,
             id,
@@ -163,6 +165,7 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
+            dense: dense.value,
             disabled: computedDisabled.value,
             readonly: computedReadonly.value,
         }));
