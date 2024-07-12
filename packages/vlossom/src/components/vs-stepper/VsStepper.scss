@@ -48,7 +48,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 border: 1px solid var(--vs-line-color);
                 border-radius: 50%;
                 display: flex;
-                font-size: $fontSize;
+                font-size: var(--vs-font-size-sm);
                 font-weight: 600;
                 height: $stepButtonW;
                 justify-content: center;

@@ -7,7 +7,7 @@
     align-items: center;
     white-space: nowrap;
     width: var(--vs-button-width, auto);
-    height: var(--vs-button-height, 3rem);
+    height: var(--vs-button-height, var(--vs-input-comp-height));
     padding: var(--vs-button-padding, 0.6rem 1.5rem);
     border: var(--vs-button-border, 1px solid var(--vs-line-color));
     border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
@@ -88,14 +88,14 @@
         padding: var(--vs-button-padding, 0.2rem 1.2rem);
         border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
         font-size: var(--vs-button-fontSize, var(--vs-font-size-sm));
-        height: var(--vs-button-height, 2.4rem);
+        height: var(--vs-button-height, var(--vs-input-comp-height-dense));
     }
 
     &.large {
         padding: var(--vs-button-padding, 0.6rem 2rem);
         border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-lg)));
         font-size: var(--vs-button-fontSize, var(--vs-font-size-xl));
-        height: var(--vs-button-height, 3.5rem);
+        height: var(--vs-button-height, var(--vs-input-comp-height-large));
     }
 }
 

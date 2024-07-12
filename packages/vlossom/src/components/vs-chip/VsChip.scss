@@ -23,7 +23,7 @@ $chip-height-dense: 2rem;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        background-color: var(--vs-white);
+        color: var(--vs-chip-fontColor, var(--vs-comp-font));
         border: var(--vs-chip-border, 1px solid var(--vs-line-color));
         height: calc(var(--vs-chip-height, $chip-height) * 0.75);
         width: calc(var(--vs-chip-height, $chip-height) * 0.75);

@@ -1,15 +1,18 @@
 <template>
-    <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-label-value', colorSchemeClass, classObj]" :style="computedStyleSet">
-            <div v-if="$slots['label']" class="vs-cell label" :style="align">
-                <slot name="label" />
-            </div>
-            <div v-if="$slots['value']" class="vs-cell value" :style="align">
-                <slot name="value" />
-            </div>
-            <div v-if="$slots['actions']" class="vs-cell actions" :style="align">
-                <slot name="actions" />
-            </div>
+    <vs-responsive
+        :class="['vs-label-value', colorSchemeClass, classObj]"
+        :style="computedStyleSet"
+        :width="width"
+        :grid="grid"
+    >
+        <div v-if="$slots['label']" class="vs-cell label" :style="align">
+            <slot name="label" />
+        </div>
+        <div v-if="$slots['value']" class="vs-cell value" :style="align">
+            <slot name="value" />
+        </div>
+        <div v-if="$slots['actions']" class="vs-cell actions" :style="align">
+            <slot name="actions" />
         </div>
     </vs-responsive>
 </template>
@@ -17,6 +20,7 @@
 import { PropType, computed, defineComponent, toRefs } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsLabelValueStyleSet } from './types';
 
@@ -24,6 +28,7 @@ const name = VsComponent.VsLabelValue;
 
 export default defineComponent({
     name,
+    components: { VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

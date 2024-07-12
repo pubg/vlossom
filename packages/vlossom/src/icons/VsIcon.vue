@@ -40,8 +40,8 @@ export default defineComponent({
     display: inline-block;
     vertical-align: middle;
     fill: currentColor;
-    width: 1rem;
-    height: 1rem;
+    width: var(--vs-font-size);
+    height: var(--vs-font-size);
 
     svg {
         display: block;
