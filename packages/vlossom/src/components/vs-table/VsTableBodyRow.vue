@@ -3,7 +3,7 @@
         <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.6rem" />
         </td>
-        <td class="selectable-td" v-if="selectable">
+        <td class="vs-table-selectable selectable-td" v-if="selectable">
             <div v-if="loading" class="vs-skeleton"></div>
             <div v-else-if="isSelectableRow">
                 <slot name="check" />
@@ -34,12 +34,13 @@
             <button
                 v-if="isExpandableRow"
                 type="button"
-                @click.stop="emitToggleExpand(item.id)"
+                class="vs-table-expand-button"
                 :disabled="loading"
                 :class="{ expanded }"
                 :aria-label="`expand ${item.id}`"
+                @click.stop="emitToggleExpand(item.id)"
             >
-                <vs-icon size="1.2rem" icon="keyboardArrowUp" />
+                <vs-icon size="1.5rem" icon="keyboardArrowUp" />
             </button>
         </td>
 

@@ -15,7 +15,7 @@
         </tr>
         <tr :style="trStyle" class="vs-table-tr">
             <th class="vs-draggable-th" v-if="draggable">drag</th>
-            <th class="vs-selectable-th" v-if="selectable" aria-label="select">
+            <th class="vs-table-selectable vs-selectable-th" v-if="selectable" aria-label="select">
                 <slot name="check" />
             </th>
             <th

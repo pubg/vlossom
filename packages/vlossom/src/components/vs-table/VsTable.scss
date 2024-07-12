@@ -27,7 +27,7 @@
             td {
                 display: flex;
                 align-items: center;
-                padding: 0.1rem 0.6rem;
+                padding: 0 1.6rem;
                 text-align: left;
 
                 .vs-table-data {
@@ -36,6 +36,10 @@
                     width: 100%;
                     height: 100%;
                     overflow-x: auto;
+                }
+
+                &.vs-table-selectable {
+                    padding: 0 1rem;
                 }
             }
         }
@@ -82,10 +86,6 @@
                 &.vs-selectable-th {
                     color: transparent;
                 }
-
-                &.vs-table-th:first-of-type {
-                    padding-left: 2rem;
-                }
             }
         }
 
@@ -110,19 +110,15 @@
                     padding-right: 0;
                 }
 
-                &.table-td:first-of-type {
-                    padding-left: 2rem;
-                }
-
                 &.vs-expandable-td {
-                    padding-left: 0;
+                    padding: 0;
 
-                    > button {
+                    > .vs-table-expand-button {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        width: 1.6rem;
-                        height: 1.6rem;
+                        width: 2rem;
+                        height: 2rem;
                         border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
                         border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
                         background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
@@ -239,6 +235,15 @@
         td {
             min-height: 2.4rem;
             font-size: var(--vs-table-bodyFontSize, var(--vs-font-size-sm));
+
+            &.vs-expandable-td {
+                padding-left: 0;
+
+                .vs-table-expand-button {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
+            }
         }
     }
 }
@@ -280,7 +285,7 @@
             td {
                 display: flex;
                 justify-content: space-between;
-                padding: 0.4rem 1rem !important;
+                padding: 0.4rem 1rem;
                 border: var(--vs-table-bodyBorder, 1px dotted var(--vs-line-color));
                 overflow-x: auto;
 
@@ -323,7 +328,7 @@
 
                 &.vs-expandable-td {
                     padding: 0.4rem;
-                    button {
+                    .vs-table-expand-button {
                         flex: 1;
                     }
                 }
