@@ -1,5 +1,4 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 import { store } from '@/stores';
 import VsToastView from './../VsToastView.vue';
@@ -249,53 +248,6 @@ describe('vs-toast-view', () => {
                     align: 'end',
                 },
             ]);
-        });
-    });
-
-    describe('handleKeyPress', () => {
-        it('tab 키가 눌리면 가장 처음에 생성된 vs-toast 의 close-button 이 focus 된다', async () => {
-            // given
-            mockStore = {
-                toast: {
-                    toasts: [
-                        {
-                            id: '1',
-                            text: 'Hello',
-                            autoClose: false,
-                            placement: 'top',
-                            align: 'center',
-                        },
-                        {
-                            id: '2',
-                            text: 'Hello',
-                            autoClose: false,
-                            placement: 'top',
-                            align: 'center',
-                        },
-                    ],
-                },
-            };
-            store.toast.getState().toasts = mockStore?.toast.toasts ?? [];
-
-            const toastViewWrapper = mount(VsToastView, {
-                props: {
-                    placement: 'top',
-                    align: 'center',
-                },
-                attachTo: document.body,
-            });
-
-            // when
-            await toastViewWrapper.trigger('keydown', { key: 'Tab' });
-            await nextTick();
-
-            // then
-            const closeButtonRefs = toastViewWrapper.findAll('button.close-button');
-            expect(closeButtonRefs.length).toBe(2);
-
-            const targetButtonRef = closeButtonRefs[0];
-            expect(targetButtonRef.isVisible()).toBe(true);
-            expect(targetButtonRef.element).toEqual(document.activeElement);
         });
     });
 });

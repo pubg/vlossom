@@ -44,7 +44,6 @@ import { utils } from '@/utils';
 import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
-
 export default defineComponent({
     name,
     components: { VsFocusTrap },

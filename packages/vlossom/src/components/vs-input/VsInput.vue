@@ -85,7 +85,6 @@ import type { InputValueType, VsInputStyleSet } from './types';
 import { utils } from '@/utils';
 
 const name = VsComponent.VsInput;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsIcon },

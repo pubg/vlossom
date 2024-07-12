@@ -55,7 +55,6 @@ import VsTooltip from '@/components/vs-tooltip/VsTooltip.vue';
 import type { VsTextWrapStyleSet } from './types';
 
 const name = VsComponent.VsTextWrap;
-
 export default defineComponent({
     name,
     components: { VsIcon, VsTooltip },

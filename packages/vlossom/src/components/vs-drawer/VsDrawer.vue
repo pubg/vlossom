@@ -54,7 +54,6 @@ import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 import type { VsDrawerStyleSet } from './types';
 
 const name = VsComponent.VsDrawer;
-
 export default defineComponent({
     name,
     components: { VsFocusTrap },

@@ -81,7 +81,6 @@ import { VsIcon } from '@/icons';
 import type { InputValueType, VsFileInputStyleSet } from './types';
 
 const name = VsComponent.VsFileInput;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsIcon },

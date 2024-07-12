@@ -7,58 +7,17 @@
     transition: all 0.5s ease;
     width: 98%;
     z-index: var(--vs-toast-z-index);
-}
 
-.vs-toast-view-top {
-    left: 50%;
-    top: 5%;
-    transform: translateX(-50%);
-}
-
-.vs-toast-view-bottom {
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.vs-toast {
-    background-color: var(--vs-comp-bg);
-    color: var(--vs-comp-font);
-    border: 1px solid var(--vs-line-color);
-    display: flex;
-    justify-content: center;
-    border-radius: calc(var(--vs-radius-ratio) * 0.5rem);
-    font-size: 0.9rem;
-    margin: 0.4rem 0;
-    pointer-events: auto;
-    width: fit-content;
-
-    .toast-content {
-        padding: 1rem 3rem;
+    &.top {
+        left: 50%;
+        top: 3%;
+        transform: translateX(-50%);
     }
 
-    .close-button-container {
-        position: relative;
-
-        button {
-            color: var(--vs-comp-font);
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            padding: 1px;
-            border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:hover {
-                background-color: var(--vs-comp-bg-hover);
-            }
-
-            &:active {
-                background-color: var(--vs-comp-bg-active);
-            }
-        }
+    &.bottom {
+        bottom: 3%;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

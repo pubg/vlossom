@@ -39,7 +39,6 @@ import { utils } from '@/utils';
 import type { VsTooltipStyleSet } from './types';
 
 const name = VsComponent.VsTooltip;
-
 export default defineComponent({
     name,
     props: {

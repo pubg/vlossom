@@ -113,7 +113,6 @@ import { VsCheckboxNode } from '@/nodes';
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 
 const name = VsComponent.VsTable;
-
 export default defineComponent({
     name,
     components: {

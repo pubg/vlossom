@@ -61,7 +61,6 @@ import { utils } from '@/utils';
 import type { InputValueType, VsTextareaStyleSet } from './types';
 
 const name = VsComponent.VsTextarea;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive },

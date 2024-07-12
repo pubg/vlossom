@@ -76,7 +76,6 @@ import type { VsCheckboxSetStyleSet } from './types';
 import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsCheckboxNode },

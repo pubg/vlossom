@@ -25,7 +25,6 @@ import { useVlossom } from '@/vlossom-framework';
 import type { VsThemeButtonStyleSet } from './types';
 
 const name = VsComponent.VsThemeButton;
-
 export default defineComponent({
     name,
     components: { VsIcon },

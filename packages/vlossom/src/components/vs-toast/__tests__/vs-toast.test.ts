@@ -55,7 +55,7 @@ describe('vs-toast', () => {
                     },
                 });
 
-                expect(wrapper.find('button.close-button').exists()).toBe(true);
+                expect(wrapper.find('.vs-toast-close').exists()).toBe(true);
             });
         });
 

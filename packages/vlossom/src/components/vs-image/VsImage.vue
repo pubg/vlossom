@@ -15,7 +15,6 @@ import NO_IMAGE from '@/assets/no-image.png';
 import type { VsImageStyleSet } from './types';
 
 const name = VsComponent.VsImage;
-
 export default defineComponent({
     name,
     props: {

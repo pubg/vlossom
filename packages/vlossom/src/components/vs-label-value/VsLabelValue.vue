@@ -25,7 +25,6 @@ import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import type { VsLabelValueStyleSet } from './types';
 
 const name = VsComponent.VsLabelValue;
-
 export default defineComponent({
     name,
     components: { VsResponsive },

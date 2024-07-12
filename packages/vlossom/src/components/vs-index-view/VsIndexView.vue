@@ -20,7 +20,6 @@ import { getResponsiveProps } from '@/composables';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 const name = VsComponent.VsIndexView;
-
 export default defineComponent({
     name,
     components: { VsResponsive },

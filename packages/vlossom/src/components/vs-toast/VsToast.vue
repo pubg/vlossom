@@ -1,20 +1,18 @@
 <template>
     <div :class="['vs-toast', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
-        <div class="toast-content">
+        <div class="vs-toast-contents">
             <span v-html="toastInfo.text" />
         </div>
-        <div class="close-button-container">
-            <button
-                ref="closeButtonRef"
-                v-if="!toastInfo.autoClose"
-                type="button"
-                class="close-button"
-                @click.stop="closeToast"
-                aria-label="close"
-            >
-                <vs-icon icon="close" size="14px" />
-            </button>
-        </div>
+        <button
+            class="vs-toast-close"
+            type="button"
+            ref="closeButtonRef"
+            v-if="!toastInfo.autoClose"
+            @click.stop="closeToast"
+            aria-label="close"
+        >
+            <vs-icon icon="close" size="14px" />
+        </button>
     </div>
 </template>
 
@@ -102,4 +100,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsToastView.scss" scoped />
+<style src="./VsToast.scss" scoped />

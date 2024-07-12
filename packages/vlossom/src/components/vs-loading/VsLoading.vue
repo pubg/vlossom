@@ -15,7 +15,6 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsLoadingStyleSet } from './types';
 
 const name = VsComponent.VsLoading;
-
 export default defineComponent({
     name,
     props: {
