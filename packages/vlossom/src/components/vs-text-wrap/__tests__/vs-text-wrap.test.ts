@@ -146,7 +146,7 @@ describe('vs-text-wrap', () => {
             });
 
             //then
-            expect(wrapper.find('.text-wrap-contents').attributes('style')).toContain('width: 100px;');
+            expect(wrapper.find('.vs-text-wrap-contents').attributes('style')).toContain('width: 100px;');
         });
     });
 

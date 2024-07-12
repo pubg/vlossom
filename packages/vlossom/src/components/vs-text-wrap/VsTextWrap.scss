@@ -1,14 +1,12 @@
 .vs-text-wrap {
-    overflow-x: auto;
-}
-
-.text-wrap {
+    position: relative;
     display: inline-flex;
-    justify-content: flex-start;
     align-items: center;
+    overflow-x: auto;
 
-    .text-wrap-contents {
+    .vs-text-wrap-contents {
         color: var(--vs-font-color);
+        font-size: var(--vs-font-size);
         position: relative;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -17,11 +15,12 @@
         -webkit-line-clamp: 1;
     }
 
-    .text-wrap-buttons {
+    .vs-text-wrap-buttons {
         display: flex;
         align-items: center;
+        margin-left: 0.2rem;
 
-        > button {
+        .vs-text-wrap-button {
             &.copy-button {
                 color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo));
 
@@ -40,12 +39,8 @@
             }
         }
 
-        button + button {
+        .vs-text-wrap-button + .vs-text-wrap-button {
             margin-left: 0.1rem;
         }
-    }
-
-    .text-wrap-contents + .text-wrap-buttons {
-        margin-left: 0.6rem;
     }
 }

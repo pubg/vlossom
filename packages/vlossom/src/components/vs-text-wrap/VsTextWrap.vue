@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-text-wrap', colorSchemeClass]" :style="computedStyleSet">
+    <div :class="['vs-text-wrap', 'vs-inline-gap', colorSchemeClass]" :style="computedStyleSet">
         <vs-tooltip
             :color-scheme="colorScheme"
             :style-set="styleSet"
@@ -8,21 +8,8 @@
             :disabled="noTooltip"
             contents-hover
         >
-            <div class="text-wrap">
-                <div ref="contentsRef" class="text-wrap-contents" :style="{ width: computedWidth }">
-                    <slot />
-                </div>
-
-                <div class="text-wrap-buttons" v-if="copy || link || $slots['actions']">
-                    <slot name="actions" />
-                    <button type="button" v-if="copy" class="copy-button" aria-label="copy" @click.stop="copyInnerText">
-                        <vs-icon size="1.2rem" :icon="computedIcon" :class="{ copied }" />
-                    </button>
-
-                    <button type="button" v-if="link" class="link-button" aria-label="link" @click.stop="openLink">
-                        <vs-icon size="1.4rem" class="link-icon" icon="link" />
-                    </button>
-                </div>
+            <div ref="contentsRef" class="vs-text-wrap-contents" :style="{ width: computedWidth }">
+                <slot />
             </div>
 
             <template #tooltip>
@@ -31,6 +18,29 @@
                 </slot>
             </template>
         </vs-tooltip>
+
+        <div class="vs-text-wrap-buttons" v-if="copy || link || $slots['actions']">
+            <slot name="actions" />
+            <button
+                type="button"
+                v-if="copy"
+                class="vs-text-wrap-button copy-button"
+                aria-label="copy"
+                @click.stop="copyInnerText"
+            >
+                <vs-icon size="1.4rem" :icon="computedIcon" :class="{ copied }" />
+            </button>
+
+            <button
+                type="button"
+                v-if="link"
+                class="vs-text-wrap-button link-button"
+                aria-label="link"
+                @click.stop="openLink"
+            >
+                <vs-icon size="1.5rem" class="link-icon" icon="link" />
+            </button>
+        </div>
     </div>
 </template>
 
@@ -40,6 +50,7 @@ import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align, ALIGNS, PLACEMENTS } from '@/declaration';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
+import VsTooltip from '@/components/vs-tooltip/VsTooltip.vue';
 
 import type { VsTextWrapStyleSet } from './types';
 
@@ -47,7 +58,7 @@ const name = VsComponent.VsTextWrap;
 
 export default defineComponent({
     name,
-    components: { VsIcon },
+    components: { VsIcon, VsTooltip },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextWrapStyleSet> },
