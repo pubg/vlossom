@@ -263,11 +263,11 @@ const vsSwitch: VsSwitchStyleSet = {
 };
 
 const vsTable: VsTableStyleSet = {
-    bodyBackgroundColor: 'transparent',
-    bodyBorder: '1px solid #eeeeee',
-    bodyFontColor: '#393E46',
-    bodyFontSize: '1rem',
-    bodyMinHeight: '2.5rem',
+    backgroundColor: 'transparent',
+    border: '1px solid #eeeeee',
+    fontColor: '#393E46',
+    fontSize: '1rem',
+    rowHeight: '2.5rem',
     captionFontColor: '#393E46',
     captionFontSize: '1rem',
     captionFontWeight: '600',
@@ -276,7 +276,7 @@ const vsTable: VsTableStyleSet = {
     headerFontColor: '#00adb5',
     headerFontSize: '1rem',
     headerFontWeight: '500',
-    headerMinHeight: '2.5rem',
+    headerHeight: '2.5rem',
     hoverBorder: '1px solid #00adb5',
     selectedBackgroundColor: '#00adb5',
     selectedFontColor: '#eeeeee',

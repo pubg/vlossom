@@ -1,5 +1,7 @@
 @use '@/styles/mixin' as *;
 
+$tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
+
 .vs-table .vs-table-wrap {
     width: 100%;
     overflow-x: auto;
@@ -76,7 +78,7 @@
                 color: var(--vs-table-headerFontColor, var(--vs-font-color));
                 font-size: var(--vs-table-headerFontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-headerFontWeight, 500);
-                min-height: var(--vs-table-headerMinHeight, 3.2rem);
+                min-height: var(--vs-table-headerHeight, 3.2rem);
 
                 &.vs-draggable-th,
                 &.vs-expandable-th {
@@ -92,19 +94,19 @@
         .vs-table-tbody .vs-table-tr {
             position: relative;
             transition: background-color 0.2s;
-            background-color: var(--vs-table-bodyBackgroundColor, transparent);
-            border-bottom: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
-            color: var(--vs-table-bodyFontColor, var(--vs-font-color));
+            background-color: var(--vs-table-backgroundColor, transparent);
+            border-bottom: $tableBorder;
+            color: var(--vs-table-fontColor, var(--vs-font-color));
 
             &.selected {
-                background-color: var(--vs-table-selectedBackgroundColor, var(--vs-area-bg-hover));
-                color: var(--vs-table-selectedFontColor, var(--vs-font-color));
+                background-color: var(--vs-table-selectedBackgroundColor, var(--vs-blue-light));
+                color: var(--vs-table-selectedFontColor, var(--vs-blue-deep));
             }
 
             td {
-                min-height: var(--vs-table-bodyMinHeight, 3.2rem);
-                font-size: var(--vs-table-bodyFontSize, var(--vs-font-size));
-                font-weight: var(--vs-table-bodyFontWeight, 400);
+                min-height: var(--vs-table-rowHeight, 3.2rem);
+                font-size: var(--vs-table-fontSize, var(--vs-font-size));
+                font-weight: var(--vs-table-fontWeight, 400);
 
                 &.draggable-td {
                     padding-right: 0;
@@ -120,7 +122,7 @@
                         width: 2rem;
                         height: 2rem;
                         border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
-                        border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
+                        border: $tableBorder;
                         background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
 
                         i {
@@ -234,7 +236,7 @@
     .vs-table-tbody .vs-table-tr {
         td {
             min-height: 2.4rem;
-            font-size: var(--vs-table-bodyFontSize, var(--vs-font-size-sm));
+            font-size: var(--vs-table-fontSize, var(--vs-font-size-sm));
 
             &.vs-expandable-td {
                 padding-left: 0;
@@ -275,7 +277,7 @@
             display: flex !important;
             flex-direction: column;
             margin: 0.4rem 0 0 0;
-            border: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
+            border: $tableBorder;
 
             &:first-of-type {
                 margin-top: 0;
@@ -286,7 +288,7 @@
                 display: flex;
                 justify-content: space-between;
                 padding: 0.4rem 1rem;
-                border: var(--vs-table-bodyBorder, 1px dotted var(--vs-line-color));
+                border-bottom: var(--vs-table-border, 1px dashed var(--vs-line-color));
                 overflow-x: auto;
 
                 &.selectable-td {
@@ -312,6 +314,10 @@
 
                 &:first-child {
                     border-top: none;
+                }
+
+                &:last-child {
+                    border-bottom: none;
                 }
 
                 &.vs-expandable-td,
@@ -350,7 +356,7 @@
         }
 
         .vs-table-empty {
-            border-top: var(--vs-table-bodyBorder, 1px solid var(--vs-line-color));
+            border-top: $tableBorder;
         }
     }
 }

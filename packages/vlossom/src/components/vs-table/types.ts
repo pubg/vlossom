@@ -36,24 +36,24 @@ export enum SortType {
 }
 
 export interface VsTableStyleSet {
-    bodyBackgroundColor?: string;
-    bodyBorder?: string;
-    bodyFontColor?: string;
-    bodyFontSize?: string;
-    bodyFontWeight?: string | number;
-    bodyMinHeight?: string;
+    backgroundColor?: string;
+    border?: string;
     captionFontColor?: string;
     captionFontSize?: string;
     captionFontWeight?: string | number;
     captionSide?: string;
     captionTextAlign?: string;
+    fontColor?: string;
+    fontSize?: string;
+    fontWeight?: string | number;
     headerBackgroundColor?: string;
     headerBorder?: string;
     headerFontColor?: string;
     headerFontSize?: string;
     headerFontWeight?: string | number;
-    headerMinHeight?: string;
+    headerHeight?: string;
     hoverBorder?: string;
+    rowHeight?: string;
     selectedBackgroundColor?: string;
     selectedFontColor?: string;
 }
