@@ -318,8 +318,8 @@ const vsTooltip: VsTooltipStyleSet = {
 
 const vsThemeButton: VsThemeButtonStyleSet = {
     backgroundColor: '#BACC81',
-    fontColor: '#013A20',
     hoverBackgroundColor: '#478C5C',
+    iconColor: '#013A20',
     width: '2rem',
 };
 

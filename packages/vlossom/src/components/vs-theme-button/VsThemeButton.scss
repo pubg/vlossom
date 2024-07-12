@@ -1,5 +1,5 @@
-$vs-theme-button-width: 2rem;
-$vs-theme-button-height: 2rem;
+$vs-theme-button-width: 3rem;
+$vs-theme-button-height: 3rem;
 
 .vs-theme-button {
     position: relative;
@@ -16,7 +16,7 @@ $vs-theme-button-height: 2rem;
         background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
     }
 
-    .theme-icon {
+    .vs-theme-icon {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -33,7 +33,7 @@ $vs-theme-button-height: 2rem;
         transition:
             opacity 0.4s ease-out,
             transform 0.4s ease-out;
-        color: var(--vs-theme-button-fontColor, var(--vs-orange));
+        color: var(--vs-theme-button-iconColor, var(--vs-orange));
 
         &.on {
             opacity: 1;
