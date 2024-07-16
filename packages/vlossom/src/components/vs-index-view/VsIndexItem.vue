@@ -10,7 +10,6 @@ import { VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
 const name = VsComponent.VsIndexItem;
-
 export default defineComponent({
     name,
     setup() {

@@ -4,6 +4,7 @@ export interface VsModalStyleSet {
     boxShadow?: string;
     fontColor?: string;
     fontSize?: string;
+    fontWeight?: string | number;
     height?: string;
     width?: string;
     padding?: string;

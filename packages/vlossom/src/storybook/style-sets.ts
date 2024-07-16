@@ -33,18 +33,17 @@ import type {
     VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
-    VsValueTagStyleSet,
 } from '@/components';
 
 const vsAccordion: VsAccordionStyleSet = {
+    backgroundColor: '#f5f5f5',
     border: '1px solid #1e88e5',
     borderRadius: '0.7rem',
-    titleFontColor: '#1e88e5',
+    fontColor: '#1e88e5',
+    padding: '0.2rem',
     titleBackgroundColor: '#f5f5f5',
+    titleFontColor: '#1e88e5',
     titlePadding: '1rem',
-    contentFontColor: '#1e88e5',
-    contentBackgroundColor: '#f5f5f5',
-    contentPadding: '0.2rem',
 };
 
 const vsAvatar: VsAvatarStyleSet = {
@@ -93,9 +92,8 @@ const vsChip: VsChipStyleSet = {
 };
 
 const vsDivider: VsDividerStyleSet = {
-    lineColor: '#7071e8',
-    lineStyle: 'double',
-    lineWidth: '3px',
+    border: '1px solid #7071e8',
+    margin: '2rem 3rem',
 };
 
 const vsDrawer: VsDrawerStyleSet = {
@@ -107,9 +105,8 @@ const vsFileInput: VsFileInputStyleSet = {
     border: '1px solid #D4E7C5',
     backgroundColor: '#D4E7C5',
     fontColor: '#99BC85',
-    clearButtonColor: '#436850',
     fontSize: '0.8rem',
-    prependBackgroundColor: '#86A789',
+    iconBackgroundColor: '#86A789',
 };
 
 const vsFooter: VsFooterStyleSet = {
@@ -173,8 +170,8 @@ const vsModal: VsModalStyleSet = {
 
 const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#ffc100',
-    contentFontColor: '#fff',
-    contentFontSize: '1.5rem',
+    fontColor: '#fff',
+    fontSize: '1.5rem',
     titleFontColor: '#1e5631',
     titleFontSize: '1rem',
 };
@@ -236,10 +233,10 @@ const vsSelect: VsSelectStyleSet = {
     border: '1px solid #637A9F',
     fontColor: '#637A9F',
     fontSize: '1rem',
-    hoverOptionBackgroundColor: '#C9D7DD',
-    hoverOptionColor: '#637A9F',
-    selectedOptionBackgroundColor: '#637A9F',
-    selectedOptionColor: '#FFF3CF',
+    optionHoverBackgroundColor: '#C9D7DD',
+    optionHoverFontColor: '#637A9F',
+    optionSelectedBackgroundColor: '#637A9F',
+    optionSelectedFontColor: '#FFF3CF',
 };
 
 const vsStepper: VsStepperStyleSet = {
@@ -265,11 +262,11 @@ const vsSwitch: VsSwitchStyleSet = {
 };
 
 const vsTable: VsTableStyleSet = {
-    bodyBackgroundColor: 'transparent',
-    bodyBorder: '1px solid #eeeeee',
-    bodyFontColor: '#393E46',
-    bodyFontSize: '1rem',
-    bodyMinHeight: '2.5rem',
+    backgroundColor: 'transparent',
+    border: '1px solid #eeeeee',
+    fontColor: '#393E46',
+    fontSize: '1rem',
+    rowHeight: '2.5rem',
     captionFontColor: '#393E46',
     captionFontSize: '1rem',
     captionFontWeight: '600',
@@ -278,7 +275,7 @@ const vsTable: VsTableStyleSet = {
     headerFontColor: '#00adb5',
     headerFontSize: '1rem',
     headerFontWeight: '500',
-    headerMinHeight: '2.5rem',
+    headerHeight: '2.5rem',
     hoverBorder: '1px solid #00adb5',
     selectedBackgroundColor: '#00adb5',
     selectedFontColor: '#eeeeee',
@@ -307,7 +304,6 @@ const vsTextWrap: VsTextWrapStyleSet = {
 };
 
 const vsTooltip: VsTooltipStyleSet = {
-    arrowColor: '#ffd1d1',
     arrowSize: '0.5rem',
     backgroundColor: '#ffe3e1',
     borderColor: '#ffd1d1',
@@ -320,17 +316,9 @@ const vsTooltip: VsTooltipStyleSet = {
 
 const vsThemeButton: VsThemeButtonStyleSet = {
     backgroundColor: '#BACC81',
-    fontColor: '#013A20',
     hoverBackgroundColor: '#478C5C',
+    iconColor: '#013A20',
     width: '2rem',
-};
-
-const vsValueTag: VsValueTagStyleSet = {
-    backgroundColor: '#b6c4b6',
-    fontColor: '#304d30',
-    fontSize: '1rem',
-    fontWeight: '480',
-    width: '50%',
 };
 
 export const styleSet: StyleSet = {
@@ -367,5 +355,4 @@ export const styleSet: StyleSet = {
     VsTextWrap: { myStyleSet: vsTextWrap },
     VsThemeButton: { myStyleSet: vsThemeButton },
     VsTooltip: { myStyleSet: vsTooltip },
-    VsValueTag: { myStyleSet: vsValueTag },
 };

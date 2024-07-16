@@ -1,7 +1,7 @@
 <template>
     <div class="vs-image" ref="vsImageRef" :style="computedStyleSet">
-        <img class="image" :src="computedSrc" :alt="alt" @error.stop="onImageError" />
-        <span class="alt-text" v-if="isNoImage">{{ alt }}</span>
+        <img class="vs-image" :src="computedSrc" :alt="alt" @error.stop="onImageError" />
+        <span class="vs-alt-text" v-if="isNoImage">{{ alt }}</span>
     </div>
 </template>
 
@@ -15,7 +15,6 @@ import NO_IMAGE from '@/assets/no-image.png';
 import type { VsImageStyleSet } from './types';
 
 const name = VsComponent.VsImage;
-
 export default defineComponent({
     name,
     props: {

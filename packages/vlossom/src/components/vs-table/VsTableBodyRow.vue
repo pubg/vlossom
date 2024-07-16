@@ -1,10 +1,10 @@
 <template>
-    <tr :style="trStyle" :class="[{ skeleton: loading }, rowState]">
+    <tr :style="trStyle" :class="['vs-table-tr', { 'vs-skeleton': loading }, rowState]">
         <td class="draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.6rem" />
         </td>
-        <td class="selectable-td" v-if="selectable">
-            <div v-if="loading" class="skeleton"></div>
+        <td class="vs-table-selectable selectable-td" v-if="selectable">
+            <div v-if="loading" class="vs-skeleton"></div>
             <div v-else-if="isSelectableRow">
                 <slot name="check" />
             </div>
@@ -15,8 +15,8 @@
             :key="`td-${index}`"
             :data-label="getHeader(cell.key)?.label"
         >
-            <div v-if="loading" class="skeleton"></div>
-            <div v-else class="table-data">
+            <div v-if="loading" class="vs-skeleton"></div>
+            <div v-else class="vs-table-data">
                 <slot
                     :name="`item-${cell.key}`"
                     :header="getHeader(cell.key)"
@@ -30,21 +30,22 @@
             </div>
         </td>
 
-        <td v-if="expandable" class="expandable-td">
+        <td v-if="expandable" class="vs-expandable-td">
             <button
                 v-if="isExpandableRow"
                 type="button"
-                @click.stop="emitToggleExpand(item.id)"
+                class="vs-table-expand-button"
                 :disabled="loading"
                 :class="{ expanded }"
                 :aria-label="`expand ${item.id}`"
+                @click.stop="emitToggleExpand(item.id)"
             >
-                <vs-icon size="1.2rem" icon="keyboardArrowUp" />
+                <vs-icon size="1.5rem" icon="keyboardArrowUp" />
             </button>
         </td>
 
-        <td v-if="expandable && expanded" :class="['expanded-row-content', { 'scale-up-ver-top': expanded }]">
-            <div class="expand-contents fade-in">
+        <td v-if="expandable && expanded" :class="['vs-expanded-row-content', { 'scale-up-ver-top': expanded }]">
+            <div class="vs-expand-contents fade-in">
                 <slot name="expand" :id="item.id" :item="item.data" :itemIndex="rowIndex" />
             </div>
         </td>

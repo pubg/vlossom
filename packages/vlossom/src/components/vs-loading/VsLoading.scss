@@ -6,28 +6,28 @@ $barWidth: var(--vs-loading-barWidth, 11.11%);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--vs-loading-width, 6rem);
-    height: var(--vs-loading-height, 8rem);
+    width: var(--vs-loading-width, 8rem);
+    height: var(--vs-loading-height, 10rem);
     margin: auto;
 
-    [class^='rect'] {
+    [class^='vs-rect'] {
         display: inline-block;
         width: $barWidth;
         height: 100%;
         background-color: var(--vs-loading-fontColor, var(--vs-primary-comp-bg));
-        animation: vs-loading 1s infinite cubic-bezier(0.25, 0.25, 0.75, 0.75);
+        animation: vs-loading-animation 1s infinite cubic-bezier(0.25, 0.25, 0.75, 0.75);
     }
 
-    .rect2 {
+    .vs-rect2 {
         animation-delay: -0.9s;
     }
-    .rect3 {
+    .vs-rect3 {
         animation-delay: -0.8s;
     }
-    .rect4 {
+    .vs-rect4 {
         animation-delay: -0.7s;
     }
-    .rect5 {
+    .vs-rect5 {
         animation-delay: -0.6s;
     }
 
@@ -35,7 +35,7 @@ $barWidth: var(--vs-loading-barWidth, 11.11%);
         margin-left: calc((100% - ($barWidth * 5)) / 4);
     }
 
-    @keyframes vs-loading {
+    @keyframes vs-loading-animation {
         0%,
         40%,
         100% {

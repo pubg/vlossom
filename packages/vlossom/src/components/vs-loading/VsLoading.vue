@@ -1,10 +1,10 @@
 <template>
-    <div :class="['vs-loading', `vs-${computedColorScheme}`]" :style="computedStyleSet">
-        <div class="rect1" />
-        <div class="rect2" />
-        <div class="rect3" />
-        <div class="rect4" />
-        <div class="rect5" />
+    <div :class="['vs-loading', colorSchemeClass]" :style="computedStyleSet">
+        <div class="vs-rect1" />
+        <div class="vs-rect2" />
+        <div class="vs-rect3" />
+        <div class="vs-rect4" />
+        <div class="vs-rect5" />
     </div>
 </template>
 
@@ -24,12 +24,12 @@ export default defineComponent({
     setup(props) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsLoadingStyleSet>(name, styleSet);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
         };
     },

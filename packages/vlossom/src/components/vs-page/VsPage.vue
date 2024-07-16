@@ -1,10 +1,10 @@
 <template>
-    <div class="vs-page" :style="computedStyleSet">
-        <div class="page-header" v-if="hasTitle || hasDescription">
-            <div class="page-title" v-if="hasTitle">
+    <div :class="['vs-page', colorSchemeClass]" :style="computedStyleSet">
+        <div class="vs-page-header" v-if="hasTitle || hasDescription">
+            <div class="vs-page-title" v-if="hasTitle">
                 <slot name="title" />
             </div>
-            <div class="page-description" v-if="hasDescription">
+            <div class="vs-page-description" v-if="hasDescription">
                 <slot name="description" />
             </div>
         </div>
@@ -14,8 +14,8 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useStyleSet } from '@/composables';
-import { VsComponent } from '@/declaration';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { VsComponent, type ColorScheme } from '@/declaration';
 
 import type { VsPageStyleSet } from './types';
 
@@ -23,10 +23,13 @@ const name = VsComponent.VsPage;
 export default defineComponent({
     name,
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsPageStyleSet> },
     },
     setup(props, { slots }) {
-        const { styleSet } = toRefs(props);
+        const { colorScheme, styleSet } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsPageStyleSet>(name, styleSet);
 
@@ -34,6 +37,7 @@ export default defineComponent({
         const hasDescription = computed((): boolean => !!slots['description']);
 
         return {
+            colorSchemeClass,
             computedStyleSet,
             hasTitle,
             hasDescription,

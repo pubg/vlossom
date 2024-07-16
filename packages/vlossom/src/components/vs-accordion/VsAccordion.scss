@@ -3,22 +3,22 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
 .vs-accordion {
     position: relative;
 
-    details {
+    .vs-details {
         box-sizing: border-box;
         overflow: hidden;
         border: var(--vs-accordion-border, 1px solid var(--vs-line-color));
-        border-radius: var(--vs-accordion-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+        border-radius: var(--vs-accordion-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
 
-        summary {
+        .vs-summary {
             position: relative;
             display: block;
             box-sizing: border-box;
-            font-size: var(--vs-accordion-titleFontSize, 1rem);
-            font-weight: var(--vs-accordion-titleFontWeight, 600);
+            font-size: var(--vs-accordion-titleFontSize, var(--vs-font-size-lg));
+            font-weight: var(--vs-accordion-titleFontWeight, 500);
             color: $titleColor;
             background-color: var(--vs-accordion-titleBackgroundColor, var(--vs-comp-bg));
-            padding: var(--vs-accordion-titlePadding, 1rem);
-            padding-left: 2.2rem;
+            padding: var(--vs-accordion-titlePadding, 1.2rem);
+            padding-left: 4rem;
             cursor: pointer;
             user-select: none;
             outline: none;
@@ -27,8 +27,8 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
                 content: '';
                 position: absolute;
                 top: 50%;
-                left: 1rem;
-                border-width: 0.4rem;
+                left: 2rem;
+                border-width: 0.6rem;
                 border-style: solid;
                 border-color: transparent transparent transparent $titleColor;
                 transform: translateY(-50%) rotate(0);
@@ -37,23 +37,26 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
             }
         }
 
-        .accordion-content {
+        .vs-accordion-content {
+            position: relative;
+            width: 100%;
             box-sizing: border-box;
-            background-color: var(--vs-accordion-contentBackgroundColor, var(--vs-no-color));
-            color: var(--vs-accordion-contentFontColor, var(--vs-font-color));
-            padding: var(--vs-accordion-contentPadding, 0.8rem 1.6rem);
+            background-color: var(--vs-accordion-backgroundColor, transparent);
+            color: var(--vs-accordion-fontColor, var(--vs-font-color));
+            font-size: var(--vs-accordion-fontSize, var(--vs-font-size));
+            padding: var(--vs-accordion-padding, 1.2rem 2rem);
         }
     }
 
-    details summary::-webkit-details-marker {
+    .vs-details .vs-summary::-webkit-details-marker {
         display: none;
     }
 
-    details[open] > summary:before {
+    .vs-details[open] > .vs-summary:before {
         transform: translateY(-50%) rotate(90deg);
     }
 
-    details[open] > summary {
+    .vs-details[open] > .vs-summary {
         border-bottom: 1px solid var(--vs-line-color);
     }
 }

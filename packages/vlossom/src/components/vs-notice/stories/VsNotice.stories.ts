@@ -79,7 +79,7 @@ export const PrimaryFalse: Story = {
 
 export const StyleSet: Story = {
     args: {
-        styleSet: { backgroundColor: '#a5d6ad', contentFontSize: '2rem' },
+        styleSet: { backgroundColor: '#a5d6ad', fontSize: '2rem' },
     },
 };
 

@@ -40,9 +40,11 @@
         max-height: var(--vs-modal-height);
         top: 50%;
         left: 50%;
-        background-color: var(--vs-drawer-backgroundColor, var(--vs-area-bg));
-        color: var(--vs-drawer-fontColor, var(--vs-font-color));
-        box-shadow: var(--vs-drawer-boxShadow, var(--vs-area-shadow-outer));
+        background-color: var(--vs-modal-backgroundColor, var(--vs-area-bg));
+        color: var(--vs-modal-fontColor, var(--vs-font-color));
+        font-size: var(--vs-modal-fontSize, var(--vs-font-size));
+        font-weight: var(--vs-modal-fontWeight, 400);
+        box-shadow: var(--vs-modal-boxShadow, var(--vs-area-shadow-outer));
         transform: translate(-50%, -50%);
         border-radius: var(--vs-modal-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
         padding: var(--vs-modal-padding, 2rem);

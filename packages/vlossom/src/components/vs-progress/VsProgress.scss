@@ -2,15 +2,15 @@ progress {
     -webkit-appearance: none;
     appearance: none;
     width: var(--vs-progress-width, 100%);
-    height: var(--vs-progress-height, 0.7rem);
+    height: var(--vs-progress-height, 1rem);
 }
 
 progress[value] {
     &::-webkit-progress-bar {
         overflow: hidden;
         background-color: var(--vs-progress-barColor, var(--vs-comp-bg));
-        border: 1px solid var(--vs-progress-borderColor, var(--vs-line-color));
-        border-radius: var(--vs-progress-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+        border: var(--vs-progress-border, 1px solid var(--vs-line-color));
+        border-radius: var(--vs-progress-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
     }
 
     &::-webkit-progress-value {

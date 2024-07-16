@@ -70,7 +70,7 @@ export const Loading: Story = {
     },
 };
 
-export const MobileFull: Story = {
+export const Responsive: Story = {
     render: (args: any) => ({
         components: { VsButton },
         setup() {
@@ -84,7 +84,7 @@ export const MobileFull: Story = {
         `,
     }),
     args: {
-        mobileFull: true,
+        responsive: true,
     },
     parameters: {
         chromatic: chromaticParameters.mobile,

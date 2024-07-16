@@ -1,37 +1,38 @@
 <template>
-    <thead>
-        <tr v-if="search" class="search">
+    <thead class="vs-table-thead">
+        <tr v-if="search" class="vs-table-tr search">
             <th>
-                <vs-icon class="search-icon" icon="search" size="26px" />
+                <vs-icon class="vs-table-search-icon" icon="search" size="2.4rem" />
                 <vs-input
-                    class="search-input"
+                    class="vs-table-search-input"
                     :placeholder="searchPlaceholder"
+                    :style-set="{ backgroundColor: 'var(--vs-no-color)' }"
                     @change="emitSearchText"
                     no-message
                     dense
                 />
             </th>
         </tr>
-        <tr :style="trStyle">
-            <th class="draggable-th" v-if="draggable">drag</th>
-            <th class="selectable-th" v-if="selectable" aria-label="select">
+        <tr :style="trStyle" class="vs-table-tr">
+            <th class="vs-draggable-th" v-if="draggable">drag</th>
+            <th class="vs-table-selectable vs-selectable-th" v-if="selectable" aria-label="select">
                 <slot name="check" />
             </th>
             <th
                 v-for="(header, index) in headers"
                 :key="`th-${index}`"
-                :class="['table-th', { sortable: header.sortable }]"
+                :class="['vs-table-th', { sortable: header.sortable }]"
                 :style="{ width: header.width }"
                 @click.stop="updateSortTypes(header)"
             >
                 <slot :name="`header-${header.key}`" :header="header">
                     {{ header.label }}
                 </slot>
-                <span v-if="header.sortable" class="sort-icon">
+                <span v-if="header.sortable">
                     <vs-icon :icon="getSortIcon(sortTypes[header.key])" size="1.2rem" />
                 </span>
             </th>
-            <th class="expandable-th" v-if="expandable">expand</th>
+            <th class="vs-expandable-th" v-if="expandable">expand</th>
         </tr>
     </thead>
 </template>

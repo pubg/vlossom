@@ -905,7 +905,7 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('.vs-select-input').trigger('mouseover');
-            await wrapper.find('button.clear-button').trigger('click');
+            await wrapper.find('button.vs-clear-button').trigger('click');
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);

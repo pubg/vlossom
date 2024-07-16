@@ -31,7 +31,6 @@ import type {
     VsTextWrapStyleSet,
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
-    VsValueTagStyleSet,
 } from '@/components';
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 import type { Ref } from 'vue';
@@ -75,7 +74,6 @@ export interface StyleSet {
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
-    VsValueTag?: { [key: string]: VsValueTagStyleSet };
 }
 
 export interface VlossomOptions {

@@ -2,6 +2,7 @@
     <vs-responsive :width="width" :grid="grid" v-show="visible">
         <vs-input-wrapper
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -22,6 +23,7 @@
                     :color-scheme="computedColorScheme"
                     :style-set="checkboxStyleSet"
                     :checked="isChecked(option)"
+                    :dense="dense"
                     :disabled="computedDisabled"
                     :id="`${computedId}-${optionIds[index]}`"
                     :label="getOptionLabel(option)"
@@ -74,7 +76,6 @@ import type { VsCheckboxSetStyleSet } from './types';
 import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsCheckboxNode },

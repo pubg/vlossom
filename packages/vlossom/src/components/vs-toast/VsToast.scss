@@ -1,0 +1,38 @@
+.vs-toast {
+    position: relative;
+    background-color: var(--vs-comp-bg);
+    color: var(--vs-comp-font);
+    border: 1px solid var(--vs-line-color);
+    display: flex;
+    justify-content: center;
+    border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius-lg));
+    font-size: var(--vs-font-size);
+    margin: 0.4rem 0;
+    pointer-events: auto;
+    width: fit-content;
+
+    .vs-toast-contents {
+        position: relative;
+        padding: 1rem 5rem;
+    }
+
+    .vs-toast-close {
+        position: absolute;
+        top: 0.3rem;
+        right: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius));
+        color: var(--vs-comp-font);
+        padding: 0.2rem;
+
+        &:hover {
+            background-color: var(--vs-comp-bg-hover);
+        }
+
+        &:active {
+            background-color: var(--vs-comp-bg-active);
+        }
+    }
+}

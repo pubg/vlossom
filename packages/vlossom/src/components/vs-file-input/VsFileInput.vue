@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -14,17 +15,20 @@
             </template>
 
             <div
-                :class="['vs-file-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
+                :class="['vs-file-input', colorSchemeClass, classObj, stateClasses]"
                 :style="computedStyleSet"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
                 @drop.stop="setDragging(false)"
             >
-                <div class="attach-file-icon">
-                    <vs-icon icon="attachFile" :size="dense ? 18 : 22" />
+                <div class="vs-attach-file-icon">
+                    <slot name="icon">
+                        <vs-icon icon="attachFile" :size="dense ? 16 : 18" />
+                    </slot>
                 </div>
-                <div class="label-box">
-                    <div :class="['label-wrap', { placeholder: placeholder && !hasValue }]">
+
+                <div class="vs-label-box">
+                    <div :class="['vs-label-wrap', { placeholder: placeholder && !hasValue }]">
                         <template v-if="dragging">{{ dropPlaceholder }}</template>
                         <template v-else-if="placeholder && !hasValue">{{ placeholder }}</template>
                         <template v-else-if="hasValue">{{ fileLabel }}</template>
@@ -33,6 +37,7 @@
 
                 <input
                     ref="fileInputRef"
+                    class="vs-file-input-ref"
                     :id="computedId"
                     type="file"
                     :name="name"
@@ -49,7 +54,7 @@
 
                 <button
                     v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
-                    class="clear-button"
+                    class="vs-clear-button"
                     aria-hidden="true"
                     tabindex="-1"
                     @click.stop="onClear()"
@@ -76,7 +81,6 @@ import { VsIcon } from '@/icons';
 import type { InputValueType, VsFileInputStyleSet } from './types';
 
 const name = VsComponent.VsFileInput;
-
 export default defineComponent({
     name,
     components: { VsInputWrapper, VsResponsive, VsIcon },
@@ -86,7 +90,6 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet> },
         accept: { type: String, default: '' },
-        dense: { type: Boolean, default: false },
         dropPlaceholder: { type: String, default: 'Drop file here...' },
         multiple: { type: Boolean, default: false },
         // v-model
@@ -115,7 +118,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsFileInputStyleSet>(name, styleSet);
 
@@ -249,7 +252,7 @@ export default defineComponent({
             computedId,
             fileInputRef,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             inputValue,
             fileLabel,

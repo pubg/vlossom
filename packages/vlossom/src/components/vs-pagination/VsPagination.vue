@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-pagination', `vs-${computedColorScheme}`, disabled ? 'disabled' : '']" :style="computedStyleSet">
+    <div :class="['vs-pagination', colorSchemeClass, disabled ? 'disabled' : '']" :style="computedStyleSet">
         <button
             v-if="edgeButtons"
             class="page-button"
@@ -8,12 +8,12 @@
             aria-label="go to first page"
         >
             <slot name="first">
-                <vs-icon icon="goFirst" />
+                <vs-icon icon="goFirst" size="2rem" />
             </slot>
         </button>
         <button class="page-button" :disabled="selected <= 1" @click.stop="goPrev" aria-label="go to previous page">
             <slot name="prev">
-                <vs-icon icon="goPrev" />
+                <vs-icon icon="goPrev" size="2rem" />
             </slot>
         </button>
         <div class="page-buttons">
@@ -31,7 +31,7 @@
         </div>
         <button class="page-button" :disabled="selected >= length" @click.stop="goNext" aria-label="go to next page">
             <slot name="next">
-                <vs-icon icon="goNext" />
+                <vs-icon icon="goNext" size="2rem" />
             </slot>
         </button>
         <button
@@ -42,7 +42,7 @@
             aria-label="go to last page"
         >
             <slot name="last">
-                <vs-icon icon="goLast" />
+                <vs-icon icon="goLast" size="2rem" />
             </slot>
         </button>
     </div>
@@ -96,7 +96,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, length, showingLength } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsPaginationStyleSet>(name, styleSet);
 
@@ -176,7 +176,7 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             selected,
             pages,

@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -13,10 +14,7 @@
                 <slot name="label" />
             </template>
 
-            <div
-                :class="['vs-input', `vs-${computedColorScheme}`, { ...classObj }, stateClasses]"
-                :style="computedStyleSet"
-            >
+            <div :class="['vs-input', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
                 <div v-if="$slots['prepend']" class="prepend">
                     <slot name="prepend" />
                 </div>
@@ -43,7 +41,7 @@
                 <button
                     v-if="!noClear && !computedReadonly && !computedDisabled"
                     type="button"
-                    class="clear-button"
+                    class="vs-clear-button"
                     :class="{ show: inputValue }"
                     :disabled="!inputValue"
                     aria-hidden="true"
@@ -96,7 +94,6 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
         autocomplete: { type: Boolean, default: false },
-        dense: { type: Boolean, default: false },
         max: {
             type: [Number, String],
             default: Number.MAX_SAFE_INTEGER,
@@ -154,7 +151,7 @@ export default defineComponent({
 
         const inputValue: Ref<InputValueType> = ref(modelValue.value);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsInputStyleSet>(name, styleSet);
 
@@ -258,7 +255,7 @@ export default defineComponent({
         return {
             computedId,
             classObj,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             InputType,
             inputValue,

@@ -25,7 +25,7 @@ describe('vs-image', () => {
                 },
             });
 
-            await wrapper.find('.image').trigger('error');
+            await wrapper.find('img').trigger('error');
 
             // then
             expect(wrapper.vm.computedSrc).not.toBe('image-src');
@@ -44,7 +44,7 @@ describe('vs-image', () => {
             });
 
             // when
-            await wrapper.find('.image').trigger('error');
+            await wrapper.find('img').trigger('error');
 
             // then
             expect(wrapper.vm.computedSrc).toBe('fallback-src');
@@ -60,9 +60,9 @@ describe('vs-image', () => {
             });
 
             // when
-            await wrapper.find('.image').trigger('error');
+            await wrapper.find('img').trigger('error');
             await nextTick();
-            await wrapper.find('.image').trigger('error');
+            await wrapper.find('img').trigger('error');
 
             // then
             expect(wrapper.vm.computedSrc).not.toBe('image-src');

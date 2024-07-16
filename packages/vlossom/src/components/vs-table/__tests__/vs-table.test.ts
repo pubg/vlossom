@@ -54,7 +54,7 @@ describe('VsTable', () => {
 
             // then
             // Check if table headers are rendered properly
-            const thElements = wrapper.findAll('thead th');
+            const thElements = wrapper.findAll('.vs-table-thead th');
             expect(thElements.length).toBe(headers.length);
             thElements.forEach((th, index) => {
                 const headerLabel = headers[index].label;
@@ -353,7 +353,7 @@ describe('VsTable', () => {
 
             // then
             const customIdHeader = wrapper
-                .findAll('.table-th')
+                .findAll('.vs-table-th')
                 .filter((th) => th.text().includes('Custom ID Header'))[0];
             expect(customIdHeader.exists()).toBe(true);
         });
@@ -388,11 +388,11 @@ describe('VsTable', () => {
             });
 
             // when
-            const expandButton = wrapper.findAll('tr .expandable-td button').at(0);
+            const expandButton = wrapper.findAll('tr .vs-expandable-td button').at(0);
             await expandButton?.trigger('click');
 
             // then
-            const expandedContent = wrapper.findAll('tr .expanded-row-content').at(0);
+            const expandedContent = wrapper.findAll('tr .vs-expanded-row-content').at(0);
             expect(expandedContent?.isVisible()).toBe(true);
             expect(expandedContent?.text()).toContain('Additional Text for Apple');
         });

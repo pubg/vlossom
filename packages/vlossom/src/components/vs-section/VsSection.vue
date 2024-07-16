@@ -1,12 +1,12 @@
 <template>
     <vs-responsive
         tag="section"
-        :class="['vs-section', `vs-${computedColorScheme}`]"
+        :class="['vs-section', colorSchemeClass]"
         :style="computedStyleSet"
         :grid="grid"
         :width="width"
     >
-        <div class="section-title" v-if="hasTitle">
+        <div class="vs-section-title" v-if="hasTitle">
             <slot name="title" />
         </div>
         <slot />
@@ -33,14 +33,14 @@ export default defineComponent({
     setup(props, { slots }) {
         const { colorScheme, styleSet } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsSectionStyleSet>(name, styleSet);
 
         const hasTitle = computed(() => !!slots.title);
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             hasTitle,
         };

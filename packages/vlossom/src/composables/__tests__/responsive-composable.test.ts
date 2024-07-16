@@ -9,7 +9,7 @@ describe('responsive-composable (useResponsive)', () => {
             const grid = ref({});
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
-            expect(responsiveClasses.value).toEqual(['vs-responsive']);
+            expect(responsiveClasses.value).toEqual(['vs-response']);
             expect(responsiveStyles.value).toEqual({ width: '400px' });
         });
 
@@ -18,7 +18,7 @@ describe('responsive-composable (useResponsive)', () => {
             const grid = ref({});
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
-            expect(responsiveClasses.value).toEqual(['vs-responsive']);
+            expect(responsiveClasses.value).toEqual(['vs-response']);
             expect(responsiveStyles.value).toEqual({});
         });
 
@@ -29,7 +29,7 @@ describe('responsive-composable (useResponsive)', () => {
                 const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
                 expect(responsiveClasses.value).toEqual([
-                    'vs-responsive',
+                    'vs-response',
                     'vs-width-sm',
                     'vs-width-md',
                     'vs-width-lg',
@@ -49,7 +49,7 @@ describe('responsive-composable (useResponsive)', () => {
                 const grid = ref({});
                 const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
-                expect(responsiveClasses.value).toEqual(['vs-responsive', 'vs-width-sm', 'vs-width-lg']);
+                expect(responsiveClasses.value).toEqual(['vs-response', 'vs-width-sm', 'vs-width-lg']);
                 expect(responsiveStyles.value).toEqual({
                     '--vs-width-sm': '50%',
                     '--vs-width-lg': '20%',
@@ -65,7 +65,7 @@ describe('responsive-composable (useResponsive)', () => {
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
             expect(responsiveClasses.value).toEqual([
-                'vs-responsive',
+                'vs-response',
                 'vs-grid-sm',
                 'vs-grid-md',
                 'vs-grid-lg',
@@ -85,7 +85,7 @@ describe('responsive-composable (useResponsive)', () => {
             const grid = ref({ lg: 2, sm: 5 });
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
-            expect(responsiveClasses.value).toEqual(['vs-responsive', 'vs-grid-sm', 'vs-grid-lg']);
+            expect(responsiveClasses.value).toEqual(['vs-response', 'vs-grid-sm', 'vs-grid-lg']);
             expect(responsiveStyles.value).toEqual({
                 '--vs-grid-sm': '5',
                 '--vs-grid-lg': '2',
@@ -100,7 +100,7 @@ describe('responsive-composable (useResponsive)', () => {
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
             expect(responsiveClasses.value).toEqual([
-                'vs-responsive',
+                'vs-response',
                 'vs-width-sm',
                 'vs-width-lg',
                 'vs-grid-sm',

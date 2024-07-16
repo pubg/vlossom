@@ -2,6 +2,7 @@
     <draggable
         tag="tbody"
         v-model="computedTableItems"
+        class="vs-table-tbody"
         item-key="id"
         handle=".handle"
         :disabled="!draggable || loading"
@@ -38,7 +39,7 @@
             </vs-table-body-row>
         </template>
     </draggable>
-    <tbody v-if="loading && computedTableItems.length === 0">
+    <tbody v-if="loading && computedTableItems.length === 0" class="vs-table-tbody">
         <vs-table-body-row
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
@@ -50,9 +51,9 @@
             :tr-style="trStyle"
         />
     </tbody>
-    <tbody v-if="!loading && computedTableItems.length === 0">
+    <tbody v-if="!loading && computedTableItems.length === 0" class="vs-table-tbody">
         <slot name="empty">
-            <div class="table-empty">
+            <div class="vs-table-empty">
                 <vs-icon size="5rem" icon="noData"></vs-icon>
                 <p>NO DATA</p>
             </div>

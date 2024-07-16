@@ -3,12 +3,12 @@ import { mount } from '@vue/test-utils';
 import VsPage from './../VsPage.vue';
 
 describe('vs-page', () => {
-    it('title, description slot을 모두 설정하지 않으면 page-header 영역이 없다 ', () => {
+    it('title, description slot을 모두 설정하지 않으면 vs-page-header 영역이 없다 ', () => {
         // given
         const wrapper = mount(VsPage);
 
         // then
-        expect(wrapper.find('.page-header').exists()).toBe(false);
+        expect(wrapper.find('.vs-page-header').exists()).toBe(false);
     });
 
     it('slot으로 title을 설정할 수 있다 ', () => {
@@ -20,8 +20,8 @@ describe('vs-page', () => {
         });
 
         // then
-        expect(wrapper.find('.page-header').exists()).toBe(true);
-        expect(wrapper.find('.page-title').exists()).toBe(true);
+        expect(wrapper.find('.vs-page-header').exists()).toBe(true);
+        expect(wrapper.find('.vs-page-title').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>Title</div>');
     });
 
@@ -34,8 +34,8 @@ describe('vs-page', () => {
         });
 
         // then
-        expect(wrapper.find('.page-header').exists()).toBe(true);
-        expect(wrapper.find('.page-description').exists()).toBe(true);
+        expect(wrapper.find('.vs-page-header').exists()).toBe(true);
+        expect(wrapper.find('.vs-page-description').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>Description</div>');
     });
 });

@@ -1,42 +1,48 @@
 <template>
-    <div :class="['vs-label-value', `vs-${computedColorScheme}`, { ...classObj }]" :style="computedStyleSet">
-        <div v-if="hasLabel" class="cell label" :style="align">
+    <vs-responsive
+        :class="['vs-label-value', colorSchemeClass, classObj]"
+        :style="computedStyleSet"
+        :width="width"
+        :grid="grid"
+    >
+        <div v-if="$slots['label']" class="vs-cell label" :style="align">
             <slot name="label" />
         </div>
-        <div v-if="hasValue" class="cell value" :style="align">
+        <div v-if="$slots['value']" class="vs-cell value" :style="align">
             <slot name="value" />
         </div>
-        <div v-if="hasActions" class="cell actions" :style="align">
+        <div v-if="$slots['actions']" class="vs-cell actions" :style="align">
             <slot name="actions" />
         </div>
-    </div>
+    </vs-responsive>
 </template>
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 import type { VsLabelValueStyleSet } from './types';
 
 const name = VsComponent.VsLabelValue;
 export default defineComponent({
     name,
+    components: { VsResponsive },
     props: {
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsLabelValueStyleSet> },
+        dense: { type: Boolean, default: false },
+        inline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
         verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
-    setup(props, { slots }) {
-        const { colorScheme, styleSet, primary, verticalAlign } = toRefs(props);
+    setup(props) {
+        const { colorScheme, styleSet, dense, inline, primary, verticalAlign } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsLabelValueStyleSet>(name, styleSet);
-
-        const hasLabel = computed((): boolean => !!slots['label']);
-        const hasValue = computed((): boolean => !!slots['value']);
-        const hasActions = computed((): boolean => !!slots['actions']);
 
         const align = computed(() => {
             if (verticalAlign.value === 'top') {
@@ -48,17 +54,17 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
+            inline: inline.value,
+            'vs-inline-gap': inline.value,
+            dense: dense.value,
             primary: primary.value,
         }));
 
         return {
             align,
-            computedColorScheme,
             classObj,
+            colorSchemeClass,
             computedStyleSet,
-            hasLabel,
-            hasValue,
-            hasActions,
         };
     },
 });

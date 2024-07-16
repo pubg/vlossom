@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake }">
+    <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake, dense }">
         <component :is="groupLabel ? 'fieldset' : 'div'">
             <component
                 v-if="label || $slots['label']"
@@ -10,7 +10,7 @@
                 <slot name="label">
                     <span :class="{ disabled }">{{ label }}</span>
                 </slot>
-                <i v-if="required" :class="['required-star', { disabled }]">*</i>
+                <i v-if="required" :class="['vs-required-star', { disabled }]">*</i>
             </component>
 
             <slot />
@@ -19,7 +19,8 @@
         <div class="vs-messages" v-if="!noMessage">
             <slot name="messages">
                 <vs-message
-                    class="message-item"
+                    class="vs-message-item"
+                    :dense="dense"
                     v-for="(message, index) in messages"
                     :key="`${index}-${message.text}`"
                     :message="message"
@@ -38,6 +39,7 @@ export default defineComponent({
     name: VsComponent.VsInputWrapper,
     components: { VsMessage },
     props: {
+        dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         groupLabel: { type: Boolean, default: false },
         id: { type: String, default: '' },

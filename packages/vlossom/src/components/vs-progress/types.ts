@@ -1,7 +1,8 @@
 export interface VsProgressStyleSet {
     barColor?: string;
-    valueColor?: string;
     borderRadius?: string;
+    border?: string;
     height?: string;
+    valueColor?: string;
     width?: string;
 }

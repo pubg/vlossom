@@ -3,28 +3,28 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    padding: 0.8rem 1.6rem;
+    padding: var(--vs-notice-padding, 1.2rem 1.8rem);
     overflow: hidden;
     background-color: var(--vs-notice-backgroundColor, var(--vs-comp-bg));
 
     .vs-notice-contents {
         display: flex;
         align-items: center;
-        color: var(--vs-notice-contentFontColor, var(--vs-comp-font));
-        font-size: var(--vs-notice-contentFontSize, 1rem);
-        font-weight: var(--vs-notice-contentFontWeight, 500);
+        color: var(--vs-notice-fontColor, var(--vs-comp-font));
+        font-size: var(--vs-notice-fontSize, var(--vs-font-size));
+        font-weight: var(--vs-notice-fontWeight, 400);
 
-        .title {
+        .vs-notice-title {
             color: var(--vs-notice-titleFontColor, var(--vs-comp-font));
-            font-size: var(--vs-notice-titleFontSize, 1rem);
-            font-weight: var(--vs-notice-titleFontWeight, 600);
+            font-size: var(--vs-notice-titleFontSize, var(--vs-font-size));
+            font-weight: var(--vs-notice-titleFontWeight, 500);
         }
     }
 
-    .close-button {
+    .vs-notice-close-button {
         display: flex;
         cursor: pointer;
-        color: var(--vs-notice-contentFontColor, var(--vs-comp-font));
+        color: var(--vs-notice-fontColor, var(--vs-comp-font));
     }
 
     // primary
@@ -32,15 +32,15 @@
         background-color: var(--vs-notice-backgroundColor, var(--vs-primary-comp-bg));
 
         .vs-notice-contents {
-            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
+            color: var(--vs-notice-fontColor, var(--vs-primary-comp-font));
 
-            .title {
+            .vs-notice-title {
                 color: var(--vs-notice-titleFontColor, var(--vs-primary-comp-font));
             }
         }
 
-        .close-button {
-            color: var(--vs-notice-contentFontColor, var(--vs-primary-comp-font));
+        .vs-notice-close-button {
+            color: var(--vs-notice-fontColor, var(--vs-primary-comp-font));
         }
     }
 }

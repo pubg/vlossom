@@ -1,23 +1,23 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-tabs', `vs-${computedColorScheme}`, { dense }]" :style="computedStyleSet">
-            <button
+        <div :class="['vs-tabs', colorSchemeClass, { dense }]" :style="computedStyleSet">
+            <vs-button
                 v-if="showScrollButtons"
-                type="button"
-                class="scroll-button scroll-left-button"
+                class="vs-scroll-button scroll-left-button"
                 aria-label="scroll to the left"
                 :disabled="currentFocusedTab <= 0"
                 @click.stop="scrollLeft"
+                dense
             >
-                <vs-icon icon="goPrev" size="1.2rem" />
-            </button>
-            <div class="tabs-container" ref="tabsContainerRef">
-                <ul role="tablist" :class="{ bottomLine }">
+                <vs-icon icon="goPrev" size="1.6rem" />
+            </vs-button>
+            <div class="vs-tabs-wrap" ref="tabsWrapRef">
+                <ul role="tablist" :class="['vs-tab-list', { 'bottom-line': bottomLine }]">
                     <li
                         v-for="(tab, index) in tabs"
                         ref="tabRefs"
                         :key="tab"
-                        :class="['tab', { selected: isSelected(index), disabled: isDisabled(index) }]"
+                        :class="['vs-tab-item', { selected: isSelected(index), disabled: isDisabled(index) }]"
                         role="tab"
                         :aria-selected="isSelected(index)"
                         :aria-disabled="isDisabled(index)"
@@ -31,16 +31,17 @@
                     </li>
                 </ul>
             </div>
-            <button
+            <vs-button
                 v-if="showScrollButtons"
-                type="button"
-                class="scroll-button scroll-right-button"
+                class="vs-scroll-button scroll-right-button"
                 aria-label="scroll to the right"
+                :colorScheme="colorScheme"
                 :disabled="currentFocusedTab >= tabs.length - 1"
                 @click.stop="scrollRight"
+                dense
             >
-                <vs-icon icon="goNext" size="1.2rem" />
-            </button>
+                <vs-icon icon="goNext" size="1.6rem" />
+            </vs-button>
         </div>
     </vs-responsive>
 </template>
@@ -51,6 +52,7 @@ import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 
 import type { VsTabsStyleSet, ScrollButton } from './types';
@@ -58,7 +60,7 @@ import type { VsTabsStyleSet, ScrollButton } from './types';
 const name = VsComponent.VsTabs;
 export default defineComponent({
     name,
-    components: { VsResponsive, VsIcon },
+    components: { VsButton, VsIcon, VsResponsive },
     props: {
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -67,7 +69,7 @@ export default defineComponent({
         dense: { type: Boolean, default: false },
         disabled: { type: Array as PropType<number[]>, default: () => [] },
         scrollButtons: {
-            type: [Boolean, String] as PropType<ScrollButton>,
+            type: String as PropType<ScrollButton>,
             default: 'hide',
         },
         tabs: {
@@ -88,12 +90,12 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, disabled, scrollButtons, tabs, modelValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTabsStyleSet>(name, styleSet);
 
         const totalLength = computed(() => tabs.value.length);
-        const tabsContainerRef: Ref<HTMLElement | null> = ref(null);
+        const tabsWrapRef: Ref<HTMLElement | null> = ref(null);
         const tabRefs: Ref<HTMLElement[]> = ref([]);
         const selectedIdx = ref(modelValue.value);
         const currentFocusedTab = ref(selectedIdx.value);
@@ -185,8 +187,8 @@ export default defineComponent({
         }
 
         function calculateScrollCount(): void {
-            const tabContainerWidth = tabsContainerRef.value?.clientWidth;
-            if (!tabContainerWidth) {
+            const tabsWrapWidth = tabsWrapRef.value?.clientWidth;
+            if (!tabsWrapWidth) {
                 scrollCount.value = 0;
                 return;
             }
@@ -195,7 +197,7 @@ export default defineComponent({
             let accumulatedWidth = 0;
 
             tabRefs.value.some((tabRef) => {
-                if (accumulatedWidth < tabContainerWidth - tabRef.offsetWidth) {
+                if (accumulatedWidth < tabsWrapWidth - tabRef.offsetWidth) {
                     accumulatedWidth += tabRef.offsetWidth;
                     visibleTabsCount++;
                     return false;
@@ -249,13 +251,13 @@ export default defineComponent({
         });
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             isSelected,
             isDisabled,
             selectedIdx,
             selectTab,
-            tabsContainerRef,
+            tabsWrapRef,
             tabRefs,
             handleKeydown,
             showScrollButtons,

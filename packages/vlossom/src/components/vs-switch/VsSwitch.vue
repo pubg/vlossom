@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -16,8 +17,8 @@
             <div
                 :class="[
                     'vs-switch',
-                    `vs-${computedColorScheme}`,
-                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly },
+                    colorSchemeClass,
+                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly, dense },
                 ]"
                 :style="computedStyleSet"
             >
@@ -37,10 +38,10 @@
                 />
 
                 <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
-                    <span class="status-label" data-value="true" v-show="isChecked">
+                    <span class="vs-status-label" data-value="true" v-show="isChecked">
                         {{ trueLabel }}
                     </span>
-                    <span class="status-label" data-value="false" v-show="!isChecked">
+                    <span class="vs-status-label" data-value="false" v-show="!isChecked">
                         {{ falseLabel }}
                     </span>
                 </div>
@@ -117,7 +118,7 @@ export default defineComponent({
 
         const { emit } = context;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet(name, styleSet);
 
@@ -213,7 +214,7 @@ export default defineComponent({
             computedId,
             switchRef,
             inputValue,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedDisabled,
             computedReadonly,

@@ -1,13 +1,13 @@
 @use '@/styles/mixin' as *;
 
-$fontSize: var(--vs-stepper-fontSize, 1rem);
-$stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
+$fontSize: var(--vs-stepper-fontSize, var(--vs-font-size));
+$stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
 
 .vs-stepper {
     position: relative;
     -webkit-tap-highlight-color: transparent;
 
-    .item-line {
+    .vs-item-line {
         background-color: var(--vs-area-bg-active);
         height: 0.3rem;
         left: $stepButtonW;
@@ -16,7 +16,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
         top: 50%;
         transform: translateY(-50%);
 
-        .progress-line {
+        .vs-progress-line {
             background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
             height: 100%;
             opacity: 0.8;
@@ -24,7 +24,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
         }
     }
 
-    ul {
+    .vs-steps {
         align-items: center;
         display: flex;
         flex-direction: row;
@@ -33,7 +33,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
         list-style: none;
         margin-bottom: 4rem;
 
-        li {
+        .vs-step {
             align-items: center;
             cursor: pointer;
             display: flex;
@@ -41,14 +41,14 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
             justify-content: center;
             position: relative;
 
-            .item-step {
+            .vs-item-step {
                 align-items: center;
                 background-color: var(--vs-comp-bg);
                 color: var(--vs-comp-font);
                 border: 1px solid var(--vs-line-color);
                 border-radius: 50%;
                 display: flex;
-                font-size: $fontSize;
+                font-size: var(--vs-font-size-sm);
                 font-weight: 600;
                 height: $stepButtonW;
                 justify-content: center;
@@ -67,7 +67,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
                 }
             }
 
-            .item-name {
+            .vs-item-name {
                 color: var(--vs-stepper-labelFontColor, var(--vs-font-color));
                 font-size: $fontSize;
                 font-weight: 400;
@@ -83,19 +83,19 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
             }
 
             &.previous {
-                .item-step {
+                .vs-item-step {
                     border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
                 }
 
-                .item-name {
+                .vs-item-name {
                     color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg-active));
                 }
             }
 
             &.selected {
-                .item-step {
+                .vs-item-step {
                     border: 1px solid var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
@@ -104,7 +104,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 1.8rem);
                     outline-offset: 3px;
                 }
 
-                .item-name {
+                .vs-item-name {
                     font-weight: 600;
                     color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg));
                 }

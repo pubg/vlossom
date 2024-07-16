@@ -1,8 +1,13 @@
 <template>
-    <div :class="['vs-table', `vs-${computedColorScheme}`, { dense, responsive }]" :style="computedStyleSet">
-        <div class="table-wrap">
-            <table>
-                <caption v-if="$slots['caption']">
+    <vs-responsive
+        :class="['vs-table', colorSchemeClass, { dense, responsive }]"
+        :style="computedStyleSet"
+        :width="width"
+        :grid="grid"
+    >
+        <div class="vs-table-wrap">
+            <table class="vs-table-table">
+                <caption v-if="$slots['caption']" class="vs-table-caption">
                     <slot name="caption" />
                 </caption>
                 <vs-table-header
@@ -19,7 +24,7 @@
                 >
                     <template #check>
                         <vs-checkbox-node
-                            class="select-all"
+                            class="vs-table-select select-all"
                             v-if="!loading"
                             :id="utils.string.createID()"
                             type="checkbox"
@@ -87,17 +92,18 @@
                 dense
             />
         </div>
-    </div>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
 import { useTableParams } from './composables/useTableParams';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
 import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
 
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 import VsPagination from '@/components/vs-pagination/VsPagination.vue';
@@ -107,10 +113,10 @@ import { VsCheckboxNode } from '@/nodes';
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 
 const name = VsComponent.VsTable;
-
 export default defineComponent({
     name,
     components: {
+        VsResponsive,
         VsTableHeader,
         VsTableBody,
         VsCheckboxNode,
@@ -118,9 +124,9 @@ export default defineComponent({
         VsSelect,
     },
     props: {
+        ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTableStyleSet>, default: '' },
-        caption: { type: String, default: '' },
         dense: { type: Boolean, default: false },
         draggable: { type: Boolean, default: false },
         filter: {
@@ -193,7 +199,7 @@ export default defineComponent({
         } = toRefs(props);
         const { emit, slots } = ctx;
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
@@ -337,7 +343,7 @@ export default defineComponent({
         }
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             computedSearchText,
             headerSlots,

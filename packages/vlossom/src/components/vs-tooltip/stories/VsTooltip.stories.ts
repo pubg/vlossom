@@ -204,7 +204,6 @@ export const Margin: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            arrowColor: 'rgba(0, 0, 0, 0)',
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
             borderColor: 'transparent',
             borderRadius: '0.4rem',

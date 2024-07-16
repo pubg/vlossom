@@ -3,16 +3,16 @@
     position: relative;
 }
 
-.tooltip {
+.vs-tooltip-wrap {
     position: absolute;
     z-index: 1000;
     padding: 0.2rem;
 
-    .tooltip-contents {
+    .vs-tooltip-contents {
         position: relative;
-        padding: var(--vs-tooltip-padding, 0.8rem);
-        font-size: var(--vs-tooltip-fontSize, 1rem);
-        border-radius: var(--vs-tooltip-borderRadius, calc(var(--vs-radius-ratio) * 0.3rem));
+        padding: var(--vs-tooltip-padding, 0.8rem 1.2rem);
+        font-size: var(--vs-tooltip-fontSize, var(--vs-font-size-sm));
+        border-radius: var(--vs-tooltip-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         background-color: var(--vs-tooltip-backgroundColor, var(--vs-area-bg));
         box-shadow: inset 0px 0px 0px var(--vs-tooltip-borderWidth, 0.15rem)
             var(--vs-tooltip-borderColor, var(--vs-primary-comp-bg));
@@ -26,63 +26,63 @@
             height: 0;
             border: var(--vs-tooltip-arrowSize, 0.4rem) solid transparent;
             border-bottom: var(--vs-tooltip-arrowSize, 0.4rem) solid
-                var(--vs-tooltip-arrowColor, var(--vs-primary-comp-bg));
+                var(--vs-tooltip-borderColor, var(--vs-primary-comp-bg));
         }
     }
 
-    &.placement-top .tooltip-contents::after {
+    &.placement-top .vs-tooltip-contents::after {
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 100%) rotate(180deg);
     }
 
-    &.placement-top.align-start .tooltip-contents::after {
+    &.placement-top.align-start .vs-tooltip-contents::after {
         left: 20%;
     }
 
-    &.placement-top.align-end .tooltip-contents::after {
+    &.placement-top.align-end .vs-tooltip-contents::after {
         left: 80%;
     }
 
-    &.placement-right .tooltip-contents::after {
+    &.placement-right .vs-tooltip-contents::after {
         top: 50%;
         left: 0;
         transform: translate(calc(-100%), -50%) rotate(270deg);
     }
 
-    &.placement-right.align-start .tooltip-contents::after {
+    &.placement-right.align-start .vs-tooltip-contents::after {
         top: 20%;
     }
 
-    &.placement-right.align-end .tooltip-contents::after {
+    &.placement-right.align-end .vs-tooltip-contents::after {
         top: 80%;
     }
 
-    &.placement-bottom .tooltip-contents::after {
+    &.placement-bottom .vs-tooltip-contents::after {
         top: 0;
         left: 50%;
         transform: translate(-50%, -100%) rotate(0deg);
     }
 
-    &.placement-bottom.align-start .tooltip-contents::after {
+    &.placement-bottom.align-start .vs-tooltip-contents::after {
         left: 20%;
     }
 
-    &.placement-bottom.align-end .tooltip-contents::after {
+    &.placement-bottom.align-end .vs-tooltip-contents::after {
         left: 80%;
     }
 
-    &.placement-left .tooltip-contents::after {
+    &.placement-left .vs-tooltip-contents::after {
         top: 50%;
         right: 0;
         transform: translate(calc(100%), -50%) rotate(90deg);
     }
 
-    &.placement-left.align-start .tooltip-contents::after {
+    &.placement-left.align-start .vs-tooltip-contents::after {
         top: 20%;
     }
 
-    &.placement-left.align-end .tooltip-contents::after {
+    &.placement-left.align-end .vs-tooltip-contents::after {
         top: 80%;
     }
 }

@@ -319,11 +319,11 @@ export const ResponsiveFalse: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            bodyBackgroundColor: '#ffffff',
-            bodyBorder: '1px solid #dcD6f7',
-            bodyFontColor: '#0f4c75',
-            bodyFontSize: '0.9rem',
-            bodyMinHeight: '3rem',
+            backgroundColor: '#ffffff',
+            border: '1px solid #dcD6f7',
+            fontColor: '#0f4c75',
+            fontSize: '0.9rem',
+            rowHeight: '3rem',
             captionFontColor: '#0f4c75',
             captionFontSize: '0.9rem',
             captionFontWeight: '600',
@@ -333,7 +333,7 @@ export const StyleSet: Story = {
             headerFontColor: '#0f4c75',
             headerFontSize: '1rem',
             headerFontWeight: '700',
-            headerMinHeight: '3rem',
+            headerHeight: '3rem',
             hoverBorder: '2px solid #DCD6F7',
             selectedBackgroundColor: '#DCD6F7',
             selectedFontColor: '#0f4c75',

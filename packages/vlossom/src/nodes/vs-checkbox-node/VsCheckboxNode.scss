@@ -1,8 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$checkbox-color: var(--vs-checkbox-checkboxColor, var(--vs-primary-comp-bg));
-$checkbox-size: var(--vs-checkbox-checkboxSize, 1.6rem);
-$checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));
+$checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
 
 .vs-checkbox-node {
     position: relative;
@@ -11,22 +9,22 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
     justify-content: flex-start;
     flex-wrap: nowrap;
     user-select: none;
-    height: var(--vs-checkbox-height, 2.4rem);
+    height: var(--vs-checkbox-height, var(--vs-input-comp-height));
 
-    .checkbox-wrap {
+    .vs-checkbox-wrap {
         position: relative;
         display: flex;
         align-items: center;
-        color: $checkbox-color;
-        border-radius: var(--vs-checkbox-borderRadius, calc(var(--vs-radius-ratio) * 0.2rem));
+        color: var(--vs-checkbox-checkboxColor, var(--vs-primary-comp-bg));
+        border-radius: var(--vs-checkbox-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
         overflow: hidden;
 
-        .check-icon {
+        .vs-check-icon {
             width: $checkbox-size;
             height: $checkbox-size;
         }
 
-        .checkbox-input {
+        .vs-checkbox-input {
             position: absolute;
             top: 0;
             left: 0;
@@ -47,19 +45,26 @@ $checkbox-selected-label-color: var(--vs-checkbox-selectedLabelFontColor, var(--
         }
     }
 
-    .checkbox-label {
+    .vs-checkbox-label {
         user-select: none;
-        padding-left: 0.4rem;
+        padding-left: 0.5rem;
         cursor: pointer;
         white-space: nowrap;
-        transition: 0.25s ease;
         color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
-        font-size: var(--vs-checkbox-labelFontSize, 0.9rem);
+        font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size));
+    }
+
+    &.dense {
+        height: var(--vs-checkbox-height, var(--vs-input-comp-height-dense));
+
+        .vs-checkbox-label {
+            font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size-sm));
+        }
     }
 
     &.checked {
-        .checkbox-label {
-            color: $checkbox-selected-label-color;
+        .vs-checkbox-label {
+            color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));
         }
     }
 

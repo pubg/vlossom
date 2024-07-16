@@ -1,13 +1,14 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-stepper', `vs-${computedColorScheme}`]" :style="{ ...computedStyleSet, ...fixedWidth }">
-            <div class="item-line">
-                <div class="progress-line" :style="progressWidth" />
+        <div :class="['vs-stepper', colorSchemeClass]" :style="{ ...computedStyleSet, ...fixedWidth }">
+            <div class="vs-item-line">
+                <div class="vs-progress-line" :style="progressWidth" />
             </div>
-            <ul role="tablist">
+            <ul role="tablist" class="vs-steps">
                 <li
                     v-for="(item, index) in steps"
                     ref="stepRefs"
+                    class="vs-step"
                     :key="item"
                     :class="[
                         {
@@ -23,10 +24,10 @@
                     @click.stop="selectStep(index)"
                     @keydown.stop="handleKeydown"
                 >
-                    <div class="item-step">
+                    <div class="vs-item-step">
                         <slot :name="`${item}-step`" :item="item" :index="index"> {{ index + 1 }} </slot>
                     </div>
-                    <div class="item-name">
+                    <div class="vs-item-name">
                         <slot :name="`${item}-name`" :item="item" :index="index"> {{ item }} </slot>
                     </div>
                 </li>
@@ -72,7 +73,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, disabled, gap, steps, modelValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsStepperStyleSet>(name, styleSet);
 
@@ -215,7 +216,7 @@ export default defineComponent({
         }
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             progressWidth,
             fixedWidth,

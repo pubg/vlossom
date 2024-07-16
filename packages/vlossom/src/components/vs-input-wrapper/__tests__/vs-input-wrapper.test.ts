@@ -53,7 +53,7 @@ describe('vs-input-wrapper', () => {
             });
 
             // then
-            const requiredStar = wrapper.find('i.required-star');
+            const requiredStar = wrapper.find('i.vs-required-star');
             expect(requiredStar.exists()).toBe(true);
             expect(requiredStar.text()).toBe('*');
         });

@@ -15,10 +15,10 @@ export interface TableItem {
 }
 
 export interface TableParams {
-    page: number,
-    itemsPerPage: number,
-    sortTypes: { [key: string]: SortType },
-    searchText: string,
+    page: number;
+    itemsPerPage: number;
+    sortTypes: { [key: string]: SortType };
+    searchText: string;
 }
 
 export interface TableRow<T = any> {
@@ -36,24 +36,24 @@ export enum SortType {
 }
 
 export interface VsTableStyleSet {
-    bodyBackgroundColor?: string;
-    bodyBorder?: string;
-    bodyFontColor?: string;
-    bodyFontSize?: string;
-    bodyFontWeight?: string;
-    bodyMinHeight?: string;
+    backgroundColor?: string;
+    border?: string;
     captionFontColor?: string;
     captionFontSize?: string;
-    captionFontWeight?: string;
+    captionFontWeight?: string | number;
     captionSide?: string;
     captionTextAlign?: string;
+    fontColor?: string;
+    fontSize?: string;
+    fontWeight?: string | number;
     headerBackgroundColor?: string;
     headerBorder?: string;
     headerFontColor?: string;
     headerFontSize?: string;
-    headerFontWeight?: string;
-    headerMinHeight?: string;
+    headerFontWeight?: string | number;
+    headerHeight?: string;
     hoverBorder?: string;
+    rowHeight?: string;
     selectedBackgroundColor?: string;
     selectedFontColor?: string;
 }

@@ -3,35 +3,30 @@
     padding: var(--vs-page-padding, 3rem 4rem);
     color: var(--vs-page-fontColor, var(--vs-font-color));
 
-    .page-header {
+    .vs-page-header {
         margin: var(--vs-page-headerMargin, 0 0 2.4rem 0);
+        color: var(--vs-page-fontColor, var(--vs-font-color));
 
-        .page-description {
+        .vs-page-description {
             margin-top: 0.4rem;
         }
     }
 }
 
-@media screen and (max-width: 1200px) {
-    .vs-page {
-        padding: var(--vs-page-padding, 3rem 3.6rem);
-    }
-}
-
 @media screen and (max-width: 992px) {
     .vs-page {
-        padding: var(--vs-page-padding, 2.8rem 3.2rem);
+        padding: var(--vs-page-padding, 2.6rem 3.2rem);
     }
 }
 
 @media screen and (max-width: 768px) {
     .vs-page {
-        padding: var(--vs-page-padding, 2.4rem 2.4rem);
+        padding: var(--vs-page-padding, 2.2rem 2.4rem);
     }
 }
 
 @media screen and (max-width: 576px) {
     .vs-page {
-        padding: var(--vs-page-padding, 2rem 1.6rem);
+        padding: var(--vs-page-padding, 1.8rem 1.6rem);
     }
 }

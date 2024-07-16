@@ -1,41 +1,44 @@
 @use '@/styles/mixin' as *;
 
 $switchGap: 0.3rem;
-$switchSize: var(--vs-switch-handleSize, 1.2rem);
+$switchHeight: 3rem;
+$switchHeightDense: 2rem;
+$switchHandleSize: var(--vs-switch-handleSize, calc($switchHeight / 1.5));
+$switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.8));
 
 .vs-switch {
     position: relative;
     display: flex;
     align-items: center;
-    min-height: 2.4rem;
+    min-height: var(--vs-input-comp-height);
 
     .vs-switch-button {
         position: relative;
         display: flex;
         align-items: center;
         width: var(--vs-switch-width, fit-content);
-        height: var(--vs-switch-height, 2rem);
+        height: var(--vs-switch-height, $switchHeight);
         padding: 0 0.8rem;
         border: var(--vs-switch-falseBorder, 1px solid var(--vs-line-color));
-        border-radius: var(--vs-switch-borderRadius, 1rem);
+        border-radius: var(--vs-switch-borderRadius, calc($switchHeight / 2));
         background-color: var(--vs-switch-falseBackgroundColor, var(--vs-area-bg));
         color: var(--vs-switch-falseFontColor, var(--vs-font-color));
-        font-size: var(--vs-switch-fontSize, 0.8rem);
+        font-size: var(--vs-switch-fontSize, var(--vs-font-size-sm));
         cursor: pointer;
 
         &.vs-state-box {
             @include state-box;
         }
 
-        .status-label {
+        .vs-status-label {
             display: block;
             text-align: center;
             user-select: none;
             white-space: nowrap;
             width: 100%;
             word-break: break-all;
-            margin-left: 2px;
-            padding-left: $switchSize;
+            margin-left: 0.2rem;
+            padding-left: $switchHandleSize;
             padding-right: 0;
         }
 
@@ -44,9 +47,9 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
             background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
             border-radius: 50%;
             box-shadow: 2px 2px 5px 0 var(--vs-comp-shadow);
-            height: $switchSize;
+            height: $switchHandleSize;
             left: $switchGap;
-            width: $switchSize;
+            width: $switchHandleSize;
             position: absolute;
             transition: 0.3s;
         }
@@ -67,14 +70,51 @@ $switchSize: var(--vs-switch-handleSize, 1.2rem);
             color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
 
             &::before {
-                left: calc(100% - ($switchSize + $switchGap));
+                left: calc(100% - ($switchHandleSize + $switchGap));
                 background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
                 box-shadow: 2px 2px 5px 0 var(--vs-primary-comp-shadow);
             }
 
-            .status-label {
+            .vs-status-label {
                 padding-left: 0;
-                padding-right: $switchSize;
+                padding-right: $switchHandleSize;
+            }
+        }
+    }
+
+    &.dense {
+        height: var(--vs-input-comp-height-dense);
+
+        .vs-switch-button {
+            height: var(--vs-switch-height, $switchHeightDense);
+            padding: 0 0.6rem;
+            border-radius: var(--vs-switch-borderRadius, calc($switchHeightDense / 2));
+            font-size: var(--vs-switch-fontSize, var(--vs-font-size-xs));
+
+            .vs-status-label {
+                position: relative;
+                top: 0.1rem;
+                margin-left: 0.2rem;
+                padding-left: $switchHandleSizeDense;
+            }
+
+            &::before {
+                height: $switchHandleSizeDense;
+                left: $switchGap;
+                width: $switchHandleSizeDense;
+            }
+        }
+
+        &.checked {
+            .vs-switch-button {
+                &::before {
+                    left: calc(100% - ($switchHandleSizeDense + $switchGap));
+                }
+
+                .vs-status-label {
+                    padding-left: 0;
+                    padding-right: $switchHandleSizeDense;
+                }
             }
         }
     }

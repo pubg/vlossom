@@ -9,4 +9,5 @@ export interface VsButtonStyleSet {
     hoverBackgroundColor?: string;
     height?: string;
     padding?: string;
+    width?: string;
 }

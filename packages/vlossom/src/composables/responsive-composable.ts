@@ -47,7 +47,7 @@ export function useResponsive(
     grid: Ref<string | number | Breakpoints | null>,
 ) {
     const responsiveClasses: ComputedRef<string[]> = computed(() => {
-        const classes: string[] = ['vs-responsive'];
+        const classes: string[] = ['vs-response'];
 
         if (hasValue(width.value) && utils.object.isPlainObject(width.value)) {
             const { sm, md, lg, xl } = width.value;

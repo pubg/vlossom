@@ -2,11 +2,15 @@
     display: flex;
     align-items: center;
     color: var(--vs-primary-comp-bg);
-    font-size: 0.8rem;
+    font-size: var(--vs-font-size-sm);
+    white-space: nowrap;
 
     .message-icon {
         position: relative;
-        top: 0.05rem;
         margin-right: 0.2rem;
+    }
+
+    &.dense {
+        font-size: var(--vs-font-size-xs);
     }
 }

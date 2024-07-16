@@ -1,10 +1,15 @@
 <template>
     <vs-responsive class="vs-accordion" :width="width" :grid="grid">
-        <details :class="`vs-${computedColorScheme}`" :style="computedStyleSet" :open="isOpen" @toggle.stop="onToggle">
-            <summary>
+        <details
+            :class="['vs-details', colorSchemeClass]"
+            :style="computedStyleSet"
+            :open="isOpen"
+            @toggle.stop="onToggle"
+        >
+            <summary class="vs-summary">
                 <slot name="title" />
             </summary>
-            <div class="accordion-content">
+            <div class="vs-accordion-content">
                 <slot />
             </div>
         </details>
@@ -35,7 +40,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, open, modelValue } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsAccordionStyleSet>(name, styleSet);
 
@@ -57,7 +62,7 @@ export default defineComponent({
 
         return {
             isOpen,
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             onToggle,
         };

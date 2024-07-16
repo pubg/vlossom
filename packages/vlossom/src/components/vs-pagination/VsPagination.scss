@@ -12,15 +12,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: var(--vs-pagination-buttonWidth, 2rem);
-        height: var(--vs-pagination-buttonHeight, 2rem);
-        line-height: var(--vs-pagination-buttonHeight, 2rem);
+        min-width: var(--vs-pagination-buttonWidth, 3rem);
+        height: var(--vs-pagination-buttonHeight, 3rem);
+        line-height: var(--vs-pagination-buttonHeight, 3rem);
         margin: var(--vs-pagination-gap, 0.2rem);
-        border-radius: var(--vs-pagination-borderRadius, calc(var(--vs-radius-ratio) * 0.4rem));
+        border-radius: var(--vs-pagination-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         background-color: var(--vs-pagination-backgroundColor, var(--vs-comp-bg));
         color: var(--vs-pagination-fontColor, var(--vs-comp-font));
         border: 1px solid var(--vs-line-color);
-        font-size: var(--vs-pagination-fontSize, 0.8rem);
+        font-size: var(--vs-pagination-fontSize, var(--vs-font-size-sm));
         font-weight: var(--vs-pagination-fontWeight, 400);
         user-select: none;
 
@@ -34,7 +34,7 @@
                 --vs-pagination-hoverBackgroundColor,
                 var(--vs-pagination-backgroundColor, var(--vs-comp-bg-hover))
             );
-            font-size: var(--vs-pagination-hoverFontSize, var(--vs-pagination-fontSize, 0.8rem));
+            font-size: var(--vs-pagination-hoverFontSize, var(--vs-pagination-fontSize, var(--vs-font-size-sm)));
             font-weight: var(--vs-pagination-hoverFontWeight, var(--vs-pagination-fontWeight, 400));
         }
         &:active {
@@ -44,8 +44,8 @@
             background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-primary-comp-bg));
             color: var(--vs-pagination-selectedColor, var(--vs-primary-comp-font));
             border: 1px solid var(--vs-primary-comp-bg);
-            font-size: var(--vs-pagination-selectedFontSize, 0.9rem);
-            font-weight: var(--vs-pagination-selectedFontWeight, 600);
+            font-size: var(--vs-pagination-selectedFontSize, var(--vs-pagination-fontSize, var(--vs-font-size-sm)));
+            font-weight: var(--vs-pagination-selectedFontWeight, var(--vs-pagination-fontWeight, 600));
         }
     }
 

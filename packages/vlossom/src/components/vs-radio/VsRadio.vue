@@ -3,6 +3,7 @@
         <vs-input-wrapper
             :id="radioLabel ? '' : computedId"
             :label="label"
+            :dense="dense"
             :disabled="computedDisabled"
             :messages="computedMessages"
             :no-message="noMessage"
@@ -19,6 +20,7 @@
                 :style-set="computedStyleSet"
                 :aria-label="ariaLabel"
                 :checked="isChecked"
+                :dense="dense"
                 :disabled="computedDisabled"
                 :id="computedId"
                 :label="radioLabel"

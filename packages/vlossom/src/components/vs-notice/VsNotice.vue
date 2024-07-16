@@ -1,22 +1,20 @@
 <template>
-    <div
-        v-if="isVisible"
-        :class="['vs-notice', `vs-${computedColorScheme}`, { ...classObj }]"
-        :style="computedStyleSet"
-    >
+    <div v-if="isVisible" :class="['vs-notice', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div class="vs-notice-contents">
             <slot name="title">
-                <strong class="title">{{ title }}</strong>
+                <strong class="vs-notice-title">{{ title }}</strong>
             </slot>
             <vs-divider
-                :style-set="{ lineColor: primary ? 'var(--vs-primary-comp-font)' : 'var(--vs-comp-font)' }"
+                :style-set="{
+                    border: primary ? '1px solid var(--vs-primary-comp-font)' : '1px solid var(--vs-comp-font)',
+                }"
                 vertical
             />
             <div>
                 <slot />
             </div>
         </div>
-        <button type="button" class="close-button" @click.stop="closeNotice()" aria-label="close">
+        <button type="button" class="vs-notice-close-button" @click.stop="closeNotice()" aria-label="close">
             <vs-icon icon="close" size="20" />
         </button>
     </div>
@@ -47,7 +45,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, primary } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsNoticeStyleSet>(name, styleSet);
 
@@ -71,7 +69,7 @@ export default defineComponent({
         }));
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
             isVisible,
             closeNotice,
