@@ -13,6 +13,7 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/vlossom
             - run: npm run test
               working-directory: ./packages/vlossom
 
@@ -26,8 +27,10 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/vlossom
             - name: Install Playwright
               run: npx playwright install --with-deps
+              working-directory: ./packages/vlossom
             - name: Build Storybook
               run: npm run build-storybook --quiet
               working-directory: ./packages/vlossom
@@ -48,7 +51,9 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/vlossom
             - run: npm run lint --ws
+              working-directory: ./packages/vlossom
 
     build-vlossom:
         timeout-minutes: 60
@@ -60,6 +65,7 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/vlossom
             - name: Build Vlossom
               run: npm run build
               working-directory: ./packages/vlossom
@@ -74,6 +80,7 @@ jobs:
                   node-version-file: '.nvmrc'
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/docs
             - name: Build Docs
               run: npm run build
               working-directory: ./packages/docs

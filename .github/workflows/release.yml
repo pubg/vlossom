@@ -33,6 +33,7 @@ jobs:
               if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
             - name: Install dependencies
               run: npm ci
+              working-directory: ./packages/vlossom
               if: ${{ steps.release.outputs['packages/vlossom--release_created'] }}
             - name: Build Vlossom
               run: npm run build
