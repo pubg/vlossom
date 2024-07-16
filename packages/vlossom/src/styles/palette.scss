@@ -158,14 +158,22 @@ $palette: (
 );
 
 :root {
-    @each $color, $levels in $palette {
-        @each $level, $value in $levels {
-            #{'--vs-' + $color + '-' + $level}: #{$value};
-        }
+    --vs-black: #000000;
+    --vs-white: #ffffff;
+    --vs-app-bg-color-light: #f8f8f8;
+    --vs-app-bg-color-dark: #14151f;
+    --vs-dimmed-bg-light: rgba(0, 0, 0, 0.45);
+    --vs-dimmed-bg-dark: rgba(0, 0, 0, 0.6);
 
-        #{'--vs-' + $color}: var(#{'--vs-' + $color + '-500'});
-        #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-200'});
-        #{'--vs-' + $color + '-deep'}: var(#{'--vs-' + $color + '-700'});
+    @each $color, $levels in $palette {
+        & {
+            #{'--vs-' + $color}: var(#{'--vs-' + $color + '-500'});
+            #{'--vs-' + $color + '-light'}: var(#{'--vs-' + $color + '-200'});
+            #{'--vs-' + $color + '-deep'}: var(#{'--vs-' + $color + '-700'});
+            @each $level, $value in $levels {
+                #{'--vs-' + $color + '-' + $level}: #{$value};
+            }
+        }
 
         .vs-dark {
             #{'--vs-' + $color}: var(#{'--vs-' + $color + '-400'});
@@ -183,11 +191,4 @@ $palette: (
             color: var(#{'--vs-' + $color + '-deep'});
         }
     }
-
-    --vs-black: #000000;
-    --vs-white: #ffffff;
-    --vs-app-bg-color-light: #f8f8f8;
-    --vs-app-bg-color-dark: #14151f;
-    --vs-dimmed-bg-light: rgba(0, 0, 0, 0.45);
-    --vs-dimmed-bg-dark: rgba(0, 0, 0, 0.6);
 }
