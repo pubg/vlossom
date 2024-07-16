@@ -1,5 +1,9 @@
 <template>
-    <div class="vs-input-wrapper" :class="{ 'shake-horizontal': needToShake, dense }">
+    <vs-responsive
+        :class="['vs-input-wrapper', { 'shake-horizontal': needToShake, dense }]"
+        :width="width"
+        :grid="grid"
+    >
         <component :is="groupLabel ? 'fieldset' : 'div'">
             <component
                 v-if="label || $slots['label']"
@@ -27,18 +31,21 @@
                 />
             </slot>
         </div>
-    </div>
+    </vs-responsive>
 </template>
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { VsComponent, type StateMessage } from '@/declaration';
+import { getResponsiveProps } from '@/composables';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsMessage from '@/components/vs-message/VsMessage.vue';
 
 export default defineComponent({
     name: VsComponent.VsInputWrapper,
-    components: { VsMessage },
+    components: { VsResponsive, VsMessage },
     props: {
+        ...getResponsiveProps(),
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         groupLabel: { type: Boolean, default: false },

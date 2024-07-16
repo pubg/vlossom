@@ -1,66 +1,67 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :id="computedId"
-            :label="label"
-            :dense="dense"
-            :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
-            :required="required"
-            :shake="shake"
-        >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
-            </template>
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
 
-            <div :class="['vs-input', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
-                <div v-if="$slots['prepend']" class="prepend">
-                    <slot name="prepend" />
-                </div>
-
-                <input
-                    ref="inputRef"
-                    :id="computedId"
-                    :type="type"
-                    :value="inputValue"
-                    :autocomplete="autocomplete ? 'on' : 'off'"
-                    :name="name"
-                    :disabled="computedDisabled"
-                    :readonly="computedReadonly"
-                    :aria-label="ariaLabel"
-                    :aria-required="required"
-                    :placeholder="placeholder"
-                    @input.stop="updateValue($event)"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                    @keyup.enter.stop="onEnter"
-                    @change.stop
-                />
-
-                <button
-                    v-if="!noClear && !computedReadonly && !computedDisabled"
-                    type="button"
-                    class="vs-clear-button"
-                    :class="{ show: inputValue }"
-                    :disabled="!inputValue"
-                    aria-hidden="true"
-                    tabindex="-1"
-                    @click.stop="clearWithFocus()"
-                >
-                    <vs-icon icon="close" :size="dense ? 14 : 16" />
-                </button>
-
-                <div v-if="$slots['append']" class="append">
-                    <slot name="append" />
-                </div>
+        <div :class="['vs-input', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
+            <div v-if="$slots['prepend']" class="prepend">
+                <slot name="prepend" />
             </div>
 
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+            <input
+                ref="inputRef"
+                :id="computedId"
+                :type="type"
+                :value="inputValue"
+                :autocomplete="autocomplete ? 'on' : 'off'"
+                :name="name"
+                :disabled="computedDisabled"
+                :readonly="computedReadonly"
+                :aria-label="ariaLabel"
+                :aria-required="required"
+                :placeholder="placeholder"
+                @input.stop="updateValue($event)"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+                @keyup.enter.stop="onEnter"
+                @change.stop
+            />
+
+            <button
+                v-if="!noClear && !computedReadonly && !computedDisabled"
+                type="button"
+                class="vs-clear-button"
+                :class="{ show: inputValue }"
+                :disabled="!inputValue"
+                aria-hidden="true"
+                tabindex="-1"
+                @click.stop="clearWithFocus()"
+            >
+                <vs-icon icon="close" :size="dense ? 14 : 16" />
+            </button>
+
+            <div v-if="$slots['append']" class="append">
+                <slot name="append" />
+            </div>
+        </div>
+
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -75,11 +76,10 @@ import {
     useStateClass,
 } from '@/composables';
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
-import { useVsInputRules } from './vs-input-rules';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsIcon } from '@/icons';
 import { InputType } from './types';
+import { useVsInputRules } from './vs-input-rules';
 
 import type { InputValueType, VsInputStyleSet } from './types';
 import { utils } from '@/utils';
@@ -87,7 +87,7 @@ import { utils } from '@/utils';
 const name = VsComponent.VsInput;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsResponsive, VsIcon },
+    components: { VsInputWrapper, VsIcon },
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),

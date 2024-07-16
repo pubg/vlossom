@@ -1,44 +1,45 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
+        <textarea
+            ref="textareaRef"
+            :class="['vs-textarea', colorSchemeClass, classObj, stateClasses]"
+            :style="computedStyleSet"
             :id="computedId"
-            :label="label"
-            :dense="dense"
+            :value="inputValue"
+            :name="name"
             :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
-            :required="required"
-            :shake="shake"
-        >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
-            </template>
+            :readonly="computedReadonly"
+            :aria-label="ariaLabel"
+            :aria-required="required"
+            :autocomplete="autocomplete ? 'on' : 'off'"
+            :placeholder="placeholder"
+            @input.stop="updateValue($event)"
+            @focus.stop="onFocus"
+            @blur.stop="onBlur"
+            @keyup.enter.stop="onEnter"
+            @change.stop
+        />
 
-            <textarea
-                ref="textareaRef"
-                :class="['vs-textarea', colorSchemeClass, classObj, stateClasses]"
-                :style="computedStyleSet"
-                :id="computedId"
-                :value="inputValue"
-                :name="name"
-                :disabled="computedDisabled"
-                :readonly="computedReadonly"
-                :aria-label="ariaLabel"
-                :aria-required="required"
-                :autocomplete="autocomplete ? 'on' : 'off'"
-                :placeholder="placeholder"
-                @input.stop="updateValue($event)"
-                @focus.stop="onFocus"
-                @blur.stop="onBlur"
-                @keyup.enter.stop="onEnter"
-                @change.stop
-            />
-
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -53,17 +54,16 @@ import {
     useStateClass,
 } from '@/composables';
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
-import { useVsTextareaRules } from './vs-textarea-rules';
-import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { utils } from '@/utils';
+import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
+import { useVsTextareaRules } from './vs-textarea-rules';
 
 import type { InputValueType, VsTextareaStyleSet } from './types';
 
 const name = VsComponent.VsTextarea;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsResponsive },
+    components: { VsInputWrapper },
     props: {
         ...getInputProps<InputValueType, ['noClear']>('noClear'),
         ...getResponsiveProps(),

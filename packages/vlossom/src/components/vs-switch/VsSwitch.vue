@@ -1,56 +1,57 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :id="computedId"
-            :label="label"
-            :dense="dense"
-            :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
-            :required="required"
-            :shake="shake"
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
+        <div
+            :class="[
+                'vs-switch',
+                colorSchemeClass,
+                { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly, dense },
+            ]"
+            :style="computedStyleSet"
         >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
-            </template>
+            <input
+                type="checkbox"
+                ref="switchRef"
+                class="vs-switch-input"
+                :id="computedId"
+                :name="name"
+                :disabled="computedDisabled || computedReadonly"
+                :checked="isChecked"
+                :value="convertToString(trueValue)"
+                :aria-label="ariaLabel"
+                :aria-required="required"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+            />
 
-            <div
-                :class="[
-                    'vs-switch',
-                    colorSchemeClass,
-                    { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly, dense },
-                ]"
-                :style="computedStyleSet"
-            >
-                <input
-                    type="checkbox"
-                    ref="switchRef"
-                    class="vs-switch-input"
-                    :id="computedId"
-                    :name="name"
-                    :disabled="computedDisabled || computedReadonly"
-                    :checked="isChecked"
-                    :value="convertToString(trueValue)"
-                    :aria-label="ariaLabel"
-                    :aria-required="required"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                />
-
-                <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
-                    <span class="vs-status-label" data-value="true" v-show="isChecked">
-                        {{ trueLabel }}
-                    </span>
-                    <span class="vs-status-label" data-value="false" v-show="!isChecked">
-                        {{ falseLabel }}
-                    </span>
-                </div>
+            <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
+                <span class="vs-status-label" data-value="true" v-show="isChecked">
+                    {{ trueLabel }}
+                </span>
+                <span class="vs-status-label" data-value="false" v-show="!isChecked">
+                    {{ falseLabel }}
+                </span>
             </div>
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+        </div>
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -64,16 +65,14 @@ import {
     useValueMatcher,
     useStateClass,
 } from '@/composables';
-import { utils } from '@/utils';
 import { ColorScheme, VsComponent } from '@/declaration';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
+import { utils } from '@/utils';
 
 import type { VsSwitchStyleSet } from './types';
 
 const name = VsComponent.VsSwitch;
 export default defineComponent({
     name,
-    components: { VsResponsive },
     props: {
         ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
         ...getResponsiveProps(),
