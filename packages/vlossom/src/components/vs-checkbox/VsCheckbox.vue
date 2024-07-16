@@ -1,49 +1,50 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :id="checkLabel ? '' : computedId"
-            :label="label"
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="checkLabel ? '' : computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
+        <vs-checkbox-node
+            ref="checkboxRef"
+            :color-scheme="computedColorScheme"
+            :style-set="computedStyleSet"
+            :aria-label="ariaLabel"
+            :checked="isChecked"
             :dense="dense"
             :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
+            :id="computedId"
+            :indeterminate="indeterminate"
+            :label="checkLabel"
+            :name="name"
+            :readonly="computedReadonly"
             :required="required"
-            :shake="shake"
+            :state="computedState"
+            :value="trueValue"
+            @toggle="onToggle"
+            @focus="onFocus"
+            @blur="onBlur"
         >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
+            <template #label v-if="$slots['check-label']">
+                <slot name="check-label" />
             </template>
+        </vs-checkbox-node>
 
-            <vs-checkbox-node
-                ref="checkboxRef"
-                :color-scheme="computedColorScheme"
-                :style-set="computedStyleSet"
-                :aria-label="ariaLabel"
-                :checked="isChecked"
-                :dense="dense"
-                :disabled="computedDisabled"
-                :id="computedId"
-                :indeterminate="indeterminate"
-                :label="checkLabel"
-                :name="name"
-                :readonly="computedReadonly"
-                :required="required"
-                :state="computedState"
-                :value="trueValue"
-                @toggle="onToggle"
-                @focus="onFocus"
-                @blur="onBlur"
-            >
-                <template #label v-if="$slots['check-label']">
-                    <slot name="check-label" />
-                </template>
-            </vs-checkbox-node>
-
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -58,7 +59,6 @@ import {
 } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsCheckboxNode } from '@/nodes';
 
 import type { VsCheckboxStyleSet } from './types';
@@ -66,7 +66,7 @@ import type { VsCheckboxStyleSet } from './types';
 const name = VsComponent.VsCheckbox;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsResponsive, VsCheckboxNode },
+    components: { VsInputWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),

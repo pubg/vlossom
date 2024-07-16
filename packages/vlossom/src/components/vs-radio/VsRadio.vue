@@ -1,48 +1,49 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :id="radioLabel ? '' : computedId"
-            :label="label"
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="radioLabel ? '' : computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
+        <vs-radio-node
+            ref="radioRef"
+            :color-scheme="computedColorScheme"
+            :style-set="computedStyleSet"
+            :aria-label="ariaLabel"
+            :checked="isChecked"
             :dense="dense"
             :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
+            :id="computedId"
+            :label="radioLabel"
+            :name="name"
+            :readonly="computedReadonly"
             :required="required"
-            :shake="shake"
+            :state="computedState"
+            :value="radioValue"
+            @toggle="onToggle"
+            @focus="onFocus"
+            @blur="onBlur"
         >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
+            <template #label v-if="$slots['radio-label']">
+                <slot name="radio-label" />
             </template>
+        </vs-radio-node>
 
-            <vs-radio-node
-                ref="radioRef"
-                :color-scheme="computedColorScheme"
-                :style-set="computedStyleSet"
-                :aria-label="ariaLabel"
-                :checked="isChecked"
-                :dense="dense"
-                :disabled="computedDisabled"
-                :id="computedId"
-                :label="radioLabel"
-                :name="name"
-                :readonly="computedReadonly"
-                :required="required"
-                :state="computedState"
-                :value="radioValue"
-                @toggle="onToggle"
-                @focus="onFocus"
-                @blur="onBlur"
-            >
-                <template #label v-if="$slots['radio-label']">
-                    <slot name="radio-label" />
-                </template>
-            </vs-radio-node>
-
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -51,14 +52,13 @@ import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInpu
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsRadioNode } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
 export default defineComponent({
     name: VsComponent.VsRadio,
-    components: { VsInputWrapper, VsResponsive, VsRadioNode },
+    components: { VsInputWrapper, VsRadioNode },
     props: {
         ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
         ...getResponsiveProps(),

@@ -1,73 +1,74 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :id="computedId"
-            :label="label"
-            :dense="dense"
-            :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
-            :required="required"
-            :shake="shake"
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :id="computedId"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
+        <div
+            :class="['vs-file-input', colorSchemeClass, classObj, stateClasses]"
+            :style="computedStyleSet"
+            @dragenter.stop="setDragging(true)"
+            @dragleave.stop="setDragging(false)"
+            @drop.stop="setDragging(false)"
         >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
-            </template>
-
-            <div
-                :class="['vs-file-input', colorSchemeClass, classObj, stateClasses]"
-                :style="computedStyleSet"
-                @dragenter.stop="setDragging(true)"
-                @dragleave.stop="setDragging(false)"
-                @drop.stop="setDragging(false)"
-            >
-                <div class="vs-attach-file-icon">
-                    <slot name="icon">
-                        <vs-icon icon="attachFile" :size="dense ? 16 : 18" />
-                    </slot>
-                </div>
-
-                <div class="vs-label-box">
-                    <div :class="['vs-label-wrap', { placeholder: placeholder && !hasValue }]">
-                        <template v-if="dragging">{{ dropPlaceholder }}</template>
-                        <template v-else-if="placeholder && !hasValue">{{ placeholder }}</template>
-                        <template v-else-if="hasValue">{{ fileLabel }}</template>
-                    </div>
-                </div>
-
-                <input
-                    ref="fileInputRef"
-                    class="vs-file-input-ref"
-                    :id="computedId"
-                    type="file"
-                    :name="name"
-                    :disabled="computedDisabled"
-                    :readonly="computedReadonly"
-                    :required="required"
-                    :multiple="multiple"
-                    :accept="accept"
-                    :aria-label="ariaLabel"
-                    @change.stop="updateValue($event)"
-                    @focus.stop="onFocus"
-                    @blur.stop="onBlur"
-                />
-
-                <button
-                    v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
-                    class="vs-clear-button"
-                    aria-hidden="true"
-                    tabindex="-1"
-                    @click.stop="onClear()"
-                >
-                    <vs-icon icon="close" :size="dense ? 14 : 16" />
-                </button>
+            <div class="vs-attach-file-icon">
+                <slot name="icon">
+                    <vs-icon icon="attachFile" :size="dense ? 16 : 18" />
+                </slot>
             </div>
 
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+            <div class="vs-label-box">
+                <div :class="['vs-label-wrap', { placeholder: placeholder && !hasValue }]">
+                    <template v-if="dragging">{{ dropPlaceholder }}</template>
+                    <template v-else-if="placeholder && !hasValue">{{ placeholder }}</template>
+                    <template v-else-if="hasValue">{{ fileLabel }}</template>
+                </div>
+            </div>
+
+            <input
+                ref="fileInputRef"
+                class="vs-file-input-ref"
+                :id="computedId"
+                type="file"
+                :name="name"
+                :disabled="computedDisabled"
+                :readonly="computedReadonly"
+                :required="required"
+                :multiple="multiple"
+                :accept="accept"
+                :aria-label="ariaLabel"
+                @change.stop="updateValue($event)"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+            />
+
+            <button
+                v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
+                class="vs-clear-button"
+                aria-hidden="true"
+                tabindex="-1"
+                @click.stop="onClear()"
+            >
+                <vs-icon icon="close" :size="dense ? 14 : 16" />
+            </button>
+        </div>
+
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -75,7 +76,6 @@ import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput, useStateClass } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsIcon } from '@/icons';
 
 import type { InputValueType, VsFileInputStyleSet } from './types';
@@ -83,7 +83,7 @@ import type { InputValueType, VsFileInputStyleSet } from './types';
 const name = VsComponent.VsFileInput;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsResponsive, VsIcon },
+    components: { VsInputWrapper, VsIcon },
     props: {
         ...getInputProps<InputValueType, []>(),
         ...getResponsiveProps(),

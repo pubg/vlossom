@@ -1,57 +1,58 @@
 <template>
-    <vs-responsive :width="width" :grid="grid" v-show="visible">
-        <vs-input-wrapper
-            :label="label"
-            :dense="dense"
-            :disabled="computedDisabled"
-            :messages="computedMessages"
-            :no-message="noMessage"
-            :required="required"
-            :shake="shake"
-            group-label
-        >
-            <template #label v-if="label || $slots['label']">
-                <slot name="label" />
-            </template>
+    <vs-input-wrapper
+        v-show="visible"
+        :width="width"
+        :grid="grid"
+        :label="label"
+        :required="required"
+        :disabled="computedDisabled"
+        :dense="dense"
+        :messages="computedMessages"
+        :no-message="noMessage"
+        :shake="shake"
+        group-label
+    >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
 
-            <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
-                <vs-checkbox-node
-                    v-for="(option, index) in options"
-                    :key="getOptionValue(option)"
-                    ref="checkboxRefs"
-                    class="vs-checkbox-item"
-                    :color-scheme="computedColorScheme"
-                    :style-set="checkboxStyleSet"
-                    :checked="isChecked(option)"
-                    :dense="dense"
-                    :disabled="computedDisabled"
-                    :id="`${computedId}-${optionIds[index]}`"
-                    :label="getOptionLabel(option)"
-                    :name="name"
-                    :readonly="computedReadonly"
-                    :required="required"
-                    :state="computedState"
-                    :value="getOptionValue(option)"
-                    @toggle="onToggle(option, $event)"
-                    @focus="onFocus(option, $event)"
-                    @blur="onBlur(option, $event)"
-                >
-                    <template #label v-if="$slots['check-label']">
-                        <slot
-                            name="check-label"
-                            :option="option"
-                            :value="getOptionValue(option)"
-                            :label="getOptionLabel(option)"
-                        />
-                    </template>
-                </vs-checkbox-node>
-            </div>
+        <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
+            <vs-checkbox-node
+                v-for="(option, index) in options"
+                :key="getOptionValue(option)"
+                ref="checkboxRefs"
+                class="vs-checkbox-item"
+                :color-scheme="computedColorScheme"
+                :style-set="checkboxStyleSet"
+                :checked="isChecked(option)"
+                :dense="dense"
+                :disabled="computedDisabled"
+                :id="`${computedId}-${optionIds[index]}`"
+                :label="getOptionLabel(option)"
+                :name="name"
+                :readonly="computedReadonly"
+                :required="required"
+                :state="computedState"
+                :value="getOptionValue(option)"
+                @toggle="onToggle(option, $event)"
+                @focus="onFocus(option, $event)"
+                @blur="onBlur(option, $event)"
+            >
+                <template #label v-if="$slots['check-label']">
+                    <slot
+                        name="check-label"
+                        :option="option"
+                        :value="getOptionValue(option)"
+                        :label="getOptionLabel(option)"
+                    />
+                </template>
+            </vs-checkbox-node>
+        </div>
 
-            <template #messages v-if="!noMessage">
-                <slot name="messages" />
-            </template>
-        </vs-input-wrapper>
-    </vs-responsive>
+        <template #messages v-if="!noMessage">
+            <slot name="messages" />
+        </template>
+    </vs-input-wrapper>
 </template>
 
 <script lang="ts">
@@ -68,7 +69,6 @@ import {
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import { VsCheckboxNode } from '@/nodes';
 import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
@@ -78,7 +78,7 @@ import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 const name = VsComponent.VsCheckboxSet;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsResponsive, VsCheckboxNode },
+    components: { VsInputWrapper, VsCheckboxNode },
     props: {
         ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
