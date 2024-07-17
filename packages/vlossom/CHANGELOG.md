@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0-beta.4](https://github.com/pubg/vlossom/compare/v1.0.0-beta.4...v1.1.0-beta.4) (2024-07-17)
+## 1.0.0 (2024-07-17)
 
 
 ### Features
