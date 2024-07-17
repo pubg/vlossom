@@ -256,6 +256,9 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
 
         .vs-table-table .vs-table-thead .vs-table-tr {
             grid-template-columns: none !important;
+            margin-bottom: 0.4rem;
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
+
             th:not(:first-child) {
                 display: none;
             }
@@ -264,8 +267,6 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 height: 2.2rem;
                 padding-left: 1rem;
             }
-            margin-bottom: 0.4rem;
-            border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
         }
 
         .vs-table-table {
@@ -292,11 +293,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 overflow-x: auto;
 
                 &.selectable-td {
+                    justify-content: flex-start;
+
                     &:before {
                         display: none;
                     }
-
-                    justify-content: flex-start;
                 }
 
                 .vs-table-data {
