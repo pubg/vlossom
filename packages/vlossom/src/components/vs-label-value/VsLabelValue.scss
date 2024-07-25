@@ -79,6 +79,7 @@
             padding: 0.8rem 1.2rem;
 
             &.label {
+                flex-basis: auto;
                 border-right: none;
                 border-bottom: var(--vs-label-value-border, 1px solid var(--vs-line-color));
             }
