@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/pubg/vlossom/compare/v1.0.0...v1.0.1) (2024-07-25)
+
+
+### Bug Fixes
+
+* **VsLabelValue:** modify flex-basis when container query applied ([#246](https://github.com/pubg/vlossom/issues/246)) ([6f8d498](https://github.com/pubg/vlossom/commit/6f8d498fa591316700d25dd026c63425cf8aee84))
+
 ## 1.0.0 (2024-07-17)
 
 
