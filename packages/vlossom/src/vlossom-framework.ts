@@ -91,7 +91,7 @@ function registerComponents(app: App, components: VsComponent[] = []) {
     });
 }
 
-function createVlossom(options?: VlossomOptions) {
+function createVlossom(options?: VlossomOptions): any {
     return {
         install(app: App) {
             vlossom = new Vlossom(options);

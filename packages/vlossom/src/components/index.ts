@@ -96,7 +96,8 @@ export { default as VsStepper } from './vs-stepper/VsStepper.vue';
 export { type VsSwitchStyleSet } from './vs-switch/types';
 export { default as VsSwitch } from './vs-switch/VsSwitch.vue';
 
-export { type VsTableStyleSet } from './vs-table/types';
+export { SortType } from './vs-table/types';
+export type { VsTableStyleSet, TableHeader, TableItem, TableParams, TableRow, TableFilter } from './vs-table/types';
 export { default as VsTable } from './vs-table/VsTable.vue';
 
 export { type VsTabsStyleSet } from './vs-tabs/types';
