@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2](https://github.com/pubg/vlossom/compare/v1.0.1...v1.0.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* **Components:** move component types ([#249](https://github.com/pubg/vlossom/issues/249)) ([86621d8](https://github.com/pubg/vlossom/commit/86621d8633813ee19457c62a89d2d830c61fd1d2))
+* **VsChip:** fix chip padding size ([#251](https://github.com/pubg/vlossom/issues/251)) ([31faeb5](https://github.com/pubg/vlossom/commit/31faeb54770ea3aacd203b191b80112fd15e35c2))
+* **VsTable:** add vs-table interface exports ([#248](https://github.com/pubg/vlossom/issues/248)) ([cf28476](https://github.com/pubg/vlossom/commit/cf284761711ad015ef894576d8f92a84bf725986))
+
 ## 1.0.1 (2024-07-25)
 
 
