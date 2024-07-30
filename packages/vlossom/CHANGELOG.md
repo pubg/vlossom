@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/pubg/vlossom/compare/v1.0.2...v1.0.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* change index.d.ts module name ([#252](https://github.com/pubg/vlossom/issues/252)) ([d0caedc](https://github.com/pubg/vlossom/commit/d0caedcc3368147763e7bb65036de213bcb12136))
+
 ## [1.0.2](https://github.com/pubg/vlossom/compare/v1.0.1...v1.0.2) (2024-07-30)
 
 
