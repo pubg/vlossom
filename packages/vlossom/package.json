@@ -35,8 +35,7 @@
         "chromatic": "chromatic --build-script-name build-storybook:chromatic --exit-zero-on-changes"
     },
     "files": [
-        "dist",
-        "src"
+        "dist"
     ],
     "main": "./dist/vlossom.umd.js",
     "module": "./dist/vlossom.es.js",

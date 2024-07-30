@@ -1,7 +1,7 @@
 import './styles/index.scss';
 import type { Vlossom } from './vlossom-framework';
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $vs: Vlossom;
     }
