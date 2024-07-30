@@ -15,7 +15,7 @@ $chip-height-dense: 2rem;
     min-height: var(--vs-chip-height, $chip-height);
     height: var(--vs-chip-height, $chip-height);
     width: var(--vs-chip-width, auto);
-    padding: var(--vs-chip-padding, 0 0.8em);
+    padding: var(--vs-chip-padding, 0 0.6rem);
     user-select: none;
 
     .vs-icon-container {
@@ -52,7 +52,7 @@ $chip-height-dense: 2rem;
         border-radius: var(--vs-chip-borderRadius, calc($chip-height-dense / 2));
         min-height: var(--vs-chip-height, $chip-height-dense);
         height: var(--vs-chip-height, $chip-height-dense);
-        padding: var(--vs-chip-padding, 0 0.4em);
+        padding: var(--vs-chip-padding, 0 0.3rem);
         font-size: var(--vs-chip-fontSize, var(--vs-font-size-sm));
 
         .vs-icon-container {
