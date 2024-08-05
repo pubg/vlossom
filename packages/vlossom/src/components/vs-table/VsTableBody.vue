@@ -20,7 +20,7 @@
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
-                @click="emitRowClick(element, index)"
+                @click="emitClickRow(element, index)"
                 @toggleExpand="toggleExpand"
             >
                 <template #check>
@@ -123,7 +123,7 @@ export default defineComponent({
         totalItemsLength: { type: Number, default: 0 },
     },
     emits: [
-        'rowClick',
+        'clickRow',
         'toggleExpand',
         'change:selectedItems',
         'change:totalItems',
@@ -150,6 +150,7 @@ export default defineComponent({
             innerItemsPerPage,
             totalLength,
         } = toRefs(props);
+        const { emit } = ctx;
 
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
@@ -181,16 +182,16 @@ export default defineComponent({
                     innerItemsPerPage,
                     totalLength,
                 );
-                ctx.emit('update:totalItemsLength', resultTableItems.length);
+                emit('update:totalItemsLength', resultTableItems.length);
                 const resultItems = resultTableItems.map((i) => i.data);
                 const pagedItems = pagination.value ? pagedTableItems.map((i) => i.data) : resultItems;
-                ctx.emit('change:totalItems', resultItems);
-                ctx.emit('change:pagedItems', pagedItems);
+                emit('change:totalItems', resultItems);
+                emit('change:pagedItems', pagedItems);
                 return pagedTableItems;
             },
             set(itemArr: TableItem[]) {
                 innerItems.value = itemArr.map((i) => i.data);
-                ctx.emit('change:totalItems', innerItems.value);
+                emit('change:totalItems', innerItems.value);
             },
         });
 
@@ -222,8 +223,8 @@ export default defineComponent({
             toggleExpand(target.id);
         }
 
-        function emitRowClick(rowItem: any, rowIndex: number) {
-            ctx.emit('rowClick', rowItem, rowIndex);
+        function emitClickRow(rowItem: any, rowIndex: number) {
+            emit('clickRow', rowItem, rowIndex);
         }
 
         // for initial skeleton loading
@@ -239,7 +240,7 @@ export default defineComponent({
             toggleSelect,
             isExpanded,
             toggleExpand,
-            emitRowClick,
+            emitClickRow,
             // expose
             expand,
         };
