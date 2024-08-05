@@ -62,6 +62,7 @@
                     @change:selected-items="emitSelectedItems"
                     @change:paged-items="emitPagedItems"
                     @change:total-items="emitTotalItems"
+                    @click-row="emitClickRow"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -174,6 +175,7 @@ export default defineComponent({
         },
     },
     emits: [
+        'clickRow',
         'update',
         'update:itemsPerPage',
         'update:page',
@@ -342,6 +344,10 @@ export default defineComponent({
             emit('update:totalItems', items);
         }
 
+        function emitClickRow(rowItem: any, rowIndex: number) {
+            emit('clickRow', rowItem, rowIndex);
+        }
+
         return {
             colorSchemeClass,
             computedStyleSet,
@@ -365,6 +371,7 @@ export default defineComponent({
             emitSelectedItems,
             emitPagedItems,
             emitTotalItems,
+            emitClickRow,
             // expose
             expand,
         };
