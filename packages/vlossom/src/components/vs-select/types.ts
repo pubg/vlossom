@@ -11,4 +11,5 @@ export interface VsSelectStyleSet {
     optionSelectedFontColor?: string;
     optionsHeight?: string;
     optionsZIndex?: string | number;
+    padding?: string;
 }

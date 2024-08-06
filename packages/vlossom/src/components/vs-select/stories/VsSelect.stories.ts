@@ -256,6 +256,7 @@ export const StyleSet: Story = {
             optionHoverFontColor: '#EEEEEE',
             optionSelectedBackgroundColor: '#12372A',
             optionSelectedFontColor: '#EEEEEE',
+            padding: '0 3rem',
         },
     },
 };
