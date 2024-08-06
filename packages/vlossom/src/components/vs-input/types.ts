@@ -19,6 +19,7 @@ export interface VsInputStyleSet {
     fontColor?: string;
     fontSize?: string;
     height?: string;
+    padding?: string;
     prependBackgroundColor?: string;
     prependColor?: string;
 }
