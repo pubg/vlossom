@@ -297,7 +297,7 @@ export const Expandable: Story = {
 			<div>
 				<vs-table v-bind="args">
 					<template #expand="{ item }">
-						<div style="padding: 1rem">
+						<div>
 							{{ item.additionalText }}
 						</div>
 					</template>

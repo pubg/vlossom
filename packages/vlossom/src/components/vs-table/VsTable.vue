@@ -70,7 +70,7 @@
                 </vs-table-body>
             </table>
         </div>
-        <div class="table-pagination" v-if="pagination">
+        <div class="vs-table-pagination" v-if="pagination">
             <vs-pagination
                 v-model="innerPage"
                 :disabled="paginationLength <= 1 || loading"
@@ -79,7 +79,7 @@
                 :color-scheme="colorScheme"
             />
             <vs-select
-                class="vs-pagination-options"
+                class="vs-table-pagination-options"
                 v-model="innerItemsPerPage"
                 :options="paginationOptions"
                 :disabled="loading"
