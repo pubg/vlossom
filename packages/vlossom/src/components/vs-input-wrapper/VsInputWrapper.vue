@@ -74,4 +74,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsInputWrapper.scss" />
+<style lang="scss" src="./VsInputWrapper.scss" />

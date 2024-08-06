@@ -210,4 +210,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsDrawer.scss" />
+<style lang="scss" src="./VsDrawer.scss" />

@@ -269,4 +269,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsCheckboxSet.scss" />
+<style lang="scss" src="./VsCheckboxSet.scss" />

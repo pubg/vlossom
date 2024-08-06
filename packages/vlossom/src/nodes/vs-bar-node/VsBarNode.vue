@@ -46,4 +46,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsBarNode.scss" />
+<style lang="scss" src="./VsBarNode.scss" />

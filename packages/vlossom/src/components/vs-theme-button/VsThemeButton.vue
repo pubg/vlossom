@@ -53,4 +53,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsThemeButton.scss" />
+<style lang="scss" src="./VsThemeButton.scss" />

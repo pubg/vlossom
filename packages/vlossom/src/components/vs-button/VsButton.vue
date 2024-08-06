@@ -68,4 +68,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsButton.scss" />
+<style lang="scss" src="./VsButton.scss" />

@@ -53,4 +53,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsMessage.scss" />
+<style lang="scss" src="./VsMessage.scss" />

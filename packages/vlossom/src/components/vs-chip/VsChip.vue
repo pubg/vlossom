@@ -67,4 +67,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsChip.scss" />
+<style lang="scss" src="./VsChip.scss" />

@@ -28,4 +28,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsResponsive.scss" />
+<style lang="scss" src="./VsResponsive.scss" />

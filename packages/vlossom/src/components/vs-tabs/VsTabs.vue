@@ -270,4 +270,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsTabs.scss" />
+<style lang="scss" src="./VsTabs.scss" />

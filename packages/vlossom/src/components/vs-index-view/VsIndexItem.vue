@@ -22,4 +22,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsIndexView.scss" />
+<style lang="scss" src="./VsIndexView.scss" />

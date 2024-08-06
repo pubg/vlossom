@@ -32,4 +32,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsAvatar.scss" />
+<style lang="scss" src="./VsAvatar.scss" />

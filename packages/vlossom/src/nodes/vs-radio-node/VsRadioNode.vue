@@ -98,4 +98,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsRadioNode.scss" />
+<style lang="scss" src="./VsRadioNode.scss" />

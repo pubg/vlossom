@@ -70,4 +70,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsContainer.scss" />
+<style lang="scss" src="./VsContainer.scss" />

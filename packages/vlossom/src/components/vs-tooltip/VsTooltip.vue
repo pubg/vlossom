@@ -219,4 +219,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsTooltip.scss" />
+<style lang="scss" src="./VsTooltip.scss" />

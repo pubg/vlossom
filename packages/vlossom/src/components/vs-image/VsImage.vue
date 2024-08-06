@@ -86,4 +86,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsImage.scss" />
+<style lang="scss" src="./VsImage.scss" />

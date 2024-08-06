@@ -70,4 +70,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsLabelValue.scss" />
+<style lang="scss" src="./VsLabelValue.scss" />

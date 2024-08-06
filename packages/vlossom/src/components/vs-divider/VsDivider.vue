@@ -40,4 +40,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsDivider.scss" />
+<style lang="scss" src="./VsDivider.scss" />
