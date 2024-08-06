@@ -144,7 +144,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container>
+            <vs-container grid>
                 <vs-radio-set v-bind="args" />
                 <vs-radio-set v-bind="args" />
             </vs-container>

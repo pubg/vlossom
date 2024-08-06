@@ -30,12 +30,12 @@
 }
 
 @mixin responsive {
-    $width-base: var(--vs-width-base);
+    $width-xs: var(--vs-width-xs);
     $width-sm: var(--vs-width-sm);
     $width-md: var(--vs-width-md);
     $width-lg: var(--vs-width-lg);
     $width-xl: var(--vs-width-xl);
-    $grid-base: var(--vs-grid-base);
+    $grid-xs: var(--vs-grid-xs);
     $grid-sm: var(--vs-grid-sm);
     $grid-md: var(--vs-grid-md);
     $grid-lg: var(--vs-grid-lg);
@@ -43,8 +43,8 @@
 
     .vs-response {
         box-sizing: border-box;
-        width: $width-base;
-        grid-column-start: span $grid-base;
+        width: $width-xs;
+        grid-column-start: span $grid-xs;
     }
 
     @container (min-width: 480px) {
