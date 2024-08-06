@@ -100,4 +100,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsToast.scss" scoped />
+<style lang="scss" src="./VsToast.scss" />

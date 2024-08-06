@@ -280,4 +280,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsInput.scss" />
+<style lang="scss" src="./VsInput.scss" />

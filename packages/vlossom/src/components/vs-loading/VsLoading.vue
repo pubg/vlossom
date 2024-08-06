@@ -36,4 +36,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsLoading.scss" />
+<style lang="scss" src="./VsLoading.scss" />

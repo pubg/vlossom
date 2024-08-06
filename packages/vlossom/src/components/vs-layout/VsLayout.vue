@@ -44,4 +44,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsLayout.scss" />
+<style lang="scss" src="./VsLayout.scss" />

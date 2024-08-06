@@ -86,4 +86,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsConfirm.scss" scoped />
+<style lang="scss" src="./VsConfirm.scss" />

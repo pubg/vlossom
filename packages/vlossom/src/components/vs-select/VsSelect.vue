@@ -572,4 +572,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsSelect.scss" />
+<style lang="scss" src="./VsSelect.scss" />

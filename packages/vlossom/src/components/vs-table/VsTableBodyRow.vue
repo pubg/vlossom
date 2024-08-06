@@ -153,4 +153,4 @@ export default defineComponent({
     },
 });
 </script>
-<style lang="scss" scoped src="./VsTable.scss" />
+<style lang="scss" src="./VsTable.scss" />

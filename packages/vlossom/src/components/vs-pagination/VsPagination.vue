@@ -190,4 +190,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsPagination.scss" />
+<style lang="scss" src="./VsPagination.scss" />
