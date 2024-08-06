@@ -29,7 +29,6 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             td {
                 display: flex;
                 align-items: center;
-                padding: 0 1.6rem;
                 text-align: left;
 
                 .vs-table-data {
@@ -43,6 +42,14 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 &.vs-table-selectable {
                     padding: 0 1rem;
                 }
+            }
+
+            th {
+                padding: 0.6rem 1.6rem;
+            }
+
+            td {
+                padding: 0 1.6rem;
             }
         }
 
