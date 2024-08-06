@@ -231,7 +231,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container>
+            <vs-container grid>
                 <vs-select v-bind="args" />
                 <vs-select v-bind="args" />
             </vs-container>

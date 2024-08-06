@@ -161,7 +161,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container>
+            <vs-container grid>
                 <vs-file-input v-bind="args" />
                 <vs-file-input v-bind="args" />
             </vs-container>
