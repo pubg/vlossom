@@ -234,4 +234,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsSwitch.scss" />
+<style lang="scss" src="./VsSwitch.scss" />

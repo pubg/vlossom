@@ -79,4 +79,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsNotice.scss" />
+<style lang="scss" src="./VsNotice.scss" />

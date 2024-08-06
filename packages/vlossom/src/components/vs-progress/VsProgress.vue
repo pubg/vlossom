@@ -33,4 +33,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsProgress.scss" scoped />
+<style lang="scss" src="./VsProgress.scss" />

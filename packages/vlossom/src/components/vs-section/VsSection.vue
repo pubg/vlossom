@@ -48,4 +48,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsSection.scss" />
+<style lang="scss" src="./VsSection.scss" />

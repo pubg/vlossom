@@ -160,4 +160,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsModal.scss" />
+<style lang="scss" src="./VsModal.scss" />

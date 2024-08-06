@@ -277,4 +277,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsFileInput.scss" />
+<style lang="scss" src="./VsFileInput.scss" />

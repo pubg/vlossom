@@ -70,4 +70,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsAccordion.scss" />
+<style lang="scss" src="./VsAccordion.scss" />

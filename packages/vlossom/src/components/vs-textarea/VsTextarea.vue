@@ -228,4 +228,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsTextarea.scss" />
+<style lang="scss" src="./VsTextarea.scss" />

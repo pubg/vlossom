@@ -41,4 +41,4 @@ export default defineComponent({
 });
 </script>
 
-<style src="./VsToastView.scss" scoped />
+<style lang="scss" src="./VsToastView.scss" />

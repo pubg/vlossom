@@ -44,4 +44,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsBlock.scss" />
+<style lang="scss" src="./VsBlock.scss" />

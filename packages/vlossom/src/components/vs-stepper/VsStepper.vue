@@ -232,4 +232,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsStepper.scss" />
+<style lang="scss" src="./VsStepper.scss" />

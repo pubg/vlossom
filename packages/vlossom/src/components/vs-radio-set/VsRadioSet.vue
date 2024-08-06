@@ -223,4 +223,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped src="./VsRadioSet.scss" />
+<style lang="scss" src="./VsRadioSet.scss" />
