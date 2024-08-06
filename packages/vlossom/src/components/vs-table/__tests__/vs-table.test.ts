@@ -392,7 +392,7 @@ describe('VsTable', () => {
             await expandButton?.trigger('click');
 
             // then
-            const expandedContent = wrapper.findAll('tr .vs-expanded-row-content').at(0);
+            const expandedContent = wrapper.findAll('tr .vs-table-expanded-row-content').at(0);
             expect(expandedContent?.isVisible()).toBe(true);
             expect(expandedContent?.text()).toContain('Additional Text for Apple');
         });
