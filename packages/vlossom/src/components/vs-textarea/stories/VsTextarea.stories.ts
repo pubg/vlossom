@@ -141,7 +141,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container>
+            <vs-container grid>
                 <vs-textarea v-bind="args" />
                 <vs-textarea v-bind="args" />
             </vs-container>

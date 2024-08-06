@@ -78,9 +78,9 @@ export function useResponsive(
         const styles: Record<string, string> = {};
         if (hasValue(width.value)) {
             if (utils.object.isPlainObject(width.value)) {
-                const { base, sm, md, lg, xl } = width.value;
+                const { xs, sm, md, lg, xl } = width.value;
                 const widthStyles = {
-                    ...(hasValue(base) && { ['--vs-width-base']: utils.string.convertToStringSize(base) }),
+                    ...(hasValue(xs) && { ['--vs-width-xs']: utils.string.convertToStringSize(xs) }),
                     ...(hasValue(sm) && { ['--vs-width-sm']: utils.string.convertToStringSize(sm) }),
                     ...(hasValue(md) && { ['--vs-width-md']: utils.string.convertToStringSize(md) }),
                     ...(hasValue(lg) && { ['--vs-width-lg']: utils.string.convertToStringSize(lg) }),
@@ -95,9 +95,9 @@ export function useResponsive(
 
         if (hasValue(grid.value)) {
             if (utils.object.isPlainObject(grid.value)) {
-                const { base, sm, md, lg, xl } = grid.value;
+                const { xs, sm, md, lg, xl } = grid.value;
                 const gridStyles = {
-                    ...(hasValue(base) && { ['--vs-grid-base']: base?.toString() }),
+                    ...(hasValue(xs) && { ['--vs-grid-xs']: xs?.toString() }),
                     ...(hasValue(sm) && { ['--vs-grid-sm']: sm?.toString() }),
                     ...(hasValue(md) && { ['--vs-grid-md']: md?.toString() }),
                     ...(hasValue(lg) && { ['--vs-grid-lg']: lg?.toString() }),
@@ -106,7 +106,7 @@ export function useResponsive(
                 Object.assign(styles, gridStyles);
             } else {
                 const gridStyles = {
-                    '--vs-grid-base': grid.value?.toString(),
+                    '--vs-grid-xs': grid.value?.toString(),
                 };
                 Object.assign(styles, gridStyles);
             }

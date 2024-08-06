@@ -141,7 +141,7 @@ export const Grid: Story = {
             return { args };
         },
         template: `
-            <vs-container>
+            <vs-container grid>
                 <vs-checkbox-set v-bind="args" />
                 <vs-checkbox-set v-bind="args" />
             </vs-container>

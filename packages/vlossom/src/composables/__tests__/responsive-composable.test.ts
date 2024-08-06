@@ -24,7 +24,7 @@ describe('responsive-composable (useResponsive)', () => {
 
         describe('각 breakpoints에 해당하는 class와 style이 적용된다', () => {
             it('모든 breakpoints에 width 값이 설정되어 있는 경우', () => {
-                const width = ref({ xl: '100px', lg: '150px', md: '200px', sm: '250px', base: '300px' });
+                const width = ref({ xl: '100px', lg: '150px', md: '200px', sm: '250px', xs: '300px' });
                 const grid = ref({});
                 const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
@@ -36,7 +36,7 @@ describe('responsive-composable (useResponsive)', () => {
                     'vs-width-xl',
                 ]);
                 expect(responsiveStyles.value).toEqual({
-                    '--vs-width-base': '300px',
+                    '--vs-width-xs': '300px',
                     '--vs-width-sm': '250px',
                     '--vs-width-md': '200px',
                     '--vs-width-lg': '150px',
@@ -61,7 +61,7 @@ describe('responsive-composable (useResponsive)', () => {
     describe('grid', () => {
         it('모든 breakpoints에 grid 값이 설정되어 있는 경우', () => {
             const width = ref(null);
-            const grid = ref({ xl: 1, lg: 2, md: 3, sm: 4, base: 6 });
+            const grid = ref({ xl: 1, lg: 2, md: 3, sm: 4, xs: 6 });
             const { responsiveClasses, responsiveStyles } = useResponsive(width, grid);
 
             expect(responsiveClasses.value).toEqual([
@@ -72,7 +72,7 @@ describe('responsive-composable (useResponsive)', () => {
                 'vs-grid-xl',
             ]);
             expect(responsiveStyles.value).toEqual({
-                '--vs-grid-base': '6',
+                '--vs-grid-xs': '6',
                 '--vs-grid-sm': '4',
                 '--vs-grid-md': '3',
                 '--vs-grid-lg': '2',

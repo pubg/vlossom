@@ -308,8 +308,8 @@ describe('VsTable', () => {
             });
 
             // then
-            const paginationWrapper = wrapper.find('.table-pagination .vs-pagination');
-            const selectWrapper = wrapper.find('.vs-pagination-options');
+            const paginationWrapper = wrapper.find('.vs-table-pagination .vs-pagination');
+            const selectWrapper = wrapper.find('.vs-table-pagination-options');
             expect(paginationWrapper.exists()).toBe(true);
             expect(selectWrapper.exists()).toBe(true);
         });
@@ -336,7 +336,7 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const displayedItems = wrapper.findAll('.table-td[data-label="Name"]');
+            const displayedItems = wrapper.findAll('.vs-table-td[data-label="Name"]');
             expect(displayedItems).toHaveLength(3);
         });
     });
@@ -388,11 +388,11 @@ describe('VsTable', () => {
             });
 
             // when
-            const expandButton = wrapper.findAll('tr .vs-expandable-td button').at(0);
+            const expandButton = wrapper.findAll('tr .vs-table-expandable-td button').at(0);
             await expandButton?.trigger('click');
 
             // then
-            const expandedContent = wrapper.findAll('tr .vs-expanded-row-content').at(0);
+            const expandedContent = wrapper.findAll('tr .vs-table-expanded-row-content').at(0);
             expect(expandedContent?.isVisible()).toBe(true);
             expect(expandedContent?.text()).toContain('Additional Text for Apple');
         });

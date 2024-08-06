@@ -27,7 +27,7 @@ const meta: Meta<typeof VsTable> = {
             { label: 'ID', key: 'id', width: '7rem' },
             { label: 'Name', key: 'name', width: '10rem' },
             { label: 'Description', key: 'desc' },
-            { label: 'Check', key: 'checked', width: '7rem' },
+            { label: 'Check', key: 'checked', width: '10rem' },
         ],
         items,
     },
@@ -142,7 +142,7 @@ export const SearchText: Story = {
                 </vs-input>
                 <vs-table v-bind="args" :searchText="searchText">
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value" no-message></vs-switch>
+                        <vs-switch v-model="value" no-message dense></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -152,8 +152,8 @@ export const SearchText: Story = {
         headers: [
             { label: 'ID', key: 'id', width: '7rem' },
             { label: 'Name', key: 'name', width: '10rem' },
-            { label: 'Description', key: 'desc', width: '26rem' },
-            { label: 'Check', key: 'checked', width: '7rem', searchable: false },
+            { label: 'Description', key: 'desc' },
+            { label: 'Check', key: 'checked', width: '10rem', searchable: false },
         ],
         items,
     },
@@ -195,10 +195,10 @@ export const Filter: Story = {
 export const SortableHeader: Story = {
     args: {
         headers: [
-            { label: 'ID', key: 'id', width: '5rem' },
-            { label: 'Name', key: 'name', width: '8rem', sortable: true },
-            { label: 'Order', key: 'order', width: '8rem', sortable: true },
-            { label: 'Description', key: 'desc', width: '20rem' },
+            { label: 'ID', key: 'id', width: '8rem' },
+            { label: 'Name', key: 'name', width: '12rem', sortable: true },
+            { label: 'Order', key: 'order', width: '10rem', sortable: true },
+            { label: 'Description', key: 'desc', width: '40rem' },
             { label: 'Created', key: 'created', width: '12rem', sortable: true },
         ],
     },
@@ -276,10 +276,10 @@ export const ItemSlot: Story = {
             <div>
                 <vs-table v-bind="args">
                     <template #item-desc="{ value }">
-                        <vs-text-wrap copy noTooltip width="18rem">{{ value }}</vs-text-wrap>
+                        <vs-text-wrap copy noTooltip width="26rem">{{ value }}</vs-text-wrap>
                     </template>
                     <template #item-checked="{ value }">
-                        <vs-switch v-model="value" no-message></vs-switch>
+                        <vs-switch v-model="value" no-message dense></vs-switch>
                     </template>
                 </vs-table>
             </div>
@@ -297,7 +297,7 @@ export const Expandable: Story = {
 			<div>
 				<vs-table v-bind="args">
 					<template #expand="{ item }">
-						<div style="padding: 1rem">
+						<div>
 							{{ item.additionalText }}
 						</div>
 					</template>
@@ -322,7 +322,7 @@ export const StyleSet: Story = {
             backgroundColor: '#ffffff',
             border: '1px solid #dcD6f7',
             fontColor: '#0f4c75',
-            fontSize: '0.9rem',
+            fontSize: '1.4rem',
             rowHeight: '3rem',
             captionFontColor: '#0f4c75',
             captionFontSize: '0.9rem',
@@ -331,7 +331,7 @@ export const StyleSet: Story = {
             headerBackgroundColor: '#DEFCF9',
             headerBorder: '1px solid #DCD6F7',
             headerFontColor: '#0f4c75',
-            headerFontSize: '1rem',
+            headerFontSize: '1.4rem',
             headerFontWeight: '700',
             headerHeight: '3rem',
             hoverBorder: '2px solid #DCD6F7',

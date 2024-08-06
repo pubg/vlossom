@@ -25,24 +25,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             justify-content: flex-start;
             overflow: hidden;
 
-            th,
-            td {
+            .vs-table-th,
+            .vs-table-td {
                 display: flex;
                 align-items: center;
-                padding: 0 1.6rem;
                 text-align: left;
-
-                .vs-table-data {
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    height: 100%;
-                    overflow-x: auto;
-                }
-
-                &.vs-table-selectable {
-                    padding: 0 1rem;
-                }
             }
         }
 
@@ -56,7 +43,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 display: flex;
                 border-bottom: none;
 
-                th {
+                .vs-table-th {
                     width: 100%;
                     display: flex;
                     align-items: center;
@@ -74,19 +61,21 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 }
             }
 
-            th {
+            .vs-table-th {
                 color: var(--vs-table-headerFontColor, var(--vs-font-color));
                 font-size: var(--vs-table-headerFontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-headerFontWeight, 500);
                 min-height: var(--vs-table-headerHeight, 3.2rem);
+                padding: 0.6rem 1.4rem;
 
-                &.vs-draggable-th,
-                &.vs-expandable-th {
+                &.vs-table-draggable-th,
+                &.vs-table-expandable-th {
                     visibility: hidden;
                 }
 
-                &.vs-selectable-th {
+                &.vs-table-selectable-th {
                     color: transparent;
+                    padding: 0 1rem;
                 }
             }
         }
@@ -103,16 +92,21 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 color: var(--vs-table-selectedFontColor, var(--vs-blue-deep));
             }
 
-            td {
+            .vs-table-td {
                 min-height: var(--vs-table-rowHeight, 3.2rem);
                 font-size: var(--vs-table-fontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-fontWeight, 400);
+                padding: 0 1.4rem;
 
-                &.draggable-td {
+                &.vs-table-selectable-td {
+                    padding: 0 1rem;
+                }
+
+                &.vs-table-draggable-td {
                     padding-right: 0;
                 }
 
-                &.vs-expandable-td {
+                &.vs-table-expandable-td {
                     padding: 0;
 
                     > .vs-table-expand-button {
@@ -148,7 +142,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     }
                 }
 
-                &.vs-expanded-row-content {
+                &.vs-table-expanded-row-content {
                     display: grid;
                     grid-column: 1/-1;
                     padding: 1.2rem 1.4rem;
@@ -167,7 +161,15 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     }
                 }
 
-                .vs-skeleton {
+                .vs-table-data {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    overflow-x: auto;
+                }
+
+                .vs-table-skeleton {
                     width: 95%;
                     height: 60%;
                     border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
@@ -177,14 +179,14 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             }
         }
 
-        .vs-table-tbody .vs-table-tr:not(.vs-skeleton) td.draggable-td {
+        .vs-table-tbody .vs-table-tr:not(.vs-table-skeleton) .vs-table-td.vs-table-draggable-td {
             cursor: grab;
             &:active {
                 cursor: grabbing;
             }
         }
 
-        .vs-table-tbody .vs-table-tr:not(.vs-skeleton):hover::after {
+        .vs-table-tbody .vs-table-tr:not(.vs-table-skeleton):hover::after {
             content: '';
             box-sizing: border-box;
             position: absolute;
@@ -211,7 +213,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     }
 }
 
-.table-pagination {
+.vs-table-pagination {
     position: relative;
     display: flex;
     justify-content: flex-end;
@@ -220,25 +222,25 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     gap: 0.5rem;
     margin-bottom: 0.6rem;
 
-    .vs-pagination-options {
+    .vs-table-pagination-options {
         margin-left: 2rem;
     }
 }
 
 .vs-table.dense .vs-table-wrap .vs-table-table {
     .vs-table-thead .vs-table-tr {
-        th {
+        .vs-table-th {
             min-height: 2.4rem;
             font-size: var(--vs-table-headerFontSize, var(--vs-font-size-sm));
         }
     }
 
     .vs-table-tbody .vs-table-tr {
-        td {
+        .vs-table-td {
             min-height: 2.4rem;
             font-size: var(--vs-table-fontSize, var(--vs-font-size-sm));
 
-            &.vs-expandable-td {
+            &.vs-table-expandable-td {
                 padding-left: 0;
 
                 .vs-table-expand-button {
@@ -259,10 +261,10 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             margin-bottom: 0.4rem;
             border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
-            th:not(:first-child) {
+            .vs-table-th:not(:first-child) {
                 display: none;
             }
-            th:first-child {
+            .vs-table-th:first-child {
                 color: transparent;
                 height: 2.2rem;
                 padding-left: 1rem;
@@ -285,14 +287,14 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 padding-left: 0;
             }
 
-            td {
+            .vs-table-td {
                 display: flex;
                 justify-content: space-between;
                 padding: 0.4rem 1rem;
                 border-bottom: var(--vs-table-border, 1px dashed var(--vs-line-color));
                 overflow-x: auto;
 
-                &.selectable-td {
+                &.vs-table-selectable-td {
                     justify-content: flex-start;
 
                     &:before {
@@ -321,36 +323,36 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     border-bottom: none;
                 }
 
-                &.vs-expandable-td,
-                &.vs-expanded-row-content {
+                &.vs-table-expandable-td,
+                &.vs-table-expanded-row-content {
                     min-height: auto;
                     &::before {
                         display: none;
                     }
                 }
-                &.vs-expanded-row-content {
+                &.vs-table-expanded-row-content {
                     border: none;
                     box-shadow: none;
                 }
 
-                &.vs-expandable-td {
+                &.vs-table-expandable-td {
                     padding: 0.4rem;
                     .vs-table-expand-button {
                         flex: 1;
                     }
                 }
 
-                &.vs-expanded-row-content {
+                &.vs-table-expanded-row-content {
                     display: flex !important;
                     padding-top: 0.5rem;
                     padding-bottom: 1.2rem;
 
-                    .vs-expand-contents {
+                    .vs-table-expand-contents {
                         flex: 1;
                     }
                 }
 
-                .vs-skeleton {
+                .vs-table-skeleton {
                     height: 2.8rem;
                 }
             }
