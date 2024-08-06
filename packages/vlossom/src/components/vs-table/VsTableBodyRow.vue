@@ -1,21 +1,21 @@
 <template>
     <tr :style="trStyle" :class="['vs-table-tr', { 'vs-skeleton': loading }, rowState]">
-        <td class="draggable-td handle" v-if="draggable">
+        <td class="vs-table-td vs-table-draggable-td handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.6rem" />
         </td>
-        <td class="vs-table-selectable selectable-td" v-if="selectable">
-            <div v-if="loading" class="vs-skeleton"></div>
+        <td class="vs-table-td vs-table-selectable-td" v-if="selectable">
+            <div v-if="loading" class="vs-table-skeleton"></div>
             <div v-else-if="isSelectableRow">
                 <slot name="check" />
             </div>
         </td>
         <td
-            class="table-td"
+            class="vs-table-td"
             v-for="(cell, index) in getRowData(item.data)"
             :key="`td-${index}`"
             :data-label="getHeader(cell.key)?.label"
         >
-            <div v-if="loading" class="vs-skeleton"></div>
+            <div v-if="loading" class="vs-table-skeleton"></div>
             <div v-else class="vs-table-data">
                 <slot
                     :name="`item-${cell.key}`"
@@ -30,7 +30,7 @@
             </div>
         </td>
 
-        <td v-if="expandable" class="vs-expandable-td">
+        <td v-if="expandable" class="vs-table-td vs-table-expandable-td">
             <button
                 v-if="isExpandableRow"
                 type="button"
@@ -44,8 +44,11 @@
             </button>
         </td>
 
-        <td v-if="expandable && expanded" :class="['vs-expanded-row-content', { 'scale-up-ver-top': expanded }]">
-            <div class="vs-expand-contents fade-in">
+        <td
+            v-if="expandable && expanded"
+            :class="['vs-table-td vs-table-expanded-row-content', { 'scale-up-ver-top': expanded }]"
+        >
+            <div class="vs-table-expand-contents fade-in">
                 <slot name="expand" :id="item.id" :item="item.data" :itemIndex="rowIndex" />
             </div>
         </td>

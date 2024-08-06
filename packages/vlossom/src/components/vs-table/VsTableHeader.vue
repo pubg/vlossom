@@ -1,7 +1,7 @@
 <template>
     <thead class="vs-table-thead">
         <tr v-if="search" class="vs-table-tr search">
-            <th>
+            <th class="vs-table-th">
                 <vs-icon class="vs-table-search-icon" icon="search" size="2.4rem" />
                 <vs-input
                     class="vs-table-search-input"
@@ -14,8 +14,8 @@
             </th>
         </tr>
         <tr :style="trStyle" class="vs-table-tr">
-            <th class="vs-draggable-th" v-if="draggable">drag</th>
-            <th class="vs-table-selectable vs-selectable-th" v-if="selectable" aria-label="select">
+            <th class="vs-table-th vs-table-draggable-th" v-if="draggable">drag</th>
+            <th class="vs-table-th vs-table-selectable-th" v-if="selectable" aria-label="select">
                 <slot name="check" />
             </th>
             <th
@@ -32,7 +32,7 @@
                     <vs-icon :icon="getSortIcon(sortTypes[header.key])" size="1.2rem" />
                 </span>
             </th>
-            <th class="vs-expandable-th" v-if="expandable">expand</th>
+            <th class="vs-table-th vs-table-expandable-th" v-if="expandable">expand</th>
         </tr>
     </thead>
 </template>
