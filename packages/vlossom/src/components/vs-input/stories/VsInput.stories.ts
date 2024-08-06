@@ -10,6 +10,7 @@ import {
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 import { InputType } from './../types';
+import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsInput from './../VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -207,6 +208,42 @@ export const Append: Story = {
     },
     parameters: {
         chromatic: chromaticParameters.theme,
+    },
+};
+
+export const Width: Story = {
+    render: (args: any) => ({
+        components: { VsInput, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container>
+                <vs-input v-bind="args" />
+                <vs-input v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
+    },
+};
+
+export const Grid: Story = {
+    render: (args: any) => ({
+        components: { VsInput, VsContainer },
+        setup() {
+            return { args };
+        },
+        template: `
+            <vs-container grid>
+                <vs-input v-bind="args" />
+                <vs-input v-bind="args" />
+            </vs-container>
+        `,
+    }),
+    args: {
+        grid: { sm: 6, md: 4, lg: 3 },
     },
 };
 
