@@ -253,7 +253,7 @@ export const StyleSet: Story = {
             backgroundColor: '#eef1ff',
             fontColor: '#4851aa',
             border: '1px solid #4851aa',
-            padding: '2rem'
+            padding: '2rem',
         },
     },
 };
