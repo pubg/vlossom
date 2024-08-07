@@ -54,7 +54,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'open', 'close'],
     setup(props, { emit, slots }) {
         const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
             toRefs(props);
@@ -131,6 +131,7 @@ export default defineComponent({
                 }
 
                 emit('update:modelValue', open);
+                emit(open ? 'open' : 'close');
             },
             { immediate: true },
         );
