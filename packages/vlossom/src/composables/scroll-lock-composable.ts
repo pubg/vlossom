@@ -1,15 +1,18 @@
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { SCROLLBAR_WIDTH } from '@/declaration';
-import { useScrollLock } from '@vueuse/core';
 
 export function useBodyScroll() {
+    const originalOverflow = ref('');
     const originalPaddingRight = ref('0');
     const originalPaddingBottom = ref('0');
-    const isLocked = useScrollLock(document.body);
 
     function lock() {
         setTimeout(() => {
-            isLocked.value = true;
+            originalOverflow.value = document.body.style.overflow;
+            originalPaddingRight.value = document.body.style.paddingRight;
+            originalPaddingBottom.value = document.body.style.paddingBottom;
+
+            document.body.style.overflow = 'hidden';
 
             if (document.body.scrollHeight > window.innerHeight) {
                 document.body.style.paddingRight = SCROLLBAR_WIDTH;
@@ -18,25 +21,18 @@ export function useBodyScroll() {
             if (document.body.scrollWidth > window.innerWidth) {
                 document.body.style.paddingBottom = SCROLLBAR_WIDTH;
             }
-        }, 0);
+        }, 10);
     }
 
     function unlock() {
         setTimeout(() => {
-            isLocked.value = false;
-
+            document.body.style.overflow = originalOverflow.value;
             document.body.style.paddingRight = originalPaddingRight.value;
             document.body.style.paddingBottom = originalPaddingBottom.value;
-        }, 0);
+        }, 10);
     }
 
-    onMounted(() => {
-        originalPaddingRight.value = document.body.style.paddingRight;
-        originalPaddingBottom.value = document.body.style.paddingBottom;
-    });
-
     return {
-        isLocked,
         lock,
         unlock,
     };
