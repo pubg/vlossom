@@ -35,7 +35,7 @@
 
         .vs-multiple-chips {
             display: flex;
-            padding-left: 0.6rem;
+            padding: var(--vs-select-padding, 0 0 0 0.6rem);
             overflow: hidden;
 
             .vs-chips {
