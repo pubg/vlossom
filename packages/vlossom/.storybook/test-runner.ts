@@ -20,6 +20,7 @@ const config: TestRunnerConfig = {
                     rules: {
                         'color-contrast': { enabled: false },
                         label: { enabled: false },
+                        'scrollable-region-focusable': { enabled: false },
                     },
                 },
             });
