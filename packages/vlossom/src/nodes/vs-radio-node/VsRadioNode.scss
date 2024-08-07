@@ -65,7 +65,7 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
         }
     }
 
-    &.dense {
+    &.vs-dense {
         height: var(--vs-rado-height, var(--vs-input-comp-height-dense));
 
         .vs-radio-label {
@@ -79,11 +79,11 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
         }
     }
 
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 
-    &.readonly {
+    &.vs-readonly {
         @include readonly;
     }
 }

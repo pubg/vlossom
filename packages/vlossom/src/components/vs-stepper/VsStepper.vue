@@ -12,9 +12,9 @@
                     :key="item"
                     :class="[
                         {
-                            previous: isPrevious(index),
-                            disabled: isDisabled(index),
-                            selected: isSelected(index),
+                            'vs-previous': isPrevious(index),
+                            'vs-disabled': isDisabled(index),
+                            'vs-selected': isSelected(index),
                         },
                     ]"
                     role="tab"

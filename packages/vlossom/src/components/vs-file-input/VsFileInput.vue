@@ -30,7 +30,7 @@
             </div>
 
             <div class="vs-label-box">
-                <div :class="['vs-label-wrap', { placeholder: placeholder && !hasValue }]">
+                <div :class="['vs-label-wrap', { 'vs-placeholder': placeholder && !hasValue }]">
                     <template v-if="dragging">{{ dropPlaceholder }}</template>
                     <template v-else-if="placeholder && !hasValue">{{ placeholder }}</template>
                     <template v-else-if="hasValue">{{ fileLabel }}</template>
@@ -207,10 +207,10 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: computedDisabled.value,
-            readonly: computedReadonly.value,
-            dragging: dragging.value,
+            'vs-dense': dense.value,
+            'vs-disabled': computedDisabled.value,
+            'vs-readonly': computedReadonly.value,
+            'vs-dragging': dragging.value,
         }));
 
         const { stateClasses } = useStateClass(computedState);

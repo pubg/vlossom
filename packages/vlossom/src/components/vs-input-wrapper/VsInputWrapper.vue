@@ -1,6 +1,6 @@
 <template>
     <vs-responsive
-        :class="['vs-input-wrapper', { 'shake-horizontal': needToShake, dense }]"
+        :class="['vs-input-wrapper', { 'shake-horizontal': needToShake, 'vs-dense': dense }]"
         :width="width"
         :grid="grid"
     >
@@ -12,9 +12,9 @@
                 class="vs-label"
             >
                 <slot name="label">
-                    <span :class="{ disabled }">{{ label }}</span>
+                    <span :class="{ 'vs-disabled': disabled }">{{ label }}</span>
                 </slot>
-                <i v-if="required" :class="['vs-required-star', { disabled }]">*</i>
+                <i v-if="required" :class="['vs-required-star', { 'vs-disabled': disabled }]">*</i>
             </component>
 
             <slot />

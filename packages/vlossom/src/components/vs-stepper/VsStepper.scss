@@ -82,7 +82,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 outline: none;
             }
 
-            &.previous {
+            &.vs-previous {
                 .vs-item-step {
                     border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
@@ -94,7 +94,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
             }
 
-            &.selected {
+            &.vs-selected {
                 .vs-item-step {
                     border: 1px solid var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
@@ -110,7 +110,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
             }
 
-            &.disabled {
+            &.vs-disabled {
                 @include disabled;
             }
         }

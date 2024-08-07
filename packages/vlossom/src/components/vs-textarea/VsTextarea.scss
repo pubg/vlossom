@@ -14,10 +14,10 @@
     padding: 0.6rem;
     resize: vertical;
 
-    &.dense {
+    &.vs-dense {
         font-size: var(--vs-textarea-fontSize, var(--vs-font-size-sm));
     }
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 

@@ -3,7 +3,7 @@
         <Transition name="modal" :duration="MODAL_DURATION">
             <div
                 v-if="isOpen"
-                :class="['vs-modal', colorSchemeClass, { 'has-container': hasContainer, dimmed }]"
+                :class="['vs-modal', colorSchemeClass, { 'vs-has-container': hasContainer, 'vs-dimmed': dimmed }]"
                 :style="computedStyleSet"
             >
                 <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />

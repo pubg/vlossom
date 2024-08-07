@@ -62,7 +62,7 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
         pointer-events: none;
     }
 
-    &.checked {
+    &.vs-checked {
         .vs-switch-button {
             background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
             border: var(--vs-switch-trueBorder, 1px solid var(--vs-primary-comp-bg));
@@ -80,7 +80,7 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
         }
     }
 
-    &.dense {
+    &.vs-dense {
         height: var(--vs-input-comp-height-dense);
 
         .vs-switch-button {
@@ -103,7 +103,7 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
             }
         }
 
-        &.checked {
+        &.vs-checked {
             .vs-switch-button {
                 &::before {
                     left: calc(100% - ($switchHandleSizeDense + $switchGap));
@@ -123,11 +123,11 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
         }
     }
 
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 
-    &.readonly {
+    &.vs-readonly {
         @include readonly;
     }
 }

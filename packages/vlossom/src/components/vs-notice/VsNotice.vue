@@ -65,7 +65,7 @@ export default defineComponent({
         };
 
         const classObj = computed(() => ({
-            primary: primary.value,
+            'vs-primary': primary.value,
         }));
 
         return {

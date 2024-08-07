@@ -30,14 +30,14 @@ $chip-height-dense: 2rem;
         width: calc(var(--vs-chip-height, $chip-height) * 0.75);
     }
 
-    .vs-close-button {
+    .vs-chip-close-button {
         cursor: pointer;
     }
 
     &:has(.vs-chip-icon) {
         padding-left: 0.2rem;
     }
-    &:has(.vs-close-button) {
+    &:has(.vs-chip-close-button) {
         padding-right: 0.2rem;
     }
 
@@ -49,7 +49,7 @@ $chip-height-dense: 2rem;
         white-space: nowrap;
     }
 
-    &.dense {
+    &.vs-dense {
         border-radius: var(--vs-chip-borderRadius, calc($chip-height-dense / 2));
         min-height: var(--vs-chip-height, $chip-height-dense);
         height: var(--vs-chip-height, $chip-height-dense);
@@ -64,7 +64,7 @@ $chip-height-dense: 2rem;
         &:has(.vs-chip-icon) {
             padding-left: 0.2rem;
         }
-        &:has(.vs-close-button) {
+        &:has(.vs-chip-close-button) {
             padding-right: 0.2rem;
         }
     }
@@ -73,14 +73,14 @@ $chip-height-dense: 2rem;
         background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-comp-bg-hover));
     }
 
-    &.no-round {
+    &.vs-no-round {
         border-radius: 0.2rem;
         .vs-icon-container {
             border-radius: 0.2rem;
         }
     }
 
-    &.primary {
+    &.vs-primary {
         background-color: var(--vs-chip-backgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-chip-fontColor, var(--vs-primary-comp-font));
         border: var(--vs-chip-border, 1px solid var(--vs-primary-comp-bg));

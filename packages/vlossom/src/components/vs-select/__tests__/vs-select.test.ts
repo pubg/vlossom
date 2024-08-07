@@ -474,10 +474,10 @@ describe('vs-select', () => {
 
             // when
             await wrapper.find('.vs-select').trigger('click');
-            await wrapper.find('.select-all').trigger('click');
+            await wrapper.find('.vs-select-all').trigger('click');
 
             // then
-            expect(wrapper.find('.select-all').exists()).toBe(true);
+            expect(wrapper.find('.vs-select-all').exists()).toBe(true);
             expect(wrapper.vm.inputValue).toEqual(['A', 'B', 'C']);
         });
     });

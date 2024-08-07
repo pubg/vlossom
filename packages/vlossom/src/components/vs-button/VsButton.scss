@@ -19,7 +19,7 @@
     overflow: hidden;
     box-sizing: border-box;
 
-    .content {
+    .vs-button-content {
         display: flex;
         align-items: center;
     }
@@ -67,7 +67,7 @@
 
 // primary {
 .vs-button {
-    &.primary {
+    &.vs-primary {
         background-color: var(--vs-button-backgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-button-fontColor, var(--vs-primary-comp-font));
         border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
@@ -84,14 +84,14 @@
 
 // size
 .vs-button {
-    &.dense {
+    &.vs-dense {
         padding: var(--vs-button-padding, 0.2rem 1.2rem);
         border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
         font-size: var(--vs-button-fontSize, var(--vs-font-size-sm));
         height: var(--vs-button-height, var(--vs-input-comp-height-dense));
     }
 
-    &.large {
+    &.vs-large {
         padding: var(--vs-button-padding, 0.6rem 2rem);
         border-radius: var(--vs-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-lg)));
         font-size: var(--vs-button-fontSize, var(--vs-font-size-xl));
@@ -101,7 +101,7 @@
 
 // outline
 .vs-button {
-    &.outline {
+    &.vs-outline {
         background: none;
         border: var(--vs-button-border, 1px solid var(--vs-primary-comp-bg));
         color: var(--vs-button-fontColor, var(--vs-primary-comp-bg));
@@ -118,11 +118,11 @@
 
 // loading
 .vs-button {
-    .content {
+    .vs-button-content {
         visibility: visible;
     }
 
-    .loading-icon {
+    .vs-button-loading-icon {
         visibility: hidden;
         position: absolute;
         top: 50%;
@@ -132,14 +132,14 @@
         font-size: 0;
     }
 
-    &.loading {
+    &.vs-button-loading {
         pointer-events: none;
 
-        .content {
+        .vs-button-content {
             visibility: hidden;
         }
 
-        .loading-icon {
+        .vs-button-loading-icon {
             visibility: visible;
 
             .rotate {
@@ -159,13 +159,13 @@
 }
 
 @container (max-width: 768px) {
-    .vs-button.responsive {
+    .vs-button.vs-responsive {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
     }
 
-    .vs-button.responsive + .vs-button.responsive {
+    .vs-button.vs-responsive + .vs-button.vs-responsive {
         margin-top: 0.4rem;
     }
 }

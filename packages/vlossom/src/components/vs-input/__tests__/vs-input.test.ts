@@ -316,7 +316,7 @@ describe('vs-input', () => {
             });
 
             // then
-            expect(wrapper.find('div.prepend').exists()).toBe(true);
+            expect(wrapper.find('div.vs-prepend').exists()).toBe(true);
             expect(wrapper.html()).toContain('this is content');
         });
 
@@ -329,7 +329,7 @@ describe('vs-input', () => {
             });
 
             // then
-            expect(wrapper.find('div.append').exists()).toBe(true);
+            expect(wrapper.find('div.vs-append').exists()).toBe(true);
             expect(wrapper.html()).toContain('this is content');
         });
     });

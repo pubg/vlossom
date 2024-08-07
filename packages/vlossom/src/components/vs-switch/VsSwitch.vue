@@ -20,7 +20,7 @@
             :class="[
                 'vs-switch',
                 colorSchemeClass,
-                { checked: isChecked, disabled: computedDisabled, readonly: computedReadonly, dense },
+                { 'vs-checked': isChecked, 'vs-disabled': computedDisabled, 'vs-readonly': computedReadonly, dense },
             ]"
             :style="computedStyleSet"
         >

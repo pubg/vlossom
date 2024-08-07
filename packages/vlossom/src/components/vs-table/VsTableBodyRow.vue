@@ -36,7 +36,7 @@
                 type="button"
                 class="vs-table-expand-button"
                 :disabled="loading"
-                :class="{ expanded }"
+                :class="{ 'vs-expanded': expanded }"
                 :aria-label="`expand ${item.id}`"
                 @click.stop="emitToggleExpand(item.id)"
             >

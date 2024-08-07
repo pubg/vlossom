@@ -132,7 +132,7 @@ describe('vs-tooltip', () => {
 
             //then
             expect(wrapper.vm.computedPlacement).toBe('bottom');
-            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('placement-bottom');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('vs-placement-bottom');
         });
     });
 
@@ -157,7 +157,7 @@ describe('vs-tooltip', () => {
             await vi.advanceTimersByTimeAsync(0);
 
             //then
-            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('align-end');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('vs-align-end');
         });
     });
 

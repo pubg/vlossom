@@ -66,7 +66,7 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.copy-button').trigger('click');
+            await wrapper.find('.vs-copy-button').trigger('click');
 
             //then
             const clipboardText = navigator.clipboard.readText();
@@ -98,7 +98,7 @@ describe('vs-text-wrap', () => {
             });
 
             //when
-            await wrapper.find('.link-button').trigger('click');
+            await wrapper.find('.vs-link-button').trigger('click');
 
             //then
             expect(mockedOpen).toBeCalled();
@@ -168,7 +168,7 @@ describe('vs-text-wrap', () => {
             await vi.advanceTimersByTimeAsync(150); // wait for setPosition end (50ms) + default enter delay (100ms)
 
             //then
-            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('placement-bottom');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('vs-placement-bottom');
         });
     });
 
@@ -191,7 +191,7 @@ describe('vs-text-wrap', () => {
             await vi.advanceTimersByTimeAsync(100); // default enter delay (100ms)
 
             //then
-            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('align-end');
+            expect(window.document.body.querySelector('.vs-tooltip-wrap')?.classList).toContain('vs-align-end');
         });
     });
 });

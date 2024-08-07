@@ -17,7 +17,7 @@
         align-items: center;
         padding: var(--vs-label-value-padding, 0.6rem 1.2rem);
 
-        &.label {
+        &.vs-label {
             flex-basis: var(--vs-label-value-labelWidth, 20%);
             padding: var(--vs-label-value-labelPadding, var(--vs-label-value-padding, 0.6rem 1.2rem));
             font-weight: var(--vs-label-value-labelFontWeight, 500);
@@ -29,39 +29,39 @@
             white-space: nowrap;
         }
 
-        &.value {
+        &.vs-value {
             flex: 1;
             overflow-x: auto;
         }
 
-        &.actions {
+        &.vs-actions {
             justify-content: flex-end;
             flex-wrap: wrap;
         }
     }
 
-    &.inline {
+    &.vs-inline {
         display: inline-flex;
         width: auto;
     }
 
-    &.primary {
+    &.vs-primary {
         border: var(--vs-label-value-border, 1px solid var(--vs-primary-comp-bg));
 
-        .label {
+        .vs-label {
             background-color: var(--vs-label-value-labelBackgroundColor, var(--vs-primary-comp-bg));
             color: var(--vs-label-value-labelFontColor, var(--vs-primary-comp-font));
             border-right: var(--vs-label-value-border, 1px solid var(--vs-primary-comp-bg));
         }
     }
 
-    &.dense {
+    &.vs-dense {
         font-size: var(--vs-label-value-fontSize, var(--vs-font-size-xs));
 
         > .vs-cell {
             padding: var(--vs-label-value-padding, 0.2rem 0.8rem);
 
-            &.label {
+            &.vs-label {
                 padding: var(--vs-label-value-labelPadding, var(--vs-label-value-padding, 0.2rem 0.8rem));
                 font-size: var(--vs-label-value-labelFontSize, var(--vs-label-value-fontSize, var(--vs-font-size-xs)));
             }
@@ -70,7 +70,7 @@
 }
 
 @container (max-width: 768px) {
-    .vs-label-value:not(.inline) {
+    .vs-label-value:not(.vs-inline) {
         flex-direction: column;
         width: 100%;
 
@@ -78,20 +78,20 @@
             justify-content: flex-start;
             padding: 0.8rem 1.2rem;
 
-            &.label {
+            &.vs-label {
                 flex-basis: auto;
                 border-right: none;
                 border-bottom: var(--vs-label-value-border, 1px solid var(--vs-line-color));
             }
 
-            &.actions {
+            &.vs-actions {
                 justify-content: flex-end;
             }
         }
 
-        &.primary {
+        &.vs-primary {
             > .vs-cell {
-                &.label {
+                &.vs-label {
                     border-bottom: var(--vs-label-value-border, 1px solid var(--vs-primary-comp-bg));
                 }
             }

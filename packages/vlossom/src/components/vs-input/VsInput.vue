@@ -17,7 +17,7 @@
         </template>
 
         <div :class="['vs-input', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
-            <div v-if="$slots['prepend']" class="prepend">
+            <div v-if="$slots['prepend']" class="vs-prepend">
                 <slot name="prepend" />
             </div>
 
@@ -53,7 +53,7 @@
                 <vs-icon icon="close" :size="dense ? 14 : 16" />
             </button>
 
-            <div v-if="$slots['append']" class="append">
+            <div v-if="$slots['append']" class="vs-append">
                 <slot name="append" />
             </div>
         </div>
@@ -209,9 +209,9 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: computedDisabled.value,
-            readonly: computedReadonly.value,
+            'vs-dense': dense.value,
+            'vs-disabled': computedDisabled.value,
+            'vs-readonly': computedReadonly.value,
         }));
 
         const { stateClasses } = useStateClass(computedState);

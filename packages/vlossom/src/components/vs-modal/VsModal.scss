@@ -10,11 +10,11 @@
     z-index: var(--vs-modal-zIndex, var(--vs-modal-z-index));
     pointer-events: none;
 
-    &.has-container {
+    &.vs-has-container {
         position: absolute;
     }
 
-    &.dimmed {
+    &.vs-dimmed {
         pointer-events: auto;
     }
 

@@ -1,6 +1,6 @@
 <template>
     <thead class="vs-table-thead">
-        <tr v-if="search" class="vs-table-tr search">
+        <tr v-if="search" class="vs-table-tr vs-search">
             <th class="vs-table-th">
                 <vs-icon class="vs-table-search-icon" icon="search" size="2.4rem" />
                 <vs-input

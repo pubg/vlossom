@@ -20,7 +20,7 @@
             flex-wrap: nowrap;
             width: 100%;
 
-            &.bottom-line {
+            &.vs-bottom-line {
                 border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-primary-comp-bg));
             }
 
@@ -54,20 +54,20 @@
                     outline: none;
                 }
 
-                &.selected {
+                &.vs-selected {
                     background-color: var(--vs-tabs-backgroundColor, var(--vs-area-bg-active));
                     border-bottom: 2px solid var(--vs-tabs-backgroundColor, var(--vs-primary-comp-bg));
                     text-shadow: 0 0 0.8px currentColor;
                 }
 
-                &.disabled {
+                &.vs-disabled {
                     @include disabled;
                 }
             }
         }
     }
 
-    &.dense {
+    &.vs-dense {
         .vs-tabs-wrap .vs-tab-list .vs-tab-item {
             padding: var(--vs-tabs-padding, 0.4rem 1rem);
             font-size: var(--vs-tabs-fontSize, var(--vs-font-size-sm));
@@ -78,11 +78,11 @@
         width: 1rem;
         color: var(--vs-comp-font);
 
-        &.scroll-left-button {
+        &.vs-scroll-left-button {
             margin-right: 0.5rem;
         }
 
-        &.scroll-right-button {
+        &.vs-scroll-right-button {
             margin-left: 0.5rem;
         }
 

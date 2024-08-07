@@ -1,8 +1,8 @@
 <template>
-    <div :class="['vs-pagination', colorSchemeClass, disabled ? 'disabled' : '']" :style="computedStyleSet">
+    <div :class="['vs-pagination', colorSchemeClass, { 'vs-disabled': disabled }]" :style="computedStyleSet">
         <button
             v-if="edgeButtons"
-            class="page-button"
+            class="vs-page-button"
             :disabled="selected <= 1"
             @click.stop="goFirst"
             aria-label="go to first page"
@@ -11,16 +11,16 @@
                 <vs-icon icon="goFirst" size="2rem" />
             </slot>
         </button>
-        <button class="page-button" :disabled="selected <= 1" @click.stop="goPrev" aria-label="go to previous page">
+        <button class="vs-page-button" :disabled="selected <= 1" @click.stop="goPrev" aria-label="go to previous page">
             <slot name="prev">
                 <vs-icon icon="goPrev" size="2rem" />
             </slot>
         </button>
-        <div class="page-buttons">
+        <div class="vs-page-buttons">
             <button
                 v-for="page in pages"
                 :key="page"
-                :class="{ 'page-button': true, selected: page === selected }"
+                :class="['vs-page-button', { 'vs-selected': page === selected }]"
                 :aria-label="`go to page ${page}`"
                 @click.stop="setPage(page)"
             >
@@ -29,14 +29,14 @@
                 </slot>
             </button>
         </div>
-        <button class="page-button" :disabled="selected >= length" @click.stop="goNext" aria-label="go to next page">
+        <button class="vs-page-button" :disabled="selected >= length" @click.stop="goNext" aria-label="go to next page">
             <slot name="next">
                 <vs-icon icon="goNext" size="2rem" />
             </slot>
         </button>
         <button
             v-if="edgeButtons"
-            class="page-button"
+            class="vs-page-button"
             :disabled="selected >= length"
             @click.stop="goLast"
             aria-label="go to last page"

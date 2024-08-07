@@ -37,7 +37,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
             border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
-            &.search {
+            &.vs-search {
                 position: relative;
                 width: 100%;
                 display: flex;
@@ -87,7 +87,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             border-bottom: $tableBorder;
             color: var(--vs-table-fontColor, var(--vs-font-color));
 
-            &.selected {
+            &.vs-selected {
                 background-color: var(--vs-table-selectedBackgroundColor, var(--vs-blue-light));
                 color: var(--vs-table-selectedFontColor, var(--vs-blue-deep));
             }
@@ -126,7 +126,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                             transition: transform 0.4s;
                         }
 
-                        &.expanded {
+                        &.vs-expanded {
                             i {
                                 transform: rotate(0deg);
                             }
@@ -221,7 +221,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     }
 }
 
-.vs-table.dense .vs-table-wrap .vs-table-table {
+.vs-table.vs-dense .vs-table-wrap .vs-table-table {
     .vs-table-thead .vs-table-tr {
         .vs-table-th {
             min-height: 2.4rem;
@@ -247,7 +247,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
 }
 
 @container (max-width: 576px) {
-    .vs-table.responsive .vs-table-wrap {
+    .vs-table.vs-responsive .vs-table-wrap {
         margin-bottom: 2rem;
 
         .vs-table-table .vs-table-thead .vs-table-tr {

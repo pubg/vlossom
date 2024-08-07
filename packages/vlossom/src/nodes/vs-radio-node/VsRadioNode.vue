@@ -57,9 +57,9 @@ export default defineComponent({
         const { stateClasses } = useStateClass(state);
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: disabled.value,
-            readonly: readonly.value,
+            'vs-dense': dense.value,
+            'vs-disabled': disabled.value,
+            'vs-readonly': readonly.value,
         }));
 
         function toggle(event: Event) {
