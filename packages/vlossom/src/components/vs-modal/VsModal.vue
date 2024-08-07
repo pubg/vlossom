@@ -20,7 +20,7 @@
                             <slot name="header" />
                         </header>
 
-                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]" tabindex="0">
+                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
                             <slot />
                         </div>
 
@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, onMounted, type PropType } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useColorScheme, useBodyScroll, useStyleSet, useEscClose, getModalProps } from '@/composables';
 import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
@@ -54,7 +54,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'open', 'close'],
     setup(props, { emit, slots }) {
         const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
             toRefs(props);
@@ -102,17 +102,12 @@ export default defineComponent({
         });
 
         const isOpen = ref(modelValue.value);
-        const originalOverflow = ref('');
 
         const id = utils.string.createID();
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = `vs-modal-header-${id}`;
         const bodyId = `vs-modal-body-${id}`;
-
-        onMounted(() => {
-            originalOverflow.value = document.body.style.overflow;
-        });
 
         watch(modelValue, (val) => {
             isOpen.value = val;
@@ -131,6 +126,7 @@ export default defineComponent({
                 }
 
                 emit('update:modelValue', open);
+                emit(open ? 'open' : 'close');
             },
             { immediate: true },
         );
