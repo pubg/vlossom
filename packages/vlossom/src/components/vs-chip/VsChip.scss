@@ -17,6 +17,7 @@ $chip-height-dense: 2rem;
     width: var(--vs-chip-width, auto);
     padding: var(--vs-chip-padding, 0 0.6rem);
     user-select: none;
+    cursor: var(--vs-chip-cursor, default);
 
     .vs-icon-container {
         display: inline-flex;
@@ -70,10 +71,6 @@ $chip-height-dense: 2rem;
 
     &:hover {
         background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-comp-bg-hover));
-    }
-
-    &:active {
-        background-color: var(--vs-chip-activeBackgroundColor, var(--vs-comp-bg-active));
     }
 
     &.no-round {
