@@ -62,7 +62,7 @@ export const PlacementAndAlign: Story = {
         template: `
         <div v-for="placement in PLACEMENTS" :key="placement" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
             <vs-tooltip v-for="align in ALIGNS" :key="align" v-bind="args" :placement="placement" :align="align" style="margin: 0.3rem;">
-                <vs-button large style="width: 12rem;">placement: {{placement}} <br/> align: {{align}}</vs-button>
+                <vs-button large style="width: 12rem; font-size: 12px">placement: {{placement}} <br/> align: {{align}}</vs-button>
                 <template #tooltip>Tooltip</template>
             </vs-tooltip>
             <vs-divider/>

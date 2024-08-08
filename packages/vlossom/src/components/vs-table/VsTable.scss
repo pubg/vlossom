@@ -48,7 +48,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-                    padding: 0.6rem 1rem 0.6rem 1rem;
+                    padding: 0.7rem 1rem 0.7rem 1rem;
                     .vs-table-search-icon {
                         color: var(--vs-primary-comp-bg);
                         margin-right: 0.8rem;
@@ -66,7 +66,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 font-size: var(--vs-table-headerFontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-headerFontWeight, 500);
                 min-height: var(--vs-table-headerHeight, 3.2rem);
-                padding: 0.6rem 1.4rem;
+                padding: 1rem 1.4rem;
 
                 &.vs-table-draggable-th,
                 &.vs-table-expandable-th {
@@ -96,7 +96,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 min-height: var(--vs-table-rowHeight, 3.2rem);
                 font-size: var(--vs-table-fontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-fontWeight, 400);
-                padding: 0 1.4rem;
+                padding: 0.8rem 1.4rem;
 
                 &.vs-table-selectable-td {
                     padding: 0 1rem;
@@ -153,12 +153,6 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     box-shadow:
                         inset 0 3px 8px rgba(100, 100, 100, 0.3),
                         inset 0 -2px 4px rgba(50, 50, 50, 0.15);
-
-                    .vs-dark {
-                        box-shadow:
-                            inset 0 3px 6px rgba(255, 255, 255, 0.2),
-                            inset 0 -2px 4px rgba(255, 255, 255, 0.15);
-                    }
                 }
 
                 .vs-table-data {
@@ -363,7 +357,13 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         }
     }
 }
-
+.vs-dark {
+    .vs-table .vs-table-wrap .vs-table-table .vs-table-tbody .vs-table-tr .vs-table-td.vs-table-expanded-row-content {
+        box-shadow:
+            inset 0 3px 6px rgba(255, 255, 255, 0.2),
+            inset 0 -2px 4px rgba(255, 255, 255, 0.15);
+    }
+}
 @keyframes skeleton-loading {
     0% {
         opacity: 0.2;

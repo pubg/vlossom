@@ -90,6 +90,7 @@ $chip-height-dense: 2rem;
 
         .vs-icon-container {
             color: var(--vs-chip-fontColor, var(--vs-primary-comp-font));
+            border: var(--vs-chip-border, 1px solid var(--vs-primary-comp-font));
         }
 
         &:hover {

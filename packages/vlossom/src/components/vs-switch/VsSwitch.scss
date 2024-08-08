@@ -46,7 +46,6 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
             content: '';
             background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
             border-radius: 50%;
-            box-shadow: 2px 2px 5px 0 var(--vs-comp-shadow);
             height: $switchHandleSize;
             left: $switchGap;
             width: $switchHandleSize;
@@ -72,7 +71,6 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
             &::before {
                 left: calc(100% - ($switchHandleSize + $switchGap));
                 background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
-                box-shadow: 2px 2px 5px 0 var(--vs-primary-comp-shadow);
             }
 
             .vs-status-label {
