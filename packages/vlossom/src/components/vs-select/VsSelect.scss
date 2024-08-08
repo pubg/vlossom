@@ -17,7 +17,7 @@
         .vs-select-input {
             width: 100%;
             height: var(--vs-select-height, var(--vs-input-comp-height));
-            padding: 0 1.2rem;
+            padding: var(--vs-select-padding, 0 1.2rem);
             border: none;
             outline: none;
             background-color: transparent;
@@ -35,7 +35,7 @@
 
         .vs-multiple-chips {
             display: flex;
-            padding-left: 0.6rem;
+            padding: var(--vs-select-padding, 0 0 0 0.6rem);
             overflow: hidden;
 
             .vs-chips {

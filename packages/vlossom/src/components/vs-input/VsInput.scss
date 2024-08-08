@@ -14,7 +14,7 @@
 
     input {
         width: 100%;
-        padding: 0 0.8rem;
+        padding: var(--vs-input-padding, 0 1.2rem);
         border: none;
         outline: none;
         font-size: var(--vs-input-fontSize, var(--vs-font-size));
