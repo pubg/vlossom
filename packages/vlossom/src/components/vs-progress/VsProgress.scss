@@ -1,11 +1,11 @@
-progress {
+.vs-progress {
     -webkit-appearance: none;
     appearance: none;
     width: var(--vs-progress-width, 100%);
     height: var(--vs-progress-height, 1rem);
 }
 
-progress[value] {
+.vs-progress[value] {
     &::-webkit-progress-bar {
         overflow: hidden;
         background-color: var(--vs-progress-barColor, var(--vs-comp-bg));

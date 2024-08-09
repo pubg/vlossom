@@ -8,13 +8,13 @@
     width: 98%;
     z-index: var(--vs-toast-z-index);
 
-    &.top {
+    &.vs-top {
         left: 50%;
         top: 3%;
         transform: translateX(-50%);
     }
 
-    &.bottom {
+    &.vs-bottom {
         bottom: 3%;
         left: 50%;
         transform: translateX(-50%);

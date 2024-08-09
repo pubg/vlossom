@@ -5,13 +5,13 @@
         :width="width"
         :grid="grid"
     >
-        <div v-if="$slots['label']" class="vs-cell label" :style="align">
+        <div v-if="$slots['label']" class="vs-cell vs-label" :style="align">
             <slot name="label" />
         </div>
-        <div v-if="$slots['value']" class="vs-cell value" :style="align">
+        <div v-if="$slots['value']" class="vs-cell vs-value" :style="align">
             <slot name="value" />
         </div>
-        <div v-if="$slots['actions']" class="vs-cell actions" :style="align">
+        <div v-if="$slots['actions']" class="vs-cell vs-actions" :style="align">
             <slot name="actions" />
         </div>
     </vs-responsive>
@@ -54,10 +54,10 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
-            inline: inline.value,
+            'vs-inline': inline.value,
             'vs-inline-gap': inline.value,
-            dense: dense.value,
-            primary: primary.value,
+            'vs-dense': dense.value,
+            'vs-primary': primary.value,
         }));
 
         return {

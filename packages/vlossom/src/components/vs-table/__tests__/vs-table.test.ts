@@ -108,7 +108,7 @@ describe('VsTable', () => {
             });
 
             // when
-            const selectAllCheckBox = wrapper.find('.select-all').find('input');
+            const selectAllCheckBox = wrapper.find('.vs-select-all').find('input');
             await selectAllCheckBox.trigger('click');
             await nextTick();
 
@@ -133,7 +133,7 @@ describe('VsTable', () => {
             await nextTick();
 
             // then
-            const selectAllCheckBox = wrapper.find('.select-all').find('input');
+            const selectAllCheckBox = wrapper.find('.vs-select-all').find('input');
             expect(selectAllCheckBox.element.checked).toBe(true);
         });
 
@@ -175,13 +175,13 @@ describe('VsTable', () => {
 
             // when
             await nextTick();
-            const input = wrapper.find('.search input');
+            const input = wrapper.find('.vs-search input');
             (input.element as any).value = 'apple';
             await input.trigger('input');
             await nextTick();
 
             // then
-            expect(wrapper.find('.search').exists()).toBe(true);
+            expect(wrapper.find('.vs-search').exists()).toBe(true);
             const visibleRows = wrapper.findAll('tbody tr').filter((node) => node.isVisible());
             expect(visibleRows).toHaveLength(1);
             const containsApple = visibleRows.some((row) => row.text().includes('Apple'));

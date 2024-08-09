@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-bar-node', `vs-${colorScheme}`, { primary }]" :style="computedStyle">
+    <div :class="['vs-bar-node', `vs-${colorScheme}`, { 'vs-primary': primary }]" :style="computedStyle">
         <slot />
     </div>
 </template>

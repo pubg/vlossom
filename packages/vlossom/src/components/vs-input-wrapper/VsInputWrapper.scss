@@ -9,7 +9,7 @@
         font-size: var(--vs-font-size);
         margin-bottom: 0.1rem;
 
-        &.disabled {
+        &.vs-disabled {
             @include disabled;
         }
     }
@@ -20,7 +20,7 @@
         color: var(--vs-red);
         margin-left: 0.3rem;
 
-        &.disabled {
+        &.vs-disabled {
             @include disabled;
         }
     }
@@ -45,7 +45,7 @@
         }
     }
 
-    &.dense {
+    &.vs-dense {
         .vs-label {
             font-size: var(--vs-font-size-sm);
         }

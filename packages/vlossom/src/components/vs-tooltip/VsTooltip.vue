@@ -17,7 +17,7 @@
         <Teleport to="#vs-overlay" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
-                :class="['vs-tooltip-wrap', colorSchemeClass, `placement-${computedPlacement}`, `align-${align}`]"
+                :class="['vs-tooltip-wrap', colorSchemeClass, `vs-placement-${computedPlacement}`, `vs-align-${align}`]"
                 @mouseenter.stop="onTooltipEnter"
                 @mouseleave.stop="onTooltipLeave"
             >

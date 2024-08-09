@@ -29,7 +29,7 @@
                     ref="inputRef"
                     role="combobox"
                     :id="`${computedId}-input`"
-                    :class="['vs-select-input', { autocomplete }]"
+                    :class="['vs-select-input', { 'vs-autocomplete': autocomplete }]"
                     :aria-expanded="isOpen || isVisible"
                     :aria-label="ariaLabel"
                     aria-controls="vs-select-options"
@@ -49,7 +49,7 @@
 
                 <div
                     v-if="multiple && selectedOptions.length"
-                    :class="['vs-multiple-chips', { autocompleted: autocomplete }]"
+                    :class="['vs-multiple-chips', { 'vs-autocompleted': autocomplete }]"
                 >
                     <div v-if="collapseChips" class="vs-chips">
                         <vs-chip
@@ -64,7 +64,7 @@
                         </vs-chip>
                         <vs-chip
                             v-if="selectedOptions.length > 1"
-                            class="vs-select-chip chip-others"
+                            class="vs-select-chip vs-chip-others"
                             :color-scheme="colorScheme"
                             :dense="dense"
                         >
@@ -104,7 +104,7 @@
                         icon="keyboardArrowDown"
                         :size="dense ? 16 : 20"
                         class="vs-arrow-icon"
-                        :class="{ 'arrow-up': isOpen }"
+                        :class="{ 'vs-arrow-up': isOpen }"
                     />
                 </div>
             </div>
@@ -116,7 +116,7 @@
                         'vs-options-container',
                         colorSchemeClass,
                         animationClass,
-                        { dense: dense, closing: isClosing },
+                        { 'vs-dense': dense, 'vs-closing': isClosing },
                     ]"
                     :style="computedStyleSet"
                 >
@@ -134,10 +134,10 @@
                         :aria-posinset="1"
                         :class="[
                             'vs-option',
-                            'select-all',
+                            'vs-select-all',
                             {
-                                selected: isAllSelected,
-                                chased: (chasingMouse ? hoveredIndex : focusedIndex) === 0,
+                                'vs-selected': isAllSelected,
+                                'vs-chased': (chasingMouse ? hoveredIndex : focusedIndex) === 0,
                             },
                         ]"
                         @mousemove.stop="onMouseMove('all')"
@@ -401,9 +401,9 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: computedDisabled.value,
-            readonly: computedReadonly.value,
+            'vs-dense': dense.value,
+            'vs-disabled': computedDisabled.value,
+            'vs-readonly': computedReadonly.value,
         }));
 
         const { stateClasses } = useStateClass(computedState);

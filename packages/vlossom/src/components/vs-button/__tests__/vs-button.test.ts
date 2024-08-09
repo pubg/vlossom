@@ -29,7 +29,7 @@ describe('vs-button', () => {
 
             // then
             expect(wrapper.props('loading')).toBe(true);
-            expect(wrapper.find('.loading-icon').exists()).toBe(true);
+            expect(wrapper.find('.vs-button-loading-icon').exists()).toBe(true);
         });
     });
 });

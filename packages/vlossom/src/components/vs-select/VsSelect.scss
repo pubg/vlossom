@@ -24,11 +24,11 @@
             color: var(--vs-select-fontColor, var(--vs-font-color));
             cursor: pointer;
 
-            &.autocomplete {
+            &.vs-autocomplete {
                 cursor: default;
             }
 
-            &:not(.autocomplete)::selection {
+            &:not(.vs-autocomplete)::selection {
                 background: none;
             }
         }
@@ -49,14 +49,14 @@
                     margin-top: 0.1rem;
                     margin-bottom: 0.1rem;
 
-                    &.chip-others {
+                    &.vs-chip-others {
                         margin-left: 0.2rem;
                         padding: 0 0.8rem;
                     }
                 }
             }
 
-            &.autocompleted {
+            &.vs-autocompleted {
                 padding-bottom: var(--vs-radius);
             }
         }
@@ -91,7 +91,7 @@
             .vs-arrow-icon {
                 transition: transform 0.2s ease-out;
 
-                &.arrow-up {
+                &.vs-arrow-up {
                     transform: rotate(180deg);
                 }
             }
@@ -104,7 +104,7 @@
         }
     }
 
-    &.dense {
+    &.vs-dense {
         min-height: var(--vs-select-height, var(--vs-input-comp-height-dense));
         font-size: var(--vs-select-fontSize, var(--vs-font-size-sm));
 
@@ -113,11 +113,11 @@
         }
     }
 
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 
-    &.readonly {
+    &.vs-readonly {
         @include readonly;
     }
 
@@ -165,30 +165,30 @@
         user-select: none;
         font-size: var(--vs-select-fontSize, var(--vs-font-size));
 
-        &.select-all {
+        &.vs-select-all {
             border-bottom: var(--vs-select-border, 1px solid var(--vs-line-color));
         }
 
-        &.selected {
+        &.vs-selected {
             background-color: var(--vs-select-optionSelectedBackgroundColor, var(--vs-area-bg-active));
             color: var(--vs-select-optionSelectedFontColor, var(--vs-font-color));
             font-weight: 600;
         }
 
-        &.chased {
+        &.vs-chased {
             background-color: var(--vs-select-optionHoverBackgroundColor, var(--vs-area-bg-hover));
             color: var(--vs-select-optionHoverFontColor, var(--vs-font-color));
         }
     }
 
-    &.dense {
+    &.vs-dense {
         .vs-option {
             min-height: var(--vs-select-height, var(--vs-input-comp-height-dense));
             font-size: var(--vs-select-fontSize, var(--vs-font-size-sm));
         }
     }
 
-    &.closing {
+    &.vs-closing {
         user-select: none;
         pointer-events: none;
     }

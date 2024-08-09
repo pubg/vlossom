@@ -24,7 +24,7 @@
             <button
                 type="button"
                 v-if="copy"
-                class="vs-text-wrap-button copy-button"
+                class="vs-text-wrap-button vs-copy-button"
                 aria-label="copy"
                 @click.stop="copyInnerText"
             >
@@ -34,11 +34,11 @@
             <button
                 type="button"
                 v-if="link"
-                class="vs-text-wrap-button link-button"
+                class="vs-text-wrap-button vs-link-button"
                 aria-label="link"
                 @click.stop="openLink"
             >
-                <vs-icon size="1.5rem" class="link-icon" icon="link" />
+                <vs-icon size="1.5rem" class="vs-link-icon" icon="link" />
             </button>
         </div>
     </div>

@@ -6,11 +6,11 @@
         :disabled="disabled"
         :aria-label="loading ? 'loading' : undefined"
     >
-        <div class="content">
+        <div class="vs-button-content">
             <slot />
         </div>
 
-        <div class="loading-icon">
+        <div class="vs-button-loading-icon">
             <vs-icon class="rotate" icon="rotateRight" :size="dense ? 15 : 20" />
         </div>
     </button>
@@ -50,12 +50,12 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(name, styleSet);
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            large: large.value,
-            loading: loading.value,
-            outline: outline.value,
-            primary: primary.value,
-            responsive: responsive.value,
+            'vs-dense': dense.value,
+            'vs-large': large.value,
+            'vs-button-loading': loading.value,
+            'vs-outline': outline.value,
+            'vs-primary': primary.value,
+            'vs-responsive': responsive.value,
         }));
 
         return {

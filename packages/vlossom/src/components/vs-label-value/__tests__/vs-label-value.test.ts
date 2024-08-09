@@ -13,8 +13,8 @@ describe('vs-label-value', () => {
         });
 
         //then
-        expect(wrapper.find('.label').exists()).toBe(true);
-        expect(wrapper.find('.value').exists()).toBe(true);
+        expect(wrapper.find('.vs-label').exists()).toBe(true);
+        expect(wrapper.find('.vs-value').exists()).toBe(true);
         expect(wrapper.html()).toContain('MyLabel');
         expect(wrapper.html()).toContain('MyValue');
     });
@@ -28,7 +28,7 @@ describe('vs-label-value', () => {
         });
 
         //then
-        expect(wrapper.find('.actions').exists()).toBe(true);
+        expect(wrapper.find('.vs-actions').exists()).toBe(true);
         expect(wrapper.html()).toContain('<div>action</div>');
     });
 
@@ -46,9 +46,9 @@ describe('vs-label-value', () => {
         });
 
         //then
-        expect(wrapper.find('.label').attributes().style.includes('align-items: flex-start;')).toBe(true);
-        expect(wrapper.find('.value').attributes().style.includes('align-items: flex-start;')).toBe(true);
-        expect(wrapper.find('.actions').attributes().style.includes('align-items: flex-start;')).toBe(true);
+        expect(wrapper.find('.vs-label').attributes().style.includes('align-items: flex-start;')).toBe(true);
+        expect(wrapper.find('.vs-value').attributes().style.includes('align-items: flex-start;')).toBe(true);
+        expect(wrapper.find('.vs-actions').attributes().style.includes('align-items: flex-start;')).toBe(true);
     });
 
     it('props verticalAlign:bottom일 때, label, value, actions의 스타일에 align-items: flex-end;가 적용된다 ', () => {
@@ -65,8 +65,8 @@ describe('vs-label-value', () => {
         });
 
         //then
-        expect(wrapper.find('.label').attributes().style.includes('align-items: flex-end;')).toBe(true);
-        expect(wrapper.find('.value').attributes().style.includes('align-items: flex-end;')).toBe(true);
-        expect(wrapper.find('.actions').attributes().style.includes('align-items: flex-end;')).toBe(true);
+        expect(wrapper.find('.vs-label').attributes().style.includes('align-items: flex-end;')).toBe(true);
+        expect(wrapper.find('.vs-value').attributes().style.includes('align-items: flex-end;')).toBe(true);
+        expect(wrapper.find('.vs-actions').attributes().style.includes('align-items: flex-end;')).toBe(true);
     });
 });

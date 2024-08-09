@@ -30,59 +30,59 @@
         }
     }
 
-    &.placement-top .vs-tooltip-contents::after {
+    &.vs-placement-top .vs-tooltip-contents::after {
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 100%) rotate(180deg);
     }
 
-    &.placement-top.align-start .vs-tooltip-contents::after {
+    &.vs-placement-top.vs-align-start .vs-tooltip-contents::after {
         left: 20%;
     }
 
-    &.placement-top.align-end .vs-tooltip-contents::after {
+    &.vs-placement-top.vs-align-end .vs-tooltip-contents::after {
         left: 80%;
     }
 
-    &.placement-right .vs-tooltip-contents::after {
+    &.vs-placement-right .vs-tooltip-contents::after {
         top: 50%;
         left: 0;
         transform: translate(calc(-100%), -50%) rotate(270deg);
     }
 
-    &.placement-right.align-start .vs-tooltip-contents::after {
+    &.vs-placement-right.vs-align-start .vs-tooltip-contents::after {
         top: 20%;
     }
 
-    &.placement-right.align-end .vs-tooltip-contents::after {
+    &.vs-placement-right.vs-align-end .vs-tooltip-contents::after {
         top: 80%;
     }
 
-    &.placement-bottom .vs-tooltip-contents::after {
+    &.vs-placement-bottom .vs-tooltip-contents::after {
         top: 0;
         left: 50%;
         transform: translate(-50%, -100%) rotate(0deg);
     }
 
-    &.placement-bottom.align-start .vs-tooltip-contents::after {
+    &.vs-placement-bottom.vs-align-start .vs-tooltip-contents::after {
         left: 20%;
     }
 
-    &.placement-bottom.align-end .vs-tooltip-contents::after {
+    &.vs-placement-bottom.vs-align-end .vs-tooltip-contents::after {
         left: 80%;
     }
 
-    &.placement-left .vs-tooltip-contents::after {
+    &.vs-placement-left .vs-tooltip-contents::after {
         top: 50%;
         right: 0;
         transform: translate(calc(100%), -50%) rotate(90deg);
     }
 
-    &.placement-left.align-start .vs-tooltip-contents::after {
+    &.vs-placement-left.vs-align-start .vs-tooltip-contents::after {
         top: 20%;
     }
 
-    &.placement-left.align-end .vs-tooltip-contents::after {
+    &.vs-placement-left.vs-align-end .vs-tooltip-contents::after {
         top: 80%;
     }
 }

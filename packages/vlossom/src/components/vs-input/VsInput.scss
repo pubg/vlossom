@@ -22,8 +22,8 @@
         color: var(--vs-input-fontColor, var(--vs-font-color));
     }
 
-    .prepend,
-    .append {
+    .vs-prepend,
+    .vs-append {
         position: relative;
         display: flex;
         justify-content: center;
@@ -35,12 +35,12 @@
         border: none;
     }
 
-    .prepend {
+    .vs-prepend {
         background-color: var(--vs-input-prependBackgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-input-prependColor, var(--vs-primary-comp-font));
     }
 
-    .append {
+    .vs-append {
         background-color: var(--vs-input-appendBackgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-input-appendColor, var(--vs-primary-comp-font));
     }
@@ -63,7 +63,7 @@
         }
     }
 
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 
@@ -77,7 +77,7 @@
 }
 
 .vs-input {
-    &.dense {
+    &.vs-dense {
         height: var(--vs-input-height, var(--vs-input-comp-height-dense));
         font-size: var(--vs-input-fontSize, var(--vs-font-size-sm));
 

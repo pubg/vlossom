@@ -16,7 +16,7 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-radio-set', { vertical }]" :style="radioSetStyleSet">
+        <div :class="['vs-radio-set', { 'vs-vertical': vertical }]" :style="radioSetStyleSet">
             <vs-radio-node
                 v-for="(option, index) in options"
                 :key="getOptionValue(option)"

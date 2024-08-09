@@ -54,7 +54,7 @@ $file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height
             overflow: hidden;
             text-overflow: ellipsis;
 
-            &.placeholder {
+            &.vs-placeholder {
                 opacity: 0.6;
             }
         }
@@ -81,7 +81,7 @@ $file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height
         cursor: pointer;
     }
 
-    &.dense {
+    &.vs-dense {
         height: $file-input-height-dense;
         font-size: var(--vs-file-input-fontSize, var(--vs-font-size-sm));
 
@@ -95,15 +95,15 @@ $file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height
         }
     }
 
-    &.disabled {
+    &.vs-disabled {
         @include disabled;
     }
 
-    &.dragging {
+    &.vs-dragging {
         background-color: var(--vs-file-input-dragBackgroundColor, transparent);
     }
 
-    &.readonly {
+    &.vs-readonly {
         @include readonly;
     }
 }

@@ -21,7 +21,7 @@
         margin-left: 0.2rem;
 
         .vs-text-wrap-button {
-            &.copy-button {
+            &.vs-copy-button {
                 color: var(--vs-text-wrap-copyIconColor, var(--vs-indigo));
 
                 .copied {
@@ -29,10 +29,10 @@
                 }
             }
 
-            &.link-button {
+            &.vs-link-button {
                 overflow: hidden;
 
-                .link-icon {
+                .vs-link-icon {
                     color: var(--vs-text-wrap-linkIconColor, var(--vs-light-blue));
                     transform: rotate(135deg);
                 }

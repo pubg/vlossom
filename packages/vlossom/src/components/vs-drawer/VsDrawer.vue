@@ -1,13 +1,17 @@
 <template>
     <Transition name="drawer" :duration="MODAL_DURATION">
-        <div v-show="isOpen" :class="['vs-drawer', colorSchemeClass, { dimmed }]" :style="computedStyleSet">
+        <div
+            v-show="isOpen"
+            :class="['vs-drawer', colorSchemeClass, { 'vs-dimmed': dimmed }]"
+            :style="computedStyleSet"
+        >
             <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                <div :class="['vs-drawer-wrap', placement, hasSpecifiedSize ? '' : size]">
+                <div :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]">
                     <header v-if="$slots['header']" class="vs-drawer-header">
                         <slot name="header" />
                     </header>
-                    <div :class="['vs-drawer-body', { 'hide-scroll': hideScroll }]">
+                    <div :class="['vs-drawer-body', { 'vs-hide-scroll': hideScroll }]">
                         <slot />
                     </div>
                     <footer v-if="$slots['footer']" class="vs-drawer-footer">

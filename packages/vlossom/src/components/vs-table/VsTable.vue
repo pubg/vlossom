@@ -1,6 +1,6 @@
 <template>
     <vs-responsive
-        :class="['vs-table', colorSchemeClass, { dense, responsive }]"
+        :class="['vs-table', colorSchemeClass, { 'vs-dense': dense, 'vs-responsive': responsive }]"
         :style="computedStyleSet"
         :width="width"
         :grid="grid"
@@ -24,7 +24,7 @@
                 >
                     <template #check>
                         <vs-checkbox-node
-                            class="vs-table-select select-all"
+                            class="vs-table-select vs-select-all"
                             v-if="!loading"
                             :id="utils.string.createID()"
                             type="checkbox"

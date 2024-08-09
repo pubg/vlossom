@@ -20,17 +20,17 @@ $divider-border: var(--vs-divider-border, 1px solid var(--vs-primary-comp-bg));
 .vs-divider {
     opacity: 0.5;
 
-    &.horizontal {
+    &.vs-horizontal {
         @include vs-divider-horizontal;
     }
 
-    &.vertical {
+    &.vs-vertical {
         @include vs-divider-vertical;
     }
 }
 
 @container (max-width: 768px) {
-    .vs-divider.vertical.responsive {
+    .vs-divider.vs-vertical.vs-responsive {
         @include vs-divider-horizontal;
     }
 }

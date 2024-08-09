@@ -16,7 +16,7 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-checkbox-set', { vertical }]" :style="checkboxSetStyleSet">
+        <div :class="['vs-checkbox-set', { 'vs-vertical': vertical }]" :style="checkboxSetStyleSet">
             <vs-checkbox-node
                 v-for="(option, index) in options"
                 :key="getOptionValue(option)"

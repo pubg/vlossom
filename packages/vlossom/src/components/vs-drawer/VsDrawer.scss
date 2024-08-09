@@ -12,7 +12,7 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
     z-index: var(--vs-drawer-zIndex);
     pointer-events: none;
 
-    &.dimmed {
+    &.vs-dimmed {
         pointer-events: auto;
     }
 
@@ -49,45 +49,45 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
             flex: auto;
             overflow: auto;
 
-            &.hide-scroll {
+            &.vs-hide-scroll {
                 @include hide-scroll;
             }
         }
 
         // placement
-        &.top {
+        &.vs-top {
             top: 0;
             left: 0;
             border-bottom: $drawer-border;
         }
 
-        &.right {
+        &.vs-right {
             top: 0;
             right: 0;
             border-left: $drawer-border;
         }
 
-        &.bottom {
+        &.vs-bottom {
             bottom: 0;
             left: 0;
             border-top: $drawer-border;
         }
 
-        &.left {
+        &.vs-left {
             top: 0;
             left: 0;
             border-right: $drawer-border;
         }
 
         // size
-        &.left,
-        &.right {
+        &.vs-left,
+        &.vs-right {
             max-width: var(--vs-drawer-size);
             min-width: 200px;
         }
 
-        &.top,
-        &.bottom {
+        &.vs-top,
+        &.vs-bottom {
             max-height: var(--vs-drawer-size);
             min-height: 100px;
         }
@@ -106,22 +106,22 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
     opacity: 0;
 }
 
-.drawer-enter-from .vs-drawer-wrap.left,
-.drawer-leave-to .vs-drawer-wrap.left {
+.drawer-enter-from .vs-drawer-wrap.vs-left,
+.drawer-leave-to .vs-drawer-wrap.vs-left {
     transform: translateX(-100%);
 }
 
-.drawer-enter-from .vs-drawer-wrap.right,
-.drawer-leave-to .vs-drawer-wrap.right {
+.drawer-enter-from .vs-drawer-wrap.vs-right,
+.drawer-leave-to .vs-drawer-wrap.vs-right {
     transform: translateX(100%);
 }
 
-.drawer-enter-from .vs-drawer-wrap.bottom,
-.drawer-leave-to .vs-drawer-wrap.bottom {
+.drawer-enter-from .vs-drawer-wrap.vs-bottom,
+.drawer-leave-to .vs-drawer-wrap.vs-bottom {
     transform: translateY(100%);
 }
 
-.drawer-enter-from .vs-drawer-wrap.top,
-.drawer-leave-to .vs-drawer-wrap.top {
+.drawer-enter-from .vs-drawer-wrap.vs-top,
+.drawer-leave-to .vs-drawer-wrap.vs-top {
     transform: translateY(-100%);
 }

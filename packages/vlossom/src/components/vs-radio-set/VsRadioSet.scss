@@ -3,7 +3,7 @@
     align-items: center;
     flex-wrap: var(--vs-radio-set-flexWrap, wrap);
 
-    &.vertical {
+    &.vs-vertical {
         flex-direction: column;
         align-items: flex-start;
     }

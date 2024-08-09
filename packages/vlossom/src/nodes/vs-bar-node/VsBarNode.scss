@@ -15,7 +15,7 @@
     width: var(--vs-bar-node-width, 100%);
     z-index: var(--vs-bar-node-zIndex);
 
-    &.primary {
+    &.vs-primary {
         background-color: var(--vs-bar-node-backgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-bar-node-fontColor, var(--vs-primary-comp-font));
     }

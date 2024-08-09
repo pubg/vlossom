@@ -164,9 +164,9 @@ export default defineComponent({
         });
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            disabled: computedDisabled.value,
-            readonly: computedReadonly.value,
+            'vs-dense': dense.value,
+            'vs-disabled': computedDisabled.value,
+            'vs-readonly': computedReadonly.value,
         }));
 
         const { stateClasses } = useStateClass(computedState);

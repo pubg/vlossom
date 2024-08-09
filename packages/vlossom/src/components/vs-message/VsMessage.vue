@@ -1,7 +1,7 @@
 <template>
-    <div :class="['vs-message', colorClass, { dense }]">
-        <vs-icon class="message-icon" :icon="icon" :size="dense ? '1.4rem' : '1.6rem'" />
-        <span class="message-text">{{ message.text }}</span>
+    <div :class="['vs-message', colorClass, { 'vs-dense': dense }]">
+        <vs-icon class="vs-message-icon" :icon="icon" :size="dense ? '1.4rem' : '1.6rem'" />
+        <span class="vs-message-text">{{ message.text }}</span>
     </div>
 </template>
 

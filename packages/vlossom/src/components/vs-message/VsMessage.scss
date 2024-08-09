@@ -5,12 +5,12 @@
     font-size: var(--vs-font-size-sm);
     white-space: nowrap;
 
-    .message-icon {
+    .vs-message-icon {
         position: relative;
         margin-right: 0.2rem;
     }
 
-    &.dense {
+    &.vs-dense {
         font-size: var(--vs-font-size-xs);
     }
 }

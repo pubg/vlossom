@@ -1,9 +1,9 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
-        <div :class="['vs-tabs', colorSchemeClass, { dense }]" :style="computedStyleSet">
+        <div :class="['vs-tabs', colorSchemeClass, { 'vs-dense': dense }]" :style="computedStyleSet">
             <vs-button
                 v-if="showScrollButtons"
-                class="vs-scroll-button scroll-left-button"
+                class="vs-scroll-button vs-scroll-left-button"
                 aria-label="scroll to the left"
                 :disabled="currentFocusedTab <= 0"
                 @click.stop="scrollLeft"
@@ -12,12 +12,12 @@
                 <vs-icon icon="goPrev" size="1.6rem" />
             </vs-button>
             <div class="vs-tabs-wrap" ref="tabsWrapRef">
-                <ul role="tablist" :class="['vs-tab-list', { 'bottom-line': bottomLine }]">
+                <ul role="tablist" :class="['vs-tab-list', { 'vs-bottom-line': bottomLine }]">
                     <li
                         v-for="(tab, index) in tabs"
                         ref="tabRefs"
                         :key="tab"
-                        :class="['vs-tab-item', { selected: isSelected(index), disabled: isDisabled(index) }]"
+                        :class="['vs-tab-item', { 'vs-selected': isSelected(index), 'vs-disabled': isDisabled(index) }]"
                         role="tab"
                         :aria-selected="isSelected(index)"
                         :aria-disabled="isDisabled(index)"
@@ -33,7 +33,7 @@
             </div>
             <vs-button
                 v-if="showScrollButtons"
-                class="vs-scroll-button scroll-right-button"
+                class="vs-scroll-button vs-scroll-right-button"
                 aria-label="scroll to the right"
                 :colorScheme="colorScheme"
                 :disabled="currentFocusedTab >= tabs.length - 1"

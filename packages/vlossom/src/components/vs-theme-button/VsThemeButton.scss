@@ -35,7 +35,7 @@ $vs-theme-button-height: 3rem;
             transform 0.4s ease-out;
         color: var(--vs-theme-button-iconColor, var(--vs-orange));
 
-        &.on {
+        &.vs-on {
             opacity: 1;
             transform: scale(1) rotate(0deg) translateX(-50%) translateY(-50%);
         }

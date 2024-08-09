@@ -11,7 +11,7 @@
         <button
             v-if="closable"
             type="button"
-            class="vs-icon-container vs-close-button"
+            class="vs-icon-container vs-chip-close-button"
             aria-label="close"
             tabindex="-1"
             @click.stop="$emit('close')"
@@ -52,9 +52,9 @@ export default defineComponent({
         const hasIcon = computed((): boolean => !!slots['icon']);
 
         const classObj = computed(() => ({
-            dense: dense.value,
-            'no-round': noRound.value,
-            primary: primary.value,
+            'vs-dense': dense.value,
+            'vs-no-round': noRound.value,
+            'vs-primary': primary.value,
         }));
 
         return {
