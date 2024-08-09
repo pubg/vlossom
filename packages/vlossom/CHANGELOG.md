@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.4](https://github.com/pubg/vlossom/compare/v1.0.3...v1.0.4) (2024-08-09)
+
+
+### Bug Fixes
+
+* change vlossom classes ([#263](https://github.com/pubg/vlossom/issues/263)) ([114fe93](https://github.com/pubg/vlossom/commit/114fe9360ef2081901581fa7dce706bf46371a8f))
+* **colors:** update color-schemes & styles ([#264](https://github.com/pubg/vlossom/issues/264)) ([7e74aea](https://github.com/pubg/vlossom/commit/7e74aea4040b29c197b18c57b021fcd301a4a69c))
+* **grid:** change BreakPoint base to xs, fix grid-template-columns ([#257](https://github.com/pubg/vlossom/issues/257)) ([ce4859b](https://github.com/pubg/vlossom/commit/ce4859b19614a69fe89e85cad93a2ef2bfc519e3))
+* **style:** remove scoped attribute from style tag ([#258](https://github.com/pubg/vlossom/issues/258)) ([c1ec5cb](https://github.com/pubg/vlossom/commit/c1ec5cb1825a45a006ce3e4ab1847d314e0d025d))
+* **VsButton:** change vs-button content span to div ([#260](https://github.com/pubg/vlossom/issues/260)) ([8f4720a](https://github.com/pubg/vlossom/commit/8f4720ad79f8ecb75ebd9cb03bc2eb4b1265b3d3))
+* **VsChip:** fix primary closable button color ([#256](https://github.com/pubg/vlossom/issues/256)) ([9cf355a](https://github.com/pubg/vlossom/commit/9cf355adbde13c6cecb60f58742533641d2ddd1b))
+* **VsInput, VsFileInput, VsSelect:** add padding to style-set ([#261](https://github.com/pubg/vlossom/issues/261)) ([1e55e71](https://github.com/pubg/vlossom/commit/1e55e718a4aa2fac4ce954e0a715904138f5e604))
+* **VsModal:** fix scroll lock & remove tabindex from modal body (a11y rule off) ([#262](https://github.com/pubg/vlossom/issues/262)) ([2362eda](https://github.com/pubg/vlossom/commit/2362eda01424726fe54c80de02e23ab3a3635923))
+* **VsTable:** clickRow 이벤트가 버블링되지 않는 버그 수정 ([#254](https://github.com/pubg/vlossom/issues/254)) ([c21ad0f](https://github.com/pubg/vlossom/commit/c21ad0f89bf71799391662b9ae87c9e0c5eb1f1c))
+* **VsTable:** refine style (change class name, add vetical padding to th)  ([#259](https://github.com/pubg/vlossom/issues/259)) ([3ec9d46](https://github.com/pubg/vlossom/commit/3ec9d4627bd762947bedd11fbe955137e3534e65))
+
 ## [1.0.3](https://github.com/pubg/vlossom/compare/v1.0.2...v1.0.3) (2024-07-30)
 
 
