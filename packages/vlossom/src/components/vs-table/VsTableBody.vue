@@ -4,12 +4,13 @@
         v-model="computedTableItems"
         class="vs-table-tbody"
         item-key="id"
-        handle=".handle"
+        handle=".vs-handle"
         :disabled="!draggable || loading"
     >
         <template #item="{ element, index }">
             <vs-table-body-row
                 :item="element"
+                :color-scheme="colorScheme"
                 :headers="headers"
                 :draggable="draggable"
                 :expandable="hasExpand"
@@ -30,6 +31,7 @@
                         :color-scheme="colorScheme"
                         :checked="isSelected(element.id)"
                         aria-label="select"
+                        :disabled="loading"
                         @toggle="(e) => toggleSelect(e, element.id)"
                     />
                 </template>
@@ -44,10 +46,13 @@
             v-for="(dummy, index) in dummyTableItems"
             :key="dummy.id"
             :item="dummy"
+            :color-scheme="colorScheme"
             :headers="headers"
             :draggable="draggable"
             :loading="loading"
             :row-index="index"
+            :rows="rows"
+            :selectable="selectable"
             :tr-style="trStyle"
         />
     </tbody>

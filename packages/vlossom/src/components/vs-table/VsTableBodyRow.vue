@@ -1,13 +1,10 @@
 <template>
-    <tr :style="trStyle" :class="['vs-table-tr', { 'vs-skeleton': loading }, rowState]">
-        <td class="vs-table-td vs-table-draggable-td handle" v-if="draggable">
+    <tr :style="trStyle" :class="['vs-table-tr', rowState, { 'vs-table-row-loading': loading }]">
+        <td class="vs-table-td vs-table-draggable-td vs-handle" v-if="draggable">
             <vs-icon v-if="!loading" icon="drag" size="1.6rem" />
         </td>
         <td class="vs-table-td vs-table-selectable-td" v-if="selectable">
-            <div v-if="loading" class="vs-table-skeleton"></div>
-            <div v-else-if="isSelectableRow">
-                <slot name="check" />
-            </div>
+            <slot v-if="isSelectableRow && !loading" name="check" />
         </td>
         <td
             class="vs-table-td"
@@ -15,7 +12,12 @@
             :key="`td-${index}`"
             :data-label="getHeader(cell.key)?.label"
         >
-            <div v-if="loading" class="vs-table-skeleton"></div>
+            <vs-skeleton
+                v-if="loading"
+                class="vs-table-skeleton"
+                :color-scheme="colorScheme"
+                :style-set="{ borderRadius: 'var(--vs-radius-sm)' }"
+            />
             <div v-else class="vs-table-data">
                 <slot
                     :name="`item-${cell.key}`"
@@ -57,16 +59,18 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
-import { UIState } from '@/declaration';
+import { ColorScheme, UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
+import VsSkeleton from '@/components/vs-skeleton/VsSkeleton.vue';
 
 import type { TableHeader, TableItem, TableRow } from './types';
 
 export default defineComponent({
     name: 'VsTableBodyRow',
-    components: { VsIcon },
+    components: { VsIcon, VsSkeleton },
     props: {
         loading: { type: Boolean, default: false },
+        colorScheme: { type: String as PropType<ColorScheme> },
         draggable: { type: Boolean, default: false },
         expanded: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },

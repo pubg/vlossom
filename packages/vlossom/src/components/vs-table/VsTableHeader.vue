@@ -16,7 +16,7 @@
         <tr :style="trStyle" class="vs-table-tr">
             <th class="vs-table-th vs-table-draggable-th" v-if="draggable">drag</th>
             <th class="vs-table-th vs-table-selectable-th" v-if="selectable" aria-label="select">
-                <slot name="check" />
+                <slot v-if="!loading" name="check" />
             </th>
             <th
                 v-for="(header, index) in headers"
@@ -47,9 +47,10 @@ export default defineComponent({
     name: 'VsTableHeader',
     components: { VsIcon, VsInput },
     props: {
+        headers: { type: Array as PropType<TableHeader[]>, required: true },
         draggable: { type: Boolean, default: false },
         expandable: { type: Boolean, default: false },
-        headers: { type: Array as PropType<TableHeader[]>, required: true },
+        loading: { type: Boolean, default: false },
         search: { type: Boolean, default: false },
         searchPlaceholder: { type: String, default: 'search' },
         selectable: { type: Boolean, default: false },
