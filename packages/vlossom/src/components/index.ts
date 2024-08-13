@@ -90,6 +90,9 @@ export { default as VsSection } from './vs-section/VsSection.vue';
 export { type VsSelectStyleSet } from './vs-select/types';
 export { default as VsSelect } from './vs-select/VsSelect.vue';
 
+export { type VsSkeletonStyleSet } from './vs-skeleton/types';
+export { default as VsSkeleton } from './vs-skeleton/VsSkeleton.vue';
+
 export { type VsStepperStyleSet } from './vs-stepper/types';
 export { default as VsStepper } from './vs-stepper/VsStepper.vue';
 
