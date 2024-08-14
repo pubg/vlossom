@@ -7,6 +7,6 @@
     &.vs-grid {
         // for grid css
         display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
+        grid-template-columns: repeat(var(--vs-grid-size, 12), minmax(0, 1fr));
     }
 }
