@@ -14,10 +14,10 @@
                     :headers="headers"
                     :draggable="canDrag"
                     :expandable="hasExpand"
+                    :loading="loading"
                     :search="search"
                     :search-placeholder="searchPlaceholder"
                     :selectable="hasSelectable"
-                    :loading="loading"
                     :tr-style="trStyle"
                     v-model:sort-types="sortTypes"
                     @change:search-text="updateInnerSearchText"
@@ -25,7 +25,6 @@
                     <template #check>
                         <vs-checkbox-node
                             class="vs-table-select vs-select-all"
-                            v-if="!loading"
                             :id="utils.string.createID()"
                             type="checkbox"
                             :color-scheme="colorScheme"
@@ -42,6 +41,7 @@
                     ref="tableBodyRef"
                     :items="items"
                     :headers="headers"
+                    :color-scheme="colorScheme"
                     :filter="filter"
                     :draggable="canDrag"
                     :hasExpand="hasExpand"

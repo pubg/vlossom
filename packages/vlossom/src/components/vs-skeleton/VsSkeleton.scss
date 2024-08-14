@@ -1,0 +1,18 @@
+.vs-skeleton {
+    position: relative;
+    width: var(--vs-skeleton-width, 100%);
+    height: var(--vs-skeleton-height, 100%);
+    border-radius: var(--vs-skeleton-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
+    background-color: var(--vs-skeleton-backgroundColor, var(--vs-line-color));
+    animation: skeleton-blink 0.6s infinite alternate;
+}
+
+@keyframes skeleton-blink {
+    0% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}

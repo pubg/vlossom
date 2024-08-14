@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
         VsResponsive: (typeof import('./components'))['VsResponsive'];
         VsSection: (typeof import('./components'))['VsSection'];
         VsSelect: (typeof import('./components'))['VsSelect'];
+        VsSkeleton: (typeof import('./components'))['VsSkeleton'];
         VsStepper: (typeof import('./components'))['VsStepper'];
         VsSwitch: (typeof import('./components'))['VsSwitch'];
         VsTable: (typeof import('./components'))['VsTable'];

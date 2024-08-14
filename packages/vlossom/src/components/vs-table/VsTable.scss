@@ -65,8 +65,8 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 color: var(--vs-table-headerFontColor, var(--vs-font-color));
                 font-size: var(--vs-table-headerFontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-headerFontWeight, 500);
-                min-height: var(--vs-table-headerHeight, 3.2rem);
-                padding: 1rem 1.4rem;
+                min-height: var(--vs-table-headerHeight, 3.6rem);
+                padding: 0.8rem 1.4rem;
 
                 &.vs-table-draggable-th,
                 &.vs-table-expandable-th {
@@ -93,7 +93,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             }
 
             .vs-table-td {
-                min-height: var(--vs-table-rowHeight, 3.2rem);
+                min-height: var(--vs-table-rowHeight, 4rem);
                 font-size: var(--vs-table-fontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-fontWeight, 400);
                 padding: 0.8rem 1.4rem;
@@ -113,9 +113,9 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        width: 2rem;
-                        height: 2rem;
-                        border-radius: calc(var(--vs-radius-ratio) * 0.2rem);
+                        width: 2.4rem;
+                        height: 2.4rem;
+                        border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius-xs));
                         border: $tableBorder;
                         background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
 
@@ -162,25 +162,17 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                     height: 100%;
                     overflow-x: auto;
                 }
-
-                .vs-table-skeleton {
-                    width: 95%;
-                    height: 60%;
-                    border-radius: calc(var(--vs-radius-ratio) * 0.3rem);
-                    background-color: var(--vs-gray-light);
-                    animation: skeleton-loading 0.6s infinite alternate;
-                }
             }
         }
 
-        .vs-table-tbody .vs-table-tr:not(.vs-table-skeleton) .vs-table-td.vs-table-draggable-td {
+        .vs-table-tbody .vs-table-tr:not(.vs-table-row-loading) .vs-table-td.vs-table-draggable-td {
             cursor: grab;
             &:active {
                 cursor: grabbing;
             }
         }
 
-        .vs-table-tbody .vs-table-tr:not(.vs-table-skeleton):hover::after {
+        .vs-table-tbody .vs-table-tr:not(.vs-table-row-loading):hover::after {
             content: '';
             box-sizing: border-box;
             position: absolute;
@@ -238,8 +230,8 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 padding-left: 0;
 
                 .vs-table-expand-button {
-                    width: 1.6rem;
-                    height: 1.6rem;
+                    width: 1.8rem;
+                    height: 1.8rem;
                 }
             }
         }
@@ -347,7 +339,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 }
 
                 .vs-table-skeleton {
-                    height: 2.8rem;
+                    min-height: 2.4rem;
                 }
             }
         }
@@ -362,14 +354,5 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         box-shadow:
             inset 0 3px 6px rgba(255, 255, 255, 0.2),
             inset 0 -2px 4px rgba(255, 255, 255, 0.15);
-    }
-}
-@keyframes skeleton-loading {
-    0% {
-        opacity: 0.2;
-    }
-
-    100% {
-        opacity: 0.4;
     }
 }

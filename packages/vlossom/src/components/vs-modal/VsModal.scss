@@ -46,7 +46,7 @@
         font-weight: var(--vs-modal-fontWeight, 400);
         box-shadow: var(--vs-modal-boxShadow, var(--vs-area-shadow-outer));
         transform: translate(-50%, -50%);
-        border-radius: var(--vs-modal-borderRadius, calc(var(--vs-radius-ratio) * 0.6rem));
+        border-radius: var(--vs-modal-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         padding: var(--vs-modal-padding, 2rem);
         pointer-events: auto;
 
