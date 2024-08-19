@@ -18,7 +18,7 @@ export default defineComponent({
         tag: { type: String, default: 'div' },
     },
     setup(props) {
-        const { columnGap, grid, rowGap } = toRefs(props);
+        const { columnGap, grid, gridSize, rowGap } = toRefs(props);
 
         const gridStyles = computed(() => {
             if (!grid.value) {
@@ -26,6 +26,7 @@ export default defineComponent({
             }
 
             return {
+                '--vs-grid-size': String(gridSize.value),
                 rowGap: utils.string.convertToStringSize(rowGap.value),
                 columnGap: utils.string.convertToStringSize(columnGap.value),
             };

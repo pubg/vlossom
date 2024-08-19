@@ -28,6 +28,7 @@ export function getGridProps(name: string) {
             },
         },
         grid: { type: Boolean, default: false },
+        gridSize: { type: [String, Number], default: 12 },
         rowGap: {
             type: [Number, String],
             default: 0,
