@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" :class="['vs-container', { 'vs-grid': grid }]" :style="computedStyles">
+    <component :is="tag" :class="['vs-container', 'vs-default', { 'vs-grid': grid }]" :style="computedStyles">
         <slot />
     </component>
 </template>

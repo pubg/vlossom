@@ -1,15 +1,13 @@
 <template>
-    <vs-responsive :width="width" :grid="grid">
-        <div class="vs-index-view">
-            <template v-if="keepAlive">
-                <KeepAlive>
-                    <component :is="selectedComponent" role="tabpanel" tabindex="0" />
-                </KeepAlive>
-            </template>
-            <template v-else>
+    <vs-responsive :class="['vs-index-view', 'vs-default']" :width="width" :grid="grid">
+        <template v-if="keepAlive">
+            <KeepAlive>
                 <component :is="selectedComponent" role="tabpanel" tabindex="0" />
-            </template>
-        </div>
+            </KeepAlive>
+        </template>
+        <template v-else>
+            <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+        </template>
     </vs-responsive>
 </template>
 

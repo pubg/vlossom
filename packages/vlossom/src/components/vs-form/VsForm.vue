@@ -1,7 +1,7 @@
 <template>
     <vs-container
         tag="form"
-        class="vs-form"
+        :class="['vs-form', 'vs-default']"
         :grid="grid"
         :column-gap="columnGap"
         :row-gap="rowGap"
@@ -84,3 +84,5 @@ export default defineComponent({
     },
 });
 </script>
+
+<style lang="scss" src="./VsForm.scss" />

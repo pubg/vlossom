@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-index-item">
+    <div :class="['vs-index-item', 'vs-default']">
         <slot />
     </div>
 </template>

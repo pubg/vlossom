@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" class="vs-responsive" :class="responsiveClasses" :style="responsiveStyles">
+    <component :is="tag" :class="['vs-responsive', 'vs-default', responsiveClasses]" :style="responsiveStyles">
         <slot />
     </component>
 </template>

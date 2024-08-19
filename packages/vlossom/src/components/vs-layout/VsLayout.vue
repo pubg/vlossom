@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-layout" :style="layoutStyle">
+    <div :class="['vs-layout', 'vs-default']" :style="layoutStyle">
         <slot />
     </div>
 </template>
