@@ -1,12 +1,20 @@
 .vs-image {
     position: relative;
 
-    .vs-image {
-        width: var(--vs-image-width, 100%);
-        height: var(--vs-image-height, 100%);
+    .vs-image-tag {
+        position: relative;
+        width: var(--vs-image-width);
+        height: var(--vs-image-height);
         border: var(--vs-image-border, none);
         border-radius: var(--vs-image-borderRadius, 0);
         object-fit: var(--vs-image-objectFit, contain);
+
+        &.vs-hidden {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
     }
 
     .vs-alt-text {

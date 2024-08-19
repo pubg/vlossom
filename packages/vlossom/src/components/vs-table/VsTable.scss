@@ -9,12 +9,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     .vs-table-table {
         min-width: 100%;
         border-spacing: 0 !important;
-        margin-bottom: 0.6rem;
 
         .vs-table-caption {
             caption-side: var(--vs-table-captionSide, bottom);
             text-align: var(--vs-table-captionTextAlign, center);
-            padding: 1rem 0;
+            padding: var(--vs-table-captionPadding, 0.8rem 0);
             color: var(--vs-table-captionFontColor, var(--vs-font-color));
             font-size: var(--vs-table-captionFontSize, var(--vs-font-size-sm));
             font-weight: var(--vs-table-captionFontWeight);
@@ -34,7 +33,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         }
 
         .vs-table-thead .vs-table-tr {
-            background-color: var(--vs-table-headerBackgroundColor, var(--vs-area-bg-active));
+            background-color: var(--vs-table-headerBackgroundColor, var(--vs-comp-bg));
             border: var(--vs-table-headerBorder, 1px solid var(--vs-line-color));
 
             &.vs-search {
@@ -206,7 +205,8 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 0.6rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
 
     .vs-table-pagination-options {
         margin-left: 2rem;
@@ -240,8 +240,6 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
 
 @container (max-width: 576px) {
     .vs-table.vs-responsive .vs-table-wrap {
-        margin-bottom: 2rem;
-
         .vs-table-table .vs-table-thead .vs-table-tr {
             grid-template-columns: none !important;
             margin-bottom: 0.4rem;

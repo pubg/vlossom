@@ -41,6 +41,7 @@ export interface VsTableStyleSet {
     captionFontColor?: string;
     captionFontSize?: string;
     captionFontWeight?: string | number;
+    captionPadding?: string;
     captionSide?: string;
     captionTextAlign?: string;
     fontColor?: string;
