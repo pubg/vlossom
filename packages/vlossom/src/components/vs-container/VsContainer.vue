@@ -20,7 +20,7 @@ export default defineComponent({
         tag: { type: String, default: 'div' },
     },
     setup(props) {
-        const { colorScheme, columnGap, grid, rowGap } = toRefs(props);
+        const { colorScheme, columnGap, grid, gridSize, rowGap } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -30,6 +30,7 @@ export default defineComponent({
             }
 
             return {
+                '--vs-grid-size': String(gridSize.value),
                 rowGap: utils.string.convertToStringSize(rowGap.value),
                 columnGap: utils.string.convertToStringSize(columnGap.value),
             };
