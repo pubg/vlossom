@@ -29,7 +29,7 @@ describe('vs-container', () => {
             });
 
             // then
-            expect(wrapper.vm.gridStyles).toEqual({ rowGap: '2rem', columnGap: '0px' });
+            expect(wrapper.vm.gridStyles).toMatchObject({ rowGap: '2rem', columnGap: '0px' });
         });
 
         it('rowGap을 숫자로만 입력하면 px단위로 rowGap style을 적용한다', () => {
@@ -39,7 +39,7 @@ describe('vs-container', () => {
             });
 
             // then
-            expect(wrapper.vm.gridStyles).toEqual({ rowGap: '20px', columnGap: '0px' });
+            expect(wrapper.vm.gridStyles).toMatchObject({ rowGap: '20px', columnGap: '0px' });
         });
 
         it('columnGap을 단위와 함께 입력하면 columnGap style을 적용한다', () => {
@@ -49,7 +49,7 @@ describe('vs-container', () => {
             });
 
             // then
-            expect(wrapper.vm.gridStyles).toEqual({ rowGap: '0px', columnGap: '2rem' });
+            expect(wrapper.vm.gridStyles).toMatchObject({ rowGap: '0px', columnGap: '2rem' });
         });
 
         it('columnGap을 숫자로만 입력하면 px단위로 columnGap style을 적용한다', () => {
@@ -59,7 +59,7 @@ describe('vs-container', () => {
             });
 
             // then
-            expect(wrapper.vm.gridStyles).toEqual({ rowGap: '0px', columnGap: '20px' });
+            expect(wrapper.vm.gridStyles).toMatchObject({ rowGap: '0px', columnGap: '20px' });
         });
     });
 

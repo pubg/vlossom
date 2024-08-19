@@ -3,6 +3,7 @@
         tag="form"
         :class="['vs-form', colorSchemeClass]"
         :grid="grid"
+        :grid-size="gridSize"
         :column-gap="columnGap"
         :row-gap="rowGap"
         :autocomplete="autocomplete ? 'on' : 'off'"
