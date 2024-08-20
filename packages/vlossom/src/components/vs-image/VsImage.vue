@@ -24,7 +24,7 @@ import { useStyleSet } from '@/composables';
 import { useIntersectionObserver } from '@vueuse/core';
 import { VsComponent } from '@/declaration';
 import NO_IMAGE from '@/assets/no-image.png';
-import VsSkeleton from './../vs-skeleton/VsSkeleton.vue';
+import VsSkeleton from '@/components/vs-skeleton/VsSkeleton.vue';
 
 import type { VsImageStyleSet } from './types';
 
