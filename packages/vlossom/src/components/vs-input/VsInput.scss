@@ -6,11 +6,12 @@
     align-items: center;
     overflow: hidden;
     background-color: var(--vs-input-backgroundColor, transparent);
-    box-sizing: border-box;
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
     height: var(--vs-input-height, var(--vs-input-comp-height));
     font-size: var(--vs-input-fontSize, var(--vs-font-size));
+    color: var(--vs-input-fontColor, var(--vs-font-color));
+    box-sizing: border-box;
 
     input {
         width: 100%;

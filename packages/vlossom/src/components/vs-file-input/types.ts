@@ -10,5 +10,5 @@ export interface VsFileInputStyleSet {
     height?: string;
     iconBackgroundColor?: string;
     iconColor?: string;
-    paddingLeft?: string;
+    padding?: string;
 }
