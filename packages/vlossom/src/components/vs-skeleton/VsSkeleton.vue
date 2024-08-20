@@ -1,6 +1,9 @@
 <template>
     <div :class="['vs-skeleton', colorSchemeClass]" :style="computedStyleSet">
-        <slot />
+        <div class="vs-skeleton-bg" />
+        <div class="vs-skeleton-inner">
+            <slot />
+        </div>
     </div>
 </template>
 

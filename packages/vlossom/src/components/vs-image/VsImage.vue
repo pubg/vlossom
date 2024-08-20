@@ -1,7 +1,20 @@
 <template>
     <div class="vs-image" ref="vsImageRef" :style="computedStyleSet">
-        <img class="vs-image" :src="computedSrc" :alt="alt" @error.stop="onImageError" />
-        <span class="vs-alt-text" v-if="isNoImage">{{ alt }}</span>
+        <vs-skeleton
+            v-if="isLoading"
+            class="vs-image-skeleton"
+            :style="{ width: 'var(--vs-image-width)', height: 'var(--vs-image-height)' }"
+        >
+            <slot name="loading" />
+        </vs-skeleton>
+        <img
+            :class="['vs-image-tag', { 'vs-hidden': isLoading }]"
+            :src="computedSrc"
+            :alt="alt"
+            @load.stop="onImageLoad"
+            @error.stop="onImageError"
+        />
+        <span class="vs-alt-text" v-if="!isLoading && isNoImage">{{ alt }}</span>
     </div>
 </template>
 
@@ -11,12 +24,14 @@ import { useStyleSet } from '@/composables';
 import { useIntersectionObserver } from '@vueuse/core';
 import { VsComponent } from '@/declaration';
 import NO_IMAGE from '@/assets/no-image.png';
+import VsSkeleton from '@/components/vs-skeleton/VsSkeleton.vue';
 
 import type { VsImageStyleSet } from './types';
 
 const name = VsComponent.VsImage;
 export default defineComponent({
     name,
+    components: { VsSkeleton },
     props: {
         styleSet: { type: [String, Object] as PropType<string | VsImageStyleSet> },
         alt: { type: String, default: '' },
@@ -34,6 +49,7 @@ export default defineComponent({
 
         const hasIntersectionObserver = window && window.IntersectionObserver !== undefined;
 
+        const isLoading = ref(true); // check if img tag src is loaded
         const isLoaded = ref(hasIntersectionObserver && lazy.value ? false : true);
         const isFallback = ref(false);
         const isNoImage = ref(false);
@@ -57,12 +73,17 @@ export default defineComponent({
             isNoImage.value = false;
         });
 
+        function onImageLoad() {
+            isLoading.value = false;
+        }
+
         function onImageError() {
             if (!isLoaded.value) {
                 return;
             }
 
             emit('error');
+            isLoading.value = false;
 
             if (fallback.value && !isFallback.value) {
                 isFallback.value = true;
@@ -81,7 +102,7 @@ export default defineComponent({
             });
         }
 
-        return { computedStyleSet, computedSrc, vsImageRef, isNoImage, onImageError };
+        return { computedStyleSet, computedSrc, vsImageRef, isLoading, isNoImage, onImageLoad, onImageError };
     },
 });
 </script>
