@@ -1,6 +1,6 @@
 <template>
     <button
-        class="vs-theme-button"
+        :class="['vs-theme-button', 'vs-default']"
         :style="computedStyleSet"
         :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
         @click.stop="toggleTheme()"
