@@ -1,21 +1,25 @@
 <template>
-    <div :class="['vs-layout', 'vs-default']" :style="layoutStyle">
+    <div :class="['vs-layout', colorSchemeClass]" :style="layoutStyle">
         <slot />
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, provide, toRefs } from 'vue';
-import { VS_LAYOUT, VsComponent, VsLayoutProvide } from '@/declaration';
-import { useLayout } from '@/composables';
+import { computed, defineComponent, PropType, provide, toRefs } from 'vue';
+import { ColorScheme, VS_LAYOUT, VsComponent, VsLayoutProvide } from '@/declaration';
+import { useColorScheme, useLayout } from '@/composables';
 
+const name = VsComponent.VsLayout;
 export default defineComponent({
-    name: VsComponent.VsLayout,
+    name,
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         drawerResponsive: { type: Boolean, default: false },
     },
     setup(props) {
-        const { drawerResponsive } = toRefs(props);
+        const { colorScheme, drawerResponsive } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
         const { drawer, getDefaultLayoutProvide } = useLayout();
 
         provide<VsLayoutProvide>(VS_LAYOUT, getDefaultLayoutProvide());
@@ -38,6 +42,7 @@ export default defineComponent({
         });
 
         return {
+            colorSchemeClass,
             layoutStyle,
         };
     },

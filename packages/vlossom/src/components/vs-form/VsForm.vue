@@ -1,7 +1,7 @@
 <template>
     <vs-container
         tag="form"
-        :class="['vs-form', 'vs-default']"
+        :class="['vs-form', colorSchemeClass]"
         :grid="grid"
         :column-gap="columnGap"
         :row-gap="rowGap"
@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, provide, toRefs, watch } from 'vue';
-import { VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
-import { getGridProps, useFormProvide } from '@/composables';
+import { computed, defineComponent, nextTick, PropType, provide, toRefs, watch } from 'vue';
+import { ColorScheme, VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
+import { getGridProps, useColorScheme, useFormProvide } from '@/composables';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 const name = VsComponent.VsForm;
@@ -23,6 +23,7 @@ export default defineComponent({
     components: { VsContainer },
     props: {
         ...getGridProps(name),
+        colorScheme: { type: String as PropType<ColorScheme> },
         autocomplete: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         readonly: { type: Boolean, default: false },
@@ -33,7 +34,10 @@ export default defineComponent({
     emits: ['update:changed', 'update:valid', 'error'],
     expose: ['validate', 'clear'],
     setup(props, { emit }) {
-        const { disabled, readonly } = toRefs(props);
+        const { colorScheme, disabled, readonly } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
+
         const { validObj, setDisabled, setReadonly, changedObj, validateFlag, clearFlag, getDefaultFormProvide } =
             useFormProvide();
 
@@ -72,6 +76,7 @@ export default defineComponent({
         });
 
         return {
+            colorSchemeClass,
             changedObj,
             validObj,
             validateFlag,

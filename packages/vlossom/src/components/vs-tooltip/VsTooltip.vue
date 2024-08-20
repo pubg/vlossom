@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-tooltip">
+    <div :class="['vs-tooltip', colorSchemeClass]">
         <div
             ref="triggerRef"
             class="vs-tooltip-trigger"

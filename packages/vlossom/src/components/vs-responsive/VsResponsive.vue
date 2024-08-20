@@ -1,5 +1,5 @@
 <template>
-    <component :is="tag" :class="['vs-responsive', 'vs-default', responsiveClasses]" :style="responsiveStyles">
+    <component :is="tag" :class="['vs-responsive', responsiveClasses]" :style="responsiveStyles">
         <slot />
     </component>
 </template>
@@ -9,8 +9,9 @@ import { defineComponent, toRefs } from 'vue';
 import { getResponsiveProps, useResponsive } from '@/composables';
 import { VsComponent } from '@/declaration';
 
+const name = VsComponent.VsResponsive;
 export default defineComponent({
-    name: VsComponent.VsResponsive,
+    name,
     props: {
         ...getResponsiveProps(),
         tag: { type: String, default: 'div' },

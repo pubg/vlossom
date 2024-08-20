@@ -1,13 +1,13 @@
 <template>
-    <component :is="tag" :class="['vs-container', 'vs-default', { 'vs-grid': grid }]" :style="computedStyles">
+    <component :is="tag" :class="['vs-container', colorSchemeClass, { 'vs-grid': grid }]" :style="computedStyles">
         <slot />
     </component>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance, inject, toRefs } from 'vue';
-import { VS_LAYOUT, VsComponent } from '@/declaration';
-import { getGridProps, useLayout } from '@/composables';
+import { computed, defineComponent, getCurrentInstance, inject, PropType, toRefs } from 'vue';
+import { ColorScheme, VS_LAYOUT, VsComponent } from '@/declaration';
+import { getGridProps, useColorScheme, useLayout } from '@/composables';
 import { utils } from '@/utils';
 
 const name = VsComponent.VsContainer;
@@ -15,10 +15,13 @@ export default defineComponent({
     name,
     props: {
         ...getGridProps(name),
+        colorScheme: { type: String as PropType<ColorScheme> },
         tag: { type: String, default: 'div' },
     },
     setup(props) {
-        const { columnGap, grid, rowGap } = toRefs(props);
+        const { colorScheme, columnGap, grid, rowGap } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const gridStyles = computed(() => {
             if (!grid.value) {
@@ -62,6 +65,7 @@ export default defineComponent({
         });
 
         return {
+            colorSchemeClass,
             gridStyles,
             layoutStyles,
             computedStyles,
