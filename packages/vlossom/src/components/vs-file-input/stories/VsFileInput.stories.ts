@@ -180,7 +180,7 @@ export const StyleSet: Story = {
             fontColor: '#d84315',
             dragBackgroundColor: '#ffcc80',
             fontSize: '1.3rem',
-            paddingLeft: '2rem',
+            padding: '0 3rem',
         },
     },
 };
