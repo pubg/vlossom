@@ -19,7 +19,7 @@ describe('vs-accordion', () => {
         });
 
         // then
-        expect(wrapper.find('.vs-summary').html()).toContain(title);
+        expect(wrapper.find('.vs-accordion-summary').html()).toContain(title);
         expect(wrapper.find('.vs-accordion-content').html()).toContain(contents);
     });
 
@@ -32,7 +32,7 @@ describe('vs-accordion', () => {
         });
 
         // then;
-        expect(wrapper.find('.vs-details').attributes('open')).exist;
+        expect(wrapper.find('.vs-accordion-details').attributes('open')).exist;
     });
 
     describe('v-model', () => {
@@ -49,7 +49,7 @@ describe('vs-accordion', () => {
             await wrapper.setProps({ modelValue: true });
 
             // then;
-            expect(wrapper.find('.vs-details').attributes('open')).exist;
+            expect(wrapper.find('.vs-accordion-details').attributes('open')).exist;
             expect(wrapper.emitted('update:modelValue')).toEqual([[true]]);
             expect(wrapper.emitted('toggle')).toEqual([[true]]);
         });
@@ -67,7 +67,7 @@ describe('vs-accordion', () => {
             await wrapper.setProps({ modelValue: false });
 
             // then;
-            expect(wrapper.find('.vs-details').attributes('open')).not.exist;
+            expect(wrapper.find('.vs-accordion-details').attributes('open')).not.exist;
             expect(wrapper.emitted('update:modelValue')).toEqual([[false]]);
             expect(wrapper.emitted('toggle')).toEqual([[false]]);
         });
@@ -81,7 +81,7 @@ describe('vs-accordion', () => {
             });
 
             // then
-            expect(wrapper.find('.vs-details').attributes('open')).exist;
+            expect(wrapper.find('.vs-accordion-details').attributes('open')).exist;
             expect(wrapper.vm.isOpen).toBe(true);
         });
     });

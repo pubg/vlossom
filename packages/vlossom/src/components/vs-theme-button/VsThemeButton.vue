@@ -1,6 +1,6 @@
 <template>
     <button
-        class="vs-theme-button"
+        :class="['vs-theme-button', colorSchemeClass]"
         :style="computedStyleSet"
         :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
         @click.stop="toggleTheme()"
@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, toRefs, type PropType } from 'vue';
-import { useStyleSet } from '@/composables';
-import { VsComponent } from '@/declaration';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { ColorScheme, VsComponent } from '@/declaration';
 import { VsIcon } from '@/icons';
 import { useVlossom } from '@/vlossom-framework';
 
@@ -29,10 +29,13 @@ export default defineComponent({
     name,
     components: { VsIcon },
     props: {
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsThemeButtonStyleSet> },
     },
     setup(props) {
-        const { styleSet } = toRefs(props);
+        const { colorScheme, styleSet } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsThemeButtonStyleSet>(name, styleSet);
 
@@ -45,6 +48,7 @@ export default defineComponent({
         }
 
         return {
+            colorSchemeClass,
             computedStyleSet,
             isDarkTheme,
             toggleTheme,

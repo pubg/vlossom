@@ -1,12 +1,12 @@
 <template>
     <vs-responsive class="vs-accordion" :width="width" :grid="grid">
         <details
-            :class="['vs-details', colorSchemeClass]"
+            :class="['vs-accordion-details', colorSchemeClass]"
             :style="computedStyleSet"
             :open="isOpen"
             @toggle.stop="onToggle"
         >
-            <summary class="vs-summary">
+            <summary class="vs-accordion-summary">
                 <slot name="title" />
             </summary>
             <div class="vs-accordion-content">

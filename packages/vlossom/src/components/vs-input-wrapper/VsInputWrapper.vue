@@ -1,6 +1,6 @@
 <template>
     <vs-responsive
-        :class="['vs-input-wrapper', { 'shake-horizontal': needToShake, 'vs-dense': dense }]"
+        :class="['vs-input-wrapper', colorSchemeClass, { 'shake-horizontal': needToShake, 'vs-dense': dense }]"
         :width="width"
         :grid="grid"
     >
@@ -36,16 +36,18 @@
 
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
-import { VsComponent, type StateMessage } from '@/declaration';
-import { getResponsiveProps } from '@/composables';
+import { ColorScheme, VsComponent, type StateMessage } from '@/declaration';
+import { getResponsiveProps, useColorScheme } from '@/composables';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsMessage from '@/components/vs-message/VsMessage.vue';
 
+const name = VsComponent.VsInputWrapper;
 export default defineComponent({
-    name: VsComponent.VsInputWrapper,
+    name,
     components: { VsResponsive, VsMessage },
     props: {
         ...getResponsiveProps(),
+        colorScheme: { type: String as PropType<ColorScheme> },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         groupLabel: { type: Boolean, default: false },
@@ -57,7 +59,9 @@ export default defineComponent({
         shake: { type: Boolean, default: false },
     },
     setup(props) {
-        const { shake } = toRefs(props);
+        const { colorScheme, shake } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const needToShake = ref(false);
         watch(shake, () => {
@@ -68,6 +72,7 @@ export default defineComponent({
         });
 
         return {
+            colorSchemeClass,
             needToShake,
         };
     },

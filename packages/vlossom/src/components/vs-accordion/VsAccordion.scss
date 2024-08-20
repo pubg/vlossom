@@ -3,13 +3,13 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
 .vs-accordion {
     position: relative;
 
-    .vs-details {
+    .vs-accordion-details {
         box-sizing: border-box;
         overflow: hidden;
         border: var(--vs-accordion-border, 1px solid var(--vs-line-color));
         border-radius: var(--vs-accordion-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
 
-        .vs-summary {
+        .vs-accordion-summary {
             position: relative;
             display: block;
             box-sizing: border-box;
@@ -48,15 +48,15 @@ $titleColor: var(--vs-accordion-titleFontColor, var(--vs-comp-font));
         }
     }
 
-    .vs-details .vs-summary::-webkit-details-marker {
+    .vs-accordion-details .vs-accordion-summary::-webkit-details-marker {
         display: none;
     }
 
-    .vs-details[open] > .vs-summary:before {
+    .vs-accordion-details[open] > .vs-accordion-summary:before {
         transform: translateY(-50%) rotate(90deg);
     }
 
-    .vs-details[open] > .vs-summary {
+    .vs-accordion-details[open] > .vs-accordion-summary {
         border-bottom: 1px solid var(--vs-line-color);
     }
 }
