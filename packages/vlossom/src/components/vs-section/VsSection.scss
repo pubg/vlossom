@@ -12,7 +12,7 @@
     }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1024px) {
     .vs-section {
         padding: var(--vs-section-padding, 2rem 2.4rem);
     }
@@ -24,7 +24,7 @@
     }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 640px) {
     .vs-section {
         padding: var(--vs-section-padding, 1.2rem);
     }

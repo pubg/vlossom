@@ -238,7 +238,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     }
 }
 
-@container (max-width: 576px) {
+@container (max-width: 640px) {
     .vs-table.vs-responsive .vs-table-wrap {
         .vs-table-table .vs-table-thead .vs-table-tr {
             grid-template-columns: none !important;

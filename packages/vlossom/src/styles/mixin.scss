@@ -47,7 +47,7 @@
         grid-column-start: span $grid-xs;
     }
 
-    @container (min-width: 480px) {
+    @container (min-width: 640px) {
         .vs-width-sm {
             width: $width-sm;
         }
@@ -65,7 +65,7 @@
         }
     }
 
-    @container (min-width: 992px) {
+    @container (min-width: 1024px) {
         .vs-width-lg {
             width: $width-lg;
         }
