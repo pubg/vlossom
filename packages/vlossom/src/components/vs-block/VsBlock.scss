@@ -28,7 +28,7 @@ $blockBorder: var(--vs-block-border, 1px solid var(--vs-line-color));
     }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1024px) {
     .vs-block {
         .vs-block-header {
             padding: 0.8rem 1.6rem;
@@ -50,7 +50,7 @@ $blockBorder: var(--vs-block-border, 1px solid var(--vs-line-color));
     }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 640px) {
     .vs-block {
         .vs-block-header {
             padding: 0.8rem 0.8rem;
