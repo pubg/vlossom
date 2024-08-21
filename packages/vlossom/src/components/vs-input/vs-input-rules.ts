@@ -17,11 +17,11 @@ export function useVsInputRules(
 
     function maxCheck(v: InputValueType) {
         const limit = Number(max.value);
-        if (type.value === InputType.Number && typeof v === 'number' && v > limit) {
+        if (type.value === 'number' && typeof v === 'number' && v > limit) {
             return 'max value: ' + max.value;
         }
 
-        if (type.value !== InputType.Number && typeof v === 'string' && v.length > limit) {
+        if (type.value !== 'number' && typeof v === 'string' && v.length > limit) {
             return 'max length: ' + max.value;
         }
 
@@ -30,11 +30,11 @@ export function useVsInputRules(
 
     function minCheck(v: InputValueType) {
         const limit = Number(min.value);
-        if (type.value === InputType.Number && typeof v === 'number' && v < limit) {
+        if (type.value === 'number' && typeof v === 'number' && v < limit) {
             return 'min value: ' + min.value;
         }
 
-        if (type.value !== InputType.Number && typeof v === 'string' && v.length < limit) {
+        if (type.value !== 'number' && typeof v === 'string' && v.length < limit) {
             return 'min length: ' + min.value;
         }
 

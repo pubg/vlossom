@@ -30,7 +30,7 @@ $divider-border: var(--vs-divider-border, 1px solid var(--vs-primary-comp-bg));
 }
 
 @container (max-width: 768px) {
-    .vs-divider.vs-vertical.vs-responsive {
+    .vs-divider.vs-vertical.vs-divider-responsive {
         @include vs-divider-horizontal;
     }
 }

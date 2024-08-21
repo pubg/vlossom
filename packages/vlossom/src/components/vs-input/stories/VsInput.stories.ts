@@ -9,7 +9,6 @@ import {
 } from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
-import { InputType } from './../types';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsInput from './../VsInput.vue';
 
@@ -33,7 +32,7 @@ const meta: Meta<typeof VsInput> = {
         colorScheme,
         type: {
             control: 'radio',
-            options: Object.values(InputType),
+            options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
         },
         state,
     },
@@ -132,7 +131,7 @@ export const Type: Story = {
     render: () => ({
         components: { VsInput },
         setup() {
-            const types = Object.values(InputType);
+            const types = ['email', 'number', 'password', 'search', 'tel', 'text', 'url'];
 
             return { types };
         },

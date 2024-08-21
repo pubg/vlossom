@@ -104,7 +104,7 @@ export default defineComponent({
             default: Number.MIN_SAFE_INTEGER,
             validator: (value: number | string) => utils.props.checkValidNumber(name, 'min', value),
         },
-        type: { type: String as PropType<InputType>, default: InputType.Text },
+        type: { type: String as PropType<InputType>, default: 'text' },
         // v-model
         modelValue: {
             type: [String, Number] as PropType<InputValueType>,
@@ -159,7 +159,7 @@ export default defineComponent({
 
         const { requiredCheck, maxCheck, minCheck } = useVsInputRules(required, max, min, type);
 
-        const isNumberInput = computed(() => type.value === InputType.Number);
+        const isNumberInput = computed(() => type.value === 'number');
 
         function convertValue(v: InputValueType | undefined): InputValueType {
             if (v === undefined || v === null || v === '') {
@@ -257,7 +257,6 @@ export default defineComponent({
             classObj,
             colorSchemeClass,
             computedStyleSet,
-            InputType,
             inputValue,
             updateValue,
             inputRef,

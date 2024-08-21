@@ -46,7 +46,7 @@ export { default as VsImage } from './vs-image/VsImage.vue';
 export { default as VsIndexItem } from './vs-index-view/VsIndexItem.vue';
 export { default as VsIndexView } from './vs-index-view/VsIndexView.vue';
 
-export { InputType, type VsInputStyleSet } from './vs-input/types';
+export type { InputType, VsInputStyleSet } from './vs-input/types';
 export { default as VsInput } from './vs-input/VsInput.vue';
 
 export { default as VsInputWrapper } from './vs-input-wrapper/VsInputWrapper.vue';

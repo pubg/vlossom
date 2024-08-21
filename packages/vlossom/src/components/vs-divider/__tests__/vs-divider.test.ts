@@ -57,7 +57,7 @@ describe('vs-divider', () => {
 
             //then
             expect(wrapper.classes('vs-vertical')).toBe(true);
-            expect(wrapper.classes('vs-responsive')).toBe(true);
+            expect(wrapper.classes('vs-divider-responsive')).toBe(true);
         });
     });
 });
