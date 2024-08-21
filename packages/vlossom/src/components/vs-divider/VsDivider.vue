@@ -28,7 +28,7 @@ export default defineComponent({
         const classObj = computed(() => ({
             'vs-horizontal': !vertical.value,
             'vs-vertical': vertical.value,
-            'vs-responsive': responsive.value,
+            'vs-divider-responsive': responsive.value,
         }));
 
         return {

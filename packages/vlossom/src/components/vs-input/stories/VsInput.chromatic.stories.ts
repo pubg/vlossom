@@ -1,7 +1,6 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
-import { InputType } from './../types';
 import VsInput from './../VsInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -67,7 +66,7 @@ const meta: Meta<typeof VsInput> = {
         colorScheme,
         type: {
             control: 'radio',
-            options: Object.values(InputType),
+            options: ['email', 'number', 'password', 'search', 'tel', 'text', 'url'],
         },
         state,
     },

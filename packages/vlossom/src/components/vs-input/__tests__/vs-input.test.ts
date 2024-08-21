@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import { UIState } from '@/declaration';
-import { InputType } from './../types';
 import VsInput from './../VsInput.vue';
 
 function mountComponent() {
@@ -100,7 +99,7 @@ describe('vs-input', () => {
                     props: {
                         modelValue: 123,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        type: InputType.Number,
+                        type: 'number',
                     },
                 });
 
@@ -114,7 +113,7 @@ describe('vs-input', () => {
                     props: {
                         modelValue: 8008,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        type: InputType.Number,
+                        type: 'number',
                     },
                 });
 
@@ -131,7 +130,7 @@ describe('vs-input', () => {
                     props: {
                         modelValue: 5000,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        type: InputType.Number,
+                        type: 'number',
                     },
                 });
 
@@ -148,7 +147,7 @@ describe('vs-input', () => {
                     props: {
                         modelValue: '123',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        type: InputType.Number,
+                        type: 'number',
                     },
                 });
 
@@ -438,7 +437,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: 0,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.Number,
+                    type: 'number',
                     max: 3,
                 },
             });
@@ -459,7 +458,7 @@ describe('vs-input', () => {
                 props: {
                     modelValue: 4,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    type: InputType.Number,
+                    type: 'number',
                     min: 3,
                 },
             });
