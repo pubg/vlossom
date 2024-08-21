@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.5](https://github.com/pubg/vlossom/compare/v1.0.4...v1.0.5) (2024-08-21)
+
+
+### Bug Fixes
+
+* **breakpoints:** change responsive css breakpoints ([#271](https://github.com/pubg/vlossom/issues/271)) ([ef5be7f](https://github.com/pubg/vlossom/commit/ef5be7f55d8811fe686a4d918b019f35d673bc54))
+* **color-scheme:** add vs-default color-scheme class ([#268](https://github.com/pubg/vlossom/issues/268)) ([e4e11c1](https://github.com/pubg/vlossom/commit/e4e11c1868fef34001aa9574651ca5c4ccf6ff37))
+* **VsFileInput:** change vs-file-input scss ([#270](https://github.com/pubg/vlossom/issues/270)) ([edd6d2d](https://github.com/pubg/vlossom/commit/edd6d2d012d2810f5d4dad06e0afc92f3710829c))
+* **VsImage:** apply vs-skeleton on vs-image ([#269](https://github.com/pubg/vlossom/issues/269)) ([90c3f47](https://github.com/pubg/vlossom/commit/90c3f47b0e789b8d562eb18688bc2e0a2a5a4184))
+* **VsInput:** change input type prop as union type ([#272](https://github.com/pubg/vlossom/issues/272)) ([4aeb1e8](https://github.com/pubg/vlossom/commit/4aeb1e87ef69d9a30fa60d166f1851a8d7308f1c))
+* **VsTable,VsSkeleton:** apply vs-skeleton on table component ([#265](https://github.com/pubg/vlossom/issues/265)) ([92e04af](https://github.com/pubg/vlossom/commit/92e04af0f6b1adba2a82546709a9fcfc1a7981d6))
+
 ## [1.0.4](https://github.com/pubg/vlossom/compare/v1.0.3...v1.0.4) (2024-08-09)
 
 
