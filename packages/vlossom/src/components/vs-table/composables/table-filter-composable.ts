@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { TableItem, TableFilter } from './../types';
+import { TableItem, TableFilter } from '../types';
 
 export function useTableFilter() {
     function getFilteredTableItems(tableItems: TableItem[], filter: Ref<TableFilter>): TableItem[] {

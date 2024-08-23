@@ -99,7 +99,7 @@
 <script lang="ts">
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
 import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
-import { useTableParams } from './composables/useTableParams';
+import { useTableParams } from './composables';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';
 import { DEFAULT_TABLE_ITEMS_PER_PAGE, DEFAULT_TABLE_PAGE_COUNT } from './constant';
@@ -380,3 +380,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" src="./VsTable.scss" />
+./composables/table-params-composable

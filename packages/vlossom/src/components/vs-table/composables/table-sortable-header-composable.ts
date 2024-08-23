@@ -1,5 +1,5 @@
 import { Ref, ref, watch } from 'vue';
-import { SortType, TableHeader } from './../types';
+import { SortType, TableHeader } from '../types';
 
 export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
     const innerSortTypes: Ref<{ [key: string]: SortType }> = ref({});

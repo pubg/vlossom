@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { TableItem, SortType } from './../types';
+import { TableItem, SortType } from '../types';
 
 export function useTableSort() {
     function getSortedTableItems(items: TableItem[], sortTypes: Ref<{ [key: string]: SortType }>) {

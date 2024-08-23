@@ -11,18 +11,19 @@ export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<
     });
 
     function getSearchedTableItems(tableItems: TableItem[], keyword: Ref<string>): TableItem[] {
-        if (keyword.value.trim() === '') {
+        if (!keyword.value || keyword.value.trim() === '') {
             return tableItems;
         }
         const lowercaseKeyword = keyword.value.trim().toLowerCase();
         return tableItems.filter(({ data }) => {
-            const searchableData = utils.object.pick(data, searchTargetKeys.value);
-            const target = Object.values(searchableData).join(' ').toLowerCase();
+            const searchableData = utils.object.pickWithPath(data, searchTargetKeys.value);
+            const target = utils.object.onlyValues(searchableData).join(' ').toLowerCase();
             return target.includes(lowercaseKeyword);
         });
     }
 
     return {
+        searchTargetKeys,
         getSearchedTableItems,
     };
 }
