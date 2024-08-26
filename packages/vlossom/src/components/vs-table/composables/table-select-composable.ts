@@ -1,5 +1,5 @@
 import { Ref, WritableComputedRef, computed, ComputedRef, ref, watch } from 'vue';
-import type { TableItem, TableRow } from './../types';
+import type { TableItem, TableRow } from '../types';
 import { utils } from '@/utils';
 
 export function useTableSelect(

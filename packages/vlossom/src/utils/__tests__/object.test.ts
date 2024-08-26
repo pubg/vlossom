@@ -77,4 +77,17 @@ describe('object util', () => {
             expect(result5).toBe(false);
         });
     });
+
+    describe('pickWithPath', () => {
+        it('path를 기준으로 pick 할 수 있다', () => {
+            // given
+            const object = { a: 1, b: 'hello', c: { d: true, e: { f: ['A', 'B'] } } };
+
+            // when
+            const result = objectUtil.pickWithPath(object, ['a', 'c.d', 'c.e.f']);
+
+            // then
+            expect(result).toEqual({ a: 1, 'c.d': true, 'c.e.f': ['A', 'B'] });
+        });
+    });
 });

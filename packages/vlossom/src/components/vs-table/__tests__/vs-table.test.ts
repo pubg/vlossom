@@ -42,7 +42,7 @@ const items: { [key: string]: any }[] = [
 ];
 
 describe('VsTable', () => {
-    describe('items / headers', () => {
+    describe('headers / items', () => {
         it('headers와 items 배열을 props로 할당하면 적절하게 table을 렌더할 수 있다', async () => {
             // given
             const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
@@ -69,6 +69,33 @@ describe('VsTable', () => {
                     items[Math.floor(index / headers.length)][headers[index % headers.length].key].toString();
                 expect(td.text()).toBe(itemData);
             });
+        });
+
+        it('path 형태의 header key를 설정해서 item을 만들 수 있다', () => {
+            // given
+            const pathHeaders: TableHeader[] = [{ label: 'Test', key: 'test.a.b', width: '7rem' }];
+
+            const pathItems: { [key: string]: any }[] = [
+                {
+                    test: {
+                        a: {
+                            b: 'value',
+                        },
+                    },
+                },
+            ];
+
+            // when
+            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+                props: {
+                    headers: pathHeaders,
+                    items: pathItems,
+                },
+            });
+
+            // then
+            const tdElements = wrapper.findAll('tbody td');
+            expect(tdElements[0].text()).toBe('value');
         });
     });
 

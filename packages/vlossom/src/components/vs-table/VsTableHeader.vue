@@ -41,7 +41,7 @@ import { defineComponent, PropType, toRefs } from 'vue';
 import { VsIcon } from '@/icons';
 import VsInput from '@/components/vs-input/VsInput.vue';
 import { SortType, type TableHeader } from './types';
-import { useSortableHeader } from './composables/useSortableHeader';
+import { useSortableHeader } from './composables';
 
 export default defineComponent({
     name: 'VsTableHeader',
