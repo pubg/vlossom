@@ -60,6 +60,7 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
 import { ColorScheme, UIState } from '@/declaration';
+import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
 import VsSkeleton from '@/components/vs-skeleton/VsSkeleton.vue';
 
@@ -96,7 +97,7 @@ export default defineComponent({
 
             return headers.value.map((header) => {
                 const { key } = header;
-                return { key, value: row[key] };
+                return { key, value: utils.object.get(row, key) };
             });
         }
 
