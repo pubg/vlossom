@@ -2,17 +2,17 @@
     <vs-responsive :class="['vs-index-view', colorSchemeClass]" :width="width" :grid="grid">
         <template v-if="keepAlive">
             <KeepAlive>
-                <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+                <component :is="selectedComponent" />
             </KeepAlive>
         </template>
         <template v-else>
-            <component :is="selectedComponent" role="tabpanel" tabindex="0" />
+            <component :is="selectedComponent" />
         </template>
     </vs-responsive>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, PropType } from 'vue';
+import { defineComponent, computed, toRefs, PropType, Ref, ref, watch, nextTick } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { getResponsiveProps, useColorScheme } from '@/composables';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
@@ -33,15 +33,45 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
+        const selectedKey: Ref<any> = ref('');
+
         const selectedComponent = computed(() => {
             if (!slots.default) {
                 return null;
             }
 
-            return slots.default()[modelValue.value];
+            return slots.default().find((vnode) => vnode.key === selectedKey.value);
+        });
+
+        const keys = computed(() => {
+            return (
+                slots
+                    .default?.()
+                    .map((vnode) => vnode.key)
+                    .filter((v) => {
+                        return v !== undefined && v !== null;
+                    }) || []
+            );
+        });
+
+        watch(
+            modelValue,
+            (index) => {
+                nextTick(() => {
+                    selectedKey.value = keys.value[index];
+                });
+            },
+            { immediate: true },
+        );
+
+        watch(keys, () => {
+            nextTick(() => {
+                selectedKey.value = keys.value[modelValue.value];
+            });
         });
 
         return {
+            keys,
             colorSchemeClass,
             selectedComponent,
         };
