@@ -380,4 +380,3 @@ export default defineComponent({
 </script>
 
 <style lang="scss" src="./VsTable.scss" />
-./composables/table-params-composable
