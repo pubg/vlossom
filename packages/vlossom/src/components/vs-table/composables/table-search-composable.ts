@@ -17,7 +17,15 @@ export function useTableSearch(headers: Ref<TableHeader[]>, searchableKeys: Ref<
         const lowercaseKeyword = keyword.value.trim().toLowerCase();
         return tableItems.filter(({ data }) => {
             const searchableData = utils.object.pickWithPath(data, searchTargetKeys.value);
-            const target = utils.object.onlyValues(searchableData).join(' ').toLowerCase();
+            const target = Object.values(searchableData)
+                .map((v: any) => {
+                    if (utils.object.isPlainObject(v) || utils.object.isArray(v)) {
+                        return JSON.stringify(v);
+                    }
+                    return v;
+                })
+                .join(' ')
+                .toLowerCase();
             return target.includes(lowercaseKeyword);
         });
     }

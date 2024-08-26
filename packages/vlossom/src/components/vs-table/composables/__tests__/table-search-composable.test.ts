@@ -180,7 +180,7 @@ describe('useTableSearch', () => {
             expect(result).toEqual([items[0]]);
         });
 
-        it('keyword에 key 자체를 입력해도 검색되지는 않는다', () => {
+        it('value가 object 형태일 때 keyword에 key 자체를 입력해도 검색된다', () => {
             // given
             const headers: Ref<TableHeader[]> = ref([
                 { key: 'name', label: 'Name' },
@@ -189,10 +189,10 @@ describe('useTableSearch', () => {
 
             // when
             const { getSearchedTableItems } = useTableSearch(headers, ref([]));
-            const result = getSearchedTableItems(items, ref('shopping'));
+            const result = getSearchedTableItems(items, ref('date'));
 
             // then
-            expect(result).length(0);
+            expect(result).length(3);
         });
 
         it('key가 path 형태일 때도 검색이 가능하다', () => {

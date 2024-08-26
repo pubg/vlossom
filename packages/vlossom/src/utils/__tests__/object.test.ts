@@ -90,17 +90,4 @@ describe('object util', () => {
             expect(result).toEqual({ a: 1, 'c.d': true, 'c.e.f': ['A', 'B'] });
         });
     });
-
-    describe('onlyValues', () => {
-        it('object에서 값만 가져올 수 있다', () => {
-            // given
-            const object = { a: 1, b: 'hello', c: { d: true, e: { f: ['A', 'B'] } } };
-
-            // when
-            const result = objectUtil.onlyValues(object);
-
-            // then
-            expect(result).toEqual([1, 'hello', true, 'A', 'B']);
-        });
-    });
 });
