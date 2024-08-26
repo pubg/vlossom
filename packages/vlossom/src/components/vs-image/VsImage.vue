@@ -1,11 +1,11 @@
 <template>
     <div class="vs-image" ref="vsImageRef" :style="computedStyleSet">
         <vs-skeleton
-            v-if="isLoading"
+            v-if="skeleton && isLoading"
             class="vs-image-skeleton"
             :style="{ width: 'var(--vs-image-width)', height: 'var(--vs-image-height)' }"
         >
-            <slot name="loading" />
+            <slot name="skeleton" />
         </vs-skeleton>
         <img
             :class="['vs-image-tag', { 'vs-hidden': isLoading }]"
@@ -37,6 +37,7 @@ export default defineComponent({
         alt: { type: String, default: '' },
         fallback: { type: String, default: '' },
         lazy: { type: Boolean, default: false },
+        skeleton: { type: Boolean, default: false },
         src: { type: String, required: true, default: '' },
     },
     emits: ['error'],
