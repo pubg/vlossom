@@ -23,8 +23,8 @@ export default defineComponent({
 
         const instance = getCurrentInstance();
         const key = instance?.vnode.key;
-        if (!key) {
-            utils.log.warning(name, 'key is required');
+        if (key === undefined || key === null) {
+            utils.log.error(name, 'key is required');
         }
 
         return {
