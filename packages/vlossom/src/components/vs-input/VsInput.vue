@@ -46,7 +46,7 @@
                 class="vs-clear-button"
                 :class="{ show: inputValue }"
                 :disabled="!inputValue"
-                aria-hidden="true"
+                aria-label="Clear"
                 tabindex="-1"
                 @click.stop="clearWithFocus()"
             >
