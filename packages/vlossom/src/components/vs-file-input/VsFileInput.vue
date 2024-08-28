@@ -57,7 +57,7 @@
             <button
                 v-if="!noClear && hasValue && !computedReadonly && !computedDisabled"
                 class="vs-clear-button"
-                aria-hidden="true"
+                aria-label="Clear"
                 tabindex="-1"
                 @click.stop="onClear()"
             >
