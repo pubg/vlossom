@@ -162,8 +162,9 @@ export default defineComponent({
         }
 
         function handleKeydown(event: KeyboardEvent) {
-            let targetIndex = selectedIdx.value;
+            event.preventDefault();
 
+            let targetIndex = selectedIdx.value;
             switch (event.code) {
                 case 'ArrowLeft':
                     targetIndex = findPreviousActivedIndex(targetIndex - 1);
@@ -181,7 +182,6 @@ export default defineComponent({
                     return;
             }
 
-            event.preventDefault();
             selectTab(targetIndex);
         }
 
