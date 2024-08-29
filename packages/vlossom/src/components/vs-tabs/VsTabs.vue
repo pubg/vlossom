@@ -5,7 +5,7 @@
                 v-if="showScrollButtons"
                 class="vs-scroll-button vs-scroll-left-button"
                 aria-label="scroll to the left"
-                :disabled="currentFocusedTab <= 0"
+                :disabled="selectedIdx <= 0"
                 @click.stop="scrollLeft"
                 dense
             >
@@ -36,7 +36,7 @@
                 class="vs-scroll-button vs-scroll-right-button"
                 aria-label="scroll to the right"
                 :colorScheme="colorScheme"
-                :disabled="currentFocusedTab >= tabs.length - 1"
+                :disabled="selectedIdx >= tabs.length - 1"
                 @click.stop="scrollRight"
                 dense
             >
@@ -98,7 +98,6 @@ export default defineComponent({
         const tabsWrapRef: Ref<HTMLElement | null> = ref(null);
         const tabRefs: Ref<HTMLElement[]> = ref([]);
         const selectedIdx = ref(modelValue.value);
-        const currentFocusedTab = ref(selectedIdx.value);
         const scrollCount = ref(0);
 
         function isSelected(index: number) {
@@ -228,17 +227,18 @@ export default defineComponent({
             }
 
             tabRefs.value[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-            currentFocusedTab.value = targetIndex;
         }
 
         function scrollLeft() {
-            const targetIndex = Math.max(0, currentFocusedTab.value - scrollCount.value);
+            const targetIndex = findPreviousActivedIndex(selectedIdx.value - 1);
             scrollTo(targetIndex);
+            selectTab(targetIndex);
         }
 
         function scrollRight() {
-            const targetIndex = Math.min(totalLength.value - 1, currentFocusedTab.value + scrollCount.value);
+            const targetIndex = findNextActivedIndex(selectedIdx.value + 1);
             scrollTo(targetIndex);
+            selectTab(targetIndex);
         }
 
         onMounted(() => {
@@ -261,7 +261,6 @@ export default defineComponent({
             tabRefs,
             handleKeydown,
             showScrollButtons,
-            currentFocusedTab,
             scrollLeft,
             scrollRight,
             scrollCount,
