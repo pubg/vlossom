@@ -4,21 +4,21 @@
     position: relative;
     display: flex;
     align-items: center;
-    overflow-x: hidden;
     user-select: none;
 
     .vs-tabs-wrap {
         position: relative;
+        display: flex;
         width: 100%;
-        overflow-x: auto;
-        padding-bottom: 0.2rem;
+        overflow: auto;
+        padding-bottom: 0.4rem;
 
         .vs-tab-list {
-            display: inline-flex;
+            display: flex;
+            flex: 1;
             align-items: center;
-            list-style: none;
             flex-wrap: nowrap;
-            width: 100%;
+            list-style: none;
 
             &.vs-bottom-line {
                 border-bottom: 1px solid var(--vs-tabs-borderBottomColor, var(--vs-primary-comp-bg));
@@ -26,9 +26,10 @@
 
             .vs-tab-item {
                 position: relative;
-                display: inline-flex;
+                display: flex;
                 align-items: center;
                 justify-content: center;
+                white-space: nowrap;
                 background: transparent;
                 color: var(--vs-tabs-fontColor, var(--vs-font-color));
                 border-bottom: 2px solid transparent;
@@ -40,7 +41,6 @@
                 text-align: center;
                 transition: color 0.1s;
                 width: var(--vs-tabs-tabWidth, auto);
-                min-width: fit-content;
 
                 &:not(:last-child) {
                     margin-right: var(--vs-tabs-gap, 0.3rem);
