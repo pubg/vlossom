@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: var(--vs-input-backgroundColor, var(--vs-area-bg));
+    background-color: var(--vs-input-backgroundColor, var(--vs-no-color));
     border: var(--vs-input-border, solid 1px var(--vs-line-color));
     border-radius: var(--vs-input-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
     height: var(--vs-input-height, var(--vs-input-comp-height));

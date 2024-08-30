@@ -6,7 +6,7 @@
     overflow: hidden;
     width: 100%;
     height: var(--vs-textarea-height, 10rem);
-    background-color: var(--vs-textarea-backgroundColor, var(--vs-area-bg));
+    background-color: var(--vs-textarea-backgroundColor, var(--vs-no-color));
     color: var(--vs-textarea-fontColor, var(--vs-font-color));
     font-size: var(--vs-textarea-fontSize, var(--vs-font-size));
     border: var(--vs-textarea-border, solid 1px var(--vs-line-color));
