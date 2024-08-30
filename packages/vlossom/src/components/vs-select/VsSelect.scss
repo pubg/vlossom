@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-    background-color: var(--vs-select-backgroundColor, transparent);
+    background-color: var(--vs-select-backgroundColor, var(--vs-no-color));
     border: var(--vs-select-border, 1px solid var(--vs-line-color));
     min-height: var(--vs-select-height, var(--vs-input-comp-height));
     border-radius: var(--vs-select-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
