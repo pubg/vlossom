@@ -8,7 +8,7 @@ $file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height
     display: flex;
     align-items: center;
     overflow: hidden;
-    background-color: var(--vs-file-input-backgroundColor, transparent);
+    background-color: var(--vs-file-input-backgroundColor, var(--vs-area-bg));
     border: var(--vs-file-input-border, 1px solid var(--vs-line-color));
     border-radius: var(--vs-file-input-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
     height: $file-input-height;
@@ -105,7 +105,7 @@ $file-input-height-dense: var(--vs-file-input-height, var(--vs-input-comp-height
     }
 
     &.vs-dragging {
-        background-color: var(--vs-file-input-dragBackgroundColor, transparent);
+        background-color: var(--vs-file-input-dragBackgroundColor, var(--vs-area-bg));
     }
 
     &.vs-readonly {
