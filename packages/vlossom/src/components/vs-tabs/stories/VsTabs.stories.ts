@@ -3,7 +3,6 @@ import { chromaticParameters, colorScheme, getColorSchemeTemplate } from '@/stor
 import VsTabs from './../VsTabs.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import { VsIcon } from '@/icons';
-import { SCROLL_BUTTONS } from './../types';
 import { disabledArgTypes, tabs } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -25,9 +24,9 @@ const meta: Meta<typeof VsTabs> = {
     argTypes: {
         colorScheme,
         disabled: disabledArgTypes,
-        scrollButtons: {
+        tabButtons: {
             control: 'select',
-            options: SCROLL_BUTTONS,
+            options: ['hide', 'auto', 'show'],
         },
     },
 };
@@ -73,7 +72,7 @@ export const Disabled: Story = {
 
 export const ScrollButtons: Story = {
     args: {
-        scrollButtons: 'auto',
+        tabButtons: 'auto',
     },
     parameters: {
         chromatic: chromaticParameters.theme,

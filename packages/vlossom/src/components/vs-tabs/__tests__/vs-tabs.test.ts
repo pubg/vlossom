@@ -96,6 +96,41 @@ describe('vs-tabs', () => {
                 expect(wrapper.vm.selectedIndex).toEqual(3);
             });
 
+            it('-1로 초깃값을 설정하면 tab을 선택하지 않은 상태로 render 된다', () => {
+                // given
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs,
+                        modelValue: -1,
+                        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // then
+                const selectedTab = wrapper.find('.vs-tab-item.vs-selected');
+                expect(selectedTab.exists()).toBeFalsy();
+                expect(wrapper.vm.selectedIndex).toEqual(-1);
+            });
+
+            it('modelValue를 -1로 전달하면 tab을 선택하지 않는다', async () => {
+                // given
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs,
+                        modelValue: 0,
+                        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ modelValue: -1 });
+
+                // then
+                const selectedTab = wrapper.find('.vs-tab-item.vs-selected');
+                expect(selectedTab.exists()).toBeFalsy();
+                expect(wrapper.vm.selectedIndex).toEqual(-1);
+            });
+
             it('modelValue가 -1보다 작으면 index가 -1로 보정된다', async () => {
                 // given
                 const wrapper = mount(VsTabs, {
