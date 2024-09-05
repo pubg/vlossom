@@ -77,13 +77,14 @@
     .vs-scroll-button {
         width: 1rem;
         color: var(--vs-comp-font);
+        margin-bottom: 0.1rem;
 
         &.vs-scroll-left-button {
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
         }
 
         &.vs-scroll-right-button {
-            margin-left: 0.5rem;
+            margin-left: 0.8rem;
         }
 
         &[disabled] {

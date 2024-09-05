@@ -9,7 +9,3 @@ export interface VsTabsStyleSet {
     padding?: string;
     tabWidth?: string;
 }
-
-export const SCROLL_BUTTONS = ['show', 'hide', 'auto'] as const;
-
-export type ScrollButton = (typeof SCROLL_BUTTONS)[number];
