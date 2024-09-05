@@ -92,7 +92,8 @@ export default defineComponent({
         const scrollCount = ref(0);
 
         // select tab on created
-        selectTab(findNextActivedIndex(selectedIndex.value));
+        const nextIndex = selectedIndex.value === -1 ? -1 : findNextActivedIndex(selectedIndex.value);
+        selectTab(nextIndex);
 
         function isSelected(index: number): boolean {
             return selectedIndex.value === index;
