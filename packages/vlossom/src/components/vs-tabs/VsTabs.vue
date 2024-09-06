@@ -53,6 +53,7 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
+import { utils } from '@/utils';
 
 import type { VsTabsStyleSet } from './types';
 
@@ -66,7 +67,18 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsTabsStyleSet> },
         bottomLine: { type: Boolean, default: true },
         dense: { type: Boolean, default: false },
-        disabled: { type: Array as PropType<number[]>, default: () => [] },
+        disabled: {
+            type: Array as PropType<number[]>,
+            default: () => [],
+            validator: (value: number[], props: any) => {
+                const tabsLength = props.tabs.length;
+                const isValid = value.every((i) => i >= 0 && i < tabsLength);
+                if (!isValid) {
+                    utils.log.propWarning(name, 'disabled', 'Disabled index is out of range.');
+                }
+                return isValid;
+            },
+        },
         tabButtons: {
             type: String as PropType<'hide' | 'show' | 'auto'>,
             default: 'hide',
@@ -91,9 +103,8 @@ export default defineComponent({
         const selectedIndex = ref(modelValue.value);
         const scrollCount = ref(0);
 
-        // select tab on created
-        const nextIndex = selectedIndex.value === -1 ? -1 : findNextActivedIndex(selectedIndex.value);
-        selectTab(nextIndex);
+        const initialIndex = selectedIndex.value === -1 ? -1 : findNextActivedIndex(selectedIndex.value);
+        selectTab(initialIndex);
 
         function isSelected(index: number): boolean {
             return selectedIndex.value === index;

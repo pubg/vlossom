@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, MockInstance, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTabs from './../VsTabs.vue';
+import { mockConsoleWarn } from '@/test/setup';
 
 describe('vs-tabs', () => {
     const tabs = ['tab1', 'tab2', 'tab3', 'tab4', 'tab5'];
@@ -46,6 +47,17 @@ describe('vs-tabs', () => {
 
             // then
             expect(tabItems.filter((t) => t.classes().includes('vs-disabled'))).toHaveLength(disabled.length);
+        });
+
+        it('disabled의 범위가 tabs length를 벗어나면 warning message를 보여준다', () => {
+            // given
+            const disabled = [100];
+            mount(VsTabs, {
+                props: { tabs, disabled },
+            });
+
+            // then
+            expect(mockConsoleWarn).toHaveBeenCalled();
         });
     });
 
@@ -524,7 +536,7 @@ describe('vs-tabs', () => {
             });
         });
 
-        describe('home arrow 키를 눌렀을 때', () => {
+        describe('home 키를 눌렀을 때', () => {
             it('맨 처음 tab을 선택한다', async () => {
                 // given
                 const wrapper = mount(VsTabs, {
@@ -563,7 +575,7 @@ describe('vs-tabs', () => {
             });
         });
 
-        describe('end arrow 키를 눌렀을 때', () => {
+        describe('end 키를 눌렀을 때', () => {
             it('맨 마지막 tab을 선택한다', async () => {
                 // given
                 const wrapper = mount(VsTabs, {
