@@ -6,6 +6,7 @@
                 class="vs-scroll-button vs-scroll-left-button"
                 aria-label="scroll to the left"
                 :disabled="isLeftEdge"
+                tabindex="-1"
                 @click.stop="goLeft"
                 dense
             >
@@ -37,6 +38,7 @@
                 aria-label="scroll to the right"
                 :colorScheme="colorScheme"
                 :disabled="isRightEdge"
+                tabindex="-1"
                 @click.stop="goRight"
                 dense
             >

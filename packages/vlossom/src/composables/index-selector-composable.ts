@@ -4,11 +4,17 @@ export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = 
     const selectedIndex = ref(0);
 
     const isLeftEdge = computed(() => {
+        if (selectedIndex.value === -1) {
+            return true;
+        }
         const targetDisabled = disabled.value.filter((i) => i >= 0 && i < selectedIndex.value);
         return targetDisabled.length === selectedIndex.value;
     });
 
     const isRightEdge = computed(() => {
+        if (selectedIndex.value === -1) {
+            return true;
+        }
         const targetDisabled = disabled.value.filter((i) => i > selectedIndex.value);
         return targetDisabled.length === list.value.length - selectedIndex.value - 1;
     });
@@ -25,26 +31,26 @@ export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = 
         return index < selectedIndex.value;
     }
 
-    function findNextActivedIndex(startIndex: number): number {
+    function findNextActivedIndex(targetIndex: number): number {
         const tabsLength = list.value.length;
-        for (let i = startIndex; i < tabsLength + startIndex; i++) {
+        for (let i = targetIndex; i < tabsLength + targetIndex; i++) {
             const index = i % tabsLength;
             if (!isDisabled(index)) {
                 return index;
             }
         }
-        return startIndex;
+        return targetIndex;
     }
 
-    function findPreviousActivedIndex(startIndex: number): number {
+    function findPreviousActivedIndex(targetIndex: number): number {
         const tabsLength = list.value.length;
-        for (let i = startIndex; i > startIndex - tabsLength; i--) {
+        for (let i = targetIndex; i > targetIndex - tabsLength; i--) {
             const index = (i + tabsLength) % tabsLength;
             if (!isDisabled(index)) {
                 return index;
             }
         }
-        return startIndex;
+        return targetIndex;
     }
 
     function getInitialIndex(index: number): number {
