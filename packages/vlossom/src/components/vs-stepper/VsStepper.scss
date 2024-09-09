@@ -7,7 +7,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
     position: relative;
     -webkit-tap-highlight-color: transparent;
 
-    .vs-item-line {
+    .vs-step-line {
         background-color: var(--vs-area-bg-active);
         height: 0.3rem;
         left: $stepButtonW;
@@ -16,7 +16,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
         top: 50%;
         transform: translateY(-50%);
 
-        .vs-progress-line {
+        .vs-step-progress {
             background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
             height: 100%;
             opacity: 0.8;
@@ -33,7 +33,11 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
         list-style: none;
         margin-bottom: 4rem;
 
-        .vs-step {
+        &.vs-stepper-no-label {
+            margin-bottom: 0;
+        }
+
+        .vs-step-item {
             align-items: center;
             cursor: pointer;
             display: flex;
@@ -41,7 +45,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
             justify-content: center;
             position: relative;
 
-            .vs-item-step {
+            .vs-step-num {
                 align-items: center;
                 background-color: var(--vs-comp-bg);
                 color: var(--vs-comp-font);
@@ -67,7 +71,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
             }
 
-            .vs-item-name {
+            .vs-step-label {
                 color: var(--vs-stepper-labelFontColor, var(--vs-font-color));
                 font-size: $fontSize;
                 font-weight: 400;
@@ -83,28 +87,30 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
             }
 
             &.vs-previous {
-                .vs-item-step {
+                .vs-step-num {
                     border: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
                 }
 
-                .vs-item-name {
+                .vs-step-label {
                     color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg-active));
                 }
             }
 
             &.vs-selected {
-                .vs-item-step {
+                .vs-step-num {
                     border: 1px solid var(--vs-stepper-activeColor, var(--vs-primary-comp-bg));
                     background-color: var(--vs-stepper-activeBackgroundColor, var(--vs-primary-comp-bg));
                     color: var(--vs-primary-comp-font);
 
                     outline: 3px solid var(--vs-primary-comp-bg);
                     outline-offset: 3px;
+                    transition: outline;
+                    transition-delay: 0.15s;
                 }
 
-                .vs-item-name {
+                .vs-step-label {
                     font-weight: 600;
                     color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg));
                 }

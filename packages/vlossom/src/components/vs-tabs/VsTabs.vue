@@ -50,10 +50,10 @@
 import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, useIndexSelector } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
-import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { VsTabsStyleSet } from './types';
 

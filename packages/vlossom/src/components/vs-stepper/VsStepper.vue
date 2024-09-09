@@ -1,15 +1,15 @@
 <template>
     <vs-responsive :width="width" :grid="grid">
         <div :class="['vs-stepper', colorSchemeClass]" :style="{ ...computedStyleSet, ...fixedWidth }">
-            <div class="vs-item-line">
-                <div class="vs-progress-line" :style="progressWidth" />
+            <div class="vs-step-line">
+                <div class="vs-step-progress" :style="progressWidth" />
             </div>
-            <ul role="tablist" class="vs-steps">
+            <ul role="tablist" :class="['vs-steps', { 'vs-stepper-no-label': noLabel }]">
                 <li
-                    v-for="(item, index) in steps"
+                    v-for="(step, index) in steps"
                     ref="stepRefs"
-                    class="vs-step"
-                    :key="item"
+                    class="vs-step-item"
+                    :key="step"
                     :class="[
                         {
                             'vs-previous': isPrevious(index),
@@ -24,11 +24,11 @@
                     @click.stop="selectStep(index)"
                     @keydown.stop="handleKeydown"
                 >
-                    <div class="vs-item-step">
-                        <slot :name="`${item}-step`" :item="item" :index="index"> {{ index + 1 }} </slot>
+                    <div class="vs-step-num">
+                        <slot :name="`step-${step}`" :step="step" :index="index">{{ index + 1 }}</slot>
                     </div>
-                    <div class="vs-item-name">
-                        <slot :name="`${item}-name`" :item="item" :index="index"> {{ item }} </slot>
+                    <div class="vs-step-label" v-if="!noLabel">
+                        <slot :name="`label-${step}`" :step="step" :index="index">{{ step }}</slot>
                     </div>
                 </li>
             </ul>
@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, useIndexSelector } from '@/composables';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
@@ -53,18 +53,23 @@ export default defineComponent({
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsStepperStyleSet> },
-        disabled: { type: Array as PropType<number[]>, default: () => [] },
-        gap: { type: [String, Number], default: '' },
-        steps: {
-            type: Array as PropType<string[]>,
-            required: true,
-            validator: (prop: string[]) => {
-                const isValid = utils.object.isUniq(prop);
+        disabled: {
+            type: Array as PropType<number[]>,
+            default: () => [],
+            validator: (value: number[], props: any) => {
+                const stepsLength = props.steps.length;
+                const isValid = value.every((i) => i >= 0 && i < stepsLength);
                 if (!isValid) {
-                    utils.log.propError(name, 'steps', 'steps with duplicate items are not allowed');
+                    utils.log.propWarning(name, 'disabled', 'Disabled index is out of range.');
                 }
                 return isValid;
             },
+        },
+        gap: { type: [String, Number], default: '' },
+        noLabel: { type: Boolean, default: false },
+        steps: {
+            type: Array as PropType<string[]>,
+            required: true,
         },
         // v-model
         modelValue: { type: Number, default: 0 },
@@ -79,7 +84,18 @@ export default defineComponent({
 
         const stepRefs: Ref<HTMLElement[]> = ref([]);
 
-        const selected = ref(modelValue.value);
+        const {
+            selectedIndex,
+            isSelected,
+            isDisabled,
+            isPrevious,
+            findNextActivedIndex,
+            getInitialIndex,
+            selectIndex: selectStep,
+            handleKeydown,
+        } = useIndexSelector(steps, disabled);
+
+        selectStep(getInitialIndex(modelValue.value));
 
         const gapCount = computed(() => steps.value.length - 1);
 
@@ -117,110 +133,35 @@ export default defineComponent({
                 width: `${gapCount.value * value}${unit}`,
             };
         });
+
         const progressWidth = computed(() => {
+            if (selectedIndex.value === -1) {
+                return { width: '0%' };
+            }
+
             return {
-                width: (selected.value / gapCount.value) * 100 + '%',
+                width: (selectedIndex.value / gapCount.value) * 100 + '%',
             };
         });
 
-        function isDisabled(index: number) {
-            return disabled.value.includes(index);
-        }
-
-        function isPrevious(index: number) {
-            return index < selected.value;
-        }
-
-        function isSelected(index: number) {
-            return selected.value === index;
-        }
-
-        function selectStep(index: number) {
-            if (index < 0 || index > gapCount.value) {
-                selected.value = 0;
-                return;
-            }
-
-            if (isDisabled(index)) {
-                return;
-            }
-
-            selected.value = index;
-        }
-
         watch(steps, () => {
-            selectStep(modelValue.value);
+            selectStep(findNextActivedIndex(0));
         });
 
-        watch(selected, (index: number) => {
+        watch(selectedIndex, (index: number) => {
             stepRefs.value[index]?.focus();
-            if (index !== modelValue.value) {
-                emit('update:modelValue', index);
-                emit('change', index);
-            }
+            emit('update:modelValue', index);
+            emit('change', index);
         });
 
-        watch(
-            modelValue,
-            (index: number) => {
-                selectStep(index);
-            },
-            { immediate: true },
-        );
-
-        function findNextActivedIndex(startIndex: number): number {
-            let length = steps.value.length;
-            for (let i = startIndex; i < length + startIndex; i++) {
-                const index = i % length;
-                if (!isDisabled(index)) {
-                    return index;
-                }
-            }
-            return startIndex;
-        }
-
-        function findPreviousActivedIndex(startIndex: number): number {
-            let length = steps.value.length;
-            for (let i = startIndex; i > startIndex - length; i--) {
-                const index = (i + length) % length;
-                if (!isDisabled(index)) {
-                    return index;
-                }
-            }
-            return startIndex;
-        }
-
-        function handleKeydown(event: KeyboardEvent) {
-            const length = steps.value.length;
-            let targetIndex = selected.value;
-
-            switch (event.code) {
-                case 'ArrowLeft':
-                    targetIndex = findPreviousActivedIndex(targetIndex - 1);
-                    break;
-                case 'ArrowRight':
-                    targetIndex = findNextActivedIndex(targetIndex + 1);
-                    break;
-                case 'Home':
-                    targetIndex = findNextActivedIndex(0);
-                    break;
-                case 'End':
-                    targetIndex = findPreviousActivedIndex(length - 1);
-                    break;
-                default:
-                    return;
-            }
-
-            event.preventDefault();
-            selectStep(targetIndex);
-        }
+        watch(modelValue, selectStep);
 
         return {
             colorSchemeClass,
             computedStyleSet,
             progressWidth,
             fixedWidth,
-            selected,
+            selectedIndex,
             selectStep,
             isPrevious,
             isSelected,
