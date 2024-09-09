@@ -1,6 +1,5 @@
 import { colorScheme } from '@/storybook';
 import VsTabs from './../VsTabs.vue';
-import { SCROLL_BUTTONS } from './../types';
 import { tabLength, disabledArgTypes, tabs } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -31,9 +30,9 @@ const meta: Meta<typeof VsTabs> = {
     argTypes: {
         colorScheme,
         disabled: disabledArgTypes,
-        scrollButtons: {
+        tabButtons: {
             control: 'select',
-            options: SCROLL_BUTTONS,
+            options: ['hide', 'auto', 'show'],
         },
     },
 };
