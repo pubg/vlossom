@@ -6,6 +6,7 @@
                 class="vs-scroll-button vs-scroll-left-button"
                 aria-label="scroll to the left"
                 :disabled="isLeftEdge"
+                tabindex="-1"
                 @click.stop="goLeft"
                 dense
             >
@@ -37,6 +38,7 @@
                 aria-label="scroll to the right"
                 :colorScheme="colorScheme"
                 :disabled="isRightEdge"
+                tabindex="-1"
                 @click.stop="goRight"
                 dense
             >
@@ -48,12 +50,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs, ref, watch, onMounted, onUnmounted, type Ref, type PropType } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, useIndexSelector } from '@/composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
-import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
-import VsButton from '@/components/vs-button/VsButton.vue';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
+import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
+import VsButton from '@/components/vs-button/VsButton.vue';
 
 import type { VsTabsStyleSet } from './types';
 
@@ -100,64 +102,22 @@ export default defineComponent({
 
         const tabsWrapRef: Ref<HTMLElement | null> = ref(null);
         const tabRefs: Ref<HTMLElement[]> = ref([]);
-        const selectedIndex = ref(modelValue.value);
         const scrollCount = ref(0);
 
-        const initialIndex = selectedIndex.value === -1 ? -1 : findNextActivedIndex(selectedIndex.value);
-        selectTab(initialIndex);
+        const {
+            selectedIndex,
+            isLeftEdge,
+            isRightEdge,
+            isSelected,
+            isDisabled,
+            findNextActivedIndex,
+            findPreviousActivedIndex,
+            getInitialIndex,
+            selectIndex: selectTab,
+            handleKeydown,
+        } = useIndexSelector(tabs, disabled);
 
-        function isSelected(index: number): boolean {
-            return selectedIndex.value === index;
-        }
-
-        function isDisabled(index: number): boolean {
-            return disabled.value?.includes(index);
-        }
-
-        const isLeftEdge = computed(() => {
-            const targetDisabled = disabled.value.filter((i) => i >= 0 && i < selectedIndex.value);
-            return targetDisabled.length === selectedIndex.value;
-        });
-
-        const isRightEdge = computed(() => {
-            const targetDisabled = disabled.value.filter((i) => i > selectedIndex.value);
-            return targetDisabled.length === tabs.value.length - selectedIndex.value - 1;
-        });
-
-        function selectTab(index: number) {
-            const tabsLength = tabs.value.length;
-            const isOutOfRange = index < 0 || index > tabsLength - 1;
-            const isAllDisabled = disabled.value.length === tabsLength;
-            if (isOutOfRange || isAllDisabled || isDisabled(index)) {
-                selectedIndex.value = -1;
-                return;
-            }
-
-            selectedIndex.value = index;
-            scrollTo(index);
-        }
-
-        function findNextActivedIndex(startIndex: number): number {
-            const tabsLength = tabs.value.length;
-            for (let i = startIndex; i < tabsLength + startIndex; i++) {
-                const index = i % tabsLength;
-                if (!isDisabled(index)) {
-                    return index;
-                }
-            }
-            return startIndex;
-        }
-
-        function findPreviousActivedIndex(startIndex: number): number {
-            const tabsLength = tabs.value.length;
-            for (let i = startIndex; i > startIndex - tabsLength; i--) {
-                const index = (i + tabsLength) % tabsLength;
-                if (!isDisabled(index)) {
-                    return index;
-                }
-            }
-            return startIndex;
-        }
+        selectTab(getInitialIndex(modelValue.value));
 
         const showScrollButtons = computed(() => {
             if (tabButtons.value === 'auto') {
@@ -182,42 +142,6 @@ export default defineComponent({
 
         function goRight() {
             const targetIndex = findNextActivedIndex(selectedIndex.value + 1);
-            selectTab(targetIndex);
-        }
-
-        function handleKeydown(event: KeyboardEvent) {
-            let targetIndex = selectedIndex.value;
-            switch (event.code) {
-                case 'ArrowLeft': {
-                    if (isLeftEdge.value) {
-                        return;
-                    }
-                    event.preventDefault();
-                    targetIndex = findPreviousActivedIndex(targetIndex - 1);
-                    break;
-                }
-                case 'ArrowRight': {
-                    if (isRightEdge.value) {
-                        return;
-                    }
-                    event.preventDefault();
-                    targetIndex = findNextActivedIndex(targetIndex + 1);
-                    break;
-                }
-                case 'Home': {
-                    event.preventDefault();
-                    targetIndex = findNextActivedIndex(0);
-                    break;
-                }
-                case 'End': {
-                    event.preventDefault();
-                    targetIndex = findPreviousActivedIndex(tabs.value.length - 1);
-                    break;
-                }
-                default:
-                    return;
-            }
-
             selectTab(targetIndex);
         }
 
@@ -257,6 +181,7 @@ export default defineComponent({
         });
 
         watch(selectedIndex, (index: number) => {
+            scrollTo(index);
             emit('update:modelValue', index);
             emit('change', index);
         });

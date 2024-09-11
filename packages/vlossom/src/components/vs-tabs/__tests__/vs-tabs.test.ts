@@ -49,7 +49,7 @@ describe('vs-tabs', () => {
             expect(tabItems.filter((t) => t.classes().includes('vs-disabled'))).toHaveLength(disabled.length);
         });
 
-        it('disabled의 범위가 tabs length를 벗어나면 warning message를 보여준다', () => {
+        it('disabled의 범위가 전체 length를 벗어나면 warning message를 보여준다', () => {
             // given
             const disabled = [100];
             mount(VsTabs, {
