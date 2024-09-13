@@ -22,49 +22,49 @@ describe('vs-toast-view', () => {
                 toasts: [
                     {
                         id: '1',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'top',
                         align: 'start',
                     },
                     {
                         id: '2',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'top',
                         align: 'center',
                     },
                     {
                         id: '3',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'top',
                         align: 'end',
                     },
                     {
                         id: '4',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'bottom',
                         align: 'start',
                     },
                     {
                         id: '5',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'bottom',
                         align: 'center',
                     },
                     {
                         id: '6',
-                        text: 'Hello',
+                        content: 'Hello',
                         autoClose: true,
-                        duration: 3000,
+                        timeout: 3000,
                         placement: 'bottom',
                         align: 'end',
                     },
@@ -121,9 +121,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '1',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'top',
                     align: 'start',
                 },
@@ -145,9 +145,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '2',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'top',
                     align: 'center',
                 },
@@ -169,9 +169,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '3',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'top',
                     align: 'end',
                 },
@@ -193,9 +193,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '4',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'bottom',
                     align: 'start',
                 },
@@ -217,9 +217,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '5',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'bottom',
                     align: 'center',
                 },
@@ -241,9 +241,9 @@ describe('vs-toast-view', () => {
             expect(wrapper.vm.toasts).toEqual([
                 {
                     id: '6',
-                    text: 'Hello',
+                    content: 'Hello',
                     autoClose: true,
-                    duration: 3000,
+                    timeout: 3000,
                     placement: 'bottom',
                     align: 'end',
                 },
