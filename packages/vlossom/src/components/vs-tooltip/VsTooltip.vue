@@ -57,7 +57,7 @@ export default defineComponent({
         leaveDelay: { type: Number, default: 100 },
         margin: { type: Number, default: 5 },
         placement: {
-            type: String as PropType<Placement>,
+            type: String as PropType<Exclude<Placement, 'middle'>>,
             default: 'top',
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },

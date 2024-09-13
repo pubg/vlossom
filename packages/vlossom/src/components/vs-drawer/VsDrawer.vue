@@ -75,7 +75,7 @@ export default defineComponent({
         },
         open: { type: Boolean, default: false },
         placement: {
-            type: String as PropType<Placement>,
+            type: String as PropType<Exclude<Placement, 'middle'>>,
             default: 'left',
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },

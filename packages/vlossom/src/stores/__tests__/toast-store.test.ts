@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ToastStore } from './../toast-store';
-import type { Align, Placement } from '@/declaration';
 import { ToastInfo } from '@/plugins';
 
 describe('toast store', () => {
@@ -25,8 +24,8 @@ describe('toast store', () => {
                 id: '1',
                 content: 'Hello',
                 autoClose: false,
-                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
-                align: 'center' as Align,
+                placement: 'top',
+                align: 'center',
             };
 
             // when
@@ -46,8 +45,8 @@ describe('toast store', () => {
                 content: 'Hello',
                 autoClose: true,
                 timeout,
-                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
-                align: 'center' as Align,
+                placement: 'top',
+                align: 'center',
             };
 
             // when
@@ -74,8 +73,8 @@ describe('toast store', () => {
                 content: 'Hello',
                 autoClose: false,
                 timeout,
-                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
-                align: 'center' as Align,
+                placement: 'top',
+                align: 'center',
             };
 
             // when
@@ -100,8 +99,8 @@ describe('toast store', () => {
                 id: '1',
                 content: 'Hello',
                 autoClose: false,
-                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
-                align: 'center' as Align,
+                placement: 'top',
+                align: 'center',
             };
             store.addToast(toast);
 
@@ -124,15 +123,15 @@ describe('toast store', () => {
                 id: '1',
                 content: 'Hello',
                 autoClose: false,
-                placement: 'top' as Exclude<Placement, 'left' | 'right'>,
-                align: 'center' as Align,
+                placement: 'top',
+                align: 'center',
             };
-            const toast2 = {
+            const toast2: ToastInfo = {
                 id: '2',
                 content: 'Hello',
                 autoClose: false,
-                placement: 'bottom' as Exclude<Placement, 'left' | 'right'>,
-                align: 'end' as Align,
+                placement: 'bottom',
+                align: 'end',
             };
 
             // when
