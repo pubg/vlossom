@@ -1,29 +1,25 @@
-import { UIState } from '@/declaration';
 import type { Align, ColorScheme, Placement } from '@/declaration';
+import type { VsToastStyleSet } from '@/components/vs-toast/types';
 
 export interface ToastOptions {
-    autoClose?: boolean;
-    timeout?: number;
-    placement?: Exclude<Placement, 'left' | 'right'>;
     align?: Align;
+    autoClose?: boolean;
     colorScheme?: ColorScheme;
+    placement?: Exclude<Placement, 'left' | 'right'>;
+    primary?: boolean;
+    styleSet?: string | VsToastStyleSet;
+    timeout?: number;
 }
 
-export interface ToastInfo {
+export interface ToastInfo extends ToastOptions {
     id: string;
-    text: string;
-    autoClose: boolean;
-    duration?: number;
-    placement: Exclude<Placement, 'left' | 'right'>;
-    align: Align;
-    colorScheme?: ColorScheme;
-    state?: Exclude<UIState, UIState.Idle | UIState.Selected>;
+    content: string;
 }
 
 export interface ToastPlugin {
-    show(text: string, toastOptions?: ToastOptions): void;
-    success(text: string, toastOptions?: ToastOptions): void;
-    info(text: string, toastOptions?: ToastOptions): void;
-    error(error: string | Error, toastOptions?: ToastOptions): void;
-    warn(text: string, toastOptions?: ToastOptions): void;
+    show(content: string, toastOptions?: ToastOptions): void;
+    success(content: string, toastOptions?: ToastOptions): void;
+    info(content: string, toastOptions?: ToastOptions): void;
+    error(content: string | Error, toastOptions?: ToastOptions): void;
+    warn(content: string, toastOptions?: ToastOptions): void;
 }

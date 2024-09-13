@@ -1,99 +1,50 @@
 <template>
-    <div :class="['vs-toast', `vs-${getColorScheme()}`]" :style="computedStyle" role="alert">
-        <div class="vs-toast-contents">
-            <span v-html="toastInfo.text" />
+    <div :class="['vs-toast', colorSchemeClass, { 'vs-primary': primary }]" :style="computedStyleSet" role="alert">
+        <div class="vs-toast-content">
+            <span v-html="content" />
         </div>
-        <button
-            class="vs-toast-close"
-            type="button"
-            ref="closeButtonRef"
-            v-if="!toastInfo.autoClose"
-            @click.stop="closeToast"
-            aria-label="close"
-        >
+        <button v-if="!autoClose" class="vs-toast-close" type="button" @click.stop="closeToast" aria-label="close">
             <vs-icon icon="close" size="14px" />
         </button>
     </div>
 </template>
 
 <script lang="ts">
-import { PropType, computed, defineComponent, ref, toRef, toRefs } from 'vue';
-import { UIState } from '@/declaration';
-import { useColorScheme } from '@/composables';
+import { PropType, defineComponent, toRefs } from 'vue';
+import { ColorScheme } from '@/declaration';
+import { useColorScheme, useStyleSet } from '@/composables';
 import { VsIcon } from '@/icons';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
 
-import type { ToastInfo } from '@/plugins';
+import type { VsToastStyleSet } from './types';
 
 const name = VsComponent.VsToast;
 export default defineComponent({
     name,
     components: { VsIcon },
     props: {
-        toastInfo: { type: Object as PropType<ToastInfo>, required: true },
+        id: { type: String, required: true },
+        content: { type: String, required: true },
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsToastStyleSet> },
+        autoClose: { type: Boolean, default: true },
+        primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { toastInfo } = toRefs(props);
-        const closeButtonRef = ref(null);
+        const { id, colorScheme, styleSet } = toRefs(props);
 
-        function getColorScheme() {
-            let color = 'default';
-            if (toastInfo.value.state) {
-                switch (toastInfo.value.state) {
-                    case UIState.Success:
-                        color = 'green';
-                        break;
-                    case UIState.Info:
-                        color = 'light-blue';
-                        break;
-                    case UIState.Error:
-                        color = 'red';
-                        break;
-                    case UIState.Warning:
-                        color = 'orange';
-                        break;
-                    default:
-                        color = 'indigo';
-                        break;
-                }
-            }
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-            if (toastInfo.value.colorScheme) {
-                const { computedColorScheme } = useColorScheme(name, toRef(toastInfo.value.colorScheme));
-                color = computedColorScheme.value;
-            }
-            return color;
-        }
-
-        const computedStyle = computed(() => {
-            const style: { [key: string]: any } = {};
-
-            switch (toastInfo.value.align) {
-                case 'start':
-                    style.alignSelf = 'flex-start';
-                    break;
-                case 'center':
-                    style.alignSelf = 'center';
-                    break;
-                case 'end':
-                    style.alignSelf = 'flex-end';
-                    break;
-                default:
-                    style.alignSelf = 'center';
-                    break;
-            }
-            return style;
-        });
+        const { computedStyleSet } = useStyleSet<VsToastStyleSet>(name, styleSet);
 
         function closeToast() {
-            store.toast.removeToast(toastInfo.value.id);
+            store.toast.removeToastById(id.value);
         }
 
         return {
-            closeButtonRef,
-            getColorScheme,
-            computedStyle,
+            colorSchemeClass,
+            computedStyleSet,
             closeToast,
         };
     },

@@ -1,38 +1,43 @@
 .vs-toast {
     position: relative;
-    background-color: var(--vs-comp-bg);
-    color: var(--vs-comp-font);
-    border: 1px solid var(--vs-line-color);
     display: flex;
     justify-content: center;
-    border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius-lg));
-    font-size: var(--vs-font-size);
+    align-items: center;
+    background-color: var(--vs-toast-backgroundColor, var(--vs-comp-bg));
+    color: var(--vs-toast-fontColor, var(--vs-comp-font));
+    border: var(--vs-toast-border, 1px solid var(--vs-line-color));
+    border-radius: var(--vs-toast-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-lg)));
+    font-size: var(--vs-toast-fontSize, var(--vs-font-size));
+    font-weight: var(--vs-toast-fontWeight, 400);
     margin: 0.4rem 0;
     pointer-events: auto;
     width: fit-content;
 
-    .vs-toast-contents {
+    .vs-toast-content {
         position: relative;
-        padding: 1rem 5rem;
+        padding: var(--vs-toast-padding, 1rem 5rem);
     }
 
     .vs-toast-close {
         position: absolute;
-        top: 0.3rem;
-        right: 0.3rem;
+        top: 50%;
+        transform: translateY(-50%);
         display: flex;
-        align-items: center;
         justify-content: center;
-        border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius));
-        color: var(--vs-comp-font);
-        padding: 0.2rem;
+        align-items: center;
+        right: 0.5rem;
+        height: 20px;
+        width: 20px;
+        color: var(--vs-toast-fontColor, var(--vs-comp-font));
+    }
 
-        &:hover {
-            background-color: var(--vs-comp-bg-hover);
-        }
+    &.vs-primary {
+        background-color: var(--vs-toast-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-toast-fontColor, var(--vs-primary-comp-font));
+        border: var(--vs-toast-border, 1px solid var(--vs-primary-comp-bg));
 
-        &:active {
-            background-color: var(--vs-comp-bg-active);
+        .vs-toast-close {
+            color: var(--vs-toast-fontColor, var(--vs-primary-comp-font));
         }
     }
 }

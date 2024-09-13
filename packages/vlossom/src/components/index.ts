@@ -115,5 +115,7 @@ export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
 export { type VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
 
+export { type VsToastStyleSet } from './vs-toast/types';
+
 export { type VsTooltipStyleSet } from './vs-tooltip/types';
 export { default as VsTooltip } from './vs-tooltip/VsTooltip.vue';

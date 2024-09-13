@@ -70,7 +70,7 @@ export default defineComponent({
         focusLock: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
         initialFocusRef: {
-            type: [Object, undefined] as PropType<HTMLElement | null>,
+            type: Object as PropType<HTMLElement | null>,
             default: null,
         },
         open: { type: Boolean, default: false },
