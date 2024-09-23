@@ -1,16 +1,25 @@
 <template>
-    <div :class="['vs-toast-view', `vs-${placement}`, `vs-toast-view-${placement}`]">
+    <div :class="['vs-toast-view', `vs-toast-view-${placement}`, `vs-toast-view-${align}`]">
         <TransitionGroup name="fade" appear>
-            <vs-toast ref="toastRefs" v-for="toast in toasts" :key="toast.id" :toastInfo="toast" />
+            <vs-toast
+                v-for="toast in toasts"
+                :key="toast.id"
+                :id="toast.id"
+                :content="toast.content"
+                :color-scheme="toast.colorScheme"
+                :style-set="toast.styleSet"
+                :auto-close="toast.autoClose"
+                :primary="toast.primary"
+            />
         </TransitionGroup>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, shallowRef, type PropType, type ShallowRef } from 'vue';
+import { computed, defineComponent, toRefs, type PropType } from 'vue';
 import { store } from '@/stores';
-import VsToast from './VsToast.vue';
 import { VsComponent } from '@/declaration';
+import VsToast from './VsToast.vue';
 
 import type { Placement, Align } from '@/declaration';
 import type { ToastInfo } from '@/plugins';
@@ -25,18 +34,14 @@ export default defineComponent({
     },
     setup(props) {
         const { placement, align } = toRefs(props);
+
         const toasts = computed(() => {
             return store.toast.toasts.filter(
                 (toast: ToastInfo) => toast.placement === placement.value && toast.align === align.value,
             );
         });
 
-        const toastRefs: ShallowRef<(typeof VsToast)[]> = shallowRef([]);
-
-        return {
-            toasts,
-            toastRefs,
-        };
+        return { toasts };
     },
 });
 </script>

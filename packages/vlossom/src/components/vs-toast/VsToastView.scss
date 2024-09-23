@@ -1,23 +1,37 @@
 .vs-toast-view {
-    align-items: center;
+    position: fixed;
     display: flex;
     flex-direction: column;
     pointer-events: none;
-    position: fixed;
     transition: all 0.5s ease;
-    width: 98%;
+    width: 100%;
     z-index: var(--vs-toast-z-index);
 
-    &.vs-top {
-        left: 50%;
+    &.vs-toast-view-top {
         top: 3%;
-        transform: translateX(-50%);
     }
 
-    &.vs-bottom {
+    &.vs-toast-view-middle {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &.vs-toast-view-bottom {
         bottom: 3%;
-        left: 50%;
-        transform: translateX(-50%);
+    }
+
+    &.vs-toast-view-start {
+        left: 1%;
+        align-items: flex-start;
+    }
+
+    &.vs-toast-view-center {
+        align-items: center;
+    }
+
+    &.vs-toast-view-end {
+        right: 1%;
+        align-items: flex-end;
     }
 }
 

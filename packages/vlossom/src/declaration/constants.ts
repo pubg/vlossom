@@ -1,5 +1,3 @@
-export const ALIGNS = ['start', 'center', 'end'] as const;
-
 export const COLORS = [
     'gray',
     'red',
@@ -18,7 +16,9 @@ export const COLORS = [
 
 export const CSS_POSITION = ['static', 'relative', 'absolute', 'fixed', 'sticky'] as const;
 
-export const PLACEMENTS = ['top', 'bottom', 'left', 'right'] as const;
+export const PLACEMENTS = ['top', 'middle', 'bottom', 'left', 'right'] as const;
+
+export const ALIGNS = ['start', 'center', 'end'] as const;
 
 export const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 

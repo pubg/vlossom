@@ -20,7 +20,7 @@ export default defineComponent({
     name: VsComponent.VsFocusTrap,
     props: {
         focusLock: { type: Boolean, default: true },
-        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
+        initialFocusRef: { type: Object as PropType<HTMLElement | null>, default: null },
     },
     setup(props, { slots, expose }) {
         const { focusLock, initialFocusRef } = toRefs(props);

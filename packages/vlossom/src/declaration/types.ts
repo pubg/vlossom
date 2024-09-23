@@ -157,8 +157,6 @@ export interface VsLayoutProvide {
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
 }
 
-export type Align = (typeof ALIGNS)[number];
-
 export type TextAlign =
     | 'start'
     | 'end'
@@ -169,13 +167,6 @@ export type TextAlign =
     | 'justify-all'
     | 'match-parent'
     | 'inherit';
-
-export interface AttachInfo {
-    placement?: Placement;
-    align?: Align;
-    margin?: number;
-    followWidth?: boolean;
-}
 
 export type CssPosition = (typeof CSS_POSITION)[number];
 
@@ -188,4 +179,13 @@ export type SizeProp = Size | string | number;
 export interface LabelValue<T = any> {
     label: string;
     value: T;
+}
+
+export type Align = (typeof ALIGNS)[number];
+
+export interface AttachInfo {
+    placement?: Exclude<Placement, 'middle'>;
+    align?: Align;
+    margin?: number;
+    followWidth?: boolean;
 }

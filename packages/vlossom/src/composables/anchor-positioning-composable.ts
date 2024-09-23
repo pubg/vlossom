@@ -4,7 +4,7 @@ import type { AttachInfo, Placement, Align } from '@/declaration';
 
 export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLElement>) {
     const isVisible = ref(false);
-    const computedPlacement: Ref<Placement | null> = ref(null);
+    const computedPlacement: Ref<Exclude<Placement, 'middle'> | null> = ref(null);
     let throttledComputePosition: ((...args: any) => any) | null = null;
     let resizeObserver: ResizeObserver | null = null;
 
