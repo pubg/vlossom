@@ -250,7 +250,7 @@ export default defineComponent({
                 return {};
             }
             const gridColumns = headers.value.map((h) => {
-                return h.width || 'minmax(20rem, 1fr)';
+                return h.width ? `minmax(5rem, ${h.width})` : 'minmax(20rem, 1fr)';
             });
             if (hasSelectable.value) {
                 gridColumns.unshift('3.4rem');
