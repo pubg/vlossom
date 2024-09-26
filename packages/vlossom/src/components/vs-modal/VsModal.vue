@@ -16,17 +16,19 @@
                         :aria-label="hasHeader ? undefined : 'Modal'"
                         :aria-modal="true"
                     >
-                        <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
-                            <slot name="header" />
-                        </header>
+                        <div class="vs-modal-contents">
+                            <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
+                                <slot name="header" />
+                            </header>
 
-                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
-                            <slot />
+                            <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
+                                <slot />
+                            </div>
+
+                            <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
+                                <slot name="footer" />
+                            </footer>
                         </div>
-
-                        <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
-                            <slot name="footer" />
-                        </footer>
                     </div>
                 </vs-focus-trap>
             </div>
