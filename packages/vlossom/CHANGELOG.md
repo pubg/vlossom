@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.0.6](https://github.com/pubg/vlossom/compare/v1.0.5...v1.0.6) (2024-10-02)
+
+
+### Bug Fixes
+
+* **accessiblity:** remove aria hidden from inputs (215297) ([#277](https://github.com/pubg/vlossom/issues/277)) ([c2e3f21](https://github.com/pubg/vlossom/commit/c2e3f21ccb8362a82019999859d7a3902c72ec2c))
+* **input-components:** change background color from transparent to --vs-no-color ([#279](https://github.com/pubg/vlossom/issues/279)) ([1455959](https://github.com/pubg/vlossom/commit/1455959b03ca22005a70e7d8d649b754f2611e85))
+* **VsImage:** add skeleton props (215719) ([#275](https://github.com/pubg/vlossom/issues/275)) ([884d886](https://github.com/pubg/vlossom/commit/884d8862e59cba892f9e69f9597ffeb716bce869))
+* **VsIndexView:** fix vs-indev-view rendering by key (215720, 215723) ([#274](https://github.com/pubg/vlossom/issues/274)) ([040972e](https://github.com/pubg/vlossom/commit/040972e652accccb36030884af3684e39fe1791e))
+* **VsModal:** apply vs-modal container query padding ([#283](https://github.com/pubg/vlossom/issues/283)) ([2bc0a15](https://github.com/pubg/vlossom/commit/2bc0a1563548c4af602bf2548541a9b58881634b))
+* **VsStepper:** apply index-selector-composable ([#280](https://github.com/pubg/vlossom/issues/280)) ([61451f6](https://github.com/pubg/vlossom/commit/61451f64694d8f0ddf77dc858065727271729699))
+* **VsTable:** fix search target object bug (215845, 213519) ([#273](https://github.com/pubg/vlossom/issues/273)) ([99394a2](https://github.com/pubg/vlossom/commit/99394a296a145db6ab11acd186f0e43ef8ae4043))
+* **VsTable:** modify the width defined in the table header to be applied as max-width ([#282](https://github.com/pubg/vlossom/issues/282)) ([ba4fc13](https://github.com/pubg/vlossom/commit/ba4fc1375f7f9e9f3650b574ea3511c54eba3fe0))
+* **VsTabs:** change tab scroll buttons & fix bottom line 100% width ([#278](https://github.com/pubg/vlossom/issues/278)) ([718ff8c](https://github.com/pubg/vlossom/commit/718ff8c297420d5093568eadcc27a713625e2b5a))
+* **VsToast:** add primary & style-set ([#281](https://github.com/pubg/vlossom/issues/281)) ([8c5f320](https://github.com/pubg/vlossom/commit/8c5f3201aae916ba1391f5d37ab422cc0f2ec5a5))
+
 ## [1.0.5](https://github.com/pubg/vlossom/compare/v1.0.4...v1.0.5) (2024-08-21)
 
 
