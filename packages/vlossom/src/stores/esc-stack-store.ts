@@ -1,22 +1,37 @@
 export class EscStackStore {
-    private idStack: string[] = [];
+    private escStack: [string, () => void][] = [];
 
-    push(id: string) {
-        this.idStack.push(id);
+    constructor() {
+        document.addEventListener('keydown', (event: KeyboardEvent) => {
+            if (this.escStack.length === 0) {
+                return;
+            }
+            if (event.key === 'Escape') {
+                this.pop();
+            }
+        });
+    }
+
+    push(id: string, onEscClose: () => void) {
+        this.escStack.push([id, onEscClose]);
     }
 
     pop() {
-        return this.idStack.pop();
+        const pop = this.escStack.pop();
+        if (!pop) {
+            return;
+        }
+        const [, onEscClose] = pop;
+        onEscClose();
     }
 
     remove(id: string) {
-        const index = this.idStack.indexOf(id);
-        if (index >= 0) {
-            this.idStack.splice(index, 1);
+        const index = this.escStack.findIndex(([stackId]) => stackId === id);
+        if (index === -1) {
+            return;
         }
-    }
-
-    getTopId() {
-        return this.idStack[this.idStack.length - 1];
+        const [pop] = this.escStack.splice(index, 1);
+        const [, onEscClose] = pop;
+        onEscClose();
     }
 }
