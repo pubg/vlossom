@@ -3,14 +3,10 @@ import { mount } from '@vue/test-utils';
 import { UIState } from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 
-function mountComponent() {
-    return mount(VsMessage);
-}
-
 describe('vs-message', () => {
     it('Idle 상태의 메시지는 vs-default class와 message icon을 가진다', async () => {
         // given
-        const wrapper: ReturnType<typeof mountComponent> = mount(VsMessage, {
+        const wrapper = mount(VsMessage, {
             props: {
                 message: { state: UIState.Idle, text: 'message text' },
             },
@@ -24,7 +20,7 @@ describe('vs-message', () => {
 
     it('Info 상태의 메시지는 vs-blue class와 info icon을 가진다', async () => {
         // given
-        const wrapper: ReturnType<typeof mountComponent> = mount(VsMessage, {
+        const wrapper = mount(VsMessage, {
             props: {
                 message: { state: UIState.Info, text: 'message text' },
             },
@@ -38,7 +34,7 @@ describe('vs-message', () => {
 
     it('Success 상태의 메시지는 vs-green class와 success icon을 가진다', async () => {
         // given
-        const wrapper: ReturnType<typeof mountComponent> = mount(VsMessage, {
+        const wrapper = mount(VsMessage, {
             props: {
                 message: { state: UIState.Success, text: 'message text' },
             },
@@ -52,7 +48,7 @@ describe('vs-message', () => {
 
     it('Warning 상태의 메시지는 vs-yellow class와 warning icon을 가진다', async () => {
         // given
-        const wrapper: ReturnType<typeof mountComponent> = mount(VsMessage, {
+        const wrapper = mount(VsMessage, {
             props: {
                 message: { state: UIState.Warning, text: 'message text' },
             },
@@ -66,7 +62,7 @@ describe('vs-message', () => {
 
     it('Error 상태의 메시지는 vs-red class와 error icon을 가진다', async () => {
         // given
-        const wrapper: ReturnType<typeof mountComponent> = mount(VsMessage, {
+        const wrapper = mount(VsMessage, {
             props: {
                 message: { state: UIState.Error, text: 'message text' },
             },

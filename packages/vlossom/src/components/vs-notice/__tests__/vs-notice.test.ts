@@ -2,13 +2,9 @@ import { beforeEach, afterEach, describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsNotice from './../VsNotice.vue';
 
-function mountComponent() {
-    return mount(VsNotice);
-}
-
 describe('vs-notice', () => {
     describe('visibility', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
+        let wrapper = mount(VsNotice);
 
         beforeEach(() => {
             wrapper = mount(VsNotice, {

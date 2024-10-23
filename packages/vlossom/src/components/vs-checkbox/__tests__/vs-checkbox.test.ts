@@ -3,15 +3,11 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsCheckbox from './../VsCheckbox.vue';
 
-function mountComponent() {
-    return mount(VsCheckbox);
-}
-
 describe('vs-checkbox', () => {
     describe('v-model', () => {
         it('modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: true,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -25,7 +21,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: false,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -44,7 +40,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: false,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -61,7 +57,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue가 null이면 false로 가공해준다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -78,7 +74,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue를 null로 할당하면 falseValue로 보정해준다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: true,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -100,7 +96,7 @@ describe('vs-checkbox', () => {
     describe('true / false value', () => {
         it('trueValue, falseValue를 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: 'A',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -116,7 +112,7 @@ describe('vs-checkbox', () => {
 
         it('checkbox를 true로 업데이트하면 modelValue를 trueValue 값으로 업데이트 한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: 'B',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -136,7 +132,7 @@ describe('vs-checkbox', () => {
 
         it('checkbox를 false로 업데이트하면 modelValue를 falseValue 값으로 업데이트 한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: 'A',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -157,7 +153,7 @@ describe('vs-checkbox', () => {
 
         it('object 타입 trueValue, falseValue를 설정할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: { id: 'A' },
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -175,7 +171,7 @@ describe('vs-checkbox', () => {
     describe('v-model (multiple true)', () => {
         it('modelValue 원소 중 하나라도 trueValue와 일치하면 checkbox 값은 true이다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: ['A'],
@@ -191,7 +187,7 @@ describe('vs-checkbox', () => {
 
         it('input을 click해서 true로 업데이트하면 trueValue가 modelValue배열에 포함된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: [],
@@ -212,7 +208,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue의 초깃값이 null이면 빈 배열로 보정해준다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: null,
@@ -229,7 +225,7 @@ describe('vs-checkbox', () => {
 
         it('modelValue에 null을 할당하면 빈 배열로 보정해준다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: ['A'],
@@ -249,7 +245,7 @@ describe('vs-checkbox', () => {
 
         it('array 타입 modelValue를 바꿔서 checkbox 값을 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: [],
@@ -268,7 +264,7 @@ describe('vs-checkbox', () => {
 
         it('object array 타입으로 modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: [{ id: 'A' }],
@@ -286,7 +282,7 @@ describe('vs-checkbox', () => {
 
         it('object array 타입으로 modelValue 를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: [],
@@ -306,7 +302,7 @@ describe('vs-checkbox', () => {
 
         it('object array 타입으로 modelValue를 업데이트해서 checkbox 값을 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     modelValue: [],
@@ -327,7 +323,7 @@ describe('vs-checkbox', () => {
     describe('checked', () => {
         it('checked를 설정하면 check 된 상태로 mount 된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     checked: true,
                 },
@@ -342,7 +338,7 @@ describe('vs-checkbox', () => {
 
         it('multiple일 때 checked를 설정하면 array에 값이 들어가 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     multiple: true,
                     checked: true,
@@ -363,7 +359,7 @@ describe('vs-checkbox', () => {
         describe('multiple 이 true인 경우', () => {
             it('clear 함수를 호출하면 빈 배열로 업데이트된다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                const wrapper = mount(VsCheckbox, {
                     props: {
                         multiple: true,
                         modelValue: ['A', 'B'],
@@ -385,7 +381,7 @@ describe('vs-checkbox', () => {
         describe('multiple 이 false 이거나 v-model이 array 타입이 아닌 경우', () => {
             it('clear 함수를 호출하면 falseValue 값으로 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+                const wrapper = mount(VsCheckbox, {
                     props: {
                         modelValue: true,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -407,7 +403,7 @@ describe('vs-checkbox', () => {
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: true,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -428,7 +424,7 @@ describe('vs-checkbox', () => {
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: true,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -442,7 +438,7 @@ describe('vs-checkbox', () => {
 
         it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: false,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -463,7 +459,7 @@ describe('vs-checkbox', () => {
         it('beforeChange 함수에 from, to 인자가 전달된다', async () => {
             // given
             const beforeChange = vi.fn().mockResolvedValue(true);
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     trueValue: 'A',
                     falseValue: 'B',
@@ -480,7 +476,7 @@ describe('vs-checkbox', () => {
 
         it('beforeChange 함수가 Promise<true>를 리턴하면 값이 업데이트 된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: false,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -499,7 +495,7 @@ describe('vs-checkbox', () => {
 
         it('beforeChange 함수가 Promise<false>를 리턴하면 값이 업데이트 되지 않는다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     modelValue: false,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -519,7 +515,7 @@ describe('vs-checkbox', () => {
     describe('aria-label', () => {
         it('aria-label을 설정할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox, {
+            const wrapper = mount(VsCheckbox, {
                 props: {
                     name: 'checkbox',
                     ariaLabel: 'aria-label',
@@ -534,7 +530,7 @@ describe('vs-checkbox', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox);
+            const wrapper = mount(VsCheckbox);
 
             // when
             await wrapper.find('input').trigger('focus');
@@ -545,7 +541,7 @@ describe('vs-checkbox', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsCheckbox);
+            const wrapper = mount(VsCheckbox);
 
             // when
             await wrapper.find('input').trigger('blur');

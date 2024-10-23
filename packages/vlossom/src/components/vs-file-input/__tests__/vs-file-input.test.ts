@@ -1,11 +1,7 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsFileInput from './../VsFileInput.vue';
 import { nextTick } from 'vue';
-
-function mountComponent() {
-    return mount(VsFileInput);
-}
 
 const file = new File(['content'], 'test-file.txt', { type: 'text/plain' });
 const file2 = new File(['content'], 'test-file2.txt', { type: 'text/plain' });
@@ -24,22 +20,18 @@ const multipleEvent = {
 
 describe('vs-file-input', () => {
     describe('default mode', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
-
-        beforeEach(() => {
-            wrapper = mount(VsFileInput, {
-                props: {
-                    modelValue: null,
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                },
-            });
-        });
-
         describe('v-model', () => {
             it('modelValue를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
-                wrapper.vm.updateValue(event as any);
-                await nextTick();
+                await wrapper.setProps({ modelValue: file });
 
                 // then
                 expect(wrapper.vm.inputValue).toEqual(file);
@@ -47,7 +39,7 @@ describe('vs-file-input', () => {
 
             it('modelValue의 초깃값이 배열이라면 null로 보정한다', async () => {
                 //given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: [],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -63,7 +55,7 @@ describe('vs-file-input', () => {
 
             it('modelValue에 배열을 할당하면 null로 보정한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -80,6 +72,14 @@ describe('vs-file-input', () => {
 
         describe('file label', () => {
             it('file 정보를 보여준다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(event as any);
                 await nextTick();
@@ -91,6 +91,14 @@ describe('vs-file-input', () => {
 
         describe('clear', () => {
             it('input 영역을 mouse over 하면 clear 버튼이 나타난다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(event as any);
 
@@ -101,6 +109,14 @@ describe('vs-file-input', () => {
             });
 
             it('value가 없으면 input 영역을 mouse over 하여도 clear 버튼이 나타나지 않는다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
                 await wrapper.find('input').trigger('mouseover');
 
@@ -109,6 +125,14 @@ describe('vs-file-input', () => {
             });
 
             it('clear 버튼을 누르면 input 값을 초기화 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(event as any);
 
@@ -122,6 +146,14 @@ describe('vs-file-input', () => {
             });
 
             it('clear 함수를 호출하면 input 값을 초기화 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: null,
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(event as any);
                 await nextTick();
@@ -139,7 +171,7 @@ describe('vs-file-input', () => {
         describe('rules', () => {
             it('required 체크가 가능하다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -148,15 +180,7 @@ describe('vs-file-input', () => {
                 });
 
                 // when
-                wrapper.vm.updateValue(event as any);
-                await nextTick();
-
-                wrapper.vm.updateValue({
-                    target: {
-                        files: [],
-                    },
-                } as any);
-                await nextTick();
+                wrapper.vm.validate();
 
                 // then
                 expect(wrapper.vm.computedMessages).toHaveLength(1);
@@ -167,7 +191,7 @@ describe('vs-file-input', () => {
         describe('validate', () => {
             it('valid 할 때 validate 함수를 호출하면 true를 리턴한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -176,7 +200,7 @@ describe('vs-file-input', () => {
                 });
 
                 //when
-                wrapper.vm.updateValue(event as any);
+                wrapper.setProps({ modelValue: file });
                 await nextTick();
 
                 // then
@@ -185,7 +209,7 @@ describe('vs-file-input', () => {
 
             it('invalid 할 때 validate 함수를 호출하면 false를 리턴한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -200,22 +224,19 @@ describe('vs-file-input', () => {
     });
 
     describe('multiple mode', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
-
-        beforeEach(() => {
-            wrapper = mount(VsFileInput, {
-                props: {
-                    modelValue: [],
-                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                    multiple: true,
-                },
-            });
-        });
-
         describe('v-model', () => {
             it('modelValue를 업데이트 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
-                wrapper.vm.updateValue(multipleEvent as any);
+                await wrapper.setProps({ modelValue: [file, file2] });
                 await nextTick();
 
                 // then
@@ -226,7 +247,7 @@ describe('vs-file-input', () => {
 
             it('modelValue가 배열이 아니라면 빈 배열로 보정한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -243,7 +264,7 @@ describe('vs-file-input', () => {
 
             it('modelValue에 배열이 아닌 값을 할당하면 빈 배열로 보정한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: file,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -261,6 +282,15 @@ describe('vs-file-input', () => {
 
         describe('file label', () => {
             it('file 정보를 보여준다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(multipleEvent as any);
                 await nextTick();
@@ -272,6 +302,15 @@ describe('vs-file-input', () => {
 
         describe('clear', () => {
             it('input 영역을 mouse over 하면 clear 버튼이 나타난다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(multipleEvent as any);
 
@@ -282,6 +321,15 @@ describe('vs-file-input', () => {
             });
 
             it('value가 없으면 input 영역을 mouse over 하여도 clear 버튼이 나타나지 않는다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
                 await wrapper.find('input').trigger('mouseover');
 
@@ -290,6 +338,15 @@ describe('vs-file-input', () => {
             });
 
             it('clear 버튼을 누르면 input 값을 초기화 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(multipleEvent as any);
 
@@ -303,6 +360,15 @@ describe('vs-file-input', () => {
             });
 
             it('clear 함수를 호출하면 input 값을 초기화 할 수 있다', async () => {
+                // given
+                const wrapper = mount(VsFileInput, {
+                    props: {
+                        modelValue: [],
+                        'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
+                    },
+                });
+
                 // when
                 wrapper.vm.updateValue(multipleEvent as any);
                 await nextTick();
@@ -320,10 +386,11 @@ describe('vs-file-input', () => {
         describe('rules', () => {
             it('required 체크가 가능하다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: [],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                        multiple: true,
                         required: true,
                     },
                 });
@@ -348,12 +415,13 @@ describe('vs-file-input', () => {
         describe('validate', () => {
             it('valid 할 때 validate 함수를 호출하면 true를 리턴한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                // given
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: [],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        required: true,
                         multiple: true,
+                        required: true,
                     },
                 });
 
@@ -367,12 +435,12 @@ describe('vs-file-input', () => {
 
             it('invalid 할 때 validate 함수를 호출하면 false를 리턴한다', async () => {
                 // given
-                wrapper = mount(VsFileInput, {
+                const wrapper = mount(VsFileInput, {
                     props: {
                         modelValue: [],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
-                        required: true,
                         multiple: true,
+                        required: true,
                     },
                 });
 

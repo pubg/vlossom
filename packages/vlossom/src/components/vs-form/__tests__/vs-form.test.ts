@@ -5,12 +5,8 @@ import { useFormProvide } from '@/composables';
 import { VS_FORM, VsFormProvide } from '@/declaration';
 import VsForm from './../VsForm.vue';
 
-function mountComponent() {
-    return mount(VsForm);
-}
-
 describe('vs-form', () => {
-    let wrapper: ReturnType<typeof mountComponent>;
+    let wrapper = mount(VsForm);
     const TestSlotComponent = defineComponent({
         template: `
             <div>

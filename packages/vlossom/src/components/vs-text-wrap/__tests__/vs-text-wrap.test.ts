@@ -2,10 +2,6 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTextWrap from './../VsTextWrap.vue';
 
-function mountComponent() {
-    return mount(VsTextWrap);
-}
-
 describe('vs-text-wrap', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
@@ -19,7 +15,7 @@ describe('vs-text-wrap', () => {
     describe('default', () => {
         it('text-wrap에 hover하면 tooltip이 노출되며 tooltip contents에 마우스를 올렸을 때 유지된다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'This is text wrap',
                 },
@@ -51,7 +47,7 @@ describe('vs-text-wrap', () => {
 
         it('copy:true일 때, copy button을 click하면 clipboard에 innerText가 복사되며 copied 이벤트가 발생한다.', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: `
                         <div>
@@ -87,7 +83,7 @@ describe('vs-text-wrap', () => {
 
         it('link props에 URL을 넣으면, link button을 click 했을 때 새 창이 열린다.', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'link',
                 },
@@ -112,7 +108,7 @@ describe('vs-text-wrap', () => {
     describe('noTooltip', () => {
         it('noTooltip:true일 때는 text에 hover 해도 tooltip이 노출되지 않는다.', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'This is text wrap',
                 },
@@ -135,7 +131,7 @@ describe('vs-text-wrap', () => {
     describe('width', () => {
         it('props를 통해 width를 설정할 수 있다.', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'This is text wrap',
                 },
@@ -153,7 +149,7 @@ describe('vs-text-wrap', () => {
     describe('placement', () => {
         it('placement을 설정하면 해당 위치에 tooltip이 붙는다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'This is text wrap',
                 },
@@ -175,7 +171,7 @@ describe('vs-text-wrap', () => {
     describe('align', () => {
         it('align을 설정하면 이에 맞게 tooltip이 정렬된다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextWrap, {
+            const wrapper = mount(VsTextWrap, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',

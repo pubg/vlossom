@@ -4,15 +4,11 @@ import { nextTick } from 'vue';
 import { UIState } from '@/declaration';
 import VsTextarea from './../VsTextarea.vue';
 
-function mountComponent() {
-    return mount(VsTextarea);
-}
-
 describe('vs-textarea', () => {
     describe('v-model', () => {
         it('modelValue의 string 타입 초깃값을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: 'initialText',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -25,7 +21,7 @@ describe('vs-textarea', () => {
 
         it('modelValue를 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -43,7 +39,7 @@ describe('vs-textarea', () => {
 
         it('modelValue를 바꿔서 textarea 값을 업데이트 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -59,7 +55,7 @@ describe('vs-textarea', () => {
 
         it('modelValue가 null이면 빈 문자열로 가공해준다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     // @ts-expect-error: for null test
                     modelValue: null,
@@ -78,7 +74,7 @@ describe('vs-textarea', () => {
 
         it('modelValue에 null을 할당하면 빈 문자열로 보정한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -99,7 +95,7 @@ describe('vs-textarea', () => {
     describe('v-model modifier', () => {
         it('capitalize', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -118,7 +114,7 @@ describe('vs-textarea', () => {
 
         it('lower', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -137,7 +133,7 @@ describe('vs-textarea', () => {
 
         it('upper', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -159,7 +155,7 @@ describe('vs-textarea', () => {
         it('input element에 autocomplete를 설정할 수 있다', () => {
             // given
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     autocomplete: true,
                 },
@@ -173,7 +169,7 @@ describe('vs-textarea', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 textarea 값을 초기화 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: 'initialText',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -192,7 +188,7 @@ describe('vs-textarea', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea);
+            const wrapper = mount(VsTextarea);
 
             // when
             await wrapper.find('textarea').trigger('focus');
@@ -203,7 +199,7 @@ describe('vs-textarea', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea);
+            const wrapper = mount(VsTextarea);
 
             // when
             await wrapper.find('textarea').trigger('blur');
@@ -216,7 +212,7 @@ describe('vs-textarea', () => {
     describe('enter', () => {
         it('enter 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea);
+            const wrapper = mount(VsTextarea);
 
             // when
             await wrapper.find('textarea').trigger('keyup.enter');
@@ -229,7 +225,7 @@ describe('vs-textarea', () => {
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: 'test',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -249,7 +245,7 @@ describe('vs-textarea', () => {
 
         it('max 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -269,7 +265,7 @@ describe('vs-textarea', () => {
 
         it('min 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: 'test',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -291,7 +287,7 @@ describe('vs-textarea', () => {
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 리턴한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: 'test',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -305,7 +301,7 @@ describe('vs-textarea', () => {
 
         it('invalid 할 때 validate 함수를 호출하면 false를 리턴한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTextarea, {
+            const wrapper = mount(VsTextarea, {
                 props: {
                     modelValue: '',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),

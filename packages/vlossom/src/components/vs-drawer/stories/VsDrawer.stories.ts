@@ -58,7 +58,7 @@ export const Placement: Story = {
         components: { VsDrawer, VsButton },
         setup() {
             const isOpen = ref(false);
-            const placements = placement.options;
+            const placements = placement.options.filter((p) => p !== 'middle');
             const currentPlacement = ref('left');
 
             function setPlacement(value: string) {

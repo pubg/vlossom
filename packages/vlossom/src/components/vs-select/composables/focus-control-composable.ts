@@ -119,7 +119,10 @@ export function useFocusControl(
         const id = loadedOptions.value[focusedIndex.value]?.id;
         if (id) {
             const element = document.querySelector(`li[id="${id}"]`);
-            element?.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            if (!element || !element.scrollIntoView) {
+                return;
+            }
+            element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 
