@@ -206,27 +206,21 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            return Object.keys(slots).reduce(
-                (acc, slotName) => {
-                    if (slotName.startsWith('header-')) {
-                        acc[slotName] = slots[slotName];
-                    }
-                    return acc;
-                },
-                {} as { [key: string]: any },
-            );
+            return Object.keys(slots).reduce((acc, slotName) => {
+                if (slotName.startsWith('header-')) {
+                    acc[slotName] = slots[slotName];
+                }
+                return acc;
+            }, {} as { [key: string]: any });
         });
 
         const itemSlots = computed(() => {
-            return Object.keys(slots).reduce(
-                (acc, slotName) => {
-                    if (slotName.startsWith('item-') || slotName === 'expand') {
-                        acc[slotName] = slots[slotName];
-                    }
-                    return acc;
-                },
-                {} as { [key: string]: any },
-            );
+            return Object.keys(slots).reduce((acc, slotName) => {
+                if (slotName.startsWith('item-') || slotName === 'expand') {
+                    acc[slotName] = slots[slotName];
+                }
+                return acc;
+            }, {} as { [key: string]: any });
         });
 
         const innerSearchText = ref('');

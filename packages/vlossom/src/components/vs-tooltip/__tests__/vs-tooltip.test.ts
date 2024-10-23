@@ -465,7 +465,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBe(null);
+                expect(wrapper.vm.animationClass).toBeNull();
             });
 
             it('trigger에 마우스를 올렸다가 떼도 fade out transition이 발생하지 않는다', async () => {
@@ -477,7 +477,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBe(null);
+                expect(wrapper.vm.animationClass).toBeNull();
             });
         });
     });

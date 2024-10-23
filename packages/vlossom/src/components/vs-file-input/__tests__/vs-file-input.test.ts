@@ -31,8 +31,7 @@ describe('vs-file-input', () => {
                 });
 
                 // when
-                wrapper.vm.updateValue(event as any);
-                await nextTick();
+                await wrapper.setProps({ modelValue: file });
 
                 // then
                 expect(wrapper.vm.inputValue).toEqual(file);
@@ -181,15 +180,7 @@ describe('vs-file-input', () => {
                 });
 
                 // when
-                wrapper.vm.updateValue(event as any);
-                await nextTick();
-
-                wrapper.vm.updateValue({
-                    target: {
-                        files: [],
-                    },
-                } as any);
-                await nextTick();
+                wrapper.vm.validate();
 
                 // then
                 expect(wrapper.vm.computedMessages).toHaveLength(1);
@@ -209,7 +200,7 @@ describe('vs-file-input', () => {
                 });
 
                 //when
-                wrapper.vm.updateValue(event as any);
+                wrapper.setProps({ modelValue: file });
                 await nextTick();
 
                 // then
@@ -245,7 +236,7 @@ describe('vs-file-input', () => {
                 });
 
                 // when
-                wrapper.vm.updateValue(multipleEvent as any);
+                await wrapper.setProps({ modelValue: [file, file2] });
                 await nextTick();
 
                 // then
@@ -400,6 +391,7 @@ describe('vs-file-input', () => {
                         modelValue: [],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
                         multiple: true,
+                        required: true,
                     },
                 });
 

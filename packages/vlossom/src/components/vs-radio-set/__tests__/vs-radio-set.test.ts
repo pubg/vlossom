@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadioSet from './../VsRadioSet.vue';
@@ -268,15 +268,9 @@ describe('vs-radio-set', () => {
         });
 
         describe('required check', () => {
-            let wrapper = mount(VsRadioSet);
-
-            afterEach(() => {
-                wrapper.unmount();
-            });
-
             it('required 상태에서 checked된 radio가 있으면 validation true', async () => {
                 // given
-                wrapper = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
                         name: 'test',
                         options: ['A', 'B', 'C'],
@@ -298,9 +292,9 @@ describe('vs-radio-set', () => {
 
             it('required 상태에서 unchecked이면 validation false', async () => {
                 // given
-                wrapper = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
-                        name: 'test',
+                        name: 'test2',
                         options: ['A', 'B', 'C'],
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),

@@ -143,7 +143,7 @@ describe('vs-radio', () => {
         });
 
         describe('required check', () => {
-            let wrapper = mount(VsRadio);
+            let wrapper = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
 
             afterEach(() => {
                 wrapper.unmount();
@@ -246,8 +246,8 @@ describe('vs-radio', () => {
 });
 
 describe('vs-radio (multiple inputs)', () => {
-    let radio1 = mount(VsRadio);
-    let radio2 = mount(VsRadio);
+    let radio1 = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
+    let radio2 = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
 
     beforeEach(() => {
         radio1 = mount(VsRadio, {
