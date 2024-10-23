@@ -13,13 +13,12 @@ const config: StorybookConfig = {
         getAbsolutePath('@storybook/addon-interactions'),
         getAbsolutePath('@storybook/addon-a11y'),
         getAbsolutePath('@chromatic-com/storybook'),
+        '@chromatic-com/storybook'
     ],
     framework: {
         name: getAbsolutePath('@storybook/vue3-vite'),
         options: {},
     },
-    docs: {
-        autodocs: 'tag',
-    },
+    docs: {},
 };
 export default config;
