@@ -20,7 +20,15 @@ const meta: Meta<typeof VsDrawer> = {
                 isOpens[idx] = true;
             }
 
-            return { args, isOpens, onClick, SIZES, PLACEMENTS, containerStyle, contentStyle };
+            return {
+                args,
+                isOpens,
+                onClick,
+                SIZES,
+                placements: PLACEMENTS.filter((v) => v != 'middle'),
+                containerStyle,
+                contentStyle,
+            };
         },
         template: `
             <div>
@@ -34,7 +42,7 @@ const meta: Meta<typeof VsDrawer> = {
                     </vs-drawer>
                 </div>
 
-                <div v-for="(placement, index) in PLACEMENTS" :style="{...containerStyle, marginBottom: '12px' }">
+                <div v-for="(placement, index) in placements" :style="{...containerStyle, marginBottom: '12px' }">
                     Render in this
                     <vs-button @click="onClick(index+5)">{{placement}}</vs-button>
                     <vs-drawer v-model="isOpens[index+5]" :placement="placement" v-bind="args">
