@@ -73,7 +73,7 @@ const preview: Preview = {
     },
 
     decorators,
-    tags: ['autodocs']
+    tags: ['autodocs'],
 };
 
 export default preview;

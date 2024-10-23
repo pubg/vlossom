@@ -1,10 +1,6 @@
-import { describe, expect, it, beforeEach, afterEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsChip from './../VsChip.vue';
-
-function mountComponent() {
-    return mount(VsChip);
-}
 
 describe('vs-chip', () => {
     describe('icon', () => {
@@ -23,27 +19,26 @@ describe('vs-chip', () => {
 
     describe('closable', () => {
         describe('closable 이 true 인 경우', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
-
-            // given
-            beforeEach(() => {
-                wrapper = mount(VsChip, {
+            it('close 버튼이 렌더된다', () => {
+                // given
+                const wrapper = mount(VsChip, {
                     props: {
                         closable: true,
                     },
                 });
-            });
 
-            afterEach(() => {
-                wrapper.unmount();
-            });
-
-            it('close 버튼이 렌더된다', () => {
                 // then
                 expect(wrapper.find('.vs-chip-close-button').exists()).toBe(true);
             });
 
             it('close 버튼이 눌렸을 때 close 함수를 한번 emit 한다', async () => {
+                // given
+                const wrapper = mount(VsChip, {
+                    props: {
+                        closable: true,
+                    },
+                });
+
                 // when
                 const closeBtn = wrapper.find('.vs-chip-close-button');
                 await closeBtn.trigger('click');

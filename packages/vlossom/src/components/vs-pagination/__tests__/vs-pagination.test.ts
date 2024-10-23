@@ -3,10 +3,6 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsPagination from './../VsPagination.vue';
 
-function mountComponent() {
-    return mount(VsPagination);
-}
-
 describe('vs-pagination', () => {
     describe('page select', () => {
         it('아무 선택도 하지 않은 상태라면 1 페이지가 선택되어 있다', () => {
@@ -14,7 +10,7 @@ describe('vs-pagination', () => {
             const length = 5;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                 },
@@ -29,7 +25,7 @@ describe('vs-pagination', () => {
             const length = 5;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                 },
@@ -46,7 +42,7 @@ describe('vs-pagination', () => {
             // given
             const length = 5;
             const modelValue = 3;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue,
@@ -64,7 +60,7 @@ describe('vs-pagination', () => {
         it('페이지를 변경하면 v-model로 binding 된 값이 바뀐다', async () => {
             // given
             const length = 5;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue: 3,
@@ -87,7 +83,7 @@ describe('vs-pagination', () => {
             const length = 5;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                 },
@@ -102,7 +98,7 @@ describe('vs-pagination', () => {
             const length = 20;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                 },
@@ -120,7 +116,7 @@ describe('vs-pagination', () => {
             const modelValue = 20;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue,
@@ -139,7 +135,7 @@ describe('vs-pagination', () => {
             const modelValue = 10;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue,
@@ -158,7 +154,7 @@ describe('vs-pagination', () => {
             const showingLength = 5;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     showingLength,
@@ -174,7 +170,7 @@ describe('vs-pagination', () => {
         it('goFirst 버튼을 누르면 1 페이지를 선택한다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -195,7 +191,7 @@ describe('vs-pagination', () => {
         it('goPrev 버튼을 누르면 이전 페이지를 선택한다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -216,7 +212,7 @@ describe('vs-pagination', () => {
         it('goNext 버튼을 누르면 다음 페이지를 선택한다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -237,7 +233,7 @@ describe('vs-pagination', () => {
         it('goLast 버튼을 누르면 마지막 페이지를 선택한다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -262,7 +258,7 @@ describe('vs-pagination', () => {
             const length = 5;
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                 },
@@ -281,7 +277,7 @@ describe('vs-pagination', () => {
             const firstText = '<<';
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -301,7 +297,7 @@ describe('vs-pagination', () => {
             const lastText = '>>';
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -323,7 +319,7 @@ describe('vs-pagination', () => {
             const prevText = '<';
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -343,7 +339,7 @@ describe('vs-pagination', () => {
             const nextText = '>';
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     edgeButtons: true,
@@ -364,7 +360,7 @@ describe('vs-pagination', () => {
         it('goFirst()로 첫 페이지를 선택할 수 있다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue: 10,
@@ -384,7 +380,7 @@ describe('vs-pagination', () => {
         it('goLast()로 마지막 페이지를 선택할 수 있다', async () => {
             // given
             const length = 20;
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+            const wrapper = mount(VsPagination, {
                 props: {
                     length,
                     modelValue: 10,
@@ -405,7 +401,7 @@ describe('vs-pagination', () => {
             it('이전 페이지를 선택할 수 있다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 10,
@@ -425,7 +421,7 @@ describe('vs-pagination', () => {
             it('1 페이지에서 호출하면 1페이지에 그대로 있는다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 1,
@@ -447,7 +443,7 @@ describe('vs-pagination', () => {
             it('다음 페이지를 선택할 수 있다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 10,
@@ -467,7 +463,7 @@ describe('vs-pagination', () => {
             it('마지막 페이지에서 호출하면 그대로 있는다', () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 20,
@@ -488,7 +484,7 @@ describe('vs-pagination', () => {
             it('원하는 페이지로 변경 가능하다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 10,
@@ -508,7 +504,7 @@ describe('vs-pagination', () => {
             it('0이하의 page를 입력하면 1 페이지가 선택된다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 10,
@@ -528,7 +524,7 @@ describe('vs-pagination', () => {
             it('length보다 큰 page를 입력하면 마지막 페이지가 선택된다', async () => {
                 // given
                 const length = 20;
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsPagination, {
+                const wrapper = mount(VsPagination, {
                     props: {
                         length,
                         modelValue: 10,

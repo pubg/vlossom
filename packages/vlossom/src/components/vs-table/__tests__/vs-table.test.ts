@@ -4,10 +4,6 @@ import VsTable from './../VsTable.vue';
 import { TableHeader, TableParams } from './../types';
 import { nextTick } from 'vue';
 
-function mountComponent() {
-    return mount(VsTable);
-}
-
 const headers: TableHeader[] = [
     { label: 'ID', key: 'id', width: '7rem' },
     { label: 'Name', key: 'name', width: '10rem', sortable: true },
@@ -45,7 +41,7 @@ describe('VsTable', () => {
     describe('headers / items', () => {
         it('headers와 items 배열을 props로 할당하면 적절하게 table을 렌더할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -86,7 +82,7 @@ describe('VsTable', () => {
             ];
 
             // when
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers: pathHeaders,
                     items: pathItems,
@@ -102,7 +98,7 @@ describe('VsTable', () => {
     describe('caption', () => {
         it('table의 caption 영역을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -119,7 +115,8 @@ describe('VsTable', () => {
     });
 
     describe('selectable', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
+        let wrapper = mount(VsTable);
+
         it('select-all checkbox의 값이 true가 되면, 모든 item들이 선택된다', async () => {
             // given
             wrapper = mount(VsTable, {
@@ -192,7 +189,7 @@ describe('VsTable', () => {
     describe('search', () => {
         it('search 영역이 있고, 값이 업데이트 되면 table item들을 검색할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -221,7 +218,7 @@ describe('VsTable', () => {
     describe('search text', () => {
         it('searchText props를 통해 입력된 키워드로 table item들을 검색할 수 있다 (단, searchable:false인 key는 검색 대상에서 제외된다)', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -251,7 +248,7 @@ describe('VsTable', () => {
                     return rowData.id < 2;
                 },
             };
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -278,7 +275,7 @@ describe('VsTable', () => {
     describe('sortable', () => {
         it('sortable:true인 header를 한 번 클릭하면 ascending order로 item들을 정렬할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: { headers, items },
             });
 
@@ -300,7 +297,7 @@ describe('VsTable', () => {
 
         it('sortable:true인 header를 두 번 클릭하면 descending order로 item들을 정렬할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: { headers, items },
             });
 
@@ -326,7 +323,7 @@ describe('VsTable', () => {
     describe('pagination', () => {
         it('pagination:true 일 때, pagination과 pagination-options select가 렌더된다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -343,7 +340,7 @@ describe('VsTable', () => {
 
         it('pagination options을 이용해서 page size를 변경할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -371,7 +368,7 @@ describe('VsTable', () => {
     describe('header slot', () => {
         it('header slot을 통해 table header를 커스터마이징 할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: { headers, items },
                 slots: {
                     'header-id': '<template #header-id="{ header }">Custom ID Header</template>',
@@ -389,7 +386,7 @@ describe('VsTable', () => {
     describe('item slot', () => {
         it('item slot을 통해 table body의 각 row를 커스터마이징 할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: { headers, items },
                 slots: {
                     'item-name': '<template #item-name="{ value }">{{ value.toUpperCase() }}</template>',
@@ -407,7 +404,7 @@ describe('VsTable', () => {
     describe('expandable', () => {
         it('table expand slot 안에 데이터를 넣을 수 있으며, expand 버튼을 클릭 시 해당 데이터가 화면에 렌더된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: { headers, items },
                 slots: {
                     expand: '<template #expand="{ item }">{{ item.additionalText }}</template>',
@@ -428,7 +425,7 @@ describe('VsTable', () => {
     describe('table params', () => {
         it('page 변경 시 update event가 emit된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -448,7 +445,7 @@ describe('VsTable', () => {
 
         it('itemsPerPage 변경 시 update event가 emit된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -471,7 +468,7 @@ describe('VsTable', () => {
 
         it('searchText 변경 시 update event가 emit된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,
@@ -490,7 +487,7 @@ describe('VsTable', () => {
 
         it('sort type 변경 시 update event가 emit된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTable, {
+            const wrapper = mount(VsTable, {
                 props: {
                     headers,
                     items,

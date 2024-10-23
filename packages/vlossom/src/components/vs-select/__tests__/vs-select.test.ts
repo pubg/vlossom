@@ -3,10 +3,6 @@ import { mount } from '@vue/test-utils';
 import VsSelect from './../VsSelect.vue';
 import { nextTick } from 'vue';
 
-function mountComponent() {
-    return mount(VsSelect);
-}
-
 describe('vs-select', () => {
     beforeEach(() => {
         vi.useFakeTimers();
@@ -19,7 +15,7 @@ describe('vs-select', () => {
     describe('options', () => {
         it('primitive options를 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -42,7 +38,7 @@ describe('vs-select', () => {
 
         it('object options를 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: [
                         { label: 'A', value: 'a' },
@@ -71,7 +67,7 @@ describe('vs-select', () => {
 
         it('options가 변경되면 select value 중 일치하는 값은 남는다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['B', 'C'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -91,7 +87,7 @@ describe('vs-select', () => {
 
         it('options가 변경되어도 이전 값과 deep equal 하면 select value가 그대로 유지된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['A'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -108,7 +104,7 @@ describe('vs-select', () => {
 
         it('options-header slot을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -131,7 +127,7 @@ describe('vs-select', () => {
 
         it('options-footer slot을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -157,7 +153,7 @@ describe('vs-select', () => {
         describe('primitive options', () => {
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'A',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -171,7 +167,7 @@ describe('vs-select', () => {
 
             it('modelValue를 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'A',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -196,7 +192,7 @@ describe('vs-select', () => {
 
             it('modelValue를 바꿔서 select 값을 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'A',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -225,7 +221,7 @@ describe('vs-select', () => {
 
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'a',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -239,7 +235,7 @@ describe('vs-select', () => {
 
             it('modelValue를 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'a',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -264,7 +260,7 @@ describe('vs-select', () => {
 
             it('modelValue를 바꿔서 select 값을 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: 'a',
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -283,7 +279,7 @@ describe('vs-select', () => {
         describe('multiple with primitive options', () => {
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: ['A', 'B'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -301,7 +297,7 @@ describe('vs-select', () => {
 
             it('modelValue를 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: ['A', 'B'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -327,7 +323,7 @@ describe('vs-select', () => {
 
             it('modelValue가 null이면 빈 배열로 보정한다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: null,
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -342,7 +338,7 @@ describe('vs-select', () => {
 
             it('modelValue를 null로 할당하면 빈 배열로 보정한다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: ['A', 'B'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -360,7 +356,7 @@ describe('vs-select', () => {
 
             it('modelValue를 바꿔서 select 값을 업데이트 할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+                const wrapper = mount(VsSelect, {
                     props: {
                         modelValue: ['A', 'B'],
                         'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -383,7 +379,7 @@ describe('vs-select', () => {
     describe('select option(s) behavior', () => {
         it('옵션을 선택하면 선택된 옵션 값이 보여지고 옵션 리스트 창은 닫힌다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -406,7 +402,7 @@ describe('vs-select', () => {
 
         it('multiple이 true일 때 옵션을 선택하면 선택한 옵션 값이 chip 형태로 보여지고 옵션 리스트 창은 여전히 존재한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                     multiple: true,
@@ -430,7 +426,7 @@ describe('vs-select', () => {
 
         it('multiple이 true일 때 선택된 옵션을 다시 선택하면 선택한 옵션 값이 chip 리스트에서 사라지고 옵션 리스트 창은 여전히 존재한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['A', 'B'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -457,7 +453,7 @@ describe('vs-select', () => {
 
         it('selectAll이 true일 때 모든 옵션을 선택할 수 있는 옵션을 제공한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: [],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -485,7 +481,7 @@ describe('vs-select', () => {
     describe('click outside', () => {
         it('옵션 리스트가 열려 있는 상태에서 외부를 클릭하면 옵션 리스트가 닫힌다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -511,7 +507,7 @@ describe('vs-select', () => {
 
         it('multiple 상태의 select의 옵션 리스트가 열려 있을 때 해당 select의 옵션을 선택해도 리스트가 닫히지 않는다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                     multiple: true,
@@ -538,7 +534,7 @@ describe('vs-select', () => {
     describe('closableChips', () => {
         it('closableChips이 true일 때 각 chip들에 x 버튼이 추가되어 삭제할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['A', 'B', 'C'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -566,7 +562,7 @@ describe('vs-select', () => {
     describe('collapseChips', () => {
         it('collapseChips이 true일 때 chip 리스트는 + n-1 형태로 요약돼서 보여진다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['A', 'B', 'C'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -590,7 +586,7 @@ describe('vs-select', () => {
     describe('autocomplete', () => {
         it('autocomplete을 true로 설정하면 자동완성 기능을 사용할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     autocomplete: true,
                     options: ['apple', 'banana', 'carrot'],
@@ -614,7 +610,7 @@ describe('vs-select', () => {
 
         it('autocomplete가 true이면, input 이벤트가 발생할 때 옵션 리스트가 열리고, 옵션 필터가 초기화된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     autocomplete: true,
                     options: ['apple', 'banana', 'carrot'],
@@ -642,7 +638,7 @@ describe('vs-select', () => {
     });
 
     describe('focus management', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
+        let wrapper = mount(VsSelect);
 
         beforeEach(() => {
             wrapper = mount(VsSelect, {
@@ -807,7 +803,7 @@ describe('vs-select', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 modelValue를 null로 초기화 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: 'A',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -826,7 +822,7 @@ describe('vs-select', () => {
 
         it('multiple이 true일 때 clear 함수를 호출하면 modelValue를 빈 배열로 초기화 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: ['A', 'B'],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -848,7 +844,7 @@ describe('vs-select', () => {
     describe('aria-label', () => {
         it('aria-label을 설정할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     ariaLabel: 'aria-label',
                 },
@@ -862,7 +858,7 @@ describe('vs-select', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -877,7 +873,7 @@ describe('vs-select', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     options: ['A', 'B', 'C'],
                 },
@@ -894,7 +890,7 @@ describe('vs-select', () => {
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: 'A',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -914,7 +910,7 @@ describe('vs-select', () => {
 
         it('multiple이 true일 때, 최대로 선택 가능한 아이템 수를 max props를 통해 제한하고 체크할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: [],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -941,7 +937,7 @@ describe('vs-select', () => {
 
         it('multiple이 true일 때, 최소로 선택 가능한 아이템 수를 min props를 통해 제한하고 체크할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: [],
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -969,7 +965,7 @@ describe('vs-select', () => {
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: 'A',
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
@@ -984,7 +980,7 @@ describe('vs-select', () => {
 
         it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsSelect, {
+            const wrapper = mount(VsSelect, {
                 props: {
                     modelValue: null,
                     'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),

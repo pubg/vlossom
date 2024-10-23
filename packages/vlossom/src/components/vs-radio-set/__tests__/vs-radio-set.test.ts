@@ -3,15 +3,11 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadioSet from './../VsRadioSet.vue';
 
-function mountComponent() {
-    return mount(VsRadioSet);
-}
-
 describe('vs-radio-set', () => {
     describe('options', () => {
         it('primitive options를 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: ['A', 'B', 'C'],
@@ -27,7 +23,7 @@ describe('vs-radio-set', () => {
 
         it('object options를 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: [
@@ -49,7 +45,7 @@ describe('vs-radio-set', () => {
 
         it('options가 변경됐을 때 radio-set value 중 일치하는 값이 있으면 선택 상태로 남는다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     modelValue: 'C',
@@ -70,7 +66,7 @@ describe('vs-radio-set', () => {
 
         it('options가 변경됐을 때 radio-set value 중 일치하는 값이 없으면 선택 해제한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     modelValue: 'C',
@@ -99,7 +95,7 @@ describe('vs-radio-set', () => {
         describe('primitive options', () => {
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
                         name: 'test',
                         modelValue: 'A',
@@ -116,7 +112,7 @@ describe('vs-radio-set', () => {
 
             it('modelValue를 업데이트 해서 선택을 변경할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
                         name: 'test',
                         modelValue: 'A',
@@ -148,7 +144,7 @@ describe('vs-radio-set', () => {
 
             it('modelValue의 초깃값을 설정할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
                         name: 'test',
                         modelValue: 'a',
@@ -165,7 +161,7 @@ describe('vs-radio-set', () => {
 
             it('modelValue를 업데이트 해서 선택을 변경할 수 있다', async () => {
                 // given
-                const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+                const wrapper = mount(VsRadioSet, {
                     props: {
                         name: 'test',
                         modelValue: 'a',
@@ -188,7 +184,7 @@ describe('vs-radio-set', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 modelValue를 null로 초기화 할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     modelValue: 'A',
@@ -211,7 +207,7 @@ describe('vs-radio-set', () => {
     describe('rules', () => {
         it('required 체크가 가능하다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     modelValue: null,
@@ -234,7 +230,7 @@ describe('vs-radio-set', () => {
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: ['A', 'B', 'C'],
@@ -253,7 +249,7 @@ describe('vs-radio-set', () => {
 
         it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: ['A', 'B', 'C'],
@@ -272,7 +268,7 @@ describe('vs-radio-set', () => {
         });
 
         describe('required check', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsRadioSet);
 
             afterEach(() => {
                 wrapper.unmount();
@@ -328,7 +324,7 @@ describe('vs-radio-set', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: ['A', 'B', 'C'],
@@ -346,7 +342,7 @@ describe('vs-radio-set', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadioSet, {
+            const wrapper = mount(VsRadioSet, {
                 props: {
                     name: 'test',
                     options: ['A', 'B', 'C'],
