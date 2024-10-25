@@ -3,15 +3,11 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsRadio from './../VsRadio.vue';
 
-function mountComponent() {
-    return mount(VsRadio);
-}
-
 describe('vs-radio', () => {
     describe('checked', () => {
         it('checked 속성을 전달해서 처음부터 선택 상태로 만들 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -30,7 +26,7 @@ describe('vs-radio', () => {
     describe('v-model', () => {
         it('modelValue의 초깃값을 설정할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -46,7 +42,7 @@ describe('vs-radio', () => {
 
         it('modelValue를 변경해서 선택할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'A',
@@ -65,7 +61,7 @@ describe('vs-radio', () => {
 
         it('modelValue를 변경해서 선택 해제할 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'A',
@@ -86,7 +82,7 @@ describe('vs-radio', () => {
     describe('clear', () => {
         it('clear 함수를 호출하면 null 값으로 업데이트 된다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -109,7 +105,7 @@ describe('vs-radio', () => {
     describe('validate', () => {
         it('valid 할 때 validate 함수를 호출하면 true를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -128,7 +124,7 @@ describe('vs-radio', () => {
 
         it('invalid 할 때 validate 함수를 호출하면 false를 반환한다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -147,7 +143,7 @@ describe('vs-radio', () => {
         });
 
         describe('required check', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
 
             afterEach(() => {
                 wrapper.unmount();
@@ -201,7 +197,7 @@ describe('vs-radio', () => {
     describe('aria-label', () => {
         it('aria-label을 설정할 수 있다', () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -217,7 +213,7 @@ describe('vs-radio', () => {
     describe('focus / blur', () => {
         it('focus 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -233,7 +229,7 @@ describe('vs-radio', () => {
 
         it('blur 이벤트를 발생시킬 수 있다', async () => {
             // given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsRadio, {
+            const wrapper = mount(VsRadio, {
                 props: {
                     name: 'radio',
                     radioValue: 'test',
@@ -250,8 +246,8 @@ describe('vs-radio', () => {
 });
 
 describe('vs-radio (multiple inputs)', () => {
-    let radio1: ReturnType<typeof mountComponent>;
-    let radio2: ReturnType<typeof mountComponent>;
+    let radio1 = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
+    let radio2 = mount(VsRadio, { props: { name: 'radio', radioValue: 'test' } });
 
     beforeEach(() => {
         radio1 = mount(VsRadio, {
@@ -287,7 +283,7 @@ describe('vs-radio (multiple inputs)', () => {
 
     it('초깃값을 설정하면 해당 radio는 선택되어 있다', () => {
         // given
-        const radio3: ReturnType<typeof mountComponent> = mount(VsRadio, {
+        const radio3 = mount(VsRadio, {
             props: {
                 name: 'radio',
                 radioValue: 'C',

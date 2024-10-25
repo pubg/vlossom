@@ -2,10 +2,6 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VsTooltip from './../VsTooltip.vue';
 
-function mountComponent() {
-    return mount(VsTooltip);
-}
-
 describe('vs-tooltip', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
@@ -17,7 +13,7 @@ describe('vs-tooltip', () => {
     });
 
     describe('default', () => {
-        let wrapper: ReturnType<typeof mountComponent>;
+        let wrapper = mount(VsTooltip);
 
         beforeEach(() => {
             wrapper = mount(VsTooltip, {
@@ -113,7 +109,7 @@ describe('vs-tooltip', () => {
     describe('placement', () => {
         it('placement을 설정하면 해당 위치에 tooltip이 붙는다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
+            const wrapper = mount(VsTooltip, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',
@@ -139,7 +135,7 @@ describe('vs-tooltip', () => {
     describe('align', () => {
         it('align을 설정하면 이에 맞게 tooltip이 정렬된다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
+            const wrapper = mount(VsTooltip, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',
@@ -164,7 +160,7 @@ describe('vs-tooltip', () => {
     describe('clickable', () => {
         it('clickable:true일 때 trigger를 클릭하면 contents가 노출된다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
+            const wrapper = mount(VsTooltip, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',
@@ -191,7 +187,7 @@ describe('vs-tooltip', () => {
     describe('contents hover', () => {
         it('contentsHover:true일 때 trigger에 hover한 후 tooltip으로 마우스를 옮기면 contents가 유지된다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
+            const wrapper = mount(VsTooltip, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',
@@ -218,7 +214,8 @@ describe('vs-tooltip', () => {
 
     describe('enter delay', () => {
         describe('enterDelay:100ms (default)', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -255,7 +252,8 @@ describe('vs-tooltip', () => {
         });
 
         describe('enterDelay:300ms', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -297,7 +295,8 @@ describe('vs-tooltip', () => {
 
     describe('leave delay', () => {
         describe('leaveDelay:100ms (default)', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -343,7 +342,8 @@ describe('vs-tooltip', () => {
         });
 
         describe('leaveDelay:300ms', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -391,7 +391,8 @@ describe('vs-tooltip', () => {
 
     describe('disable animation', () => {
         describe('disableAnimation:false (default)', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -437,7 +438,8 @@ describe('vs-tooltip', () => {
         });
 
         describe('disableAnimation:true', () => {
-            let wrapper: ReturnType<typeof mountComponent>;
+            let wrapper = mount(VsTooltip);
+
             beforeEach(() => {
                 wrapper = mount(VsTooltip, {
                     slots: {
@@ -463,7 +465,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBeNull;
+                expect(wrapper.vm.animationClass).toBeNull();
             });
 
             it('trigger에 마우스를 올렸다가 떼도 fade out transition이 발생하지 않는다', async () => {
@@ -475,7 +477,7 @@ describe('vs-tooltip', () => {
                 await vi.advanceTimersByTimeAsync(50); // wait for setPosition end (50ms)
 
                 //then
-                expect(window.document.body.querySelector('.vs-tooltip-contents')?.classList).toBeNull;
+                expect(wrapper.vm.animationClass).toBeNull();
             });
         });
     });
@@ -483,7 +485,7 @@ describe('vs-tooltip', () => {
     describe('disabled', () => {
         it('disabled:true일 때는 trigger에 마우스를 올렸을 때 contents가 노출되지 않는다', async () => {
             //given
-            const wrapper: ReturnType<typeof mountComponent> = mount(VsTooltip, {
+            const wrapper = mount(VsTooltip, {
                 slots: {
                     default: 'Hover Here!',
                     tooltip: 'Tooltip',
