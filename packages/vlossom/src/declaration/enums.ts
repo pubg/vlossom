@@ -48,6 +48,13 @@ export enum VsComponent {
     VsTooltip = 'VsTooltip',
 }
 
+export enum VsNode {
+    VsBarNode = 'VsBarNode',
+    VsCheckboxNode = 'VsCheckboxNode',
+    VsFocusTrap = 'VsFocusTrap',
+    VsRadioNode = 'VsRadioNode',
+}
+
 export enum UIState {
     Idle = 'idle',
     Success = 'success',

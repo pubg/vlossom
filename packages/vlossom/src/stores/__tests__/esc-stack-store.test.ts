@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { EscStackStore } from '../esc-stack-store';
+import { EscStackStore } from './../esc-stack-store';
 
 describe('esc stack store', () => {
     it('stack에서 가장 위에 있는 esc stack의 id를 가져올 수 있다', () => {

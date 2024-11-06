@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { VsStore } from './../index';
 import { ConfirmStore } from './../confirm-store';
-import { EscStackStore } from '../esc-stack-store';
+import { EscStackStore } from './../esc-stack-store';
 import { OptionStore } from './../option-store';
 import { ToastStore } from './../toast-store';
 

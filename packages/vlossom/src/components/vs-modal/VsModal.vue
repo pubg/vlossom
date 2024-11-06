@@ -40,7 +40,7 @@
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
 import { useColorScheme, useBodyScroll, useStyleSet, useEscClose, getModalProps } from '@/composables';
 import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
-import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
+import { VsFocusTrap } from '@/nodes';
 import { utils } from '@/utils';
 
 import type { VsModalStyleSet } from './types';
