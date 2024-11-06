@@ -2,10 +2,10 @@ import { computed, ComputedRef, Ref } from 'vue';
 import { utils } from '@/utils';
 import { store } from '@/stores';
 
-import type { VsComponent } from '@/declaration';
+import type { VsComponent, VsNode } from '@/declaration';
 
 export function useStyleSet<T extends { [key: string]: any }>(
-    component: VsComponent,
+    component: VsComponent | VsNode,
     styleSet: Ref<string | T | undefined>,
 ) {
     const styles: ComputedRef<T> = computed(() => {

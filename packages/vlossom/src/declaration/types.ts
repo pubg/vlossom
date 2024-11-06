@@ -1,3 +1,4 @@
+import type { Ref } from 'vue';
 import type {
     VsAccordionStyleSet,
     VsAvatarStyleSet,
@@ -33,12 +34,13 @@ import type {
     VsTooltipStyleSet,
 } from '@/components';
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
-import type { Ref } from 'vue';
-import type { VsComponent, UIState } from './enums';
+import type { VsComponent, VsNode, UIState } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
-export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme } & {
+    [key in VsNode]?: ColorScheme;
+};
 
 export interface StyleSet {
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
