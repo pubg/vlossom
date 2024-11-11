@@ -1,3 +1,5 @@
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
+
 import type { Ref } from 'vue';
 import type {
     VsAccordionStyleSet,
@@ -33,7 +35,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
+import type { VsBarNodeStyleSet, VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode, UIState } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -43,6 +45,7 @@ export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponen
 };
 
 export interface StyleSet {
+    // components
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
@@ -76,11 +79,17 @@ export interface StyleSet {
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
+
+    // nodes
+    VsBarNode?: { [key: string]: VsBarNodeStyleSet };
+    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
+    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
 }
 
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
+    nodes?: VsNode[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
     radiusRatio?: number;

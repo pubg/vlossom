@@ -2,7 +2,7 @@ import { store } from './stores';
 import * as vsPlugins from './plugins';
 
 import type { App } from 'vue';
-import type { VlossomOptions, VsComponent } from '@/declaration';
+import type { VlossomOptions, VsComponent, VsNode } from '@/declaration';
 import type { ToastPlugin, ConfirmPlugin } from './plugins';
 
 export class Vlossom {
@@ -91,6 +91,17 @@ function registerComponents(app: App, components: VsComponent[] = []) {
     });
 }
 
+function registerNodes(app: App, nodes: VsNode[] = []) {
+    const modules: Record<string, any> = import.meta.glob('./nodes/**/*.vue', { eager: true });
+    Object.values(modules).forEach((module) => {
+        const node = module.default;
+        if (nodes.length && !nodes.includes(node.name as VsNode)) {
+            return;
+        }
+        app.component(node.name, node);
+    });
+}
+
 function createVlossom(options?: VlossomOptions): any {
     return {
         install(app: App) {
@@ -99,6 +110,7 @@ function createVlossom(options?: VlossomOptions): any {
             app.config.globalProperties.$vs = vlossom;
 
             registerComponents(app, options?.components);
+            registerNodes(app, options?.nodes);
         },
     };
 }
