@@ -1,0 +1,21 @@
+.vs-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--vs-footer-backgroundColor, var(--vs-comp-bg));
+    box-shadow: var(--vs-footer-boxShadow, none);
+    color: var(--vs-footer-fontColor, var(--vs-comp-font));
+    height: var(--vs-footer-height, auto);
+    padding: var(--vs-footer-padding, 0.4rem 1rem);
+    width: var(--vs-footer-width, 100%);
+
+    &.vs-primary {
+        background-color: var(--vs-footer-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-footer-fontColor, var(--vs-primary-comp-font));
+    }
+
+    &.vs-fixed {
+        position: fixed;
+        z-index: var(--vs-footer-zIndex, var(--vs-app-bar-z-index));
+    }
+}

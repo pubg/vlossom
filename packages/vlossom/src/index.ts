@@ -52,7 +52,6 @@ declare module '@vue/runtime-core' {
         VsTooltip: typeof import('./components')['VsTooltip'];
 
         // nodes
-        VsBarNode: typeof import('./nodes')['VsBarNode'];
         VsCheckboxNode: typeof import('./nodes')['VsCheckboxNode'];
         VsFocusTrap: typeof import('./nodes')['VsFocusTrap'];
         VsRadioNode: typeof import('./nodes')['VsRadioNode'];

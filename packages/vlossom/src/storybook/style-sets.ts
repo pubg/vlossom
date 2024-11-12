@@ -111,23 +111,16 @@ const vsFileInput: VsFileInputStyleSet = {
 
 const vsFooter: VsFooterStyleSet = {
     backgroundColor: 'gray',
-    bottom: 0,
     fontColor: '#fff',
     height: '32px',
     padding: '2%',
-    position: 'sticky',
-    textAlign: 'start',
 };
 
 const vsHeader: VsHeaderStyleSet = {
     backgroundColor: 'gray',
-    bottom: 'auto',
     fontColor: '#fff',
     height: '32px',
     padding: '2%',
-    position: 'sticky',
-    textAlign: 'start',
-    zIndex: 9999,
 };
 
 const vsImage: VsImageStyleSet = {

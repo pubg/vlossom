@@ -35,7 +35,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsBarNodeStyleSet, VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
+import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode, UIState } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -81,7 +81,6 @@ export interface StyleSet {
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
 
     // nodes
-    VsBarNode?: { [key: string]: VsBarNodeStyleSet };
     VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
     VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
 }
@@ -167,17 +166,6 @@ export interface VsLayoutProvide {
     setFooterLayout: (footerLayout: BarLayout) => void;
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
 }
-
-export type TextAlign =
-    | 'start'
-    | 'end'
-    | 'left'
-    | 'right'
-    | 'center'
-    | 'justify'
-    | 'justify-all'
-    | 'match-parent'
-    | 'inherit';
 
 export type CssPosition = (typeof CSS_POSITION)[number];
 
