@@ -1,19 +1,21 @@
 <template>
-    <div :class="['vs-bar-node', barColorSchemeClass, { 'vs-primary': primary }]" :style="computedStyle">
+    <div :class="['vs-bar-node', colorSchemeClass, { 'vs-primary': primary }]" :style="computedStyle">
         <slot />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, computed, ref, type PropType } from 'vue';
+import { defineComponent, toRefs, computed, type PropType } from 'vue';
 import { VsNode, type ColorScheme, type CssPosition } from '@/declaration';
 import { useColorScheme } from '@/composables';
+import { VsBarNodeStyleSet } from './types';
 
+const name = VsNode.VsBarNode;
 export default defineComponent({
-    name: VsNode.VsBarNode,
+    name,
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsBarNodeStyleSet> },
         height: { type: String, default: '' },
         position: { type: String as PropType<CssPosition>, default: '' },
         primary: { type: Boolean, default: false },
@@ -21,11 +23,7 @@ export default defineComponent({
     setup(props) {
         const { colorScheme, styleSet, height, position } = toRefs(props);
 
-        const barColorSchemeClass = computed(() => {
-            const propColorScheme = colorScheme.value === 'default' ? undefined : colorScheme.value;
-            const { colorSchemeClass } = useColorScheme(VsNode.VsBarNode, ref(propColorScheme));
-            return colorSchemeClass.value;
-        });
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const computedStyle = computed(() => {
             const convertedStyle = Object.entries(styleSet.value || {}).reduce((acc, [key, value]) => {
@@ -45,7 +43,7 @@ export default defineComponent({
         });
 
         return {
-            barColorSchemeClass,
+            colorSchemeClass,
             computedStyle,
         };
     },

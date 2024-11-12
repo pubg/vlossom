@@ -27,7 +27,7 @@
                             class="vs-table-select vs-select-all"
                             :id="utils.string.createID()"
                             type="checkbox"
-                            :color-scheme="colorScheme"
+                            :color-scheme="computedColorScheme"
                             :checked="isSelectedAll"
                             aria-label="select-all"
                             @toggle="onToggleCheck"
@@ -41,7 +41,7 @@
                     ref="tableBodyRef"
                     :items="items"
                     :headers="headers"
-                    :color-scheme="colorScheme"
+                    :color-scheme="computedColorScheme"
                     :filter="filter"
                     :draggable="canDrag"
                     :hasExpand="hasExpand"
@@ -76,14 +76,14 @@
                 :disabled="paginationLength <= 1 || loading"
                 :length="paginationLength"
                 :edgeButtons="pageEdgeButtons"
-                :color-scheme="colorScheme"
+                :color-scheme="computedColorScheme"
             />
             <vs-select
                 class="vs-table-pagination-options"
                 v-model="innerItemsPerPage"
                 :options="paginationOptions"
                 :disabled="loading"
-                :color-scheme="colorScheme"
+                :color-scheme="computedColorScheme"
                 width="10rem"
                 aria-label="pagination-options"
                 option-label="label"
@@ -201,7 +201,7 @@ export default defineComponent({
         } = toRefs(props);
         const { emit, slots } = ctx;
 
-        const { colorSchemeClass } = useColorScheme(name, colorScheme);
+        const { computedColorScheme, colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
@@ -343,6 +343,7 @@ export default defineComponent({
         }
 
         return {
+            computedColorScheme,
             colorSchemeClass,
             computedStyleSet,
             computedSearchText,

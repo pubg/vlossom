@@ -5,44 +5,64 @@ import { VsComponent } from '@/declaration';
 import { useColorScheme } from './../color-scheme-composable';
 
 describe('useColorScheme composable', () => {
-    it('use colorScheme prop first if it exists', () => {
-        // given
-        store.option.setGlobalColorScheme({ VsButton: 'red' });
+    describe('computedColorScheme', () => {
+        it('use colorScheme prop first if it exists', () => {
+            // given
+            store.option.setGlobalColorScheme({ VsButton: 'red' });
 
-        // when
-        const { computedColorScheme } = useColorScheme(VsComponent.VsButton, ref('green'));
+            // when
+            const { computedColorScheme } = useColorScheme(VsComponent.VsButton, ref('green'));
 
-        // then
-        expect(computedColorScheme.value).toBe('green');
+            // then
+            expect(computedColorScheme.value).toBe('green');
+        });
+
+        it('use a global color scheme value of component if it exists', () => {
+            // given
+            store.option.setGlobalColorScheme({ VsInput: 'yellow' });
+
+            // when
+            const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
+
+            // then
+            expect(computedColorScheme.value).toBe('yellow');
+        });
+
+        it('use a default global color scheme value if it exists', () => {
+            // given
+            store.option.setGlobalColorScheme({ default: 'blue' });
+
+            // when
+            const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
+
+            // then
+            expect(computedColorScheme.value).toBe('blue');
+        });
+
+        it("return default if there isn't both prop and global values", () => {
+            // when
+            const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
+
+            // then
+            expect(computedColorScheme.value).toBe(undefined);
+        });
     });
 
-    it('use a global color scheme value of component if it exists', () => {
-        // given
-        store.option.setGlobalColorScheme({ VsInput: 'yellow' });
+    describe('colorSchemeClass', () => {
+        it('color scheme에 vs-를 붙여서 class를 구성한다', () => {
+            // given
+            const { colorSchemeClass } = useColorScheme(VsComponent.VsSection, ref('red'));
 
-        // when
-        const { computedColorScheme } = useColorScheme(VsComponent.VsInput, ref(undefined));
+            // then
+            expect(colorSchemeClass.value).toBe('vs-red');
+        });
 
-        // then
-        expect(computedColorScheme.value).toBe('yellow');
-    });
+        it('color scheme이 없다면 vs-default class를 return 한다', () => {
+            // given
+            const { colorSchemeClass } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
-    it('use a default global color scheme value if it exists', () => {
-        // given
-        store.option.setGlobalColorScheme({ default: 'blue' });
-
-        // when
-        const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
-
-        // then
-        expect(computedColorScheme.value).toBe('blue');
-    });
-
-    it("return default if there isn't both prop and global values", () => {
-        // when
-        const { computedColorScheme } = useColorScheme(VsComponent.VsSection, ref(undefined));
-
-        // then
-        expect(computedColorScheme.value).toBe('default');
+            // then
+            expect(colorSchemeClass.value).toBe('vs-default');
+        });
     });
 });

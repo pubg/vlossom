@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-checkbox-node', checkColorSchemeClass, classObj]" :style="styleSet">
+    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="styleSet">
         <div :class="['vs-checkbox-wrap', stateClasses]">
             <vs-icon class="vs-check-icon" :icon="icon" />
             <input
@@ -31,11 +31,12 @@ import { useColorScheme, useStateClass } from '@/composables';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
 
+const name = VsNode.VsCheckboxNode;
 export default defineComponent({
-    name: VsNode.VsCheckboxNode,
+    name,
     components: { VsIcon },
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: Object as PropType<{ [key: string]: any }> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
@@ -55,11 +56,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
 
-        const checkColorSchemeClass = computed(() => {
-            const propColorScheme = colorScheme.value === 'default' ? undefined : colorScheme.value;
-            const { colorSchemeClass } = useColorScheme(VsNode.VsCheckboxNode, ref(propColorScheme));
-            return colorSchemeClass.value;
-        });
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { stateClasses } = useStateClass(state);
 
@@ -119,7 +116,7 @@ export default defineComponent({
 
         return {
             checkboxRef,
-            checkColorSchemeClass,
+            colorSchemeClass,
             classObj,
             icon,
             onClick,

@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-radio-node', radioColorSchemeClass, classObj, stateClasses]" :style="styleSet">
+    <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="styleSet">
         <label class="vs-radio-wrap">
             <input
                 ref="radioRef"
@@ -30,10 +30,11 @@ import { ColorScheme, UIState, VsNode } from '@/declaration';
 import { useColorScheme, useStateClass } from '@/composables';
 import { utils } from '@/utils';
 
+const name = VsNode.VsRadioNode;
 export default defineComponent({
-    name: VsNode.VsRadioNode,
+    name,
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
+        colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: Object as PropType<{ [key: string]: any }> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
@@ -52,11 +53,7 @@ export default defineComponent({
     setup(props, { emit }) {
         const { colorScheme, dense, disabled, readonly, state } = toRefs(props);
 
-        const radioColorSchemeClass = computed(() => {
-            const propColorScheme = colorScheme.value === 'default' ? undefined : colorScheme.value;
-            const { colorSchemeClass } = useColorScheme(VsNode.VsRadioNode, ref(propColorScheme));
-            return colorSchemeClass.value;
-        });
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -97,7 +94,7 @@ export default defineComponent({
             onBlur,
             focus,
             blur,
-            radioColorSchemeClass,
+            colorSchemeClass,
             stateClasses,
             convertToString: utils.string.convertToString,
         };
