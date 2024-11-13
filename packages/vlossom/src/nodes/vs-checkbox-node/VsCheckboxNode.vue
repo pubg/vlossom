@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="styleSet">
+    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div :class="['vs-checkbox-wrap', stateClasses]">
             <vs-icon class="vs-check-icon" :icon="icon" />
             <input
@@ -27,9 +27,10 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
-import { useColorScheme, useStateClass } from '@/composables';
+import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
+import { VsCheckboxNodeStyleSet } from './types';
 
 const name = VsNode.VsCheckboxNode;
 export default defineComponent({
@@ -37,7 +38,7 @@ export default defineComponent({
     components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        styleSet: { type: [String, Object] as PropType<string | VsCheckboxNodeStyleSet> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
@@ -54,9 +55,11 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet(name, styleSet);
 
         const { stateClasses } = useStateClass(state);
 
@@ -126,6 +129,7 @@ export default defineComponent({
             blur,
             convertToString: utils.string.convertToString,
             stateClasses,
+            computedStyleSet,
         };
     },
 });

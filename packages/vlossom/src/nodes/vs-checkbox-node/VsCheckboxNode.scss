@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
+$checkbox-size: var(--vs-checkbox-node-checkboxSize, 2.4rem);
 
 .vs-checkbox-node {
     position: relative;
@@ -9,14 +9,14 @@ $checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
     justify-content: flex-start;
     flex-wrap: nowrap;
     user-select: none;
-    height: var(--vs-checkbox-height, var(--vs-input-comp-height));
+    height: var(--vs-checkbox-node-height, var(--vs-input-comp-height));
 
     .vs-checkbox-wrap {
         position: relative;
         display: flex;
         align-items: center;
-        color: var(--vs-checkbox-checkboxColor, var(--vs-primary-comp-bg));
-        border-radius: var(--vs-checkbox-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
+        color: var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
+        border-radius: var(--vs-checkbox-node-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
         overflow: hidden;
 
         .vs-check-icon {
@@ -50,21 +50,21 @@ $checkbox-size: var(--vs-checkbox-checkboxSize, 2.4rem);
         padding-left: 0.5rem;
         cursor: pointer;
         white-space: nowrap;
-        color: var(--vs-checkbox-labelFontColor, var(--vs-font-color));
-        font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size));
+        color: var(--vs-checkbox-node-labelFontColor, var(--vs-font-color));
+        font-size: var(--vs-checkbox-node-labelFontSize, var(--vs-font-size));
     }
 
     &.vs-dense {
-        height: var(--vs-checkbox-height, var(--vs-input-comp-height-dense));
+        height: var(--vs-checkbox-node-height, var(--vs-input-comp-height-dense));
 
         .vs-checkbox-label {
-            font-size: var(--vs-checkbox-labelFontSize, var(--vs-font-size-sm));
+            font-size: var(--vs-checkbox-node-labelFontSize, var(--vs-font-size-sm));
         }
     }
 
     &.vs-checked {
         .vs-checkbox-label {
-            color: var(--vs-checkbox-selectedLabelFontColor, var(--vs-primary-comp-bg));
+            color: var(--vs-checkbox-node-selectedLabelFontColor, var(--vs-primary-comp-bg));
         }
     }
 

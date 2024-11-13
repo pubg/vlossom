@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="styleSet">
+    <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
         <label class="vs-radio-wrap">
             <input
                 ref="radioRef"
@@ -27,15 +27,16 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
-import { useColorScheme, useStateClass } from '@/composables';
+import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
+import { VsRadioNodeStyleSet } from './types';
 
 const name = VsNode.VsRadioNode;
 export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioNodeStyleSet> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
@@ -51,9 +52,11 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, dense, disabled, readonly, state } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet(name, styleSet);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -95,6 +98,7 @@ export default defineComponent({
             focus,
             blur,
             colorSchemeClass,
+            computedStyleSet,
             stateClasses,
             convertToString: utils.string.convertToString,
         };

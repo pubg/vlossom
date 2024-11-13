@@ -48,7 +48,6 @@ export enum VsComponent {
 }
 
 export enum VsNode {
-    VsBarNode = 'VsBarNode',
     VsCheckboxNode = 'VsCheckboxNode',
     VsFocusTrap = 'VsFocusTrap',
     VsRadioNode = 'VsRadioNode',

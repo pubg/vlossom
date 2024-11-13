@@ -16,14 +16,14 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-radio-set', { 'vs-vertical': vertical }]" :style="radioSetStyleSet">
+        <div :class="['vs-radio-set', { 'vs-vertical': vertical }]" :style="computedStyleSet">
             <vs-radio-node
                 v-for="(option, index) in options"
                 :key="getOptionValue(option)"
                 ref="radioRefs"
                 class="vs-radio-item"
                 :color-scheme="computedColorScheme"
-                :style-set="radioStyleSet"
+                :style-set="radioNodeStyleSet"
                 :checked="isChecked(option)"
                 :dense="dense"
                 :disabled="computedDisabled"
@@ -66,13 +66,12 @@ import {
     useInputOption,
     getInputOptionProps,
 } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsRadioNode } from '@/nodes';
+import { VsRadioNode, VsRadioNodeStyleSet } from '@/nodes';
 
 import type { VsRadioSetStyleSet } from './types';
-import type { VsRadioStyleSet } from '@/components/vs-radio/types';
 
 export default defineComponent({
     name: VsComponent.VsRadioSet,
@@ -115,10 +114,14 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(VsComponent.VsRadioSet, colorScheme);
 
-        const { computedStyleSet: radioStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
-        const { computedStyleSet: radioSetStyleSet } = useStyleSet<VsRadioSetStyleSet>(
+        const { plainStyleSet: radioSetStyleSet, computedStyleSet } = useStyleSet<VsRadioSetStyleSet>(
             VsComponent.VsRadioSet,
             styleSet,
+        );
+        const { plainStyleSet: radioNodeStyleSet } = useStyleSet<VsRadioNodeStyleSet>(
+            VsNode.VsRadioNode,
+            styleSet,
+            radioSetStyleSet,
         );
 
         const inputValue = ref(modelValue.value);
@@ -203,8 +206,8 @@ export default defineComponent({
             computedState,
             computedDisabled,
             computedReadonly,
-            radioStyleSet,
-            radioSetStyleSet,
+            radioNodeStyleSet,
+            computedStyleSet,
             isChecked,
             getOptionLabel,
             getOptionValue,
