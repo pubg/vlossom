@@ -14,7 +14,8 @@
 <script lang="ts">
 import { defineComponent, computed, toRefs, PropType, Ref, ref, watch, nextTick } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
-import { getResponsiveProps, useColorScheme } from '@/composables';
+import { useColorScheme } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 const name = VsComponent.VsIndexView;

@@ -34,7 +34,7 @@
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { store } from '@/stores';
-import { getModalProps } from '@/composables';
+import { getModalProps } from '@/models';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
 import { VsModalStyleSet } from '@/components/vs-modal/types';
@@ -53,7 +53,7 @@ export default defineComponent({
         modelValue: { type: Boolean, default: true },
     },
     emits: ['update:modelValue'],
-    expose: ['ok', 'cancel'],
+    // expose: ['ok', 'cancel'],
     setup(props, { emit }) {
         const { modelValue } = toRefs(props);
 

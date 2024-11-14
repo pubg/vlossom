@@ -15,7 +15,8 @@
 
 <script lang="ts">
 import { PropType, defineComponent, toRefs } from 'vue';
-import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 

@@ -50,7 +50,7 @@ export default defineComponent({
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
-    expose: ['focus', 'blur'],
+    // expose: ['focus', 'blur'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, dense, disabled, readonly, state } = toRefs(props);
 

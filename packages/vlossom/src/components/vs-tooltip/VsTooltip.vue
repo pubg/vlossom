@@ -33,7 +33,7 @@
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align, PLACEMENTS, ALIGNS } from '@/declaration';
-import { usePositioning, useOverlay } from '@/composables/anchor-positioning-composable';
+import { usePositioning, useOverlay } from '@/composables';
 import { utils } from '@/utils';
 
 import type { VsTooltipStyleSet } from './types';

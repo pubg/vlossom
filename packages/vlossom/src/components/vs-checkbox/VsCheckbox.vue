@@ -49,14 +49,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    getInputProps,
-    useInput,
-    useValueMatcher,
-} from '@/composables';
+import { useColorScheme, useStyleSet, useInput, useValueMatcher } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';
@@ -68,7 +62,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsCheckboxNode },
     props: {
-        ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any, 'placeholder' | 'noClear'>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxStyleSet> },
@@ -86,7 +80,7 @@ export default defineComponent({
         modelValue: { type: null, default: false },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate', 'focus', 'blur'],
+    // expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             beforeChange,

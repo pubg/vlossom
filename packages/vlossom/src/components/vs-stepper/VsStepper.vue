@@ -38,7 +38,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs, ref, watch, type Ref, type PropType } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, useIndexSelector } from '@/composables';
+import { useColorScheme, useStyleSet, useIndexSelector } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import { VsComponent, ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';

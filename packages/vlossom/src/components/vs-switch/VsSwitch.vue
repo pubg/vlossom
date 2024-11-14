@@ -56,15 +56,8 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, PropType, ref, Ref } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getInputProps,
-    getResponsiveProps,
-    useInput,
-    useValueMatcher,
-    useStateClass,
-} from '@/composables';
+import { useColorScheme, useStyleSet, useInput, useValueMatcher, useStateClass } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
@@ -74,7 +67,7 @@ const name = VsComponent.VsSwitch;
 export default defineComponent({
     name,
     props: {
-        ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
+        ...getInputProps<any, 'noClear' | 'placeholder'>('noClear', 'placeholder'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },
@@ -92,7 +85,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'update:valid', 'focus', 'blur'],
-    expose: ['clear', 'validate', 'focus', 'blur'],
+    // expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,

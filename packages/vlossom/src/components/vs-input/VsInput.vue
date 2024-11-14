@@ -66,15 +66,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    getInputProps,
-    useInput,
-    useStringModifier,
-    useStateClass,
-} from '@/composables';
+import { useColorScheme, useStyleSet, useInput, useStringModifier, useStateClass } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsIcon } from '@/icons';
@@ -89,7 +82,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsIcon },
     props: {
-        ...getInputProps<InputValueType, []>(),
+        ...getInputProps<InputValueType>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },
@@ -126,7 +119,7 @@ export default defineComponent({
         'prepend',
         'append',
     ],
-    expose: ['clear', 'validate', 'focus', 'blur', 'select'],
+    // expose: ['clear', 'validate', 'focus', 'blur', 'select'],
     setup(props, context) {
         const {
             colorScheme,

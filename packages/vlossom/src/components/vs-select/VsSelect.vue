@@ -203,16 +203,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs, type PropType } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    getInputProps,
-    useInput,
-    getInputOptionProps,
-    useInputOption,
-    useStateClass,
-} from '@/composables';
+import { useColorScheme, useStyleSet, useInput, useInputOption, useStateClass } from '@/composables';
+import { getInputProps, getInputOptionProps, getResponsiveProps } from '@/models';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
@@ -228,7 +220,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsChip, VsIcon },
     props: {
-        ...getInputProps<any, []>(),
+        ...getInputProps<any>(),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -297,7 +289,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    expose: ['clear', 'validate', 'focus', 'blur'],
+    // expose: ['clear', 'validate', 'focus', 'blur'],
     setup(props, context) {
         const {
             colorScheme,

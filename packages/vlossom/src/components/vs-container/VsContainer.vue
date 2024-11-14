@@ -7,7 +7,8 @@
 <script lang="ts">
 import { computed, defineComponent, getCurrentInstance, inject, PropType, toRefs } from 'vue';
 import { ColorScheme, VS_LAYOUT, VsComponent } from '@/declaration';
-import { getGridProps, useColorScheme, useLayout } from '@/composables';
+import { useColorScheme, useLayout } from '@/composables';
+import { getGridProps } from '@/models';
 import { utils } from '@/utils';
 
 const name = VsComponent.VsContainer;

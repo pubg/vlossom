@@ -1,13 +1,5 @@
-import { watch, ref, type PropType, type Ref } from 'vue';
+import { watch, ref, type Ref } from 'vue';
 import { utils } from '@/utils';
-
-export function getInputOptionProps() {
-    return {
-        options: { type: Array as PropType<any[]>, required: true, default: () => [] },
-        optionLabel: { type: String, default: '' },
-        optionValue: { type: String, default: '' },
-    };
-}
 
 export function useInputOption(
     inputValue: Ref<any>,
