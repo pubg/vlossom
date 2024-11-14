@@ -14,7 +14,7 @@ export class Vlossom {
             styleSet = {},
             theme = 'light',
             darkThemeClass = '',
-            detectOSTheme = true,
+            detectOSTheme,
             radiusRatio = 1,
         } = options || {};
 
