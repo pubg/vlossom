@@ -98,7 +98,8 @@
 
 <script lang="ts">
 import { ComputedRef, PropType, Ref, computed, defineComponent, ref, toRefs, watch } from 'vue';
-import { getResponsiveProps, useColorScheme, useStyleSet } from '@/composables';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import { useTableParams } from './composables';
 import { VsComponent, type ColorScheme, LabelValue } from '@/declaration';
 import { utils } from '@/utils';

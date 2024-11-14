@@ -14,7 +14,8 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, PropType, provide, toRefs, watch } from 'vue';
 import { ColorScheme, VS_FORM, VsComponent, type VsFormProvide } from '@/declaration';
-import { getGridProps, useColorScheme, useFormProvide } from '@/composables';
+import { useColorScheme, useFormProvide } from '@/composables';
+import { getGridProps } from '@/models';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 
 const name = VsComponent.VsForm;

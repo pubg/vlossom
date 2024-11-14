@@ -6,7 +6,8 @@
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
-import { getResponsiveProps, useResponsive } from '@/composables';
+import { useResponsive } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import { VsComponent } from '@/declaration';
 
 const name = VsComponent.VsResponsive;

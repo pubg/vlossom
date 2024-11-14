@@ -203,16 +203,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs, type PropType } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    useInput,
-    getInputOptionProps,
-    useInputOption,
-    useStateClass,
-} from '@/composables';
-import { getInputProps } from '@/models';
+import { useColorScheme, useStyleSet, useInput, useInputOption, useStateClass } from '@/composables';
+import { getInputProps, getInputOptionProps, getResponsiveProps } from '@/models';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';

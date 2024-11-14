@@ -56,15 +56,8 @@
 
 <script lang="ts">
 import { defineComponent, toRefs, PropType, ref, Ref } from 'vue';
-import {
-    useColorScheme,
-    useStyleSet,
-    getResponsiveProps,
-    useInput,
-    useValueMatcher,
-    useStateClass,
-} from '@/composables';
-import { getInputProps } from '@/models';
+import { useColorScheme, useStyleSet, useInput, useValueMatcher, useStateClass } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 

@@ -1,4 +1,4 @@
-import { Ref, onBeforeMount, ref, nextTick } from 'vue';
+import { Ref, ref, nextTick } from 'vue';
 import { utils } from '@/utils';
 import type { AttachInfo, Placement, Align } from '@/declaration';
 
@@ -131,21 +131,4 @@ export function usePositioning(anchor: Ref<HTMLElement>, attachment: Ref<HTMLEle
         appear,
         disappear,
     };
-}
-
-export function useOverlay() {
-    onBeforeMount(() => {
-        if (document.getElementById('vs-overlay')) {
-            return;
-        }
-        const overlay = document.createElement('div');
-        overlay.setAttribute('id', 'vs-overlay');
-
-        overlay.style.position = 'absolute';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.zIndex = '10000';
-
-        document.body.appendChild(overlay);
-    });
 }

@@ -49,8 +49,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, useInput, useValueMatcher } from '@/composables';
-import { getInputProps } from '@/models';
+import { useColorScheme, useStyleSet, useInput, useValueMatcher } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';

@@ -73,8 +73,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, useInput, useStateClass } from '@/composables';
-import { getInputProps } from '@/models';
+import { useColorScheme, useStyleSet, useInput, useStateClass } from '@/composables';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsIcon } from '@/icons';

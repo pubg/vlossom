@@ -37,7 +37,8 @@
 <script lang="ts">
 import { PropType, defineComponent, ref, toRefs, watch } from 'vue';
 import { ColorScheme, VsComponent, type StateMessage } from '@/declaration';
-import { getResponsiveProps, useColorScheme } from '@/composables';
+import { useColorScheme } from '@/composables';
+import { getResponsiveProps } from '@/models';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 import VsMessage from '@/components/vs-message/VsMessage.vue';
 
