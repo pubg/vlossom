@@ -59,12 +59,12 @@ import { defineComponent, toRefs, PropType, ref, Ref } from 'vue';
 import {
     useColorScheme,
     useStyleSet,
-    getInputProps,
     getResponsiveProps,
     useInput,
     useValueMatcher,
     useStateClass,
 } from '@/composables';
+import { getInputProps } from '@/models';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
@@ -74,7 +74,7 @@ const name = VsComponent.VsSwitch;
 export default defineComponent({
     name,
     props: {
-        ...getInputProps<any, ['noClear', 'placeholder']>('noClear', 'placeholder'),
+        ...getInputProps<any, 'noClear' | 'placeholder'>('noClear', 'placeholder'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsSwitchStyleSet> },

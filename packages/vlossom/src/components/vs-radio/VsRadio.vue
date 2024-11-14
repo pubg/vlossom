@@ -48,7 +48,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, useInput } from '@/composables';
+import { getInputProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -60,7 +61,7 @@ export default defineComponent({
     name: VsComponent.VsRadio,
     components: { VsInputWrapper, VsRadioNode },
     props: {
-        ...getInputProps<any, ['placeholder', 'noClear']>('placeholder', 'noClear'),
+        ...getInputProps<any, 'placeholder' | 'noClear'>('placeholder', 'noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsRadioStyleSet> },

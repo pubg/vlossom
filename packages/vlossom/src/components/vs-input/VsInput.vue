@@ -70,11 +70,11 @@ import {
     useColorScheme,
     useStyleSet,
     getResponsiveProps,
-    getInputProps,
     useInput,
     useStringModifier,
     useStateClass,
 } from '@/composables';
+import { getInputProps } from '@/models';
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsIcon } from '@/icons';
@@ -89,7 +89,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsIcon },
     props: {
-        ...getInputProps<InputValueType, []>(),
+        ...getInputProps<InputValueType>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsInputStyleSet> },

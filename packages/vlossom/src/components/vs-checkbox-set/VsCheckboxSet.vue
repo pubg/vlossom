@@ -61,11 +61,11 @@ import {
     useColorScheme,
     useStyleSet,
     getResponsiveProps,
-    getInputProps,
     useInput,
     useInputOption,
     getInputOptionProps,
 } from '@/composables';
+import { getInputProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -79,7 +79,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsCheckboxNode },
     props: {
-        ...getInputProps<any[], ['ariaLabel', 'noClear', 'placeholder']>('ariaLabel', 'noClear', 'placeholder'),
+        ...getInputProps<any[], 'ariaLabel' | 'noClear' | 'placeholder'>('ariaLabel', 'noClear', 'placeholder'),
         ...getInputOptionProps(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },

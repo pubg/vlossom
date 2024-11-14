@@ -48,11 +48,11 @@ import {
     useColorScheme,
     useStyleSet,
     getResponsiveProps,
-    getInputProps,
     useInput,
     useStringModifier,
     useStateClass,
 } from '@/composables';
+import { getInputProps } from '@/models';
 import { VsComponent, StringModifiers, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -65,7 +65,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper },
     props: {
-        ...getInputProps<InputValueType, ['noClear']>('noClear'),
+        ...getInputProps<InputValueType, 'noClear'>('noClear'),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsTextareaStyleSet> },

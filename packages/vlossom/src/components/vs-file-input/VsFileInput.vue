@@ -73,7 +73,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput, useStateClass } from '@/composables';
+import { useColorScheme, useStyleSet, getResponsiveProps, useInput, useStateClass } from '@/composables';
+import { getInputProps } from '@/models';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import { VsIcon } from '@/icons';
@@ -85,7 +86,7 @@ export default defineComponent({
     name,
     components: { VsInputWrapper, VsIcon },
     props: {
-        ...getInputProps<InputValueType, []>(),
+        ...getInputProps<InputValueType>(),
         ...getResponsiveProps(),
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileInputStyleSet> },
