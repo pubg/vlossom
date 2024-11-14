@@ -33,7 +33,7 @@ export default defineComponent({
         valid: { type: Boolean, default: true },
     },
     emits: ['update:changed', 'update:valid', 'error'],
-    expose: ['validate', 'clear'],
+    // expose: ['validate', 'clear'],
     setup(props, { emit }) {
         const { colorScheme, disabled, readonly } = toRefs(props);
 

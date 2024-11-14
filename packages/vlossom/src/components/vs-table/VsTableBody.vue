@@ -138,7 +138,7 @@ export default defineComponent({
         'update:isSelectedAll',
         'update:totalItemsLength',
     ],
-    expose: ['expand'],
+    // expose: ['expand'],
     setup(props, ctx) {
         const {
             headers,

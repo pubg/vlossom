@@ -53,7 +53,7 @@ export default defineComponent({
         modelValue: { type: Boolean, default: true },
     },
     emits: ['update:modelValue'],
-    expose: ['ok', 'cancel'],
+    // expose: ['ok', 'cancel'],
     setup(props, { emit }) {
         const { modelValue } = toRefs(props);
 

@@ -184,7 +184,7 @@ export default defineComponent({
         'update:selectedItems',
         'update:totalItems',
     ],
-    expose: ['expand'],
+    // expose: ['expand'],
     setup(props, ctx) {
         const {
             colorScheme,

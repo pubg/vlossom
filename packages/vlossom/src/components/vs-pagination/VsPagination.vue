@@ -92,7 +92,7 @@ export default defineComponent({
         modelValue: { type: Number, default: 1 },
     },
     emits: ['update:modelValue', 'change'],
-    expose: ['goFirst', 'goLast', 'goPrev', 'goNext', 'setPage'],
+    // expose: ['goFirst', 'goLast', 'goPrev', 'goNext', 'setPage'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, length, showingLength } = toRefs(props);
 
