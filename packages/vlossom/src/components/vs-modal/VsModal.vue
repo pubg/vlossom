@@ -38,7 +38,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useColorScheme, useBodyScroll, useStyleSet, useEscClose, getModalProps } from '@/composables';
+import { useColorScheme, useBodyScroll, useStyleSet, useEscClose } from '@/composables';
+import { getModalProps } from '@/models';
 import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
 import { VsFocusTrap } from '@/nodes';
 import { utils } from '@/utils';
