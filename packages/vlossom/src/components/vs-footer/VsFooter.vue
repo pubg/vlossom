@@ -1,62 +1,37 @@
 <template>
-    <vs-bar-node
-        :color-scheme="computedColorScheme"
-        :style-set="computedStyleSet"
-        :height="height"
-        :position="position"
-        :primary="primary"
+    <div
+        :class="['vs-footer', colorSchemeClass, { 'vs-primary': primary, 'vs-fixed': fixed }]"
+        :style="computedStyleSet"
     >
         <slot />
-    </vs-bar-node>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRefs, computed, watch, inject, type PropType, getCurrentInstance } from 'vue';
 import { useColorScheme, useLayout, useStyleSet } from '@/composables';
-import { VsBarNode } from '@/nodes';
-import { VS_LAYOUT, VsComponent, APP_LAYOUT_Z_INDEX, LAYOUT_Z_INDEX } from '@/declaration';
+import { VS_LAYOUT, VsComponent } from '@/declaration';
 
-import type { ColorScheme, CssPosition } from '@/declaration';
+import type { ColorScheme } from '@/declaration';
 import type { VsFooterStyleSet } from './types';
 
 const name = VsComponent.VsFooter;
 export default defineComponent({
     name,
-    components: { VsBarNode },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFooterStyleSet> },
-        height: { type: String, default: '30px' },
-        position: { type: String as PropType<CssPosition>, default: 'absolute' },
+        fixed: { type: Boolean, default: false },
+        height: { type: String, default: 'auto' },
         primary: { type: Boolean, default: false },
     },
     setup(props) {
-        const { colorScheme, styleSet, height, position } = toRefs(props);
+        const { colorScheme, styleSet, fixed, height } = toRefs(props);
 
-        const { computedColorScheme } = useColorScheme(name, colorScheme);
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: footerStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet);
-
-        const defaultInsetStyle = computed(() => {
-            const style: { [key: string]: string | number } = {};
-
-            if (position.value === 'absolute' || position.value === 'fixed') {
-                style['--vs-footer-bottom'] = 0;
-                style['--vs-footer-left'] = 0;
-            }
-
-            if (position.value === 'absolute') {
-                style['--vs-footer-zIndex'] = LAYOUT_Z_INDEX - 1;
-            } else if (position.value === 'fixed') {
-                style['--vs-footer-zIndex'] = APP_LAYOUT_Z_INDEX - 1;
-            }
-
-            return style;
-        });
-
-        const computedStyleSet = computed(() => {
-            return { ...defaultInsetStyle.value, ...footerStyleSet.value };
-        });
+        const additionalStyles = computed(() => ({ height: height.value }));
+        const { computedStyleSet } = useStyleSet<VsFooterStyleSet>(name, styleSet, additionalStyles);
 
         // only for vs-layout children
         const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
@@ -65,18 +40,20 @@ export default defineComponent({
             const { setFooterLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
 
             watch(
-                [position, height],
-                ([newPosition, newHeight]) => {
-                    setFooterLayout({ position: newPosition, height: newHeight });
+                [fixed, height],
+                ([newFixed, newHeight]) => {
+                    setFooterLayout({ position: newFixed ? 'fixed' : 'absolute', height: newHeight });
                 },
                 { immediate: true },
             );
         }
 
         return {
-            computedColorScheme,
+            colorSchemeClass,
             computedStyleSet,
         };
     },
 });
 </script>
+
+<style lang="scss" src="./VsFooter.scss" />

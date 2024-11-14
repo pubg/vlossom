@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-checkbox-node', `vs-${colorScheme}`, classObj]" :style="styleSet">
+    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
         <div :class="['vs-checkbox-wrap', stateClasses]">
             <vs-icon class="vs-check-icon" :icon="icon" />
             <input
@@ -26,17 +26,19 @@
 
 <script lang="ts">
 import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
-import { ColorScheme, UIState } from '@/declaration';
-import { useStateClass } from '@/composables';
+import { ColorScheme, UIState, VsNode } from '@/declaration';
+import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
+import { VsCheckboxNodeStyleSet } from './types';
 
+const name = VsNode.VsCheckboxNode;
 export default defineComponent({
-    name: 'VsCheckboxNode',
+    name,
     components: { VsIcon },
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsCheckboxNodeStyleSet> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
@@ -53,7 +55,11 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet(name, styleSet);
 
         const { stateClasses } = useStateClass(state);
 
@@ -113,6 +119,7 @@ export default defineComponent({
 
         return {
             checkboxRef,
+            colorSchemeClass,
             classObj,
             icon,
             onClick,
@@ -122,6 +129,7 @@ export default defineComponent({
             blur,
             convertToString: utils.string.convertToString,
             stateClasses,
+            computedStyleSet,
         };
     },
 });

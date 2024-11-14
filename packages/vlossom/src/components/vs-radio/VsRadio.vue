@@ -19,7 +19,7 @@
         <vs-radio-node
             ref="radioRef"
             :color-scheme="computedColorScheme"
-            :style-set="computedStyleSet"
+            :style-set="radioNodeStyleSet"
             :aria-label="ariaLabel"
             :checked="isChecked"
             :dense="dense"
@@ -49,10 +49,10 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, getResponsiveProps, getInputProps, useInput } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsRadioNode } from '@/nodes';
+import { VsRadioNode, VsRadioNodeStyleSet } from '@/nodes';
 
 import type { VsRadioStyleSet } from './types';
 
@@ -97,7 +97,12 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(VsComponent.VsRadio, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
+        const { plainStyleSet: radioStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
+        const { plainStyleSet: radioNodeStyleSet } = useStyleSet<VsRadioNodeStyleSet>(
+            VsNode.VsRadioNode,
+            styleSet,
+            radioStyleSet,
+        );
 
         const inputValue = ref(checked.value ? radioValue.value : modelValue.value);
 
@@ -174,7 +179,7 @@ export default defineComponent({
             isChecked,
             computedColorScheme,
             computedState,
-            computedStyleSet,
+            radioNodeStyleSet,
             computedDisabled,
             computedReadonly,
             inputValue,

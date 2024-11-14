@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, cssPosition, LOREM_IPSUM } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, LOREM_IPSUM } from '@/storybook';
 import VsFooter from './../VsFooter.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -19,13 +19,8 @@ const meta: Meta<typeof VsFooter> = {
 		`,
     }),
     tags: ['autodocs'],
-    args: {
-        height: '50px',
-        position: 'absolute',
-    },
     argTypes: {
         colorScheme,
-        position: cssPosition,
     },
 };
 export default meta;
@@ -74,17 +69,11 @@ export const Primary: Story = {
 
 export const StyleSet: Story = {
     args: {
-        position: undefined,
-        height: undefined,
         styleSet: {
             backgroundColor: '#000',
-            bottom: 0,
             fontColor: '#fff',
             height: '60px',
-            left: 0,
             padding: '10px',
-            position: 'fixed',
-            textAlign: 'center',
             boxShadow: '0 0 10px rgba(0, 0, 0, 1)',
         },
     },
@@ -92,8 +81,6 @@ export const StyleSet: Story = {
 
 export const PreDefinedStyleSet: Story = {
     args: {
-        position: undefined,
-        height: undefined,
         styleSet: 'myStyleSet',
     },
 };

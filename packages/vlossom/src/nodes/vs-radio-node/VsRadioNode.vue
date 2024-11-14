@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-radio-node', `vs-${colorScheme}`, classObj, stateClasses]" :style="styleSet">
+    <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
         <label class="vs-radio-wrap">
             <input
                 ref="radioRef"
@@ -26,15 +26,17 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { ColorScheme, UIState } from '@/declaration';
-import { useStateClass } from '@/composables';
+import { ColorScheme, UIState, VsNode } from '@/declaration';
+import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
+import { VsRadioNodeStyleSet } from './types';
 
+const name = VsNode.VsRadioNode;
 export default defineComponent({
-    name: 'VsRadioNode',
+    name,
     props: {
-        colorScheme: { type: String as PropType<'default' | ColorScheme> },
-        styleSet: { type: Object as PropType<{ [key: string]: any }> },
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioNodeStyleSet> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
@@ -50,7 +52,11 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, dense, disabled, readonly, state } = toRefs(props);
+
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
+
+        const { computedStyleSet } = useStyleSet(name, styleSet);
 
         const radioRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -91,6 +97,8 @@ export default defineComponent({
             onBlur,
             focus,
             blur,
+            colorSchemeClass,
+            computedStyleSet,
             stateClasses,
             convertToString: utils.string.convertToString,
         };

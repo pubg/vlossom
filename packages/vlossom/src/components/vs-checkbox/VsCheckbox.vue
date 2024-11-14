@@ -19,7 +19,7 @@
         <vs-checkbox-node
             ref="checkboxRef"
             :color-scheme="computedColorScheme"
-            :style-set="computedStyleSet"
+            :style-set="checkboxNodeStyleSet"
             :aria-label="ariaLabel"
             :checked="isChecked"
             :dense="dense"
@@ -57,9 +57,9 @@ import {
     useInput,
     useValueMatcher,
 } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsCheckboxNode } from '@/nodes';
+import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';
 
 import type { VsCheckboxStyleSet } from './types';
 
@@ -112,7 +112,12 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsCheckboxStyleSet>(name, styleSet);
+        const { plainStyleSet: checkboxStyleSet } = useStyleSet<VsCheckboxStyleSet>(name, styleSet);
+        const { plainStyleSet: checkboxNodeStyleSet } = useStyleSet<VsCheckboxNodeStyleSet>(
+            VsNode.VsCheckboxNode,
+            styleSet,
+            checkboxStyleSet,
+        );
 
         const inputValue = ref(modelValue.value);
 
@@ -204,7 +209,7 @@ export default defineComponent({
             computedState,
             computedDisabled,
             computedReadonly,
-            computedStyleSet,
+            checkboxNodeStyleSet,
             inputValue,
             computedMessages,
             shake,

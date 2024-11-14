@@ -53,7 +53,7 @@ import {
     type SizeProp,
 } from '@/declaration';
 import { utils } from '@/utils';
-import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
+import { VsFocusTrap } from '@/nodes';
 
 import type { VsDrawerStyleSet } from './types';
 

@@ -1,3 +1,6 @@
+import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
+
+import type { Ref } from 'vue';
 import type {
     VsAccordionStyleSet,
     VsAvatarStyleSet,
@@ -32,15 +35,17 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
-import type { Ref } from 'vue';
-import type { VsComponent, UIState } from './enums';
+import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
+import type { VsComponent, VsNode, UIState } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
-export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme } & {
+    [key in VsNode]?: ColorScheme;
+};
 
 export interface StyleSet {
+    // components
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
@@ -74,11 +79,16 @@ export interface StyleSet {
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
+
+    // nodes
+    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
+    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
 }
 
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
+    nodes?: VsNode[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
     radiusRatio?: number;
@@ -156,17 +166,6 @@ export interface VsLayoutProvide {
     setFooterLayout: (footerLayout: BarLayout) => void;
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
 }
-
-export type TextAlign =
-    | 'start'
-    | 'end'
-    | 'left'
-    | 'right'
-    | 'center'
-    | 'justify'
-    | 'justify-all'
-    | 'match-parent'
-    | 'inherit';
 
 export type CssPosition = (typeof CSS_POSITION)[number];
 

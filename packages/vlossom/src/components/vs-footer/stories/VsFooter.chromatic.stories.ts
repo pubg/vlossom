@@ -1,4 +1,4 @@
-import { colorScheme, cssPosition, LOREM_IPSUM } from '@/storybook';
+import { colorScheme, LOREM_IPSUM } from '@/storybook';
 import VsFooter from './../VsFooter.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -36,11 +36,9 @@ const meta: Meta<typeof VsFooter> = {
     }),
     args: {
         height: '50px',
-        position: 'absolute',
     },
     argTypes: {
         colorScheme,
-        position: cssPosition,
     },
 };
 export default meta;

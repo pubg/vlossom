@@ -11,7 +11,6 @@ export enum VsComponent {
     VsDivider = 'VsDivider',
     VsDrawer = 'VsDrawer',
     VsFileInput = 'VsFileInput',
-    VsFocusTrap = 'VsFocusTrap',
     VsFooter = 'VsFooter',
     VsForm = 'VsForm',
     VsHeader = 'VsHeader',
@@ -46,6 +45,12 @@ export enum VsComponent {
     VsToast = 'VsToast',
     VsToastView = 'VsToastView',
     VsTooltip = 'VsTooltip',
+}
+
+export enum VsNode {
+    VsCheckboxNode = 'VsCheckboxNode',
+    VsFocusTrap = 'VsFocusTrap',
+    VsRadioNode = 'VsRadioNode',
 }
 
 export enum UIState {

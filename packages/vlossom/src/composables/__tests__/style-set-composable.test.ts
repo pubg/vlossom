@@ -39,4 +39,21 @@ describe('useStyleSet composable', () => {
             '--vs-button-fontColor': 'white',
         });
     });
+
+    it('additionalStyleSet이 있다면 덮어쓴다', () => {
+        // given
+        const myStyleSet = { backgroundColor: '#a5d6ad', fontSize: '2rem' };
+        const additionalStyleSet = { fontSize: '3rem' };
+        const { computedStyleSet } = useStyleSet<VsButtonStyleSet>(
+            VsComponent.VsButton,
+            ref(myStyleSet),
+            ref(additionalStyleSet),
+        );
+
+        // then
+        expect(computedStyleSet.value).toEqual({
+            '--vs-button-backgroundColor': '#a5d6ad',
+            '--vs-button-fontSize': '3rem',
+        });
+    });
 });

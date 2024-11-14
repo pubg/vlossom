@@ -16,14 +16,14 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-checkbox-set', { 'vs-vertical': vertical }]" :style="checkboxSetStyleSet">
+        <div :class="['vs-checkbox-set', { 'vs-vertical': vertical }]" :style="computedStyleSet">
             <vs-checkbox-node
                 v-for="(option, index) in options"
                 :key="getOptionValue(option)"
                 ref="checkboxRefs"
                 class="vs-checkbox-item"
                 :color-scheme="computedColorScheme"
-                :style-set="checkboxStyleSet"
+                :style-set="checkboxNodeStyleSet"
                 :checked="isChecked(option)"
                 :dense="dense"
                 :disabled="computedDisabled"
@@ -66,14 +66,13 @@ import {
     useInputOption,
     getInputOptionProps,
 } from '@/composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsCheckboxNode } from '@/nodes';
+import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';
 import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
 import type { VsCheckboxSetStyleSet } from './types';
-import type { VsCheckboxStyleSet } from '@/components/vs-checkbox/types';
 
 const name = VsComponent.VsCheckboxSet;
 export default defineComponent({
@@ -135,13 +134,14 @@ export default defineComponent({
 
         const { computedColorScheme } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: checkboxStyleSet } = useStyleSet<VsCheckboxStyleSet>(
-            VsComponent.VsCheckbox,
+        const { plainStyleSet: checkboxSetStyleSet, computedStyleSet } = useStyleSet<VsCheckboxSetStyleSet>(
+            name,
             styleSet,
         );
-        const { computedStyleSet: checkboxSetStyleSet } = useStyleSet<VsCheckboxSetStyleSet>(
-            VsComponent.VsCheckboxSet,
+        const { plainStyleSet: checkboxNodeStyleSet } = useStyleSet<VsCheckboxNodeStyleSet>(
+            VsNode.VsCheckboxNode,
             styleSet,
+            checkboxSetStyleSet,
         );
 
         const inputValue = ref(modelValue.value);
@@ -249,8 +249,8 @@ export default defineComponent({
             computedState,
             computedDisabled,
             computedReadonly,
-            checkboxStyleSet,
-            checkboxSetStyleSet,
+            checkboxNodeStyleSet,
+            computedStyleSet,
             isChecked,
             getOptionLabel,
             getOptionValue,
