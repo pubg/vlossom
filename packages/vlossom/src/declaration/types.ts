@@ -77,12 +77,13 @@ export interface StyleSet {
 }
 
 export interface VlossomOptions {
-    theme?: 'light' | 'dark';
-    components?: VsComponent[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
-    radiusRatio?: number;
+    theme?: 'light' | 'dark';
+    darkThemeClass?: string;
     detectOSTheme?: boolean;
+    radiusRatio?: number;
+    components?: VsComponent[];
 }
 
 export interface Breakpoints {
