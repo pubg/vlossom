@@ -1,27 +1,22 @@
 <template>
-    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
-        <div :class="['vs-checkbox-wrap', stateClasses]">
-            <vs-icon class="vs-check-icon" :icon="icon" />
-            <input
-                ref="checkboxRef"
-                type="checkbox"
-                class="vs-checkbox-input"
-                :aria-label="ariaLabel"
-                :id="id"
-                :disabled="disabled || readonly"
-                :name="name"
-                :value="convertToString(value)"
-                :checked="checked"
-                :aria-required="required"
-                @click.prevent.stop="onClick"
-                @focus.stop="onFocus"
-                @blur.stop="onBlur"
-            />
-        </div>
-        <label v-if="label || $slots['label']" :for="id" class="vs-checkbox-label">
+    <label :class="['vs-checkbox-node', colorSchemeClass, classObj]" :for="id" :style="computedStyleSet">
+        <input
+            ref="checkboxRef"
+            type="checkbox"
+            :class="['vs-checkbox-input', stateClasses]"
+            :aria-label="ariaLabel"
+            :id="id"
+            :disabled="disabled || readonly"
+            :name="name"
+            :value="convertToString(value)"
+            :aria-required="required"
+            @focus.stop="onFocus"
+            @blur.stop="onBlur"
+        />
+        <div v-if="label || $slots['label']" class="vs-checkbox-label">
             <slot name="label">{{ label }}</slot>
-        </label>
-    </div>
+        </div>
+    </label>
 </template>
 
 <script lang="ts">
@@ -29,13 +24,11 @@ import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch 
 import { ColorScheme, UIState, VsNode } from '@/declaration';
 import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
-import { VsIcon } from '@/icons';
 import { VsCheckboxNodeStyleSet } from './types';
 
 const name = VsNode.VsCheckboxNode;
 export default defineComponent({
     name,
-    components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxNodeStyleSet> },
@@ -70,24 +63,13 @@ export default defineComponent({
             'vs-dense': dense.value,
             'vs-disabled': disabled.value,
             'vs-readonly': readonly.value,
+            'vs-indeterminate': indeterminate.value,
         }));
 
-        const icon = computed(() => {
-            if (checked.value) {
-                return 'checkboxChecked';
-            }
-
-            if (indeterminate.value) {
-                return 'checkboxIndeterminate';
-            }
-
-            return 'checkboxUnchecked';
-        });
-
-        function onClick(event: Event) {
-            emit('change', event);
-            emit('toggle', !checked.value);
-        }
+        // function onClick(event: Event) {
+        //     emit('change', event);
+        //     emit('toggle', !checked.value);
+        // }
 
         function onFocus(event: FocusEvent) {
             emit('focus', event);
@@ -105,24 +87,22 @@ export default defineComponent({
             checkboxRef.value?.blur();
         }
 
-        watch(
-            checked,
-            (value) => {
-                nextTick(() => {
-                    if (checkboxRef.value) {
-                        checkboxRef.value.checked = value;
-                    }
-                });
-            },
-            { immediate: true },
-        );
+        // watch(
+        //     checked,
+        //     (value) => {
+        //         nextTick(() => {
+        //             if (checkboxRef.value) {
+        //                 checkboxRef.value.checked = value;
+        //             }
+        //         });
+        //     },
+        //     { immediate: true },
+        // );
 
         return {
             checkboxRef,
             colorSchemeClass,
             classObj,
-            icon,
-            onClick,
             onFocus,
             onBlur,
             focus,

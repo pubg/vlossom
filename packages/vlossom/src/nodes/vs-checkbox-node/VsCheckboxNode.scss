@@ -1,6 +1,6 @@
 @use '@/styles/mixin' as *;
 
-$checkbox-size: var(--vs-checkbox-node-checkboxSize, 2.4rem);
+$checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
 
 .vs-checkbox-node {
     position: relative;
@@ -9,39 +9,58 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2.4rem);
     justify-content: flex-start;
     flex-wrap: nowrap;
     user-select: none;
-    height: var(--vs-checkbox-node-height, var(--vs-input-comp-height));
+    min-height: var(--vs-checkbox-node-height, var(--vs-input-comp-height));
 
-    .vs-checkbox-wrap {
-        position: relative;
+    &.vs-indeterminate {
+        .vs-checkbox-input {
+            background-color: var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
+
+            &:before {
+                clip-path: polygon(0% 38%, 100% 38%, 100% 62%, 0% 62%);
+                background-color: var(--vs-primary-comp-font);
+                transform: scale(1);
+            }
+        }
+    }
+
+    .vs-checkbox-input {
         display: flex;
         align-items: center;
-        color: var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
+        justify-content: center;
+        appearance: none;
+        margin: 0;
+        width: $checkbox-size;
+        height: $checkbox-size;
+        border: 0.1rem solid var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
         border-radius: var(--vs-checkbox-node-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
-        overflow: hidden;
-
-        .vs-check-icon {
-            width: $checkbox-size;
-            height: $checkbox-size;
-        }
-
-        .vs-checkbox-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
+        cursor: pointer;
+        background-color: transparent;
 
         &.vs-state-box {
             @include state-box;
-            outline-offset: 0;
         }
 
         &:focus-within {
             @include focus-outline;
-            outline-offset: 0;
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            width: calc($checkbox-size * 0.6);
+            height: calc($checkbox-size * 0.6);
+            transform: scale(0);
+            transform-origin: center center;
+            transition: 120ms all linear;
+        }
+
+        &:checked {
+            background-color: var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
+        }
+        &:checked:before {
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+            background-color: var(--vs-primary-comp-font);
+            transform: scale(1) rotate(10deg) translateX(-3%);
         }
     }
 
@@ -55,8 +74,12 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2.4rem);
     }
 
     &.vs-dense {
-        height: var(--vs-checkbox-node-height, var(--vs-input-comp-height-dense));
+        min-height: var(--vs-checkbox-node-height, var(--vs-input-comp-height-dense));
 
+        .vs-checkbox-input {
+            width: var(--vs-checkbox-node-checkboxSize, 1.8rem);
+            height: var(--vs-checkbox-node-checkboxSize, 1.8rem);
+        }
         .vs-checkbox-label {
             font-size: var(--vs-checkbox-node-labelFontSize, var(--vs-font-size-sm));
         }
@@ -70,6 +93,7 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2.4rem);
 
     &.vs-disabled {
         @include disabled;
+        cursor: default;
     }
 
     &.vs-readonly {
