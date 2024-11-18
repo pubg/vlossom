@@ -7,14 +7,20 @@ import type { VlossomOptions, VsComponent } from '@/declaration';
 import type { ToastPlugin, ConfirmPlugin, ModalPlugin } from './plugins';
 
 export class Vlossom {
+    private darkThemeClass: string;
+
     constructor(options?: VlossomOptions) {
         const {
             colorScheme = {},
             styleSet = {},
             theme = 'light',
-            radiusRatio = 1,
+            darkThemeClass = '',
             detectOSTheme = false,
+            radiusRatio = 1,
         } = options || {};
+
+        this.darkThemeClass = darkThemeClass;
+        this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
 
         store.option.setGlobalColorScheme(colorScheme);
         store.option.registerStyleSet(styleSet);
@@ -56,6 +62,9 @@ export class Vlossom {
 
         localStorage.setItem('vlossom:theme', value);
         document.body.classList.toggle('vs-dark', value === 'dark');
+        if (this.darkThemeClass) {
+            document.body.classList.toggle(this.darkThemeClass, value === 'dark');
+        }
     }
 
     get colorScheme() {
