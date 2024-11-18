@@ -1,11 +1,11 @@
 <template>
-    <label :class="['vs-checkbox-node', colorSchemeClass, classObj]" :for="id" :style="computedStyleSet">
+    <label :class="['vs-checkbox-node', colorSchemeClass, classObj]" :for="computedId" :style="computedStyleSet">
         <input
             ref="checkboxRef"
             type="checkbox"
             :class="['vs-checkbox-input', stateClasses]"
             :aria-label="ariaLabel"
-            :id="id"
+            :id="computedId"
             :disabled="disabled || readonly"
             :name="name"
             :value="convertToString(value)"
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
 import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
@@ -36,7 +36,7 @@ export default defineComponent({
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
-        id: { type: String, required: true },
+        id: { type: String, default: '' },
         indeterminate: { type: Boolean, default: false },
         label: { type: String, default: '' },
         name: { type: String, default: '' },
@@ -44,11 +44,13 @@ export default defineComponent({
         required: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: UIState.Idle },
         value: { type: null, default: 'true' },
+        // v-model
+        modelValue: { type: null, default: false },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
     // expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, checked, id, indeterminate, dense, disabled, readonly, state } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -65,6 +67,9 @@ export default defineComponent({
             'vs-readonly': readonly.value,
             'vs-indeterminate': indeterminate.value,
         }));
+
+        const innerId = utils.string.createID();
+        const computedId = computed(() => id.value || innerId);
 
         // function onClick(event: Event) {
         //     emit('change', event);
@@ -110,6 +115,7 @@ export default defineComponent({
             convertToString: utils.string.convertToString,
             stateClasses,
             computedStyleSet,
+            computedId,
         };
     },
 });
