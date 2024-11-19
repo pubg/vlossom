@@ -1,26 +1,30 @@
 <template>
-    <label :class="['vs-checkbox-node', colorSchemeClass, classObj]" :for="computedId" :style="computedStyleSet">
-        <input
-            ref="checkboxRef"
-            type="checkbox"
-            :class="['vs-checkbox-input', stateClasses]"
-            :aria-label="ariaLabel"
-            :id="computedId"
-            :disabled="disabled || readonly"
-            :name="name"
-            :value="convertToString(value)"
-            :aria-required="required"
-            @focus.stop="onFocus"
-            @blur.stop="onBlur"
-        />
-        <div v-if="label || $slots['label']" class="vs-checkbox-label">
-            <slot name="label">{{ label }}</slot>
-        </div>
-    </label>
+    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
+        <label class="vs-checkbox-wrap" :for="computedId">
+            <input
+                ref="checkboxRef"
+                type="checkbox"
+                :class="['vs-checkbox-input', stateClasses]"
+                :aria-label="ariaLabel"
+                :id="computedId"
+                :disabled="disabled || readonly"
+                :name="name"
+                :value="convertToString(value)"
+                :checked="checked"
+                :aria-required="required"
+                @click.prevent.stop="toggle"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+            />
+            <div v-if="label || $slots['label']" class="vs-checkbox-label">
+                <slot name="label">{{ label }}</slot>
+            </div>
+        </label>
+    </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
 import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
@@ -44,8 +48,6 @@ export default defineComponent({
         required: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: UIState.Idle },
         value: { type: null, default: 'true' },
-        // v-model
-        modelValue: { type: null, default: false },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],
     // expose: ['focus', 'blur'],
@@ -71,10 +73,10 @@ export default defineComponent({
         const innerId = utils.string.createID();
         const computedId = computed(() => id.value || innerId);
 
-        // function onClick(event: Event) {
-        //     emit('change', event);
-        //     emit('toggle', !checked.value);
-        // }
+        function toggle(event: Event) {
+            emit('change', event);
+            emit('toggle', !checked.value);
+        }
 
         function onFocus(event: FocusEvent) {
             emit('focus', event);
@@ -92,17 +94,17 @@ export default defineComponent({
             checkboxRef.value?.blur();
         }
 
-        // watch(
-        //     checked,
-        //     (value) => {
-        //         nextTick(() => {
-        //             if (checkboxRef.value) {
-        //                 checkboxRef.value.checked = value;
-        //             }
-        //         });
-        //     },
-        //     { immediate: true },
-        // );
+        watch(
+            checked,
+            (value) => {
+                nextTick(() => {
+                    if (checkboxRef.value) {
+                        checkboxRef.value.checked = value;
+                    }
+                });
+            },
+            { immediate: true },
+        );
 
         return {
             checkboxRef,
@@ -116,6 +118,7 @@ export default defineComponent({
             stateClasses,
             computedStyleSet,
             computedId,
+            toggle,
         };
     },
 });
