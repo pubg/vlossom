@@ -28,6 +28,7 @@
                             :id="utils.string.createID()"
                             type="checkbox"
                             :color-scheme="computedColorScheme"
+                            :indeterminate="!isSelectedAll && selectedItems.length > 0"
                             :checked="isSelectedAll"
                             aria-label="select-all"
                             @toggle="onToggleCheck"
