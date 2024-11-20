@@ -7,7 +7,7 @@
         >
             <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                <div :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]">
+                <div :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]" :style="layoutStyles">
                     <header v-if="$slots['header']" class="vs-drawer-header">
                         <slot name="header" />
                     </header>
@@ -81,6 +81,7 @@ export default defineComponent({
         },
         position: { type: String as PropType<CssPosition>, default: 'absolute' },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
+        useLayoutPadding: { type: Boolean, default: false },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -97,6 +98,7 @@ export default defineComponent({
             placement,
             position,
             size,
+            useLayoutPadding,
         } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
@@ -106,8 +108,6 @@ export default defineComponent({
         const id = utils.string.createID();
         const isOpen = ref(open.value || modelValue.value);
         const focusTrapRef = ref(null);
-
-        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
 
         const positionStyle = computed(() => {
             const style: { [key: string]: string | number } = { position: position.value };
@@ -121,6 +121,7 @@ export default defineComponent({
             return style;
         });
 
+        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
         const sizeStyle = computed(() => {
             const style: { [key: string]: string } = {};
 
@@ -173,11 +174,11 @@ export default defineComponent({
         );
 
         // only for vs-layout children
+        const { getDefaultLayoutProvide } = useLayout();
+        const { header, footer, setDrawerLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
+
         const isLayoutChild = getCurrentInstance()?.parent?.type.name === VsComponent.VsLayout;
         if (isLayoutChild) {
-            const { getDefaultLayoutProvide } = useLayout();
-            const { setDrawerLayout } = inject(VS_LAYOUT, getDefaultLayoutProvide());
-
             watch(
                 [isOpen, placement, sizeStyle],
                 ([newDrawerOpen, newPlacement, newSize]) => {
@@ -190,6 +191,27 @@ export default defineComponent({
                 { immediate: true },
             );
         }
+
+        const layoutStyles = computed(() => {
+            if (!isLayoutChild || !useLayoutPadding.value) {
+                return {};
+            }
+
+            const style: { [key: string]: string | number } = {};
+            const needPadding = ['absolute', 'fixed'];
+
+            const { position: headerPosition, height: headerHeight } = header.value;
+            if (needPadding.includes(headerPosition)) {
+                style.paddingTop = headerHeight;
+            }
+
+            const { position: footerPosition, height: footerHeight } = footer.value;
+            if (needPadding.includes(footerPosition)) {
+                style.paddingBottom = footerHeight;
+            }
+
+            return style;
+        });
 
         function onClickDimmed() {
             if (closeOnDimmedClick.value) {
@@ -209,6 +231,7 @@ export default defineComponent({
             onClickDimmed,
             MODAL_DURATION,
             focusTrapRef,
+            layoutStyles,
         };
     },
 });

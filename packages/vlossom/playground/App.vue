@@ -1,5 +1,5 @@
 <template>
-    <vs-layout>
+    <vs-layout drawer-responsive>
         <vs-header
             class="header"
             fixed
@@ -14,6 +14,10 @@
             </div>
             <vs-theme-button />
         </vs-header>
+
+        <vs-drawer v-model="isDrawerOpen" position="fixed" use-layout-padding>
+            <vs-button>test</vs-button>
+        </vs-drawer>
 
         <vs-container>
             <playground />
@@ -32,14 +36,16 @@
 </template>
 
 <script lang="ts">
+import { ref } from 'vue';
 import Playground from './Playground.vue';
 
 export default {
     components: { Playground },
     setup() {
         const currentYear = new Date().getFullYear();
+        const isDrawerOpen = ref(false);
 
-        return { currentYear };
+        return { currentYear, isDrawerOpen };
     },
 };
 </script>
