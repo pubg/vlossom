@@ -26,7 +26,7 @@
 <script lang="ts">
 import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
-import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
+import { useColorScheme, useLazyId, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
 import { VsCheckboxNodeStyleSet } from './types';
 
@@ -70,8 +70,7 @@ export default defineComponent({
             'vs-indeterminate': indeterminate.value,
         }));
 
-        const innerId = utils.string.createID();
-        const computedId = computed(() => id.value || innerId);
+        const { computedId } = useLazyId(id);
 
         function toggle(event: Event) {
             emit('change', event);

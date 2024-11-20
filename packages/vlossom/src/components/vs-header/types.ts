@@ -5,4 +5,5 @@ export interface VsHeaderStyleSet {
     height?: string;
     padding?: string;
     width?: string;
+    zIndex?: string;
 }

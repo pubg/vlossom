@@ -27,7 +27,7 @@
                 :checked="isChecked(option)"
                 :dense="dense"
                 :disabled="computedDisabled"
-                :id="`${computedId}-${optionIds[index]}`"
+                :id="`${computedId}-${index}`"
                 :label="getOptionLabel(option)"
                 :name="name"
                 :readonly="computedReadonly"
@@ -188,12 +188,9 @@ export default defineComponent({
             radioRefs.value[0]?.blur();
         }
 
-        const optionIds = computed(() => options.value.map(() => utils.string.createID()));
-
         return {
             computedId,
             radioRefs,
-            optionIds,
             classObj,
             computedColorScheme,
             computedState,

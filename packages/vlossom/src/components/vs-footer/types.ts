@@ -5,4 +5,5 @@ export interface VsFooterStyleSet {
     height?: string;
     padding?: string;
     width?: string;
+    zIndex?: string;
 }

@@ -1,7 +1,7 @@
 import { ComputedRef, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
+import { useLazyId } from '@/composables';
 import { useInputForm } from './input-form-composable';
 import { UIState } from '@/declaration';
-import { utils } from '@/utils';
 
 import type { StateMessage, InputComponentParams } from '@/declaration';
 
@@ -21,8 +21,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         callbacks = {},
     } = inputParams;
 
-    const innerId = utils.string.createID();
-    const computedId = computed(() => id.value || innerId);
+    const { computedId } = useLazyId(id);
 
     const changed = ref(false);
     const isInitialized = ref(false);
