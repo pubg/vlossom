@@ -36,7 +36,7 @@ import {
     nextTick,
     type PropType,
 } from 'vue';
-import { useColorScheme, useEscClose, useLayout, useBodyScroll, useStyleSet } from '@/composables';
+import { useColorScheme, useLayout, useBodyScroll, useStyleSet } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -48,12 +48,11 @@ import {
     VS_LAYOUT,
     DRAWER_SIZE,
     MODAL_DURATION,
-    type ColorScheme,
-    type CssPosition,
     type SizeProp,
 } from '@/declaration';
 import { utils } from '@/utils';
 import { VsFocusTrap } from '@/nodes';
+import { getModalProps } from '@/models';
 
 import type { VsDrawerStyleSet } from './types';
 
@@ -62,24 +61,14 @@ export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
-        closeOnDimmedClick: { type: Boolean, default: true },
-        closeOnEsc: { type: Boolean, default: true },
-        dimmed: { type: Boolean, default: false },
-        focusLock: { type: Boolean, default: true },
-        hideScroll: { type: Boolean, default: false },
-        initialFocusRef: {
-            type: Object as PropType<HTMLElement | null>,
-            default: null,
-        },
+        ...getModalProps<VsDrawerStyleSet, PropType<SizeProp>>({ size: 'sm' }),
+        dimClose: { type: Boolean, default: true },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
             default: 'left',
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
-        position: { type: String as PropType<CssPosition>, default: 'absolute' },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
         useLayoutPadding: { type: Boolean, default: false },
         // v-model
@@ -91,12 +80,11 @@ export default defineComponent({
             colorScheme,
             styleSet,
             modelValue,
-            closeOnDimmedClick,
-            closeOnEsc,
+            dimClose,
+            escClose,
             dimmed,
             open,
             placement,
-            position,
             size,
             useLayoutPadding,
         } = toRefs(props);
@@ -105,16 +93,16 @@ export default defineComponent({
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
-        const id = utils.string.createID();
         const isOpen = ref(open.value || modelValue.value);
         const focusTrapRef = ref(null);
 
         const positionStyle = computed(() => {
-            const style: { [key: string]: string | number } = { position: position.value };
+            const position = hasContainer.value ? 'absolute' : 'fixed';
+            const style: { [key: string]: string | number } = { position };
 
-            if (position.value === 'absolute') {
+            if (position === 'absolute') {
                 style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX;
-            } else if (position.value === 'fixed') {
+            } else if (position === 'fixed') {
                 style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX;
             }
 
@@ -151,7 +139,7 @@ export default defineComponent({
         watch(
             isOpen,
             (val) => {
-                const needScrollLock = dimmed.value && position.value === 'fixed';
+                const needScrollLock = dimmed.value && !hasContainer.value;
                 if (val) {
                     if (needScrollLock) {
                         bodyScroll.lock();
@@ -214,14 +202,10 @@ export default defineComponent({
         });
 
         function onClickDimmed() {
-            if (closeOnDimmedClick.value) {
+            if (dimClose.value) {
                 isOpen.value = false;
             }
         }
-
-        useEscClose(id, closeOnEsc, isOpen, () => {
-            isOpen.value = false;
-        });
 
         return {
             colorSchemeClass,

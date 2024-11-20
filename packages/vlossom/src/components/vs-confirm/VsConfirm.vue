@@ -37,7 +37,6 @@ import { store } from '@/stores';
 import { getModalProps } from '@/models';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsModal from '@/components/vs-modal/VsModal.vue';
-import { VsModalStyleSet } from '@/components/vs-modal/types';
 
 export default defineComponent({
     name: VsComponent.VsConfirm,
@@ -45,7 +44,7 @@ export default defineComponent({
     props: {
         ...getModalProps({ size: 'xs', closeOnDimmedClick: false }),
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
+        styleSet: { type: String as PropType<string> },
         okText: { type: String, default: 'OK' },
         cancelText: { type: String, default: 'Cancel' },
         text: { type: String, required: true, default: '' },

@@ -1,11 +1,11 @@
 import { ConfirmStore } from './confirm-store';
-import { EscStackStore } from './esc-stack-store';
+import { ModalStore } from './modal-store';
 import { OptionStore } from './option-store';
 import { ToastStore } from './toast-store';
 
 export class VsStore {
     private _confirm: ConfirmStore | null = null;
-    private _escStack: EscStackStore | null = null;
+    private _modal: ModalStore | null = null;
     private _option: OptionStore | null = null;
     private _toast: ToastStore | null = null;
 
@@ -15,11 +15,12 @@ export class VsStore {
         }
         return this._option;
     }
-    public get escStack() {
-        if (!this._escStack) {
-            this._escStack = new EscStackStore();
+
+    public get modal() {
+        if (!this._modal) {
+            this._modal = new ModalStore();
         }
-        return this._escStack;
+        return this._modal;
     }
 
     public get toast() {

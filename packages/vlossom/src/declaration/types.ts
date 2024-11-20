@@ -190,3 +190,5 @@ export interface AttachInfo {
     margin?: number;
     followWidth?: boolean;
 }
+
+export type ModalCallbacks = { [key: string]: () => void | Promise<void> };

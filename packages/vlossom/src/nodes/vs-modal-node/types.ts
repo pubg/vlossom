@@ -1,4 +1,4 @@
-export interface VsModalStyleSet {
+export interface VsModalNodeStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     boxShadow?: string;

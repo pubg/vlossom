@@ -1,108 +1,29 @@
 <template>
     <Teleport v-if="isOpen" to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="MODAL_DURATION">
-            <div
-                v-if="isOpen"
-                :class="['vs-modal', colorSchemeClass, { 'vs-has-container': hasContainer, 'vs-dimmed': dimmed }]"
-                :style="computedStyleSet"
-            >
-                <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
-                <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                    <div
-                        :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
-                        role="dialog"
-                        :aria-labelledby="hasHeader ? headerId : undefined"
-                        :aria-describedby="bodyId"
-                        :aria-label="hasHeader ? undefined : 'Modal'"
-                        :aria-modal="true"
-                    >
-                        <div class="vs-modal-contents">
-                            <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
-                                <slot name="header" />
-                            </header>
-
-                            <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
-                                <slot />
-                            </div>
-
-                            <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
-                                <slot name="footer" />
-                            </footer>
-                        </div>
-                    </div>
-                </vs-focus-trap>
-            </div>
-        </Transition>
+        <vs-modal-node v-if="isOpen" />
     </Teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useColorScheme, useBodyScroll, useStyleSet, useEscClose } from '@/composables';
+import { defineComponent, ref, toRefs, watch, computed } from 'vue';
+import { useBodyScroll } from '@/composables';
 import { getModalProps } from '@/models';
-import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
-import { VsFocusTrap } from '@/nodes';
+import { VsComponent, MODAL_DURATION } from '@/declaration';
+import { VsModalNode } from '@/nodes';
 import { utils } from '@/utils';
-
-import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
     name,
-    components: { VsFocusTrap },
+    components: { VsModalNode },
     props: {
         ...getModalProps(),
-        colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue', 'open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
-            toRefs(props);
-
-        const { colorSchemeClass } = useColorScheme(name, colorScheme);
-
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
-
-        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
-
-        const sizeStyle = computed(() => {
-            const style: { [key: string]: string } = {};
-
-            if (typeof size.value === 'object') {
-                const { width = 'md', height = 'md' } = size.value;
-
-                if (SIZES.includes(width as Size)) {
-                    style['--vs-modal-width'] = `var(--vs-modal-width-${width})`;
-                } else {
-                    const convertedWidth = utils.string.convertToStringSize(width);
-                    style['--vs-modal-width'] = convertedWidth;
-                }
-
-                if (SIZES.includes(height as Size)) {
-                    style['--vs-modal-height'] = `var(--vs-modal-height-${height})`;
-                } else {
-                    const convertedHeight = utils.string.convertToStringSize(height);
-                    style['--vs-modal-height'] = convertedHeight;
-                }
-            } else if (hasSpecifiedSize.value) {
-                const convertedSize = utils.string.convertToStringSize(size.value);
-
-                style['--vs-modal-width'] = convertedSize;
-                style['--vs-modal-height'] = convertedSize;
-            }
-
-            return style;
-        });
-
-        const computedStyleSet = computed(() => {
-            return {
-                ...modalStyleSet.value,
-                ...sizeStyle.value,
-            };
-        });
+        const { modelValue } = toRefs(props);
 
         const isOpen = ref(modelValue.value);
 
@@ -139,10 +60,6 @@ export default defineComponent({
                 isOpen.value = false;
             }
         }
-
-        useEscClose(id, closeOnEsc, isOpen, () => {
-            isOpen.value = false;
-        });
 
         return {
             colorSchemeClass,

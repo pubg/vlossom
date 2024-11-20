@@ -1,27 +1,30 @@
 import { PropType } from 'vue';
-import { SizeProp } from '@/declaration';
+import { ColorScheme, SizeProp } from '@/declaration';
+import { utils } from '@/utils';
 
-export function getModalProps(defaultValues: Record<string, any> = {}) {
+// sync with ModalOptions interface
+export function getModalProps<T = any, S = PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>>(
+    defaultValues: Record<string, any> = {},
+) {
     const modalProps = {
-        closeOnDimmedClick: { type: Boolean, default: true },
-        closeOnEsc: { type: Boolean, default: true },
+        colorScheme: { type: String as PropType<ColorScheme> },
+        styleSet: { type: [String, Object] as PropType<string | T> },
+        dimClose: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: true },
+        escClose: { type: Boolean, default: true },
         focusLock: { type: Boolean, default: true },
         hasContainer: { type: Boolean, default: false },
         hideScroll: { type: Boolean, default: false },
-        initialFocusRef: { type: [Object, undefined] as PropType<HTMLElement | null>, default: null },
+        id: { type: String, default: '' },
+        initialFocusRef: {
+            type: Object as PropType<HTMLElement | null>,
+            default: null,
+        },
         size: {
-            type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
+            type: [String, Number, Object] as S,
             default: 'md',
         },
     };
 
-    Object.keys(defaultValues).forEach((key) => {
-        const propName = key as keyof typeof modalProps;
-        if (modalProps[propName]) {
-            modalProps[propName].default = defaultValues[key];
-        }
-    });
-
-    return modalProps;
+    return utils.props.mergePropsDefault(modalProps, defaultValues);
 }
