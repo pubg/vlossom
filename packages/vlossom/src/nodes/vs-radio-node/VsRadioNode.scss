@@ -9,12 +9,14 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
     position: relative;
     display: flex;
     align-items: center;
-    height: var(--vs-radio-node-height, var(--vs-input-comp-height));
+    min-height: var(--vs-radio-node-height, var(--vs-input-comp-height));
 
     .vs-radio-wrap {
         position: relative;
         display: flex;
+        justify-content: flex-start;
         align-items: center;
+        flex-wrap: nowrap;
         user-select: none;
         cursor: pointer;
 
@@ -66,7 +68,7 @@ $radio-selected-inset-box-shadow: inset 0 0 0 calc($radio-size / 3) $radio-color
     }
 
     &.vs-dense {
-        height: var(--vs-rado-height, var(--vs-input-comp-height-dense));
+        min-height: var(--vs-rado-height, var(--vs-input-comp-height-dense));
 
         .vs-radio-label {
             font-size: var(--vs-rado-labelFontSize, var(--vs-font-size-sm));

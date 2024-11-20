@@ -2,10 +2,11 @@
     <vs-layout>
         <vs-header
             class="header"
-            position="fixed"
+            fixed
             primary
-            height="60px"
+            height="72px"
             :style-set="{ backgroundColor: 'black', fontColor: 'white' }"
+            :style="{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }"
         >
             <div class="logo">
                 <vs-image src="/assets/vlossom-logo.png" :style-set="{ height: '40px', width: '40px' }" />
@@ -21,8 +22,9 @@
         <vs-footer
             class="footer"
             :style-set="{ backgroundColor: 'black', fontColor: '#dfdfdf' }"
-            height="30px"
-            position="fixed"
+            height="40px"
+            fixed
+            :style="{ display: 'flex', justifyContent: 'center', alignItems: 'center' }"
         >
             <span>&copy; {{ currentYear }} Vlossom</span>
         </vs-footer>

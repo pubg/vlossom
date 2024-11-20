@@ -1,12 +1,12 @@
 <template>
     <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
-        <label class="vs-radio-wrap">
+        <label class="vs-radio-wrap" :for="computedId">
             <input
                 ref="radioRef"
                 type="radio"
                 class="vs-radio-input"
                 :aria-label="ariaLabel"
-                :id="id"
+                :id="computedId"
                 :disabled="disabled || readonly"
                 :name="name"
                 :value="convertToString(value)"
@@ -41,7 +41,7 @@ export default defineComponent({
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
-        id: { type: String, required: true },
+        id: { type: String, default: '' },
         label: { type: String, default: '' },
         name: { type: String, default: '' },
         readonly: { type: Boolean, default: false },
@@ -52,7 +52,7 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     // expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, dense, disabled, readonly, state, id } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -67,6 +67,9 @@ export default defineComponent({
             'vs-disabled': disabled.value,
             'vs-readonly': readonly.value,
         }));
+
+        const innerId = utils.string.createID();
+        const computedId = computed(() => id.value || innerId);
 
         function toggle(event: Event) {
             emit('change', event);
@@ -100,6 +103,7 @@ export default defineComponent({
             colorSchemeClass,
             computedStyleSet,
             stateClasses,
+            computedId,
             convertToString: utils.string.convertToString,
         };
     },

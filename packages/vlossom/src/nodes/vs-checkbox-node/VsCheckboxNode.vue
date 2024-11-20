@@ -1,25 +1,24 @@
 <template>
     <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
-        <div :class="['vs-checkbox-wrap', stateClasses]">
-            <vs-icon class="vs-check-icon" :icon="icon" />
+        <label class="vs-checkbox-wrap" :for="computedId">
             <input
                 ref="checkboxRef"
                 type="checkbox"
-                class="vs-checkbox-input"
+                :class="['vs-checkbox-input', stateClasses]"
                 :aria-label="ariaLabel"
-                :id="id"
+                :id="computedId"
                 :disabled="disabled || readonly"
                 :name="name"
                 :value="convertToString(value)"
                 :checked="checked"
                 :aria-required="required"
-                @click.prevent.stop="onClick"
+                @click.prevent.stop="toggle"
                 @focus.stop="onFocus"
                 @blur.stop="onBlur"
             />
-        </div>
-        <label v-if="label || $slots['label']" :for="id" class="vs-checkbox-label">
-            <slot name="label">{{ label }}</slot>
+            <div v-if="label || $slots['label']" class="vs-checkbox-label">
+                <slot name="label">{{ label }}</slot>
+            </div>
         </label>
     </div>
 </template>
@@ -29,13 +28,11 @@ import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch 
 import { ColorScheme, UIState, VsNode } from '@/declaration';
 import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
-import { VsIcon } from '@/icons';
 import { VsCheckboxNodeStyleSet } from './types';
 
 const name = VsNode.VsCheckboxNode;
 export default defineComponent({
     name,
-    components: { VsIcon },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsCheckboxNodeStyleSet> },
@@ -43,7 +40,7 @@ export default defineComponent({
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
-        id: { type: String, required: true },
+        id: { type: String, default: '' },
         indeterminate: { type: Boolean, default: false },
         label: { type: String, default: '' },
         name: { type: String, default: '' },
@@ -55,7 +52,7 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     // expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, checked, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, checked, id, indeterminate, dense, disabled, readonly, state } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -70,21 +67,13 @@ export default defineComponent({
             'vs-dense': dense.value,
             'vs-disabled': disabled.value,
             'vs-readonly': readonly.value,
+            'vs-indeterminate': indeterminate.value,
         }));
 
-        const icon = computed(() => {
-            if (checked.value) {
-                return 'checkboxChecked';
-            }
+        const innerId = utils.string.createID();
+        const computedId = computed(() => id.value || innerId);
 
-            if (indeterminate.value) {
-                return 'checkboxIndeterminate';
-            }
-
-            return 'checkboxUnchecked';
-        });
-
-        function onClick(event: Event) {
+        function toggle(event: Event) {
             emit('change', event);
             emit('toggle', !checked.value);
         }
@@ -121,8 +110,6 @@ export default defineComponent({
             checkboxRef,
             colorSchemeClass,
             classObj,
-            icon,
-            onClick,
             onFocus,
             onBlur,
             focus,
@@ -130,6 +117,8 @@ export default defineComponent({
             convertToString: utils.string.convertToString,
             stateClasses,
             computedStyleSet,
+            computedId,
+            toggle,
         };
     },
 });
