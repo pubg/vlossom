@@ -1,4 +1,4 @@
-import { Ref, inject, onBeforeMount, onBeforeUnmount, watch } from 'vue';
+import { Ref, inject, onMounted, onBeforeUnmount, watch } from 'vue';
 import { VS_FORM, VsFormProvide } from '@/declaration';
 import { useFormProvide } from './form-provide-composable';
 
@@ -27,9 +27,15 @@ export function useInputForm(
 
     watch(clearFlag, clear);
 
-    onBeforeMount(() => {
+    onMounted(() => {
         updateChanged(id.value, changed.value);
         updateValid(id.value, valid.value);
+    });
+
+    watch(id, (newId, oldId) => {
+        removeFromForm(oldId);
+        updateChanged(newId, changed.value);
+        updateValid(newId, valid.value);
     });
 
     onBeforeUnmount(() => {

@@ -25,7 +25,6 @@
                     <template #check>
                         <vs-checkbox-node
                             class="vs-table-select vs-select-all"
-                            :id="utils.string.createID()"
                             type="checkbox"
                             :color-scheme="computedColorScheme"
                             :indeterminate="!isSelectedAll && selectedItems.length > 0"

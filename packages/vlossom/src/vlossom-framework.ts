@@ -1,5 +1,6 @@
 import { store } from './stores';
 import * as vsPlugins from './plugins';
+import { utils } from './utils';
 
 import type { App } from 'vue';
 import type { VlossomOptions, VsComponent, VsNode } from '@/declaration';
@@ -7,14 +8,22 @@ import type { ToastPlugin, ConfirmPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
-        const { colorScheme = {}, styleSet = {}, theme = 'light', radiusRatio = 1 } = options || {};
+        const {
+            colorScheme = {},
+            styleSet = {},
+            theme = 'light',
+            radiusRatio = 1,
+            detectOSTheme = false,
+        } = options || {};
 
-        this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
         store.option.setGlobalColorScheme(colorScheme);
         store.option.registerStyleSet(styleSet);
-        store.option.setGlobalRadiusRatio(radiusRatio);
+        if (utils.dom.isBrowser()) {
+            this.theme = (this.getDefaultTheme(options) as 'light' | 'dark') || theme;
+            store.option.setGlobalRadiusRatio(radiusRatio);
+        }
 
-        if (options?.detectOSTheme) {
+        if (utils.dom.isBrowser() && detectOSTheme) {
             const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
             mediaQueryList.addEventListener('change', (event) => {
                 this.theme = event.matches ? 'dark' : 'light';

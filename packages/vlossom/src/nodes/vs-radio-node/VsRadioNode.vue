@@ -27,7 +27,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { ColorScheme, UIState, VsNode } from '@/declaration';
-import { useColorScheme, useStateClass, useStyleSet } from '@/composables';
+import { useColorScheme, useLazyId, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
 import { VsRadioNodeStyleSet } from './types';
 
@@ -68,8 +68,7 @@ export default defineComponent({
             'vs-readonly': readonly.value,
         }));
 
-        const innerId = utils.string.createID();
-        const computedId = computed(() => id.value || innerId);
+        const { computedId } = useLazyId(id);
 
         function toggle(event: Event) {
             emit('change', event);

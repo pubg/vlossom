@@ -26,7 +26,6 @@
             >
                 <template #check>
                     <vs-checkbox-node
-                        :id="element.id"
                         type="checkbox"
                         :color-scheme="colorScheme"
                         :checked="isSelected(element.id)"
