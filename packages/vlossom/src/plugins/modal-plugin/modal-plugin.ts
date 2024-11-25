@@ -24,7 +24,7 @@ export const modalPlugin: ModalPlugin = {
 
         const props = utils.object.omit(options, ['component', 'header', 'footer', 'container', 'callbacks']);
 
-        store.modal.push(id || utils.string.createID(), callbacks || {});
+        store.overlay.push(id || utils.string.createID(), callbacks || {});
 
         const modalView = h(
             VsModalNode,

@@ -847,6 +847,7 @@ describe('vs-select', () => {
             const wrapper = mount(VsSelect, {
                 props: {
                     ariaLabel: 'aria-label',
+                    options: ['A', 'B', 'C'],
                 },
             });
 

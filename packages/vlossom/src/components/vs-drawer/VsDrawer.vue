@@ -33,10 +33,10 @@ import {
     computed,
     getCurrentInstance,
     ComputedRef,
-    nextTick,
     type PropType,
+    Ref,
 } from 'vue';
-import { useColorScheme, useLayout, useBodyScroll, useStyleSet } from '@/composables';
+import { useColorScheme, useLayout, useStyleSet, useOverlay } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -48,11 +48,14 @@ import {
     VS_LAYOUT,
     DRAWER_SIZE,
     MODAL_DURATION,
+    VS_OVERLAY_OPEN,
+    VS_OVERLAY_CLOSE,
     type SizeProp,
+    Focusable,
 } from '@/declaration';
 import { utils } from '@/utils';
 import { VsFocusTrap } from '@/nodes';
-import { getModalProps } from '@/models';
+import { getOverlayProps } from '@/models';
 
 import type { VsDrawerStyleSet } from './types';
 
@@ -61,8 +64,9 @@ export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        ...getModalProps<VsDrawerStyleSet, PropType<SizeProp>>({ size: 'sm' }),
+        ...getOverlayProps<VsDrawerStyleSet>(),
         dimClose: { type: Boolean, default: true },
+        fixed: { type: Boolean, default: false },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
@@ -74,36 +78,37 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
+    emits: ['update:modelValue', VS_OVERLAY_OPEN, VS_OVERLAY_CLOSE],
+    setup(props, context) {
         const {
             colorScheme,
             styleSet,
             modelValue,
+            id,
             dimClose,
-            escClose,
             dimmed,
+            fixed,
             open,
             placement,
             size,
             useLayoutPadding,
+            escClose,
         } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
-        const isOpen = ref(open.value || modelValue.value);
-        const focusTrapRef = ref(null);
+        const focusTrapRef: Ref<Focusable | null> = ref(null);
 
         const positionStyle = computed(() => {
-            const position = hasContainer.value ? 'absolute' : 'fixed';
+            const position = fixed.value ? 'fixed' : 'absolute';
             const style: { [key: string]: string | number } = { position };
 
             if (position === 'absolute') {
-                style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX;
+                style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX - 5;
             } else if (position === 'fixed') {
-                style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX;
+                style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX - 5;
             }
 
             return style;
@@ -131,35 +136,18 @@ export default defineComponent({
             };
         });
 
-        watch(modelValue, (val) => {
-            isOpen.value = val;
-        });
-
-        const bodyScroll = useBodyScroll();
-        watch(
-            isOpen,
-            (val) => {
-                const needScrollLock = dimmed.value && !hasContainer.value;
-                if (val) {
-                    if (needScrollLock) {
-                        bodyScroll.lock();
-                    }
-                    nextTick(() => {
-                        (focusTrapRef.value as any)?.focus();
-                    });
-                } else {
-                    if (needScrollLock) {
-                        bodyScroll.unlock();
-                    }
-                    nextTick(() => {
-                        (focusTrapRef.value as any)?.blur();
-                    });
-                }
-
-                emit('update:modelValue', val);
+        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const { isOpen, close } = useOverlay(context, id, modelValue, open.value, escClose, needScrollLock, {
+            [VS_OVERLAY_OPEN]: () => {
+                focusTrapRef.value?.focus();
             },
-            { immediate: true },
-        );
+            'key-Escape': () => {
+                close();
+            },
+            [VS_OVERLAY_CLOSE]: () => {
+                focusTrapRef.value?.blur();
+            },
+        });
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -203,7 +191,7 @@ export default defineComponent({
 
         function onClickDimmed() {
             if (dimClose.value) {
-                isOpen.value = false;
+                close();
             }
         }
 

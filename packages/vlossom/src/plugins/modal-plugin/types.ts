@@ -1,12 +1,12 @@
-import { ModalCallbacks } from '@/declaration';
+import { OverlayCallbacks } from '@/declaration';
 
 export interface ModalOptions {
     component: any;
     header?: any;
     footer?: any;
     container?: HTMLElement;
-    callbacks?: ModalCallbacks;
-    // sync with getModalProps function
+    callbacks?: OverlayCallbacks;
+    // sync with getOverlayProps function
     dimClose?: boolean;
     dimmed?: boolean;
     escClose?: boolean;

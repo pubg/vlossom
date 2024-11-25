@@ -184,6 +184,11 @@ export interface LabelValue<T = any> {
 
 export type Align = (typeof ALIGNS)[number];
 
+export interface Focusable {
+    focus(): void;
+    blur(): void;
+}
+
 export interface AttachInfo {
     placement?: Exclude<Placement, 'middle'>;
     align?: Align;
@@ -191,4 +196,4 @@ export interface AttachInfo {
     followWidth?: boolean;
 }
 
-export type ModalCallbacks = { [key: string]: () => void | Promise<void> };
+export type OverlayCallbacks = { [eventName: string]: (...args: any[]) => void | Promise<void> };

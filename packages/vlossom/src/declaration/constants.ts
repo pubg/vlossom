@@ -34,6 +34,10 @@ export const SCROLLBAR_WIDTH = '0.38rem';
 
 export const MODAL_DURATION = 300;
 
+export const VS_OVERLAY_CLOSE = 'vs-overlay-close';
+
+export const VS_OVERLAY_OPEN = 'vs-overlay-open';
+
 export const DRAWER_SIZE = {
     xs: '12%',
     sm: '20%',

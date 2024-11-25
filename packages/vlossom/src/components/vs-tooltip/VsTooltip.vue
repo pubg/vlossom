@@ -33,7 +33,7 @@
 import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align, PLACEMENTS, ALIGNS } from '@/declaration';
-import { usePositioning, useOverlay } from '@/composables';
+import { usePositioning, useOverlayDom } from '@/composables';
 import { utils } from '@/utils';
 
 import type { VsTooltipStyleSet } from './types';
@@ -84,7 +84,7 @@ export default defineComponent({
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
 
-        useOverlay();
+        useOverlayDom();
 
         const { isVisible, computedPlacement, appear, disappear } = usePositioning(
             triggerRef as Ref<HTMLElement>,

@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref, type Ref } from 'vue';
-import { usePositioning, useOverlay } from '@/composables';
+import { usePositioning, useOverlayDom } from '@/composables';
 
 describe('anchor-positioning-composable', () => {
     describe('usePositioning', async () => {
@@ -44,7 +44,7 @@ describe('anchor-positioning-composable', () => {
         });
     });
 
-    describe('useOverlay', async () => {
+    describe('useOverlayDom', async () => {
         beforeEach(() => {
             document.body.innerHTML = '';
         });
@@ -54,7 +54,7 @@ describe('anchor-positioning-composable', () => {
             const Component = defineComponent({
                 template: '<div></div>',
                 setup() {
-                    useOverlay();
+                    useOverlayDom();
                     return {};
                 },
             });

@@ -9,6 +9,7 @@ export * from './input-option-composable';
 export * from './layout-composable';
 export * from './lazy-id-composable';
 export * from './overlay-composable';
+export * from './overlay-dom-composable';
 export * from './responsive-composable';
 export * from './scroll-lock-composable';
 export * from './state-class-composable';

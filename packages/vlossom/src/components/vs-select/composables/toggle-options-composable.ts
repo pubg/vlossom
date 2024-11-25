@@ -1,8 +1,8 @@
 import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
-import { useOverlay, usePositioning } from '@/composables';
+import { useOverlayDom, usePositioning } from '@/composables';
 
 export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readonly: Ref<boolean>) {
-    useOverlay();
+    useOverlayDom();
 
     const isOpen = ref(false);
     const isClosing = ref(false);

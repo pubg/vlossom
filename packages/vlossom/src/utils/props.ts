@@ -16,12 +16,4 @@ export const propsUtil = {
         }
         return isValid;
     },
-    mergePropsDefault(props: any, defaultValues: Record<string, any>) {
-        Object.keys(defaultValues).forEach((key) => {
-            if (props[key]) {
-                props[key].default = defaultValues[key];
-            }
-        });
-        return props;
-    },
 };
