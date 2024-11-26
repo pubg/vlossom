@@ -3,7 +3,7 @@ import { OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declarati
 
 export class OverlayStore {
     // overlay tuple: [id, { [eventName: callback }]
-    private overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
+    public readonly overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
     private keyedOverlays: ComputedRef<{ [key: string]: string[] }> = computed(() => {
         const keyedOverlays: { [key: string]: string[] } = {};
         this.overlays.forEach(([id, callbacks]) => {

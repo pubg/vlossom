@@ -212,9 +212,6 @@ export const HasContainer: Story = {
             </div>
         `,
     }),
-    args: {
-        hasContainer: true,
-    },
 };
 
 export const HideScroll: Story = {

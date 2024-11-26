@@ -1,6 +1,6 @@
 <template>
     <div
-        :class="['vs-modal-node', colorSchemeClass, { 'vs-has-container': hasContainer, 'vs-dimmed': dimmed }]"
+        :class="['vs-modal-node', colorSchemeClass, { 'vs-has-container': !fixed, 'vs-dimmed': dimmed }]"
         :style="computedStyleSet"
     >
         <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
@@ -15,17 +15,17 @@
                     :aria-modal="true"
                 >
                     <div class="vs-modal-contents">
-                        <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
+                        <div v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
                             <slot name="header" />
-                        </header>
+                        </div>
 
                         <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
                             <slot />
                         </div>
 
-                        <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
+                        <div v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
                             <slot name="footer" />
-                        </footer>
+                        </div>
                     </div>
                 </div>
             </vs-focus-trap>
@@ -34,28 +34,32 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
-import { Size, SIZES, VsNode } from '@/declaration';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
+import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp } from '@/declaration';
+import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from '@/components';
 import { utils } from '@/utils';
-import { getModalProps } from '@/models';
+import { getOverlayProps } from '@/models';
 
 const name = VsNode.VsModalNode;
 export default defineComponent({
     name,
     props: {
-        ...getModalProps(),
+        ...getOverlayProps(),
+        size: {
+            type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
+            default: 'md',
+        },
     },
-    setup(props) {
-        const { colorScheme, styleSet, size } = toRefs(props);
+    emits: ['update:id', 'open', 'close'],
+    setup(props, { emit, slots }) {
+        const { colorScheme, id, styleSet, size, dimClose, escClose, fixed, dimmed } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
-
         const sizeStyle = computed(() => {
             const style: { [key: string]: string } = {};
 
@@ -92,9 +96,46 @@ export default defineComponent({
             };
         });
 
+        const initialOpen = true;
+        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const callbacks = computed(() => {
+            return {
+                ...(escClose.value && {
+                    'key-Escape': () => {
+                        close();
+                    },
+                }),
+            };
+        });
+        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, needScrollLock, callbacks);
+
+        const hasHeader = computed(() => !!slots['header']);
+        const headerId = computed(() => `vs-modal-header-${overlayId.value}`);
+        const bodyId = computed(() => `vs-modal-body-${overlayId.value}`);
+
+        function onClickDimmed() {
+            if (dimClose.value) {
+                close();
+            }
+        }
+
+        watch(overlayId, () => {
+            emit('update:id', overlayId.value);
+        });
+
+        watch(isOpen, (o) => {
+            emit(o ? 'open' : 'close');
+        });
+
         return {
             colorSchemeClass,
             computedStyleSet,
+            MODAL_DURATION,
+            onClickDimmed,
+            hasHeader,
+            headerId,
+            bodyId,
+            hasSpecifiedSize,
         };
     },
 });

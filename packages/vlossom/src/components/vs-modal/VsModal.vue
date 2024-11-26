@@ -1,79 +1,73 @@
 <template>
-    <Teleport v-if="isOpen" to="body" :disabled="hasContainer">
-        <vs-modal-node v-if="isOpen" />
+    <Teleport v-if="isOpen" :to="container">
+        <vs-modal-node
+            v-model:id="id"
+            :color-scheme="colorScheme"
+            :style-set="styleSet"
+            :dim-close="dimClose"
+            :dimmed="dimmed"
+            :esc-close="escClose"
+            :fixed="fixed"
+            :focus-lock="focusLock"
+            :hide-scroll="hideScroll"
+            :initial-focus-ref="initialFocusRef"
+            :size="size"
+            @open="isOpen = true"
+            @close="isOpen = false"
+        >
+            <template #header>
+                <slot name="header" />
+            </template>
+            <slot />
+            <template #footer>
+                <slot name="footer" />
+            </template>
+        </vs-modal-node>
     </Teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed } from 'vue';
-import { useBodyScroll } from '@/composables';
-import { getModalProps } from '@/models';
-import { VsComponent, MODAL_DURATION } from '@/declaration';
+import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
+import { getOverlayProps } from '@/models';
+import { VsComponent, SizeProp } from '@/declaration';
 import { VsModalNode } from '@/nodes';
-import { utils } from '@/utils';
+import { store } from '@/stores';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
     name,
     components: { VsModalNode },
     props: {
-        ...getModalProps(),
+        ...getOverlayProps(),
+        container: { type: String, default: 'body' },
+        size: {
+            type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
+            default: 'md',
+        },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue', 'open', 'close'],
-    setup(props, { emit, slots }) {
-        const { modelValue } = toRefs(props);
+    setup(props, { emit }) {
+        const { modelValue, id } = toRefs(props);
 
-        const isOpen = ref(modelValue.value);
+        const isOpen = ref(false);
 
-        const id = utils.string.createID();
-
-        const hasHeader = computed(() => !!slots['header']);
-        const headerId = `vs-modal-header-${id}`;
-        const bodyId = `vs-modal-body-${id}`;
-
-        watch(modelValue, (val) => {
-            isOpen.value = val;
+        watch(modelValue, (o) => {
+            isOpen.value = o;
         });
 
-        const bodyScroll = useBodyScroll();
-        watch(
-            isOpen,
-            (open) => {
-                if (dimmed.value && !hasContainer.value) {
-                    if (open) {
-                        bodyScroll.lock();
-                    } else {
-                        bodyScroll.unlock();
-                    }
-                }
-
-                emit('update:modelValue', open);
-                emit(open ? 'open' : 'close');
-            },
-            { immediate: true },
-        );
-
-        function onClickDimmed() {
-            if (closeOnDimmedClick.value) {
-                isOpen.value = false;
+        watch(isOpen, (o) => {
+            emit('update:modelValue', o);
+            emit(o ? 'open' : 'close');
+            if (!o) {
+                store.overlay.remove(id.value);
             }
-        }
+        });
 
         return {
-            colorSchemeClass,
-            computedStyleSet,
-            hasSpecifiedSize,
             isOpen,
-            onClickDimmed,
-            MODAL_DURATION,
-            hasHeader,
-            headerId,
-            bodyId,
         };
     },
 });
 </script>
-
-<style lang="scss" src="./VsModal.scss" />
