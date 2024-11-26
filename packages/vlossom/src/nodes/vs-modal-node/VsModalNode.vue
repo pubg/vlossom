@@ -51,7 +51,7 @@ export default defineComponent({
             default: 'md',
         },
     },
-    emits: ['update:id', 'open', 'close'],
+    emits: ['open', 'close'],
     setup(props, { emit, slots }) {
         const { colorScheme, id, styleSet, size, dimClose, escClose, fixed, dimmed } = toRefs(props);
 
@@ -118,10 +118,6 @@ export default defineComponent({
                 close();
             }
         }
-
-        watch(overlayId, () => {
-            emit('update:id', overlayId.value);
-        });
 
         watch(isOpen, (o) => {
             emit(o ? 'open' : 'close');

@@ -1,7 +1,6 @@
 <template>
     <Teleport v-if="isOpen" :to="container">
         <vs-modal-node
-            v-model:id="id"
             :color-scheme="colorScheme"
             :style-set="styleSet"
             :dim-close="dimClose"
@@ -10,6 +9,7 @@
             :fixed="fixed"
             :focus-lock="focusLock"
             :hide-scroll="hideScroll"
+            :id="modalId"
             :initial-focus-ref="initialFocusRef"
             :size="size"
             @open="isOpen = true"
@@ -27,11 +27,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
 import { getOverlayProps } from '@/models';
 import { VsComponent, SizeProp } from '@/declaration';
 import { VsModalNode } from '@/nodes';
 import { store } from '@/stores';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
@@ -51,6 +52,8 @@ export default defineComponent({
     setup(props, { emit }) {
         const { modelValue, id } = toRefs(props);
 
+        const innerId = utils.string.createID();
+        const modalId = computed(() => id.value || innerId);
         const isOpen = ref(false);
 
         watch(modelValue, (o) => {
@@ -61,11 +64,12 @@ export default defineComponent({
             emit('update:modelValue', o);
             emit(o ? 'open' : 'close');
             if (!o) {
-                store.overlay.remove(id.value);
+                store.overlay.remove(modalId.value);
             }
         });
 
         return {
+            modalId,
             isOpen,
         };
     },
