@@ -36,7 +36,7 @@ import type {
     VsTooltipStyleSet,
 } from '@/components';
 import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
-import type { VsComponent, VsNode, UIState } from './enums';
+import type { VsComponent, VsNode } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
@@ -102,6 +102,8 @@ export interface Breakpoints {
     lg?: string | number;
     xl?: string | number;
 }
+
+export type UIState = 'idle' | 'success' | 'info' | 'error' | 'warning' | 'selected';
 
 export interface StateMessage {
     state: UIState;

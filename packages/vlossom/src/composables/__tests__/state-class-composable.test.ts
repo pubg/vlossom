@@ -7,7 +7,7 @@ describe('state-class-composable', () => {
     describe('stateClasses class', () => {
         it('stated', () => {
             // given
-            const stated = [UIState.Info, UIState.Success, UIState.Error, UIState.Warning];
+            const stated = ['info', 'success', 'error', 'warning'];
 
             // when
             const classes = stated.map((state) => useStateClass(ref(state)).stateClasses.value);
@@ -23,7 +23,7 @@ describe('state-class-composable', () => {
 
         it('not stated', () => {
             // given
-            const notStated = [UIState.Idle, UIState.Selected];
+            const notStated = ['idle', 'selected'];
 
             // when
             const classes = notStated.map((state) => useStateClass(ref(state)).stateClasses.value);

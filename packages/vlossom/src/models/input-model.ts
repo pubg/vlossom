@@ -45,7 +45,7 @@ export function getInputProps<T = unknown, K extends keyof VsInputProps<T> = nev
             readonly: { type: Boolean, default: false },
             required: { type: Boolean, default: false },
             rules: { type: Array as PropType<Rule<T>[]>, default: () => [] },
-            state: { type: String as PropType<UIState>, default: UIState.Idle },
+            state: { type: String as PropType<UIState>, default: 'idle' },
             visible: { type: Boolean, default: true },
 
             // v-model

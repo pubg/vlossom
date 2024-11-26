@@ -11,7 +11,7 @@ const meta: Meta<typeof VsTextarea> = {
     render: (args: any) => ({
         components: { VsTextarea },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref(LOREM_IPSUM.trim());
             return { args, messages, modelValue };
         },

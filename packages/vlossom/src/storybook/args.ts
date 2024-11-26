@@ -27,7 +27,7 @@ export const size = {
 
 export const state = {
     control: 'select' as any,
-    options: [UIState.Idle, UIState.Info, UIState.Success, UIState.Warning, UIState.Error],
+    options: ['idle', 'info', 'success', 'warning', 'error'],
 };
 
 export function numberArray(length: number, multiSelect: boolean = false) {

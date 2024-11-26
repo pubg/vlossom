@@ -46,7 +46,7 @@ export default defineComponent({
         name: { type: String, default: '' },
         readonly: { type: Boolean, default: false },
         required: { type: Boolean, default: false },
-        state: { type: String as PropType<UIState>, default: UIState.Idle },
+        state: { type: String as PropType<UIState>, default: 'idle' },
         value: { type: null, default: 'true' },
     },
     emits: ['change', 'toggle', 'focus', 'blur'],

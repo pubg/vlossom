@@ -11,7 +11,7 @@ const meta: Meta<typeof VsRadioSet> = {
     render: (args: any) => ({
         components: { VsRadioSet },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref('Apple');
             return { args, messages, modelValue };
         },

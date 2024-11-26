@@ -10,7 +10,7 @@ const meta: Meta<typeof VsRadio> = {
     render: (args: any) => ({
         components: { VsRadio },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             return { args, messages };
         },
         template: `

@@ -10,7 +10,7 @@ In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
 Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.`;
 
 export function getStateTemplate(templateStr: string) {
-    const states = [UIState.Info, UIState.Success, UIState.Warning, UIState.Error];
+    const states = ['info', 'success', 'warning', 'error'];
     return states.map((state) => templateStr.replace(/{{\s*state\s*}}/g, state)).join('\n');
 }
 

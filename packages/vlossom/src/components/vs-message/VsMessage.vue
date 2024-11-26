@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { PropType, computed, defineComponent, toRefs } from 'vue';
-import { UIState, VsComponent } from '@/declaration';
+import { VsComponent } from '@/declaration';
 import { VsIcon, iconSvgs } from '@/icons';
 
 import type { StateMessage } from '@/declaration';
@@ -27,13 +27,13 @@ export default defineComponent({
 
         const colorClass = computed(() => {
             switch (message.value.state) {
-                case UIState.Info:
+                case 'info':
                     return 'vs-blue';
-                case UIState.Success:
+                case 'success':
                     return 'vs-green';
-                case UIState.Warning:
+                case 'warning':
                     return 'vs-yellow';
-                case UIState.Error:
+                case 'error':
                     return 'vs-red';
                 default:
                     return 'vs-default';
@@ -41,7 +41,7 @@ export default defineComponent({
         });
 
         const icon = computed(() => {
-            if (message.value.state === UIState.Idle) {
+            if (message.value.state === 'idle') {
                 return 'message';
             }
 

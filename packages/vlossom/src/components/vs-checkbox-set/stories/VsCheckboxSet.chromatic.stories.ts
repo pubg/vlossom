@@ -12,7 +12,7 @@ const meta: Meta<typeof VsCheckboxSet> = {
     render: (args: any) => ({
         components: { VsCheckboxSet },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref([...options]);
             return { args, messages, modelValue };
         },

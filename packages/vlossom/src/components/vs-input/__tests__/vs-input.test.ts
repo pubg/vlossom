@@ -384,7 +384,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
@@ -404,7 +404,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
@@ -424,7 +424,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
         });
 
@@ -445,7 +445,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('max value: 3');
         });
 
@@ -466,7 +466,7 @@ describe('vs-input', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('min value: 3');
         });
     });

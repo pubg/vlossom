@@ -52,12 +52,3 @@ export enum VsNode {
     VsFocusTrap = 'VsFocusTrap',
     VsRadioNode = 'VsRadioNode',
 }
-
-export enum UIState {
-    Idle = 'idle',
-    Success = 'success',
-    Info = 'info',
-    Error = 'error',
-    Warning = 'warning',
-    Selected = 'selected',
-}

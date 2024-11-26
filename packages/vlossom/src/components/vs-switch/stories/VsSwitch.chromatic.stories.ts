@@ -11,7 +11,7 @@ const meta: Meta<typeof VsSwitch> = {
     render: (args: any) => ({
         components: { VsSwitch },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref(true);
             return { args, messages, modelValue };
         },

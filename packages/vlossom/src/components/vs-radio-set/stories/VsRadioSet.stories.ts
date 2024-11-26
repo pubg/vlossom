@@ -96,7 +96,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Warning, text: 'This is warning message' }],
+        messages: [{ state: 'warning', text: 'This is warning message' }],
     },
 };
 

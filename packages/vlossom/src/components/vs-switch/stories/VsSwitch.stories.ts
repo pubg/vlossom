@@ -100,10 +100,10 @@ export const Messages: Story = {
             const value = ref(false);
             const messages = computed(() => {
                 if (!value.value) {
-                    return [{ state: UIState.Error, text: 'This is error message' }];
+                    return [{ state: 'error', text: 'This is error message' }];
                 }
 
-                return [{ state: UIState.Success, text: 'This is success message' }];
+                return [{ state: 'success', text: 'This is success message' }];
             });
 
             return { args, value, messages };

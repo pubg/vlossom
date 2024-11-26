@@ -11,7 +11,7 @@ const meta: Meta<typeof VsInput> = {
     render: (args: any) => ({
         components: { VsInput, VsIcon },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = 'John Doe';
             return { args, messages, modelValue };
         },

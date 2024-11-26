@@ -100,7 +100,7 @@ describe('vs-input-wrapper', () => {
             // given
             const wrapper = mount(VsInputWrapper, {
                 props: {
-                    messages: [{ state: UIState.Info, text: 'Info Message' }],
+                    messages: [{ state: 'info', text: 'Info Message' }],
                 },
             });
 

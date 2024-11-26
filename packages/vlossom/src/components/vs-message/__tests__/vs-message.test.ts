@@ -8,7 +8,7 @@ describe('vs-message', () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
-                message: { state: UIState.Idle, text: 'message text' },
+                message: { state: 'idle', text: 'message text' },
             },
         });
 
@@ -22,7 +22,7 @@ describe('vs-message', () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
-                message: { state: UIState.Info, text: 'message text' },
+                message: { state: 'info', text: 'message text' },
             },
         });
 
@@ -36,7 +36,7 @@ describe('vs-message', () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
-                message: { state: UIState.Success, text: 'message text' },
+                message: { state: 'success', text: 'message text' },
             },
         });
 
@@ -50,7 +50,7 @@ describe('vs-message', () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
-                message: { state: UIState.Warning, text: 'message text' },
+                message: { state: 'warning', text: 'message text' },
             },
         });
 
@@ -64,7 +64,7 @@ describe('vs-message', () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
-                message: { state: UIState.Error, text: 'message text' },
+                message: { state: 'error', text: 'message text' },
             },
         });
 

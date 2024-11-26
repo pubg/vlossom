@@ -133,7 +133,7 @@ export default defineComponent({
 
         const rowState = computed(() => {
             if (selected.value) {
-                return UIState.Selected;
+                return 'selected';
             }
 
             const { state: rowStateFn } = rows.value || {};
