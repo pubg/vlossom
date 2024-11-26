@@ -3,9 +3,8 @@ import { mount } from '@vue/test-utils';
 import { defineComponent, nextTick, ref, toRefs } from 'vue';
 import { getInputProps } from '@/models';
 import { useInput } from '@/composables/input-composable';
-import { UIState } from '@/declaration';
 
-import type { StateMessage } from '@/declaration';
+import type { Message, StateMessage } from '@/declaration';
 
 describe('useInput composable', () => {
     const inputValue = ref('');
@@ -137,7 +136,7 @@ describe('useInput composable', () => {
     describe('messages', () => {
         it('messages를 StateMessage[] 형태로 전달할 수 있다', async () => {
             // given
-            const messages = [
+            const messages: StateMessage[] = [
                 { state: 'info', text: 'info message' },
                 { state: 'success', text: 'success message' },
                 { state: 'warning', text: 'warning message' },
@@ -162,7 +161,7 @@ describe('useInput composable', () => {
             ];
             const wrapper = mount(TestInputComponent, {
                 props: {
-                    messages: [() => messages[0], () => messages[1], () => messages[2]],
+                    messages: [() => messages[0], () => messages[1], () => messages[2]] as Message[],
                 },
             });
 
@@ -184,7 +183,7 @@ describe('useInput composable', () => {
                         () => Promise.resolve(messages[0]),
                         () => Promise.resolve(messages[1]),
                         () => Promise.resolve(messages[2]),
-                    ],
+                    ] as Message[],
                 },
             });
 

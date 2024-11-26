@@ -1,4 +1,3 @@
-import { UIState } from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

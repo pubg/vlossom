@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 import VsInput from './../VsInput.vue';
 

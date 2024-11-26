@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { UIState } from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 
 describe('vs-message', () => {

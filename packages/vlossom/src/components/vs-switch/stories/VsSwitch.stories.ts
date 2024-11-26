@@ -7,7 +7,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsSwitch from './../VsSwitch.vue';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 

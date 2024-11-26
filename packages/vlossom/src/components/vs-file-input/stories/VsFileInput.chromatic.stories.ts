@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsFileInput from './../VsFileInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

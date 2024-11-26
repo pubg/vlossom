@@ -1,7 +1,6 @@
 import { ComputedRef, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
 import { useLazyId } from '@/composables';
 import { useInputForm } from './input-form-composable';
-import { UIState } from '@/declaration';
 
 import type { StateMessage, InputComponentParams } from '@/declaration';
 

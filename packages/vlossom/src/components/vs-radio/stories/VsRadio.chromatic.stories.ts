@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsRadio from './../VsRadio.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

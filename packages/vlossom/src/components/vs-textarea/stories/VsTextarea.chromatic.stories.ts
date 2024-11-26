@@ -1,5 +1,4 @@
 import { LOREM_IPSUM, colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsTextarea from './../VsTextarea.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { UIState } from '@/declaration';
 import { useStateClass } from '@/composables';
 import { ref } from 'vue';
+import { UIState } from '@/declaration';
 
 describe('state-class-composable', () => {
     describe('stateClasses class', () => {
         it('stated', () => {
             // given
-            const stated = ['info', 'success', 'error', 'warning'];
+            const stated: UIState[] = ['info', 'success', 'error', 'warning'];
 
             // when
             const classes = stated.map((state) => useStateClass(ref(state)).stateClasses.value);
@@ -23,7 +23,7 @@ describe('state-class-composable', () => {
 
         it('not stated', () => {
             // given
-            const notStated = ['idle', 'selected'];
+            const notStated: UIState[] = ['idle', 'selected'];
 
             // when
             const classes = notStated.map((state) => useStateClass(ref(state)).stateClasses.value);

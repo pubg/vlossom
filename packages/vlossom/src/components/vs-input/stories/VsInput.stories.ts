@@ -7,7 +7,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsInput from './../VsInput.vue';

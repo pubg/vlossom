@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import { ref } from 'vue';
 import VsSelect from './../VsSelect.vue';
 

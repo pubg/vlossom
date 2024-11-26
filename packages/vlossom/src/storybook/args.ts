@@ -1,4 +1,4 @@
-import { COLORS, CSS_POSITION, PLACEMENTS, SIZES, UIState } from '@/declaration';
+import { COLORS, CSS_POSITION, PLACEMENTS, SIZES } from '@/declaration';
 
 export const colorScheme = {
     control: 'select' as any,

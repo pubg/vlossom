@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { UIState } from '@/declaration';
 import VsInput from './../VsInput.vue';
 import { InputType } from './../types';
 

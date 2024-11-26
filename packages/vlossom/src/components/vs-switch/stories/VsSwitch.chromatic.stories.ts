@@ -1,6 +1,5 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { ref } from 'vue';
-import { UIState } from '@/declaration';
 import VsSwitch from './../VsSwitch.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
