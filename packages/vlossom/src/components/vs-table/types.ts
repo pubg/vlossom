@@ -29,11 +29,13 @@ export interface TableRow<T = any> {
 
 export type TableFilter = { [key: string]: (rowData: { [key: string]: any }) => boolean };
 
-export enum SortType {
-    NONE,
-    ASCEND,
-    DESCEND,
-}
+export const SortType = {
+    NONE: 0,
+    ASCEND: 1,
+    DESCEND: 2,
+} as const;
+
+export type SortType = (typeof SortType)[keyof typeof SortType];
 
 export interface VsTableStyleSet {
     backgroundColor?: string;
