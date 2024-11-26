@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import { ref } from 'vue';
 import VsSelect from './../VsSelect.vue';
 
@@ -32,7 +31,7 @@ const meta: Meta<typeof VsSelect> = {
             const modelValue2 = ref(['apple', 'banana', 'carrot']);
             const modelValue3 = ref(['apple', 'banana', 'carrot']);
 
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             return { args, modelValue1, modelValue2, modelValue3, messages };
         },
         template: `

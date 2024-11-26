@@ -38,7 +38,7 @@ export default defineComponent({
         outline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
         responsive: { type: Boolean, default: false },
-        state: { type: String as PropType<UIState>, default: UIState.Idle },
+        state: { type: String as PropType<UIState>, default: 'idle' },
     },
     setup(props) {
         const { colorScheme, styleSet, dense, large, loading, responsive, outline, primary, state } = toRefs(props);

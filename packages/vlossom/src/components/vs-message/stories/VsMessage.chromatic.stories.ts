@@ -1,4 +1,3 @@
-import { UIState } from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -10,11 +9,11 @@ const meta: Meta<typeof VsMessage> = {
         components: { VsMessage },
         setup() {
             const messages = [
-                { state: UIState.Idle, text: 'idle message' },
-                { state: UIState.Info, text: 'info message' },
-                { state: UIState.Success, text: 'success message' },
-                { state: UIState.Warning, text: 'warning message' },
-                { state: UIState.Error, text: 'error message' },
+                { state: 'idle', text: 'idle message' },
+                { state: 'info', text: 'info message' },
+                { state: 'success', text: 'success message' },
+                { state: 'warning', text: 'warning message' },
+                { state: 'error', text: 'error message' },
             ];
             return { args, messages };
         },

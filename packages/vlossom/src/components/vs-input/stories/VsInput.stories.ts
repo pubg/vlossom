@@ -7,7 +7,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { UIState } from '@/declaration';
 import { VsIcon } from '@/icons';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsInput from './../VsInput.vue';
@@ -108,7 +107,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: 'success', text: 'This is success message' }],
     },
 };
 

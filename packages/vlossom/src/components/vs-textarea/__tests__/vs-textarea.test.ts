@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import { UIState } from '@/declaration';
 import VsTextarea from './../VsTextarea.vue';
 
 describe('vs-textarea', () => {
@@ -239,7 +238,7 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('required');
         });
 
@@ -259,7 +258,7 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('max length: 3');
         });
 
@@ -279,7 +278,7 @@ describe('vs-textarea', () => {
 
             // then
             expect(wrapper.vm.computedMessages).toHaveLength(1);
-            expect(wrapper.vm.computedMessages[0].state).toEqual(UIState.Error);
+            expect(wrapper.vm.computedMessages[0].state).toEqual('error');
             expect(wrapper.vm.computedMessages[0].text).toEqual('min length: 3');
         });
     });

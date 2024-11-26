@@ -1,4 +1,4 @@
-import { UIState } from '@/declaration';
+import {  } from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
@@ -10,7 +10,7 @@ const meta: Meta<typeof VsMessage> = {
     render: (args: any) => ({
         components: { VsMessage },
         setup() {
-            const message = { state: UIState.Idle, text: 'my message' };
+            const message = { state: 'idle', text: 'my message' };
             return { args, message };
         },
         template: '<vs-message v-bind="args" :message="message" />',
@@ -28,11 +28,11 @@ export const State: Story = {
         components: { VsMessage },
         setup() {
             const messages = [
-                { state: UIState.Idle, text: 'idle message' },
-                { state: UIState.Info, text: 'info message' },
-                { state: UIState.Success, text: 'success message' },
-                { state: UIState.Warning, text: 'warning message' },
-                { state: UIState.Error, text: 'error message' },
+                { state: 'idle', text: 'idle message' },
+                { state: 'info', text: 'info message' },
+                { state: 'success', text: 'success message' },
+                { state: 'warning', text: 'warning message' },
+                { state: 'error', text: 'error message' },
             ];
             return { args, messages };
         },

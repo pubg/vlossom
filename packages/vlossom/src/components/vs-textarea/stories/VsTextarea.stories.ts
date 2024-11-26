@@ -6,7 +6,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsTextarea from './../VsTextarea.vue';
 
@@ -93,7 +92,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: 'success', text: 'This is success message' }],
     },
 };
 

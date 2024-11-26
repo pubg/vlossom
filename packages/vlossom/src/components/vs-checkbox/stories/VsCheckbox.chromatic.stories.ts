@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsCheckbox from './../VsCheckbox.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -10,7 +9,7 @@ const meta: Meta<typeof VsCheckbox> = {
     render: (args: any) => ({
         components: { VsCheckbox },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             return { args, messages };
         },
         template: `

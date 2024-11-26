@@ -2,8 +2,6 @@ import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import VsInputWrapper from './../VsInputWrapper.vue';
-import { UIState } from '@/declaration';
-
 describe('vs-input-wrapper', () => {
     describe('label', () => {
         it('label을 설정할 수 있다', () => {
@@ -100,7 +98,7 @@ describe('vs-input-wrapper', () => {
             // given
             const wrapper = mount(VsInputWrapper, {
                 props: {
-                    messages: [{ state: UIState.Info, text: 'Info Message' }],
+                    messages: [{ state: 'info', text: 'Info Message' }],
                 },
             });
 

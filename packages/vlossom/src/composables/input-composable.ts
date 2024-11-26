@@ -1,7 +1,6 @@
 import { ComputedRef, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
 import { useLazyId } from '@/composables';
 import { useInputForm } from './input-form-composable';
-import { UIState } from '@/declaration';
 
 import type { StateMessage, InputComponentParams } from '@/declaration';
 
@@ -17,7 +16,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         rules = ref([]),
         defaultRules = [],
         noDefaultRules = ref(false),
-        state = ref(UIState.Idle),
+        state = ref('idle'),
         callbacks = {},
     } = inputParams;
 
@@ -73,7 +72,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
             if (result instanceof Promise) {
                 pendingRules.push(result);
             } else {
-                ruleMessages.value.push({ state: UIState.Error, text: result as string });
+                ruleMessages.value.push({ state: 'error', text: result as string });
             }
         });
 
@@ -83,7 +82,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         const resolvedMessages = (await Promise.all(pendingRules)).reduce((acc: StateMessage[], resolved) => {
             if (resolved) {
                 acc.push({
-                    state: UIState.Error,
+                    state: 'error',
                     text: resolved,
                 });
             }
@@ -185,7 +184,7 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         emit('update:changed', changed.value);
     });
 
-    const computedState = computed(() => (showRuleMessages.value && !valid.value ? UIState.Error : state.value));
+    const computedState = computed(() => (showRuleMessages.value && !valid.value ? 'error' : state.value));
 
     return {
         changed,

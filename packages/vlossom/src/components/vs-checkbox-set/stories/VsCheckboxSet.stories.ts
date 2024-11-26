@@ -1,5 +1,4 @@
 import { chromaticParameters, colorScheme, getMetaArguments, state, getStateTemplate } from '@/storybook';
-import { UIState } from '@/declaration';
 import { useVlossom } from '@/vlossom-framework';
 import { options } from './constants';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
@@ -84,7 +83,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: 'success', text: 'This is success message' }],
     },
 };
 
