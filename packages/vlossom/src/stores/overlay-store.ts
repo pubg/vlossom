@@ -73,7 +73,7 @@ export class OverlayStore {
         return this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
     }
 
-    empty(...args: any[]) {
+    clear(...args: any[]) {
         while (this.overlays.length > 0) {
             this.pop(...args);
         }

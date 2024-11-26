@@ -1,6 +1,6 @@
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 
-import type { Ref } from 'vue';
+import type { Ref, Slots } from 'vue';
 import type {
     VsAccordionStyleSet,
     VsAvatarStyleSet,
@@ -129,6 +129,28 @@ export interface InputComponentParams<T = unknown> {
         onMounted?: () => void;
         onClear?: () => void;
     };
+}
+
+export interface ModalOptions {
+    component: Slots;
+    header?: Slots;
+    footer?: Slots;
+    container?: string;
+    callbacks?: Ref<OverlayCallbacks>;
+    // sync with getOverlayProps function
+    dimClose?: boolean;
+    dimmed?: boolean;
+    escClose?: boolean;
+    focusLock?: boolean;
+    hideScroll?: boolean;
+    id?: string;
+    initialFocusRef?: HTMLElement | null;
+    size?: string | number | { width?: string | number; height?: string | number };
+}
+
+export interface ConfirmOptions extends ModalOptions {
+    okText?: string;
+    cancelText?: string;
 }
 
 export interface StringModifiers {

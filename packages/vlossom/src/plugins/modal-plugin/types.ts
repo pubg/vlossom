@@ -1,22 +1,4 @@
-import { OverlayCallbacks } from '@/declaration';
-
-export interface ModalOptions {
-    component: any;
-    header?: any;
-    footer?: any;
-    container?: HTMLElement;
-    callbacks?: OverlayCallbacks;
-    // sync with getOverlayProps function
-    dimClose?: boolean;
-    dimmed?: boolean;
-    escClose?: boolean;
-    focusLock?: boolean;
-    hasContainer?: boolean;
-    hideScroll?: boolean;
-    id?: string;
-    initialFocusRef?: HTMLElement | null;
-    size?: string | number | { width?: string | number; height?: string | number };
-}
+import { ModalOptions } from '@/declaration';
 
 export interface ModalPlugin {
     open(options: ModalOptions): void | Promise<void>;

@@ -65,8 +65,8 @@ export default defineComponent({
     components: { VsFocusTrap },
     props: {
         ...getOverlayProps<VsDrawerStyleSet>(),
+        dimmed: { type: Boolean, default: false },
         escClose: { type: Boolean, default: false },
-        fixed: { type: Boolean, default: false },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
@@ -74,12 +74,12 @@ export default defineComponent({
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
-        useLayoutPadding: { type: Boolean, default: false },
+        useLayoutPadding: { type: Boolean, default: true },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue', 'open', 'close'],
-    setup(props, context) {
+    setup(props, { emit }) {
         const {
             colorScheme,
             styleSet,
@@ -136,6 +136,7 @@ export default defineComponent({
             };
         });
 
+        const initialOpen = open.value || modelValue.value;
         const needScrollLock = computed(() => dimmed.value && fixed.value);
         const callbacks = computed(() => {
             return {
@@ -152,7 +153,7 @@ export default defineComponent({
                 }),
             };
         });
-        const { isOpen, close } = useOverlay(context, id, modelValue, open.value, needScrollLock, callbacks);
+        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, callbacks);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -199,6 +200,15 @@ export default defineComponent({
                 close();
             }
         }
+
+        watch(modelValue, (o) => {
+            isOpen.value = o;
+        });
+
+        watch(isOpen, (o) => {
+            emit('update:modelValue', o);
+            emit(o ? 'open' : 'close');
+        });
 
         return {
             colorSchemeClass,
