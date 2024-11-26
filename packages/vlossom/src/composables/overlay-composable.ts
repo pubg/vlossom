@@ -1,7 +1,7 @@
 import { computed, Ref, ref, watch } from 'vue';
 import { store } from '@/stores';
 import { utils } from '@/utils';
-import { MODAL_DURATION, OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declaration';
+import { MODAL_DURATION, OverlayCallbacks } from '@/declaration';
 import { useBodyScroll } from './scroll-lock-composable';
 
 export function useOverlay(
@@ -9,14 +9,13 @@ export function useOverlay(
     id: Ref<string>,
     modelValue: Ref<boolean>,
     initialOpen: boolean,
-    escClose: Ref<boolean>,
     needScrollLock: Ref<boolean>,
-    callbacks: OverlayCallbacks = {},
+    callbacks: Ref<OverlayCallbacks> = ref({}),
 ) {
     const { emit } = ctx;
 
     const innerId = utils.string.createID();
-    const modalId = computed(() => id.value || innerId);
+    const overlayId = computed(() => id.value || innerId);
 
     const isOpen = ref(initialOpen || modelValue.value);
     const closing = ref(false);
@@ -42,12 +41,8 @@ export function useOverlay(
                     bodyScroll.lock();
                 }
 
-                store.overlay.push(modalId.value, callbacks);
+                store.overlay.push(overlayId.value, callbacks);
             } else {
-                if (!escClose.value) {
-                    return;
-                }
-
                 closing.value = true;
 
                 setTimeout(() => {
@@ -56,15 +51,15 @@ export function useOverlay(
                     }
 
                     closing.value = false;
-                    store.overlay.remove(modalId.value);
+                    store.overlay.remove(overlayId.value);
                 }, MODAL_DURATION);
             }
 
             emit('update:modelValue', o);
-            emit(o ? VS_OVERLAY_OPEN : VS_OVERLAY_CLOSE);
+            emit(o ? 'open' : 'close');
         },
         { immediate: true },
     );
 
-    return { modalId, isOpen, closing, open, close };
+    return { overlayId, isOpen, closing, open, close };
 }

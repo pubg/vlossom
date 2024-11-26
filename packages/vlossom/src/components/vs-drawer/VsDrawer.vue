@@ -65,7 +65,7 @@ export default defineComponent({
     components: { VsFocusTrap },
     props: {
         ...getOverlayProps<VsDrawerStyleSet>(),
-        dimClose: { type: Boolean, default: true },
+        escClose: { type: Boolean, default: false },
         fixed: { type: Boolean, default: false },
         open: { type: Boolean, default: false },
         placement: {
@@ -78,7 +78,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:modelValue', VS_OVERLAY_OPEN, VS_OVERLAY_CLOSE],
+    emits: ['update:modelValue', 'open', 'close'],
     setup(props, context) {
         const {
             colorScheme,
@@ -137,17 +137,22 @@ export default defineComponent({
         });
 
         const needScrollLock = computed(() => dimmed.value && fixed.value);
-        const { isOpen, close } = useOverlay(context, id, modelValue, open.value, escClose, needScrollLock, {
-            [VS_OVERLAY_OPEN]: () => {
-                focusTrapRef.value?.focus();
-            },
-            'key-Escape': () => {
-                close();
-            },
-            [VS_OVERLAY_CLOSE]: () => {
-                focusTrapRef.value?.blur();
-            },
+        const callbacks = computed(() => {
+            return {
+                [VS_OVERLAY_OPEN]: () => {
+                    focusTrapRef.value?.focus();
+                },
+                [VS_OVERLAY_CLOSE]: () => {
+                    focusTrapRef.value?.blur();
+                },
+                ...(escClose.value && {
+                    'key-Escape': () => {
+                        close();
+                    },
+                }),
+            };
         });
+        const { isOpen, close } = useOverlay(context, id, modelValue, open.value, needScrollLock, callbacks);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
