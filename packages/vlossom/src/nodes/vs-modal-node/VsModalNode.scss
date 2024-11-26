@@ -59,7 +59,7 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            padding: var(--vs-modal-padding, 2rem);
+            padding: var(--vs-modal-padding, 3.2rem);
             color: var(--vs-modal-fontColor, var(--vs-font-color));
             font-size: var(--vs-modal-fontSize, var(--vs-font-size));
             font-weight: var(--vs-modal-fontWeight, 400);
@@ -106,25 +106,25 @@
 }
 
 @container (min-width: 640px) {
-    .vs-modal .vs-modal-wrap .vs-modal-contents {
-        padding: var(--vs-modal-padding, 2.8rem);
-    }
-}
-
-@container (min-width: 768px) {
-    .vs-modal .vs-modal-wrap .vs-modal-contents {
+    .vs-modal-node .vs-modal-wrap .vs-modal-contents {
         padding: var(--vs-modal-padding, 3.6rem);
     }
 }
 
+@container (min-width: 768px) {
+    .vs-modal-node .vs-modal-wrap .vs-modal-contents {
+        padding: var(--vs-modal-padding, 4rem);
+    }
+}
+
 @container (min-width: 1024px) {
-    .vs-modal .vs-modal-wrap .vs-modal-contents {
+    .vs-modal-node .vs-modal-wrap .vs-modal-contents {
         padding: var(--vs-modal-padding, 4.8rem);
     }
 }
 
 @container (min-width: 1280px) {
-    .vs-modal .vs-modal-wrap .vs-modal-contents {
+    .vs-modal-node .vs-modal-wrap .vs-modal-contents {
         padding: var(--vs-modal-padding, 6rem);
     }
 }
