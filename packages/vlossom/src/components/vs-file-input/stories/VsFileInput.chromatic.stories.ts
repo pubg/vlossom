@@ -1,5 +1,4 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsFileInput from './../VsFileInput.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -10,7 +9,7 @@ const meta: Meta<typeof VsFileInput> = {
     render: (args: any) => ({
         components: { VsFileInput },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             return { args, messages };
         },
         template: `

@@ -1,6 +1,5 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
 import { ref } from 'vue';
-import { UIState } from '@/declaration';
 import VsSwitch from './../VsSwitch.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -11,7 +10,7 @@ const meta: Meta<typeof VsSwitch> = {
     render: (args: any) => ({
         components: { VsSwitch },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref(true);
             return { args, messages, modelValue };
         },

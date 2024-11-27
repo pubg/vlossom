@@ -6,7 +6,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsRadio from './../VsRadio.vue';
 
@@ -98,7 +97,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Info, text: 'This is info message' }],
+        messages: [{ state: 'info', text: 'This is info message' }],
         noMessage: false,
     },
 };

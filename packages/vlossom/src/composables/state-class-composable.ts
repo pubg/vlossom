@@ -3,7 +3,7 @@ import { UIState } from '@/declaration';
 
 export function useStateClass(state: Ref<UIState>) {
     const stateClasses = computed(() => {
-        const stated = [UIState.Info, UIState.Success, UIState.Error, UIState.Warning];
+        const stated = ['info', 'success', 'error', 'warning'];
 
         const isStated = stated.includes(state.value);
         return {

@@ -1,5 +1,4 @@
 import { LOREM_IPSUM, colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
 import VsTextarea from './../VsTextarea.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -11,7 +10,7 @@ const meta: Meta<typeof VsTextarea> = {
     render: (args: any) => ({
         components: { VsTextarea },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref(LOREM_IPSUM.trim());
             return { args, messages, modelValue };
         },

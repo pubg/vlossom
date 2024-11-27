@@ -7,7 +7,6 @@ import {
     getStateTemplate,
 } from '@/storybook';
 import { computed, ref } from 'vue';
-import { UIState } from '@/declaration';
 import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckbox from './../VsCheckbox.vue';
@@ -93,7 +92,7 @@ export const Label: Story = {
 
 export const Messages: Story = {
     args: {
-        messages: [{ state: UIState.Success, text: 'This is success message' }],
+        messages: [{ state: 'success', text: 'This is success message' }],
     },
 };
 

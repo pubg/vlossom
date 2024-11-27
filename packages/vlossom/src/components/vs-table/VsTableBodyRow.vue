@@ -59,7 +59,7 @@
 
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, PropType, toRefs } from 'vue';
-import { ColorScheme, UIState } from '@/declaration';
+import { ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import { VsIcon } from '@/icons';
 import VsSkeleton from '@/components/vs-skeleton/VsSkeleton.vue';
@@ -133,7 +133,7 @@ export default defineComponent({
 
         const rowState = computed(() => {
             if (selected.value) {
-                return UIState.Selected;
+                return 'selected';
             }
 
             const { state: rowStateFn } = rows.value || {};

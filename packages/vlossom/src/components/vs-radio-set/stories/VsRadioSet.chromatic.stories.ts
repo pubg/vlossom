@@ -1,5 +1,5 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import { UIState } from '@/declaration';
+import {  } from '@/declaration';
 import VsRadioSet from './../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
@@ -11,7 +11,7 @@ const meta: Meta<typeof VsRadioSet> = {
     render: (args: any) => ({
         components: { VsRadioSet },
         setup() {
-            const messages = [{ state: UIState.Success, text: 'This is success message' }];
+            const messages = [{ state: 'success', text: 'This is success message' }];
             const modelValue = ref('Apple');
             return { args, messages, modelValue };
         },
