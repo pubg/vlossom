@@ -347,7 +347,7 @@ export default defineComponent({
         }
 
         function emitDrag(evt: SortableEvent) {
-            emit('drag', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
+            emit('drag', evt);
         }
 
         return {
