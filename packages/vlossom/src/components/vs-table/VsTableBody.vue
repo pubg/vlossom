@@ -6,6 +6,7 @@
         item-key="id"
         handle=".vs-handle"
         :disabled="!draggable || loading"
+        @update="emitDrag"
     >
         <template #item="{ element, index }">
             <vs-table-body-row
@@ -83,6 +84,7 @@ import { utils } from '@/utils';
 
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
+import type { SortableEvent } from 'sortablejs';
 
 export default defineComponent({
     name: 'VsTableBody',
@@ -130,6 +132,7 @@ export default defineComponent({
     },
     emits: [
         'clickRow',
+        'drag',
         'toggleExpand',
         'change:selectedItems',
         'change:totalItems',
@@ -238,6 +241,10 @@ export default defineComponent({
             return { id: utils.string.createID(), data: item };
         });
 
+        function emitDrag(evt: SortableEvent) {
+            emit('drag', evt);
+        }
+
         return {
             computedTableItems,
             dummyTableItems,
@@ -247,6 +254,7 @@ export default defineComponent({
             isExpanded,
             toggleExpand,
             emitClickRow,
+            emitDrag,
             // expose
             expand,
         };

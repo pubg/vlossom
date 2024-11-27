@@ -63,6 +63,7 @@
                     @change:paged-items="emitPagedItems"
                     @change:total-items="emitTotalItems"
                     @click-row="emitClickRow"
+                    @drag="emitDrag"
                 >
                     <template v-for="(_, name) in itemSlots" #[name]="slotData">
                         <slot :name="name" v-bind="slotData || {}" />
@@ -113,6 +114,7 @@ import VsSelect from '@/components/vs-select/VsSelect.vue';
 import { VsCheckboxNode } from '@/nodes';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
+import type { SortableEvent } from 'sortablejs';
 
 const name = VsComponent.VsTable;
 export default defineComponent({
@@ -177,6 +179,7 @@ export default defineComponent({
     },
     emits: [
         'clickRow',
+        'drag',
         'update',
         'update:itemsPerPage',
         'update:page',
@@ -343,6 +346,10 @@ export default defineComponent({
             emit('clickRow', rowItem, rowIndex);
         }
 
+        function emitDrag(evt: SortableEvent) {
+            emit('drag', { oldIndex: evt.oldIndex, newIndex: evt.newIndex });
+        }
+
         return {
             computedColorScheme,
             colorSchemeClass,
@@ -368,6 +375,7 @@ export default defineComponent({
             emitPagedItems,
             emitTotalItems,
             emitClickRow,
+            emitDrag,
             // expose
             expand,
         };
