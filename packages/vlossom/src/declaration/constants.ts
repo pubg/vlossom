@@ -34,6 +34,8 @@ export const SCROLLBAR_WIDTH = '0.38rem';
 
 export const MODAL_DURATION = 300;
 
+export const VS_OVERLAY = 'vs-overlay';
+
 export const VS_OVERLAY_CLOSE = 'vs-overlay-close';
 
 export const VS_OVERLAY_OPEN = 'vs-overlay-open';

@@ -49,12 +49,13 @@ describe('anchor-positioning-composable', () => {
             document.body.innerHTML = '';
         });
 
-        it('useOverlay를 호출하면 #vs-overlay를 document에 추가한다', async () => {
+        it('appendOverlayDom를 호출하면 #vs-overlay를 document에 추가한다', async () => {
             // given
             const Component = defineComponent({
                 template: '<div></div>',
                 setup() {
-                    useOverlayDom();
+                    const { appendOverlayDom } = useOverlayDom();
+                    appendOverlayDom();
                     return {};
                 },
             });

@@ -30,7 +30,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, type Ref } from 'vue';
+import {
+    defineComponent,
+    toRefs,
+    ref,
+    computed,
+    watch,
+    nextTick,
+    onBeforeUnmount,
+    type PropType,
+    type Ref,
+    onBeforeMount,
+} from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsComponent, type ColorScheme, type Placement, type Align, PLACEMENTS, ALIGNS } from '@/declaration';
 import { usePositioning, useOverlayDom } from '@/composables';
@@ -84,7 +95,7 @@ export default defineComponent({
         const triggerRef: Ref<HTMLElement | null> = ref(null);
         const tooltipRef: Ref<HTMLElement | null> = ref(null);
 
-        useOverlayDom();
+        const { appendOverlayDom } = useOverlayDom();
 
         const { isVisible, computedPlacement, appear, disappear } = usePositioning(
             triggerRef as Ref<HTMLElement>,
@@ -191,6 +202,10 @@ export default defineComponent({
                 tooltipOver.value = false;
             }, leaveDelay.value);
         }
+
+        onBeforeMount(() => {
+            appendOverlayDom();
+        });
 
         onBeforeUnmount(() => {
             disappear();

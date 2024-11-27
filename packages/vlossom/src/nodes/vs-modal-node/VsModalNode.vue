@@ -38,8 +38,8 @@ import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
 import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from '@/components';
-import { utils } from '@/utils';
 import { getOverlayProps } from '@/models';
+import { utils } from '@/utils';
 
 const name = VsNode.VsModalNode;
 export default defineComponent({
@@ -53,7 +53,7 @@ export default defineComponent({
     },
     emits: ['open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, id, styleSet, size, dimClose, escClose, fixed, dimmed } = toRefs(props);
+        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, fixed, size } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 

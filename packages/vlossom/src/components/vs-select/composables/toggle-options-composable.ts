@@ -2,10 +2,10 @@ import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlayDom, usePositioning } from '@/composables';
 
 export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readonly: Ref<boolean>) {
-    useOverlayDom();
-
     const isOpen = ref(false);
     const isClosing = ref(false);
+
+    const { appendOverlayDom } = useOverlayDom();
 
     function toggleOptions() {
         if (disabled.value || readonly.value) {
@@ -69,6 +69,7 @@ export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readon
     });
 
     onBeforeUnmount(() => {
+        appendOverlayDom();
         document.removeEventListener('click', onOutsideClick, true);
     });
 

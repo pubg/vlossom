@@ -1,6 +1,6 @@
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 
-import type { Ref, Slots } from 'vue';
+import type { Ref } from 'vue';
 import type {
     VsAccordionStyleSet,
     VsAvatarStyleSet,
@@ -132,9 +132,9 @@ export interface InputComponentParams<T = unknown> {
 }
 
 export interface ModalOptions {
-    component: Slots;
-    header?: Slots;
-    footer?: Slots;
+    component: any;
+    header?: any;
+    footer?: any;
     container?: string;
     callbacks?: Ref<OverlayCallbacks>;
     // sync with getOverlayProps function
@@ -218,4 +218,4 @@ export interface AttachInfo {
     followWidth?: boolean;
 }
 
-export type OverlayCallbacks = { [eventName: string]: (...args: any[]) => void | Promise<void> };
+export type OverlayCallbacks<T = void> = { [eventName: string]: (...args: any[]) => T | Promise<T> };
