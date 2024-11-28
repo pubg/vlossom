@@ -77,7 +77,6 @@
             .vs-modal-body {
                 position: relative;
                 flex: auto;
-                overflow: auto;
 
                 &.hide-scroll {
                     @include hide-scroll;

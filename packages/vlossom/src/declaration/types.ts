@@ -131,28 +131,6 @@ export interface InputComponentParams<T = unknown> {
     };
 }
 
-export interface ModalOptions {
-    component: any;
-    header?: any;
-    footer?: any;
-    container?: string;
-    callbacks?: Ref<OverlayCallbacks>;
-    // sync with getOverlayProps function
-    dimClose?: boolean;
-    dimmed?: boolean;
-    escClose?: boolean;
-    focusLock?: boolean;
-    hideScroll?: boolean;
-    id?: string;
-    initialFocusRef?: HTMLElement | null;
-    size?: string | number | { width?: string | number; height?: string | number };
-}
-
-export interface ConfirmOptions extends ModalOptions {
-    okText?: string;
-    cancelText?: string;
-}
-
 export interface StringModifiers {
     capitalize?: boolean;
     lower?: boolean;

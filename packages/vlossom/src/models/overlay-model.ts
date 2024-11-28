@@ -1,7 +1,6 @@
 import { PropType } from 'vue';
 import { ColorScheme } from '@/declaration';
 
-// sync with ModalOptions interface
 export function getOverlayProps<T>() {
     return {
         colorScheme: { type: String as PropType<ColorScheme> },

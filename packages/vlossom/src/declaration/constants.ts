@@ -40,8 +40,6 @@ export const VS_OVERLAY_CLOSE = 'vs-overlay-close';
 
 export const VS_OVERLAY_OPEN = 'vs-overlay-open';
 
-export const VS_MODAL_WRAP = 'vs-modal-wrap';
-
 export const DRAWER_SIZE = {
     xs: '12%',
     sm: '20%',

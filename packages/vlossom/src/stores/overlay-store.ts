@@ -4,7 +4,7 @@ import { OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declarati
 export class OverlayStore {
     // overlay tuple: [id, { [eventName: callback }]
     public readonly overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
-    private keyedOverlays: ComputedRef<{ [key: string]: string[] }> = computed(() => {
+    public readonly keyedOverlays: ComputedRef<{ [key: string]: string[] }> = computed(() => {
         const keyedOverlays: { [key: string]: string[] } = {};
         this.overlays.forEach(([id, callbacks]) => {
             Object.keys(callbacks.value).forEach((eventName) => {
@@ -37,7 +37,11 @@ export class OverlayStore {
         });
     }
 
-    async run(id: string, eventName: string, ...args: any[]) {
+    getLastOverlayId() {
+        return this.overlays.length > 0 ? this.overlays[this.overlays.length - 1][0] : '';
+    }
+
+    async run<T = void>(id: string, eventName: string, ...args: any[]): Promise<T | void> {
         const index = this.overlays.findIndex(([stackId]) => stackId === id);
         if (index === -1) {
             return;

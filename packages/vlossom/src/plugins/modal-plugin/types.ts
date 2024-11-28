@@ -1,4 +1,4 @@
-import { ModalOptions } from '@/declaration';
+import { ModalOptions } from '@/nodes';
 
 export interface ModalPlugin {
     open(options: ModalOptions): void | Promise<void>;

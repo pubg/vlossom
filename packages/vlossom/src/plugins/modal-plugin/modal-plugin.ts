@@ -1,45 +1,40 @@
 import { h, render } from 'vue';
-import { ModalOptions, ModalPlugin } from './types';
+import { ModalPlugin } from './types';
 import { utils } from '@/utils';
-import VsModalNode from '@/nodes/vs-modal-node/VsModalNode.vue';
 import { store } from '@/stores';
-
-function renderModalSlot(component: any) {
-    const vnode = h(component);
-
-    if (!vnode.type || typeof vnode.type === 'string') {
-        return () => component;
-    }
-
-    return () => vnode;
-}
+import { VsModalView, ModalOptions } from '@/nodes';
 
 export const modalPlugin: ModalPlugin = {
     open(options: ModalOptions) {
-        const { component, header, footer, container, id, callbacks = {} } = options;
-        const body = document?.body;
-        if (!body) {
+        const { id = utils.string.createID(), container = 'body' } = options;
+        const containerElement = document.querySelector(container);
+        if (!containerElement) {
+            utils.log.error('vs-modal', `container not found: ${container}`);
             return;
         }
 
-        const props = utils.object.omit(options, ['component', 'header', 'footer', 'container', 'callbacks']);
+        const modalView = h(VsModalView, { container });
+        render(modalView, containerElement);
 
-        store.overlay.push(id || utils.string.createID(), callbacks || {});
-
-        const modalView = h(
-            VsModalNode,
-            { ...props },
-            {
-                ...(header && { header: renderModalSlot(header) }),
-                default: renderModalSlot(component),
-                ...(footer && { footer: renderModalSlot(footer) }),
-            },
-        );
-        render(modalView, container || body);
+        store.modal.push({ ...options, id });
     },
-    emit(event: string, ...args: any[]) {},
-    emitWithId(id: string, event: string, ...args: any[]) {},
-    close(...args: any[]) {},
-    closeWithId(id: string, ...args: any[]) {},
-    clear(...args: any[]) {},
+    emit(eventName: string, ...args: any[]) {
+        const lastOverlayId = store.overlay.getLastOverlayId();
+        return store.overlay.run(lastOverlayId, eventName, ...args);
+    },
+    emitWithId(id: string, eventName: string, ...args: any[]) {
+        return store.overlay.run(id, eventName, ...args);
+    },
+    close(...args: any[]) {
+        store.modal.pop();
+        return store.overlay.pop(...args);
+    },
+    closeWithId(id: string, ...args: any[]) {
+        store.modal.remove(id);
+        return store.overlay.remove(id, ...args);
+    },
+    clear(...args: any[]) {
+        store.modal.clear();
+        store.overlay.clear(...args);
+    },
 };

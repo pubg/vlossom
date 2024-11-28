@@ -35,17 +35,23 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
-import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp } from '@/declaration';
+import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp, OverlayCallbacks } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from '@/components';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
+import VsFocusTrap from './../vs-focus-trap/VsFocusTrap.vue';
 
 const name = VsNode.VsModalNode;
 export default defineComponent({
     name,
+    components: { VsFocusTrap },
     props: {
         ...getOverlayProps(),
+        callbacks: {
+            type: Object as PropType<OverlayCallbacks>,
+            default: () => ({}),
+        },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
             default: 'md',
@@ -53,7 +59,7 @@ export default defineComponent({
     },
     emits: ['open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, fixed, size } = toRefs(props);
+        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, fixed, size, callbacks } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -98,8 +104,9 @@ export default defineComponent({
 
         const initialOpen = true;
         const needScrollLock = computed(() => dimmed.value && fixed.value);
-        const callbacks = computed(() => {
+        const computedCallbacks = computed(() => {
             return {
+                ...callbacks.value,
                 ...(escClose.value && {
                     'key-Escape': () => {
                         close();
@@ -107,7 +114,7 @@ export default defineComponent({
                 }),
             };
         });
-        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, needScrollLock, callbacks);
+        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks);
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = computed(() => `vs-modal-header-${overlayId.value}`);

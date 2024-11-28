@@ -1,0 +1,57 @@
+<template>
+    <vs-modal-node
+        v-for="modal in modals"
+        :key="modal.id"
+        :color-scheme="modal.colorScheme"
+        :style-set="modal.styleSet"
+        :dim-close="modal.dimClose"
+        :dimmed="modal.dimmed"
+        :esc-close="modal.escClose"
+        :fixed="modal.fixed"
+        :focus-lock="modal.focusLock"
+        :hide-scroll="modal.hideScroll"
+        :id="modal.id"
+        :initial-focus-ref="modal.initialFocusRef"
+        :size="modal.size"
+        :callbacks="modal.callbacks"
+    >
+        <template #header v-if="modal.header">
+            <component :is="getSlotContent(modal.header)" />
+        </template>
+        <component v-if="modal.component" :is="getSlotContent(modal.component)" />
+        <template #footer v-if="modal.footer">
+            <component :is="getSlotContent(modal.footer)" />
+        </template>
+    </vs-modal-node>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, toRefs, toRaw, h } from 'vue';
+import { VsModalNode } from '@/nodes';
+import { store } from '@/stores';
+import VsModalString from './VsModalString.vue';
+
+export default defineComponent({
+    props: {
+        container: { type: String, required: true, default: 'body' },
+    },
+    components: { VsModalNode },
+    setup(props) {
+        const { container } = toRefs(props);
+        const modals = computed(() => {
+            return store.modal.modalsByContainer.value[container.value] || [];
+        });
+
+        function getSlotContent(content: any) {
+            if (typeof content === 'string') {
+                return h(VsModalString, { content });
+            }
+
+            // vue component
+            return toRaw(content);
+        }
+
+        return { modals, getSlotContent };
+    },
+});
+</script>
