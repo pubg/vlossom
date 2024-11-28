@@ -25,7 +25,6 @@ export interface ModalOptions {
     dimClose?: boolean;
     dimmed?: boolean;
     escClose?: boolean;
-    fixed?: boolean;
     focusLock?: boolean;
     hideScroll?: boolean;
     id?: string;

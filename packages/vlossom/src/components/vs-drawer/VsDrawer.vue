@@ -67,6 +67,7 @@ export default defineComponent({
         ...getOverlayProps<VsDrawerStyleSet>(),
         dimmed: { type: Boolean, default: false },
         escClose: { type: Boolean, default: false },
+        fixed: { type: Boolean, default: false },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,

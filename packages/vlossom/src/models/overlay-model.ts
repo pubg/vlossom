@@ -8,7 +8,6 @@ export function getOverlayProps<T>() {
         dimClose: { type: Boolean, default: true },
         dimmed: { type: Boolean, default: true },
         escClose: { type: Boolean, default: true },
-        fixed: { type: Boolean, default: false },
         focusLock: { type: Boolean, default: true },
         hideScroll: { type: Boolean, default: false },
         id: { type: String, default: '' },

@@ -48,6 +48,7 @@ export default defineComponent({
     components: { VsFocusTrap },
     props: {
         ...getOverlayProps(),
+        container: { type: String, default: 'body' },
         callbacks: {
             type: Object as PropType<OverlayCallbacks>,
             default: () => ({}),
@@ -59,11 +60,13 @@ export default defineComponent({
     },
     emits: ['open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, fixed, size, callbacks } = toRefs(props);
+        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, size, callbacks, container } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
+
+        const fixed = computed(() => container.value === 'body');
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
         const sizeStyle = computed(() => {
@@ -139,6 +142,7 @@ export default defineComponent({
             headerId,
             bodyId,
             hasSpecifiedSize,
+            fixed,
         };
     },
 });

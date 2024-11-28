@@ -3,10 +3,10 @@
         <vs-modal-node
             :color-scheme="colorScheme"
             :style-set="styleSet"
+            :container="container"
             :dim-close="dimClose"
             :dimmed="dimmed"
             :esc-close="escClose"
-            :fixed="fixed"
             :focus-lock="focusLock"
             :hide-scroll="hideScroll"
             :id="modalId"

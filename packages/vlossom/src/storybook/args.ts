@@ -1,4 +1,4 @@
-import { COLORS, CSS_POSITION, PLACEMENTS, SIZES } from '@/declaration';
+import { COLORS, PLACEMENTS, SIZES } from '@/declaration';
 
 export const colorScheme = {
     control: 'select' as any,
@@ -36,11 +36,6 @@ export function numberArray(length: number, multiSelect: boolean = false) {
         options: Array.from({ length }, (_, i) => i),
     };
 }
-
-export const cssPosition = {
-    control: 'select' as any,
-    options: CSS_POSITION,
-};
 
 export function getMetaArguments(componentProps: { [key: string]: any }, originalArgs: { [key: string]: any } = {}) {
     const metaArgs: { [key: string]: any } = {};
