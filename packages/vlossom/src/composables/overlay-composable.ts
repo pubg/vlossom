@@ -9,6 +9,7 @@ export function useOverlay(
     initialOpen: boolean,
     needScrollLock: Ref<boolean>,
     callbacks: Ref<OverlayCallbacks> = ref({}),
+    onClose?: () => void,
 ) {
     const innerId = utils.string.createID();
     const overlayId = computed(() => id.value || innerId);
@@ -36,6 +37,8 @@ export function useOverlay(
                 store.overlay.push(overlayId.value, callbacks);
             } else {
                 closing.value = true;
+                store.overlay.remove(overlayId.value);
+                onClose?.();
 
                 setTimeout(() => {
                     if (needScrollLock.value) {
@@ -43,7 +46,6 @@ export function useOverlay(
                     }
 
                     closing.value = false;
-                    store.overlay.remove(overlayId.value);
                 }, MODAL_DURATION);
             }
         },

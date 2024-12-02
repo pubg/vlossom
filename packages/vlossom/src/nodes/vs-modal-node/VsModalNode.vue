@@ -40,6 +40,7 @@ import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from '@/components';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
+import { store } from '@/stores';
 import VsFocusTrap from './../vs-focus-trap/VsFocusTrap.vue';
 
 const name = VsNode.VsModalNode;
@@ -117,7 +118,16 @@ export default defineComponent({
                 }),
             };
         });
-        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks);
+        function onCloseModal() {
+            store.modal.remove(overlayId.value);
+        }
+        const { overlayId, isOpen, close } = useOverlay(
+            id,
+            initialOpen,
+            needScrollLock,
+            computedCallbacks,
+            onCloseModal,
+        );
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = computed(() => `vs-modal-header-${overlayId.value}`);

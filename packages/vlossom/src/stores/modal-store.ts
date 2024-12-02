@@ -14,11 +14,6 @@ export class ModalStore {
         });
         return modalsByContainer;
     });
-    public readonly openedModals: Ref<string[]> = ref([]);
-
-    addOpenedModal(id: string) {
-        this.openedModals.value.push(id);
-    }
 
     push(options: ModalOptions) {
         if (!options.id) {
@@ -26,7 +21,6 @@ export class ModalStore {
         }
 
         this.modals.value.push(options);
-        this.addOpenedModal(options.id);
     }
 
     pop() {

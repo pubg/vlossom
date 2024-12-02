@@ -42,7 +42,7 @@ export class OverlayStore {
     }
 
     async run<T = void>(id: string, eventName: string, ...args: any[]): Promise<T | void> {
-        const index = this.overlays.findIndex(([stackId]) => stackId === id);
+        const index = this.overlays.findIndex(([overlayId]) => overlayId === id);
         if (index === -1) {
             return;
         }
