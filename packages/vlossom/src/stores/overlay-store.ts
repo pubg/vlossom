@@ -32,6 +32,10 @@ export class OverlayStore {
             if (targetOverlayIds.length === 0) {
                 return;
             }
+
+            // Prevent default action for registered key event (ex. enter, esc)
+            event.preventDefault();
+
             const lastOverlayId = targetOverlayIds[targetOverlayIds.length - 1];
             this.run(lastOverlayId, keyEventName, event);
         });

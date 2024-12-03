@@ -113,6 +113,9 @@ export default defineComponent({
                 ...callbacks.value,
                 ...(escClose.value && {
                     'key-Escape': () => {
+                        if (callbacks.value['key-Escape']) {
+                            callbacks.value['key-Escape']();
+                        }
                         close();
                     },
                 }),

@@ -17,7 +17,6 @@ export const confirmPlugin: ConfirmPlugin = {
                     ...callbacks,
                     [VS_CONFIRM_OK]: () => {
                         resolve(true);
-                        console.log(modalId);
                         modalPlugin.closeWithId(modalId);
                     },
                     [VS_CONFIRM_CANCEL]: () => {
@@ -25,7 +24,6 @@ export const confirmPlugin: ConfirmPlugin = {
                         modalPlugin.closeWithId(modalId);
                     },
                     'key-Enter': () => {
-                        console.log(modalId);
                         resolve(true);
                         modalPlugin.closeWithId(modalId);
                     },
