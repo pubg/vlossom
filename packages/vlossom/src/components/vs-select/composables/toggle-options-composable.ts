@@ -1,4 +1,4 @@
-import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
+import { ref, watch, onBeforeMount, onBeforeUnmount, type Ref } from 'vue';
 import { useOverlayDom, usePositioning } from '@/composables';
 
 export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readonly: Ref<boolean>) {
@@ -68,8 +68,9 @@ export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readon
         }
     });
 
+    onBeforeMount(appendOverlayDom);
+
     onBeforeUnmount(() => {
-        appendOverlayDom();
         document.removeEventListener('click', onOutsideClick, true);
     });
 
