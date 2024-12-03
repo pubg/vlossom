@@ -109,16 +109,21 @@ export default defineComponent({
         const initialOpen = true;
         const needScrollLock = computed(() => dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
+            const escCallback = {
+                'key-Escape': () => {
+                    if (callbacks.value['key-Escape']) {
+                        callbacks.value['key-Escape']();
+                    }
+
+                    if (escClose.value) {
+                        close();
+                    }
+                },
+            };
+
             return {
                 ...callbacks.value,
-                ...(escClose.value && {
-                    'key-Escape': () => {
-                        if (callbacks.value['key-Escape']) {
-                            callbacks.value['key-Escape']();
-                        }
-                        close();
-                    },
-                }),
+                ...(callbacks.value['key-Escape'] || escClose.value ? escCallback : {}),
             };
         });
         function onCloseModal() {
