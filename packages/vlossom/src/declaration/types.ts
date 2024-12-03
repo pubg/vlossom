@@ -150,7 +150,7 @@ export interface VsFormProvide {
 }
 
 export interface BarLayout {
-    position: CssPosition;
+    position: (typeof CSS_POSITION)[number];
     height: string;
 }
 
@@ -168,8 +168,6 @@ export interface VsLayoutProvide {
     setFooterLayout: (footerLayout: BarLayout) => void;
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
 }
-
-export type CssPosition = (typeof CSS_POSITION)[number];
 
 export type Placement = (typeof PLACEMENTS)[number];
 
@@ -197,3 +195,22 @@ export interface AttachInfo {
 }
 
 export type OverlayCallbacks<T = void> = { [eventName: string]: (...args: any[]) => T | Promise<T> };
+
+export interface ModalOptions<T> {
+    component: any;
+    header?: any;
+    footer?: any;
+    container?: string;
+    callbacks?: OverlayCallbacks;
+    // sync with getOverlayProps function
+    colorScheme?: ColorScheme;
+    styleSet?: string | T;
+    dimClose?: boolean;
+    dimmed?: boolean;
+    escClose?: boolean;
+    focusLock?: boolean;
+    hideScroll?: boolean;
+    id?: string;
+    initialFocusRef?: HTMLElement | null;
+    size?: string | number | { width?: string | number; height?: string | number };
+}

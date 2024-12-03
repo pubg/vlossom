@@ -1,7 +1,7 @@
-import { ModalOptions } from '@/nodes';
+import { VsModalOptions } from '@/nodes';
 
 export interface ModalPlugin {
-    open(options: ModalOptions): void | Promise<void>;
+    open(options: VsModalOptions): string;
     emit(event: string, ...args: any[]): void | Promise<void>;
     emitWithId(id: string, event: string, ...args: any[]): void | Promise<void>;
     close(...args: any[]): void | Promise<void>;

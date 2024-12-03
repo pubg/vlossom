@@ -52,7 +52,8 @@ export class OverlayStore {
 
     push(id: string, callbacks: Ref<OverlayCallbacks>) {
         this.overlays.push([id, callbacks]);
-        return this.run(id, VS_OVERLAY_OPEN);
+        this.run(id, VS_OVERLAY_OPEN);
+        return this.run(id, 'open');
     }
 
     pop(...args: any[]) {
@@ -61,7 +62,8 @@ export class OverlayStore {
             return;
         }
         const [poppedId] = popped;
-        return this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
+        this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
+        return this.run(poppedId, 'close', ...args);
     }
 
     remove(id: string, ...args: any[]) {
@@ -74,7 +76,8 @@ export class OverlayStore {
             return;
         }
         const [poppedId] = popped;
-        return this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
+        this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
+        return this.run(poppedId, 'close', ...args);
     }
 
     clear(...args: any[]) {

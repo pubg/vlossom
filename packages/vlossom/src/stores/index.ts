@@ -1,11 +1,9 @@
-import { ConfirmStore } from './confirm-store';
 import { ModalStore } from './modal-store';
 import { OverlayStore } from './overlay-store';
 import { OptionStore } from './option-store';
 import { ToastStore } from './toast-store';
 
 export class VsStore {
-    private _confirm: ConfirmStore | null = null;
     private _modal: ModalStore | null = null;
     private _overlay: OverlayStore | null = null;
     private _option: OptionStore | null = null;
@@ -37,13 +35,6 @@ export class VsStore {
             this._overlay = new OverlayStore();
         }
         return this._overlay;
-    }
-
-    public get confirm() {
-        if (!this._confirm) {
-            this._confirm = new ConfirmStore();
-        }
-        return this._confirm;
     }
 }
 

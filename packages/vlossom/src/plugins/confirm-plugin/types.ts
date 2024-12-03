@@ -1,6 +1,6 @@
-import type { ConfirmOptions } from '@/declaration';
+import type { ConfirmOptions, PromptOptions } from '@/nodes';
 
 export interface ConfirmPlugin {
-    open: (text: string, confirmOptions?: ConfirmOptions) => Promise<boolean>;
-    prompt: (text: string, confirmText: string) => Promise<boolean>;
+    open: (content: string, confirmOptions?: ConfirmOptions) => Promise<boolean>;
+    prompt: (content: string, confirmText: string, promptOptions?: PromptOptions) => Promise<boolean>;
 }

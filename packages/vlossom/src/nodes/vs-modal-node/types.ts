@@ -1,4 +1,4 @@
-import { ColorScheme, OverlayCallbacks } from '@/declaration';
+import { ModalOptions } from '@/declaration';
 
 export interface VsModalNodeStyleSet {
     backgroundColor?: string;
@@ -13,21 +13,4 @@ export interface VsModalNodeStyleSet {
     zIndex?: string | number;
 }
 
-export interface ModalOptions {
-    component: any;
-    header?: any;
-    footer?: any;
-    container?: string;
-    callbacks?: OverlayCallbacks;
-    // sync with getOverlayProps function
-    colorScheme?: ColorScheme;
-    styleSet?: string | VsModalNodeStyleSet;
-    dimClose?: boolean;
-    dimmed?: boolean;
-    escClose?: boolean;
-    focusLock?: boolean;
-    hideScroll?: boolean;
-    id?: string;
-    initialFocusRef?: HTMLElement | null;
-    size?: string | number | { width?: string | number; height?: string | number };
-}
+export type VsModalOptions = ModalOptions<VsModalNodeStyleSet>;

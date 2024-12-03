@@ -2,21 +2,22 @@ import { h, render } from 'vue';
 import { ModalPlugin } from './types';
 import { utils } from '@/utils';
 import { store } from '@/stores';
-import { VsModalView, ModalOptions } from '@/nodes';
+import { VsModalView, VsModalOptions } from '@/nodes';
 
 export const modalPlugin: ModalPlugin = {
-    open(options: ModalOptions) {
+    open(options: VsModalOptions) {
         const { id = utils.string.createID(), container = 'body' } = options;
         const containerElement = document.querySelector(container);
         if (!containerElement) {
             utils.log.error('vs-modal', `container not found: ${container}`);
-            return;
+            return '';
         }
 
         const modalView = h(VsModalView, { container });
         render(modalView, containerElement);
 
         store.modal.push({ ...options, id });
+        return id;
     },
     emit(eventName: string, ...args: any[]) {
         const lastOverlayId = store.overlay.getLastOverlayId();

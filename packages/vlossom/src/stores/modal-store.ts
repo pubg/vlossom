@@ -1,10 +1,9 @@
 import { computed, ComputedRef, Ref, ref } from 'vue';
-import { ModalOptions } from '@/nodes';
-
+import { VsModalOptions } from '@/nodes';
 export class ModalStore {
-    public readonly modals: Ref<ModalOptions[]> = ref([]);
-    public readonly modalsByContainer: ComputedRef<{ [container: string]: ModalOptions[] }> = computed(() => {
-        const modalsByContainer: { [container: string]: ModalOptions[] } = {};
+    public readonly modals: Ref<VsModalOptions[]> = ref([]);
+    public readonly modalsByContainer: ComputedRef<{ [container: string]: VsModalOptions[] }> = computed(() => {
+        const modalsByContainer: { [container: string]: VsModalOptions[] } = {};
         this.modals.value.forEach((modal) => {
             const { container = 'body' } = modal;
             if (!modalsByContainer[container]) {
@@ -15,7 +14,7 @@ export class ModalStore {
         return modalsByContainer;
     });
 
-    push(options: ModalOptions) {
+    push(options: VsModalOptions) {
         if (!options.id) {
             return;
         }
