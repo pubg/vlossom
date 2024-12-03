@@ -139,7 +139,7 @@ export default defineComponent({
 
         const initialOpen = open.value || modelValue.value;
         const needScrollLock = computed(() => dimmed.value && fixed.value);
-        const callbacks = computed(() => {
+        const computedCallbacks = computed(() => {
             return {
                 [VS_OVERLAY_OPEN]: () => {
                     focusTrapRef.value?.focus();
@@ -154,7 +154,7 @@ export default defineComponent({
                 }),
             };
         });
-        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, callbacks);
+        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
