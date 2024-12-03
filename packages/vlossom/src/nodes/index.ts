@@ -3,7 +3,6 @@ export { default as VsCheckboxNode } from './vs-checkbox-node/VsCheckboxNode.vue
 
 export type { ConfirmOptions, PromptOptions } from './vs-confirm/types';
 export { default as VsConfirmation } from './vs-confirm/VsConfirmation.vue';
-export { default as VsPrompt } from './vs-confirm/VsPrompt.vue';
 
 export { default as VsFocusTrap } from './vs-focus-trap/VsFocusTrap.vue';
 

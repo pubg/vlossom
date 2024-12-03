@@ -1,7 +1,7 @@
 import { h } from 'vue';
 import { ConfirmPlugin } from './types';
 // import { VsInput } from '@/components';
-import { VsConfirmation, VsPrompt, type ConfirmOptions, type PromptOptions } from '@/nodes';
+import { VsConfirmation, type ConfirmOptions } from '@/nodes';
 import { VS_CONFIRM_CANCEL, VS_CONFIRM_OK } from '@/declaration';
 import { modalPlugin } from '@/plugins';
 import { useSlotContent } from '@/composables';
@@ -37,9 +37,8 @@ export const confirmPlugin: ConfirmPlugin = {
             });
         });
     },
-    prompt(content: string, confirmText: string, promptOptions: PromptOptions = {}) {
-        const promptText = window.prompt(text);
-
+    prompt(content: string, confirmText: string /*promptOptions: PromptOptions = {}*/) {
+        const promptText = window.prompt(content);
         return new Promise((resolve) => {
             resolve(promptText === confirmText);
         });
