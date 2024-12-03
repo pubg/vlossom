@@ -6,7 +6,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'VsModalString',
+    name: 'VsSlotRenderer',
     props: {
         content: { type: String, required: true },
     },

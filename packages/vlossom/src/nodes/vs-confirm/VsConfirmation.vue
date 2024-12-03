@@ -50,7 +50,7 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         flex: 1;
-        padding-top: 2rem;
+        padding-top: 1.6rem;
     }
 
     .vs-confirm-buttons {

@@ -4,14 +4,16 @@ import { ConfirmPlugin } from './types';
 import { VsConfirmation, VsPrompt, type ConfirmOptions, type PromptOptions } from '@/nodes';
 import { VS_CONFIRM_CANCEL, VS_CONFIRM_OK } from '@/declaration';
 import { modalPlugin } from '@/plugins';
+import { useSlotContent } from '@/composables';
 
 export const confirmPlugin: ConfirmPlugin = {
     open: (content: string, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
         return new Promise((resolve) => {
             const { okText, cancelText, size = 'xs', callbacks = {} } = confirmOptions;
+            const { getSlotContent } = useSlotContent();
             const modalId = modalPlugin.open({
                 ...confirmOptions,
-                component: h(VsConfirmation, { okText, cancelText }, { default: () => content }),
+                component: h(VsConfirmation, { okText, cancelText }, { default: () => getSlotContent(content) }),
                 size,
                 callbacks: {
                     ...callbacks,

@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, toRaw, h } from 'vue';
+import { computed, defineComponent, toRefs } from 'vue';
 import { VsModalNode } from '@/nodes';
 import { store } from '@/stores';
-import VsModalString from './VsModalString.vue';
+import { useSlotContent } from '@/composables';
 
 export default defineComponent({
     props: {
@@ -42,14 +42,7 @@ export default defineComponent({
             return store.modal.modalsByContainer.value[container.value] || [];
         });
 
-        function getSlotContent(content: any) {
-            if (typeof content === 'string') {
-                return h(VsModalString, { content });
-            }
-
-            // vue component
-            return toRaw(content);
-        }
+        const { getSlotContent } = useSlotContent();
 
         return { modals, getSlotContent };
     },

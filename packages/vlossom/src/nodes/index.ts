@@ -13,3 +13,5 @@ export { default as VsModalView } from './vs-modal-node/VsModalView.vue';
 
 export type { VsRadioNodeStyleSet } from './vs-radio-node/types';
 export { default as VsRadioNode } from './vs-radio-node/VsRadioNode.vue';
+
+export { default as VsSlotRenderer } from './vs-slot-renderer/VsSlotRenderer.vue';
