@@ -37,7 +37,7 @@
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
 import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp, OverlayCallbacks } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
-import { VsModalStyleSet } from '@/components';
+import { VsModalNodeStyleSet } from './types';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
 import { store } from '@/stores';
@@ -48,7 +48,7 @@ export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        ...getOverlayProps(),
+        ...getOverlayProps<VsModalNodeStyleSet>(),
         container: { type: String, default: 'body' },
         callbacks: {
             type: Object as PropType<OverlayCallbacks>,
@@ -65,7 +65,7 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
+        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalNodeStyleSet>(name, styleSet);
 
         const fixed = computed(() => container.value === 'body');
 

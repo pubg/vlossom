@@ -16,7 +16,6 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
-    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -34,6 +33,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
+import type { VsModalNodeStyleSet } from '@/nodes';
 
 const vsAccordion: VsAccordionStyleSet = {
     backgroundColor: '#f5f5f5',
@@ -152,7 +152,7 @@ const vsLoading: VsLoadingStyleSet = {
     barWidth: '16%',
 };
 
-const vsModal: VsModalStyleSet = {
+const vsModal: VsModalNodeStyleSet = {
     backgroundColor: '#FFF6E9',
     fontColor: '#0D9276',
     fontSize: '1.2rem',

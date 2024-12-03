@@ -17,7 +17,6 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
-    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -35,7 +34,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
+import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -62,7 +61,7 @@ export interface StyleSet {
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
-    VsModal?: { [key: string]: VsModalStyleSet };
+    VsModal?: { [key: string]: VsModalNodeStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };

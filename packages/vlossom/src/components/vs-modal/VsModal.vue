@@ -30,7 +30,7 @@
 import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
 import { getOverlayProps } from '@/models';
 import { VsComponent, SizeProp } from '@/declaration';
-import { VsModalNode } from '@/nodes';
+import { VsModalNode, VsModalNodeStyleSet } from '@/nodes';
 import { store } from '@/stores';
 import { utils } from '@/utils';
 
@@ -39,7 +39,7 @@ export default defineComponent({
     name,
     components: { VsModalNode },
     props: {
-        ...getOverlayProps(),
+        ...getOverlayProps<VsModalNodeStyleSet>(),
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
