@@ -7,7 +7,7 @@ import { modalPlugin } from '@/plugins';
 import { useContentRenderer } from '@/composables';
 
 export const confirmPlugin: ConfirmPlugin = {
-    open: (content: string, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
+    open: (content: any, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
         return new Promise((resolve) => {
             const { okText, cancelText, size = 'xs', callbacks = {} } = confirmOptions;
             const { getRenderedContent } = useContentRenderer();
