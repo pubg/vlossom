@@ -1,25 +1,9 @@
-import { computed, ComputedRef, reactive, Ref } from 'vue';
+import { reactive, Ref } from 'vue';
 import { OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declaration';
 
 export class OverlayStore {
     // overlay tuple: [id, { [eventName: callback }]
     public readonly overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
-    public readonly keyedOverlays: ComputedRef<{ [key: string]: string[] }> = computed(() => {
-        const keyedOverlays: { [key: string]: string[] } = {};
-        this.overlays.forEach(([id, callbacks]) => {
-            Object.keys(callbacks.value).forEach((eventName) => {
-                if (!eventName.startsWith('key-')) {
-                    return;
-                }
-
-                if (!keyedOverlays[eventName]) {
-                    keyedOverlays[eventName] = [];
-                }
-                keyedOverlays[eventName].push(id);
-            });
-        });
-        return keyedOverlays;
-    });
 
     constructor() {
         document.addEventListener('keydown', (event: KeyboardEvent) => {
@@ -28,15 +12,14 @@ export class OverlayStore {
             }
 
             const keyEventName = `key-${event.key}`;
-            const targetOverlayIds = this.keyedOverlays.value[keyEventName] || [];
-            if (targetOverlayIds.length === 0) {
+            const [lastOverlayId, callbacks] = this.overlays[this.overlays.length - 1];
+            if (!callbacks.value[keyEventName]) {
                 return;
             }
 
             // Prevent default action for registered key event (ex. enter, esc)
             event.preventDefault();
 
-            const lastOverlayId = targetOverlayIds[targetOverlayIds.length - 1];
             this.run(lastOverlayId, keyEventName, event);
         });
     }

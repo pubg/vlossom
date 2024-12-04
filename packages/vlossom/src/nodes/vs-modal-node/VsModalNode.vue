@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
-import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp, OverlayCallbacks } from '@/declaration';
+import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalNodeStyleSet } from './types';
 import { getOverlayProps } from '@/models';
@@ -50,10 +50,6 @@ export default defineComponent({
     props: {
         ...getOverlayProps<VsModalNodeStyleSet>(),
         container: { type: String, default: 'body' },
-        callbacks: {
-            type: Object as PropType<OverlayCallbacks>,
-            default: () => ({}),
-        },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
             default: 'md',
@@ -108,24 +104,6 @@ export default defineComponent({
 
         const initialOpen = true;
         const needScrollLock = computed(() => dimmed.value && fixed.value);
-        const computedCallbacks = computed(() => {
-            const escCallback = {
-                'key-Escape': () => {
-                    if (callbacks.value['key-Escape']) {
-                        callbacks.value['key-Escape']();
-                    }
-
-                    if (escClose.value) {
-                        close();
-                    }
-                },
-            };
-
-            return {
-                ...callbacks.value,
-                ...(callbacks.value['key-Escape'] || escClose.value ? escCallback : {}),
-            };
-        });
         function onCloseModal() {
             store.modal.remove(overlayId.value);
         }
@@ -133,7 +111,8 @@ export default defineComponent({
             id,
             initialOpen,
             needScrollLock,
-            computedCallbacks,
+            callbacks,
+            escClose,
             onCloseModal,
         );
 

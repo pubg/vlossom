@@ -3,6 +3,7 @@
         <vs-modal-node
             :color-scheme="colorScheme"
             :style-set="styleSet"
+            :callbacks="callbacks"
             :container="container"
             :dim-close="dimClose"
             :dimmed="dimmed"

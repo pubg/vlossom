@@ -9,6 +9,7 @@ export function useOverlay(
     initialOpen: boolean,
     needScrollLock: Ref<boolean>,
     callbacks: Ref<OverlayCallbacks> = ref({}),
+    escClose: Ref<boolean>,
     onClose?: () => void,
 ) {
     const innerId = utils.string.createID();
@@ -25,6 +26,25 @@ export function useOverlay(
         isOpen.value = false;
     }
 
+    const computedCallbacks = computed(() => {
+        const escCallback = {
+            'key-Escape': () => {
+                if (callbacks.value['key-Escape']) {
+                    callbacks.value['key-Escape']();
+                }
+
+                if (escClose.value) {
+                    close();
+                }
+            },
+        };
+
+        return {
+            ...callbacks.value,
+            ...(callbacks.value['key-Escape'] || escClose.value ? escCallback : {}),
+        };
+    });
+
     const bodyScroll = useBodyScroll();
     watch(
         isOpen,
@@ -34,7 +54,7 @@ export function useOverlay(
                     bodyScroll.lock();
                 }
 
-                store.overlay.push(overlayId.value, callbacks);
+                store.overlay.push(overlayId.value, computedCallbacks);
             } else {
                 closing.value = true;
                 store.overlay.remove(overlayId.value);

@@ -32,9 +32,9 @@ import {
     watch,
     computed,
     getCurrentInstance,
-    ComputedRef,
     type PropType,
-    Ref,
+    type Ref,
+    type ComputedRef,
 } from 'vue';
 import { useColorScheme, useLayout, useStyleSet, useOverlay } from '@/composables';
 import {
@@ -86,6 +86,7 @@ export default defineComponent({
             styleSet,
             modelValue,
             id,
+            callbacks,
             dimClose,
             dimmed,
             fixed,
@@ -141,20 +142,16 @@ export default defineComponent({
         const needScrollLock = computed(() => dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
             return {
+                ...callbacks.value,
                 [VS_OVERLAY_OPEN]: () => {
                     focusTrapRef.value?.focus();
                 },
                 [VS_OVERLAY_CLOSE]: () => {
                     focusTrapRef.value?.blur();
                 },
-                ...(escClose.value && {
-                    'key-Escape': () => {
-                        close();
-                    },
-                }),
             };
         });
-        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks);
+        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks, escClose);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
