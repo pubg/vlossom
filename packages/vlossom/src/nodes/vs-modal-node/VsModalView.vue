@@ -16,11 +16,11 @@
         :callbacks="modal.callbacks"
     >
         <template #header v-if="modal.header">
-            <component :is="getSlotContent(modal.header)" />
+            <component :is="getRenderedContent(modal.header)" />
         </template>
-        <component v-if="modal.component" :is="getSlotContent(modal.component)" />
+        <component v-if="modal.component" :is="getRenderedContent(modal.component)" />
         <template #footer v-if="modal.footer">
-            <component :is="getSlotContent(modal.footer)" />
+            <component :is="getRenderedContent(modal.footer)" />
         </template>
     </vs-modal-node>
 </template>
@@ -29,7 +29,7 @@
 import { computed, defineComponent, toRefs } from 'vue';
 import { VsModalNode } from '@/nodes';
 import { store } from '@/stores';
-import { useSlotContent } from '@/composables';
+import { useContentRenderer } from '@/composables';
 
 export default defineComponent({
     props: {
@@ -42,9 +42,9 @@ export default defineComponent({
             return store.modal.modalsByContainer.value[container.value] || [];
         });
 
-        const { getSlotContent } = useSlotContent();
+        const { getRenderedContent } = useContentRenderer();
 
-        return { modals, getSlotContent };
+        return { modals, getRenderedContent };
     },
 });
 </script>

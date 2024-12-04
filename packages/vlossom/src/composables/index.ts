@@ -1,5 +1,6 @@
 export * from './anchor-positioning-composable';
 export * from './color-scheme-composable';
+export * from './content-renderer-composable';
 export * from './form-provide-composable';
 export * from './index-selector-composable';
 export * from './input-composable';
@@ -12,7 +13,6 @@ export * from './overlay-composable';
 export * from './overlay-dom-composable';
 export * from './responsive-composable';
 export * from './scroll-lock-composable';
-export * from './slot-content-composable';
 export * from './state-class-composable';
 export * from './style-set-composable';
 export * from './value-matcher-composable';
