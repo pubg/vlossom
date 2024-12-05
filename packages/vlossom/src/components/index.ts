@@ -57,6 +57,9 @@ export { default as VsLayout } from './vs-layout/VsLayout.vue';
 export { type VsLoadingStyleSet } from './vs-loading/types';
 export { default as VsLoading } from './vs-loading/VsLoading.vue';
 
+export { type VsMenuButtonStyleSet } from './vs-menu-button/types';
+export { default as VsMenuButton } from './vs-menu-button/VsMenuButton.vue';
+
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
 export { type VsModalStyleSet } from './vs-modal/types';

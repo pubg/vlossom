@@ -23,6 +23,7 @@ export enum VsComponent {
     VsLayout = 'VsLayout',
     VsLoading = 'VsLoading',
     VsMain = 'VsMain',
+    VsMenuButton = 'VsMenuButton',
     VsMessage = 'VsMessage',
     VsModal = 'VsModal',
     VsNotice = 'VsNotice',
