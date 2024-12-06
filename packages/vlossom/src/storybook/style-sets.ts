@@ -16,6 +16,7 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
+    VsMenuButtonStyleSet,
     VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
@@ -150,6 +151,13 @@ const vsLoading: VsLoadingStyleSet = {
     height: '20rem',
     width: '7rem',
     barWidth: '16%',
+};
+
+const vsMenuButton: VsMenuButtonStyleSet = {
+    backgroundColor: '#1e88e5',
+    border: '1px solid #1e88e5',
+    borderRadius: '0.3rem',
+    fontColor: '#fff',
 };
 
 const vsModal: VsModalStyleSet = {
@@ -331,6 +339,7 @@ export const styleSet: StyleSet = {
     VsInput: { myStyleSet: vsInput },
     VsLabelValue: { myStyleSet: vsLabelValue },
     VsLoading: { myStyleSet: vsLoading },
+    VsMenuButton: { myStyleSet: vsMenuButton },
     VsModal: { myStyleSet: vsModal },
     VsNotice: { myStyleSet: vsNotice },
     VsPage: { myStyleSet: vsPage },
