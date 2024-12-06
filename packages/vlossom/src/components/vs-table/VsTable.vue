@@ -27,7 +27,7 @@
                             class="vs-table-select vs-select-all"
                             type="checkbox"
                             :color-scheme="computedColorScheme"
-                            :indeterminate="!isSelectedAll && selectedItems.length > 0"
+                            :indeterminate="isIndeterminate"
                             :checked="isSelectedAll"
                             aria-label="select-all"
                             @toggle="onToggleCheck"
@@ -59,7 +59,7 @@
                     :tr-style="trStyle"
                     v-model:is-selected-all="isSelectedAll"
                     v-model:total-items-length="totalItemsLength"
-                    @change:selected-items="emitSelectedItems"
+                    @change:selected-items="onChangeSelectedItems"
                     @change:paged-items="emitPagedItems"
                     @change:total-items="emitTotalItems"
                     @click-row="emitClickRow"
@@ -210,21 +210,27 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('header-')) {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('header-')) {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const itemSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('item-') || slotName === 'expand') {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('item-') || slotName === 'expand') {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const innerSearchText = ref('');
@@ -263,6 +269,7 @@ export default defineComponent({
         });
 
         const isSelectedAll = ref(false);
+        const isIndeterminate = ref(false);
 
         function onToggleCheck(check: boolean) {
             isSelectedAll.value = check;
@@ -291,7 +298,7 @@ export default defineComponent({
 
         watch(innerPage, (p: number) => {
             isSelectedAll.value = false;
-            emitSelectedItems([]);
+            emit('update:selectedItems', []);
             emit('update:page', p);
         });
 
@@ -311,7 +318,7 @@ export default defineComponent({
 
         watch(innerItemsPerPage, (p: number) => {
             isSelectedAll.value = false;
-            emitSelectedItems([]);
+            emit('update:selectedItems', []);
             emit('update:itemsPerPage', p);
         });
 
@@ -330,8 +337,9 @@ export default defineComponent({
 
         useTableParams(innerPage, innerItemsPerPage, sortTypes, computedSearchText, ctx);
 
-        function emitSelectedItems(items: any[]) {
-            emit('update:selectedItems', items);
+        function onChangeSelectedItems(selectedItems: any[]) {
+            isIndeterminate.value = selectedItems.length > 0 ? true : false;
+            emit('update:selectedItems', selectedItems);
         }
 
         function emitPagedItems(items: any[]) {
@@ -361,6 +369,7 @@ export default defineComponent({
             sortTypes,
             hasExpand,
             isSelectedAll,
+            isIndeterminate,
             utils,
             innerSearchText,
             updateInnerSearchText,
@@ -371,7 +380,7 @@ export default defineComponent({
             canDrag,
             hasSelectable,
             onToggleCheck,
-            emitSelectedItems,
+            onChangeSelectedItems,
             emitPagedItems,
             emitTotalItems,
             emitClickRow,
