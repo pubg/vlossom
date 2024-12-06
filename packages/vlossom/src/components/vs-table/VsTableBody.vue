@@ -32,7 +32,7 @@
                         :checked="isSelected(element.id)"
                         aria-label="select"
                         :disabled="loading"
-                        @toggle="(e) => toggleSelect(e, element.id)"
+                        @toggle="(check: boolean) => toggleSelect(check, element.id)"
                     />
                 </template>
                 <template v-for="(_, name) in $slots" #[name]="slotData">
@@ -161,11 +161,21 @@ export default defineComponent({
         } = toRefs(props);
         const { emit } = ctx;
 
+        const uniqueObjectId = (() => {
+            const map = new WeakMap();
+            return (object: object) => {
+                if (!map.has(object)) {
+                    map.set(object, utils.string.createID());
+                }
+                return String(map.get(object));
+            };
+        })();
+
         const innerItems: Ref<any[]> = ref([]);
         const innerTableItems: ComputedRef<TableItem[]> = computed(() => {
             const itemArr = innerItems.value || [];
             return itemArr.map((item: any) => {
-                return { id: utils.string.createID(), data: item };
+                return { id: uniqueObjectId(item), data: item };
             });
         });
 
