@@ -1,0 +1,22 @@
+.vs-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: var(--vs-menu-button-border, 1px solid var(--vs-line-color));
+    background-color: var(--vs-menu-button-backgroundColor, transparent);
+    border-radius: var(--vs-menu-button-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
+    color: var(--vs-menu-button-fontColor, var(--vs-comp-font));
+
+    &.selected {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+}
+
+.vs-dark {
+    .vs-menu-button {
+        &.selected {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+    }
+}
