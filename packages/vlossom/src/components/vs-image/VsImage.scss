@@ -1,5 +1,7 @@
 .vs-image {
     position: relative;
+    width: var(--vs-image-width);
+    height: var(--vs-image-height);
 
     .vs-image-tag {
         position: relative;
