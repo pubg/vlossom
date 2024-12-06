@@ -32,11 +32,11 @@ import {
     watch,
     computed,
     getCurrentInstance,
-    ComputedRef,
-    nextTick,
     type PropType,
+    type Ref,
+    type ComputedRef,
 } from 'vue';
-import { useColorScheme, useEscClose, useLayout, useBodyScroll, useStyleSet } from '@/composables';
+import { useColorScheme, useLayout, useStyleSet, useOverlay } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -48,12 +48,14 @@ import {
     VS_LAYOUT,
     DRAWER_SIZE,
     MODAL_DURATION,
-    type ColorScheme,
-    type CssPosition,
+    VS_OVERLAY_OPEN,
+    VS_OVERLAY_CLOSE,
     type SizeProp,
+    Focusable,
 } from '@/declaration';
 import { utils } from '@/utils';
 import { VsFocusTrap } from '@/nodes';
+import { getOverlayProps } from '@/models';
 
 import type { VsDrawerStyleSet } from './types';
 
@@ -62,60 +64,53 @@ export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsDrawerStyleSet> },
-        closeOnDimmedClick: { type: Boolean, default: true },
-        closeOnEsc: { type: Boolean, default: true },
+        ...getOverlayProps<VsDrawerStyleSet>(),
         dimmed: { type: Boolean, default: false },
-        focusLock: { type: Boolean, default: true },
-        hideScroll: { type: Boolean, default: false },
-        initialFocusRef: {
-            type: Object as PropType<HTMLElement | null>,
-            default: null,
-        },
+        escClose: { type: Boolean, default: false },
+        fixed: { type: Boolean, default: false },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
             default: 'left',
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
-        position: { type: String as PropType<CssPosition>, default: 'absolute' },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
-        useLayoutPadding: { type: Boolean, default: false },
+        useLayoutPadding: { type: Boolean, default: true },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'open', 'close'],
     setup(props, { emit }) {
         const {
             colorScheme,
             styleSet,
             modelValue,
-            closeOnDimmedClick,
-            closeOnEsc,
+            id,
+            callbacks,
+            dimClose,
             dimmed,
+            fixed,
             open,
             placement,
-            position,
             size,
             useLayoutPadding,
+            escClose,
         } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
-        const id = utils.string.createID();
-        const isOpen = ref(open.value || modelValue.value);
-        const focusTrapRef = ref(null);
+        const focusTrapRef: Ref<Focusable | null> = ref(null);
 
         const positionStyle = computed(() => {
-            const style: { [key: string]: string | number } = { position: position.value };
+            const position = fixed.value ? 'fixed' : 'absolute';
+            const style: { [key: string]: string | number } = { position };
 
-            if (position.value === 'absolute') {
-                style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX;
-            } else if (position.value === 'fixed') {
-                style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX;
+            if (position === 'absolute') {
+                style['--vs-drawer-zIndex'] = LAYOUT_Z_INDEX - 5;
+            } else if (position === 'fixed') {
+                style['--vs-drawer-zIndex'] = APP_LAYOUT_Z_INDEX - 5;
             }
 
             return style;
@@ -143,35 +138,20 @@ export default defineComponent({
             };
         });
 
-        watch(modelValue, (val) => {
-            isOpen.value = val;
+        const initialOpen = open.value || modelValue.value;
+        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const computedCallbacks = computed(() => {
+            return {
+                ...callbacks.value,
+                [VS_OVERLAY_OPEN]: () => {
+                    focusTrapRef.value?.focus();
+                },
+                [VS_OVERLAY_CLOSE]: () => {
+                    focusTrapRef.value?.blur();
+                },
+            };
         });
-
-        const bodyScroll = useBodyScroll();
-        watch(
-            isOpen,
-            (val) => {
-                const needScrollLock = dimmed.value && position.value === 'fixed';
-                if (val) {
-                    if (needScrollLock) {
-                        bodyScroll.lock();
-                    }
-                    nextTick(() => {
-                        (focusTrapRef.value as any)?.focus();
-                    });
-                } else {
-                    if (needScrollLock) {
-                        bodyScroll.unlock();
-                    }
-                    nextTick(() => {
-                        (focusTrapRef.value as any)?.blur();
-                    });
-                }
-
-                emit('update:modelValue', val);
-            },
-            { immediate: true },
-        );
+        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks, escClose);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -214,13 +194,18 @@ export default defineComponent({
         });
 
         function onClickDimmed() {
-            if (closeOnDimmedClick.value) {
-                isOpen.value = false;
+            if (dimClose.value) {
+                close();
             }
         }
 
-        useEscClose(id, closeOnEsc, isOpen, () => {
-            isOpen.value = false;
+        watch(modelValue, (o) => {
+            isOpen.value = o;
+        });
+
+        watch(isOpen, (o) => {
+            emit('update:modelValue', o);
+            emit(o ? 'open' : 'close');
         });
 
         return {

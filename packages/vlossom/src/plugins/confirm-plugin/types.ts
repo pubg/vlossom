@@ -1,23 +1,7 @@
-import type { ColorScheme, SizeProp } from '@/declaration';
-import { type VsModalStyleSet } from '@/components/vs-modal/types';
-
-export interface ConfirmOptions {
-    colorScheme?: ColorScheme;
-    styleSet?: string | VsModalStyleSet;
-    closeOnDimmedClick?: boolean;
-    closeOnEsc?: boolean;
-    dimmed?: boolean;
-    focusLock?: boolean;
-    hasContainer?: boolean;
-    hideScroll?: boolean;
-    initialFocusRef?: HTMLElement | null;
-    size?: SizeProp | { width?: SizeProp; height?: SizeProp };
-
-    okText?: string;
-    cancelText?: string;
-}
+import { Component } from 'vue';
+import type { ConfirmOptions, PromptOptions } from '@/nodes';
 
 export interface ConfirmPlugin {
-    open: (text: string, confirmOptions?: ConfirmOptions) => Promise<boolean>;
-    prompt: (text: string, confirmText: string) => Promise<boolean>;
+    open: (content: string | Component, confirmOptions?: ConfirmOptions) => Promise<boolean>;
+    prompt: (content: string, confirmText: string, promptOptions?: PromptOptions) => Promise<boolean>;
 }

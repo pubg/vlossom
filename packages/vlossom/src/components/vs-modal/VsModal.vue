@@ -1,162 +1,78 @@
 <template>
-    <Teleport v-if="isOpen" to="body" :disabled="hasContainer">
-        <Transition name="modal" :duration="MODAL_DURATION">
-            <div
-                v-if="isOpen"
-                :class="['vs-modal', colorSchemeClass, { 'vs-has-container': hasContainer, 'vs-dimmed': dimmed }]"
-                :style="computedStyleSet"
-            >
-                <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
-                <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                    <div
-                        :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
-                        role="dialog"
-                        :aria-labelledby="hasHeader ? headerId : undefined"
-                        :aria-describedby="bodyId"
-                        :aria-label="hasHeader ? undefined : 'Modal'"
-                        :aria-modal="true"
-                    >
-                        <div class="vs-modal-contents">
-                            <header v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
-                                <slot name="header" />
-                            </header>
-
-                            <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
-                                <slot />
-                            </div>
-
-                            <footer v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
-                                <slot name="footer" />
-                            </footer>
-                        </div>
-                    </div>
-                </vs-focus-trap>
-            </div>
-        </Transition>
+    <Teleport v-if="isOpen" :to="container">
+        <vs-modal-node
+            :color-scheme="colorScheme"
+            :style-set="styleSet"
+            :callbacks="callbacks"
+            :container="container"
+            :dim-close="dimClose"
+            :dimmed="dimmed"
+            :esc-close="escClose"
+            :focus-lock="focusLock"
+            :hide-scroll="hideScroll"
+            :id="modalId"
+            :initial-focus-ref="initialFocusRef"
+            :size="size"
+            @open="isOpen = true"
+            @close="isOpen = false"
+        >
+            <template #header>
+                <slot name="header" />
+            </template>
+            <slot />
+            <template #footer>
+                <slot name="footer" />
+            </template>
+        </vs-modal-node>
     </Teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch, computed, type PropType } from 'vue';
-import { useColorScheme, useBodyScroll, useStyleSet, useEscClose } from '@/composables';
-import { getModalProps } from '@/models';
-import { VsComponent, Size, SIZES, MODAL_DURATION, type ColorScheme } from '@/declaration';
-import { VsFocusTrap } from '@/nodes';
+import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
+import { getOverlayProps } from '@/models';
+import { VsComponent, SizeProp } from '@/declaration';
+import { VsModalNode, VsModalNodeStyleSet } from '@/nodes';
+import { store } from '@/stores';
 import { utils } from '@/utils';
-
-import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
     name,
-    components: { VsFocusTrap },
+    components: { VsModalNode },
     props: {
-        ...getModalProps(),
-        colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsModalStyleSet> },
+        ...getOverlayProps<VsModalNodeStyleSet>(),
+        container: { type: String, default: 'body' },
+        size: {
+            type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
+            default: 'md',
+        },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
     emits: ['update:modelValue', 'open', 'close'],
-    setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, modelValue, closeOnDimmedClick, closeOnEsc, dimmed, hasContainer, size } =
-            toRefs(props);
+    setup(props, { emit }) {
+        const { modelValue, id } = toRefs(props);
 
-        const { colorSchemeClass } = useColorScheme(name, colorScheme);
+        const innerId = utils.string.createID();
+        const modalId = computed(() => id.value || innerId);
+        const isOpen = ref(false);
 
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
+        watch(modelValue, (o) => {
+            isOpen.value = o;
+        });
 
-        const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
-
-        const sizeStyle = computed(() => {
-            const style: { [key: string]: string } = {};
-
-            if (typeof size.value === 'object') {
-                const { width = 'md', height = 'md' } = size.value;
-
-                if (SIZES.includes(width as Size)) {
-                    style['--vs-modal-width'] = `var(--vs-modal-width-${width})`;
-                } else {
-                    const convertedWidth = utils.string.convertToStringSize(width);
-                    style['--vs-modal-width'] = convertedWidth;
-                }
-
-                if (SIZES.includes(height as Size)) {
-                    style['--vs-modal-height'] = `var(--vs-modal-height-${height})`;
-                } else {
-                    const convertedHeight = utils.string.convertToStringSize(height);
-                    style['--vs-modal-height'] = convertedHeight;
-                }
-            } else if (hasSpecifiedSize.value) {
-                const convertedSize = utils.string.convertToStringSize(size.value);
-
-                style['--vs-modal-width'] = convertedSize;
-                style['--vs-modal-height'] = convertedSize;
+        watch(isOpen, (o) => {
+            emit('update:modelValue', o);
+            emit(o ? 'open' : 'close');
+            if (!o) {
+                store.overlay.remove(modalId.value);
             }
-
-            return style;
-        });
-
-        const computedStyleSet = computed(() => {
-            return {
-                ...modalStyleSet.value,
-                ...sizeStyle.value,
-            };
-        });
-
-        const isOpen = ref(modelValue.value);
-
-        const id = utils.string.createID();
-
-        const hasHeader = computed(() => !!slots['header']);
-        const headerId = `vs-modal-header-${id}`;
-        const bodyId = `vs-modal-body-${id}`;
-
-        watch(modelValue, (val) => {
-            isOpen.value = val;
-        });
-
-        const bodyScroll = useBodyScroll();
-        watch(
-            isOpen,
-            (open) => {
-                if (dimmed.value && !hasContainer.value) {
-                    if (open) {
-                        bodyScroll.lock();
-                    } else {
-                        bodyScroll.unlock();
-                    }
-                }
-
-                emit('update:modelValue', open);
-                emit(open ? 'open' : 'close');
-            },
-            { immediate: true },
-        );
-
-        function onClickDimmed() {
-            if (closeOnDimmedClick.value) {
-                isOpen.value = false;
-            }
-        }
-
-        useEscClose(id, closeOnEsc, isOpen, () => {
-            isOpen.value = false;
         });
 
         return {
-            colorSchemeClass,
-            computedStyleSet,
-            hasSpecifiedSize,
+            modalId,
             isOpen,
-            onClickDimmed,
-            MODAL_DURATION,
-            hasHeader,
-            headerId,
-            bodyId,
         };
     },
 });
 </script>
-
-<style lang="scss" src="./VsModal.scss" />

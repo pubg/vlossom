@@ -109,7 +109,7 @@ describe('vs-drawer', () => {
                 props: {
                     modelValue: true,
                     dimmed: true,
-                    closeOnDimmedClick: true,
+                    dimClose: true,
                 },
             });
 
@@ -121,53 +121,18 @@ describe('vs-drawer', () => {
             expect(wrapper.vm.isOpen).toBe(false);
         });
 
-        it('close-on-dimmed-click prop을 false로 전달하면 dimmed 영역을 클릭해도 drawer가 닫히지 않는다', async () => {
+        it('dimClose prop을 false로 전달하면 dimmed 영역을 클릭해도 drawer가 닫히지 않는다', async () => {
             // given
             const wrapper = mount(VsDrawer, {
                 props: {
                     modelValue: true,
                     dimmed: true,
-                    closeOnDimmedClick: false,
+                    dimClose: false,
                 },
             });
 
             // when
             await wrapper.find('.vs-drawer-dimmed').trigger('click');
-
-            // then
-            expect(wrapper.vm.isOpen).toBe(true);
-        });
-    });
-
-    describe('close on esc key', () => {
-        it('esc key를 누르면 drawer가 닫힌다', async () => {
-            // given
-            const wrapper = mount(VsDrawer, {
-                props: {
-                    modelValue: true,
-                },
-                attachTo: document.body,
-            });
-
-            // when
-            await wrapper.trigger('keydown.Escape');
-
-            // then
-            expect(wrapper.vm.isOpen).toBe(false);
-        });
-
-        it('close-on-esc-key prop을 false로 전달하면 esc key를 눌러도 drawer가 닫히지 않는다', async () => {
-            // given
-            const wrapper = mount(VsDrawer, {
-                props: {
-                    modelValue: true,
-                    closeOnEsc: false,
-                },
-                attachTo: document.body,
-            });
-
-            // when
-            await wrapper.trigger('keydown.Esc');
 
             // then
             expect(wrapper.vm.isOpen).toBe(true);

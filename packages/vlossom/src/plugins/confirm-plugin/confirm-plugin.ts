@@ -1,33 +1,55 @@
-import { render, h } from 'vue';
-import { store } from '@/stores';
-import { utils } from '@/utils';
-import VsConfirm from '@/components/vs-confirm/VsConfirm.vue';
-
-import type { ConfirmOptions, ConfirmPlugin } from './types';
-
-function renderConfirm(text: string, confirmOptions: ConfirmOptions) {
-    const body = document?.body;
-    if (!body) {
-        utils.log.error('vs-confirm', 'body not found');
-        return;
-    }
-
-    const confirmView = h(VsConfirm, { text, ...confirmOptions });
-    const confirmViewRoot = document.createElement('div');
-    render(confirmView, confirmViewRoot);
-}
+import { Component, h } from 'vue';
+import { ConfirmPlugin } from './types';
+import { VsConfirmation, type ConfirmOptions } from '@/nodes';
+import { VS_CONFIRM_CANCEL, VS_CONFIRM_OK } from '@/declaration';
+import { modalPlugin } from '@/plugins';
+import { useContentRenderer } from '@/composables';
 
 export const confirmPlugin: ConfirmPlugin = {
-    open: (text: string, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
-        renderConfirm(text, confirmOptions);
-
+    open: (content: string | Component, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
         return new Promise((resolve) => {
-            store.confirm.setResolve(resolve);
+            const { okText, cancelText, size = 'xs', callbacks = {} } = confirmOptions;
+            const { getRenderedContent } = useContentRenderer();
+            const modalId = modalPlugin.open({
+                ...confirmOptions,
+                component: h(
+                    VsConfirmation,
+                    { okText, cancelText },
+                    {
+                        default: () => {
+                            if (typeof content === 'string') {
+                                return getRenderedContent(content);
+                            }
+
+                            return h(content);
+                        },
+                    },
+                ),
+                size,
+                callbacks: {
+                    ...callbacks,
+                    [VS_CONFIRM_OK]: () => {
+                        resolve(true);
+                        modalPlugin.closeWithId(modalId);
+                    },
+                    [VS_CONFIRM_CANCEL]: () => {
+                        resolve(false);
+                        modalPlugin.closeWithId(modalId);
+                    },
+                    'key-Enter': () => {
+                        resolve(true);
+                        modalPlugin.closeWithId(modalId);
+                    },
+                    'key-Escape': () => {
+                        resolve(false);
+                        modalPlugin.closeWithId(modalId);
+                    },
+                },
+            });
         });
     },
-    prompt(text: string, confirmText: string) {
-        const promptText = window.prompt(text);
-
+    prompt(content: string, confirmText: string /*promptOptions: PromptOptions = {}*/) {
+        const promptText = window.prompt(content);
         return new Promise((resolve) => {
             resolve(promptText === confirmText);
         });

@@ -54,9 +54,6 @@ const meta: Meta<typeof VsModal> = {
         size,
         colorScheme,
     },
-    args: {
-        hasContainer: true,
-    },
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
