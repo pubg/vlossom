@@ -27,21 +27,14 @@ export function useOverlay(
     }
 
     const computedCallbacks = computed(() => {
-        const escCallback = {
+        return {
+            ...callbacks.value,
             'key-Escape': () => {
-                if (callbacks.value['key-Escape']) {
-                    callbacks.value['key-Escape']();
-                }
-
+                callbacks.value['key-Escape']?.();
                 if (escClose.value) {
                     close();
                 }
             },
-        };
-
-        return {
-            ...callbacks.value,
-            ...(callbacks.value['key-Escape'] || escClose.value ? escCallback : {}),
         };
     });
 

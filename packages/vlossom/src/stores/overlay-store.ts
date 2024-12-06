@@ -3,7 +3,7 @@ import { OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declarati
 
 export class OverlayStore {
     // overlay tuple: [id, { [eventName: callback }]
-    public readonly overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
+    public overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
 
     constructor() {
         document.addEventListener('keydown', (event: KeyboardEvent) => {

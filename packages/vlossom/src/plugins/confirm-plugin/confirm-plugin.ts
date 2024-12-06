@@ -1,19 +1,30 @@
-import { h } from 'vue';
+import { Component, h } from 'vue';
 import { ConfirmPlugin } from './types';
-// import { VsInput } from '@/components';
 import { VsConfirmation, type ConfirmOptions } from '@/nodes';
 import { VS_CONFIRM_CANCEL, VS_CONFIRM_OK } from '@/declaration';
 import { modalPlugin } from '@/plugins';
 import { useContentRenderer } from '@/composables';
 
 export const confirmPlugin: ConfirmPlugin = {
-    open: (content: any, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
+    open: (content: string | Component, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
         return new Promise((resolve) => {
             const { okText, cancelText, size = 'xs', callbacks = {} } = confirmOptions;
             const { getRenderedContent } = useContentRenderer();
             const modalId = modalPlugin.open({
                 ...confirmOptions,
-                component: h(VsConfirmation, { okText, cancelText }, { default: () => getRenderedContent(content) }),
+                component: h(
+                    VsConfirmation,
+                    { okText, cancelText },
+                    {
+                        default: () => {
+                            if (typeof content === 'string') {
+                                return getRenderedContent(content);
+                            }
+
+                            return h(content);
+                        },
+                    },
+                ),
                 size,
                 callbacks: {
                     ...callbacks,
