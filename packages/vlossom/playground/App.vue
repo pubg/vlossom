@@ -1,22 +1,26 @@
 <template>
     <vs-layout drawer-responsive>
         <vs-header
-            class="header"
+            class="header bar-center"
             fixed
             primary
             height="72px"
             :style-set="{ backgroundColor: 'black', fontColor: 'white' }"
-            :style="{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }"
         >
-            <div class="logo">
-                <vs-image src="/assets/vlossom-logo.png" :style-set="{ height: '40px', width: '40px' }" />
+            <div class="header-left">
+                <vs-menu-button :style-set="{ fontColor: '#fff' }" @click="isDrawerOpen = !isDrawerOpen" />
+                <vs-image
+                    src="/assets/vlossom-logo.png"
+                    :style="{ marginLeft: '16px' }"
+                    :style-set="{ height: '36px', width: '36px' }"
+                />
                 <h1>Vlossom</h1>
             </div>
             <vs-theme-button />
         </vs-header>
 
-        <vs-drawer v-model="isDrawerOpen" position="fixed" use-layout-padding>
-            <vs-button>test</vs-button>
+        <vs-drawer v-model="isDrawerOpen" position="fixed" use-layout-padding :style-set="{ padding: '2rem' }">
+            <vs-button @click="isDrawerOpen = false">Close Drawer</vs-button>
         </vs-drawer>
 
         <vs-container>
@@ -24,7 +28,7 @@
         </vs-container>
 
         <vs-footer
-            class="footer"
+            class="footer bar-center"
             :style-set="{ backgroundColor: 'black', fontColor: '#dfdfdf' }"
             height="40px"
             fixed
@@ -51,17 +55,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.bar-center {
     display: flex;
     justify-content: space-between;
-
-    .logo {
+    align-items: center;
+}
+.header {
+    .header-left {
         display: flex;
         align-items: center;
-        padding-left: 2rem;
+        padding-left: 1.2rem;
 
         h1 {
-            margin-left: 1.2rem;
+            margin-left: 0.6rem;
             font-size: 2.4rem;
         }
     }
