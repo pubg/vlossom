@@ -1,3 +1,3 @@
 export * from './input-model';
-export * from './modal-model';
+export * from './overlay-model';
 export * from './responsive-model';

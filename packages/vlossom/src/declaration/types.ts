@@ -17,7 +17,6 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
-    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -35,7 +34,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet } from '@/nodes';
+import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -62,7 +61,7 @@ export interface StyleSet {
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
-    VsModal?: { [key: string]: VsModalStyleSet };
+    VsModal?: { [key: string]: VsModalNodeStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };
@@ -150,7 +149,7 @@ export interface VsFormProvide {
 }
 
 export interface BarLayout {
-    position: CssPosition;
+    position: (typeof CSS_POSITION)[number];
     height: string;
 }
 
@@ -169,8 +168,6 @@ export interface VsLayoutProvide {
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
 }
 
-export type CssPosition = (typeof CSS_POSITION)[number];
-
 export type Placement = (typeof PLACEMENTS)[number];
 
 export type Size = (typeof SIZES)[number];
@@ -184,9 +181,35 @@ export interface LabelValue<T = any> {
 
 export type Align = (typeof ALIGNS)[number];
 
+export interface Focusable {
+    focus(): void;
+    blur(): void;
+}
+
 export interface AttachInfo {
     placement?: Exclude<Placement, 'middle'>;
     align?: Align;
     margin?: number;
     followWidth?: boolean;
+}
+
+export type OverlayCallbacks<T = void> = { [eventName: string]: (...args: any[]) => T | Promise<T> };
+
+export interface ModalOptions<T> {
+    component: any;
+    header?: any;
+    footer?: any;
+    container?: string;
+    callbacks?: OverlayCallbacks;
+    // sync with getOverlayProps function
+    colorScheme?: ColorScheme;
+    styleSet?: string | T;
+    dimClose?: boolean;
+    dimmed?: boolean;
+    escClose?: boolean;
+    focusLock?: boolean;
+    hideScroll?: boolean;
+    id?: string;
+    initialFocusRef?: HTMLElement | null;
+    size?: string | number | { width?: string | number; height?: string | number };
 }

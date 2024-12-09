@@ -44,9 +44,9 @@
     "typings": "./dist/index.d.ts",
     "exports": {
         ".": {
+            "types": "./dist/index.d.ts",
             "import": "./dist/vlossom.es.js",
-            "require": "./dist/vlossom.umd.js",
-            "types": "./dist/index.d.ts"
+            "require": "./dist/vlossom.umd.js"
         },
         "./styles": "./dist/style.css"
     },

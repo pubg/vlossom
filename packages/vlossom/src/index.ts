@@ -63,5 +63,6 @@ export * from './components';
 export * from './composables';
 export * from './declaration';
 export * from './icons';
+export * from './models';
 export * from './nodes';
 export * from './utils';

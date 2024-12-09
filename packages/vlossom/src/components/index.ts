@@ -59,7 +59,6 @@ export { default as VsLoading } from './vs-loading/VsLoading.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
-export { type VsModalStyleSet } from './vs-modal/types';
 export { default as VsModal } from './vs-modal/VsModal.vue';
 
 export { type VsNoticeStyleSet } from './vs-notice/types';

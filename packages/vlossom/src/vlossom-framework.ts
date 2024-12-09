@@ -1,10 +1,10 @@
 import { store } from './stores';
-import * as vsPlugins from './plugins';
 import { utils } from './utils';
+import { modalPlugin, toastPlugin, confirmPlugin } from '@/plugins';
 
 import type { App } from 'vue';
 import type { VlossomOptions, VsComponent, VsNode } from '@/declaration';
-import type { ToastPlugin, ConfirmPlugin } from './plugins';
+import type { ToastPlugin, ConfirmPlugin, ModalPlugin } from './plugins';
 
 export class Vlossom {
     constructor(options?: VlossomOptions) {
@@ -82,9 +82,11 @@ export class Vlossom {
         this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }
 
-    public toast: ToastPlugin = vsPlugins.toastPlugin;
+    public toast: ToastPlugin = toastPlugin;
 
-    public confirm: ConfirmPlugin = vsPlugins.confirmPlugin;
+    public confirm: ConfirmPlugin = confirmPlugin;
+
+    public modal: ModalPlugin = modalPlugin;
 }
 
 let vlossom: Vlossom;
