@@ -54,8 +54,8 @@ import {
     Focusable,
 } from '@/declaration';
 import { utils } from '@/utils';
-import { VsFocusTrap } from '@/nodes';
 import { getOverlayProps } from '@/models';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 
 import type { VsDrawerStyleSet } from './types';
 

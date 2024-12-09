@@ -26,12 +26,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-import { ColorScheme, UIState, VsNode } from '@/declaration';
+import { ColorScheme, UIState, VsComponent } from '@/declaration';
 import { useColorScheme, useLazyId, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
 import { VsRadioNodeStyleSet } from './types';
 
-const name = VsNode.VsRadioNode;
+const name = VsComponent.VsRadioNode;
 export default defineComponent({
     name,
     props: {

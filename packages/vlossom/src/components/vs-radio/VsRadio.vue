@@ -50,7 +50,7 @@
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, useInput } from '@/composables';
 import { getInputProps, getResponsiveProps } from '@/models';
-import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
+import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
 import VsRadioNode from '@/components/vs-radio/VsRadioNode.vue';
@@ -100,7 +100,7 @@ export default defineComponent({
 
         const { plainStyleSet: radioStyleSet } = useStyleSet<VsRadioStyleSet>(VsComponent.VsRadio, styleSet);
         const { plainStyleSet: radioNodeStyleSet } = useStyleSet<VsRadioNodeStyleSet>(
-            VsNode.VsRadioNode,
+            VsComponent.VsRadioNode,
             styleSet,
             radioStyleSet,
         );

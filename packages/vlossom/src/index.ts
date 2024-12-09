@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
         VsDivider: typeof import('./components')['VsDivider'];
         VsDrawer: typeof import('./components')['VsDrawer'];
         VsFileInput: typeof import('./components')['VsFileInput'];
+        VsFocusTrap: typeof import('./components')['VsFocusTrap'];
         VsFooter: typeof import('./components')['VsFooter'];
         VsForm: typeof import('./components')['VsForm'];
         VsHeader: typeof import('./components')['VsHeader'];
@@ -52,9 +53,6 @@ declare module '@vue/runtime-core' {
         VsTextarea: typeof import('./components')['VsTextarea'];
         VsThemeButton: typeof import('./components')['VsThemeButton'];
         VsTooltip: typeof import('./components')['VsTooltip'];
-
-        // nodes
-        VsFocusTrap: typeof import('./nodes')['VsFocusTrap'];
     }
 }
 

@@ -4,6 +4,7 @@ export enum VsComponent {
     VsBlock = 'VsBlock',
     VsButton = 'VsButton',
     VsCheckbox = 'VsCheckbox',
+    VsCheckboxNode = 'VsCheckboxNode',
     VsCheckboxSet = 'VsCheckboxSet',
     VsChip = 'VsChip',
     VsConfirm = 'VsConfirm',
@@ -11,6 +12,7 @@ export enum VsComponent {
     VsDivider = 'VsDivider',
     VsDrawer = 'VsDrawer',
     VsFileInput = 'VsFileInput',
+    VsFocusTrap = 'VsFocusTrap',
     VsFooter = 'VsFooter',
     VsForm = 'VsForm',
     VsHeader = 'VsHeader',
@@ -30,6 +32,7 @@ export enum VsComponent {
     VsPagination = 'VsPagination',
     VsProgress = 'VsProgress',
     VsRadio = 'VsRadio',
+    VsRadioNode = 'VsRadioNode',
     VsRadioSet = 'VsRadioSet',
     VsResponsive = 'VsResponsive',
     VsSection = 'VsSection',
@@ -48,8 +51,5 @@ export enum VsComponent {
 }
 
 export enum VsNode {
-    VsCheckboxNode = 'VsCheckboxNode',
-    VsFocusTrap = 'VsFocusTrap',
     VsModalNode = 'VsModalNode',
-    VsRadioNode = 'VsRadioNode',
 }

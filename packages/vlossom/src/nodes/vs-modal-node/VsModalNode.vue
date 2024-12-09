@@ -41,7 +41,7 @@ import { VsModalNodeStyleSet } from './types';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
 import { store } from '@/stores';
-import VsFocusTrap from './../vs-focus-trap/VsFocusTrap.vue';
+import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 
 const name = VsNode.VsModalNode;
 export default defineComponent({

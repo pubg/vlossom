@@ -13,11 +13,11 @@ import {
     type ComponentPublicInstance,
     type PropType,
 } from 'vue';
-import { VsNode } from '@/declaration';
+import { VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
 export default defineComponent({
-    name: VsNode.VsFocusTrap,
+    name: VsComponent.VsFocusTrap,
     props: {
         focusLock: { type: Boolean, default: true },
         initialFocusRef: { type: Object as PropType<HTMLElement | null>, default: null },
