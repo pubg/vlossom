@@ -1,4 +1,4 @@
-import { VsModalOptions } from '@/nodes';
+import { VsModalOptions } from '@/components';
 
 export interface ModalPlugin {
     open(options: VsModalOptions): string;

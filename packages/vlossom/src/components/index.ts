@@ -23,6 +23,8 @@ export { default as VsConfirm } from './vs-confirmation/VsConfirm.vue';
 
 export { default as VsContainer } from './vs-container/VsContainer.vue';
 
+export { default as VsContentRenderer } from './vs-content-renderer/VsContentRenderer.vue';
+
 export type { VsDividerStyleSet } from './vs-divider/types';
 export { default as VsDivider } from './vs-divider/VsDivider.vue';
 
@@ -63,7 +65,10 @@ export { default as VsLoading } from './vs-loading/VsLoading.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
+export type { VsModalStyleSet, VsModalOptions } from './vs-modal/types';
 export { default as VsModal } from './vs-modal/VsModal.vue';
+export { default as VsModalNode } from './vs-modal/VsModalNode.vue';
+export { default as VsModalView } from './vs-modal/VsModalView.vue';
 
 export type { VsNoticeStyleSet } from './vs-notice/types';
 export { default as VsNotice } from './vs-notice/VsNotice.vue';

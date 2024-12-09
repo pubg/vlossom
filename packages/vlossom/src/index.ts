@@ -35,6 +35,8 @@ declare module '@vue/runtime-core' {
         VsLoading: typeof import('./components')['VsLoading'];
         VsMessage: typeof import('./components')['VsMessage'];
         VsModal: typeof import('./components')['VsModal'];
+        VsModalNode: typeof import('./components')['VsModalNode'];
+        VsModalView: typeof import('./components')['VsModalView'];
         VsNotice: typeof import('./components')['VsNotice'];
         VsPage: typeof import('./components')['VsPage'];
         VsPagination: typeof import('./components')['VsPagination'];
@@ -63,5 +65,4 @@ export * from './composables';
 export * from './declaration';
 export * from './icons';
 export * from './models';
-export * from './nodes';
 export * from './utils';

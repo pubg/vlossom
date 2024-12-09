@@ -19,6 +19,7 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
+    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -37,14 +38,11 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsModalNodeStyleSet } from '@/nodes';
-import type { VsComponent, VsNode } from './enums';
+import type { VsComponent } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
-export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme } & {
-    [key in VsNode]?: ColorScheme;
-};
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
     // components
@@ -65,7 +63,7 @@ export interface StyleSet {
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
-    VsModal?: { [key: string]: VsModalNodeStyleSet };
+    VsModal?: { [key: string]: VsModalStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };
@@ -88,7 +86,6 @@ export interface StyleSet {
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
-    nodes?: VsNode[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
     radiusRatio?: number;

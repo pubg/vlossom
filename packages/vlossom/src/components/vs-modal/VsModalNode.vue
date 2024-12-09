@@ -35,20 +35,20 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
-import { Size, SIZES, VsNode, MODAL_DURATION, SizeProp } from '@/declaration';
+import { Size, SIZES, VsComponent, MODAL_DURATION, SizeProp } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
-import { VsModalNodeStyleSet } from './types';
+import { VsModalStyleSet } from './types';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
 import { store } from '@/stores';
 import VsFocusTrap from '@/components/vs-focus-trap/VsFocusTrap.vue';
 
-const name = VsNode.VsModalNode;
+const name = VsComponent.VsModalNode;
 export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        ...getOverlayProps<VsModalNodeStyleSet>(),
+        ...getOverlayProps<VsModalStyleSet>(),
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
@@ -61,7 +61,7 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalNodeStyleSet>(name, styleSet);
+        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
 
         const fixed = computed(() => container.value === 'body');
 

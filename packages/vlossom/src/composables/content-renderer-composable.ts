@@ -1,5 +1,5 @@
 import { Component, h, toRaw } from 'vue';
-import { VsContentRenderer } from '@/nodes';
+import { VsContentRenderer } from '@/components';
 
 export function useContentRenderer() {
     function getRenderedContent(content: string | Component) {

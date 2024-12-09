@@ -27,9 +27,9 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
-import { VsModalNode } from '@/nodes';
 import { store } from '@/stores';
 import { useContentRenderer } from '@/composables';
+import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
 
 export default defineComponent({
     props: {

@@ -9,6 +9,7 @@ export enum VsComponent {
     VsChip = 'VsChip',
     VsConfirm = 'VsConfirm',
     VsContainer = 'VsContainer',
+    VsContentRenderer = 'VsContentRenderer',
     VsDivider = 'VsDivider',
     VsDrawer = 'VsDrawer',
     VsFileInput = 'VsFileInput',
@@ -27,6 +28,8 @@ export enum VsComponent {
     VsMain = 'VsMain',
     VsMessage = 'VsMessage',
     VsModal = 'VsModal',
+    VsModalNode = 'VsModalNode',
+    VsModalView = 'VsModalView',
     VsNotice = 'VsNotice',
     VsPage = 'VsPage',
     VsPagination = 'VsPagination',
@@ -48,8 +51,4 @@ export enum VsComponent {
     VsToast = 'VsToast',
     VsToastView = 'VsToastView',
     VsTooltip = 'VsTooltip',
-}
-
-export enum VsNode {
-    VsModalNode = 'VsModalNode',
 }
