@@ -79,8 +79,8 @@ import {
     useTablePagination,
 } from './composables';
 import { VsIcon } from '@/icons';
-import { VsCheckboxNode } from '@/nodes';
 import { utils } from '@/utils';
+import VsCheckboxNode from '@/components/vs-checkbox/VsCheckboxNode.vue';
 
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';

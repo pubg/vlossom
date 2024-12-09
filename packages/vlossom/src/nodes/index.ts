@@ -1,6 +1,3 @@
-export type { VsCheckboxNodeStyleSet } from './vs-checkbox-node/types';
-export { default as VsCheckboxNode } from './vs-checkbox-node/VsCheckboxNode.vue';
-
 export type { ConfirmOptions, PromptOptions } from './vs-confirm/types';
 export { default as VsConfirmation } from './vs-confirm/VsConfirmation.vue';
 

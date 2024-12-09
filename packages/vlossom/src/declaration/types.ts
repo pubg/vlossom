@@ -6,7 +6,9 @@ import type {
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
+    VsCheckboxNodeStyleSet,
     VsCheckboxStyleSet,
+    VsCheckboxSetStyleSet,
     VsChipStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
@@ -34,7 +36,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
+import type { VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -50,7 +52,7 @@ export interface StyleSet {
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
-    VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };
+    VsCheckboxSet?: { [key: string]: VsCheckboxSetStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsDrawer?: { [key: string]: VsDrawerStyleSet };

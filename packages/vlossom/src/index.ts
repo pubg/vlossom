@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
         VsBlock: typeof import('./components')['VsBlock'];
         VsButton: typeof import('./components')['VsButton'];
         VsCheckbox: typeof import('./components')['VsCheckbox'];
+        VsCheckboxNode: typeof import('./components')['VsCheckboxNode'];
         VsCheckboxSet: typeof import('./components')['VsCheckboxSet'];
         VsChip: typeof import('./components')['VsChip'];
         VsContainer: typeof import('./components')['VsContainer'];
@@ -52,7 +53,6 @@ declare module '@vue/runtime-core' {
         VsTooltip: typeof import('./components')['VsTooltip'];
 
         // nodes
-        VsCheckboxNode: typeof import('./nodes')['VsCheckboxNode'];
         VsFocusTrap: typeof import('./nodes')['VsFocusTrap'];
         VsRadioNode: typeof import('./nodes')['VsRadioNode'];
     }

@@ -53,7 +53,8 @@ import { useColorScheme, useStyleSet, useInput, useValueMatcher } from '@/compos
 import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';
+import VsCheckboxNode from './VsCheckboxNode.vue';
+import type { VsCheckboxNodeStyleSet } from './types';
 
 import type { VsCheckboxStyleSet } from './types';
 

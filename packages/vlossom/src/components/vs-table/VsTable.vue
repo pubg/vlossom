@@ -111,7 +111,7 @@ import VsTableHeader from './VsTableHeader.vue';
 import VsTableBody from './VsTableBody.vue';
 import VsPagination from '@/components/vs-pagination/VsPagination.vue';
 import VsSelect from '@/components/vs-select/VsSelect.vue';
-import { VsCheckboxNode } from '@/nodes';
+import VsCheckboxNode from '@/components/vs-checkbox/VsCheckboxNode.vue';
 
 import type { VsTableStyleSet, TableHeader, TableRow, TableFilter, SortType } from './types';
 import type { SortableEvent } from 'sortablejs';
@@ -210,27 +210,21 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            return Object.keys(slots).reduce(
-                (acc, slotName) => {
-                    if (slotName.startsWith('header-')) {
-                        acc[slotName] = slots[slotName];
-                    }
-                    return acc;
-                },
-                {} as { [key: string]: any },
-            );
+            return Object.keys(slots).reduce((acc, slotName) => {
+                if (slotName.startsWith('header-')) {
+                    acc[slotName] = slots[slotName];
+                }
+                return acc;
+            }, {} as { [key: string]: any });
         });
 
         const itemSlots = computed(() => {
-            return Object.keys(slots).reduce(
-                (acc, slotName) => {
-                    if (slotName.startsWith('item-') || slotName === 'expand') {
-                        acc[slotName] = slots[slotName];
-                    }
-                    return acc;
-                },
-                {} as { [key: string]: any },
-            );
+            return Object.keys(slots).reduce((acc, slotName) => {
+                if (slotName.startsWith('item-') || slotName === 'expand') {
+                    acc[slotName] = slots[slotName];
+                }
+                return acc;
+            }, {} as { [key: string]: any });
         });
 
         const innerSearchText = ref('');
