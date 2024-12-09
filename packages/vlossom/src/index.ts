@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
         VsPagination: typeof import('./components')['VsPagination'];
         VsProgress: typeof import('./components')['VsProgress'];
         VsRadio: typeof import('./components')['VsRadio'];
+        VsRadioNode: typeof import('./components')['VsRadioNode'];
         VsRadioSet: typeof import('./components')['VsRadioSet'];
         VsResponsive: typeof import('./components')['VsResponsive'];
         VsSection: typeof import('./components')['VsSection'];
@@ -54,7 +55,6 @@ declare module '@vue/runtime-core' {
 
         // nodes
         VsFocusTrap: typeof import('./nodes')['VsFocusTrap'];
-        VsRadioNode: typeof import('./nodes')['VsRadioNode'];
     }
 }
 

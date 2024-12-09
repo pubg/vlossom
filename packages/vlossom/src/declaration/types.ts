@@ -23,6 +23,7 @@ import type {
     VsPageStyleSet,
     VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioNodeStyleSet,
     VsRadioStyleSet,
     VsRadioSetStyleSet,
     VsSectionStyleSet,
@@ -36,7 +37,7 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
+import type { VsModalNodeStyleSet } from '@/nodes';
 import type { VsComponent, VsNode } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
@@ -52,6 +53,7 @@ export interface StyleSet {
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
+    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
     VsCheckboxSet?: { [key: string]: VsCheckboxSetStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
@@ -69,6 +71,7 @@ export interface StyleSet {
     VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsRadio?: { [key: string]: VsRadioStyleSet };
+    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
     VsRadioSet?: { [key: string]: VsRadioSetStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsSelect?: { [key: string]: VsSelectStyleSet };
@@ -80,10 +83,6 @@ export interface StyleSet {
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
-
-    // nodes
-    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
-    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
 }
 
 export interface VlossomOptions {

@@ -72,11 +72,10 @@ export { default as VsPagination } from './vs-pagination/VsPagination.vue';
 export type { VsProgressStyleSet } from './vs-progress/types';
 export { default as VsProgress } from './vs-progress/VsProgress.vue';
 
-export type { VsRadioStyleSet } from './vs-radio/types';
+export type { VsRadioNodeStyleSet, VsRadioStyleSet, VsRadioSetStyleSet } from './vs-radio/types';
+export { default as VsRadioNode } from './vs-radio/VsRadioNode.vue';
 export { default as VsRadio } from './vs-radio/VsRadio.vue';
-
-export type { VsRadioSetStyleSet } from './vs-radio-set/types';
-export { default as VsRadioSet } from './vs-radio-set/VsRadioSet.vue';
+export { default as VsRadioSet } from './vs-radio/VsRadioSet.vue';
 
 export { default as VsResponsive } from './vs-responsive/VsResponsive.vue';
 

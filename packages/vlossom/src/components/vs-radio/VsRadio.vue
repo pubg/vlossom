@@ -53,9 +53,9 @@ import { getInputProps, getResponsiveProps } from '@/models';
 import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsRadioNode, VsRadioNodeStyleSet } from '@/nodes';
+import VsRadioNode from '@/components/vs-radio/VsRadioNode.vue';
 
-import type { VsRadioStyleSet } from './types';
+import type { VsRadioNodeStyleSet, VsRadioStyleSet } from './types';
 
 export default defineComponent({
     name: VsComponent.VsRadio,
