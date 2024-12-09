@@ -10,6 +10,7 @@ import type {
     VsCheckboxStyleSet,
     VsCheckboxSetStyleSet,
     VsChipStyleSet,
+    VsConfirmationStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
     VsFileInputStyleSet,
@@ -54,6 +55,7 @@ export interface StyleSet {
     VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
     VsCheckboxSet?: { [key: string]: VsCheckboxSetStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
+    VsConfirm?: { [key: string]: VsConfirmationStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsDrawer?: { [key: string]: VsDrawerStyleSet };
     VsFileInput?: { [key: string]: VsFileInputStyleSet };

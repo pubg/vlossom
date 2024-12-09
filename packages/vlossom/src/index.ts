@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
         VsChip: typeof import('./components')['VsChip'];
         VsConfirm: typeof import('./components')['VsConfirm'];
         VsContainer: typeof import('./components')['VsContainer'];
+        VsContentRenderer: typeof import('./components')['VsContentRenderer'];
         VsDivider: typeof import('./components')['VsDivider'];
         VsDrawer: typeof import('./components')['VsDrawer'];
         VsFileInput: typeof import('./components')['VsFileInput'];
@@ -55,6 +56,8 @@ declare module '@vue/runtime-core' {
         VsTextWrap: typeof import('./components')['VsTextWrap'];
         VsTextarea: typeof import('./components')['VsTextarea'];
         VsThemeButton: typeof import('./components')['VsThemeButton'];
+        VsToast: typeof import('./components')['VsToast'];
+        VsToastView: typeof import('./components')['VsToastView'];
         VsTooltip: typeof import('./components')['VsTooltip'];
     }
 }
