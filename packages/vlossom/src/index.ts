@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
         VsCheckboxNode: typeof import('./components')['VsCheckboxNode'];
         VsCheckboxSet: typeof import('./components')['VsCheckboxSet'];
         VsChip: typeof import('./components')['VsChip'];
+        VsConfirm: typeof import('./components')['VsConfirm'];
         VsContainer: typeof import('./components')['VsContainer'];
         VsDivider: typeof import('./components')['VsDivider'];
         VsDrawer: typeof import('./components')['VsDrawer'];

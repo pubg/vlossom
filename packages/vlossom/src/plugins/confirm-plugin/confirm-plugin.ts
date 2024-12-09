@@ -1,6 +1,6 @@
 import { Component, h } from 'vue';
 import { ConfirmPlugin } from './types';
-import { VsConfirmation, type ConfirmOptions } from '@/nodes';
+import { VsConfirm, type ConfirmOptions } from '@/components';
 import { VS_CONFIRM_CANCEL, VS_CONFIRM_OK } from '@/declaration';
 import { modalPlugin } from '@/plugins';
 import { useContentRenderer } from '@/composables';
@@ -13,7 +13,7 @@ export const confirmPlugin: ConfirmPlugin = {
             const modalId = modalPlugin.open({
                 ...confirmOptions,
                 component: h(
-                    VsConfirmation,
+                    VsConfirm,
                     { okText, cancelText },
                     {
                         default: () => {
