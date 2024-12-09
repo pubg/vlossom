@@ -167,7 +167,7 @@ export default defineComponent({
                 if (!map.has(object)) {
                     map.set(object, utils.string.createID());
                 }
-                return String(map.get(object));
+                return map.get(object);
             };
         })();
 
