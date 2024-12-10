@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { VsStore } from './../index';
-import { ModalStore } from './../modal-store';
 import { OptionStore } from './../option-store';
-import { OverlayStore } from './../overlay-store';
+import { OverlayCallbackStore } from './../overlay-callback-store';
 import { OverlayStackStore } from './../overlay-stack-store';
 
 describe('Vlossom store', () => {
@@ -12,9 +11,9 @@ describe('Vlossom store', () => {
 
         // then
         expect(Object.keys(store).length).toBe(4);
-        expect(store.modal).toBeInstanceOf(ModalStore);
         expect(store.option).toBeInstanceOf(OptionStore);
-        expect(store.overlay).toBeInstanceOf(OverlayStore);
+        expect(store.modal).toBeInstanceOf(OverlayStackStore);
+        expect(store.overlay).toBeInstanceOf(OverlayCallbackStore);
         expect(store.toast).toBeInstanceOf(OverlayStackStore);
     });
 });

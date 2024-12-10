@@ -1,6 +1,6 @@
 import { computed, ComputedRef, Ref, ref } from 'vue';
 
-export class OverlayStackStore<T extends { id: string; container?: string }> {
+export class OverlayStackStore<T extends { id?: string; container?: string }> {
     public readonly items: Ref<T[]> = ref([]);
     public readonly itemsByContainer: ComputedRef<{ [container: string]: T[] }> = computed(() => {
         const result: { [container: string]: T[] } = {};

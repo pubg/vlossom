@@ -39,7 +39,7 @@ export default defineComponent({
     setup(props) {
         const { container } = toRefs(props);
         const modals = computed(() => {
-            return store.modal.modalsByContainer.value[container.value] || [];
+            return store.modal.itemsByContainer.value[container.value] || [];
         });
 
         const { getRenderedContent } = useContentRenderer();

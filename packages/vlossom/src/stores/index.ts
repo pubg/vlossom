@@ -1,13 +1,12 @@
-import { ModalStore } from './modal-store';
-import { OverlayStore } from './overlay-store';
 import { OptionStore } from './option-store';
+import { OverlayCallbackStore } from './overlay-callback-store';
 import { OverlayStackStore } from './overlay-stack-store';
-import { VsToastInfo } from '@/components/vs-toast/types';
+import { VsModalOptions, VsToastInfo } from '@/components';
 
 export class VsStore {
     private _option: OptionStore | null = null;
-    private _modal: ModalStore | null = null;
-    private _overlay: OverlayStore | null = null;
+    private _modal: OverlayStackStore<VsModalOptions> | null = null;
+    private _overlay: OverlayCallbackStore | null = null;
     private _toast: OverlayStackStore<VsToastInfo> | null = null;
 
     public get option() {
@@ -19,14 +18,14 @@ export class VsStore {
 
     public get modal() {
         if (!this._modal) {
-            this._modal = new ModalStore();
+            this._modal = new OverlayStackStore<VsModalOptions>();
         }
         return this._modal;
     }
 
     public get overlay() {
         if (!this._overlay) {
-            this._overlay = new OverlayStore();
+            this._overlay = new OverlayCallbackStore();
         }
         return this._overlay;
     }
