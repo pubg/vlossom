@@ -16,17 +16,10 @@ function renderToastView(toastInfo: VsToastInfo) {
         return '';
     }
 
-    store.toast.push(toastInfo);
-    if (toastInfo.autoClose) {
-        setTimeout(() => {
-            store.toast.remove(toastInfo.id);
-        }, toastInfo.timeout || DEFAULT_TOAST_TIMEOUT);
-    }
-
-    const toastView = h(VsToastView, { container });
     const wrapperId = `vs-toast-${container.replace('#', '')}`;
     let toastWrap = document.getElementById(wrapperId);
     if (!toastWrap) {
+        const toastView = h(VsToastView, { container });
         toastWrap = document.createElement('div');
         toastWrap.id = wrapperId;
         toastWrap.classList.add('vs-toast-view');
@@ -34,8 +27,15 @@ function renderToastView(toastInfo: VsToastInfo) {
             toastWrap.style.position = 'fixed';
         }
         containerElement.appendChild(toastWrap);
+        render(toastView, toastWrap);
     }
-    render(toastView, toastWrap);
+
+    store.toast.push(toastInfo);
+    if (toastInfo.autoClose) {
+        setTimeout(() => {
+            store.toast.remove(toastInfo.id);
+        }, toastInfo.timeout || DEFAULT_TOAST_TIMEOUT);
+    }
 }
 
 export const toastPlugin: ToastPlugin = {

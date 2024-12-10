@@ -49,11 +49,19 @@
     }
 }
 
+.toasts-move, /* apply transition to moving elements */
 .toasts-enter-active,
 .toasts-leave-active {
     transition: all 0.5s ease;
 }
+
 .toasts-enter-from,
 .toasts-leave-to {
     opacity: 0;
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.toasts-leave-active {
+    position: absolute;
 }
