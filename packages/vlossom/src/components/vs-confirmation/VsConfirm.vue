@@ -17,7 +17,7 @@ import { VS_CONFIRM_OK, VS_CONFIRM_CANCEL } from '@/declaration';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
 export default defineComponent({
-    name: 'VsConfirmation',
+    name: 'VsConfirm',
     components: { VsButton },
     props: {
         okText: { type: String, default: 'OK' },

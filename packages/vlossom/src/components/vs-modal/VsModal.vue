@@ -31,16 +31,18 @@
 import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
 import { getOverlayProps } from '@/models';
 import { VsComponent, SizeProp } from '@/declaration';
-import { VsModalNode, VsModalNodeStyleSet } from '@/nodes';
 import { store } from '@/stores';
 import { utils } from '@/utils';
+import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
+
+import type { VsModalStyleSet } from './types';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
     name,
     components: { VsModalNode },
     props: {
-        ...getOverlayProps<VsModalNodeStyleSet>(),
+        ...getOverlayProps<VsModalStyleSet>(),
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,

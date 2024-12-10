@@ -1,5 +1,5 @@
 import { computed, ComputedRef, Ref, ref } from 'vue';
-import { VsModalOptions } from '@/nodes';
+import { VsModalOptions } from '@/components';
 export class ModalStore {
     public readonly modals: Ref<VsModalOptions[]> = ref([]);
     public readonly modalsByContainer: ComputedRef<{ [container: string]: VsModalOptions[] }> = computed(() => {

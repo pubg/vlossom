@@ -13,12 +13,16 @@ declare module '@vue/runtime-core' {
         VsBlock: typeof import('./components')['VsBlock'];
         VsButton: typeof import('./components')['VsButton'];
         VsCheckbox: typeof import('./components')['VsCheckbox'];
+        VsCheckboxNode: typeof import('./components')['VsCheckboxNode'];
         VsCheckboxSet: typeof import('./components')['VsCheckboxSet'];
         VsChip: typeof import('./components')['VsChip'];
+        VsConfirm: typeof import('./components')['VsConfirm'];
         VsContainer: typeof import('./components')['VsContainer'];
+        VsContentRenderer: typeof import('./components')['VsContentRenderer'];
         VsDivider: typeof import('./components')['VsDivider'];
         VsDrawer: typeof import('./components')['VsDrawer'];
         VsFileInput: typeof import('./components')['VsFileInput'];
+        VsFocusTrap: typeof import('./components')['VsFocusTrap'];
         VsFooter: typeof import('./components')['VsFooter'];
         VsForm: typeof import('./components')['VsForm'];
         VsHeader: typeof import('./components')['VsHeader'];
@@ -32,11 +36,14 @@ declare module '@vue/runtime-core' {
         VsLoading: typeof import('./components')['VsLoading'];
         VsMessage: typeof import('./components')['VsMessage'];
         VsModal: typeof import('./components')['VsModal'];
+        VsModalNode: typeof import('./components')['VsModalNode'];
+        VsModalView: typeof import('./components')['VsModalView'];
         VsNotice: typeof import('./components')['VsNotice'];
         VsPage: typeof import('./components')['VsPage'];
         VsPagination: typeof import('./components')['VsPagination'];
         VsProgress: typeof import('./components')['VsProgress'];
         VsRadio: typeof import('./components')['VsRadio'];
+        VsRadioNode: typeof import('./components')['VsRadioNode'];
         VsRadioSet: typeof import('./components')['VsRadioSet'];
         VsResponsive: typeof import('./components')['VsResponsive'];
         VsSection: typeof import('./components')['VsSection'];
@@ -49,12 +56,9 @@ declare module '@vue/runtime-core' {
         VsTextWrap: typeof import('./components')['VsTextWrap'];
         VsTextarea: typeof import('./components')['VsTextarea'];
         VsThemeButton: typeof import('./components')['VsThemeButton'];
+        VsToast: typeof import('./components')['VsToast'];
+        VsToastView: typeof import('./components')['VsToastView'];
         VsTooltip: typeof import('./components')['VsTooltip'];
-
-        // nodes
-        VsCheckboxNode: typeof import('./nodes')['VsCheckboxNode'];
-        VsFocusTrap: typeof import('./nodes')['VsFocusTrap'];
-        VsRadioNode: typeof import('./nodes')['VsRadioNode'];
     }
 }
 
@@ -64,5 +68,4 @@ export * from './composables';
 export * from './declaration';
 export * from './icons';
 export * from './models';
-export * from './nodes';
 export * from './utils';

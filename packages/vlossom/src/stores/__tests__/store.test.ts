@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { VsStore } from './../index';
-import { ModalStore } from '../modal-store';
+import { ModalStore } from './../modal-store';
 import { OptionStore } from './../option-store';
-import { OverlayStore } from '../overlay-store';
+import { OverlayStore } from './../overlay-store';
 import { ToastStore } from './../toast-store';
 
 describe('Vlossom store', () => {

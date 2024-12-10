@@ -6,8 +6,11 @@ import type {
     VsAvatarStyleSet,
     VsBlockStyleSet,
     VsButtonStyleSet,
+    VsCheckboxNodeStyleSet,
     VsCheckboxStyleSet,
+    VsCheckboxSetStyleSet,
     VsChipStyleSet,
+    VsConfirmationStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
     VsFileInputStyleSet,
@@ -17,10 +20,12 @@ import type {
     VsInputStyleSet,
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
+    VsModalStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
     VsProgressStyleSet,
+    VsRadioNodeStyleSet,
     VsRadioStyleSet,
     VsRadioSetStyleSet,
     VsSectionStyleSet,
@@ -34,14 +39,11 @@ import type {
     VsThemeButtonStyleSet,
     VsTooltipStyleSet,
 } from '@/components';
-import type { VsCheckboxNodeStyleSet, VsRadioNodeStyleSet, VsModalNodeStyleSet } from '@/nodes';
-import type { VsComponent, VsNode } from './enums';
+import type { VsComponent } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
-export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme } & {
-    [key in VsNode]?: ColorScheme;
-};
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
 export interface StyleSet {
     // components
@@ -50,8 +52,10 @@ export interface StyleSet {
     VsBlock?: { [key: string]: VsBlockStyleSet };
     VsButton?: { [key: string]: VsButtonStyleSet };
     VsCheckbox?: { [key: string]: VsCheckboxStyleSet };
-    VsCheckboxSet?: { [key: string]: VsCheckboxStyleSet };
+    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
+    VsCheckboxSet?: { [key: string]: VsCheckboxSetStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
+    VsConfirm?: { [key: string]: VsConfirmationStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsDrawer?: { [key: string]: VsDrawerStyleSet };
     VsFileInput?: { [key: string]: VsFileInputStyleSet };
@@ -61,12 +65,13 @@ export interface StyleSet {
     VsInput?: { [key: string]: VsInputStyleSet };
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
-    VsModal?: { [key: string]: VsModalNodeStyleSet };
+    VsModal?: { [key: string]: VsModalStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };
     VsProgress?: { [key: string]: VsProgressStyleSet };
     VsRadio?: { [key: string]: VsRadioStyleSet };
+    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
     VsRadioSet?: { [key: string]: VsRadioSetStyleSet };
     VsSection?: { [key: string]: VsSectionStyleSet };
     VsSelect?: { [key: string]: VsSelectStyleSet };
@@ -78,16 +83,11 @@ export interface StyleSet {
     VsTextWrap?: { [key: string]: VsTextWrapStyleSet };
     VsThemeButton?: { [key: string]: VsThemeButtonStyleSet };
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
-
-    // nodes
-    VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
-    VsRadioNode?: { [key: string]: VsRadioNodeStyleSet };
 }
 
 export interface VlossomOptions {
     theme?: 'light' | 'dark';
     components?: VsComponent[];
-    nodes?: VsNode[];
     colorScheme?: GlobalColorScheme;
     styleSet?: StyleSet;
     radiusRatio?: number;

@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 import { VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
-import type { GlobalColorScheme, StyleSet, VsNode } from '@/declaration';
+import type { GlobalColorScheme, StyleSet } from '@/declaration';
 
 interface OptionStoreState {
     theme: 'light' | 'dark';
@@ -31,7 +31,7 @@ export class OptionStore {
         this.state.globalColorScheme = colorScheme;
     }
 
-    getGlobalColorScheme(component: VsComponent | VsNode) {
+    getGlobalColorScheme(component: VsComponent) {
         return this.state.globalColorScheme[component] || this.state.globalColorScheme.default;
     }
 
@@ -57,7 +57,7 @@ export class OptionStore {
         });
     }
 
-    getStyleSet(component: VsComponent | VsNode, styleSetName: string) {
+    getStyleSet(component: VsComponent, styleSetName: string) {
         return this.state.styleSets[component as keyof StyleSet]?.[styleSetName];
     }
 }

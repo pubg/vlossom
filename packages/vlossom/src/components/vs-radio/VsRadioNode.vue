@@ -1,10 +1,10 @@
 <template>
-    <div :class="['vs-checkbox-node', colorSchemeClass, classObj]" :style="computedStyleSet">
-        <label class="vs-checkbox-wrap" :for="computedId">
+    <div :class="['vs-radio-node', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
+        <label class="vs-radio-wrap" :for="computedId">
             <input
-                ref="checkboxRef"
-                type="checkbox"
-                :class="['vs-checkbox-input', stateClasses]"
+                ref="radioRef"
+                type="radio"
+                class="vs-radio-input"
                 :aria-label="ariaLabel"
                 :id="computedId"
                 :disabled="disabled || readonly"
@@ -12,36 +12,36 @@
                 :value="convertToString(value)"
                 :checked="checked"
                 :aria-required="required"
-                @click.prevent.stop="toggle"
+                @change.stop="toggle"
                 @focus.stop="onFocus"
                 @blur.stop="onBlur"
             />
-            <div v-if="label || $slots['label']" class="vs-checkbox-label">
+
+            <span class="vs-radio-label">
                 <slot name="label">{{ label }}</slot>
-            </div>
+            </span>
         </label>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, Ref, ref, toRefs, watch } from 'vue';
-import { ColorScheme, UIState, VsNode } from '@/declaration';
+import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+import { ColorScheme, UIState, VsComponent } from '@/declaration';
 import { useColorScheme, useLazyId, useStateClass, useStyleSet } from '@/composables';
 import { utils } from '@/utils';
-import { VsCheckboxNodeStyleSet } from './types';
+import { VsRadioNodeStyleSet } from './types';
 
-const name = VsNode.VsCheckboxNode;
+const name = VsComponent.VsRadioNode;
 export default defineComponent({
     name,
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsCheckboxNodeStyleSet> },
+        styleSet: { type: [String, Object] as PropType<string | VsRadioNodeStyleSet> },
         ariaLabel: { type: String, default: '' },
         checked: { type: Boolean, default: false },
         dense: { type: Boolean, default: false },
         disabled: { type: Boolean, default: false },
         id: { type: String, default: '' },
-        indeterminate: { type: Boolean, default: false },
         label: { type: String, default: '' },
         name: { type: String, default: '' },
         readonly: { type: Boolean, default: false },
@@ -52,29 +52,27 @@ export default defineComponent({
     emits: ['change', 'toggle', 'focus', 'blur'],
     // expose: ['focus', 'blur'],
     setup(props, { emit }) {
-        const { colorScheme, styleSet, checked, id, indeterminate, dense, disabled, readonly, state } = toRefs(props);
+        const { colorScheme, styleSet, dense, disabled, readonly, state, id } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet(name, styleSet);
 
+        const radioRef: Ref<HTMLInputElement | null> = ref(null);
+
         const { stateClasses } = useStateClass(state);
 
-        const checkboxRef: Ref<HTMLInputElement | null> = ref(null);
-
         const classObj = computed(() => ({
-            'vs-checked': checked.value,
             'vs-dense': dense.value,
             'vs-disabled': disabled.value,
             'vs-readonly': readonly.value,
-            'vs-indeterminate': indeterminate.value,
         }));
 
         const { computedId } = useLazyId(id);
 
         function toggle(event: Event) {
             emit('change', event);
-            emit('toggle', !checked.value);
+            emit('toggle', (event.target as HTMLInputElement).checked);
         }
 
         function onFocus(event: FocusEvent) {
@@ -86,41 +84,29 @@ export default defineComponent({
         }
 
         function focus() {
-            checkboxRef.value?.focus();
+            radioRef.value?.focus();
         }
 
         function blur() {
-            checkboxRef.value?.blur();
+            radioRef.value?.blur();
         }
 
-        watch(
-            checked,
-            (value) => {
-                nextTick(() => {
-                    if (checkboxRef.value) {
-                        checkboxRef.value.checked = value;
-                    }
-                });
-            },
-            { immediate: true },
-        );
-
         return {
-            checkboxRef,
-            colorSchemeClass,
+            radioRef,
             classObj,
+            toggle,
             onFocus,
             onBlur,
             focus,
             blur,
-            convertToString: utils.string.convertToString,
-            stateClasses,
+            colorSchemeClass,
             computedStyleSet,
+            stateClasses,
             computedId,
-            toggle,
+            convertToString: utils.string.convertToString,
         };
     },
 });
 </script>
 
-<style lang="scss" src="./VsCheckboxNode.scss" />
+<style lang="scss" src="./VsRadioNode.scss" />

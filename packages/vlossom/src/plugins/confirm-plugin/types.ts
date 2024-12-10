@@ -1,5 +1,5 @@
 import { Component } from 'vue';
-import type { ConfirmOptions, PromptOptions } from '@/nodes';
+import type { ConfirmOptions, PromptOptions } from '@/components';
 
 export interface ConfirmPlugin {
     open: (content: string | Component, confirmOptions?: ConfirmOptions) => Promise<boolean>;

@@ -59,13 +59,13 @@
 import { computed, defineComponent, PropType, Ref, ref, toRefs } from 'vue';
 import { useColorScheme, useStyleSet, useInput, useInputOption } from '@/composables';
 import { getInputProps, getInputOptionProps, getResponsiveProps } from '@/models';
-import { VsComponent, VsNode, type ColorScheme } from '@/declaration';
+import { VsComponent, type ColorScheme } from '@/declaration';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
-import { VsCheckboxNode, VsCheckboxNodeStyleSet } from '@/nodes';
+import VsCheckboxNode from '@/components/vs-checkbox/VsCheckboxNode.vue';
 import { useVsCheckboxSetRules } from './vs-checkbox-set-rules';
 
-import type { VsCheckboxSetStyleSet } from './types';
+import type { VsCheckboxNodeStyleSet, VsCheckboxSetStyleSet } from './types';
 
 const name = VsComponent.VsCheckboxSet;
 export default defineComponent({
@@ -132,7 +132,7 @@ export default defineComponent({
             styleSet,
         );
         const { plainStyleSet: checkboxNodeStyleSet } = useStyleSet<VsCheckboxNodeStyleSet>(
-            VsNode.VsCheckboxNode,
+            VsComponent.VsCheckboxNode,
             styleSet,
             checkboxSetStyleSet,
         );

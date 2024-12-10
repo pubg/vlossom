@@ -1,6 +1,6 @@
 import type { ModalOptions } from '@/declaration';
 
-export interface VsCofirmationStyleSet {
+export interface VsConfirmationStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     boxShadow?: string;
@@ -14,7 +14,7 @@ export interface VsCofirmationStyleSet {
     // TODO: add button style object (224926)
 }
 
-export interface ConfirmOptions extends Omit<ModalOptions<VsCofirmationStyleSet>, 'component'> {
+export interface ConfirmOptions extends Omit<ModalOptions<VsConfirmationStyleSet>, 'component'> {
     okText?: string;
     cancelText?: string;
 }
