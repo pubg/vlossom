@@ -1,5 +1,5 @@
 <template>
-    <div class="vs-toast-view">
+    <div :class="['vs-toast-view', { 'vs-fixed': container === 'body' }]">
         <template v-for="[key, toasts] in Object.entries(toastsByPosition)" :key="key">
             <div :class="['vs-toast-container', `vs-toast-${key.split('-')[0]}`, `vs-toast-${key.split('-')[1]}`]">
                 <TransitionGroup name="toasts">
