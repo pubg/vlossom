@@ -120,7 +120,7 @@ export { default as VsTextarea } from './vs-textarea/VsTextarea.vue';
 export type { VsThemeButtonStyleSet } from './vs-theme-button/types';
 export { default as VsThemeButton } from './vs-theme-button/VsThemeButton.vue';
 
-export type { VsToastStyleSet } from './vs-toast/types';
+export type { VsToastStyleSet, VsToastInfo, VsToastOptions } from './vs-toast/types';
 export { default as VsToast } from './vs-toast/VsToast.vue';
 export { default as VsToastView } from './vs-toast/VsToastView.vue';
 

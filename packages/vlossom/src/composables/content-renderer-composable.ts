@@ -1,14 +1,9 @@
-import { Component, h, toRaw } from 'vue';
+import { Component, h } from 'vue';
 import { VsContentRenderer } from '@/components';
 
 export function useContentRenderer() {
     function getRenderedContent(content: string | Component) {
-        if (typeof content === 'string') {
-            return h(VsContentRenderer, { content });
-        }
-
-        // vue component
-        return toRaw(content);
+        return h(VsContentRenderer, { content });
     }
 
     return { getRenderedContent };

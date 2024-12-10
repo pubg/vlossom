@@ -17,11 +17,7 @@ export const confirmPlugin: ConfirmPlugin = {
                     { okText, cancelText },
                     {
                         default: () => {
-                            if (typeof content === 'string') {
-                                return getRenderedContent(content);
-                            }
-
-                            return h(content);
+                            return getRenderedContent(content);
                         },
                     },
                 ),

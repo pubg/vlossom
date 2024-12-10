@@ -1,25 +1,10 @@
-import type { Align, ColorScheme, Placement } from '@/declaration';
-import type { VsToastStyleSet } from '@/components/vs-toast/types';
-
-export interface ToastOptions {
-    align?: Align;
-    autoClose?: boolean;
-    colorScheme?: ColorScheme;
-    placement?: Exclude<Placement, 'left' | 'right'>;
-    primary?: boolean;
-    styleSet?: string | VsToastStyleSet;
-    timeout?: number;
-}
-
-export interface ToastInfo extends ToastOptions {
-    id: string;
-    content: string;
-}
+import { Component } from 'vue';
+import type { VsToastOptions } from '@/components/vs-toast/types';
 
 export interface ToastPlugin {
-    show(content: string, toastOptions?: ToastOptions): void;
-    success(content: string, toastOptions?: ToastOptions): void;
-    info(content: string, toastOptions?: ToastOptions): void;
-    error(content: string | Error, toastOptions?: ToastOptions): void;
-    warn(content: string, toastOptions?: ToastOptions): void;
+    show(content: string | Component, options?: Omit<VsToastOptions, 'logger'>): void;
+    success(content: string | Component, options?: Omit<VsToastOptions, 'logger'>): void;
+    info(content: string | Component, options?: Omit<VsToastOptions, 'logger'>): void;
+    warn(content: string | Component, options?: VsToastOptions): void;
+    error(content: string | Component | Error, options?: VsToastOptions): void;
 }

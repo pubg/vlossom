@@ -16,11 +16,11 @@
         :callbacks="modal.callbacks"
     >
         <template #header v-if="modal.header">
-            <component :is="getRenderedContent(modal.header)" />
+            <vs-content-renderer :content="modal.header" />
         </template>
-        <component v-if="modal.component" :is="getRenderedContent(modal.component)" />
+        <vs-content-renderer v-if="modal.component" :content="modal.component" />
         <template #footer v-if="modal.footer">
-            <component :is="getRenderedContent(modal.footer)" />
+            <vs-content-renderer :content="modal.footer" />
         </template>
     </vs-modal-node>
 </template>
@@ -30,16 +30,17 @@ import { computed, defineComponent, toRefs } from 'vue';
 import { store } from '@/stores';
 import { useContentRenderer } from '@/composables';
 import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
+import VsContentRenderer from './../vs-content-renderer/VsContentRenderer.vue';
 
 export default defineComponent({
     props: {
         container: { type: String, required: true, default: 'body' },
     },
-    components: { VsModalNode },
+    components: { VsModalNode, VsContentRenderer },
     setup(props) {
         const { container } = toRefs(props);
         const modals = computed(() => {
-            return store.modal.modalsByContainer.value[container.value] || [];
+            return store.modal.itemsByContainer.value[container.value] || [];
         });
 
         const { getRenderedContent } = useContentRenderer();
