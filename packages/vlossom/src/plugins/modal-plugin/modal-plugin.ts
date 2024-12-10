@@ -13,10 +13,11 @@ export const modalPlugin: ModalPlugin = {
             return '';
         }
 
+        store.modal.push({ ...options, id });
+
         const modalView = h(VsModalView, { container });
         render(modalView, containerElement);
 
-        store.modal.push({ ...options, id });
         return id;
     },
     emit(eventName: string, ...args: any[]) {

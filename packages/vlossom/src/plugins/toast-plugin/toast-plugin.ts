@@ -24,7 +24,18 @@ function renderToastView(toastInfo: VsToastInfo) {
     }
 
     const toastView = h(VsToastView, { container });
-    render(toastView, containerElement);
+    const wrapperId = `vs-toast-${container.replace('#', '')}`;
+    let toastWrap = document.getElementById(wrapperId);
+    if (!toastWrap) {
+        toastWrap = document.createElement('div');
+        toastWrap.id = wrapperId;
+        toastWrap.classList.add('vs-toast-view');
+        if (container === 'body') {
+            toastWrap.style.position = 'fixed';
+        }
+        containerElement.appendChild(toastWrap);
+    }
+    render(toastView, toastWrap);
 }
 
 export const toastPlugin: ToastPlugin = {
