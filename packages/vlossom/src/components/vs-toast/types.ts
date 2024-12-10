@@ -1,3 +1,5 @@
+import { ToastInfo, ToastOptions } from '@/declaration';
+
 export interface VsToastStyleSet {
     backgroundColor?: string;
     border?: string;
@@ -7,3 +9,7 @@ export interface VsToastStyleSet {
     fontWeight?: string;
     padding?: string;
 }
+
+export type VsToastOptions = ToastOptions<VsToastStyleSet>;
+
+export type VsToastInfo = ToastInfo<VsToastStyleSet>;

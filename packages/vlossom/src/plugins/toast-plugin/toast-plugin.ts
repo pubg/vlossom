@@ -1,53 +1,54 @@
+import { Component, h, render } from 'vue';
 import { store } from '@/stores';
+import { getToastInfo } from '@/models';
 import { utils } from '@/utils';
-import { UIState } from '@/declaration';
+import { DEFAULT_TOAST_TIMEOUT } from '@/declaration';
+import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
-import type { ToastInfo, ToastOptions, ToastPlugin } from './types';
+import type { ToastPlugin } from './types';
+import type { VsToastInfo, VsToastOptions } from '@/components/vs-toast/types';
 
-function getToastInfo(content: string, state: Exclude<UIState, 'selected'>, options: ToastOptions = {}): ToastInfo {
-    let stateColor = options.colorScheme;
-    switch (state) {
-        case 'success':
-            stateColor = 'green';
-            break;
-        case 'info':
-            stateColor = 'light-blue';
-            break;
-        case 'error':
-            stateColor = 'red';
-            break;
-        case 'warning':
-            stateColor = 'orange';
-            break;
-        default:
-            break;
+function renderToastView(toastInfo: VsToastInfo) {
+    const { container = 'body' } = toastInfo;
+    const containerElement = document.querySelector(container);
+    if (!containerElement) {
+        utils.log.error('toast', `container not found: ${container}`);
+        return '';
     }
 
-    return {
-        id: utils.string.createID(),
-        content,
-        colorScheme: stateColor,
-        autoClose: true,
-        ...options,
-        ...(options.timeout ? { autoClose: true } : {}),
-    };
+    store.toast.push(toastInfo);
+    if (toastInfo.autoClose) {
+        setTimeout(() => {
+            store.toast.remove(toastInfo.id);
+        }, toastInfo.timeout || DEFAULT_TOAST_TIMEOUT);
+    }
+
+    const toastView = h(VsToastView, { container });
+    render(toastView, containerElement);
 }
 
 export const toastPlugin: ToastPlugin = {
-    show(content: string, options?: ToastOptions) {
+    show(content: string | Component, options?: Omit<VsToastOptions, 'logger'>) {
         const toastInfo = getToastInfo(content, 'idle', options);
-        store.toast.addToast(toastInfo);
+        renderToastView(toastInfo);
     },
-    success(content: string, options?: ToastOptions) {
+    success(content: string | Component, options?: Omit<VsToastOptions, 'logger'>) {
         const toastInfo = getToastInfo(content, 'success', options);
-        store.toast.addToast(toastInfo);
+        renderToastView(toastInfo);
     },
-    info(content: string, options?: ToastOptions) {
+    info(content: string | Component, options?: Omit<VsToastOptions, 'logger'>) {
         const toastInfo = getToastInfo(content, 'info', options);
-        store.toast.addToast(toastInfo);
+        renderToastView(toastInfo);
     },
-    error(content: string | Error, options?: ToastOptions) {
-        let message = '';
+    warn(content: string, options?: VsToastOptions) {
+        const toastInfo = getToastInfo(content, 'warning', options);
+        renderToastView(toastInfo);
+
+        const logStr = options?.logger ? options.logger(content) : content;
+        console.warn(logStr);
+    },
+    error(content: string | Component | Error, options?: VsToastOptions) {
+        let message: string | Component = '';
 
         if (content instanceof Error) {
             message = content.message;
@@ -56,12 +57,9 @@ export const toastPlugin: ToastPlugin = {
         }
 
         const toastInfo = getToastInfo(message, 'error', options);
-        store.toast.addToast(toastInfo);
-        console.error(content);
-    },
-    warn(content: string, options?: ToastOptions) {
-        const toastInfo = getToastInfo(content, 'warning', options);
-        store.toast.addToast(toastInfo);
-        console.warn(content);
+        renderToastView(toastInfo);
+
+        const logStr = options?.logger ? options.logger(content) : content;
+        console.error(logStr);
     },
 };
