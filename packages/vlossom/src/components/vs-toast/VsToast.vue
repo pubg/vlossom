@@ -5,9 +5,7 @@
         role="alert"
     >
         <div class="vs-toast-content">
-            <!-- TODO: content renderer -->
-            <span v-if="typeof toast.content === 'string'" v-html="toast.content" />
-            <component v-else :is="toast.content" />
+            <vs-content-renderer :content="toast.content" />
         </div>
         <button
             v-if="!toast.autoClose"
@@ -27,13 +25,14 @@ import { useColorScheme, useStyleSet } from '@/composables';
 import { VsIcon } from '@/icons';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
+import VsContentRenderer from './../vs-content-renderer/VsContentRenderer.vue';
 
 import type { VsToastInfo, VsToastStyleSet } from './types';
 
 const name = VsComponent.VsToast;
 export default defineComponent({
     name,
-    components: { VsIcon },
+    components: { VsContentRenderer, VsIcon },
     props: {
         toast: { type: Object as PropType<VsToastInfo>, required: true },
     },
