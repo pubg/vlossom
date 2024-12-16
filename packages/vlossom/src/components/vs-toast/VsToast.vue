@@ -1,45 +1,53 @@
 <template>
-    <div :class="['vs-toast', colorSchemeClass, { 'vs-primary': primary }]" :style="computedStyleSet" role="alert">
+    <div
+        :class="['vs-toast', colorSchemeClass, { 'vs-primary': toast.primary }]"
+        :style="computedStyleSet"
+        role="alert"
+    >
         <div class="vs-toast-content">
-            <span v-html="content" />
+            <vs-content-renderer :content="toast.content" />
         </div>
-        <button v-if="!autoClose" class="vs-toast-close" type="button" @click.stop="closeToast" aria-label="close">
+        <button
+            v-if="!toast.autoClose"
+            class="vs-toast-close"
+            type="button"
+            @click.stop="closeToast"
+            aria-label="close"
+        >
             <vs-icon icon="close" size="14px" />
         </button>
     </div>
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, toRefs } from 'vue';
-import { ColorScheme } from '@/declaration';
+import { PropType, defineComponent, toRefs, computed } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsIcon } from '@/icons';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
+import VsContentRenderer from './../vs-content-renderer/VsContentRenderer.vue';
 
-import type { VsToastStyleSet } from './types';
+import type { VsToastInfo, VsToastStyleSet } from './types';
 
 const name = VsComponent.VsToast;
 export default defineComponent({
     name,
-    components: { VsIcon },
+    components: { VsContentRenderer, VsIcon },
     props: {
-        id: { type: String, required: true },
-        content: { type: String, required: true },
-        colorScheme: { type: String as PropType<ColorScheme> },
-        styleSet: { type: [String, Object] as PropType<string | VsToastStyleSet> },
-        autoClose: { type: Boolean, default: true },
-        primary: { type: Boolean, default: false },
+        toast: { type: Object as PropType<VsToastInfo>, required: true },
     },
     setup(props) {
-        const { id, colorScheme, styleSet } = toRefs(props);
+        const { toast } = toRefs(props);
+
+        const colorScheme = computed(() => toast.value.colorScheme);
+        const styleSet = computed(() => toast.value.styleSet);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsToastStyleSet>(name, styleSet);
 
         function closeToast() {
-            store.toast.removeToastById(id.value);
+            store.toast.remove(toast.value.id);
         }
 
         return {

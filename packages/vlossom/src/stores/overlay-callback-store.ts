@@ -1,7 +1,7 @@
 import { reactive, Ref } from 'vue';
 import { OverlayCallbacks, VS_OVERLAY_CLOSE, VS_OVERLAY_OPEN } from '@/declaration';
 
-export class OverlayStore {
+export class OverlayCallbackStore {
     // overlay tuple: [id, { [eventName: callback }]
     public overlays: [string, Ref<OverlayCallbacks>][] = reactive([]);
 

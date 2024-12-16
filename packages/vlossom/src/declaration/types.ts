@@ -1,6 +1,6 @@
 import { COLORS, PLACEMENTS, ALIGNS, CSS_POSITION, SIZES } from './constants';
 
-import type { Ref } from 'vue';
+import type { Component, Ref } from 'vue';
 import type {
     VsAccordionStyleSet,
     VsAvatarStyleSet,
@@ -196,14 +196,14 @@ export interface AttachInfo {
 export type OverlayCallbacks<T = void> = { [eventName: string]: (...args: any[]) => T | Promise<T> };
 
 export interface ModalOptions<T> {
-    component: any;
-    header?: any;
-    footer?: any;
+    component: string | Component;
+    header?: string | Component;
+    footer?: string | Component;
     container?: string;
-    callbacks?: OverlayCallbacks;
     // sync with getOverlayProps function
     colorScheme?: ColorScheme;
     styleSet?: string | T;
+    callbacks?: OverlayCallbacks;
     dimClose?: boolean;
     dimmed?: boolean;
     escClose?: boolean;
@@ -212,4 +212,21 @@ export interface ModalOptions<T> {
     id?: string;
     initialFocusRef?: HTMLElement | null;
     size?: string | number | { width?: string | number; height?: string | number };
+}
+
+export interface ToastOptions<T> {
+    container?: string;
+    colorScheme?: ColorScheme;
+    styleSet?: string | T;
+    align?: Align;
+    autoClose?: boolean;
+    placement?: Exclude<Placement, 'left' | 'right'>;
+    primary?: boolean;
+    timeout?: number;
+    logger?: (message: string | Component) => string;
+}
+
+export interface ToastInfo<T> extends ToastOptions<T> {
+    id: string;
+    content: string | Component;
 }

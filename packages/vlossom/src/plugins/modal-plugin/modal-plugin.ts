@@ -9,7 +9,7 @@ export const modalPlugin: ModalPlugin = {
         const { id = utils.string.createID(), container = 'body' } = options;
         const containerElement = document.querySelector(container);
         if (!containerElement) {
-            utils.log.error('vs-modal', `container not found: ${container}`);
+            utils.log.error('modal', `container not found: ${container}`);
             return '';
         }
 

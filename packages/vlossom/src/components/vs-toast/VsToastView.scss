@@ -1,43 +1,67 @@
 .vs-toast-view {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     transition: all 0.5s ease;
-    width: 100%;
     z-index: var(--vs-toast-z-index);
 
-    &.vs-toast-view-top {
-        top: 3%;
+    &.vs-fixed {
+        position: fixed;
     }
 
-    &.vs-toast-view-middle {
-        top: 50%;
-        transform: translateY(-50%);
-    }
+    .vs-toast-container {
+        position: absolute;
 
-    &.vs-toast-view-bottom {
-        bottom: 3%;
-    }
+        &.vs-toast-top {
+            top: 3%;
+        }
 
-    &.vs-toast-view-start {
-        left: 1%;
-        align-items: flex-start;
-    }
+        &.vs-toast-middle {
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-    &.vs-toast-view-center {
-        align-items: center;
-    }
+        &.vs-toast-bottom {
+            bottom: 3%;
+        }
 
-    &.vs-toast-view-end {
-        right: 1%;
-        align-items: flex-end;
+        &.vs-toast-start {
+            left: 1%;
+        }
+
+        &.vs-toast-center {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        &.vs-toast-end {
+            right: 1%;
+        }
+
+        &.vs-toast-middle.vs-toast-center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
-.fade-enter-active {
-    animation: fade-in-top 0.5s both;
+.toasts-move, /* apply transition to moving elements */
+.toasts-enter-active,
+.toasts-leave-active {
+    transition: all 0.5s ease;
 }
-.fade-leave-active {
-    animation: fade-out-top 0.5s;
+
+.toasts-enter-from,
+.toasts-leave-to {
+    opacity: 0;
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.toasts-leave-active {
+    position: absolute;
 }
