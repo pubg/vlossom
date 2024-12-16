@@ -12,6 +12,7 @@
         :hide-scroll="modal.hideScroll"
         :id="modal.id"
         :initial-focus-ref="modal.initialFocusRef"
+        :no-scroll-lock="modal.noScrollLock"
         :size="modal.size"
         :callbacks="modal.callbacks"
     >

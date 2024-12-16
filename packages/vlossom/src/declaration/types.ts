@@ -214,6 +214,7 @@ export interface ModalOptions<T> {
     hideScroll?: boolean;
     id?: string;
     initialFocusRef?: HTMLElement | null;
+    noScrollLock?: boolean;
     size?: string | number | { width?: string | number; height?: string | number };
 }
 

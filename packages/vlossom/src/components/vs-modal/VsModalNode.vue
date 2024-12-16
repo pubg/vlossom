@@ -57,7 +57,8 @@ export default defineComponent({
     },
     emits: ['open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, size, callbacks, container } = toRefs(props);
+        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, size, callbacks, container, noScrollLock } =
+            toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -103,7 +104,7 @@ export default defineComponent({
         });
 
         const initialOpen = true;
-        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const needScrollLock = computed(() => !noScrollLock.value && dimmed.value && fixed.value);
         function onCloseModal() {
             store.modal.remove(overlayId.value);
         }

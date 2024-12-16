@@ -93,6 +93,7 @@ export default defineComponent({
             open,
             placement,
             size,
+            noScrollLock,
             useLayoutPadding,
             escClose,
         } = toRefs(props);
@@ -139,7 +140,7 @@ export default defineComponent({
         });
 
         const initialOpen = open.value || modelValue.value;
-        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const needScrollLock = computed(() => !noScrollLock.value && dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,

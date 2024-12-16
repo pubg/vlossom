@@ -19,5 +19,6 @@ export function getOverlayProps<T>() {
             type: Object as PropType<HTMLElement | null>,
             default: null,
         },
+        noScrollLock: { type: Boolean, default: false },
     };
 }
