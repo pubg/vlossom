@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.0.6](https://github.com/pubg/vlossom/compare/v1.0.5...v1.0.6) (2024-12-16)
+
+
+### Bug Fixes
+
+* **accessiblity:** remove aria hidden from inputs (215297) ([#277](https://github.com/pubg/vlossom/issues/277)) ([c2e3f21](https://github.com/pubg/vlossom/commit/c2e3f21ccb8362a82019999859d7a3902c72ec2c))
+* **input-components:** change background color from transparent to --vs-no-color ([#279](https://github.com/pubg/vlossom/issues/279)) ([1455959](https://github.com/pubg/vlossom/commit/1455959b03ca22005a70e7d8d649b754f2611e85))
+* **models:** apply models on props functions ([#287](https://github.com/pubg/vlossom/issues/287)) ([c34452c](https://github.com/pubg/vlossom/commit/c34452c811ac67c295d69f1c6acecea780ec86f1))
+* **nodes:** improve color-scheme, style-set logic ([#286](https://github.com/pubg/vlossom/issues/286)) ([20a0eab](https://github.com/pubg/vlossom/commit/20a0eabca03adf7803b5364aa26d3cb3699d4f18))
+* **nodes:** remove nodes ([#297](https://github.com/pubg/vlossom/issues/297)) ([76a317f](https://github.com/pubg/vlossom/commit/76a317fc43101768da85752d0b943dcd8ca013bb))
+* **package.json:** upgrade storybook, eslint, vitest ([#285](https://github.com/pubg/vlossom/issues/285)) ([f003c1d](https://github.com/pubg/vlossom/commit/f003c1d2a87f6469e81ea80815cadcc25850f58b))
+* **SSR:** apply lazy ID & browser check for SSR render ([#290](https://github.com/pubg/vlossom/issues/290)) ([b78acd4](https://github.com/pubg/vlossom/commit/b78acd4eb7cecdfacdae0957cb9daa0520603448))
+* **toast:** rewrite toast plugin ([#298](https://github.com/pubg/vlossom/issues/298)) ([a367b40](https://github.com/pubg/vlossom/commit/a367b40b346f942c1b85ec5b8c8433e4e3255ab4))
+* **UIState:** change UIState enum to union type ([#292](https://github.com/pubg/vlossom/issues/292)) ([184a1a1](https://github.com/pubg/vlossom/commit/184a1a17e8a4db86b7be6dc8af302af5323c3dac))
+* **VsCheckboxNode:** replace checkbox node icon with clip-path ([#289](https://github.com/pubg/vlossom/issues/289)) ([dd444b0](https://github.com/pubg/vlossom/commit/dd444b09e7313867046b8011b9ee0141394f0ebc))
+* **VsDrawer:** add layout padding props ([#291](https://github.com/pubg/vlossom/issues/291)) ([58ec87f](https://github.com/pubg/vlossom/commit/58ec87f6fd5733a1c76615b1986c773deb846756))
+* **VsImage:** add skeleton props (215719) ([#275](https://github.com/pubg/vlossom/issues/275)) ([884d886](https://github.com/pubg/vlossom/commit/884d8862e59cba892f9e69f9597ffeb716bce869))
+* **VsIndexView:** fix vs-indev-view rendering by key (215720, 215723) ([#274](https://github.com/pubg/vlossom/issues/274)) ([040972e](https://github.com/pubg/vlossom/commit/040972e652accccb36030884af3684e39fe1791e))
+* **VsModal:** apply vs-modal container query padding ([#283](https://github.com/pubg/vlossom/issues/283)) ([2bc0a15](https://github.com/pubg/vlossom/commit/2bc0a1563548c4af602bf2548541a9b58881634b))
+* **VsModal:** rewrite vs-modal & add modal plugin ([#294](https://github.com/pubg/vlossom/issues/294)) ([809fcc4](https://github.com/pubg/vlossom/commit/809fcc4aae0483352bd145533c14117cc9284153))
+* **VsStepper:** apply index-selector-composable ([#280](https://github.com/pubg/vlossom/issues/280)) ([61451f6](https://github.com/pubg/vlossom/commit/61451f64694d8f0ddf77dc858065727271729699))
+* **VsTable:** add drag event ([#293](https://github.com/pubg/vlossom/issues/293)) ([96216a0](https://github.com/pubg/vlossom/commit/96216a03ed952a79de31c4c802134f657284f9eb))
+* **VsTable:** fix bugs that has an incorrect value in the check box for the selected item ([#296](https://github.com/pubg/vlossom/issues/296)) ([cc173c9](https://github.com/pubg/vlossom/commit/cc173c9506ebf06ca46931ee228e33b6d2821da2))
+* **VsTable:** fix search target object bug (215845, 213519) ([#273](https://github.com/pubg/vlossom/issues/273)) ([99394a2](https://github.com/pubg/vlossom/commit/99394a296a145db6ab11acd186f0e43ef8ae4043))
+* **VsTable:** modify the width defined in the table header to be applied as max-width ([#282](https://github.com/pubg/vlossom/issues/282)) ([ba4fc13](https://github.com/pubg/vlossom/commit/ba4fc1375f7f9e9f3650b574ea3511c54eba3fe0))
+* **VsTabs:** change tab scroll buttons & fix bottom line 100% width ([#278](https://github.com/pubg/vlossom/issues/278)) ([718ff8c](https://github.com/pubg/vlossom/commit/718ff8c297420d5093568eadcc27a713625e2b5a))
+* **VsToast:** add primary & style-set ([#281](https://github.com/pubg/vlossom/issues/281)) ([8c5f320](https://github.com/pubg/vlossom/commit/8c5f3201aae916ba1391f5d37ab422cc0f2ec5a5))
+
 ## [1.0.5](https://github.com/pubg/vlossom/compare/v1.0.4...v1.0.5) (2024-08-21)
 
 
