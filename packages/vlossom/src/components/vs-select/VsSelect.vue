@@ -163,8 +163,8 @@
                             :class="[
                                 'vs-option',
                                 {
-                                    selected: isSelectedOption(option.value),
-                                    chased: isChasedOption(index),
+                                    'vs-selected': isSelectedOption(option.value),
+                                    'vs-chased': isChasedOption(index),
                                 },
                             ]"
                             :aria-label="getOptionLabel(option.value)"
