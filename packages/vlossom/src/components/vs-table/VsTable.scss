@@ -65,6 +65,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 font-size: var(--vs-table-headerFontSize, var(--vs-font-size));
                 font-weight: var(--vs-table-headerFontWeight, 500);
                 min-height: var(--vs-table-headerHeight, 3.6rem);
+                overflow-x: auto;
                 padding: 0.8rem 1.4rem;
 
                 &.vs-table-draggable-th,
@@ -250,6 +251,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 color: transparent;
                 height: 2.2rem;
                 padding-left: 1rem;
+                overflow: hidden;
             }
         }
 
