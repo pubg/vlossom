@@ -247,8 +247,17 @@ export default defineComponent({
             if (!headers.value) {
                 return {};
             }
-            const gridColumns = headers.value.map((h) => {
-                return h.width ? `minmax(5rem, ${h.width})` : 'minmax(5rem, 1fr)';
+            const gridColumns = headers.value.map(({ width, minWidth, maxWidth }) => {
+                if (width) {
+                    return width;
+                } else if (minWidth && maxWidth) {
+                    return `minmax(${minWidth}, ${maxWidth})`;
+                } else if (minWidth) {
+                    return `minmax(${minWidth}, 1fr)`;
+                } else if (maxWidth) {
+                    return `minmax(5rem, ${maxWidth})`;
+                }
+                return '1fr';
             });
             if (hasSelectable.value) {
                 gridColumns.unshift('3.4rem');

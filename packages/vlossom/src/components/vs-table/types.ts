@@ -6,6 +6,8 @@ export interface TableHeader {
     searchable?: boolean;
     sortable?: boolean;
     width?: string;
+    minWidth?: string;
+    maxWidth?: string;
     filter?: (value: any, item?: any) => any;
 }
 
