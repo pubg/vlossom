@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0](https://github.com/pubg/vlossom/compare/v1.0.6...v1.1.0) (2024-12-19)
+## [1.0.7](https://github.com/pubg/vlossom/compare/v1.0.6...v1.0.7) (2024-12-19)
 
 
 ### Features
