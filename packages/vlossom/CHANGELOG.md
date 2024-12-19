@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.0](https://github.com/pubg/vlossom/compare/v1.0.6...v1.1.0) (2024-12-19)
+
+
+### Features
+
+* **theme:** add darkThemeClass option ([#288](https://github.com/pubg/vlossom/issues/288)) ([3254f39](https://github.com/pubg/vlossom/commit/3254f394c2d526d1f18598970df52dbad9f3551b))
+* **VsContainer:** add grid-size prop (chromatic-build) ([#267](https://github.com/pubg/vlossom/issues/267)) ([902e48a](https://github.com/pubg/vlossom/commit/902e48ad994c3151d17232494d3bcdd697c23527))
+* **VsMenuButton:** create vs-menu-button component ([#295](https://github.com/pubg/vlossom/issues/295)) ([b996da8](https://github.com/pubg/vlossom/commit/b996da83e18b93e002a0c8a627d304bfe1588dcf))
+* **VsSelect:** add open, close interface ([#303](https://github.com/pubg/vlossom/issues/303)) ([44caa79](https://github.com/pubg/vlossom/commit/44caa7941c886fb5468b94108dd34eb27f57a194))
+* **VsTable:** add min-width, max-width on table header ([#302](https://github.com/pubg/vlossom/issues/302)) ([7f433bc](https://github.com/pubg/vlossom/commit/7f433bc5dec41704ba36a9b07e763051d326e80c))
+
+
+### Bug Fixes
+
+* **VsSelect:** fix select option hover, selected style ([#300](https://github.com/pubg/vlossom/issues/300)) ([ee96ccd](https://github.com/pubg/vlossom/commit/ee96ccd2ee1f7cb9c6e6f9d1833b47b7f8d21e1d))
+* **VsTable:** fix table td overflow-x css ([#299](https://github.com/pubg/vlossom/issues/299)) ([4a1d79d](https://github.com/pubg/vlossom/commit/4a1d79d92f0db195d93475112c72dc03f86fac3a))
+
 ## [1.0.6](https://github.com/pubg/vlossom/compare/v1.0.5...v1.0.6) (2024-12-16)
 
 
