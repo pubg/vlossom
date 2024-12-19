@@ -289,7 +289,7 @@ export default defineComponent({
         modelValue: { type: null, default: null },
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'focus', 'blur'],
-    // expose: ['clear', 'validate', 'focus', 'blur'],
+    // expose: ['clear', 'validate', 'focus', 'blur', 'open', 'close'],
     setup(props, context) {
         const {
             colorScheme,
@@ -510,6 +510,14 @@ export default defineComponent({
             toggleOptions();
         }
 
+        function open() {
+            isOpen.value = true;
+        }
+
+        function close() {
+            isOpen.value = false;
+        }
+
         return {
             computedId,
             classObj,
@@ -559,6 +567,8 @@ export default defineComponent({
             onInput,
             onComboboxKeydown,
             onClickTrigger,
+            open,
+            close,
         };
     },
 });
