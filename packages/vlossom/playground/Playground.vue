@@ -8,7 +8,7 @@
             <template #title>
                 <h3>Hello Vlossom!</h3>
             </template>
-            
+
             Vlossom is a Vue 3 component library that provides a set of high-quality components and themes for your Vue
             3 applications.
         </vs-section>
