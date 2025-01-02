@@ -74,8 +74,12 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 }
 
                 &.vs-table-selectable-th {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     color: transparent;
-                    padding: 0 1rem;
+                    padding: 0;
+                    padding-left: 0.8rem;
                 }
             }
         }
@@ -100,7 +104,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                 overflow-x: auto;
 
                 &.vs-table-selectable-td {
-                    padding: 0 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0;
+                    padding-left: 0.8rem;
                 }
 
                 &.vs-table-draggable-td {

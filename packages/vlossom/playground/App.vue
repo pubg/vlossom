@@ -1,5 +1,5 @@
 <template>
-    <vs-layout drawer-responsive>
+    <vs-layout drawer-responsive :style="{ height: '100vh' }">
         <vs-header
             class="header bar-center"
             fixed
