@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+import { computed, defineComponent, toRefs, watch } from 'vue';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
 import VsToast from './VsToast.vue';
@@ -35,6 +35,16 @@ export default defineComponent({
                 acc[key].push(toast);
                 return acc;
             }, {} as Record<string, VsToastInfo[]>);
+        });
+
+        const wrapperId = computed(() => `vs-toast-${container.value}`);
+
+        watch(toastsByPosition, (toasts) => {
+            if (Object.values(toasts).flat().length === 0) {
+                setTimeout(() => {
+                    document.getElementById(wrapperId.value)?.remove();
+                }, 500);
+            }
         });
 
         return { toastsByPosition };
