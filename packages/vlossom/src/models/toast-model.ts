@@ -37,10 +37,10 @@ export function getToastInfo(
         container: 'body',
         colorScheme: stateColor,
         autoClose: true,
-        placement: 'top',
-        align: 'center',
         primary,
         ...options,
+        placement: options.placement || 'top',
+        align: options.align || 'center',
         ...(options.timeout && { autoClose: true }),
     };
 }
