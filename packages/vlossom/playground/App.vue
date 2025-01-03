@@ -1,5 +1,5 @@
 <template>
-    <vs-layout drawer-responsive :style="{ height: '100vh' }">
+    <vs-layout drawer-responsive :style="{ minHeight: '100vh' }">
         <vs-header
             class="header bar-center"
             fixed
@@ -19,7 +19,7 @@
             <vs-theme-button />
         </vs-header>
 
-        <vs-drawer v-model="isDrawerOpen" position="fixed" use-layout-padding :style-set="{ padding: '2rem' }">
+        <vs-drawer v-model="isDrawerOpen" fixed>
             <vs-button @click="isDrawerOpen = false">Close Drawer</vs-button>
         </vs-drawer>
 

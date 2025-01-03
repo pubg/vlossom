@@ -20,23 +20,20 @@ export default defineComponent({
         const { colorScheme, drawerResponsive } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
-        const { drawer, getDefaultLayoutProvide } = useLayout();
+        const { drawers, getDefaultLayoutProvide } = useLayout();
 
         provide<VsLayoutProvide>(VS_LAYOUT, getDefaultLayoutProvide());
 
         const layoutStyle = computed(() => {
-            const { drawerOpen, placement, size } = drawer.value;
+            const { left, top, bottom, right } = drawers.value;
 
-            if (drawerResponsive.value && drawerOpen) {
-                if (placement === 'left') {
-                    return {
-                        paddingLeft: size,
-                    };
-                } else if (placement === 'right') {
-                    return {
-                        paddingRight: size,
-                    };
-                }
+            if (drawerResponsive.value) {
+                return {
+                    paddingLeft: left.drawerOpen ? left.size : undefined,
+                    paddingTop: top.drawerOpen ? top.size : undefined,
+                    paddingBottom: bottom.drawerOpen ? bottom.size : undefined,
+                    paddingRight: right.drawerOpen ? right.size : undefined,
+                };
             }
             return {};
         });

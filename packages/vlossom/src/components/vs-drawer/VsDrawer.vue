@@ -75,7 +75,6 @@ export default defineComponent({
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
-        useLayoutPadding: { type: Boolean, default: true },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -93,7 +92,6 @@ export default defineComponent({
             open,
             placement,
             size,
-            useLayoutPadding,
             escClose,
         } = toRefs(props);
 
@@ -173,21 +171,28 @@ export default defineComponent({
         }
 
         const layoutStyles = computed(() => {
-            if (!isLayoutChild || !useLayoutPadding.value) {
+            if (!isLayoutChild) {
                 return {};
             }
 
             const style: { [key: string]: string | number } = {};
             const needPadding = ['absolute', 'fixed'];
+            const isLeftOrRight = placement.value === 'left' || placement.value === 'right';
 
             const { position: headerPosition, height: headerHeight } = header.value;
-            if (needPadding.includes(headerPosition)) {
-                style.paddingTop = headerHeight;
+            if (placement.value === 'top' && needPadding.includes(headerPosition)) {
+                style.top = headerHeight;
             }
 
-            const { position: footerPosition, height: footerHeight } = footer.value;
-            if (needPadding.includes(footerPosition)) {
-                style.paddingBottom = footerHeight;
+            if (isLeftOrRight) {
+                if (needPadding.includes(headerPosition)) {
+                    style.paddingTop = headerHeight;
+                }
+
+                const { position: footerPosition, height: footerHeight } = footer.value;
+                if (needPadding.includes(footerPosition)) {
+                    style.paddingBottom = footerHeight;
+                }
             }
 
             return style;

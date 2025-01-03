@@ -158,14 +158,20 @@ export interface BarLayout {
 
 export interface DrawerLayout {
     drawerOpen: boolean;
-    placement: Placement;
+    placement: Exclude<Placement, 'middle'>;
     size: string;
 }
 
+export interface DrawerLayouts {
+    left: DrawerLayout;
+    top: DrawerLayout;
+    right: DrawerLayout;
+    bottom: DrawerLayout;
+}
 export interface VsLayoutProvide {
     header: Ref<BarLayout>;
     footer: Ref<BarLayout>;
-    drawer: Ref<DrawerLayout>;
+    drawers: Ref<DrawerLayouts>;
     setHeaderLayout: (headerLayout: BarLayout) => void;
     setFooterLayout: (footerLayout: BarLayout) => void;
     setDrawerLayout: (drawerLayout: DrawerLayout) => void;
