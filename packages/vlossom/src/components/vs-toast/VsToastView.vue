@@ -41,9 +41,7 @@ export default defineComponent({
 
         watch(toastsByPosition, (toasts) => {
             if (Object.values(toasts).flat().length === 0) {
-                setTimeout(() => {
-                    document.getElementById(wrapperId.value)?.remove();
-                }, 500);
+                document.getElementById(wrapperId.value)?.remove();
             }
         });
 
