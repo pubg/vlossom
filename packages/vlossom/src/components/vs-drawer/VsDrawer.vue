@@ -75,7 +75,6 @@ export default defineComponent({
             validator: (val: Placement) => utils.props.checkPropExist<Placement>(name, 'placement', PLACEMENTS, val),
         },
         size: { type: [String, Number] as PropType<SizeProp>, default: 'sm' },
-        useLayoutPadding: { type: Boolean, default: true },
         // v-model
         modelValue: { type: Boolean, default: false },
     },
@@ -93,7 +92,6 @@ export default defineComponent({
             open,
             placement,
             size,
-            useLayoutPadding,
             escClose,
         } = toRefs(props);
 
@@ -173,7 +171,7 @@ export default defineComponent({
         }
 
         const layoutStyles = computed(() => {
-            if (!isLayoutChild || !useLayoutPadding.value) {
+            if (!isLayoutChild) {
                 return {};
             }
 

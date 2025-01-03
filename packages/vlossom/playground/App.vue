@@ -19,7 +19,7 @@
             <vs-theme-button />
         </vs-header>
 
-        <vs-drawer v-model="isDrawerOpen" position="fixed" use-layout-padding>
+        <vs-drawer v-model="isDrawerOpen" fixed>
             <vs-button @click="isDrawerOpen = false">Close Drawer</vs-button>
         </vs-drawer>
 
