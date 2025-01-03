@@ -1,15 +1,19 @@
 <template>
-    <template v-for="[key, toasts] in Object.entries(toastsByPosition)" :key="key">
-        <div :class="['vs-toast-container', `vs-toast-${key.split('-')[0]}`, `vs-toast-${key.split('-')[1]}`]">
+    <div v-if="hasToast" class="vs-toast-view" :id="wrapperId" :class="{ 'vs-toast-fixed': isFixed }">
+        <div
+            v-for="[key, toasts] in Object.entries(toastsByPosition)"
+            :key="key"
+            :class="['vs-toast-container', `vs-toast-${key.split('-')[0]}`, `vs-toast-${key.split('-')[1]}`]"
+        >
             <TransitionGroup name="toasts" appear>
                 <VsToast v-for="toast in toasts" :key="toast.id" :toast="toast" />
             </TransitionGroup>
         </div>
-    </template>
+    </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, watch } from 'vue';
+import { computed, defineComponent, toRefs } from 'vue';
 import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
 import VsToast from './VsToast.vue';
@@ -37,15 +41,13 @@ export default defineComponent({
             }, {} as Record<string, VsToastInfo[]>);
         });
 
-        const wrapperId = computed(() => `vs-toast-${container.value}`);
+        const wrapperId = computed(() => `vs-toast-${container.value.replace('#', '').replace('.', '')}`);
 
-        watch(toastsByPosition, (toasts) => {
-            if (Object.values(toasts).flat().length === 0) {
-                document.getElementById(wrapperId.value)?.remove();
-            }
-        });
+        const isFixed = computed(() => container.value === 'body');
 
-        return { toastsByPosition };
+        const hasToast = computed(() => Object.keys(toastsByPosition.value).length > 0);
+
+        return { toastsByPosition, wrapperId, isFixed, hasToast };
     },
 });
 </script>
