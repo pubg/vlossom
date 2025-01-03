@@ -179,15 +179,22 @@ export default defineComponent({
 
             const style: { [key: string]: string | number } = {};
             const needPadding = ['absolute', 'fixed'];
+            const isLeftOrRight = placement.value === 'left' || placement.value === 'right';
 
             const { position: headerPosition, height: headerHeight } = header.value;
-            if (needPadding.includes(headerPosition)) {
-                style.paddingTop = headerHeight;
+            if (placement.value === 'top' && needPadding.includes(headerPosition)) {
+                style.top = headerHeight;
             }
 
-            const { position: footerPosition, height: footerHeight } = footer.value;
-            if (needPadding.includes(footerPosition)) {
-                style.paddingBottom = footerHeight;
+            if (isLeftOrRight) {
+                if (needPadding.includes(headerPosition)) {
+                    style.paddingTop = headerHeight;
+                }
+
+                const { position: footerPosition, height: footerHeight } = footer.value;
+                if (needPadding.includes(footerPosition)) {
+                    style.paddingBottom = footerHeight;
+                }
             }
 
             return style;
