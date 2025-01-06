@@ -8,7 +8,7 @@
     transition: all 0.5s ease;
     z-index: var(--vs-toast-z-index);
 
-    &.vs-fixed {
+    &.vs-toast-fixed {
         position: fixed;
     }
 
