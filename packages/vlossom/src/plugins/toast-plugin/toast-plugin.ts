@@ -16,19 +16,8 @@ function renderToastView(toastInfo: VsToastInfo) {
         return '';
     }
 
-    const wrapperId = `vs-toast-${container.replace('#', '')}`;
-    let toastWrap = document.getElementById(wrapperId);
-    if (!toastWrap) {
-        const toastView = h(VsToastView, { container });
-        toastWrap = document.createElement('div');
-        toastWrap.id = wrapperId;
-        toastWrap.classList.add('vs-toast-view');
-        if (container === 'body') {
-            toastWrap.style.position = 'fixed';
-        }
-        containerElement.appendChild(toastWrap);
-        render(toastView, toastWrap);
-    }
+    const toastView = h(VsToastView, { container });
+    render(toastView, containerElement);
 
     store.toast.push(toastInfo);
     if (toastInfo.autoClose) {
