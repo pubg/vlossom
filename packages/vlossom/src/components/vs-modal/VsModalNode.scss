@@ -73,10 +73,6 @@
             .vs-modal-body {
                 position: relative;
                 flex: auto;
-
-                &.hide-scroll {
-                    @include hide-scroll;
-                }
             }
         }
     }

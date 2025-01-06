@@ -10,7 +10,6 @@
             :dimmed="modal.dimmed"
             :esc-close="modal.escClose"
             :focus-lock="modal.focusLock"
-            :hide-scroll="modal.hideScroll"
             :id="modal.id"
             :initial-focus-ref="modal.initialFocusRef"
             :size="modal.size"

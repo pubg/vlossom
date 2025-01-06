@@ -68,6 +68,7 @@ export default defineComponent({
         dimmed: { type: Boolean, default: false },
         escClose: { type: Boolean, default: false },
         fixed: { type: Boolean, default: false },
+        hideScroll: { type: Boolean, default: true },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,

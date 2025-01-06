@@ -41,7 +41,6 @@ export default defineComponent({
             dimmed,
             escClose,
             focusLock,
-            hideScroll,
             initialFocusRef,
             size,
         } = toRefs(props);
@@ -84,7 +83,6 @@ export default defineComponent({
                     dimmed: dimmed.value,
                     escClose: escClose.value,
                     focusLock: focusLock.value,
-                    hideScroll: hideScroll.value,
                     id: modalId.value,
                     initialFocusRef: initialFocusRef.value,
                     size: size.value,

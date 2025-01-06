@@ -16,7 +16,7 @@
                             <slot name="header" />
                         </div>
 
-                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
+                        <div :id="bodyId" class="vs-modal-body">
                             <slot />
                         </div>
 
