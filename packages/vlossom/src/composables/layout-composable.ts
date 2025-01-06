@@ -1,11 +1,16 @@
 import { Ref, ref } from 'vue';
-import { BarLayout, DrawerLayout, VsLayoutProvide } from '@/declaration';
+import { BarLayout, DrawerLayout, DrawerLayouts, VsLayoutProvide } from '@/declaration';
 import { utils } from '@/utils';
 
 export function useLayout() {
     const header: Ref<BarLayout> = ref({ position: 'relative', height: '' });
     const footer: Ref<BarLayout> = ref({ position: 'relative', height: '' });
-    const drawer: Ref<DrawerLayout> = ref({ drawerOpen: false, placement: 'left', size: '' });
+    const drawers: Ref<DrawerLayouts> = ref({
+        left: { drawerOpen: false, placement: 'left', size: '' },
+        top: { drawerOpen: false, placement: 'top', size: '' },
+        right: { drawerOpen: false, placement: 'right', size: '' },
+        bottom: { drawerOpen: false, placement: 'bottom', size: '' },
+    });
 
     function setHeaderLayout(headerLayout: BarLayout) {
         if (utils.object.isEqual(headerLayout, header.value)) {
@@ -22,17 +27,21 @@ export function useLayout() {
     }
 
     function setDrawerLayout(drawerLayout: DrawerLayout) {
-        if (utils.object.isEqual(drawerLayout, drawer.value)) {
+        const drawer = drawers.value[drawerLayout.placement];
+        if (utils.object.isEqual(drawerLayout, drawer)) {
             return;
         }
-        drawer.value = drawerLayout;
+        drawers.value = {
+            ...drawers.value,
+            [drawerLayout.placement]: drawerLayout,
+        };
     }
 
     function getDefaultLayoutProvide(): VsLayoutProvide {
         return {
             header,
             footer,
-            drawer,
+            drawers,
             setHeaderLayout,
             setFooterLayout,
             setDrawerLayout,
@@ -42,7 +51,7 @@ export function useLayout() {
     return {
         header,
         footer,
-        drawer,
+        drawers,
         setHeaderLayout,
         setFooterLayout,
         setDrawerLayout,
