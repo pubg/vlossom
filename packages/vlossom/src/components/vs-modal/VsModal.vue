@@ -61,7 +61,6 @@ export default defineComponent({
         });
 
         watch(isOpen, (open) => {
-            console.log('isOpen', open);
             if (open) {
                 modalPlugin.open({
                     component: slots.default as string | Component,
