@@ -32,7 +32,7 @@ import { computed, defineComponent, toRefs } from 'vue';
 import { store } from '@/stores';
 import { useContentRenderer } from '@/composables';
 import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
-import VsContentRenderer from './../vs-content-renderer/VsContentRenderer.vue';
+import VsContentRenderer from '@/components/vs-content-renderer/VsContentRenderer.vue';
 
 export default defineComponent({
     props: {

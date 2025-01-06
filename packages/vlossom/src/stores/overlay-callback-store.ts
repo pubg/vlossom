@@ -58,13 +58,11 @@ export class OverlayCallbackStore {
         if (index === -1) {
             return;
         }
-        const [popped] = this.overlays.splice(index, 1);
-        if (!popped) {
-            return;
-        }
-        const [poppedId] = popped;
-        this.run(poppedId, VS_OVERLAY_CLOSE, ...args);
-        return this.run(poppedId, 'close', ...args);
+        const [targetId] = this.overlays[index];
+        this.run(targetId, VS_OVERLAY_CLOSE, ...args);
+        const result = this.run(targetId, 'close', ...args);
+        this.overlays.splice(index, 1);
+        return result;
     }
 
     clear(...args: any[]) {
