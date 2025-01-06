@@ -1,8 +1,5 @@
 <template>
-    <div
-        :class="['vs-modal-node', colorSchemeClass, { 'vs-has-container': !fixed, 'vs-dimmed': dimmed }]"
-        :style="computedStyleSet"
-    >
+    <div :class="['vs-modal-node', colorSchemeClass, { 'vs-dimmed': dimmed }]" :style="computedStyleSet">
         <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
         <Transition name="modal" :duration="MODAL_DURATION">
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
