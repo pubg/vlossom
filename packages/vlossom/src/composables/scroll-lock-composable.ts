@@ -1,34 +1,40 @@
 import { ref } from 'vue';
 import { SCROLLBAR_WIDTH } from '@/declaration';
 
-export function useBodyScroll() {
+export function useScrollLock(element: HTMLElement | null) {
     const originalOverflow = ref('');
     const originalPaddingRight = ref('0');
     const originalPaddingBottom = ref('0');
 
     function lock() {
+        if (!element) {
+            return;
+        }
         setTimeout(() => {
-            originalOverflow.value = document.body.style.overflow;
-            originalPaddingRight.value = document.body.style.paddingRight;
-            originalPaddingBottom.value = document.body.style.paddingBottom;
+            originalOverflow.value = element.style.overflow;
+            originalPaddingRight.value = element.style.paddingRight;
+            originalPaddingBottom.value = element.style.paddingBottom;
 
-            document.body.style.overflow = 'hidden';
+            element.style.overflow = 'hidden';
 
-            if (document.body.scrollHeight > window.innerHeight) {
-                document.body.style.paddingRight = SCROLLBAR_WIDTH;
+            if (element.scrollHeight > element.clientHeight) {
+                element.style.paddingRight = SCROLLBAR_WIDTH;
             }
 
-            if (document.body.scrollWidth > window.innerWidth) {
-                document.body.style.paddingBottom = SCROLLBAR_WIDTH;
+            if (element.scrollWidth > element.clientWidth) {
+                element.style.paddingBottom = SCROLLBAR_WIDTH;
             }
         }, 10);
     }
 
     function unlock() {
+        if (!element) {
+            return;
+        }
         setTimeout(() => {
-            document.body.style.overflow = originalOverflow.value;
-            document.body.style.paddingRight = originalPaddingRight.value;
-            document.body.style.paddingBottom = originalPaddingBottom.value;
+            element.style.overflow = originalOverflow.value;
+            element.style.paddingRight = originalPaddingRight.value;
+            element.style.paddingBottom = originalPaddingBottom.value;
         }, 10);
     }
 

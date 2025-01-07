@@ -219,6 +219,7 @@ export interface ModalOptions<T> {
     focusLock?: boolean;
     id?: string;
     initialFocusRef?: HTMLElement | null;
+    scrollLock?: boolean;
     size?: string | number | { width?: string | number; height?: string | number };
 }
 

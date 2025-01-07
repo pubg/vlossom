@@ -42,6 +42,7 @@ export default defineComponent({
             escClose,
             focusLock,
             initialFocusRef,
+            scrollLock,
             size,
         } = toRefs(props);
 
@@ -85,6 +86,7 @@ export default defineComponent({
                     focusLock: focusLock.value,
                     id: modalId.value,
                     initialFocusRef: initialFocusRef.value,
+                    scrollLock: scrollLock.value,
                     size: size.value,
                 });
             } else {
