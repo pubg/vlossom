@@ -15,15 +15,15 @@ export function useScrollLock(element: HTMLElement | null) {
             originalPaddingRight.value = element.style.paddingRight;
             originalPaddingBottom.value = element.style.paddingBottom;
 
-            element.style.overflow = 'hidden';
-
-            if (element.scrollHeight > element.clientHeight) {
+            if (element.scrollHeight >= element.clientHeight) {
                 element.style.paddingRight = SCROLLBAR_WIDTH;
             }
 
-            if (element.scrollWidth > element.clientWidth) {
+            if (element.scrollWidth >= element.clientWidth) {
                 element.style.paddingBottom = SCROLLBAR_WIDTH;
             }
+
+            element.style.overflow = 'hidden';
         }, 10);
     }
 
