@@ -137,7 +137,7 @@ export default defineComponent({
         });
 
         const initialOpen = open.value || modelValue.value;
-        const needScrollLock = computed(() => dimmed.value && fixed.value);
+        const scrollLock = computed(() => dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,
@@ -149,7 +149,7 @@ export default defineComponent({
                 },
             };
         });
-        const { isOpen, close } = useOverlay(id, initialOpen, needScrollLock, computedCallbacks, escClose);
+        const { isOpen, close } = useOverlay(id, initialOpen, scrollLock, computedCallbacks, escClose);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();

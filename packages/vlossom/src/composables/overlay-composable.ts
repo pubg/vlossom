@@ -7,10 +7,9 @@ import { useBodyScroll } from './scroll-lock-composable';
 export function useOverlay(
     id: Ref<string>,
     initialOpen: boolean,
-    needScrollLock: Ref<boolean>,
+    scrollLock: Ref<boolean>,
     callbacks: Ref<OverlayCallbacks> = ref({}),
     escClose: Ref<boolean>,
-    onClose?: () => void,
 ) {
     const innerId = utils.string.createID();
     const overlayId = computed(() => id.value || innerId);
@@ -43,7 +42,7 @@ export function useOverlay(
         isOpen,
         (o) => {
             if (o) {
-                if (needScrollLock.value) {
+                if (scrollLock.value) {
                     bodyScroll.lock();
                 }
 
@@ -51,10 +50,9 @@ export function useOverlay(
             } else {
                 closing.value = true;
                 store.overlay.remove(overlayId.value);
-                onClose?.();
 
                 setTimeout(() => {
-                    if (needScrollLock.value) {
+                    if (scrollLock.value) {
                         bodyScroll.unlock();
                     }
 
