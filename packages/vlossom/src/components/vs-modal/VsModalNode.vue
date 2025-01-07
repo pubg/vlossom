@@ -1,8 +1,5 @@
 <template>
-    <div
-        :class="['vs-modal-node', colorSchemeClass, { 'vs-has-container': !fixed, 'vs-dimmed': dimmed }]"
-        :style="computedStyleSet"
-    >
+    <div :class="['vs-modal-node', colorSchemeClass, { 'vs-dimmed': dimmed }]" :style="computedStyleSet">
         <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
         <Transition name="modal" :duration="MODAL_DURATION">
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
@@ -35,7 +32,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
-import { Size, SIZES, VsComponent, MODAL_DURATION, SizeProp } from '@/declaration';
+import { Size, SIZES, VsComponent, MODAL_DURATION, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from './types';
 import { getOverlayProps } from '@/models';
@@ -103,18 +100,16 @@ export default defineComponent({
         });
 
         const initialOpen = true;
-        const needScrollLock = computed(() => dimmed.value && fixed.value);
-        function onCloseModal() {
-            store.modal.remove(overlayId.value);
-        }
-        const { overlayId, isOpen, close } = useOverlay(
-            id,
-            initialOpen,
-            needScrollLock,
-            callbacks,
-            escClose,
-            onCloseModal,
-        );
+        const scrollLock = computed(() => dimmed.value && fixed.value);
+        const computedCallbacks = computed(() => {
+            return {
+                ...callbacks.value,
+                [VS_OVERLAY_CLOSE]: () => {
+                    store.modal.remove(overlayId.value);
+                },
+            };
+        });
+        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, scrollLock, computedCallbacks, escClose);
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = computed(() => `vs-modal-header-${overlayId.value}`);

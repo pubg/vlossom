@@ -9,7 +9,7 @@ import { Component, defineComponent, PropType, toRaw } from 'vue';
 export default defineComponent({
     name: 'VsContentRenderer',
     props: {
-        content: { type: [String, Object] as PropType<string | Component>, required: true },
+        content: { type: [String, Object, Function] as PropType<string | Component>, required: true },
     },
     setup() {
         return { toRaw };

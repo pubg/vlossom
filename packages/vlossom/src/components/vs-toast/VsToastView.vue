@@ -1,5 +1,5 @@
 <template>
-    <div v-if="hasToast" class="vs-toast-view" :id="wrapperId" :class="{ 'vs-toast-fixed': isFixed }">
+    <div v-if="hasToast" class="vs-toast-view" :class="{ 'vs-toast-fixed': isFixed }" :id="wrapperId">
         <div
             v-for="[key, toasts] in Object.entries(toastsByPosition)"
             :key="key"
