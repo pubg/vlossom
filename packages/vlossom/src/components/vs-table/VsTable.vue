@@ -1,6 +1,6 @@
 <template>
     <vs-responsive
-        :class="['vs-table', colorSchemeClass, { 'vs-dense': dense, 'vs-responsive': responsive }]"
+        :class="['vs-table', colorSchemeClass, { 'vs-dense': dense, 'vs-responsive': responsive, 'vs-primary': primary }]"
         :style="computedStyleSet"
         :width="width"
         :grid="grid"
@@ -152,6 +152,7 @@ export default defineComponent({
             default: () => DEFAULT_TABLE_PAGE_COUNT,
         },
         pageEdgeButtons: { type: Boolean, default: false },
+        primary: { type: Boolean, default: false },
         search: { type: Boolean, default: false },
         searchPlaceholder: { type: String, default: 'search' },
         searchText: { type: String, default: '' },
