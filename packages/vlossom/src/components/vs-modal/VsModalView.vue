@@ -11,7 +11,6 @@
                 :dimmed="modal.dimmed"
                 :esc-close="modal.escClose"
                 :focus-lock="modal.focusLock"
-                :hide-scroll="modal.hideScroll"
                 :id="modal.id"
                 :initial-focus-ref="modal.initialFocusRef"
                 :size="modal.size"
@@ -35,6 +34,7 @@ import { store } from '@/stores';
 import { useContentRenderer, useScrollLock } from '@/composables';
 import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
 import VsContentRenderer from '@/components/vs-content-renderer/VsContentRenderer.vue';
+import { MODAL_DURATION } from '@/declaration';
 
 export default defineComponent({
     props: {
@@ -73,7 +73,7 @@ export default defineComponent({
             }
         });
 
-        return { modals, getRenderedContent, wrapperId, isFixed };
+        return { modals, getRenderedContent, wrapperId, isFixed, MODAL_DURATION };
     },
 });
 </script>
