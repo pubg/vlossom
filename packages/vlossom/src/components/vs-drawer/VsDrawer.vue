@@ -1,6 +1,7 @@
 <template>
     <Transition name="drawer" :duration="MODAL_DURATION">
         <div
+            ref="drawerRef"
             v-show="isOpen"
             :class="['vs-drawer', colorSchemeClass, { 'vs-dimmed': dimmed }]"
             :style="computedStyleSet"
@@ -36,7 +37,7 @@ import {
     type Ref,
     type ComputedRef,
 } from 'vue';
-import { useColorScheme, useLayout, useStyleSet, useOverlay } from '@/composables';
+import { useColorScheme, useLayout, useStyleSet, useOverlay, useScrollLock } from '@/composables';
 import {
     VsComponent,
     Placement,
@@ -68,6 +69,7 @@ export default defineComponent({
         dimmed: { type: Boolean, default: false },
         escClose: { type: Boolean, default: false },
         fixed: { type: Boolean, default: false },
+        hideScroll: { type: Boolean, default: true },
         open: { type: Boolean, default: false },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
@@ -87,18 +89,19 @@ export default defineComponent({
             id,
             callbacks,
             dimClose,
-            dimmed,
             fixed,
             open,
             placement,
             size,
             escClose,
+            scrollLock,
         } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet: drawerStyleSet } = useStyleSet<VsDrawerStyleSet>(name, styleSet);
 
+        const drawerRef: Ref<HTMLElement | null> = ref(null);
         const focusTrapRef: Ref<Focusable | null> = ref(null);
 
         const positionStyle = computed(() => {
@@ -137,7 +140,6 @@ export default defineComponent({
         });
 
         const initialOpen = open.value || modelValue.value;
-        const scrollLock = computed(() => dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,
@@ -149,7 +151,7 @@ export default defineComponent({
                 },
             };
         });
-        const { isOpen, close } = useOverlay(id, initialOpen, scrollLock, computedCallbacks, escClose);
+        const { isOpen, close } = useOverlay(id, initialOpen, computedCallbacks, escClose);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -204,11 +206,27 @@ export default defineComponent({
             }
         }
 
+        const parentElement = computed(() => {
+            if (fixed.value) {
+                return document.body;
+            }
+
+            return drawerRef.value?.parentElement || null;
+        });
+
         watch(modelValue, (o) => {
             isOpen.value = o;
         });
 
         watch(isOpen, (o) => {
+            if (scrollLock.value) {
+                if (o) {
+                    useScrollLock(parentElement.value).lock();
+                } else {
+                    useScrollLock(parentElement.value).unlock();
+                }
+            }
+
             emit('update:modelValue', o);
             emit(o ? 'open' : 'close');
         });
@@ -222,6 +240,7 @@ export default defineComponent({
             MODAL_DURATION,
             focusTrapRef,
             layoutStyles,
+            drawerRef,
         };
     },
 });

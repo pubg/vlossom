@@ -169,9 +169,6 @@ export const HideScroll: Story = {
             </div>
         `,
     }),
-    args: {
-        hideScroll: true,
-    },
     play: () => {},
 };
 
