@@ -1,7 +1,6 @@
 <template>
     <div :class="['vs-modal-node', colorSchemeClass, { 'vs-dimmed': dimmed }]" :style="computedStyleSet">
         <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
-        <Transition name="modal" :duration="MODAL_DURATION">
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
                 <div
                     :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
@@ -26,13 +25,12 @@
                     </div>
                 </div>
             </vs-focus-trap>
-        </Transition>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
-import { Size, SIZES, VsComponent, MODAL_DURATION, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
+import { Size, SIZES, VsComponent, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from './types';
 import { getOverlayProps } from '@/models';
@@ -108,6 +106,7 @@ export default defineComponent({
                 },
             };
         });
+
         const { overlayId, isOpen, close } = useOverlay(id, initialOpen, computedCallbacks, escClose);
 
         const hasHeader = computed(() => !!slots['header']);
@@ -127,7 +126,6 @@ export default defineComponent({
         return {
             colorSchemeClass,
             computedStyleSet,
-            MODAL_DURATION,
             onClickDimmed,
             hasHeader,
             headerId,
