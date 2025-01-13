@@ -16,7 +16,7 @@
                             <slot name="header" />
                         </div>
 
-                        <div :id="bodyId" :class="['vs-modal-body', { 'hide-scroll': hideScroll }]">
+                        <div :id="bodyId" class="vs-modal-body">
                             <slot />
                         </div>
 
@@ -54,7 +54,7 @@ export default defineComponent({
     },
     emits: ['open', 'close'],
     setup(props, { emit, slots }) {
-        const { colorScheme, styleSet, id, dimClose, dimmed, escClose, size, callbacks, container } = toRefs(props);
+        const { colorScheme, styleSet, id, dimClose, escClose, size, callbacks, container } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -100,7 +100,6 @@ export default defineComponent({
         });
 
         const initialOpen = true;
-        const scrollLock = computed(() => dimmed.value && fixed.value);
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,
@@ -109,7 +108,7 @@ export default defineComponent({
                 },
             };
         });
-        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, scrollLock, computedCallbacks, escClose);
+        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, computedCallbacks, escClose);
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = computed(() => `vs-modal-header-${overlayId.value}`);
