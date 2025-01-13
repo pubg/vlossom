@@ -1,6 +1,10 @@
 <template>
     <vs-responsive
-        :class="['vs-table', colorSchemeClass, { 'vs-dense': dense, 'vs-responsive': responsive }]"
+        :class="[
+            'vs-table',
+            colorSchemeClass,
+            { 'vs-dense': dense, 'vs-responsive': responsive, 'vs-primary': primary },
+        ]"
         :style="computedStyleSet"
         :width="width"
         :grid="grid"
@@ -152,6 +156,7 @@ export default defineComponent({
             default: () => DEFAULT_TABLE_PAGE_COUNT,
         },
         pageEdgeButtons: { type: Boolean, default: false },
+        primary: { type: Boolean, default: false },
         search: { type: Boolean, default: false },
         searchPlaceholder: { type: String, default: 'search' },
         searchText: { type: String, default: '' },
@@ -210,21 +215,27 @@ export default defineComponent({
         const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('header-')) {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('header-')) {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const itemSlots = computed(() => {
-            return Object.keys(slots).reduce((acc, slotName) => {
-                if (slotName.startsWith('item-') || slotName === 'expand') {
-                    acc[slotName] = slots[slotName];
-                }
-                return acc;
-            }, {} as { [key: string]: any });
+            return Object.keys(slots).reduce(
+                (acc, slotName) => {
+                    if (slotName.startsWith('item-') || slotName === 'expand') {
+                        acc[slotName] = slots[slotName];
+                    }
+                    return acc;
+                },
+                {} as { [key: string]: any },
+            );
         });
 
         const innerSearchText = ref('');

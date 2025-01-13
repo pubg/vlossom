@@ -316,6 +316,28 @@ export const ResponsiveFalse: Story = {
     },
 };
 
+export const Primary: Story = {
+    render: (args: any) => ({
+        components: { VsTable },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getColorSchemeTemplate(`
+                    <vs-table color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '20px' }"/>
+                `)}
+            </div>
+        `,
+    }),
+    args: {
+        primary: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};
+
 export const StyleSet: Story = {
     args: {
         styleSet: {
