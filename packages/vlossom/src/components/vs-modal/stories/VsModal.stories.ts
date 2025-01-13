@@ -237,7 +237,6 @@ export const HideScroll: Story = {
         `,
     }),
     args: {
-        hideScroll: true,
         size: 'md',
     },
 };

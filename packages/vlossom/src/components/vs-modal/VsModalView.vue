@@ -30,11 +30,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+import { computed, ComputedRef, defineComponent, toRefs, watch } from 'vue';
 import { store } from '@/stores';
-import { useContentRenderer } from '@/composables';
-import { MODAL_DURATION } from '@/declaration';
-
+import { useContentRenderer, useScrollLock } from '@/composables';
 import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
 import VsContentRenderer from '@/components/vs-content-renderer/VsContentRenderer.vue';
 
@@ -55,7 +53,27 @@ export default defineComponent({
 
         const isFixed = computed(() => container.value === 'body');
 
-        return { modals, getRenderedContent, wrapperId, isFixed, MODAL_DURATION };
+        const containerElement: ComputedRef<HTMLElement | null> = computed(() => {
+            if (container.value === 'body') {
+                return document.body;
+            }
+
+            return document.querySelector(container.value);
+        });
+
+        const needScrollLock = computed(() => {
+            return modals.value.some((modal) => modal.scrollLock);
+        });
+
+        watch(needScrollLock, (lock) => {
+            if (lock) {
+                useScrollLock(containerElement.value).lock();
+            } else {
+                useScrollLock(containerElement.value).unlock();
+            }
+        });
+
+        return { modals, getRenderedContent, wrapperId, isFixed };
     },
 });
 </script>

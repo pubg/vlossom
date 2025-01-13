@@ -245,6 +245,38 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     }
 }
 
+.vs-table.vs-primary .vs-table-wrap .vs-table-table {
+    .vs-table-thead .vs-table-tr {
+        background-color: var(--vs-table-headerBackgroundColor, var(--vs-primary-comp-bg));
+
+        .vs-table-th {
+            color: var(--vs-table-headerFontColor, var(--vs-primary-comp-font));
+            border: var(--vs-table-headerBorder, 1px solid var(--vs-primary-comp-bg));
+
+            &.vs-table-selectable-th .vs-checkbox-input {
+                border: 1px dotted var(--vs-primary-comp-font);
+            }
+
+            .vs-table-search-icon {
+                color: var(--vs-primary-comp-font);
+            }
+        }
+    }
+
+    .vs-table-tbody .vs-table-tr {
+        .vs-table-td {
+            &.vs-table-expandable-td {
+                .vs-table-expand-button {
+                    i {
+                        color: var(--vs-table-headerFontColor, var(--vs-primary-comp-font));
+                    }
+                    background-color: var(--vs-table-headerBackgroundColor, var(--vs-primary-comp-bg));
+                }
+            }
+        }
+    }
+}
+
 @container (max-width: 640px) {
     .vs-table.vs-responsive .vs-table-wrap {
         .vs-table-table .vs-table-thead .vs-table-tr {
