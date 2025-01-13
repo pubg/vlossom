@@ -2,12 +2,10 @@ import { computed, Ref, ref, watch } from 'vue';
 import { store } from '@/stores';
 import { utils } from '@/utils';
 import { MODAL_DURATION, OverlayCallbacks } from '@/declaration';
-import { useBodyScroll } from './scroll-lock-composable';
 
 export function useOverlay(
     id: Ref<string>,
     initialOpen: boolean,
-    scrollLock: Ref<boolean>,
     callbacks: Ref<OverlayCallbacks> = ref({}),
     escClose: Ref<boolean>,
 ) {
@@ -37,25 +35,16 @@ export function useOverlay(
         };
     });
 
-    const bodyScroll = useBodyScroll();
     watch(
         isOpen,
         (o) => {
             if (o) {
-                if (scrollLock.value) {
-                    bodyScroll.lock();
-                }
-
                 store.overlay.push(overlayId.value, computedCallbacks);
             } else {
                 closing.value = true;
                 store.overlay.remove(overlayId.value);
 
                 setTimeout(() => {
-                    if (scrollLock.value) {
-                        bodyScroll.unlock();
-                    }
-
                     closing.value = false;
                 }, MODAL_DURATION);
             }

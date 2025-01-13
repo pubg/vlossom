@@ -13,11 +13,11 @@ export function getOverlayProps<T>() {
         dimmed: { type: Boolean, default: true },
         escClose: { type: Boolean, default: true },
         focusLock: { type: Boolean, default: true },
-        hideScroll: { type: Boolean, default: false },
         id: { type: String, default: '' },
         initialFocusRef: {
             type: Object as PropType<HTMLElement | null>,
             default: null,
         },
+        scrollLock: { type: Boolean, default: false },
     };
 }
