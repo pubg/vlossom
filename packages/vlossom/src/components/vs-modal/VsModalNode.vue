@@ -1,35 +1,35 @@
 <template>
     <div :class="['vs-modal-node', colorSchemeClass, { 'vs-dimmed': dimmed }]" :style="computedStyleSet">
         <div v-if="dimmed" class="vs-modal-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
-            <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                <div
-                    :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
-                    role="dialog"
-                    :aria-labelledby="hasHeader ? headerId : undefined"
-                    :aria-describedby="bodyId"
-                    :aria-label="hasHeader ? undefined : 'Modal'"
-                    :aria-modal="true"
-                >
-                    <div class="vs-modal-contents">
-                        <div v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
-                            <slot name="header" />
-                        </div>
+        <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
+            <div
+                :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
+                role="dialog"
+                :aria-labelledby="hasHeader ? headerId : undefined"
+                :aria-describedby="bodyId"
+                :aria-label="hasHeader ? undefined : 'Modal'"
+                :aria-modal="true"
+            >
+                <div class="vs-modal-contents">
+                    <div v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
+                        <slot name="header" />
+                    </div>
 
-                        <div :id="bodyId" class="vs-modal-body">
-                            <slot />
-                        </div>
+                    <div :id="bodyId" class="vs-modal-body">
+                        <slot />
+                    </div>
 
-                        <div v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
-                            <slot name="footer" />
-                        </div>
+                    <div v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
+                        <slot name="footer" />
                     </div>
                 </div>
-            </vs-focus-trap>
+            </div>
+        </vs-focus-trap>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch } from 'vue';
+import { computed, defineComponent, onBeforeMount, PropType, toRefs } from 'vue';
 import { Size, SIZES, VsComponent, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
 import { VsModalStyleSet } from './types';
@@ -50,8 +50,7 @@ export default defineComponent({
             default: 'md',
         },
     },
-    emits: ['open', 'close'],
-    setup(props, { emit, slots }) {
+    setup(props, { slots }) {
         const { colorScheme, styleSet, id, dimClose, escClose, size, callbacks, container } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
@@ -97,17 +96,17 @@ export default defineComponent({
             };
         });
 
-        const initialOpen = true;
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,
                 [VS_OVERLAY_CLOSE]: () => {
+                    callbacks.value?.[VS_OVERLAY_CLOSE]?.();
                     store.modal.remove(overlayId.value);
                 },
             };
         });
 
-        const { overlayId, isOpen, close } = useOverlay(id, initialOpen, computedCallbacks, escClose);
+        const { overlayId, open, close } = useOverlay(id, computedCallbacks, escClose);
 
         const hasHeader = computed(() => !!slots['header']);
         const headerId = computed(() => `vs-modal-header-${overlayId.value}`);
@@ -119,9 +118,7 @@ export default defineComponent({
             }
         }
 
-        watch(isOpen, (o) => {
-            emit(o ? 'open' : 'close');
-        });
+        onBeforeMount(open);
 
         return {
             colorSchemeClass,
