@@ -3,16 +3,11 @@ import { store } from '@/stores';
 import { utils } from '@/utils';
 import { MODAL_DURATION, OverlayCallbacks } from '@/declaration';
 
-export function useOverlay(
-    id: Ref<string>,
-    initialOpen: boolean,
-    callbacks: Ref<OverlayCallbacks> = ref({}),
-    escClose: Ref<boolean>,
-) {
+export function useOverlay(id: Ref<string>, callbacks: Ref<OverlayCallbacks> = ref({}), escClose: Ref<boolean>) {
     const innerId = utils.string.createID();
     const overlayId = computed(() => id.value || innerId);
 
-    const isOpen = ref(initialOpen || false);
+    const isOpen = ref(false);
     const closing = ref(false);
 
     function open() {
@@ -35,22 +30,18 @@ export function useOverlay(
         };
     });
 
-    watch(
-        isOpen,
-        (o) => {
-            if (o) {
-                store.overlay.push(overlayId.value, computedCallbacks);
-            } else {
-                closing.value = true;
-                store.overlay.remove(overlayId.value);
+    watch(isOpen, (o) => {
+        if (o) {
+            store.overlay.push(overlayId.value, computedCallbacks);
+        } else {
+            closing.value = true;
+            store.overlay.remove(overlayId.value);
 
-                setTimeout(() => {
-                    closing.value = false;
-                }, MODAL_DURATION);
-            }
-        },
-        { immediate: true },
-    );
+            setTimeout(() => {
+                closing.value = false;
+            }, MODAL_DURATION);
+        }
+    });
 
     return { overlayId, isOpen, closing, open, close };
 }
