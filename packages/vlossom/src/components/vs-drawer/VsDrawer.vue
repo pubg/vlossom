@@ -36,6 +36,7 @@ import {
     type PropType,
     type Ref,
     type ComputedRef,
+    onBeforeMount,
 } from 'vue';
 import { useColorScheme, useLayout, useStyleSet, useOverlay, useScrollLock } from '@/composables';
 import {
@@ -90,7 +91,7 @@ export default defineComponent({
             callbacks,
             dimClose,
             fixed,
-            open,
+            open: initialOpen,
             placement,
             size,
             escClose,
@@ -139,7 +140,6 @@ export default defineComponent({
             };
         });
 
-        const initialOpen = open.value || modelValue.value;
         const computedCallbacks = computed(() => {
             return {
                 ...callbacks.value,
@@ -151,7 +151,7 @@ export default defineComponent({
                 },
             };
         });
-        const { isOpen, close } = useOverlay(id, initialOpen, computedCallbacks, escClose);
+        const { isOpen, open, close } = useOverlay(id, computedCallbacks, escClose);
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -214,8 +214,18 @@ export default defineComponent({
             return drawerRef.value?.parentElement || null;
         });
 
+        onBeforeMount(() => {
+            if (initialOpen.value) {
+                open();
+            }
+        });
+
         watch(modelValue, (o) => {
-            isOpen.value = o;
+            if (o) {
+                open();
+            } else {
+                close();
+            }
         });
 
         watch(isOpen, (o) => {

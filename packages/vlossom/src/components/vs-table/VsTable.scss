@@ -267,10 +267,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         .vs-table-td {
             &.vs-table-expandable-td {
                 .vs-table-expand-button {
+                    background-color: var(--vs-table-headerBackgroundColor, var(--vs-primary-comp-bg));
+
                     i {
                         color: var(--vs-table-headerFontColor, var(--vs-primary-comp-font));
                     }
-                    background-color: var(--vs-table-headerBackgroundColor, var(--vs-primary-comp-bg));
                 }
             }
         }
