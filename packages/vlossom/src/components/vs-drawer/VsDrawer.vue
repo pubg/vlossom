@@ -215,7 +215,7 @@ export default defineComponent({
         });
 
         onBeforeMount(() => {
-            if (initialOpen.value) {
+            if (initialOpen.value || modelValue.value) {
                 open();
             }
         });
