@@ -133,6 +133,7 @@ describe('vs-drawer', () => {
 
             // when
             await wrapper.find('.vs-drawer-dimmed').trigger('click');
+            await nextTick();
 
             // then
             expect(wrapper.vm.isOpen).toBe(true);
