@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 $chip-height: 2.4rem;
 $chip-height-dense: 2rem;
 
@@ -69,9 +71,7 @@ $chip-height-dense: 2rem;
         }
     }
 
-    &:hover {
-        background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-comp-bg-hover));
-    }
+    @include hover-active-darken;
 
     &.vs-no-round {
         border-radius: 0.2rem;
@@ -90,12 +90,16 @@ $chip-height-dense: 2rem;
             border: var(--vs-chip-border, 1px solid var(--vs-primary-comp-font));
         }
 
-        &:hover {
-            background-color: var(--vs-chip-hoverBackgroundColor, var(--vs-primary-comp-bg-hover));
-        }
+        @include hover-active-lighten;
+    }
+}
 
-        &:active {
-            background-color: var(--vs-chip-activeBackgroundColor, var(--vs-primary-comp-bg-active));
+.vs-dark {
+    .vs-chip {
+        @include hover-active-lighten;
+
+        &.vs-primary {
+            @include hover-active-darken;
         }
     }
 }

@@ -1,5 +1,4 @@
 export interface VsChipStyleSet {
-    activeBackgroundColor?: string;
     backgroundColor?: string;
     border?: string;
     borderRadius?: string;
@@ -8,7 +7,6 @@ export interface VsChipStyleSet {
     fontSize?: string;
     fontWeight?: string | number;
     height?: string;
-    hoverBackgroundColor?: string;
     padding?: string;
     width?: string;
 }

@@ -29,6 +29,24 @@
     }
 }
 
+@mixin hover-active-lighten {
+    &:hover {
+        filter: brightness(1.1);
+    }
+    &:active {
+        filter: brightness(1.2);
+    }
+}
+
+@mixin hover-active-darken {
+    &:hover {
+        filter: brightness(0.95);
+    }
+    &:active {
+        filter: brightness(0.9);
+    }
+}
+
 @mixin responsive {
     $width-xs: var(--vs-width-xs);
     $width-sm: var(--vs-width-sm);
