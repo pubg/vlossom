@@ -25,7 +25,6 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#DEB3AD',
             borderRadius: '1rem',
-            hoverBackgroundColor: '#DE847B',
             iconColor: '#B95C50',
             width: '3rem',
         },
