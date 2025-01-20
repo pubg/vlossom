@@ -7,10 +7,6 @@ export interface VsPaginationStyleSet {
     fontSize?: string;
     fontWeight?: string | number;
     gap?: string;
-    hoverBackgroundColor?: string;
-    hoverColor?: string;
-    hoverFontSize?: string;
-    hoverFontWeight?: string | number;
     selectedBackgroundColor?: string;
     selectedColor?: string;
     selectedFontSize?: string;

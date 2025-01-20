@@ -17,7 +17,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
         transform: translateY(-50%);
 
         .vs-step-progress {
-            background-color: var(--vs-stepper-activeColor, var(--vs-primary-comp-bg-active));
+            background-color: var(--vs-stepper-activeColor, var(--vs-comp-font));
             height: 100%;
             opacity: 0.8;
             transition: width 0.2s;
@@ -94,7 +94,7 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
 
                 .vs-step-label {
-                    color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg-active));
+                    color: var(--vs-stepper-labelFontColor, var(--vs-comp-font));
                 }
             }
 

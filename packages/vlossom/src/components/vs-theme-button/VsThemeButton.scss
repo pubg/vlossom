@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 $vs-theme-button-width: 3rem;
 $vs-theme-button-height: 3rem;
 
@@ -12,9 +14,7 @@ $vs-theme-button-height: 3rem;
     background-color: var(--vs-theme-button-backgroundColor, var(--vs-comp-bg));
     transition: all 0.2s ease-out;
 
-    &:hover {
-        background-color: var(--vs-theme-button-hoverBackgroundColor, var(--vs-comp-bg-hover));
-    }
+    @include hover-active-darken;
 
     .vs-theme-icon {
         position: absolute;
@@ -30,14 +30,18 @@ $vs-theme-button-height: 3rem;
         opacity: 0;
         transform: scale(0.4) rotate(270deg) translateX(-50%) translateY(-50%);
         transform-origin: top left;
-        transition:
-            opacity 0.4s ease-out,
-            transform 0.4s ease-out;
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         color: var(--vs-theme-button-iconColor, var(--vs-orange));
 
         &.vs-on {
             opacity: 1;
             transform: scale(1) rotate(0deg) translateX(-50%) translateY(-50%);
         }
+    }
+}
+
+.vs-dark {
+    .vs-theme-button {
+        @include hover-active-lighten;
     }
 }
