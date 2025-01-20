@@ -1,3 +1,5 @@
+@use '@/styles/mixin' as *;
+
 .vs-pagination {
     position: relative;
     display: flex;
@@ -28,18 +30,9 @@
             opacity: 0.2;
             pointer-events: none;
         }
-        &:hover {
-            color: var(--vs-pagination-hoverColor, var(--vs-pagination-fontColor, var(--vs-comp-font)));
-            background-color: var(
-                --vs-pagination-hoverBackgroundColor,
-                var(--vs-pagination-backgroundColor, var(--vs-comp-bg-hover))
-            );
-            font-size: var(--vs-pagination-hoverFontSize, var(--vs-pagination-fontSize, var(--vs-font-size-sm)));
-            font-weight: var(--vs-pagination-hoverFontWeight, var(--vs-pagination-fontWeight, 400));
-        }
-        &:active {
-            background-color: var(--vs-comp-bg-active);
-        }
+
+        @include hover-active-darken;
+
         &.vs-selected {
             background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-primary-comp-bg));
             color: var(--vs-pagination-selectedColor, var(--vs-primary-comp-font));
@@ -54,5 +47,11 @@
             opacity: 0.2;
             pointer-events: none;
         }
+    }
+}
+
+.vs-dark {
+    .vs-pagination .vs-page-button {
+        @include hover-active-lighten;
     }
 }

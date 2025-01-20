@@ -191,10 +191,6 @@ const vsPagination: VsPaginationStyleSet = {
     fontSize: '0.8rem',
     fontWeight: '600',
     gap: '0.5rem',
-    hoverBackgroundColor: '#5d4aa7',
-    hoverColor: '#1e88e5',
-    hoverFontSize: '1rem',
-    hoverFontWeight: '600',
     selectedBackgroundColor: '#add8e6',
     selectedColor: '#1e88e5',
     selectedFontSize: '1.2rem',
@@ -241,7 +237,6 @@ const vsSelect: VsSelectStyleSet = {
 };
 
 const vsStepper: VsStepperStyleSet = {
-    activeBackgroundColor: 'white',
     activeColor: '#1e88e5',
     fontSize: '1.2rem',
     labelFontColor: '#90caf9',
@@ -317,7 +312,6 @@ const vsTooltip: VsTooltipStyleSet = {
 
 const vsThemeButton: VsThemeButtonStyleSet = {
     backgroundColor: '#BACC81',
-    hoverBackgroundColor: '#478C5C',
     iconColor: '#013A20',
     width: '2rem',
 };
