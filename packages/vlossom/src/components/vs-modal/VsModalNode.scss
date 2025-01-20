@@ -47,6 +47,10 @@
         }
 
         .vs-modal-contents {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
             width: fit-content;
             height: fit-content;
             padding: var(--vs-modal-padding, 1.8rem 2.4rem);
