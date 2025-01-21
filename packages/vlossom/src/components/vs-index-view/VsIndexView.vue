@@ -37,7 +37,7 @@ export default defineComponent({
 
         const selectedKey: Ref<PropertyKey | string> = ref('');
 
-        const computedSlots = computed(() => {
+        const flattenedSlots = computed(() => {
             if (!slots.default) {
                 return [];
             }
@@ -52,16 +52,16 @@ export default defineComponent({
         });
 
         const selectedComponent = computed(() => {
-            if (!computedSlots.value.length) {
+            if (!flattenedSlots.value.length) {
                 return null;
             }
 
-            return computedSlots.value.find((vnode) => vnode.key === selectedKey.value);
+            return flattenedSlots.value.find((vnode) => vnode.key === selectedKey.value);
         });
 
         const keys = computed(() => {
             return (
-                computedSlots.value
+                flattenedSlots.value
                     .map((vnode) => vnode.key)
                     .filter((v) => {
                         return v !== undefined && v !== null;
