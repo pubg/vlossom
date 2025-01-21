@@ -57,12 +57,12 @@ describe('useColorScheme composable', () => {
             expect(colorSchemeClass.value).toBe('vs-red');
         });
 
-        it('color scheme이 없다면 vs-default class를 return 한다', () => {
+        it('color scheme이 없다면 vs-none class를 return 한다', () => {
             // given
             const { colorSchemeClass } = useColorScheme(VsComponent.VsSection, ref(undefined));
 
             // then
-            expect(colorSchemeClass.value).toBe('vs-default');
+            expect(colorSchemeClass.value).toBe('vs-none');
         });
     });
 });
