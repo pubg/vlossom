@@ -46,6 +46,8 @@ export default defineComponent({
                     acc = acc.concat(vnode.children as VNode[]);
                 } else if (vnode.key) {
                     acc.push(vnode);
+                } else {
+                    utils.log.error(name, `unique key is required for a vs-index-view`);
                 }
                 return acc;
             }, []);
