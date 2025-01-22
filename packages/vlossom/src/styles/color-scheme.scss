@@ -11,7 +11,7 @@ $colors: map.keys($palette);
     --vs-no-color: var(--vs-white);
     --vs-no-color-inverse: var(--vs-black);
 
-    .vs-default {
+    .vs-none {
         --vs-comp-font: var(--vs-gray-900);
         --vs-comp-bg: var(--vs-white);
         --vs-comp-shadow: rgba(0, 0, 0, 0.16);
@@ -37,7 +37,7 @@ $colors: map.keys($palette);
         --vs-no-color: var(--vs-black);
         --vs-no-color-inverse: var(--vs-white);
 
-        .vs-default {
+        .vs-none {
             --vs-comp-font: var(--vs-gray-50);
             --vs-comp-bg: var(--vs-black);
             --vs-comp-shadow: rgba(255, 255, 255, 0.25);

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import VsMessage from './../VsMessage.vue';
 
 describe('vs-message', () => {
-    it('Idle 상태의 메시지는 vs-default class와 message icon을 가진다', async () => {
+    it('Idle 상태의 메시지는 vs-none class와 message icon을 가진다', async () => {
         // given
         const wrapper = mount(VsMessage, {
             props: {
@@ -12,7 +12,7 @@ describe('vs-message', () => {
         });
 
         // then
-        expect(wrapper.vm.colorClass).toBe('vs-default');
+        expect(wrapper.vm.colorClass).toBe('vs-none');
         expect(wrapper.vm.icon).toBe('message');
         expect(wrapper.find('.vs-message-text').text()).toBe('message text');
     });
