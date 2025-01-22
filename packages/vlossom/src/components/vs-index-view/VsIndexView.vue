@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, PropType, Ref, ref, watch, nextTick } from 'vue';
+import { defineComponent, computed, toRefs, PropType, Ref, ref, watch, nextTick, VNode } from 'vue';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { useColorScheme } from '@/composables';
 import { getResponsiveProps } from '@/models';
+import { utils } from '@/utils';
 import VsResponsive from '@/components/vs-responsive/VsResponsive.vue';
 
 const name = VsComponent.VsIndexView;
@@ -34,20 +35,35 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const selectedKey: Ref<any> = ref('');
+        const selectedKey: Ref<PropertyKey | string> = ref('');
+
+        const flattenedSlots = computed(() => {
+            if (!slots.default) {
+                return [];
+            }
+            return slots.default().reduce((acc: VNode[], vnode: VNode) => {
+                if (!vnode.key && vnode.children && utils.object.isArray(vnode.children)) {
+                    acc = acc.concat(vnode.children as VNode[]);
+                } else if (vnode.key) {
+                    acc.push(vnode);
+                } else {
+                    utils.log.error(name, 'unique key is required for vs-index-view');
+                }
+                return acc;
+            }, []);
+        });
 
         const selectedComponent = computed(() => {
-            if (!slots.default) {
+            if (!flattenedSlots.value.length) {
                 return null;
             }
 
-            return slots.default().find((vnode) => vnode.key === selectedKey.value);
+            return flattenedSlots.value.find((vnode) => vnode.key === selectedKey.value);
         });
 
         const keys = computed(() => {
             return (
-                slots
-                    .default?.()
+                flattenedSlots.value
                     .map((vnode) => vnode.key)
                     .filter((v) => {
                         return v !== undefined && v !== null;
