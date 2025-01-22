@@ -28,17 +28,12 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        min-width: var(--vs-modal-width-xs);
-        min-height: var(--vs-modal-height-xs);
-        width: 100%;
-        height: 100%;
-        max-width: var(--vs-modal-width);
-        max-height: var(--vs-modal-height);
+        width: var(--vs-modal-width, fit-content);
+        height: var(--vs-modal-height, fit-content);
         background-color: var(--vs-modal-backgroundColor, var(--vs-area-bg));
         box-shadow: var(--vs-modal-boxShadow, var(--vs-area-shadow-outer));
         border-radius: var(--vs-modal-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         pointer-events: auto;
-        container-type: inline-size;
 
         // size
         @each $size in $sizes {
@@ -52,9 +47,10 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            overflow: auto;
-            width: 100%;
-            height: 100%;
+            width: fit-content;
+            height: fit-content;
+            max-width: 100%;
+            max-height: 100%;
             padding: var(--vs-modal-padding, 1.8rem 2.4rem);
             color: var(--vs-modal-fontColor, var(--vs-font-color));
             font-size: var(--vs-modal-fontSize, var(--vs-font-size));
@@ -73,6 +69,8 @@
             .vs-modal-body {
                 position: relative;
                 flex: auto;
+                overflow: auto;
+                max-height: 100%;
             }
         }
     }

@@ -47,7 +47,6 @@ export default defineComponent({
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
-            default: 'md',
         },
     },
     setup(props, { slots }) {
@@ -55,14 +54,16 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(name, styleSet);
+        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(VsComponent.VsModal, styleSet);
 
         const fixed = computed(() => container.value === 'body');
 
         const hasSpecifiedSize = computed(() => size.value && !SIZES.includes(size.value as Size));
         const sizeStyle = computed(() => {
+            if (!size.value) {
+                return {};
+            }
             const style: { [key: string]: string } = {};
-
             if (typeof size.value === 'object') {
                 const { width = 'md', height = 'md' } = size.value;
 
