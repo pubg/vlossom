@@ -47,7 +47,7 @@ export default defineComponent({
                 } else if (vnode.key) {
                     acc.push(vnode);
                 } else {
-                    utils.log.error(name, `unique key is required for a vs-index-view`);
+                    utils.log.error(name, 'unique key is required for vs-index-view');
                 }
                 return acc;
             }, []);
