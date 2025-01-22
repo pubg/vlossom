@@ -9,7 +9,7 @@ export function useColorScheme(component: VsComponent, colorScheme: Ref<ColorSch
         () => colorScheme.value || store.option.getGlobalColorScheme(component) || undefined,
     );
 
-    const colorSchemeClass = computed(() => `vs-${computedColorScheme.value || 'default'}`);
+    const colorSchemeClass = computed(() => `vs-${computedColorScheme.value || 'none'}`);
 
     return {
         computedColorScheme,

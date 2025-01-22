@@ -36,7 +36,7 @@ export default defineComponent({
                 case 'error':
                     return 'vs-red';
                 default:
-                    return 'vs-default';
+                    return 'vs-none';
             }
         });
 
