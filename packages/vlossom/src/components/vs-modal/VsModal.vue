@@ -23,7 +23,6 @@ export default defineComponent({
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
-            default: 'md',
         },
         // v-model
         modelValue: { type: Boolean, default: false },
