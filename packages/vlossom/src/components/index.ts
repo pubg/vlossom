@@ -68,7 +68,7 @@ export { default as VsMenuButton } from './vs-menu-button/VsMenuButton.vue';
 
 export { default as VsMessage } from './vs-message/VsMessage.vue';
 
-export type { VsModalStyleSet, VsModalOptions } from './vs-modal/types';
+export type { VsModalNodeStyleSet, VsModalOptions } from './vs-modal/types';
 export { default as VsModalNode } from './vs-modal/VsModalNode.vue';
 export { default as VsModal } from './vs-modal/VsModal.vue';
 export { default as VsModalView } from './vs-modal/VsModalView.vue';
