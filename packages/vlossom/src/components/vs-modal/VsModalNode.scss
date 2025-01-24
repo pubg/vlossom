@@ -7,7 +7,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: var(--vs-modal-zIndex, var(--vs-modal-z-index));
+    z-index: var(--vs-modal-node-zIndex, var(--vs-modal-node-z-index));
 
     &.vs-dimmed {
         pointer-events: auto;
@@ -28,18 +28,18 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: var(--vs-modal-width, fit-content);
-        height: var(--vs-modal-height, fit-content);
-        background-color: var(--vs-modal-backgroundColor, var(--vs-area-bg));
-        box-shadow: var(--vs-modal-boxShadow, var(--vs-area-shadow-outer));
-        border-radius: var(--vs-modal-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
+        width: var(--vs-modal-node-width, fit-content);
+        height: var(--vs-modal-node-height, fit-content);
+        background-color: var(--vs-modal-node-backgroundColor, var(--vs-area-bg));
+        box-shadow: var(--vs-modal-node-boxShadow, var(--vs-area-shadow-outer));
+        border-radius: var(--vs-modal-node-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         pointer-events: auto;
 
         // size
         @each $size in $sizes {
             &.#{$size} {
-                width: var(--vs-modal-width-#{$size});
-                height: var(--vs-modal-height-#{$size});
+                width: var(--vs-modal-node-width-#{$size});
+                height: var(--vs-modal-node-height-#{$size});
             }
         }
 
@@ -51,10 +51,10 @@
             height: fit-content;
             max-width: 100%;
             max-height: 100%;
-            padding: var(--vs-modal-padding, 1.8rem 2.4rem);
-            color: var(--vs-modal-fontColor, var(--vs-font-color));
-            font-size: var(--vs-modal-fontSize, var(--vs-font-size));
-            font-weight: var(--vs-modal-fontWeight, 400);
+            padding: var(--vs-modal-node-padding, 1.8rem 2.4rem);
+            color: var(--vs-modal-node-fontColor, var(--vs-font-color));
+            font-size: var(--vs-modal-node-fontSize, var(--vs-font-size));
+            font-weight: var(--vs-modal-node-fontWeight, 400);
 
             .vs-modal-header {
                 position: relative;
@@ -78,24 +78,24 @@
 
 @container (min-width: 640px) {
     .vs-modal-node .vs-modal-wrap .vs-modal-contents {
-        padding: var(--vs-modal-padding, 2.2rem 2.8rem);
+        padding: var(--vs-modal-node-padding, 2.2rem 2.8rem);
     }
 }
 
 @container (min-width: 768px) {
     .vs-modal-node .vs-modal-wrap .vs-modal-contents {
-        padding: var(--vs-modal-padding, 2.6rem 3.2rem);
+        padding: var(--vs-modal-node-padding, 2.6rem 3.2rem);
     }
 }
 
 @container (min-width: 1024px) {
     .vs-modal-node .vs-modal-wrap .vs-modal-contents {
-        padding: var(--vs-modal-padding, 3rem 3.6rem);
+        padding: var(--vs-modal-node-padding, 3rem 3.6rem);
     }
 }
 
 @container (min-width: 1280px) {
     .vs-modal-node .vs-modal-wrap .vs-modal-contents {
-        padding: var(--vs-modal-padding, 3.6rem 4.8rem);
+        padding: var(--vs-modal-node-padding, 3.6rem 4.8rem);
     }
 }

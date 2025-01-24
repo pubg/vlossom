@@ -32,7 +32,7 @@
 import { computed, defineComponent, onBeforeMount, PropType, toRefs } from 'vue';
 import { Size, SIZES, VsComponent, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
 import { useColorScheme, useOverlay, useStyleSet } from '@/composables';
-import { VsModalStyleSet } from './types';
+import { VsModalNodeStyleSet } from './types';
 import { getOverlayProps } from '@/models';
 import { utils } from '@/utils';
 import { store } from '@/stores';
@@ -43,7 +43,7 @@ export default defineComponent({
     name,
     components: { VsFocusTrap },
     props: {
-        ...getOverlayProps<VsModalStyleSet>(),
+        ...getOverlayProps<VsModalNodeStyleSet>(),
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
@@ -54,7 +54,7 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalStyleSet>(VsComponent.VsModal, styleSet);
+        const { computedStyleSet: modalStyleSet } = useStyleSet<VsModalNodeStyleSet>(name, styleSet);
 
         const fixed = computed(() => container.value === 'body');
 
@@ -68,23 +68,23 @@ export default defineComponent({
                 const { width = 'md', height = 'md' } = size.value;
 
                 if (SIZES.includes(width as Size)) {
-                    style['--vs-modal-width'] = `var(--vs-modal-width-${width})`;
+                    style['--vs-modal-node-width'] = `var(--vs-modal-node-width-${width})`;
                 } else {
                     const convertedWidth = utils.string.convertToStringSize(width);
-                    style['--vs-modal-width'] = convertedWidth;
+                    style['--vs-modal-node-width'] = convertedWidth;
                 }
 
                 if (SIZES.includes(height as Size)) {
-                    style['--vs-modal-height'] = `var(--vs-modal-height-${height})`;
+                    style['--vs-modal-node-height'] = `var(--vs-modal-node-height-${height})`;
                 } else {
                     const convertedHeight = utils.string.convertToStringSize(height);
-                    style['--vs-modal-height'] = convertedHeight;
+                    style['--vs-modal-node-height'] = convertedHeight;
                 }
             } else if (hasSpecifiedSize.value) {
                 const convertedSize = utils.string.convertToStringSize(size.value);
 
-                style['--vs-modal-width'] = convertedSize;
-                style['--vs-modal-height'] = convertedSize;
+                style['--vs-modal-node-width'] = convertedSize;
+                style['--vs-modal-node-height'] = convertedSize;
             }
 
             return style;

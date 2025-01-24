@@ -13,13 +13,13 @@ import { VsComponent, SizeProp, VS_OVERLAY_CLOSE } from '@/declaration';
 import { utils } from '@/utils';
 import { modalPlugin } from '@/plugins';
 
-import type { VsModalStyleSet } from './types';
+import type { VsModalNodeStyleSet } from './types';
 
 const name = VsComponent.VsModal;
 export default defineComponent({
     name,
     props: {
-        ...getOverlayProps<VsModalStyleSet>(),
+        ...getOverlayProps<VsModalNodeStyleSet>(),
         container: { type: String, default: 'body' },
         size: {
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
