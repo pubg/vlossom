@@ -17,7 +17,7 @@ import type {
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
     VsMenuButtonStyleSet,
-    VsModalStyleSet,
+    VsModalNodeStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -160,7 +160,7 @@ const vsMenuButton: VsMenuButtonStyleSet = {
     fontColor: '#fff',
 };
 
-const vsModal: VsModalStyleSet = {
+const vsModal: VsModalNodeStyleSet = {
     backgroundColor: '#FFF6E9',
     fontColor: '#0D9276',
     fontSize: '1.2rem',
