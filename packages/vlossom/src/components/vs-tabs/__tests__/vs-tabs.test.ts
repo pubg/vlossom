@@ -225,14 +225,52 @@ describe('vs-tabs', () => {
         });
 
         describe('tabs 변경됐을 때', () => {
-            it('첫번쨰 탭으로 index를 보정한다', async () => {
+            it('tabs의 길이가 바뀌지 않으면 index가 그대로 유지된다', async () => {
                 // given
                 const wrapper = mount(VsTabs, {
-                    props: { tabs },
+                    props: {
+                        tabs,
+                        modelValue: 2,
+                        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ tabs: ['tab6', 'tab7', 'tab8', 'tab9', 'tab10'] });
+
+                // then
+                expect(wrapper.vm.selectedIndex).toEqual(2);
+            });
+
+            it('tabs의 길이가 바뀌어도 현재 index가 선택 가능하면 index가 유지된다', async () => {
+                // given
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs,
+                        modelValue: 2,
+                        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e }),
+                    },
                 });
 
                 // when
                 await wrapper.setProps({ tabs: ['tab6', 'tab7', 'tab8'] });
+
+                // then
+                expect(wrapper.vm.selectedIndex).toEqual(2);
+            });
+
+            it('tabs의 길이가 바뀌었을 때 index가 선택 가능하지 않으면 다음 선택 가능한 index가 선택된다', async () => {
+                // given
+                const wrapper = mount(VsTabs, {
+                    props: {
+                        tabs,
+                        modelValue: 4,
+                        'onUpdate:modelValue': (e: number) => wrapper.setProps({ modelValue: e }),
+                    },
+                });
+
+                // when
+                await wrapper.setProps({ tabs: ['tab6', 'tab7', 'tab8', 'tab9'] });
 
                 // then
                 expect(wrapper.vm.selectedIndex).toEqual(0);
