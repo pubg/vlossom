@@ -21,7 +21,7 @@ import type {
     VsLabelValueStyleSet,
     VsLoadingStyleSet,
     VsMenuButtonStyleSet,
-    VsModalStyleSet,
+    VsModalNodeStyleSet,
     VsNoticeStyleSet,
     VsPageStyleSet,
     VsPaginationStyleSet,
@@ -67,7 +67,8 @@ export interface StyleSet {
     VsLabelValue?: { [key: string]: VsLabelValueStyleSet };
     VsLoading?: { [key: string]: VsLoadingStyleSet };
     VsMenuButton?: { [key: string]: VsMenuButtonStyleSet };
-    VsModal?: { [key: string]: VsModalStyleSet };
+    VsModal?: { [key: string]: VsModalNodeStyleSet };
+    VsModalNode?: { [key: string]: VsModalNodeStyleSet };
     VsNotice?: { [key: string]: VsNoticeStyleSet };
     VsPage?: { [key: string]: VsPageStyleSet };
     VsPagination?: { [key: string]: VsPaginationStyleSet };

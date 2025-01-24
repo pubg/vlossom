@@ -1,6 +1,6 @@
 import { ModalOptions } from '@/declaration';
 
-export interface VsModalStyleSet {
+export interface VsModalNodeStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     boxShadow?: string;
@@ -13,4 +13,4 @@ export interface VsModalStyleSet {
     zIndex?: string | number;
 }
 
-export type VsModalOptions = ModalOptions<VsModalStyleSet>;
+export type VsModalOptions = ModalOptions<VsModalNodeStyleSet>;
