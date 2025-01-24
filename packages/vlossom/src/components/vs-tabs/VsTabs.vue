@@ -177,9 +177,12 @@ export default defineComponent({
             window.removeEventListener('resize', calculateScrollCount);
         });
 
-        watch(tabs, () => {
-            selectTab(findNextActivedIndex(0));
-        });
+        watch(
+            () => tabs.value.length,
+            () => {
+                selectTab(findNextActivedIndex(selectedIndex.value));
+            },
+        );
 
         watch(selectedIndex, (index: number) => {
             scrollTo(index);
