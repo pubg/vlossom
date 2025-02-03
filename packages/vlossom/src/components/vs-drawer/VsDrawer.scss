@@ -27,6 +27,10 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
         background-color: var(--vs-dimmed-background-color);
     }
 
+    .vs-drawer-hidden {
+        overflow: hidden;
+    }
+
     .vs-drawer-wrap {
         position: absolute;
         display: flex;

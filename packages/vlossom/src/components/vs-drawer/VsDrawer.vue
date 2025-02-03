@@ -8,16 +8,21 @@
         >
             <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
-                <div :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]" :style="layoutStyles">
-                    <header v-if="$slots['header']" class="vs-drawer-header">
-                        <slot name="header" />
-                    </header>
-                    <div :class="['vs-drawer-body', { 'vs-hide-scroll': hideScroll }]">
-                        <slot />
+                <div :class="['vs-drawer-overflow', { 'vs-drawer-hidden': isOverflowHidden }]">
+                    <div
+                        :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]"
+                        :style="layoutStyles"
+                    >
+                        <header v-if="$slots['header']" class="vs-drawer-header">
+                            <slot name="header" />
+                        </header>
+                        <div :class="['vs-drawer-body', { 'vs-hide-scroll': hideScroll }]">
+                            <slot />
+                        </div>
+                        <footer v-if="$slots['footer']" class="vs-drawer-footer">
+                            <slot name="footer" />
+                        </footer>
                     </div>
-                    <footer v-if="$slots['footer']" class="vs-drawer-footer">
-                        <slot name="footer" />
-                    </footer>
                 </div>
             </vs-focus-trap>
         </div>
@@ -151,7 +156,11 @@ export default defineComponent({
                 },
             };
         });
-        const { isOpen, open, close } = useOverlay(id, computedCallbacks, escClose);
+        const { isOpen, open, close, closing } = useOverlay(id, computedCallbacks, escClose);
+
+        const isOverflowHidden = computed(() => {
+            return !isOpen.value && !closing.value;
+        });
 
         // only for vs-layout children
         const { getDefaultLayoutProvide } = useLayout();
@@ -251,6 +260,7 @@ export default defineComponent({
             focusTrapRef,
             layoutStyles,
             drawerRef,
+            isOverflowHidden,
         };
     },
 });
