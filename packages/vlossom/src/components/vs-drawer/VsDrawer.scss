@@ -12,6 +12,7 @@ $drawer-border: var(--vs-drawer-border, 1px solid var(--vs-line-color));
     z-index: var(--vs-drawer-zIndex);
     color: var(--vs-font-color);
     pointer-events: none;
+    overflow: hidden;
 
     &.vs-dimmed {
         pointer-events: auto;
