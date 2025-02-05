@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.8](https://github.com/pubg/vlossom/compare/v1.0.7...v1.0.8) (2025-02-05)
+
+
+### Bug Fixes
+
+* **ColorScheme:** add vs-none color scheme ([#318](https://github.com/pubg/vlossom/issues/318)) ([f67489e](https://github.com/pubg/vlossom/commit/f67489eecb536736c680c5cb7f594ce26a5613ff))
+* **ColorScheme:** remove component hover, active color ([#315](https://github.com/pubg/vlossom/issues/315)) ([610edc1](https://github.com/pubg/vlossom/commit/610edc19b196748d61319c8372228c5857361328))
+* **toast-plugin:** change mounting toast wrapper ([#308](https://github.com/pubg/vlossom/issues/308)) ([d245412](https://github.com/pubg/vlossom/commit/d245412fb1ec236155082a23602afd4bbd14fbc9))
+* **VsDrawer:** add overflow hidden ([#321](https://github.com/pubg/vlossom/issues/321)) ([34bbca3](https://github.com/pubg/vlossom/commit/34bbca343dbf1aa0bfa98f5060bd4f28679e696b))
+* **VsIndexView:** fix v-for slot bug ([#317](https://github.com/pubg/vlossom/issues/317)) ([07ae15b](https://github.com/pubg/vlossom/commit/07ae15b26063d539ab4a071ae1233fc7d70a32c9))
+* **VsLayout:** apply layout padding by drawer position ([#309](https://github.com/pubg/vlossom/issues/309)) ([de7c2b6](https://github.com/pubg/vlossom/commit/de7c2b6675f5a8fac6e0c42a5e908e06eb3aeff3))
+* **VsModal,VsDrawer:** fix overlay scroll locks ([#311](https://github.com/pubg/vlossom/issues/311)) ([82a7e44](https://github.com/pubg/vlossom/commit/82a7e449d9c2543a9ee976aa8ab742fa76e37b15))
+* **VsModal:** fix dim click close ([#314](https://github.com/pubg/vlossom/issues/314)) ([cda8293](https://github.com/pubg/vlossom/commit/cda8293dc5ec0bfc6f96f2fa829e1ab79f99fcb4))
+* **VsModalNode:** change style set name ([#320](https://github.com/pubg/vlossom/issues/320)) ([c826419](https://github.com/pubg/vlossom/commit/c826419396c3998d316d53af236403e74448670e))
+* **VsModalNode:** modify default size to fit the content size ([#316](https://github.com/pubg/vlossom/issues/316)) ([18ed0f8](https://github.com/pubg/vlossom/commit/18ed0f8170db79f4903fdd5e455ac683416d7e5a))
+* **VsModal:** use modal-plugin at vs-modal component ([#310](https://github.com/pubg/vlossom/issues/310)) ([c609d7c](https://github.com/pubg/vlossom/commit/c609d7cd8b7ed8106ffa032d899242054e5206ac))
+* **VsModalView:** fix transition ([#313](https://github.com/pubg/vlossom/issues/313)) ([1d87f11](https://github.com/pubg/vlossom/commit/1d87f11da394900760348f13bd7062e68222d155))
+* **VsTable:** add primary style ([#312](https://github.com/pubg/vlossom/issues/312)) ([8501704](https://github.com/pubg/vlossom/commit/8501704cb04759c7e24d2060695621441445844e))
+* **VsTable:** change selectable cell padding ([#306](https://github.com/pubg/vlossom/issues/306)) ([4dde085](https://github.com/pubg/vlossom/commit/4dde0857a46834bf2c06811aadcc74ce0dd834a0))
+* **VsTabs:** change tabs watch ([#319](https://github.com/pubg/vlossom/issues/319)) ([8299763](https://github.com/pubg/vlossom/commit/829976384dc3204947798ba3e74469f581fc1785))
+
 ## [1.0.7](https://github.com/pubg/vlossom/compare/v1.0.6...v1.0.7) (2024-12-19)
 
 
