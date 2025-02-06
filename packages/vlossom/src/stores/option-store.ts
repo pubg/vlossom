@@ -31,7 +31,7 @@ export class OptionStore {
         this.state.globalColorScheme = colorScheme;
     }
 
-    getGlobalColorScheme(component: VsComponent) {
+    getGlobalColorScheme(component: VsComponent | string) {
         return this.state.globalColorScheme[component] || this.state.globalColorScheme.default;
     }
 
@@ -57,7 +57,7 @@ export class OptionStore {
         });
     }
 
-    getStyleSet(component: VsComponent, styleSetName: string) {
+    getStyleSet(component: VsComponent | string, styleSetName: string) {
         return this.state.styleSets[component as keyof StyleSet]?.[styleSetName];
     }
 }

@@ -4,7 +4,7 @@ import { store } from '@/stores';
 import { VsComponent } from '@/declaration';
 
 export function useStyleSet<T extends { [key: string]: any }>(
-    component: VsComponent,
+    component: VsComponent | string,
     styleSet: Ref<string | T | undefined>,
     additionalStyleSet?: Ref<T>,
 ) {
