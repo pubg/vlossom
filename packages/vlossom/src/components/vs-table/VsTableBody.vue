@@ -29,6 +29,7 @@
                     <vs-checkbox-node
                         type="checkbox"
                         :color-scheme="colorScheme"
+                        :style-set="checkboxStyleSet"
                         :checked="isSelected(element.id)"
                         aria-label="select"
                         :disabled="loading"
@@ -84,6 +85,7 @@ import VsCheckboxNode from '@/components/vs-checkbox/VsCheckboxNode.vue';
 
 import type { ColorScheme } from '@/declaration';
 import type { TableHeader, TableItem, TableFilter, SortType, TableRow } from './types';
+import type { VsCheckboxNodeStyleSet } from '@/components/vs-checkbox/types';
 import type { SortableEvent } from 'sortablejs';
 
 export default defineComponent({
@@ -96,6 +98,7 @@ export default defineComponent({
     },
     props: {
         colorScheme: { type: String as PropType<ColorScheme> },
+        checkboxStyleSet: { type: Object as PropType<VsCheckboxNodeStyleSet> },
         draggable: { type: Boolean, default: false },
         expandedIds: { type: Array as PropType<string[]>, default: () => [] },
         filter: {

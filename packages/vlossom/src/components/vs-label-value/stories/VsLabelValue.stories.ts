@@ -127,10 +127,13 @@ export const StyleSet: Story = {
         styleSet: {
             backgroundColor: '#f8e8ee',
             fontSize: '1.3rem',
-            labelBackgroundColor: '#fdcedf',
-            labelFontColor: '#a7727d',
-            labelFontWeight: '550',
-            labelWidth: '15rem',
+            label: {
+                backgroundColor: '#fdcedf',
+                fontColor: '#a7727d',
+                fontWeight: '550',
+                fontSize: '5rem',
+                width: '15rem',
+            },
             padding: '2rem 2rem',
         },
     },

@@ -76,17 +76,21 @@ export const StyleSet: Story = {
     args: {
         length: 20,
         styleSet: {
-            backgroundColor: '#4e28e5',
-            borderRadius: '0.4rem',
-            buttonHeight: '2rem',
-            buttonWidth: '3rem',
-            fontColor: '#fff',
-            fontSize: '1.2rem',
+            buttons: {
+                backgroundColor: '#4e28e5',
+                borderRadius: '0.4rem',
+                height: '2.8rem',
+                width: '3rem',
+                fontColor: '#fff',
+                fontSize: '1.2rem',
+            },
+            selectedButton: {
+                backgroundColor: '#a5d6a7',
+                fontColor: '#1e88e5',
+                fontSize: '1.5rem',
+                fontWeight: '600',
+            },
             gap: '0.4rem',
-            selectedBackgroundColor: '#a5d6a7',
-            selectedColor: '#1e88e5',
-            selectedFontSize: '1.5rem',
-            selectedFontWeight: '600',
         },
     },
 };

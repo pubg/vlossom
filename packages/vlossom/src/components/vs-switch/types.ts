@@ -1,15 +1,16 @@
+export interface VsSwitchTruthyStyleSet {
+    backgroundColor?: string;
+    border?: string;
+    fontColor?: string;
+    handleColor?: string;
+}
+
 export interface VsSwitchStyleSet {
     borderRadius?: string;
-    falseBackgroundColor?: string;
-    falseBorder?: string;
-    falseFontColor?: string;
-    falseHandleColor?: string;
+    false: VsSwitchTruthyStyleSet;
     fontSize?: string;
     handleSize?: string;
     height?: string;
-    trueBackgroundColor?: string;
-    trueBorder?: string;
-    trueFontColor?: string;
-    trueHandleColor?: string;
+    true?: VsSwitchTruthyStyleSet;
     width?: string;
 }

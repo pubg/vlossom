@@ -1,3 +1,5 @@
+import { VsBoxStyleSet } from '@/declaration';
+
 export interface VsLabelValueStyleSet {
     backgroundColor?: string;
     border?: string;
@@ -5,11 +7,6 @@ export interface VsLabelValueStyleSet {
     fontColor?: string;
     fontSize?: string;
     fontWeight?: string | number;
-    labelBackgroundColor?: string;
-    labelFontColor?: string;
-    labelFontSize?: string;
-    labelFontWeight?: string | number;
-    labelPadding?: string;
-    labelWidth?: string;
+    label: VsBoxStyleSet & { width?: string };
     padding?: string;
 }
