@@ -31,6 +31,7 @@
                             class="vs-table-select vs-select-all"
                             type="checkbox"
                             :color-scheme="computedColorScheme"
+                            :style-set="plainStyleSet?.checkboxNode"
                             :indeterminate="isIndeterminate"
                             :checked="isSelectedAll"
                             aria-label="select-all"
@@ -46,6 +47,7 @@
                     :items="items"
                     :headers="headers"
                     :color-scheme="computedColorScheme"
+                    :checkbox-style-set="plainStyleSet?.checkboxNode"
                     :filter="filter"
                     :draggable="canDrag"
                     :hasExpand="hasExpand"
@@ -82,6 +84,7 @@
                 :length="paginationLength"
                 :edgeButtons="pageEdgeButtons"
                 :color-scheme="computedColorScheme"
+                :style-set="plainStyleSet?.pagination"
             />
             <vs-select
                 class="vs-table-pagination-options"
@@ -89,6 +92,7 @@
                 :options="paginationOptions"
                 :disabled="loading"
                 :color-scheme="computedColorScheme"
+                :style-set="plainStyleSet?.paginationSelect"
                 width="10rem"
                 aria-label="pagination-options"
                 option-label="label"
@@ -212,7 +216,7 @@ export default defineComponent({
 
         const { computedColorScheme, colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
+        const { plainStyleSet, computedStyleSet } = useStyleSet<VsTableStyleSet>(name, styleSet);
 
         const headerSlots = computed(() => {
             return Object.keys(slots).reduce(
@@ -376,6 +380,7 @@ export default defineComponent({
             computedColorScheme,
             colorSchemeClass,
             computedStyleSet,
+            plainStyleSet,
             computedSearchText,
             headerSlots,
             itemSlots,

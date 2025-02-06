@@ -14,16 +14,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: var(--vs-pagination-buttonWidth, 3rem);
-        height: var(--vs-pagination-buttonHeight, 3rem);
-        line-height: var(--vs-pagination-buttonHeight, 3rem);
+        min-width: var(--vs-pagination-buttons-width, 3rem);
+        height: var(--vs-pagination-buttons-height, 3rem);
+        line-height: var(--vs-pagination-buttons-height, 3rem);
         margin: var(--vs-pagination-gap, 0.2rem);
-        border-radius: var(--vs-pagination-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
-        background-color: var(--vs-pagination-backgroundColor, var(--vs-comp-bg));
-        color: var(--vs-pagination-fontColor, var(--vs-comp-font));
-        border: 1px solid var(--vs-line-color);
-        font-size: var(--vs-pagination-fontSize, var(--vs-font-size-sm));
-        font-weight: var(--vs-pagination-fontWeight, 400);
+        border-radius: var(--vs-pagination-buttons-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
+        background-color: var(--vs-pagination-buttons-backgroundColor, var(--vs-comp-bg));
+        color: var(--vs-pagination-buttons-fontColor, var(--vs-comp-font));
+        border: var(--vs-pagination-buttons-border, 1px solid var(--vs-line-color));
+        font-size: var(--vs-pagination-buttons-fontSize, var(--vs-font-size-sm));
+        font-weight: var(--vs-pagination-buttons-fontWeight, 400);
         user-select: none;
 
         &[disabled] {
@@ -34,11 +34,18 @@
         @include hover-active-darken;
 
         &.vs-selected {
-            background-color: var(--vs-pagination-selectedBackgroundColor, var(--vs-primary-comp-bg));
-            color: var(--vs-pagination-selectedColor, var(--vs-primary-comp-font));
-            border: 1px solid var(--vs-primary-comp-bg);
-            font-size: var(--vs-pagination-selectedFontSize, var(--vs-pagination-fontSize, var(--vs-font-size-sm)));
-            font-weight: var(--vs-pagination-selectedFontWeight, var(--vs-pagination-fontWeight, 600));
+            background-color: var(--vs-pagination-selectedButton-backgroundColor, var(--vs-primary-comp-bg));
+            color: var(--vs-pagination-selectedButton-color, var(--vs-primary-comp-font));
+            border: var(
+                --vs-pagination-selectedButton-border,
+                var(--vs-pagination-buttons-border),
+                1px solid var(--vs-primary-comp-bg)
+            );
+            font-size: var(
+                --vs-pagination-selectedButton-fontSize,
+                var(--vs-pagination-fontSize, var(--vs-font-size-sm))
+            );
+            font-weight: var(--vs-pagination-selectedButton-fontWeight, var(--vs-pagination-fontWeight, 600));
         }
     }
 

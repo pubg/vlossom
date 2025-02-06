@@ -42,9 +42,11 @@ const vsAccordion: VsAccordionStyleSet = {
     borderRadius: '0.7rem',
     fontColor: '#1e88e5',
     padding: '0.2rem',
-    titleBackgroundColor: '#f5f5f5',
-    titleFontColor: '#1e88e5',
-    titlePadding: '1rem',
+    title: {
+        backgroundColor: '#f5f5f5',
+        fontColor: '#1e88e5',
+        padding: '1rem',
+    },
 };
 
 const vsAvatar: VsAvatarStyleSet = {
@@ -138,11 +140,13 @@ const vsInput: VsInputStyleSet = {
 
 const vsLabelValue: VsLabelValueStyleSet = {
     backgroundColor: '#f5f5f5',
-    fontSize: '0.95rem',
-    labelBackgroundColor: '#18122b',
-    labelFontColor: '#ffffff',
-    labelFontWeight: '550',
-    labelWidth: '10%',
+    fontSize: '1.5rem',
+    label: {
+        backgroundColor: '#18122b',
+        fontColor: '#ffffff',
+        fontWeight: '550',
+        width: '10%',
+    },
     padding: '2rem',
 };
 
@@ -173,8 +177,12 @@ const vsNotice: VsNoticeStyleSet = {
     backgroundColor: '#ffc100',
     fontColor: '#fff',
     fontSize: '1.5rem',
-    titleFontColor: '#1e5631',
-    titleFontSize: '1rem',
+    title: {
+        fontColor: '#1e5631',
+        fontSize: '3rem',
+        padding: '0 2rem',
+        backgroundColor: '#fdd000',
+    },
 };
 
 const vsPage: VsPageStyleSet = {
@@ -183,18 +191,23 @@ const vsPage: VsPageStyleSet = {
 };
 
 const vsPagination: VsPaginationStyleSet = {
-    backgroundColor: '#1e88e5',
-    borderRadius: '0.2rem',
-    buttonHeight: '1.2rem',
-    buttonWidth: '1.6rem',
-    fontColor: '#fff',
-    fontSize: '0.8rem',
-    fontWeight: '600',
+    buttons: {
+        backgroundColor: '#1e88e5',
+        borderRadius: '0.2rem',
+        height: '3rem',
+        width: '2.6rem',
+        fontColor: '#fff',
+        fontSize: '1.5rem',
+        fontWeight: '600',
+    },
     gap: '0.5rem',
-    selectedBackgroundColor: '#add8e6',
-    selectedColor: '#1e88e5',
-    selectedFontSize: '1.2rem',
-    selectedFontWeight: '600',
+    selectedButton: {
+        border: '2px solid blue',
+        backgroundColor: '#add8e6',
+        fontColor: '#1e88e5',
+        fontSize: '2rem',
+        fontWeight: '600',
+    },
 };
 
 const vsProgress: VsProgressStyleSet = {
@@ -230,10 +243,14 @@ const vsSelect: VsSelectStyleSet = {
     border: '1px solid #637A9F',
     fontColor: '#637A9F',
     fontSize: '1rem',
-    optionHoverBackgroundColor: '#C9D7DD',
-    optionHoverFontColor: '#637A9F',
-    optionSelectedBackgroundColor: '#637A9F',
-    optionSelectedFontColor: '#FFF3CF',
+    optionHover: {
+        backgroundColor: '#C9D7DD',
+        fontColor: '#637A9F',
+    },
+    optionSelected: {
+        backgroundColor: '#637A9F',
+        fontColor: '#FFF3CF',
+    },
 };
 
 const vsStepper: VsStepperStyleSet = {
@@ -245,15 +262,19 @@ const vsStepper: VsStepperStyleSet = {
 
 const vsSwitch: VsSwitchStyleSet = {
     borderRadius: '100px',
-    falseBackgroundColor: '#de1a24',
-    falseFontColor: '#fff',
-    falseHandleColor: '#fff',
+    false: {
+        backgroundColor: '#de1a24',
+        fontColor: '#fff',
+        handleColor: '#fff',
+    },
     fontSize: '1.2rem',
     handleSize: '30px',
     height: '50px',
-    trueBackgroundColor: '#056517',
-    trueFontColor: '#fff',
-    trueHandleColor: '#fff',
+    true: {
+        backgroundColor: '#056517',
+        fontColor: '#fff',
+        handleColor: '#fff',
+    },
     width: '100px',
 };
 
@@ -263,15 +284,19 @@ const vsTable: VsTableStyleSet = {
     fontColor: '#393E46',
     fontSize: '1.5rem',
     rowHeight: '4rem',
-    captionFontColor: '#393E46',
-    captionFontSize: '1.5rem',
-    captionFontWeight: '600',
-    captionTextAlign: 'left',
-    headerBackgroundColor: '#222831',
-    headerFontColor: '#00adb5',
-    headerFontSize: '1.5rem',
-    headerFontWeight: '500',
-    headerHeight: '2.5rem',
+    caption: {
+        fontColor: '#393E46',
+        fontSize: '1.5rem',
+        fontWeight: '600',
+        textAlign: 'left',
+    },
+    header: {
+        backgroundColor: '#222831',
+        fontColor: '#00adb5',
+        fontSize: '1.5rem',
+        fontWeight: '500',
+        height: '2.5rem',
+    },
     hoverBorder: '1px solid #00adb5',
     selectedBackgroundColor: '#00adb5',
     selectedFontColor: '#eeeeee',

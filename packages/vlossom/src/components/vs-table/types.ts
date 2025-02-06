@@ -1,4 +1,5 @@
-import { UIState } from '@/declaration';
+import { UIState, VsBoxStyleSet } from '@/declaration';
+import type { VsCheckboxNodeStyleSet, VsPaginationStyleSet, VsSelectStyleSet } from '..';
 
 export interface TableHeader {
     label: string;
@@ -37,25 +38,28 @@ export enum SortType {
     DESCEND,
 }
 
+export interface VsTableCaptionStyleSet extends VsBoxStyleSet {
+    side?: string;
+    textAlign?: string;
+}
+
+export interface VsTableHeaderStyleSet extends VsBoxStyleSet {
+    border?: string;
+    height?: string;
+}
+
 export interface VsTableStyleSet {
     backgroundColor?: string;
     border?: string;
-    captionFontColor?: string;
-    captionFontSize?: string;
-    captionFontWeight?: string | number;
-    captionPadding?: string;
-    captionSide?: string;
-    captionTextAlign?: string;
+    caption?: VsTableCaptionStyleSet;
+    checkboxNode?: VsCheckboxNodeStyleSet;
     fontColor?: string;
     fontSize?: string;
     fontWeight?: string | number;
-    headerBackgroundColor?: string;
-    headerBorder?: string;
-    headerFontColor?: string;
-    headerFontSize?: string;
-    headerFontWeight?: string | number;
-    headerHeight?: string;
+    header?: VsTableHeaderStyleSet;
     hoverBorder?: string;
+    pagination?: VsPaginationStyleSet;
+    paginationSelect?: VsSelectStyleSet;
     rowHeight?: string;
     selectedBackgroundColor?: string;
     selectedFontColor?: string;
