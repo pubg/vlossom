@@ -6,7 +6,7 @@ on:
 
 jobs:
     chromatic-build:
-        if: ${{ startWith(github.event.pull_request.base.ref, 'main') && github.event.review.state == 'approved' }}
+        if: ${{ github.event.pull_request.base.ref == 'main' && github.event.review.state == 'approved' }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
