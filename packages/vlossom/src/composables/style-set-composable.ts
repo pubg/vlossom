@@ -26,7 +26,7 @@ export function useStyleSet<T extends { [key: string]: any }>(
             (acc, [key, value]) => {
                 if (!utils.object.isPlainObject(value)) {
                     acc[`--${utils.string.pascalToKebab(component)}-${key}`] = value;
-                } else if (!isVlossomComponent(key)) {
+                } else {
                     const nestedStyleSet = Object.entries(value);
                     nestedStyleSet.forEach(([nestedKey, nestedValue]) => {
                         acc[`--${utils.string.pascalToKebab(component)}-${key}-${nestedKey}`] = nestedValue;
@@ -42,10 +42,4 @@ export function useStyleSet<T extends { [key: string]: any }>(
         plainStyleSet,
         computedStyleSet,
     };
-}
-
-function isVlossomComponent(key: string) {
-    return Object.keys(VsComponent).some(
-        (vsComponent: string) => vsComponent.replace('Vs', '').toLowerCase() === key.toLowerCase(),
-    );
 }

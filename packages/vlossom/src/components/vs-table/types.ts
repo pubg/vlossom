@@ -56,10 +56,10 @@ export interface VsTableStyleSet {
     fontColor?: string;
     fontSize?: string;
     fontWeight?: string | number;
+    header?: VsTableHeaderStyleSet;
     hoverBorder?: string;
     pagination?: VsPaginationStyleSet;
     paginationSelect?: VsSelectStyleSet;
-    tableHeader?: VsTableHeaderStyleSet;
     rowHeight?: string;
     selectedBackgroundColor?: string;
     selectedFontColor?: string;

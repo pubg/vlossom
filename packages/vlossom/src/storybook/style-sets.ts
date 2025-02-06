@@ -290,7 +290,7 @@ const vsTable: VsTableStyleSet = {
         fontWeight: '600',
         textAlign: 'left',
     },
-    tableHeader: {
+    header: {
         backgroundColor: '#222831',
         fontColor: '#00adb5',
         fontSize: '1.5rem',

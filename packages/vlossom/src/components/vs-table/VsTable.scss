@@ -34,8 +34,8 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         }
 
         .vs-table-thead .vs-table-tr {
-            background-color: var(--vs-table-tableHeader-backgroundColor, var(--vs-comp-bg));
-            border: var(--vs-table-tableHeader-border, 1px solid var(--vs-line-color));
+            background-color: var(--vs-table-header-backgroundColor, var(--vs-comp-bg));
+            border: var(--vs-table-header-border, 1px solid var(--vs-line-color));
 
             &.vs-search {
                 position: relative;
@@ -62,10 +62,10 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
             }
 
             .vs-table-th {
-                color: var(--vs-table-tableHeader-fontColor, var(--vs-font-color));
-                font-size: var(--vs-table-tableHeader-fontSize, var(--vs-font-size));
-                font-weight: var(--vs-table-tableHeader-fontWeight, 500);
-                min-height: var(--vs-table-tableHeader-height, 3.6rem);
+                color: var(--vs-table-header-fontColor, var(--vs-font-color));
+                font-size: var(--vs-table-header-fontSize, var(--vs-font-size));
+                font-weight: var(--vs-table-header-fontWeight, 500);
+                min-height: var(--vs-table-header-height, 3.6rem);
                 overflow-x: auto;
                 padding: 0.8rem 1.4rem;
 
@@ -127,10 +127,10 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
                         height: 2.4rem;
                         border-radius: calc(var(--vs-radius-ratio) * var(--vs-radius-xs));
                         border: $tableBorder;
-                        background-color: var(--vs-table-tableHeader-backgroundColor, var(--vs-area-bg-active));
+                        background-color: var(--vs-table-header-backgroundColor, var(--vs-area-bg-active));
 
                         i {
-                            color: var(--vs-table-tableHeader-fontColor, var(--vs-font-color));
+                            color: var(--vs-table-header-fontColor, var(--vs-font-color));
                             pointer-events: none;
                             transform: rotate(180deg);
                             transition: transform 0.4s;
@@ -225,7 +225,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
     .vs-table-thead .vs-table-tr {
         .vs-table-th {
             min-height: 2.4rem;
-            font-size: var(--vs-table-tableHeader-fontSize, var(--vs-font-size-sm));
+            font-size: var(--vs-table-header-fontSize, var(--vs-font-size-sm));
         }
     }
 
@@ -248,11 +248,11 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
 
 .vs-table.vs-primary .vs-table-wrap .vs-table-table {
     .vs-table-thead .vs-table-tr {
-        background-color: var(--vs-table-tableHeader-backgroundColor, var(--vs-primary-comp-bg));
+        background-color: var(--vs-table-header-backgroundColor, var(--vs-primary-comp-bg));
 
         .vs-table-th {
-            color: var(--vs-table-tableHeader-fontColor, var(--vs-primary-comp-font));
-            border: var(--vs-table-tableHeader-border, 1px solid var(--vs-primary-comp-bg));
+            color: var(--vs-table-header-fontColor, var(--vs-primary-comp-font));
+            border: var(--vs-table-header-border, 1px solid var(--vs-primary-comp-bg));
 
             &.vs-table-selectable-th .vs-checkbox-input {
                 border: 1px dotted var(--vs-primary-comp-font);
@@ -268,10 +268,10 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         .vs-table-td {
             &.vs-table-expandable-td {
                 .vs-table-expand-button {
-                    background-color: var(--vs-table-tableHeader-backgroundColor, var(--vs-primary-comp-bg));
+                    background-color: var(--vs-table-header-backgroundColor, var(--vs-primary-comp-bg));
 
                     i {
-                        color: var(--vs-table-tableHeader-fontColor, var(--vs-primary-comp-font));
+                        color: var(--vs-table-header-fontColor, var(--vs-primary-comp-font));
                     }
                 }
             }
@@ -284,7 +284,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
         .vs-table-table .vs-table-thead .vs-table-tr {
             grid-template-columns: none !important;
             margin-bottom: 0.4rem;
-            border: var(--vs-table-tableHeader-border, 1px solid var(--vs-line-color));
+            border: var(--vs-table-header-border, 1px solid var(--vs-line-color));
 
             .vs-table-th:not(:first-child) {
                 display: none;
@@ -334,7 +334,7 @@ $tableBorder: var(--vs-table-border, 1px solid var(--vs-line-color));
 
                 &:before {
                     content: attr(data-label);
-                    color: var(--vs-table-tableHeader-fontColor, var(--vs-font-color));
+                    color: var(--vs-table-header-fontColor, var(--vs-font-color));
                     display: block;
                     margin-right: 2rem;
                     font-size: var(--vs-font-size);

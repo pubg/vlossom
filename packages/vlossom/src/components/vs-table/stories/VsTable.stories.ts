@@ -340,6 +340,8 @@ export const Primary: Story = {
 
 export const StyleSet: Story = {
     args: {
+        pagination: true,
+        selectable: true,
         styleSet: {
             backgroundColor: '#ffffff',
             border: '1px solid #dcD6f7',
@@ -348,7 +350,7 @@ export const StyleSet: Story = {
             rowHeight: '3rem',
             checkboxNode: {
                 checkboxColor: '#0f4c75',
-                borderRadius: '0.3rem',
+                borderRadius: '1rem',
                 checkboxSize: '1.8rem',
             },
             pagination: {
@@ -362,7 +364,7 @@ export const StyleSet: Story = {
                 fontSize: '2rem',
                 fontColor: '#0f4c75',
             },
-            tableHeader: {
+            header: {
                 backgroundColor: '#DEFCF9',
                 border: '1px solid #DCD6F7',
                 fontColor: '#0f4c75',
