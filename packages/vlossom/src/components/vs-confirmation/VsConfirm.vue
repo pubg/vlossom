@@ -3,27 +3,35 @@
         <div class="vs-confirm-wrap">
             <slot />
             <div class="vs-confirm-buttons">
-                <vs-button ref="okRef" :style-set="{ width: '12rem' }" @click="ok" primary>{{ okText }}</vs-button>
-                <vs-button :style-set="{ width: '12rem' }" @click="cancel">{{ cancelText }}</vs-button>
+                <vs-button ref="okRef" :style-set="plainStyleSet?.okButton" @click="ok" primary>{{ okText }}</vs-button>
+                <vs-button :style-set="plainStyleSet?.cancelButton" @click="cancel">{{ cancelText }}</vs-button>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType, toRefs } from 'vue';
 import { store } from '@/stores';
-import { VS_CONFIRM_OK, VS_CONFIRM_CANCEL } from '@/declaration';
+import { VS_CONFIRM_OK, VS_CONFIRM_CANCEL, VsComponent } from '@/declaration';
+import { useStyleSet } from '@/composables';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
+import type { VsConfirmStyleSet } from './types';
+
+const name = VsComponent.VsConfirm;
 export default defineComponent({
     name: 'VsConfirm',
     components: { VsButton },
     props: {
+        styleSet: { type: [String, Object] as PropType<string | VsConfirmStyleSet> },
         okText: { type: String, default: 'OK' },
         cancelText: { type: String, default: 'Cancel' },
     },
-    setup() {
+    setup(props) {
+        const { styleSet } = toRefs(props);
+        const { plainStyleSet } = useStyleSet<VsConfirmStyleSet>(name, styleSet);
+
         function ok() {
             const id = store.overlay.getLastOverlayId();
             store.overlay.run<boolean>(id, VS_CONFIRM_OK);
@@ -34,7 +42,7 @@ export default defineComponent({
             store.overlay.run<boolean>(id, VS_CONFIRM_CANCEL);
         }
 
-        return { ok, cancel };
+        return { plainStyleSet, ok, cancel };
     },
 });
 </script>

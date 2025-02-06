@@ -19,10 +19,10 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
         width: var(--vs-switch-width, fit-content);
         height: var(--vs-switch-height, $switchHeight);
         padding: 0 0.8rem;
-        border: var(--vs-switch-falseBorder, 1px solid var(--vs-line-color));
+        border: var(--vs-switch-false-border, 1px solid var(--vs-line-color));
         border-radius: var(--vs-switch-borderRadius, calc($switchHeight / 2));
-        background-color: var(--vs-switch-falseBackgroundColor, var(--vs-area-bg));
-        color: var(--vs-switch-falseFontColor, var(--vs-font-color));
+        background-color: var(--vs-switch-false-backgroundColor, var(--vs-area-bg));
+        color: var(--vs-switch-false-fontColor, var(--vs-font-color));
         font-size: var(--vs-switch-fontSize, var(--vs-font-size-sm));
         cursor: pointer;
 
@@ -44,7 +44,7 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
 
         &::before {
             content: '';
-            background-color: var(--vs-switch-falseHandleColor, var(--vs-primary-comp-bg));
+            background-color: var(--vs-switch-false-handleColor, var(--vs-primary-comp-bg));
             border-radius: 50%;
             height: $switchHandleSize;
             left: $switchGap;
@@ -64,13 +64,13 @@ $switchHandleSizeDense: var(--vs-switch-handleSize, calc($switchHeightDense / 1.
 
     &.vs-checked {
         .vs-switch-button {
-            background-color: var(--vs-switch-trueBackgroundColor, var(--vs-primary-comp-bg));
-            border: var(--vs-switch-trueBorder, 1px solid var(--vs-primary-comp-bg));
-            color: var(--vs-switch-trueFontColor, var(--vs-primary-comp-font));
+            background-color: var(--vs-switch-true-backgroundColor, var(--vs-primary-comp-bg));
+            border: var(--vs-switch-true-border, 1px solid var(--vs-primary-comp-bg));
+            color: var(--vs-switch-true-fontColor, var(--vs-primary-comp-font));
 
             &::before {
                 left: calc(100% - ($switchHandleSize + $switchGap));
-                background-color: var(--vs-switch-trueHandleColor, var(--vs-primary-comp-font));
+                background-color: var(--vs-switch-true-handleColor, var(--vs-primary-comp-font));
             }
 
             .vs-status-label {

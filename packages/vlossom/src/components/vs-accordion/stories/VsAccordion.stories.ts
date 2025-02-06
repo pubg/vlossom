@@ -64,9 +64,11 @@ export const StyleSet: Story = {
             backgroundColor: '#f5f5f5',
             fontColor: '#1e88e5',
             padding: '2rem',
-            titleBackgroundColor: '#49f5f5',
-            titleFontColor: '#1e4335',
-            titlePadding: '1rem',
+            title: {
+                backgroundColor: '#49f5f5',
+                fontColor: '#1e4335',
+                padding: '1rem',
+            },
         },
     },
 };

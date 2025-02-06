@@ -100,6 +100,13 @@ export const StyleSet: Story = {
             borderRadius: '0.8rem',
             fontWeight: '500',
             padding: '3rem 2rem',
+            title: {
+                backgroundColor: 'blue',
+                fontColor: '#ffffff',
+                fontSize: '2rem',
+                fontWeight: '800',
+                padding: '3rem',
+            },
         },
     },
 };

@@ -1,3 +1,5 @@
+import { VsBoxStyleSet } from '@/declaration';
+
 export interface VsAccordionStyleSet {
     backgroundColor?: string;
     border?: string;
@@ -5,9 +7,5 @@ export interface VsAccordionStyleSet {
     fontColor?: string;
     fontSize?: string;
     padding?: string;
-    titleBackgroundColor?: string;
-    titleFontColor?: string;
-    titleFontSize?: string;
-    titleFontWeight?: string | number;
-    titlePadding?: string;
+    title?: VsBoxStyleSet;
 }

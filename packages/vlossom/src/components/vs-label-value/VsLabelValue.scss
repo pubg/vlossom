@@ -18,12 +18,12 @@
         padding: var(--vs-label-value-padding, 0.6rem 1.2rem);
 
         &.vs-label {
-            flex-basis: var(--vs-label-value-labelWidth, 20%);
-            padding: var(--vs-label-value-labelPadding, var(--vs-label-value-padding, 0.6rem 1.2rem));
-            font-weight: var(--vs-label-value-labelFontWeight, 500);
-            font-size: var(--vs-label-value-labelFontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
-            background-color: var(--vs-label-value-labelBackgroundColor, var(--vs-comp-bg));
-            color: var(--vs-label-value-labelFontColor, var(--vs-comp-font));
+            flex-basis: var(--vs-label-value-label-width, 20%);
+            padding: var(--vs-label-value-label-padding, var(--vs-label-value-padding, 0.6rem 1.2rem));
+            font-weight: var(--vs-label-value-label-fontWeight, 500);
+            font-size: var(--vs-label-value-label-fontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
+            background-color: var(--vs-label-value-label-backgroundColor, var(--vs-comp-bg));
+            color: var(--vs-label-value-label-fontColor, var(--vs-comp-font));
             border-right: var(--vs-label-value-border, 1px solid var(--vs-line-color));
             word-break: break-word;
             white-space: nowrap;

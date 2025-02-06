@@ -148,7 +148,7 @@
     }
 
     .vs-select-options {
-        max-height: var(--vs-select-optionsHeight, 30rem);
+        max-height: var(--vs-select-options-maxHeight, 30rem);
         overflow: auto;
         list-style-type: none;
         outline: none;
@@ -170,14 +170,14 @@
         }
 
         &.vs-selected {
-            background-color: var(--vs-select-optionSelectedBackgroundColor, var(--vs-area-bg-active));
-            color: var(--vs-select-optionSelectedFontColor, var(--vs-font-color));
+            background-color: var(--vs-select-optionSelected-backgroundColor, var(--vs-area-bg-active));
+            color: var(--vs-select-optionSelected-fontColor, var(--vs-font-color));
             font-weight: 600;
         }
 
         &.vs-chased {
-            background-color: var(--vs-select-optionHoverBackgroundColor, var(--vs-area-bg-hover));
-            color: var(--vs-select-optionHoverFontColor, var(--vs-font-color));
+            background-color: var(--vs-select-optionHover-backgroundColor, var(--vs-area-bg-hover));
+            color: var(--vs-select-optionHover-fontColor, var(--vs-font-color));
         }
     }
 

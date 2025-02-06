@@ -1,3 +1,5 @@
+import { VsBoxStyleSet } from '@/declaration';
+
 export interface VsBlockStyleSet {
     backgroundColor?: string;
     border?: string;
@@ -6,8 +8,5 @@ export interface VsBlockStyleSet {
     fontSize?: string;
     fontWeight?: string | number;
     padding?: string;
-    titleBackgroundColor?: string;
-    titleFontColor?: string;
-    titleFontSize?: string;
-    titleFontWeight?: string | number;
+    title?: VsBoxStyleSet;
 }
