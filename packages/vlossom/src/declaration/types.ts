@@ -44,7 +44,9 @@ import type { VsComponent } from './enums';
 
 export type ColorScheme = (typeof COLORS)[number];
 
-export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
+export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme } & {
+    [key: string]: ColorScheme;
+};
 
 export interface VsBoxStyleSet {
     backgroundColor?: string;
@@ -54,8 +56,7 @@ export interface VsBoxStyleSet {
     padding?: string;
 }
 
-export interface StyleSet {
-    // components
+export interface VsComponentStyleSet {
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };
     VsBlock?: { [key: string]: VsBlockStyleSet };
@@ -96,6 +97,7 @@ export interface StyleSet {
     VsTooltip?: { [key: string]: VsTooltipStyleSet };
 }
 
+export type StyleSet = VsComponentStyleSet & { [key: string]: { [key: string]: any } };
 export interface VlossomOptions {
     components?: VsComponent[];
     colorScheme?: GlobalColorScheme;
