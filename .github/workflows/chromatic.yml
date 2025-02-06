@@ -1,29 +1,12 @@
 name: Chromatic
 
 on:
-    pull_request:
-        types: [opened, synchronize]
-    push:
-        branches:
-            - main
+    pull_request_review:
+        types: [submitted]
 
 jobs:
-    check-commit-message:
-        runs-on: ubuntu-latest
-        outputs:
-            message: ${{ steps.get_commit_message.outputs.message }}
-        steps:
-            - name: Get repo
-              uses: actions/checkout@v4
-              with:
-                  ref: ${{ github.event.pull_request.head.sha }}
-            - name: Get commit message
-              id: get_commit_message
-              run: echo "message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
-
     chromatic-build:
-        needs: check-commit-message
-        if: ${{ github.event.action != 'synchronize' || contains(needs.check-commit-message.outputs.message, 'chromatic-build') }}
+        if: ${{ startWith(github.event.pull_request.base.ref, 'main') && github.event.review.state == 'approved' }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
