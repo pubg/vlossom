@@ -29,7 +29,7 @@ body {
 .vs-inline-gap:has(+ .vs-inline-gap) {
     margin-right: 0.5rem;
 }
-/*
+
 // vlossom scrollbar
 ::-webkit- {
     &scrollbar {
@@ -51,4 +51,4 @@ body {
     &scrollbar-corner {
         background-color: transparent;
     }
-} */
+}
