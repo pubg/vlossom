@@ -252,10 +252,14 @@ export const StyleSet: Story = {
             fontColor: '#12372A',
             border: '1px solid #12372A',
             height: '3rem',
-            optionHoverBackgroundColor: '#12372A',
-            optionHoverFontColor: '#EEEEEE',
-            optionSelectedBackgroundColor: '#12372A',
-            optionSelectedFontColor: '#EEEEEE',
+            optionHover: {
+                backgroundColor: '#12372A',
+                fontColor: '#EEEEEE',
+            },
+            optionSelected: {
+                backgroundColor: '#12372A',
+                fontColor: '#EEEEEE',
+            },
             padding: '0 3rem',
         },
     },

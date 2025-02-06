@@ -37,13 +37,13 @@
     }
 
     .vs-prepend {
-        background-color: var(--vs-input-prependBackgroundColor, var(--vs-primary-comp-bg));
-        color: var(--vs-input-prependColor, var(--vs-primary-comp-font));
+        background-color: var(--vs-input-prepend-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-prepend-fontColor, var(--vs-primary-comp-font));
     }
 
     .vs-append {
-        background-color: var(--vs-input-appendBackgroundColor, var(--vs-primary-comp-bg));
-        color: var(--vs-input-appendColor, var(--vs-primary-comp-font));
+        background-color: var(--vs-input-append-backgroundColor, var(--vs-primary-comp-bg));
+        color: var(--vs-input-append-fontColor, var(--vs-primary-comp-font));
     }
 
     .vs-clear-button {

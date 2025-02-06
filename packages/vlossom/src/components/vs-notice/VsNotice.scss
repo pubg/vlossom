@@ -15,9 +15,11 @@
         font-weight: var(--vs-notice-fontWeight, 400);
 
         .vs-notice-title {
-            color: var(--vs-notice-titleFontColor, var(--vs-comp-font));
-            font-size: var(--vs-notice-titleFontSize, var(--vs-font-size));
-            font-weight: var(--vs-notice-titleFontWeight, 500);
+            color: var(--vs-notice-title-fontColor, var(--vs-comp-font));
+            font-size: var(--vs-notice-title-fontSize, var(--vs-font-size));
+            font-weight: var(--vs-notice-title-fontWeight, 500);
+            padding: var(--vs-notice-title-padding);
+            background-color: var(--vs-notice-title-backgroundColor);
         }
     }
 
@@ -35,7 +37,7 @@
             color: var(--vs-notice-fontColor, var(--vs-primary-comp-font));
 
             .vs-notice-title {
-                color: var(--vs-notice-titleFontColor, var(--vs-primary-comp-font));
+                color: var(--vs-notice-title-fontColor, var(--vs-primary-comp-font));
             }
         }
 

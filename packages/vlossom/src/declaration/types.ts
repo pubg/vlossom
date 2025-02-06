@@ -10,7 +10,7 @@ import type {
     VsCheckboxStyleSet,
     VsCheckboxSetStyleSet,
     VsChipStyleSet,
-    VsConfirmationStyleSet,
+    VsConfirmStyleSet,
     VsDividerStyleSet,
     VsDrawerStyleSet,
     VsFileInputStyleSet,
@@ -46,6 +46,14 @@ export type ColorScheme = (typeof COLORS)[number];
 
 export type GlobalColorScheme = { default?: ColorScheme } & { [key in VsComponent]?: ColorScheme };
 
+export interface VsBoxStyleSet {
+    backgroundColor?: string;
+    fontColor?: string;
+    fontSize?: string;
+    fontWeight?: string | number;
+    padding?: string;
+}
+
 export interface StyleSet {
     // components
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
@@ -56,7 +64,7 @@ export interface StyleSet {
     VsCheckboxNode?: { [key: string]: VsCheckboxNodeStyleSet };
     VsCheckboxSet?: { [key: string]: VsCheckboxSetStyleSet };
     VsChip?: { [key: string]: VsChipStyleSet };
-    VsConfirm?: { [key: string]: VsConfirmationStyleSet };
+    VsConfirm?: { [key: string]: VsConfirmStyleSet };
     VsDivider?: { [key: string]: VsDividerStyleSet };
     VsDrawer?: { [key: string]: VsDrawerStyleSet };
     VsFileInput?: { [key: string]: VsFileInputStyleSet };

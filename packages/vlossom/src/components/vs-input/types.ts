@@ -2,7 +2,13 @@ export type InputValueType = string | number | null;
 
 export type InputType = 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
+export interface VsAttachmentStyleSet {
+    backgroundColor?: string;
+    fontColor?: string;
+}
+
 export interface VsInputStyleSet {
+    append?: VsAttachmentStyleSet;
     appendBackgroundColor?: string;
     appendColor?: string;
     backgroundColor?: string;
@@ -12,6 +18,5 @@ export interface VsInputStyleSet {
     fontSize?: string;
     height?: string;
     padding?: string;
-    prependBackgroundColor?: string;
-    prependColor?: string;
+    prepend?: VsAttachmentStyleSet;
 }

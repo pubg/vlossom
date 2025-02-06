@@ -1,8 +1,7 @@
 import { computed, ComputedRef, Ref } from 'vue';
 import { utils } from '@/utils';
 import { store } from '@/stores';
-
-import type { VsComponent } from '@/declaration';
+import { VsComponent } from '@/declaration';
 
 export function useStyleSet<T extends { [key: string]: any }>(
     component: VsComponent,
@@ -23,14 +22,30 @@ export function useStyleSet<T extends { [key: string]: any }>(
     });
 
     const computedStyleSet = computed(() =>
-        Object.entries(plainStyleSet.value).reduce((acc, [key, value]) => {
-            acc[`--${utils.string.pascalToKebab(component)}-${key}`] = value;
-            return acc;
-        }, {} as { [key: string]: any }),
+        Object.entries(plainStyleSet.value).reduce(
+            (acc, [key, value]) => {
+                if (!utils.object.isPlainObject(value)) {
+                    acc[`--${utils.string.pascalToKebab(component)}-${key}`] = value;
+                } else if (!isVlossomComponent(key)) {
+                    const nestedStyleSet = Object.entries(value);
+                    nestedStyleSet.forEach(([nestedKey, nestedValue]) => {
+                        acc[`--${utils.string.pascalToKebab(component)}-${key}-${nestedKey}`] = nestedValue;
+                    });
+                }
+                return acc;
+            },
+            {} as { [key: string]: any },
+        ),
     );
 
     return {
         plainStyleSet,
         computedStyleSet,
     };
+}
+
+function isVlossomComponent(key: string) {
+    return Object.keys(VsComponent).some(
+        (vsComponent: string) => vsComponent.replace('Vs', '').toLowerCase() === key.toLowerCase(),
+    );
 }

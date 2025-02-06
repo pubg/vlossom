@@ -12,12 +12,12 @@ $blockBorder: var(--vs-block-border, 1px solid var(--vs-line-color));
     .vs-block-header {
         position: relative;
         width: 100%;
-        background-color: var(--vs-block-titleBackgroundColor, var(--vs-comp-bg));
+        background-color: var(--vs-block-title-backgroundColor, var(--vs-comp-bg));
         border-bottom: $blockBorder;
-        color: var(--vs-block-titleColor, var(--vs-comp-font));
-        font-size: var(--vs-block-titleFontSize, var(--vs-font-size-lg));
-        font-weight: var(--vs-block-titleFontWeight, 500);
-        padding: var(--vs-block-headerPadding, 1rem 1.8rem);
+        color: var(--vs-block-title-fontColor, var(--vs-comp-font));
+        font-size: var(--vs-block-title-fontSize, var(--vs-font-size-lg));
+        font-weight: var(--vs-block-title-fontWeight, 500);
+        padding: var(--vs-block-title-padding, 1rem 1.8rem);
     }
 
     .vs-block-content {

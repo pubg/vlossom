@@ -163,14 +163,18 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            falseBorder: '3px solid blue',
-            falseBackgroundColor: '#000',
-            falseFontColor: '#fff',
-            falseHandleColor: '#fff',
-            trueBorder: '3px solid purple',
-            trueBackgroundColor: '#fff',
-            trueFontColor: '#000',
-            trueHandleColor: '#000',
+            false: {
+                border: '3px solid blue',
+                backgroundColor: '#000',
+                fontColor: '#fff',
+                handleColor: '#fff',
+            },
+            true: {
+                border: '3px solid purple',
+                backgroundColor: '#fff',
+                fontColor: '#000',
+                handleColor: '#000',
+            },
         },
     },
 };

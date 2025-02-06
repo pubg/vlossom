@@ -18,7 +18,7 @@ export { default as VsCheckboxSet } from './vs-checkbox/VsCheckboxSet.vue';
 export type { VsChipStyleSet } from './vs-chip/types';
 export { default as VsChip } from './vs-chip/VsChip.vue';
 
-export type { VsConfirmationStyleSet, ConfirmOptions, PromptOptions } from './vs-confirmation/types';
+export type { VsConfirmStyleSet, ConfirmOptions, PromptOptions } from './vs-confirmation/types';
 export { default as VsConfirm } from './vs-confirmation/VsConfirm.vue';
 
 export { default as VsContainer } from './vs-container/VsContainer.vue';
