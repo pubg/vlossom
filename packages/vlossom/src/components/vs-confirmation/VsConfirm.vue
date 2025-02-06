@@ -3,8 +3,8 @@
         <div class="vs-confirm-wrap">
             <slot />
             <div class="vs-confirm-buttons">
-                <vs-button ref="okRef" :style-set="plainStyleSet?.button" @click="ok" primary>{{ okText }}</vs-button>
-                <vs-button :style-set="plainStyleSet?.button" @click="cancel">{{ cancelText }}</vs-button>
+                <vs-button ref="okRef" :style-set="plainStyleSet?.okButton" @click="ok" primary>{{ okText }}</vs-button>
+                <vs-button :style-set="plainStyleSet?.cancelButton" @click="cancel">{{ cancelText }}</vs-button>
             </div>
         </div>
     </div>

@@ -5,13 +5,14 @@ export interface VsConfirmStyleSet {
     backgroundColor?: string;
     borderRadius?: string;
     boxShadow?: string;
-    button?: VsButtonStyleSet;
+    cancelButton?: VsButtonStyleSet;
     fontColor?: string;
     fontSize?: string;
     fontWeight?: string | number;
     height?: string;
-    width?: string;
+    okButton?: VsButtonStyleSet;
     padding?: string;
+    width?: string;
     zIndex?: string | number;
 }
 
