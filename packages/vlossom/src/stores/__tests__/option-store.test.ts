@@ -8,7 +8,7 @@ describe('option store', () => {
         const store = new OptionStore();
 
         // when
-        const result = store.getState();
+        const result = store.getOptions();
 
         // then
         expect(result).toEqual({
@@ -28,7 +28,7 @@ describe('option store', () => {
             store.setTheme('dark');
 
             // then
-            expect(store.getState().theme).toEqual('dark');
+            expect(store.getOptions().theme).toEqual('dark');
         });
     });
 
@@ -41,7 +41,7 @@ describe('option store', () => {
             store.setGlobalColorScheme({ default: 'red' });
 
             // then
-            expect(store.getState().globalColorScheme).toEqual({ default: 'red' });
+            expect(store.getOptions().globalColorScheme).toEqual({ default: 'red' });
         });
 
         describe('getGlobalColorScheme', () => {
@@ -88,7 +88,7 @@ describe('option store', () => {
                 store.registerStyleSet(styleSet);
 
                 // then
-                expect(store.getState().styleSets).toEqual(styleSet);
+                expect(store.getOptions().styleSets).toEqual(styleSet);
             });
 
             it('styleSet을 등록할 수 있다 (기존에 등록된 styleSet이 있을 경우)', () => {
@@ -114,7 +114,7 @@ describe('option store', () => {
                 store.registerStyleSet(styleSet2);
 
                 // then
-                expect(store.getState().styleSets).toEqual({
+                expect(store.getOptions().styleSets).toEqual({
                     VsButton: {
                         primary: {
                             fontColor: 'red',
@@ -178,7 +178,7 @@ describe('option store', () => {
             store.setGlobalRadiusRatio(0.5);
 
             // then
-            expect(store.getState().globalRadiusRatio).toEqual(0.5);
+            expect(store.getOptions().globalRadiusRatio).toEqual(0.5);
             expect(setPropertySpy).toBeCalledWith('--vs-radius-ratio', '0.5');
         });
 

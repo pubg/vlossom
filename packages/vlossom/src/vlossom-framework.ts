@@ -54,7 +54,7 @@ export class Vlossom {
     }
 
     get theme() {
-        return store.option.getState().theme;
+        return store.option.getOptions().theme;
     }
 
     set theme(value) {
@@ -68,7 +68,7 @@ export class Vlossom {
     }
 
     get colorScheme() {
-        return store.option.getState().globalColorScheme;
+        return store.option.getOptions().globalColorScheme;
     }
 
     set colorScheme(colorScheme) {
@@ -76,11 +76,11 @@ export class Vlossom {
     }
 
     get styleSets() {
-        return store.option.getState().styleSets;
+        return store.option.getOptions().styleSets;
     }
 
     get radiusRatio() {
-        return store.option.getState().globalRadiusRatio;
+        return store.option.getOptions().globalRadiusRatio;
     }
 
     set radiusRatio(radiusRatio: number) {

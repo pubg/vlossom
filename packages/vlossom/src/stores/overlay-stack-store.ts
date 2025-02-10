@@ -1,10 +1,12 @@
-import { computed, ComputedRef, Ref, ref } from 'vue';
+import { computed, ComputedRef, Ref, ref, readonly } from 'vue';
 
 export class OverlayStackStore<T extends { id?: string; container?: string }> {
-    public readonly items: Ref<T[]> = ref([]);
-    public readonly itemsByContainer: ComputedRef<{ [container: string]: T[] }> = computed(() => {
+    private _items: Ref<T[]> = ref([]);
+    public items = readonly(this._items);
+
+    public itemsByContainer: ComputedRef<{ [container: string]: T[] }> = computed(() => {
         const result: { [container: string]: T[] } = {};
-        this.items.value.forEach((modal) => {
+        this._items.value.forEach((modal) => {
             const { container = 'body' } = modal;
             if (!result[container]) {
                 result[container] = [];
@@ -19,18 +21,18 @@ export class OverlayStackStore<T extends { id?: string; container?: string }> {
             return;
         }
 
-        this.items.value.push(options);
+        this._items.value.push(options);
     }
 
     pop() {
-        this.items.value.pop();
+        this._items.value.pop();
     }
 
     remove(id: string) {
-        this.items.value = this.items.value.filter(({ id: modalId }) => modalId !== id);
+        this._items.value = this._items.value.filter(({ id: modalId }) => modalId !== id);
     }
 
     clear() {
-        this.items.value = [];
+        this._items.value = [];
     }
 }
