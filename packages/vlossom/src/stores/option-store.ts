@@ -1,4 +1,4 @@
-import { reactive } from 'vue';
+import { readonly, Ref, ref } from 'vue';
 import { VsComponent } from '@/declaration';
 import { utils } from '@/utils';
 
@@ -12,27 +12,28 @@ interface OptionStoreState {
 }
 
 export class OptionStore {
-    private state: OptionStoreState = reactive({
+    private _options: Ref<OptionStoreState> = ref({
         theme: 'light',
         globalColorScheme: {},
         styleSets: {},
         globalRadiusRatio: 1,
     });
+    public options = readonly(this._options);
 
-    getState() {
-        return this.state;
+    getOptions() {
+        return this._options.value;
     }
 
     setTheme(theme: 'light' | 'dark') {
-        this.state.theme = theme;
+        this._options.value.theme = theme;
     }
 
     setGlobalColorScheme(colorScheme: GlobalColorScheme) {
-        this.state.globalColorScheme = colorScheme;
+        this._options.value.globalColorScheme = colorScheme;
     }
 
     getGlobalColorScheme(component: VsComponent | string) {
-        return this.state.globalColorScheme[component] || this.state.globalColorScheme.default;
+        return this._options.value.globalColorScheme[component] || this._options.value.globalColorScheme.default;
     }
 
     setGlobalRadiusRatio(radiusRatio: number) {
@@ -41,16 +42,16 @@ export class OptionStore {
             return;
         }
 
-        this.state.globalRadiusRatio = radiusRatio;
+        this._options.value.globalRadiusRatio = radiusRatio;
         document.documentElement.style.setProperty('--vs-radius-ratio', radiusRatio.toString());
     }
 
     registerStyleSet(styleSet: StyleSet) {
         Object.entries(styleSet).forEach(([key, value]) => {
-            const styleSets = this.state.styleSets[key as keyof StyleSet];
+            const styleSets = this._options.value.styleSets[key as keyof StyleSet];
 
             if (!styleSets) {
-                this.state.styleSets[key as keyof StyleSet] = value;
+                this._options.value.styleSets[key as keyof StyleSet] = value;
             } else {
                 Object.assign(styleSets, value);
             }
@@ -58,6 +59,6 @@ export class OptionStore {
     }
 
     getStyleSet(component: VsComponent | string, styleSetName: string) {
-        return this.state.styleSets[component as keyof StyleSet]?.[styleSetName];
+        return this._options.value.styleSets[component as keyof StyleSet]?.[styleSetName];
     }
 }
