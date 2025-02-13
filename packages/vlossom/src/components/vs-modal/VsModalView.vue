@@ -17,11 +17,11 @@
                 :callbacks="modal.callbacks"
             >
                 <template #header v-if="modal.header">
-                    <vs-content-renderer :content="modal.header" />
+                    <vs-content-renderer :content="modal.header" :props="modal.props" />
                 </template>
-                <vs-content-renderer v-if="modal.component" :content="modal.component" />
+                <vs-content-renderer v-if="modal.component" :content="modal.component" :props="modal.props" />
                 <template #footer v-if="modal.footer">
-                    <vs-content-renderer :content="modal.footer" />
+                    <vs-content-renderer :content="modal.footer" :props="modal.props" />
                 </template>
             </vs-modal-node>
         </TransitionGroup>
@@ -31,7 +31,7 @@
 <script lang="ts">
 import { computed, ComputedRef, defineComponent, toRefs, watch } from 'vue';
 import { store } from '@/stores';
-import { useContentRenderer, useScrollLock } from '@/composables';
+import { useScrollLock } from '@/composables';
 import VsModalNode from '@/components/vs-modal/VsModalNode.vue';
 import VsContentRenderer from '@/components/vs-content-renderer/VsContentRenderer.vue';
 import { MODAL_DURATION } from '@/declaration';
@@ -46,8 +46,6 @@ export default defineComponent({
         const modals = computed(() => {
             return store.modal.itemsByContainer.value[container.value] || [];
         });
-
-        const { getRenderedContent } = useContentRenderer();
 
         const wrapperId = computed(() => `vs-modal-${container.value.replace('#', '').replace('.', '')}`);
 
@@ -73,7 +71,7 @@ export default defineComponent({
             }
         });
 
-        return { modals, getRenderedContent, wrapperId, isFixed, MODAL_DURATION };
+        return { modals, wrapperId, isFixed, MODAL_DURATION };
     },
 });
 </script>
