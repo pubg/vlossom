@@ -8,7 +8,7 @@ import { useContentRenderer } from '@/composables';
 export const confirmPlugin: ConfirmPlugin = {
     open: (content: string | Component, confirmOptions: ConfirmOptions = {}): Promise<boolean> => {
         return new Promise((resolve) => {
-            const { okText, cancelText, size = 'xs', callbacks = {}, styleSet } = confirmOptions;
+            const { okText, cancelText, size = 'xs', callbacks = {}, styleSet, props } = confirmOptions;
             const { getRenderedContent } = useContentRenderer();
             const modalId = modalPlugin.open({
                 ...confirmOptions,
@@ -17,7 +17,7 @@ export const confirmPlugin: ConfirmPlugin = {
                     { okText, cancelText, styleSet },
                     {
                         default: () => {
-                            return getRenderedContent(content);
+                            return getRenderedContent(content, props);
                         },
                     },
                 ),
