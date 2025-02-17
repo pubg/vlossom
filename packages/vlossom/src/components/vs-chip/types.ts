@@ -8,5 +8,6 @@ export interface VsChipStyleSet {
     fontWeight?: string | number;
     height?: string;
     padding?: string;
+    whiteSpace?: string;
     width?: string;
 }

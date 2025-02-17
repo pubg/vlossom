@@ -48,7 +48,7 @@ $chip-height-dense: 2rem;
         display: inline-flex;
         justify-content: center;
         padding: 0 0.5rem;
-        white-space: nowrap;
+        white-space: var(--vs-chip-whiteSpace, nowrap);
     }
 
     &.vs-dense {
