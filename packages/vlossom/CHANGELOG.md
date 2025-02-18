@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.9](https://github.com/pubg/vlossom/compare/v1.0.8...v1.0.9) (2025-02-18)
+
+
+### Bug Fixes
+
+* **modal-plugin:** add props on modal options ([#330](https://github.com/pubg/vlossom/issues/330)) ([b8acb9a](https://github.com/pubg/vlossom/commit/b8acb9ad49e949899b26b8fa66396841f52e0b8a))
+* **stores:** change store state interface ([#328](https://github.com/pubg/vlossom/issues/328)) ([78d05cb](https://github.com/pubg/vlossom/commit/78d05cb553a97bd85cfeeb4dc2e7f6109b1d140e))
+* **StyleSet:** modify style-set composable and component style sets for supporting nested style set ([#323](https://github.com/pubg/vlossom/issues/323)) ([e7fd7da](https://github.com/pubg/vlossom/commit/e7fd7dae10eb24de64ce878349c41db436825786))
+* **vlossom-framework:** add string type on VsComponent style option ([#326](https://github.com/pubg/vlossom/issues/326)) ([0193717](https://github.com/pubg/vlossom/commit/019371780e73ddcea4cd78a21cd9ba768f409c88))
+* **VsChip:** add whiteSpace on style-set ([#332](https://github.com/pubg/vlossom/issues/332)) ([2d888c9](https://github.com/pubg/vlossom/commit/2d888c9f69a727efb54f3003bcc399cfac154be4))
+* **VsModalNode:** fix modal node size variables ([#329](https://github.com/pubg/vlossom/issues/329)) ([e95cc4f](https://github.com/pubg/vlossom/commit/e95cc4f39733f395b23b3f6088f439949c420282))
+* **VsModalView:** apply z-index value ([#325](https://github.com/pubg/vlossom/issues/325)) ([ea557d2](https://github.com/pubg/vlossom/commit/ea557d2b6be64530fc1dac94878fbc55ae6ec631))
+
 ## [1.0.8](https://github.com/pubg/vlossom/compare/v1.0.7...v1.0.8) (2025-02-05)
 
 
