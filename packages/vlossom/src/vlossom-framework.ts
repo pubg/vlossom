@@ -98,28 +98,25 @@ export class Vlossom {
     public modal: ModalPlugin = modalPlugin;
 }
 
-let _vlossom: Vlossom;
-let _app: App;
+let vlossom: Vlossom;
 
 function registerComponents(app: App, components: VsComponent[] = []) {
     const modules: Record<string, any> = import.meta.glob('./components/**/*.vue', { eager: true });
-    Object.entries(modules).forEach(([path, module]) => {
+    Object.values(modules).forEach((module) => {
         const component = module.default;
         if (components.length && !components.includes(component.name as VsComponent)) {
             return;
         }
-        const componentName = component.name || (path.split('/').pop() || '').replace(/\.\w+$/, '');
-        app.component(componentName, component);
+        app.component(component.name, component);
     });
 }
 
 function createVlossom(options?: VlossomOptions): any {
     return {
         install(app: App) {
-            _app = app;
-            _vlossom = new Vlossom(options);
+            vlossom = new Vlossom(options);
 
-            app.config.globalProperties.$vs = _vlossom;
+            app.config.globalProperties.$vs = vlossom;
 
             registerComponents(app, options?.components);
         },
@@ -127,11 +124,7 @@ function createVlossom(options?: VlossomOptions): any {
 }
 
 function useVlossom() {
-    return _vlossom;
+    return vlossom;
 }
 
-function getApp() {
-    return _app;
-}
-
-export { createVlossom, registerComponents, useVlossom, getApp };
+export { createVlossom, useVlossom };

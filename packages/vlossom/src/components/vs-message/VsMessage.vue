@@ -1,6 +1,6 @@
 <template>
     <div :class="['vs-message', colorClass, { 'vs-dense': dense }]">
-        <vs-icon v-if="icon" class="vs-message-icon" :icon="icon" :size="dense ? '1.4rem' : '1.6rem'" />
+        <vs-icon class="vs-message-icon" :icon="icon" :size="dense ? '1.4rem' : '1.6rem'" />
         <span class="vs-message-text">{{ message.text }}</span>
     </div>
 </template>
@@ -41,10 +41,6 @@ export default defineComponent({
         });
 
         const icon = computed(() => {
-            if (!message.value.state) {
-                return null;
-            }
-
             if (message.value.state === 'idle') {
                 return 'message';
             }
