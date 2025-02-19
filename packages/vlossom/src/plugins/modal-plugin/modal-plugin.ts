@@ -1,5 +1,6 @@
 import { h, render } from 'vue';
 import { ModalPlugin } from './types';
+import { getApp } from '@/vlossom-framework';
 import { utils } from '@/utils';
 import { store } from '@/stores';
 import { VsModalView, VsModalOptions } from '@/components';
@@ -14,6 +15,7 @@ export const modalPlugin: ModalPlugin = {
         }
 
         const modalView = h(VsModalView, { container });
+        modalView.appContext = getApp()._context;
         render(modalView, containerElement);
 
         store.modal.push({ ...options, id });

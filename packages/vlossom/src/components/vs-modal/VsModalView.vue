@@ -37,6 +37,7 @@ import VsContentRenderer from '@/components/vs-content-renderer/VsContentRendere
 import { MODAL_DURATION } from '@/declaration';
 
 export default defineComponent({
+    name: 'VsModalView',
     props: {
         container: { type: String, required: true, default: 'body' },
     },
