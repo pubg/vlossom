@@ -31,7 +31,7 @@ export const LAYOUT_Z_INDEX = 100;
 
 export const APP_LAYOUT_Z_INDEX = 1000;
 
-export const SCROLLBAR_WIDTH = '0.38rem';
+export const SCROLLBAR_WIDTH = '0.6rem';
 
 export const MODAL_DURATION = 300;
 

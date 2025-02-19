@@ -3,6 +3,7 @@ import { store } from '@/stores';
 import { getToastInfo } from '@/models';
 import { utils } from '@/utils';
 import { DEFAULT_TOAST_TIMEOUT } from '@/declaration';
+import { getApp } from '@/vlossom-framework';
 import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
 import type { ToastPlugin } from './types';
@@ -17,6 +18,7 @@ function renderToastView(toastInfo: VsToastInfo) {
     }
 
     const toastView = h(VsToastView, { container });
+    toastView.appContext = getApp()._context;
     render(toastView, containerElement);
 
     store.toast.push(toastInfo);

@@ -16,7 +16,7 @@
 .modal-leave-active .vs-modal-dimmed,
 .modal-enter-active .vs-modal-wrap,
 .modal-leave-active .vs-modal-wrap {
-    transition: all 0.2s;
+    transition: all 0.3s;
 }
 
 .modal-enter-from .vs-modal-dimmed,
@@ -26,6 +26,6 @@
 
 .modal-enter-from .vs-modal-wrap,
 .modal-leave-to .vs-modal-wrap {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.75);
     opacity: 0;
 }
