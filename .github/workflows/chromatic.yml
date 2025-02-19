@@ -1,12 +1,12 @@
 name: Chromatic
 
 on:
-    pull_request_review:
-        types: [submitted]
+    pull_request_review_comment:
+        types: [created, edited]
 
 jobs:
     chromatic-build:
-        if: ${{ github.event.pull_request.base.ref == 'main' && github.event.review.state == 'approved' }}
+        if: ${{ contains(github.event.comment.body, 'chromatic-build') }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
