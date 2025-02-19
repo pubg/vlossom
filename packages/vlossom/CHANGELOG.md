@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/pubg/vlossom/compare/v1.0.9...v1.0.10) (2025-02-19)
+
+
+### Miscellaneous
+
+* **main:** release 1.0.10 ([#335](https://github.com/pubg/vlossom/issues/335)) ([cc008cd](https://github.com/pubg/vlossom/commit/cc008cd50f318f4ecd3a8f1c05b487ce31452124))
+
 ## [1.0.9](https://github.com/pubg/vlossom/compare/v1.0.8...v1.0.9) (2025-02-18)
 
 
