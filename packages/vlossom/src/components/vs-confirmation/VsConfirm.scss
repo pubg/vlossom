@@ -1,0 +1,20 @@
+.vs-confirm {
+    display: flex;
+    height: 100%;
+
+    .vs-confirm-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding-top: 2.4rem;
+    }
+
+    .vs-confirm-buttons {
+        margin-top: 3.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
