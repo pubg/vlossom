@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.11](https://github.com/pubg/vlossom/compare/v1.0.10...v1.0.11) (2025-02-24)
+
+
+### Bug Fixes
+
+* **modal-plugin:** fix modal, toast render bug & add vs-flex-layout component ([#341](https://github.com/pubg/vlossom/issues/341)) ([6f2a34c](https://github.com/pubg/vlossom/commit/6f2a34c01f5f0526eaddd480bdb2662131e9f09b))
+* **VsConfirm:** change confirm buttons style ([#340](https://github.com/pubg/vlossom/issues/340)) ([dfc3c5f](https://github.com/pubg/vlossom/commit/dfc3c5feafa33d24b3278fb21e43756adee8d6e8))
+
 ## [1.0.10](https://github.com/pubg/vlossom/compare/v1.0.9...v1.0.10) (2025-02-19)
 
 
