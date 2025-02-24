@@ -212,7 +212,7 @@ export default defineComponent({
         }
 
         onBeforeMount(() => {
-            appendOverlayDom(document.body, VS_OVERLAY_ID);
+            appendOverlayDom(document.body, VS_OVERLAY_ID, { zIndex: 10000 });
         });
 
         onBeforeUnmount(() => {
