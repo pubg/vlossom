@@ -37,7 +37,7 @@ export const MODAL_DURATION = 300;
 
 export const DEFAULT_TOAST_TIMEOUT = 3000;
 
-export const VS_OVERLAY = 'vs-overlay';
+export const VS_OVERLAY_ID = 'vs-overlay';
 
 export const VS_OVERLAY_CLOSE = 'vs-overlay-close';
 

@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <Teleport to="#vs-overlay" v-if="isOpen || isVisible">
+            <Teleport :to="`#${VS_OVERLAY_ID}`" v-if="isOpen || isVisible">
                 <div
                     ref="optionsRef"
                     :class="[
@@ -206,7 +206,7 @@ import { computed, defineComponent, ref, toRefs, type PropType } from 'vue';
 import { useColorScheme, useStyleSet, useInput, useInputOption, useStateClass } from '@/composables';
 import { getInputProps, getInputOptionProps, getResponsiveProps } from '@/models';
 import { useAutocomplete, useFocusControl, useInfiniteScroll, useSelectOption, useToggleOptions } from './composables';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { VsComponent, VS_OVERLAY_ID, type ColorScheme } from '@/declaration';
 import { VsIcon } from '@/icons';
 import { utils } from '@/utils';
 import VsInputWrapper from '@/components/vs-input-wrapper/VsInputWrapper.vue';
@@ -569,6 +569,7 @@ export default defineComponent({
             onClickTrigger,
             open,
             close,
+            VS_OVERLAY_ID,
         };
     },
 });

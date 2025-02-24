@@ -8,6 +8,7 @@ import VsToastView from '@/components/vs-toast/VsToastView.vue';
 
 import type { ToastPlugin } from './types';
 import type { VsToastInfo, VsToastOptions } from '@/components/vs-toast/types';
+import { useOverlayDom } from '@/composables';
 
 function renderToastView(toastInfo: VsToastInfo) {
     const { container = 'body' } = toastInfo;
@@ -17,16 +18,24 @@ function renderToastView(toastInfo: VsToastInfo) {
         return '';
     }
 
-    const toastView = h(VsToastView, { container });
-    toastView.appContext = getApp()._context;
-    render(toastView, containerElement);
-
     store.toast.push(toastInfo);
     if (toastInfo.autoClose) {
         setTimeout(() => {
             store.toast.remove(toastInfo.id);
         }, toastInfo.timeout || DEFAULT_TOAST_TIMEOUT);
     }
+
+    const { appendOverlayDom } = useOverlayDom();
+    const overlay = appendOverlayDom(containerElement, `vs-toast-overlay-${container.replace('#', '')}`, {
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 3000,
+    });
+
+    const toastView = h(VsToastView, { container });
+    toastView.appContext = getApp()._context;
+    render(toastView, overlay);
 }
 
 export const toastPlugin: ToastPlugin = {

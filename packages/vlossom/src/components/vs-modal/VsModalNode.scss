@@ -34,43 +34,16 @@
         box-shadow: var(--vs-modal-node-boxShadow, var(--vs-area-shadow-outer));
         border-radius: var(--vs-modal-node-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         pointer-events: auto;
+        padding: var(--vs-modal-node-padding, 1.8rem 2.4rem);
+        color: var(--vs-modal-node-fontColor, var(--vs-font-color));
+        font-size: var(--vs-modal-node-fontSize, var(--vs-font-size));
+        font-weight: var(--vs-modal-node-fontWeight, 400);
 
         // size
         @each $size in $sizes {
             &.#{$size} {
                 width: var(--vs-modal-node-width-#{$size});
                 height: var(--vs-modal-node-height-#{$size});
-            }
-        }
-
-        .vs-modal-contents {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            width: fit-content;
-            height: fit-content;
-            max-width: 100%;
-            max-height: 100%;
-            padding: var(--vs-modal-node-padding, 1.8rem 2.4rem);
-            color: var(--vs-modal-node-fontColor, var(--vs-font-color));
-            font-size: var(--vs-modal-node-fontSize, var(--vs-font-size));
-            font-weight: var(--vs-modal-node-fontWeight, 400);
-
-            .vs-modal-header {
-                position: relative;
-                padding-bottom: 1.6rem;
-            }
-
-            .vs-modal-footer {
-                position: relative;
-                padding-top: 1.6rem;
-            }
-
-            .vs-modal-body {
-                position: relative;
-                flex: auto;
-                overflow: auto;
-                max-height: 100%;
             }
         }
     }
