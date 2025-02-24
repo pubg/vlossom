@@ -16,13 +16,7 @@
                 :size="modal.size"
                 :callbacks="modal.callbacks"
             >
-                <template #header v-if="modal.header">
-                    <vs-content-renderer :content="modal.header" :props="modal.props" />
-                </template>
                 <vs-content-renderer v-if="modal.component" :content="modal.component" :props="modal.props" />
-                <template #footer v-if="modal.footer">
-                    <vs-content-renderer :content="modal.footer" :props="modal.props" />
-                </template>
             </vs-modal-node>
         </TransitionGroup>
     </div>

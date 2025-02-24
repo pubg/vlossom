@@ -5,24 +5,10 @@
             <div
                 :class="['vs-modal-wrap', hasSpecifiedSize ? '' : size]"
                 role="dialog"
-                :aria-labelledby="hasHeader ? headerId : undefined"
-                :aria-describedby="bodyId"
-                :aria-label="hasHeader ? undefined : 'Modal'"
+                aria-label="Modal"
                 :aria-modal="true"
             >
-                <div class="vs-modal-contents">
-                    <div v-if="hasHeader" :id="headerId" class="vs-modal-header" aria-label="Modal Header">
-                        <slot name="header" />
-                    </div>
-
-                    <div :id="bodyId" class="vs-modal-body">
-                        <slot />
-                    </div>
-
-                    <div v-if="$slots['footer']" class="vs-modal-footer" aria-label="Modal Footer">
-                        <slot name="footer" />
-                    </div>
-                </div>
+                <slot />
             </div>
         </vs-focus-trap>
     </div>
@@ -49,7 +35,7 @@ export default defineComponent({
             type: [String, Number, Object] as PropType<SizeProp | { width?: SizeProp; height?: SizeProp }>,
         },
     },
-    setup(props, { slots }) {
+    setup(props) {
         const { colorScheme, styleSet, id, dimClose, escClose, size, callbacks, container } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
@@ -109,10 +95,6 @@ export default defineComponent({
 
         const { overlayId, open, close } = useOverlay(id, computedCallbacks, escClose);
 
-        const hasHeader = computed(() => !!slots['header']);
-        const headerId = computed(() => `vs-modal-header-${overlayId.value}`);
-        const bodyId = computed(() => `vs-modal-body-${overlayId.value}`);
-
         function onClickDimmed() {
             if (dimClose.value) {
                 close();
@@ -125,9 +107,6 @@ export default defineComponent({
             colorSchemeClass,
             computedStyleSet,
             onClickDimmed,
-            hasHeader,
-            headerId,
-            bodyId,
             hasSpecifiedSize,
             fixed,
         };

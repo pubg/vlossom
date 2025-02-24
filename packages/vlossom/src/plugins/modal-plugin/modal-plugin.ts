@@ -4,21 +4,30 @@ import { getApp } from '@/vlossom-framework';
 import { utils } from '@/utils';
 import { store } from '@/stores';
 import { VsModalView, VsModalOptions } from '@/components';
+import { useOverlayDom } from '@/composables';
 
 export const modalPlugin: ModalPlugin = {
     open(options: VsModalOptions) {
         const { id = utils.string.createID(), container = 'body' } = options;
         const containerElement = document.querySelector(container);
         if (!containerElement) {
-            utils.log.error('modal', `container not found: ${container}`);
+            utils.log.error('modal', `target container not found (${container})`);
             return '';
         }
 
+        store.modal.push({ ...options, id });
+
+        const { appendOverlayDom } = useOverlayDom();
+        const overlay = appendOverlayDom(containerElement, `vs-modal-overlay-${container.replace('#', '')}`, {
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+        });
+
         const modalView = h(VsModalView, { container });
         modalView.appContext = getApp()._context;
-        render(modalView, containerElement);
+        render(modalView, overlay);
 
-        store.modal.push({ ...options, id });
         return id;
     },
     emit(eventName: string, ...args: any[]) {
