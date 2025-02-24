@@ -15,6 +15,7 @@
     .vs-flex-layout-body {
         position: relative;
         overflow: auto;
+        flex: 1;
 
         .vs-flex-layout-body-inner {
             position: relative;
