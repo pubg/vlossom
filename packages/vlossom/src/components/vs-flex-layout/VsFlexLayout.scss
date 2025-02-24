@@ -1,0 +1,32 @@
+@use '@/styles/mixin' as *;
+
+.vs-flex-layout {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    .vs-flex-layout-header {
+        position: relative;
+        flex-basis: content;
+    }
+
+    .vs-flex-layout-body {
+        position: relative;
+        overflow: auto;
+
+        .vs-flex-layout-body-inner {
+            position: relative;
+            overflow: auto;
+        }
+        &.vs-hide-scroll {
+            @include hide-scroll;
+        }
+    }
+
+    .vs-flex-layout-footer {
+        position: relative;
+        flex-basis: content;
+    }
+}

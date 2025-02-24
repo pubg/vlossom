@@ -34,6 +34,8 @@ export { default as VsDrawer } from './vs-drawer/VsDrawer.vue';
 export type { VsFileInputStyleSet } from './vs-file-input/types';
 export { default as VsFileInput } from './vs-file-input/VsFileInput.vue';
 
+export { default as VsFlexLayout } from './vs-flex-layout/VsFlexLayout.vue';
+
 export { default as VsFocusTrap } from './vs-focus-trap/VsFocusTrap.vue';
 
 export type { VsFooterStyleSet } from './vs-footer/types';

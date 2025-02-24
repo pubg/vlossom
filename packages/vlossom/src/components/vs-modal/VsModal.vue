@@ -1,8 +1,6 @@
 <template>
     <div v-if="false" :style="{ display: 'none' }">
-        <slot name="header" />
         <slot />
-        <slot name="footer" />
     </div>
 </template>
 
@@ -63,8 +61,6 @@ export default defineComponent({
             if (open) {
                 modalPlugin.open({
                     component: slots.default as string | Component,
-                    header: slots.header as string | Component,
-                    footer: slots.footer as string | Component,
                     container: container.value,
                     colorScheme: colorScheme.value,
                     styleSet: styleSet.value,

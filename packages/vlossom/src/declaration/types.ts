@@ -218,8 +218,6 @@ export type OverlayCallbacks<T = void> = { [eventName: string]: (...args: any[])
 export interface ModalOptions<T> {
     component: string | Component;
     props?: Record<string, any>;
-    header?: string | Component;
-    footer?: string | Component;
     container?: string;
     // sync with getOverlayProps function
     colorScheme?: ColorScheme;
