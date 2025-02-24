@@ -14,7 +14,7 @@
             <slot />
         </div>
 
-        <Teleport to="#vs-overlay" v-if="computedShow || isVisible">
+        <Teleport :to="`#${VS_OVERLAY_ID}`" v-if="computedShow || isVisible">
             <div
                 ref="tooltipRef"
                 :class="['vs-tooltip-wrap', colorSchemeClass, `vs-placement-${computedPlacement}`, `vs-align-${align}`]"
@@ -43,7 +43,15 @@ import {
     onBeforeMount,
 } from 'vue';
 import { useColorScheme, useStyleSet } from '@/composables';
-import { VsComponent, type ColorScheme, type Placement, type Align, PLACEMENTS, ALIGNS } from '@/declaration';
+import {
+    VsComponent,
+    VS_OVERLAY_ID,
+    type ColorScheme,
+    type Placement,
+    type Align,
+    PLACEMENTS,
+    ALIGNS,
+} from '@/declaration';
 import { usePositioning, useOverlayDom } from '@/composables';
 import { utils } from '@/utils';
 
@@ -204,7 +212,7 @@ export default defineComponent({
         }
 
         onBeforeMount(() => {
-            appendOverlayDom();
+            appendOverlayDom(document.body, VS_OVERLAY_ID);
         });
 
         onBeforeUnmount(() => {
@@ -229,6 +237,7 @@ export default defineComponent({
             onTriggerClick,
             onTooltipEnter,
             onTooltipLeave,
+            VS_OVERLAY_ID,
         };
     },
 });

@@ -68,7 +68,9 @@ export function useToggleOptions(id: Ref<string>, disabled: Ref<boolean>, readon
         }
     });
 
-    onBeforeMount(appendOverlayDom);
+    onBeforeMount(() => {
+        appendOverlayDom(document.body, 'vs-overlay');
+    });
 
     onBeforeUnmount(() => {
         document.removeEventListener('click', onOutsideClick, true);
