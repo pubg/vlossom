@@ -118,8 +118,8 @@ export interface Breakpoints {
 
 export type UIState = 'idle' | 'success' | 'info' | 'error' | 'warning' | 'selected';
 
-export interface StateMessage {
-    state: UIState;
+export interface StateMessage<T extends string = UIState> {
+    state: T;
     text: string;
 }
 
