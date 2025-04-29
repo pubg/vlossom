@@ -20,6 +20,10 @@ export function useValueMatcher(
         return utils.object.isEqual(inputValue.value, trueValue.value);
     });
 
+    function isValueAlreadyExist(arrayValue: any[]) {
+        return arrayValue.some((v: any) => utils.object.isEqual(v, trueValue.value));
+    }
+
     function getInitialValue() {
         if (multiple.value) {
             if (isNotArrayValue.value) {
@@ -31,12 +35,23 @@ export function useValueMatcher(
         return utils.object.isEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
     }
 
+    function addTrueValue() {
+        if (!multiple.value) {
+            return;
+        }
+
+        const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
+        if (isValueAlreadyExist(arrayValue)) {
+            return;
+        }
+        arrayValue.push(trueValue.value);
+    }
+
     function getUpdatedValue(isTruthy: boolean) {
         if (multiple.value) {
             const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
             if (isTruthy) {
-                const isAlreadyExist = arrayValue.some((v: any) => utils.object.isEqual(v, trueValue.value));
-                if (isAlreadyExist) {
+                if (isValueAlreadyExist(arrayValue)) {
                     return arrayValue;
                 }
                 return [...arrayValue, trueValue.value];
@@ -60,5 +75,6 @@ export function useValueMatcher(
         getInitialValue,
         getUpdatedValue,
         getClearedValue,
+        addTrueValue,
     };
 }
