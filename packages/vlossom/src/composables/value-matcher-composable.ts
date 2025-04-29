@@ -9,39 +9,63 @@ export function useValueMatcher(
 ) {
     const isNotArrayValue = computed(() => !Array.isArray(inputValue.value));
 
+    function getArrayValue() {
+        return isNotArrayValue.value ? [] : inputValue.value;
+    }
+
+    function isValueEqual(a: any, b: any) {
+        return utils.object.isEqual(a, b);
+    }
+
+    function isValueExistAtArray(arrayValue: any[]) {
+        return arrayValue.some((v: any) => isValueEqual(v, trueValue.value));
+    }
+
     const isMatched: ComputedRef<boolean> = computed(() => {
         if (multiple.value) {
             if (isNotArrayValue.value) {
                 return false;
             }
-            return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
+            return isValueExistAtArray(inputValue.value);
         }
 
-        return utils.object.isEqual(inputValue.value, trueValue.value);
+        return isValueEqual(inputValue.value, trueValue.value);
     });
 
     function getInitialValue() {
         if (multiple.value) {
-            if (isNotArrayValue.value) {
-                return [];
-            }
-            return inputValue.value;
+            return getArrayValue();
         }
 
-        return utils.object.isEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
+        return isValueEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
+    }
+
+    function addTrueValue() {
+        if (!multiple.value) {
+            return;
+        }
+
+        if (isNotArrayValue.value) {
+            utils.log.warning('vaalue-matcher', 'modelValue is not array');
+            return;
+        }
+
+        if (isValueExistAtArray(inputValue.value)) {
+            return;
+        }
+        inputValue.value.push(trueValue.value);
     }
 
     function getUpdatedValue(isTruthy: boolean) {
         if (multiple.value) {
-            const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
+            const arrayValue = getArrayValue();
             if (isTruthy) {
-                const isAlreadyExist = arrayValue.some((v: any) => utils.object.isEqual(v, trueValue.value));
-                if (isAlreadyExist) {
+                if (isValueExistAtArray(arrayValue)) {
                     return arrayValue;
                 }
                 return [...arrayValue, trueValue.value];
             }
-            return arrayValue.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
+            return arrayValue.filter((v: any) => !isValueEqual(v, trueValue.value));
         }
 
         return isTruthy ? trueValue.value : falseValue.value;
@@ -60,5 +84,6 @@ export function useValueMatcher(
         getInitialValue,
         getUpdatedValue,
         getClearedValue,
+        addTrueValue,
     };
 }

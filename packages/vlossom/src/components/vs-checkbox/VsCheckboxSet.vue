@@ -171,12 +171,12 @@ export default defineComponent({
             state,
             callbacks: {
                 onMounted: () => {
-                    if (!inputValue.value) {
+                    if (Array.isArray(inputValue.value) === false) {
                         inputValue.value = [];
                     }
                 },
                 onChange: () => {
-                    if (!inputValue.value) {
+                    if (Array.isArray(inputValue.value) === false) {
                         inputValue.value = [];
                     }
                 },

@@ -288,4 +288,53 @@ describe('value-matcher-composable', () => {
             expect(result).toEqual([]);
         });
     });
+
+    describe('addTrueValue', () => {
+        it('multiple이 아닐 때는 아무 동작도 하지 않는다', () => {
+            // given
+            const multiple = ref(false);
+            const inputValue = ref('some value');
+            const trueValue = ref('true value');
+            const falseValue = ref('false value');
+
+            // when
+            const { addTrueValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+            addTrueValue();
+
+            // then
+            expect(inputValue.value).toBe('some value');
+        });
+
+        describe('multiple (true)', () => {
+            it('inputValue가 array이고 trueValue가 없는 경우 trueValue를 추가한다', () => {
+                // given
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { addTrueValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                addTrueValue();
+
+                // then
+                expect(inputValue.value).toEqual(['some value', 'another value', 'true value']);
+            });
+
+            it('inputValue가 array이고 이미 trueValue가 있는 경우 아무 동작도 하지 않는다', () => {
+                // given
+                const multiple = ref(true);
+                const inputValue = ref(['some value', 'true value', 'another value']);
+                const trueValue = ref('true value');
+                const falseValue = ref('false value');
+
+                // when
+                const { addTrueValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
+                addTrueValue();
+
+                // then
+                expect(inputValue.value).toEqual(['some value', 'true value', 'another value']);
+            });
+        });
+    });
 });

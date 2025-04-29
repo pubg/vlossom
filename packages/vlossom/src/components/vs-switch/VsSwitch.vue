@@ -121,6 +121,7 @@ export default defineComponent({
             getInitialValue,
             getClearedValue,
             getUpdatedValue,
+            addTrueValue,
         } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
 
         function requiredCheck() {
@@ -150,7 +151,12 @@ export default defineComponent({
             callbacks: {
                 onMounted: () => {
                     if (checked.value) {
-                        inputValue.value = getUpdatedValue(true);
+                        if (multiple.value) {
+                            // 초기 input value를 공유할 수 없기 때문에 getUpdatedValue를 사용하지 않음
+                            addTrueValue();
+                        } else {
+                            inputValue.value = getUpdatedValue(true);
+                        }
                     } else {
                         inputValue.value = getInitialValue();
                     }

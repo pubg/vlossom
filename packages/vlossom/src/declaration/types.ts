@@ -138,9 +138,12 @@ export interface InputComponentParams<T = unknown> {
     noDefaultRules?: Ref<boolean>;
     state?: Ref<UIState>;
     callbacks?: {
-        onChange?: (newValue: T, oldValue: T) => void;
+        onBeforeMount?: () => void;
         onMounted?: () => void;
+        onChange?: (newValue: T, oldValue: T) => void;
         onClear?: () => void;
+        onBeforeUnmount?: () => void;
+        onUnmounted?: () => void;
     };
 }
 
