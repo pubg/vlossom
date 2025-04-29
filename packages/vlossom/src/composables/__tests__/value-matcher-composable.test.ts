@@ -306,21 +306,6 @@ describe('value-matcher-composable', () => {
         });
 
         describe('multiple (true)', () => {
-            it('inputValue가 array가 아닌 경우 빈 배열에 trueValue를 추가한다', () => {
-                // given
-                const multiple = ref(true);
-                const inputValue = ref('not array value');
-                const trueValue = ref('true value');
-                const falseValue = ref('false value');
-
-                // when
-                const { addTrueValue } = useValueMatcher(multiple, inputValue, trueValue, falseValue);
-                addTrueValue();
-
-                // then
-                expect(inputValue.value).toEqual(['true value']);
-            });
-
             it('inputValue가 array이고 trueValue가 없는 경우 trueValue를 추가한다', () => {
                 // given
                 const multiple = ref(true);

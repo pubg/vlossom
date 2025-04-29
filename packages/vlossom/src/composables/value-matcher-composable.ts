@@ -45,11 +45,15 @@ export function useValueMatcher(
             return;
         }
 
-        const arrayValue = getArrayValue();
-        if (isValueExistAtArray(arrayValue)) {
+        if (isNotArrayValue.value) {
+            utils.log.warning('vaalue-matcher', 'modelValue is not array');
             return;
         }
-        arrayValue.push(trueValue.value);
+
+        if (isValueExistAtArray(inputValue.value)) {
+            return;
+        }
+        inputValue.value.push(trueValue.value);
     }
 
     function getUpdatedValue(isTruthy: boolean) {

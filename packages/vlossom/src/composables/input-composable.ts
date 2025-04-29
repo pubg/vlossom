@@ -1,4 +1,15 @@
-import { ComputedRef, Ref, computed, nextTick, onMounted, ref, watch } from 'vue';
+import {
+    ComputedRef,
+    Ref,
+    computed,
+    nextTick,
+    onBeforeMount,
+    onMounted,
+    onBeforeUnmount,
+    onUnmounted,
+    ref,
+    watch,
+} from 'vue';
 import { useLazyId } from '@/composables';
 import { useInputForm } from './input-form-composable';
 
@@ -139,6 +150,12 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         emit('update:valid', valid.value);
     });
 
+    onBeforeMount(() => {
+        if (callbacks.onBeforeMount) {
+            callbacks.onBeforeMount();
+        }
+    });
+
     onMounted(() => {
         if (callbacks.onMounted) {
             callbacks.onMounted();
@@ -150,6 +167,18 @@ export function useInput<T = unknown>(ctx: any, inputParams: InputComponentParam
         nextTick(() => {
             isInitialized.value = true;
         });
+    });
+
+    onBeforeUnmount(() => {
+        if (callbacks.onBeforeUnmount) {
+            callbacks.onBeforeUnmount();
+        }
+    });
+
+    onUnmounted(() => {
+        if (callbacks.onUnmounted) {
+            callbacks.onUnmounted();
+        }
     });
 
     const shake = ref(false);
