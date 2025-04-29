@@ -9,30 +9,35 @@ export function useValueMatcher(
 ) {
     const isNotArrayValue = computed(() => !Array.isArray(inputValue.value));
 
+    function getArrayValue() {
+        return isNotArrayValue.value ? [] : inputValue.value;
+    }
+
+    function isValueEqual(a: any, b: any) {
+        return utils.object.isEqual(a, b);
+    }
+
+    function isValueExistAtArray(arrayValue: any[]) {
+        return arrayValue.some((v: any) => isValueEqual(v, trueValue.value));
+    }
+
     const isMatched: ComputedRef<boolean> = computed(() => {
         if (multiple.value) {
             if (isNotArrayValue.value) {
                 return false;
             }
-            return inputValue.value.some((v: any) => utils.object.isEqual(v, trueValue.value));
+            return isValueExistAtArray(inputValue.value);
         }
 
-        return utils.object.isEqual(inputValue.value, trueValue.value);
+        return isValueEqual(inputValue.value, trueValue.value);
     });
-
-    function isValueAlreadyExist(arrayValue: any[]) {
-        return arrayValue.some((v: any) => utils.object.isEqual(v, trueValue.value));
-    }
 
     function getInitialValue() {
         if (multiple.value) {
-            if (isNotArrayValue.value) {
-                return [];
-            }
-            return inputValue.value;
+            return getArrayValue();
         }
 
-        return utils.object.isEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
+        return isValueEqual(inputValue.value, trueValue.value) ? trueValue.value : falseValue.value;
     }
 
     function addTrueValue() {
@@ -40,8 +45,8 @@ export function useValueMatcher(
             return;
         }
 
-        const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
-        if (isValueAlreadyExist(arrayValue)) {
+        const arrayValue = getArrayValue();
+        if (isValueExistAtArray(arrayValue)) {
             return;
         }
         arrayValue.push(trueValue.value);
@@ -49,14 +54,14 @@ export function useValueMatcher(
 
     function getUpdatedValue(isTruthy: boolean) {
         if (multiple.value) {
-            const arrayValue = isNotArrayValue.value ? [] : inputValue.value;
+            const arrayValue = getArrayValue();
             if (isTruthy) {
-                if (isValueAlreadyExist(arrayValue)) {
+                if (isValueExistAtArray(arrayValue)) {
                     return arrayValue;
                 }
                 return [...arrayValue, trueValue.value];
             }
-            return arrayValue.filter((v: any) => !utils.object.isEqual(v, trueValue.value));
+            return arrayValue.filter((v: any) => !isValueEqual(v, trueValue.value));
         }
 
         return isTruthy ? trueValue.value : falseValue.value;
