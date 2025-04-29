@@ -56,6 +56,13 @@ export interface VsBoxStyleSet {
     padding?: string;
 }
 
+export interface VsTextStyleSet {
+    fontColor?: string;
+    fontSize?: string;
+    fontWeight?: string | number;
+    whiteSpace?: string;
+}
+
 export interface VsComponentStyleSet {
     VsAccordion?: { [key: string]: VsAccordionStyleSet };
     VsAvatar?: { [key: string]: VsAvatarStyleSet };

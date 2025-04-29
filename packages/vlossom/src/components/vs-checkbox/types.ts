@@ -1,16 +1,20 @@
+import { VsTextStyleSet } from '@/declaration';
+
 export interface VsCheckboxNodeStyleSet {
+    borderWidth?: string;
     borderRadius?: string;
     checkboxColor?: string;
     checkboxSize?: string;
     height?: string;
-    labelFontColor?: string;
-    labelFontSize?: string;
-    selectedLabelFontColor?: string;
+    label?: VsTextStyleSet;
+    checkedLabel?: VsTextStyleSet;
 }
 
-export interface VsCheckboxStyleSet extends VsCheckboxNodeStyleSet {}
+export interface VsCheckboxStyleSet extends VsCheckboxNodeStyleSet {
+    indeterminateLabel?: VsTextStyleSet;
+}
 
 export interface VsCheckboxSetStyleSet extends VsCheckboxNodeStyleSet {
-    checkboxGap?: string;
+    gap?: string;
     flexWrap?: string;
 }

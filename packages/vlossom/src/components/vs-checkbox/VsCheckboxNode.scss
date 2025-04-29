@@ -25,7 +25,8 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
             margin: 0;
             width: $checkbox-size;
             height: $checkbox-size;
-            border: 0.1rem solid var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
+            border: var(--vs-checkbox-node-borderWidth, 0.1rem) solid
+                var(--vs-checkbox-node-checkboxColor, var(--vs-primary-comp-bg));
             border-radius: var(--vs-checkbox-node-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius-sm)));
             cursor: pointer;
             background-color: transparent;
@@ -53,9 +54,10 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
             user-select: none;
             padding-left: 0.5rem;
             cursor: pointer;
-            white-space: nowrap;
-            color: var(--vs-checkbox-node-labelFontColor, var(--vs-font-color));
-            font-size: var(--vs-checkbox-node-labelFontSize, var(--vs-font-size));
+            color: var(--vs-checkbox-node-label-fontColor, var(--vs-font-color));
+            font-size: var(--vs-checkbox-node-label-fontSize, var(--vs-font-size));
+            font-weight: var(--vs-checkbox-node-label-fontWeight, 400);
+            white-space: var(--vs-checkbox-node-label-whiteSpace, nowrap);
         }
     }
 
@@ -71,6 +73,22 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
                 }
             }
         }
+
+        .vs-checkbox-label {
+            color: var(--vs-checkbox-node-indeterminateLabel-fontColor, var(--vs-primary-comp-font));
+            font-size: var(
+                --vs-checkbox-node-indeterminateLabel-fontSize,
+                var(--vs-checkbox-node-label-fontSize, var(--vs-font-size))
+            );
+            font-weight: var(
+                --vs-checkbox-node-indeterminateLabel-fontWeight,
+                var(--vs-checkbox-node-label-fontWeight, 400)
+            );
+            white-space: var(
+                --vs-checkbox-node-indeterminateLabel-whiteSpace,
+                var(--vs-checkbox-node-label-whiteSpace, nowrap)
+            );
+        }
     }
 
     &.vs-checked {
@@ -84,9 +102,13 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
                     transform: scale(1) rotate(10deg) translateX(-3%);
                 }
             }
-            .vs-checkbox-label {
-                color: var(--vs-checkbox-node-selectedLabelFontColor, var(--vs-primary-comp-bg));
-            }
+        }
+
+        .vs-checkbox-label {
+            color: var(--vs-checkbox-node-checkedLabel-fontColor, var(--vs-primary-comp-bg));
+            font-size: var(--vs-checkbox-node-checkedLabel-fontSize, var(--vs-font-size));
+            font-weight: var(--vs-checkbox-node-checkedLabel-fontWeight, 400);
+            white-space: var(--vs-checkbox-node-checkedLabel-whiteSpace, nowrap);
         }
     }
 
@@ -98,7 +120,7 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
             height: var(--vs-checkbox-node-checkboxSize, 1.8rem);
         }
         .vs-checkbox-label {
-            font-size: var(--vs-checkbox-node-labelFontSize, var(--vs-font-size-sm));
+            font-size: var(--vs-checkbox-node-label-fontSize, var(--vs-font-size-sm));
         }
     }
 
