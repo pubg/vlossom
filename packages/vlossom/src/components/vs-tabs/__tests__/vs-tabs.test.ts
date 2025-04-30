@@ -259,7 +259,7 @@ describe('vs-tabs', () => {
                 expect(wrapper.vm.selectedIndex).toEqual(2);
             });
 
-            it('tabs의 길이가 바뀌었을 때 index가 선택 가능하지 않으면 다음 선택 가능한 index가 선택된다', async () => {
+            it('tabs의 길이가 바뀌었을 때 index가 선택 가능하지 않으면 아무것도 선택되지 않는다', async () => {
                 // given
                 const wrapper = mount(VsTabs, {
                     props: {
@@ -270,10 +270,10 @@ describe('vs-tabs', () => {
                 });
 
                 // when
-                await wrapper.setProps({ tabs: ['tab6', 'tab7', 'tab8', 'tab9'] });
+                await wrapper.setProps({ tabs: ['tab6', 'tab7', 'tab8'] });
 
                 // then
-                expect(wrapper.vm.selectedIndex).toEqual(0);
+                expect(wrapper.vm.selectedIndex).toEqual(-1);
             });
 
             it('첫번째 탭이 disabled 상태이면 선택 가능한 첫번째 탭으로 index를 보정한다', async () => {

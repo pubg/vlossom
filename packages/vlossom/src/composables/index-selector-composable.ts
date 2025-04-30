@@ -1,10 +1,11 @@
 import { computed, ref, Ref } from 'vue';
+import { INVALID_INDEX } from '@/declaration/constants';
 
 export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = ref([])) {
     const selectedIndex = ref(0);
 
     const isLeftEdge = computed(() => {
-        if (selectedIndex.value === -1) {
+        if (selectedIndex.value === INVALID_INDEX) {
             return true;
         }
         const targetDisabled = disabled.value.filter((i) => i >= 0 && i < selectedIndex.value);
@@ -12,7 +13,7 @@ export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = 
     });
 
     const isRightEdge = computed(() => {
-        if (selectedIndex.value === -1) {
+        if (selectedIndex.value === INVALID_INDEX) {
             return true;
         }
         const targetDisabled = disabled.value.filter((i) => i > selectedIndex.value);
@@ -32,29 +33,41 @@ export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = 
     }
 
     function findNextActivedIndex(targetIndex: number): number {
-        const tabsLength = list.value.length;
-        for (let i = targetIndex; i < tabsLength + targetIndex; i++) {
-            const index = i % tabsLength;
-            if (!isDisabled(index)) {
-                return index;
+        if (targetIndex < 0 || targetIndex >= list.value.length) {
+            return INVALID_INDEX;
+        }
+
+        if (!isDisabled(targetIndex)) {
+            return targetIndex;
+        }
+
+        for (let i = targetIndex + 1; i < list.value.length; i++) {
+            if (!isDisabled(i)) {
+                return i;
             }
         }
-        return targetIndex;
+        return INVALID_INDEX;
     }
 
     function findPreviousActivedIndex(targetIndex: number): number {
-        const tabsLength = list.value.length;
-        for (let i = targetIndex; i > targetIndex - tabsLength; i--) {
-            const index = (i + tabsLength) % tabsLength;
-            if (!isDisabled(index)) {
-                return index;
+        if (targetIndex < 0 || targetIndex >= list.value.length) {
+            return INVALID_INDEX;
+        }
+
+        if (!isDisabled(targetIndex)) {
+            return targetIndex;
+        }
+
+        for (let i = targetIndex - 1; i >= 0; i--) {
+            if (!isDisabled(i)) {
+                return i;
             }
         }
-        return targetIndex;
+        return INVALID_INDEX;
     }
 
     function getInitialIndex(index: number): number {
-        return index === -1 ? -1 : findNextActivedIndex(index);
+        return index === INVALID_INDEX ? INVALID_INDEX : findNextActivedIndex(index);
     }
 
     function selectIndex(index: number) {
@@ -62,7 +75,7 @@ export function useIndexSelector(list: Ref<string[]>, disabled: Ref<number[]> = 
         const isOutOfRange = index < 0 || index > tabsLength - 1;
         const isAllDisabled = disabled.value.length === tabsLength;
         if (isOutOfRange || isAllDisabled || isDisabled(index)) {
-            selectedIndex.value = -1;
+            selectedIndex.value = INVALID_INDEX;
             return;
         }
 
