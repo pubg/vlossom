@@ -15,8 +15,6 @@ export const modalPlugin: ModalPlugin = {
             return '';
         }
 
-        store.modal.push({ ...options, id });
-
         const { appendOverlayDom } = useOverlayDom();
         const overlay = appendOverlayDom(containerElement, `vs-modal-overlay-${container.replace('#', '')}`, {
             width: '100%',
@@ -27,6 +25,8 @@ export const modalPlugin: ModalPlugin = {
         const modalView = h(VsModalView, { container });
         modalView.appContext = getApp()._context;
         render(modalView, overlay);
+
+        store.modal.push({ ...options, id });
 
         return id;
     },
