@@ -54,3 +54,5 @@ export const DRAWER_SIZE = {
     lg: '60%',
     xl: '80%',
 };
+
+export const INVALID_INDEX = -1;

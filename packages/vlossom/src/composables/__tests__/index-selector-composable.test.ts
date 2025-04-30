@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { ref } from 'vue';
 import { useIndexSelector } from './../index-selector-composable';
 
@@ -71,6 +71,31 @@ describe('index-selector-composable', () => {
             // then
             expect(findNextActivedIndex(1)).toBe(3);
         });
+
+        it('targetIndex 이후에 선택 가능한 index가 없으면 -1을 반환한다', () => {
+            // given
+            const disabled = ref([3, 4]);
+            const { findNextActivedIndex } = useIndexSelector(list, disabled);
+
+            // then
+            expect(findNextActivedIndex(3)).toBe(-1);
+        });
+
+        it('targetIndex가 list의 마지막 index보다 크면 -1을 반환한다', () => {
+            // given
+            const { findNextActivedIndex } = useIndexSelector(list);
+
+            // then
+            expect(findNextActivedIndex(5)).toBe(-1);
+        });
+
+        it('targetIndex가 -1보다 작으면 -1을 반환한다', () => {
+            // given
+            const { findNextActivedIndex } = useIndexSelector(list);
+
+            // then
+            expect(findNextActivedIndex(-2)).toBe(-1);
+        });
     });
 
     describe('findPreviousActivedIndex', () => {
@@ -91,6 +116,32 @@ describe('index-selector-composable', () => {
 
             // then
             expect(findPreviousActivedIndex(2)).toBe(0);
+        });
+
+        it('targetIndex 이전에 선택 가능한 index가 없으면 -1을 반환한다', () => {
+            // given
+            const disabled = ref([0, 1]);
+            const { findPreviousActivedIndex } = useIndexSelector(list, disabled);
+
+            // then
+            expect(findPreviousActivedIndex(1)).toBe(-1);
+        });
+
+        it('targetIndex가 list의 마지막 index보다 크면 -1을 반환한다', () => {
+            // given
+            const disabled = ref([0, 1, 2, 3, 4]); // 모든 index가 disabled인 경우
+            const { findPreviousActivedIndex } = useIndexSelector(list, disabled);
+
+            // then
+            expect(findPreviousActivedIndex(5)).toBe(-1);
+        });
+
+        it('targetIndex가 -1보다 작으면 -1을 반환한다', () => {
+            // given
+            const { findPreviousActivedIndex } = useIndexSelector(list);
+
+            // then
+            expect(findPreviousActivedIndex(-2)).toBe(-1);
         });
     });
 
@@ -228,6 +279,114 @@ describe('index-selector-composable', () => {
 
             // then
             expect(isRightEdge.value).toBe(true);
+        });
+    });
+
+    describe('handleKeydown', () => {
+        it('ArrowLeft 키를 누르면 이전 활성화된 index로 이동한다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(2);
+
+            // when
+            const event = { code: 'ArrowLeft', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('ArrowRight 키를 누르면 다음 활성화된 index로 이동한다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(2);
+
+            // when
+            const event = { code: 'ArrowRight', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('Home 키를 누르면 첫 번째 활성화된 index로 이동한다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(2);
+
+            // when
+            const event = { code: 'Home', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('End 키를 누르면 마지막 활성화된 index로 이동한다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(2);
+
+            // when
+            const event = { code: 'End', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('왼쪽 끝에서 ArrowLeft 키를 누르면 아무 동작도 하지 않는다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(0);
+
+            // when
+            const event = { code: 'ArrowLeft', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('오른쪽 끝에서 ArrowRight 키를 누르면 아무 동작도 하지 않는다', () => {
+            // given
+            const { handleKeydown, selectIndex } = useIndexSelector(list);
+            selectIndex(4);
+
+            // when
+            const event = { code: 'ArrowRight', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).not.toHaveBeenCalled();
+        });
+
+        it('disabled된 index가 있을 때 Home 키를 누르면 첫 번째 활성화된 index로 이동한다', () => {
+            // given
+            const disabled = ref([0, 1]);
+            const { handleKeydown, selectIndex } = useIndexSelector(list, disabled);
+            selectIndex(3);
+
+            // when
+            const event = { code: 'Home', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
+        });
+
+        it('disabled된 index가 있을 때 End 키를 누르면 마지막 활성화된 index로 이동한다', () => {
+            // given
+            const disabled = ref([3, 4]);
+            const { handleKeydown, selectIndex } = useIndexSelector(list, disabled);
+            selectIndex(1);
+
+            // when
+            const event = { code: 'End', preventDefault: vi.fn() } as unknown as KeyboardEvent;
+            handleKeydown(event);
+
+            // then
+            expect(event.preventDefault).toHaveBeenCalled();
         });
     });
 });
