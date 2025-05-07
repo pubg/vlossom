@@ -157,11 +157,13 @@ export const Grid: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            labelFontColor: '#1e18e5',
-            labelFontSize: '1.2rem',
+            label: {
+                fontColor: '#1e18e5',
+                fontSize: '1.2rem',
+            },
             radioColor: '#18a865',
             radioSize: '2.4rem',
-            radioGap: '8rem',
+            gap: '8rem',
             flexWrap: 'nowrap',
         },
     },

@@ -72,14 +72,14 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
             }
 
             .vs-step-label {
-                color: var(--vs-stepper-labelFontColor, var(--vs-font-color));
-                font-size: $fontSize;
-                font-weight: 400;
+                color: var(--vs-stepper-label-fontColor, var(--vs-font-color));
+                font-size: var(--vs-stepper-label-fontSize, $fontSize);
+                font-weight: var(--vs-stepper-label-fontWeight, 400);
+                white-space: var(--vs-stepper-label-whiteSpace, nowrap);
                 left: 50%;
                 position: absolute;
                 top: 140%;
                 transform: translateX(-50%);
-                white-space: nowrap;
             }
 
             &:focus {
@@ -94,7 +94,13 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
 
                 .vs-step-label {
-                    color: var(--vs-stepper-labelFontColor, var(--vs-comp-font));
+                    color: var(
+                        --vs-stepper-pastLabel-fontColor,
+                        var(--vs-stepper-label-fontColor, var(--vs-comp-font))
+                    );
+                    font-size: var(--vs-stepper-pastLabel-fontSize, var(--vs-stepper-label-fontSize, $fontSize));
+                    font-weight: var(--vs-stepper-pastLabel-fontWeight, var(--vs-stepper-label-fontWeight, 400));
+                    white-space: var(--vs-stepper-pastLabel-whiteSpace, var(--vs-stepper-label-whiteSpace, nowrap));
                 }
             }
 
@@ -111,8 +117,13 @@ $stepButtonW: var(--vs-stepper-stepSize, 2.4rem);
                 }
 
                 .vs-step-label {
-                    font-weight: 600;
-                    color: var(--vs-stepper-labelFontColor, var(--vs-primary-comp-bg));
+                    color: var(
+                        --vs-stepper-selectedLabel-fontColor,
+                        var(--vs-stepper-label-fontColor, var(--vs-primary-comp-bg))
+                    );
+                    font-size: var(--vs-stepper-selectedLabel-fontSize, var(--vs-stepper-label-fontSize, $fontSize));
+                    font-weight: var(--vs-stepper-selectedLabel-fontWeight, var(--vs-stepper-label-fontWeight, 600));
+                    white-space: var(--vs-stepper-selectedLabel-whiteSpace, var(--vs-stepper-label-whiteSpace, nowrap));
                 }
             }
 

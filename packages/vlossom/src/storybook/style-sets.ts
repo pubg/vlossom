@@ -73,17 +73,21 @@ const vsCheckbox: VsCheckboxStyleSet = {
     borderRadius: '0.6rem',
     checkboxColor: '#ffb300',
     checkboxSize: '3rem',
-    labelFontColor: '#0288d1',
-    labelFontSize: '1.2rem',
+    label: {
+        fontColor: '#0288d1',
+        fontSize: '1.2rem',
+    },
 };
 
 const vsCheckboxSet: VsCheckboxSetStyleSet = {
     borderRadius: '0.6rem',
     checkboxColor: '#ffb300',
     checkboxSize: '3rem',
-    labelFontColor: '#0288d1',
-    labelFontSize: '1.2rem',
-    checkboxGap: '6rem',
+    label: {
+        fontColor: '#0288d1',
+        fontSize: '1.2rem',
+    },
+    gap: '6rem',
 };
 
 const vsChip: VsChipStyleSet = {
@@ -219,18 +223,22 @@ const vsProgress: VsProgressStyleSet = {
 };
 
 const vsRadio: VsRadioStyleSet = {
-    labelFontColor: '#4e9865',
-    labelFontSize: '1.2rem',
+    label: {
+        fontColor: '#4e9865',
+        fontSize: '1.2rem',
+    },
     radioColor: '#1e88e5',
     radioSize: '1.6rem',
 };
 
 const vsRadioSet: VsRadioSetStyleSet = {
-    labelFontColor: '#1e88e5',
-    labelFontSize: '1.2rem',
+    label: {
+        fontColor: '#1e88e5',
+        fontSize: '1.2rem',
+    },
     radioColor: '#18e835',
     radioSize: '1.8rem',
-    radioGap: '4rem',
+    gap: '4rem',
 };
 
 const vsSection: VsSectionStyleSet = {
@@ -256,7 +264,10 @@ const vsSelect: VsSelectStyleSet = {
 const vsStepper: VsStepperStyleSet = {
     activeColor: '#1e88e5',
     fontSize: '1.2rem',
-    labelFontColor: '#90caf9',
+    label: {
+        fontColor: '#90caf9',
+        fontSize: '1.2rem',
+    },
     stepSize: '2rem',
 };
 

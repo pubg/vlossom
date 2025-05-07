@@ -223,8 +223,10 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             borderRadius: '1.3rem',
-            labelFontColor: '#a0b0b9',
-            labelFontSize: '0.8rem',
+            label: {
+                fontColor: '#a0b0b9',
+                fontSize: '0.8rem',
+            },
             checkboxColor: '#81c798',
             checkboxSize: '4rem',
         },
