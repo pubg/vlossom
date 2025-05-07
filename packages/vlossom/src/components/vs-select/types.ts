@@ -1,3 +1,10 @@
+import { InputRef } from '@/declaration';
+
+export interface VsSelectRef extends InputRef {
+    open: () => void;
+    close: () => void;
+}
+
 export interface VsSelectOptionStyleSet {
     backgroundColor: string;
     fontColor: string;

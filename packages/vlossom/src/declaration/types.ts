@@ -154,6 +154,16 @@ export interface InputComponentParams<T = unknown> {
     };
 }
 
+export interface FormRef {
+    validate: () => void;
+    clear: () => void;
+}
+
+export interface InputRef extends FormRef {
+    focus: () => void;
+    blur: () => void;
+}
+
 export interface StringModifiers {
     capitalize?: boolean;
     lower?: boolean;
