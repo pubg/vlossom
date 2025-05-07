@@ -75,7 +75,7 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
         }
 
         .vs-checkbox-label {
-            color: var(--vs-checkbox-node-indeterminateLabel-fontColor, var(--vs-primary-comp-font));
+            color: var(--vs-checkbox-node-indeterminateLabel-fontColor, var(--vs-primary-comp-bg));
             font-size: var(
                 --vs-checkbox-node-indeterminateLabel-fontSize,
                 var(--vs-checkbox-node-label-fontSize, var(--vs-font-size))
