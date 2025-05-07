@@ -218,10 +218,13 @@ export const CustomSlots: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            activeBackgroundColor: '#FFF512',
+            activeBackgroundColor: '#90A592',
             activeColor: '#090907',
             fontSize: '16px',
-            labelFontColor: '#000',
+            label: {
+                fontColor: '#000',
+                fontSize: '1.6rem',
+            },
             stepSize: '40px',
         },
     },

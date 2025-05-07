@@ -155,11 +155,13 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             borderRadius: '0.1rem',
-            labelFontColor: '#a0b0b9',
-            labelFontSize: '1.2rem',
+            label: {
+                fontColor: '#a0b0b9',
+                fontSize: '1.2rem',
+            },
             checkboxColor: '#81c798',
             checkboxSize: '2rem',
-            checkboxGap: '3rem',
+            gap: '3rem',
             flexWrap: 'nowrap',
         },
     },
