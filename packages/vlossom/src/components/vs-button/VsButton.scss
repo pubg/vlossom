@@ -144,6 +144,26 @@
     }
 }
 
+// circle
+.vs-button {
+    &.vs-circle {
+        border-radius: 50%;
+        padding: 0;
+        height: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height)));
+        width: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height)));
+
+        &.vs-dense {
+            height: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height-dense)));
+            width: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height-dense)));
+        }
+
+        &.vs-large {
+            height: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height-large)));
+            width: var(--vs-button-circleSize, var(--vs-button-height, var(--vs-input-comp-height-large)));
+        }
+    }
+}
+
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
