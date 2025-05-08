@@ -160,7 +160,7 @@ export const Circle: Story = {
         template: `
             <div>
                 ${getColorSchemeTemplate(`
-                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }">
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }" :style-set="{ circleSize: '5rem' }">
                         Button
                     </vs-button>
                 `)}
