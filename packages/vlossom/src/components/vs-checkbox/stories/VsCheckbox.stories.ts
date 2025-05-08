@@ -6,7 +6,6 @@ import {
     state,
     getStateTemplate,
 } from '@/storybook';
-import { computed, ref } from 'vue';
 import { useVlossom } from '@/vlossom-framework';
 import VsContainer from '@/components/vs-container/VsContainer.vue';
 import VsCheckbox from './../VsCheckbox.vue';
@@ -113,62 +112,13 @@ export const Indeterminate: Story = {
     render: (args: any) => ({
         components: { VsCheckbox },
         setup() {
-            const children = ref([false, false]);
-            const parent = ref(false);
-
-            const indeterminate = computed(
-                () => !children.value.every((child) => child) && children.value.some((child) => child),
-            );
-
-            const allTrue = computed(() => children.value.every((child) => child));
-            const allFalse = computed(() => children.value.every((child) => !child));
-
-            function updateParent(value: boolean) {
-                if (indeterminate.value && !value) {
-                    children.value = [true, true];
-                } else {
-                    parent.value = value;
-                    children.value = [value, value];
-                }
-            }
-
-            function updateChild(index: number, value: boolean) {
-                children.value[index] = value;
-
-                if (value && allTrue.value) {
-                    parent.value = true;
-                }
-                if (!value && allFalse.value) {
-                    parent.value = false;
-                }
-            }
-
-            function updateChild1(value: boolean) {
-                updateChild(0, value);
-            }
-
-            function updateChild2(value: boolean) {
-                updateChild(1, value);
-            }
-
-            return {
-                args,
-                parent,
-                children,
-                indeterminate,
-                updateParent,
-                updateChild1,
-                updateChild2,
-                updateChild,
-            };
+            return { args };
         },
         template: `
             <div >
-                <vs-checkbox v-model="parent" :indeterminate="indeterminate" check-label="Parent" @update:modelValue="updateParent"  v-bind="args" />
-				<div style="margin-top: 10px; margin-left: 30px;">
-					<vs-checkbox v-model="children[0]" check-label="Child 1" @update:modelValue="updateChild1" />
-					<vs-checkbox v-model="children[1]" check-label="Child 2" @update:modelValue="updateChild2" style="margin-top: 10px;" />
-				</div>
+            ${getColorSchemeTemplate(`
+                <vs-checkbox v-bind="args" color-scheme="{{color}}" indeterminate check-label="Indeterminate" />
+            `)}
             </div>
         `,
     }),
