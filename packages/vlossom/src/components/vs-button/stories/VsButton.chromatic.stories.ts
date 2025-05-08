@@ -26,6 +26,8 @@ const meta: Meta<typeof VsButton> = {
                 <vs-button v-bind="args" dense>Button</vs-button>
 
                 <vs-button v-bind="args" large>Button</vs-button>
+
+                <vs-button v-bind="args" circle>Button</vs-button>
             </div>`,
     }),
     argTypes: {
