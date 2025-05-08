@@ -35,13 +35,15 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         large: { type: Boolean, default: false },
         loading: { type: Boolean, default: false },
+        circle: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
         responsive: { type: Boolean, default: false },
         state: { type: String as PropType<UIState>, default: 'idle' },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, large, loading, responsive, outline, primary, state } = toRefs(props);
+        const { colorScheme, styleSet, dense, large, loading, responsive, outline, primary, state, circle } =
+            toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -56,6 +58,7 @@ export default defineComponent({
             'vs-outline': outline.value,
             'vs-primary': primary.value,
             'vs-responsive': responsive.value,
+            'vs-circle': circle.value,
         }));
 
         return {

@@ -150,3 +150,27 @@ export const PreDefinedStyleSet: Story = {
         styleSet: 'myStyleSet',
     },
 };
+
+export const Circle: Story = {
+    render: (args: any) => ({
+        components: { VsButton },
+        setup() {
+            return { args };
+        },
+        template: `
+            <div>
+                ${getColorSchemeTemplate(`
+                    <vs-button color-scheme="{{ color }}" v-bind="args" :style="{ marginBottom: '5px' }" :style-set="{ circleSize: '5rem' }">
+                        Button
+                    </vs-button>
+                `)}
+            </div>
+        `,
+    }),
+    args: {
+        circle: true,
+    },
+    parameters: {
+        chromatic: chromaticParameters.theme,
+    },
+};

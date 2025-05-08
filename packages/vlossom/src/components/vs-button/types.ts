@@ -8,4 +8,5 @@ export interface VsButtonStyleSet {
     height?: string;
     padding?: string;
     width?: string;
+    circleSize?: string;
 }
