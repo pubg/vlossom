@@ -150,7 +150,14 @@
         border-radius: 50%;
         padding: 0;
         width: var(--vs-button-height, var(--vs-input-comp-height));
-        height: var(--vs-button-height, var(--vs-input-comp-height));
+
+        &.vs-dense {
+            width: var(--vs-button-height, var(--vs-input-comp-height-dense));
+        }
+
+        &.vs-large {
+            width: var(--vs-button-height, var(--vs-input-comp-height-large));
+        }
     }
 }
 
