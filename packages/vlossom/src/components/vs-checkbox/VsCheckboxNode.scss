@@ -75,18 +75,21 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
         }
 
         .vs-checkbox-label {
-            color: var(--vs-checkbox-node-indeterminateLabel-fontColor, var(--vs-primary-comp-font));
+            color: var(
+                --vs-checkbox-node-indeterminateLabel-fontColor,
+                var(--vs-checkbox-node-checkedLabel-fontColor, var(--vs-primary-comp-bg))
+            );
             font-size: var(
                 --vs-checkbox-node-indeterminateLabel-fontSize,
-                var(--vs-checkbox-node-label-fontSize, var(--vs-font-size))
+                var(--vs-checkbox-node-checkedLabel-fontSize, var(--vs-font-size))
             );
             font-weight: var(
                 --vs-checkbox-node-indeterminateLabel-fontWeight,
-                var(--vs-checkbox-node-label-fontWeight, 400)
+                var(--vs-checkbox-node-checkedLabel-fontWeight, 400)
             );
             white-space: var(
                 --vs-checkbox-node-indeterminateLabel-whiteSpace,
-                var(--vs-checkbox-node-label-whiteSpace, nowrap)
+                var(--vs-checkbox-node-checkedLabel-whiteSpace, nowrap)
             );
         }
     }
