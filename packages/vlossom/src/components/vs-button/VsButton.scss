@@ -144,6 +144,16 @@
     }
 }
 
+// circle
+.vs-button {
+    &.vs-circle {
+        border-radius: 50%;
+        padding: 0;
+        width: var(--vs-button-height, var(--vs-input-comp-height));
+        height: var(--vs-button-height, var(--vs-input-comp-height));
+    }
+}
+
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
