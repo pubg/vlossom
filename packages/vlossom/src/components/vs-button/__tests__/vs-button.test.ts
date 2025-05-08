@@ -32,4 +32,19 @@ describe('vs-button', () => {
             expect(wrapper.find('.vs-button-loading-icon').exists()).toBe(true);
         });
     });
+
+    describe('circle', () => {
+        it('circle인 경우에 버튼이 원형으로 나타난다', () => {
+            // given
+            const wrapper = mount(VsButton, {
+                props: {
+                    circle: true,
+                },
+            });
+
+            // then
+            expect(wrapper.props('circle')).toBe(true);
+            expect(wrapper.find('.vs-circle').exists()).toBe(true);
+        });
+    });
 });
