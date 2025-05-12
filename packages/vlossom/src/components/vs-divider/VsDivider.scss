@@ -11,10 +11,11 @@ $divider-border: var(--vs-divider-border, 1px solid var(--vs-primary-comp-bg));
 @mixin vs-divider-vertical {
     display: inline-block;
     width: 0;
-    height: var(--vs-divider-verticalHeight, 2rem);
+    height: var(--vs-divider-verticalHeight, 100%);
     margin: var(--vs-divider-marginVertical, 0 1.2rem);
     border-top: 0;
     border-left: $divider-border;
+    vertical-align: top;
 }
 
 .vs-divider {
