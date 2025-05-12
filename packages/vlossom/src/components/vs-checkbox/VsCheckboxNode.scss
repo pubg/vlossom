@@ -129,7 +129,6 @@ $checkbox-size: var(--vs-checkbox-node-checkboxSize, 2rem);
 
     &.vs-disabled {
         @include disabled;
-        cursor: default;
     }
 
     &.vs-readonly {
