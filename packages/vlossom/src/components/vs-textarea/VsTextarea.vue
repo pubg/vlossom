@@ -16,25 +16,25 @@
             <slot name="label" />
         </template>
 
-        <textarea
-            ref="textareaRef"
-            :class="['vs-textarea', colorSchemeClass, classObj, stateClasses]"
-            :style="computedStyleSet"
-            :id="computedId"
-            :value="inputValue"
-            :name="name"
-            :disabled="computedDisabled"
-            :readonly="computedReadonly"
-            :aria-label="ariaLabel"
-            :aria-required="required"
-            :autocomplete="autocomplete ? 'on' : 'off'"
-            :placeholder="placeholder"
-            @input.stop="updateValue($event)"
-            @focus.stop="onFocus"
-            @blur.stop="onBlur"
-            @keyup.enter.stop="onEnter"
-            @change.stop
-        />
+        <div :class="['vs-textarea', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
+            <textarea
+                ref="textareaRef"
+                :id="computedId"
+                :value="inputValue"
+                :name="name"
+                :disabled="computedDisabled"
+                :readonly="computedReadonly"
+                :aria-label="ariaLabel"
+                :aria-required="required"
+                :autocomplete="autocomplete ? 'on' : 'off'"
+                :placeholder="placeholder"
+                @input.stop="updateValue($event)"
+                @focus.stop="onFocus"
+                @blur.stop="onBlur"
+                @keyup.enter.stop="onEnter"
+                @change.stop
+            />
+        </div>
 
         <template #messages v-if="!noMessage">
             <slot name="messages" />
