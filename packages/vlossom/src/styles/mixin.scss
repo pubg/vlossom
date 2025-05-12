@@ -11,13 +11,17 @@
 @mixin disabled {
     opacity: 0.5;
     filter: grayscale(0.7);
-    pointer-events: none;
-    cursor: default;
+    cursor: not-allowed;
+    * {
+        pointer-events: none;
+    }
 }
 
 @mixin readonly {
-    pointer-events: none;
-    cursor: default;
+    cursor: not-allowed;
+    * {
+        pointer-events: none;
+    }
 }
 
 @mixin hide-scroll {
