@@ -21,6 +21,10 @@
         @include disabled;
     }
 
+    &.vs-readonly {
+        @include readonly;
+    }
+
     &.vs-state-box {
         @include state-box;
     }
