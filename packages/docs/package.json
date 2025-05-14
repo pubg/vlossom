@@ -10,13 +10,15 @@
         "build": "vue-tsc && vite build",
         "preview": "vite preview",
         "lint": "eslint --ext .js,.ts,vue --ignore-path ../../.gitignore .",
-        "lint:fix": "eslint --fix --ext .js,.ts,vue --ignore-path ../../.gitignore ."
+        "lint:fix": "eslint --fix --ext .js,.ts,vue --ignore-path ../../.gitignore .",
+        "format": "prettier --write \"./**/*.{js,ts,vue,json}\"",
+        "format:check": "prettier --check \"./**/*.{js,ts,vue,json}\""
     },
     "dependencies": {
         "vue": "^3.4.8",
         "vue-router": "^4.2.5"
     },
-    "devDependencies": {
+"devDependencies": {
         "@typescript-eslint/eslint-plugin": "^6.21.0",
         "@typescript-eslint/parser": "^6.21.0",
         "@vitejs/plugin-vue": "^4.6.2",

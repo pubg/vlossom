@@ -5,12 +5,15 @@ export function useSortableHeader(headers: Ref<TableHeader[]>, ctx: any) {
     const innerSortTypes: Ref<{ [key: string]: SortType }> = ref({});
 
     const initSortTypes = () => {
-        innerSortTypes.value = headers.value.reduce((acc, { key, sortable = false }) => {
-            if (sortable) {
-                acc[key] = SortType.NONE;
-            }
-            return acc;
-        }, {} as { [key: string]: SortType });
+        innerSortTypes.value = headers.value.reduce(
+            (acc, { key, sortable = false }) => {
+                if (sortable) {
+                    acc[key] = SortType.NONE;
+                }
+                return acc;
+            },
+            {} as { [key: string]: SortType },
+        );
     };
 
     watch(headers, initSortTypes, { immediate: true });

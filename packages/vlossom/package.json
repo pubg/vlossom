@@ -31,7 +31,9 @@
         "build-storybook": "storybook build",
         "build-storybook:chromatic": "storybook build -c .storybook-chromatic",
         "test-storybook": "test-storybook --verbose",
-        "chromatic": "chromatic --build-script-name build-storybook:chromatic --exit-zero-on-changes"
+        "chromatic": "chromatic --build-script-name build-storybook:chromatic --exit-zero-on-changes",
+        "format": "prettier --write \"./**/*.{js,ts,vue,json}\"",
+        "format:check": "prettier --check \"./**/*.{js,ts,vue,json}\""
     },
     "files": [
         "dist"

@@ -1,5 +1,5 @@
 import { colorScheme, getMetaArguments, state } from '@/storybook';
-import {  } from '@/declaration';
+import {} from '@/declaration';
 import VsRadioSet from './../VsRadioSet.vue';
 
 import type { Meta, StoryObj } from '@storybook/vue3';

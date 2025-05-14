@@ -14,9 +14,12 @@ export const objectUtil = {
     omit,
     pick,
     pickWithPath(object: Record<string, any>, keys: string[]): Pick<string, any> {
-        return keys.reduce((acc, key) => {
-            acc[key] = this.get(object, key);
-            return acc;
-        }, {} as Record<string, any>);
+        return keys.reduce(
+            (acc, key) => {
+                acc[key] = this.get(object, key);
+                return acc;
+            },
+            {} as Record<string, any>,
+        );
     },
 };

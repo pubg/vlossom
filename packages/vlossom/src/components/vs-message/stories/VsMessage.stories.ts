@@ -1,4 +1,4 @@
-import {  } from '@/declaration';
+import {} from '@/declaration';
 import VsMessage from './../VsMessage.vue';
 import { chromaticParameters } from '@/storybook/parameters';
 
