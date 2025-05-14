@@ -31,14 +31,17 @@ export default defineComponent({
 
         const toastsByPosition = computed(() => {
             const toasts = store.toast.itemsByContainer.value[container.value] || [];
-            return toasts.reduce((acc, toast) => {
-                const key = `${toast.placement}-${toast.align}`;
-                if (!acc[key]) {
-                    acc[key] = [];
-                }
-                acc[key].push(toast);
-                return acc;
-            }, {} as Record<string, VsToastInfo[]>);
+            return toasts.reduce(
+                (acc, toast) => {
+                    const key = `${toast.placement}-${toast.align}`;
+                    if (!acc[key]) {
+                        acc[key] = [];
+                    }
+                    acc[key].push(toast);
+                    return acc;
+                },
+                {} as Record<string, VsToastInfo[]>,
+            );
         });
 
         const wrapperId = computed(() => `vs-toast-${container.value.replace('#', '').replace('.', '')}`);
