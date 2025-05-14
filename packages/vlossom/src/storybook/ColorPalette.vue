@@ -51,7 +51,11 @@ export default defineComponent({
             span {
                 font-size: 0.6rem;
                 font-weight: 600;
-                text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+                text-shadow:
+                    -1px 0 white,
+                    0 1px white,
+                    1px 0 white,
+                    0 -1px white;
             }
         }
     }
