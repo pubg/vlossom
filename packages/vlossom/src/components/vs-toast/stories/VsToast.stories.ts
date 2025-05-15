@@ -1,16 +1,10 @@
-import {
-    align,
-    chromaticParameters,
-    colorScheme,
-    getColorSchemeTemplate,
-    getMetaArguments,
-    placement,
-} from '@/storybook';
+import { chromaticParameters, getColorSchemeTemplate, getMetaArguments } from '@/storybook';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { store } from '@/stores';
 import { VsButton, VsToast, VsToastInfo, VsToastView } from '@/components';
 import { toastPlugin } from '@/plugins';
+import { toRefs, watch } from 'vue';
 
 const meta: Meta<typeof VsToast> = {
     title: 'Components/Base Components/VsToast',
@@ -18,14 +12,20 @@ const meta: Meta<typeof VsToast> = {
     render: (args: { toast: VsToastInfo }) => ({
         components: { VsToast, VsToastView },
         setup() {
-            store.toast.remove(args.toast.id);
-            store.toast.push(args.toast);
+            const { toast } = toRefs(args);
+            initializeToast();
 
-            return { args };
+            function initializeToast() {
+                store.toast.remove(toast.value.id);
+                store.toast.push(toast.value);
+            }
+            watch(toast, initializeToast);
+
+            return { toast };
         },
         template: `
-            <div style="position: relative; height: 5rem;">
-                <vs-toast-view container="${args.toast.container}" />
+            <div style="position: relative; height: 10rem;">
+                <vs-toast-view container="#custom" />
             </div>
         `,
     }),
@@ -45,9 +45,11 @@ const meta: Meta<typeof VsToast> = {
     },
     argTypes: {
         toast: {
-            colorScheme,
-            align,
-            placement,
+            control: 'object',
+            description: 'Toast configuration object',
+            table: {
+                type: { summary: 'VsToastInfo' },
+            },
         },
     },
 };
