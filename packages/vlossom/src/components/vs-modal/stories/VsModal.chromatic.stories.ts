@@ -1,10 +1,11 @@
 import { size, colorScheme } from '@/storybook';
 import { userEvent, within } from '@storybook/test';
-import { reactive } from 'vue';
+import { onUnmounted, reactive } from 'vue';
 import VsModal from './../VsModal.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import { ModalCloseButton, containerStyle } from './constants';
 import { SIZES } from '@/declaration';
+import { useVlossom } from '@/vlossom-framework';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
 
@@ -14,11 +15,16 @@ const meta: Meta<typeof VsModal> = {
     render: (args: any) => ({
         components: { VsModal, ModalCloseButton, VsButton },
         setup() {
+            const vlossom = useVlossom();
             const isOpens = reactive([...Array(6).fill(false)]);
 
             function onClick(idx: number) {
                 isOpens[idx] = true;
             }
+
+            onUnmounted(() => {
+                vlossom.modal.clear();
+            });
 
             return { args, SIZES, isOpens, onClick, containerStyle };
         },
