@@ -1,11 +1,12 @@
 import { size, colorScheme } from '@/storybook';
-import { ref } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import VsModal from './../VsModal.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 import VsInput from '@/components/vs-input/VsInput.vue';
 import { ModalCloseButton, containerStyle } from './constants';
 
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { useVlossom } from '@/vlossom-framework';
 
 const meta: Meta<typeof VsModal> = {
     title: 'Components/Layout Components/VsModal',
@@ -13,7 +14,12 @@ const meta: Meta<typeof VsModal> = {
     render: (args: any) => ({
         components: { VsModal, ModalCloseButton, VsButton },
         setup() {
+            const vlossom = useVlossom();
             const isOpen = ref(false);
+
+            onUnmounted(() => {
+                vlossom.modal.clear();
+            });
 
             return { args, isOpen };
         },
