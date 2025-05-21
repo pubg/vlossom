@@ -86,8 +86,6 @@ export const HasActions: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: '#f8e8ee',
-            fontSize: '1.3rem',
             label: {
                 backgroundColor: '#fdcedf',
                 fontColor: '#a7727d',
@@ -95,9 +93,11 @@ export const StyleSet: Story = {
                 fontSize: '5rem',
                 width: '15rem',
             },
-            padding: '2rem 2rem',
-            cell: {
-                alignItems: 'flex-end',
+            value: {
+                backgroundColor: '#f8e8ee',
+            },
+            actions: {
+                backgroundColor: 'red',
             },
         },
     },
