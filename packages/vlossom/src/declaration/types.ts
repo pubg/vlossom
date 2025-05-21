@@ -56,7 +56,7 @@ export interface VsBoxStyleSet {
     padding?: string;
 }
 
-export interface VsFlexContainerStyleSet {
+export interface VsFlexStyleSet {
     flexDirection?: string;
     flexWrap?: string;
     alignItems?: string;
