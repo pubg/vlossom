@@ -14,7 +14,10 @@
     > .vs-cell {
         position: relative;
         display: flex;
-        align-items: center;
+        align-items: var(--vs-label-value-cell-alignItems, center);
+        justify-content: var(--vs-label-value-cell-justifyContent, flex-start);
+        flex-wrap: var(--vs-label-value-cell-flexWrap, nowrap);
+        flex-direction: var(--vs-label-value-cell-flexDirection, row);
         padding: var(--vs-label-value-padding, 0.6rem 1.2rem);
 
         &.vs-label {
