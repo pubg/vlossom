@@ -1,4 +1,4 @@
-import { chromaticParameters, colorScheme, getColorSchemeTemplate, verticalAlign, LOREM_IPSUM } from '@/storybook';
+import { chromaticParameters, colorScheme, getColorSchemeTemplate, LOREM_IPSUM } from '@/storybook';
 import VsLabelValue from './../VsLabelValue.vue';
 import VsButton from '@/components/vs-button/VsButton.vue';
 
@@ -17,7 +17,6 @@ const meta: Meta<typeof VsLabelValue> = {
     tags: ['autodocs'],
     argTypes: {
         colorScheme,
-        verticalAlign,
     },
 };
 
@@ -84,44 +83,6 @@ export const HasActions: Story = {
     }),
 };
 
-export const VerticalAlignTop: Story = {
-    render: (args: any) => ({
-        components: { VsLabelValue, VsButton },
-        setup() {
-            return { args };
-        },
-        template: `
-        <vs-label-value v-bind="args">
-            <template #label>label</template>
-            <template #value>${LOREM_IPSUM}</template>
-            <template #actions><vs-button dense primary>action</vs-button></template>
-        </vs-label-value>
-        `,
-    }),
-    args: {
-        verticalAlign: 'top',
-    },
-};
-
-export const VerticalAlignBottom: Story = {
-    render: (args: any) => ({
-        components: { VsLabelValue, VsButton },
-        setup() {
-            return { args };
-        },
-        template: `
-        <vs-label-value v-bind="args">
-            <template #label>label</template>
-            <template #value>${LOREM_IPSUM}</template>
-            <template #actions><vs-button dense primary>action</vs-button></template>
-        </vs-label-value>
-        `,
-    }),
-    args: {
-        verticalAlign: 'bottom',
-    },
-};
-
 export const StyleSet: Story = {
     args: {
         styleSet: {
@@ -135,6 +96,9 @@ export const StyleSet: Story = {
                 width: '15rem',
             },
             padding: '2rem 2rem',
+            cell: {
+                alignItems: 'flex-end',
+            },
         },
     },
 };

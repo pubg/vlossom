@@ -13,12 +13,8 @@ const meta: Meta<typeof VsLabelValue> = {
             return { args };
         },
         template: `
-            <div style="display:flex; flex-direction:column;">
-                <vs-label-value v-bind="args" verticalAlign="start"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
-
-                <vs-label-value v-bind="args" verticalAlign="align"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
-
-                <vs-label-value v-bind="args" verticalAlign="end"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
+            <div style="display:flex; flex-direction:column; gap: 1rem;">
+                <vs-label-value v-bind="args"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
 
                 <vs-label-value v-bind="args" primary><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>
 
