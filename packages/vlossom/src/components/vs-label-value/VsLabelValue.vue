@@ -5,13 +5,13 @@
         :width="width"
         :grid="grid"
     >
-        <div v-if="$slots['label']" class="vs-cell vs-label" :style="align">
+        <div v-if="$slots['label']" class="vs-cell vs-label">
             <slot name="label" />
         </div>
-        <div v-if="$slots['value']" class="vs-cell vs-value" :style="align">
+        <div v-if="$slots['value']" class="vs-cell vs-value">
             <slot name="value" />
         </div>
-        <div v-if="$slots['actions']" class="vs-cell vs-actions" :style="align">
+        <div v-if="$slots['actions']" class="vs-cell vs-actions">
             <slot name="actions" />
         </div>
     </vs-responsive>
@@ -36,23 +36,13 @@ export default defineComponent({
         dense: { type: Boolean, default: false },
         inline: { type: Boolean, default: false },
         primary: { type: Boolean, default: false },
-        verticalAlign: { type: String as PropType<'top' | 'middle' | 'bottom'>, default: 'middle' },
     },
     setup(props) {
-        const { colorScheme, styleSet, dense, inline, primary, verticalAlign } = toRefs(props);
+        const { colorScheme, styleSet, dense, inline, primary } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsLabelValueStyleSet>(name, styleSet);
-
-        const align = computed(() => {
-            if (verticalAlign.value === 'top') {
-                return { alignItems: 'flex-start' };
-            } else if (verticalAlign.value === 'bottom') {
-                return { alignItems: 'flex-end' };
-            }
-            return { alignItems: 'center' };
-        });
 
         const classObj = computed(() => ({
             'vs-inline': inline.value,
@@ -62,7 +52,6 @@ export default defineComponent({
         }));
 
         return {
-            align,
             classObj,
             colorSchemeClass,
             computedStyleSet,

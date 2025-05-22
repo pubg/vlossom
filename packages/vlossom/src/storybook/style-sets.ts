@@ -143,15 +143,12 @@ const vsInput: VsInputStyleSet = {
 };
 
 const vsLabelValue: VsLabelValueStyleSet = {
-    backgroundColor: '#f5f5f5',
-    fontSize: '1.5rem',
     label: {
         backgroundColor: '#18122b',
         fontColor: '#ffffff',
         fontWeight: '550',
         width: '10%',
     },
-    padding: '2rem',
 };
 
 const vsLoading: VsLoadingStyleSet = {
