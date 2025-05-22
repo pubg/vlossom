@@ -1,12 +1,9 @@
-import { VsBoxStyleSet } from '@/declaration';
+import { VsBoxStyleSet, VsFlexStyleSet } from '@/declaration';
 
 export interface VsLabelValueStyleSet {
-    backgroundColor?: string;
     border?: string;
     borderRadius?: string;
-    fontColor?: string;
-    fontSize?: string;
-    fontWeight?: string | number;
-    label: VsBoxStyleSet & { width?: string };
-    padding?: string;
+    label?: VsBoxStyleSet & VsFlexStyleSet & { width?: string };
+    value?: VsBoxStyleSet & VsFlexStyleSet & { width?: string };
+    actions?: VsBoxStyleSet & VsFlexStyleSet & { width?: string };
 }
