@@ -8,7 +8,7 @@
         <div v-if="$slots['label']" class="vs-cell vs-label">
             <slot name="label" />
         </div>
-        <div v-if="$slots.default" class="vs-cell vs-content">
+        <div v-if="$slots.default" class="vs-cell vs-value">
             <slot />
         </div>
         <div v-if="$slots['actions']" class="vs-cell vs-actions">
