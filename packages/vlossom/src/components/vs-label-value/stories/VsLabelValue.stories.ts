@@ -12,7 +12,11 @@ const meta: Meta<typeof VsLabelValue> = {
         setup() {
             return { args };
         },
-        template: `<vs-label-value v-bind="args"><template #label>label</template><template #value>${LOREM_IPSUM}</template></vs-label-value>`,
+        template: `
+            <vs-label-value v-bind="args">
+                <template #label>label</template>
+                ${LOREM_IPSUM}
+            </vs-label-value>`,
     }),
     tags: ['autodocs'],
     argTypes: {
@@ -35,7 +39,8 @@ export const ColorScheme: Story = {
             <div>
                 ${getColorSchemeTemplate(`
                     <vs-label-value color-scheme="{{ color }}" :style="{marginBottom: '8px'}">
-                        <template #label>label</template><template #value>${LOREM_IPSUM}</template>
+                        <template #label>label</template>
+                        ${LOREM_IPSUM}
                     </vs-label-value>
                 `)}
             </div>
@@ -56,7 +61,8 @@ export const Primary: Story = {
             <div>
                 ${getColorSchemeTemplate(`
                     <vs-label-value color-scheme="{{ color }}" primary :style="{marginBottom: '8px'}">
-                        <template #label>label</template><template #value>${LOREM_IPSUM}</template>
+                        <template #label>label</template>
+                        ${LOREM_IPSUM}
                     </vs-label-value>
                 `)}
             </div>
@@ -76,7 +82,7 @@ export const HasActions: Story = {
         template: `
         <vs-label-value v-bind="args">
             <template #label>label</template>
-            <template #value>${LOREM_IPSUM}</template>
+            ${LOREM_IPSUM}
             <template #actions><vs-button dense primary>action</vs-button></template>
         </vs-label-value>
         `,
