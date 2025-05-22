@@ -27,18 +27,18 @@
             border-right: var(--vs-label-value-border, 1px solid var(--vs-line-color));
         }
 
-        &.vs-value {
+        &.vs-content {
             flex: 1;
             overflow-x: auto;
-            background-color: var(--vs-label-value-value-backgroundColor, var(--vs-comp-bg));
-            color: var(--vs-label-value-value-fontColor, var(--vs-comp-font));
-            font-size: var(--vs-label-value-value-fontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
-            font-weight: var(--vs-label-value-value-fontWeight, 500);
-            padding: var(--vs-label-value-value-padding, 0.6rem 1.2rem);
-            flex-direction: var(--vs-label-value-value-flexDirection, row);
-            flex-wrap: var(--vs-label-value-value-flexWrap, nowrap);
-            align-items: var(--vs-label-value-value-alignItems, center);
-            justify-content: var(--vs-label-value-value-justifyContent, flex-start);
+            background-color: var(--vs-label-value-content-backgroundColor, var(--vs-comp-bg));
+            color: var(--vs-label-value-content-fontColor, var(--vs-comp-font));
+            font-size: var(--vs-label-value-content-fontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
+            font-weight: var(--vs-label-value-content-fontWeight, 500);
+            padding: var(--vs-label-value-content-padding, 0.6rem 1.2rem);
+            flex-direction: var(--vs-label-value-content-flexDirection, row);
+            flex-wrap: var(--vs-label-value-content-flexWrap, nowrap);
+            align-items: var(--vs-label-value-content-alignItems, center);
+            justify-content: var(--vs-label-value-content-justifyContent, flex-start);
         }
 
         &.vs-actions {
@@ -76,9 +76,9 @@
                 font-size: var(--vs-label-value-label-fontSize, var(--vs-font-size-xs));
             }
 
-            &.vs-value {
-                padding: var(--vs-label-value-value-padding, var(--vs-label-value-value-padding, 0.2rem 0.8rem));
-                font-size: var(--vs-label-value-value-fontSize, var(--vs-font-size-xs));
+            &.vs-content {
+                padding: var(--vs-label-value-content-padding, var(--vs-label-value-content-padding, 0.2rem 0.8rem));
+                font-size: var(--vs-label-value-content-fontSize, var(--vs-font-size-xs));
             }
 
             &.vs-actions {

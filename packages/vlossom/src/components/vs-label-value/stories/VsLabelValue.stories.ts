@@ -99,7 +99,7 @@ export const StyleSet: Story = {
                 fontSize: '5rem',
                 width: '15rem',
             },
-            value: {
+            content: {
                 backgroundColor: '#f8e8ee',
             },
             actions: {
