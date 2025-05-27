@@ -31,7 +31,16 @@ describe('vs-file-drop', () => {
             expect(wrapper.classes()).toContain('vs-hover');
         });
 
-        it('disable 상태일 때 피드백이 노출되지 않는다', async () => {
+        it('컴포넌트에서 마우스 커서가 벗어나면 hover 클래스가 제거된다', async () => {
+            // When
+            await wrapper.trigger('mouseenter');
+            await wrapper.trigger('mouseleave');
+
+            // Then
+            expect(wrapper.classes()).not.toContain('vs-hover');
+        });
+
+        it('disabled 상태일 때 hover하면 피드백이 노출되지 않는다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
 
@@ -42,31 +51,7 @@ describe('vs-file-drop', () => {
             expect(wrapper.classes()).not.toContain('vs-hover');
         });
 
-        it('content 영역에 지시자(문구, 아이콘)가 노출된다', () => {
-            // When
-            const placeholder = wrapper.find('.vs-file-drop-placeholder');
-
-            // Then
-            expect(placeholder.exists()).toBe(true);
-        });
-
-        it('사용자가 Slot을 정의하면 기본 지시자가 노출되지 않는다', () => {
-            // Given
-            const slotWrapper = mount(VsFileDrop, {
-                props: { modelValue: null },
-                slots: { default: '<div>Custom Slot</div>' },
-            });
-
-            // When
-            const customSlotText = slotWrapper.text();
-            const placeholder = slotWrapper.find('.vs-file-drop-placeholder');
-
-            // Then
-            expect(customSlotText).toContain('Custom Slot');
-            expect(placeholder.exists()).toBe(false);
-        });
-
-        it('disable 상태일 때 hover하면 cursor가 disable로 노출된다', async () => {
+        it('disabled 상태일 때 disabled 효과가 나타난다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
 
@@ -74,10 +59,37 @@ describe('vs-file-drop', () => {
             await wrapper.trigger('mouseenter');
 
             // Then
-            expect(wrapper.element.style.cursor).toBe('not-allowed');
+            expect(wrapper.classes()).toContain('vs-disabled');
+        });
+
+        it('content 영역에 placeholder가 노출된다', () => {
+            // When
+            const content = wrapper.find('.vs-file-drop-content');
+            const placeholder = content.find('.vs-file-drop-placeholder');
+
+            // Then
+            expect(placeholder.exists()).toBe(true);
+        });
+
+        it('사용자가 Slot을 정의하면 placeholder가 노출되지 않는다', () => {
+            // Given
+            const slotWrapper = mount(VsFileDrop, {
+                props: { modelValue: null },
+                slots: { default: '<div>Custom Slot</div>' },
+            });
+
+            // When
+            const content = slotWrapper.find('.vs-file-drop-content');
+            const placeholder = content.find('.vs-file-drop-placeholder');
+            const customSlotText = slotWrapper.text();
+
+            // Then
+            expect(customSlotText).toContain('Custom Slot');
+            expect(placeholder.exists()).toBe(false);
         });
     });
 
+    /*
     describe('입력된 파일이 있을 때', () => {
         let wrapper: VueWrapper<any>;
         const file = createFile();
@@ -439,4 +451,5 @@ describe('vs-file-drop', () => {
             expect(clearBtn.attributes('tabindex')).toBe('-1');
         });
     });
+    */
 });

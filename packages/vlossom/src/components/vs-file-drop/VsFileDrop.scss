@@ -1,0 +1,40 @@
+@use '@/styles/mixin' as *;
+
+.vs-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem; // TODO: 변수화
+    border: 1px solid #ccc; // TODO: 변수화
+    padding: 1rem; // TODO: 변수화
+
+    &.vs-hover {
+        @include focus-outline;
+        @include hover-active-lighten;
+    }
+
+    &.vs-disabled {
+        @include disabled;
+    }
+
+    .vs-file-drop-ref {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .vs-file-drop-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+}

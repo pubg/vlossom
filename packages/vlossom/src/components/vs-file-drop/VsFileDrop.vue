@@ -1,7 +1,24 @@
 <template>
-    <vs-input-wrapper v-show="visible" :id="id" :required="required">
+    <vs-input-wrapper
+        v-show="visible"
+        :id="id"
+        :class="[classObj]"
+        :required="required"
+        @mouseenter.stop="onMouseEnter"
+        @mouseleave.stop="onMouseLeave"
+    >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input ref="fileDropRef" class="vs-file-drop-ref" :id="id" type="file" :name="name" :required="required" />
+
+            <div v-if="$slots.default" class="vs-file-drop-content">
+                <slot />
+            </div>
+            <div v-else class="vs-file-drop-content">
+                <div class="vs-file-drop-placeholder">
+                    <vs-icon icon="attachFile" size="40" />
+                    <span>Drop files here or click to upload</span>
+                </div>
+            </div>
         </div>
     </vs-input-wrapper>
 </template>
@@ -12,13 +29,14 @@ import { VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useStyleSet } from '@/composables';
 import { VsInputWrapper } from '@/components';
+import { VsIcon } from '@/icons';
 
 import type { InputValueType, VsFileDropStyleSet } from './types';
 
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
     name,
-    components: { VsInputWrapper },
+    components: { VsInputWrapper, VsIcon },
     props: {
         ...getInputProps<InputValueType>(),
         colorScheme: { type: String as PropType<ColorScheme> },
@@ -28,7 +46,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue'],
     setup(props) {
-        const { colorScheme, styleSet, modelValue } = toRefs(props);
+        const { colorScheme, styleSet, modelValue, disabled } = toRefs(props);
 
         const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -38,7 +56,28 @@ export default defineComponent({
 
         const inputValue = ref(modelValue.value);
 
-        const classObj = computed(() => ({}));
+        const hover = ref(false);
+
+        const classObj = computed(() => ({
+            'vs-hover': hover.value,
+            'vs-disabled': disabled.value,
+        }));
+
+        function onMouseEnter() {
+            if (disabled.value) {
+                return;
+            }
+
+            hover.value = true;
+        }
+
+        function onMouseLeave() {
+            if (disabled.value) {
+                return;
+            }
+
+            hover.value = false;
+        }
 
         return {
             fileDropRef,
@@ -46,9 +85,11 @@ export default defineComponent({
             colorSchemeClass,
             computedStyleSet,
             inputValue,
+            onMouseEnter,
+            onMouseLeave,
         };
     },
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" src="./VsFileDrop.scss" />
