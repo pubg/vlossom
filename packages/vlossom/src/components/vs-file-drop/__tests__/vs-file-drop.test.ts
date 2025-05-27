@@ -2,9 +2,9 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
 
-function createFile(name = 'test.png', type = 'image/png') {
-    return new File(['dummy'], name, { type });
-}
+// function createFile(name = 'test.png', type = 'image/png') {
+//     return new File(['dummy'], name, { type });
+// }
 
 describe('vs-file-drop', () => {
     describe('입력된 파일이 없을 때', () => {
