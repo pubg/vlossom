@@ -2,9 +2,9 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
 
-// function createFile(name = 'test.png', type = 'image/png') {
-//     return new File(['dummy'], name, { type });
-// }
+function createFile(name = 'test.png', type = 'image/png') {
+    return new File(['dummy'], name, { type });
+}
 
 describe('vs-file-drop', () => {
     describe('입력된 파일이 없을 때', () => {
@@ -230,6 +230,7 @@ describe('vs-file-drop', () => {
             expect(wrapper.vm.$props.modelValue).toEqual(newFiles);
         });
     });
+    */
 
     describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
@@ -282,6 +283,7 @@ describe('vs-file-drop', () => {
         });
     });
 
+    /*
     describe('drag & drop으로 파일을 추가할 수 있다', () => {
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
             // Given
