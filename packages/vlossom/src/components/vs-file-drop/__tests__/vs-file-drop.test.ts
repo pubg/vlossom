@@ -244,16 +244,15 @@ describe('vs-file-drop', () => {
             expect(input.attributes('accept')).toBe('image/png');
         });
 
-        it('disable 상태일 때, 클릭하여 dialog로 파일을 추가할 수 없다', async () => {
+        it('disable 상태일 때, dialog로 파일을 추가할 수 없도록 click 이벤트를 막는다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });
 
             // When
             const input = wrapper.find('input[type="file"]');
-            await input.trigger('click');
 
             // Then
-            // 실제로 dialog가 열리지 않는지 확인 (구현에 따라 추가)
+            expect(await input.trigger('click')).toBeFalsy();
         });
 
         it('multiple이 true일 때 dialog에서 여러 파일을 선택하면 모두 등록된다', async () => {
