@@ -285,6 +285,17 @@ describe('vs-file-drop', () => {
 
     /*
     describe('drag & drop으로 파일을 추가할 수 있다', () => {
+        it('accept를 설정하면 원하는 타입의 파일만 drag & drop으로 파일을 추가할 수 있다', () => {
+            // Given
+            const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
+
+            // When
+            const input = wrapper.find('input[type="file"]');
+
+            // Then
+            // 파일이 추가되지 않았는지 확인 (구현에 따라 추가)
+        });
+
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });

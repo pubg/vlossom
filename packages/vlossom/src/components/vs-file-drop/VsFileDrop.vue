@@ -8,7 +8,15 @@
         @mouseleave.stop="onMouseLeave"
     >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
-            <input ref="fileDropRef" class="vs-file-drop-ref" :id="id" type="file" :name="name" :required="required" />
+            <input
+                ref="fileDropRef"
+                class="vs-file-drop-ref"
+                :id="id"
+                type="file"
+                :name="name"
+                :required="required"
+                :accept="accept"
+            />
 
             <div class="vs-file-drop-content">
                 <slot>
@@ -38,6 +46,7 @@ export default defineComponent({
     components: { VsInputWrapper, VsIcon },
     props: {
         ...getInputProps<InputValueType>(),
+        accept: { type: String, default: '' },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
         // v-model
