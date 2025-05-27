@@ -2,7 +2,7 @@
     <vs-input-wrapper
         v-show="visible"
         :id="id"
-        :class="[classObj]"
+        :class="classObj"
         :required="required"
         @mouseenter.stop="onMouseEnter"
         @mouseleave.stop="onMouseLeave"
