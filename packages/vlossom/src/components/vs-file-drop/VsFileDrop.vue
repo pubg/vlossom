@@ -10,14 +10,14 @@
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input ref="fileDropRef" class="vs-file-drop-ref" :id="id" type="file" :name="name" :required="required" />
 
-            <slot>
-                <div class="vs-file-drop-content">
+            <div class="vs-file-drop-content">
+                <slot>
                     <div class="vs-file-drop-placeholder">
                         <vs-icon icon="attachFile" size="40" />
                         <span>Drop files here or click to upload</span>
                     </div>
-                </div>
-            </slot>
+                </slot>
+            </div>
         </div>
     </vs-input-wrapper>
 </template>
