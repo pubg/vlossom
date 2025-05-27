@@ -8,9 +8,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
-import { ColorScheme, VsComponent } from '@/declaration';
-import { getInputProps, useColorScheme, useStyleSet, VsInputWrapper } from '@/index';
-import { InputValueType, VsFileDropStyleSet } from './types';
+import { VsComponent, type ColorScheme } from '@/declaration';
+import { getInputProps } from '@/models';
+import { useColorScheme, useStyleSet } from '@/composables';
+import { VsInputWrapper } from '@/components';
+
+import type { InputValueType, VsFileDropStyleSet } from './types';
 
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
