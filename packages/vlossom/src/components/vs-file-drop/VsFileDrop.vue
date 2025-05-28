@@ -24,7 +24,7 @@
             <div class="vs-file-drop-content">
                 <slot>
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-chip v-for="file in inputValue" :key="file.name" closable no-round>
+                        <vs-chip v-for="file in computedInputValue" :key="file.name" closable no-round>
                             {{ `${file.name} (${file.size} bytes)` }}
                         </vs-chip>
                     </div>
@@ -72,18 +72,26 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
 
-        const inputValue = ref(modelValue.value);
+        const inputValue = ref<InputValueType>(modelValue.value);
 
         const hover = ref(false);
 
         const messages: Ref<StateMessage[]> = ref([]);
 
-        const hasValue = computed(() => {
+        const computedInputValue = computed<File[]>(() => {
             if (!inputValue.value) {
-                return false;
+                return [];
             }
 
-            return inputValue.value.length > 0;
+            if (Array.isArray(inputValue.value)) {
+                return inputValue.value;
+            }
+
+            return [inputValue.value];
+        });
+
+        const hasValue = computed(() => {
+            return computedInputValue.value.length > 0;
         });
 
         const { computedId, computedDisabled, computedMessages, validate } = useInput(context, {
@@ -133,7 +141,7 @@ export default defineComponent({
             if (multiple.value) {
                 inputValue.value = targetValue;
             } else {
-                inputValue.value = targetValue || [];
+                inputValue.value = targetValue[0] || null;
             }
         }
 
@@ -151,6 +159,7 @@ export default defineComponent({
             fileDropRef,
             computedId,
             computedMessages,
+            computedInputValue,
             classObj,
             colorSchemeClass,
             computedStyleSet,
