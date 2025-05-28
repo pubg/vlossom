@@ -1,7 +1,7 @@
 <template>
     <vs-input-wrapper
         v-show="visible"
-        :id="id"
+        :id="computedId"
         :class="classObj"
         :required="required"
         @mouseenter.stop="onMouseEnter"
@@ -11,11 +11,13 @@
             <input
                 ref="fileDropRef"
                 class="vs-file-drop-ref"
-                :id="id"
+                :id="computedId"
                 type="file"
                 :name="name"
                 :required="required"
                 :accept="accept"
+                :multiple="multiple"
+                @change.stop="updateValue($event)"
             />
 
             <div class="vs-file-drop-content">
@@ -34,7 +36,7 @@
 import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
 import { VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
-import { useColorScheme, useStyleSet } from '@/composables';
+import { useColorScheme, useInput, useStyleSet } from '@/composables';
 import { VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 
@@ -47,14 +49,15 @@ export default defineComponent({
     props: {
         ...getInputProps<InputValueType>(),
         accept: { type: String, default: '' },
+        multiple: { type: Boolean, default: true },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
     },
     emits: ['update:modelValue'],
-    setup(props) {
-        const { colorScheme, styleSet, modelValue, disabled } = toRefs(props);
+    setup(props, context) {
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple } = toRefs(props);
 
         const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -66,9 +69,16 @@ export default defineComponent({
 
         const hover = ref(false);
 
+        const { computedId, computedDisabled } = useInput(context, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+        });
+
         const classObj = computed(() => ({
             'vs-hover': hover.value,
-            'vs-disabled': disabled.value,
+            'vs-disabled': computedDisabled.value,
         }));
 
         function onMouseEnter() {
@@ -87,14 +97,27 @@ export default defineComponent({
             hover.value = false;
         }
 
+        function updateValue(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            if (multiple.value) {
+                inputValue.value = targetValue;
+            } else {
+                inputValue.value = targetValue[0] || null;
+            }
+        }
+
         return {
             fileDropRef,
+            computedId,
             classObj,
             colorSchemeClass,
             computedStyleSet,
             inputValue,
             onMouseEnter,
             onMouseLeave,
+            updateValue,
         };
     },
 });

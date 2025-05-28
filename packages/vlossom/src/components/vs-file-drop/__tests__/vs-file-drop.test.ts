@@ -261,11 +261,19 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
 
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('change', { target: { files } });
+            // const input = wrapper.find('input[type="file"]');
+            // input.trigger('change');
+            // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일들이 등록되었는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
         it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 어떤 파일도 등록되지 않고 에러 메시지가 노출된다', async () => {
