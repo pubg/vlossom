@@ -312,6 +312,27 @@ describe('vs-file-drop', () => {
                 state: 'error',
             });
         });
+
+        it('추가한 모든 파일의 파일 명, 확장자, 파일 사이즈 정보가 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            const droppedFileContents = wrapper.findAll('vs-block');
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            droppedFileContents.forEach((content, index) => {
+                expect(content.html()).toContain(files[index].name);
+                expect(content.html()).toContain(files[index].size);
+            });
+        });
     });
 
     /*

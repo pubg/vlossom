@@ -23,7 +23,13 @@
 
             <div class="vs-file-drop-content">
                 <slot>
-                    <div class="vs-file-drop-placeholder">
+                    <div v-if="hasValue" class="vs-file-drop-files">
+                        <vs-block v-for="file in inputValue" :key="file.name">
+                            {{ `${file.name} (${file.size} bytes)` }}
+                        </vs-block>
+                    </div>
+
+                    <div v-else class="vs-file-drop-placeholder">
                         <vs-icon icon="attachFile" size="40" />
                         <span>Drop files here or click to upload</span>
                     </div>
@@ -38,7 +44,7 @@ import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
 import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
-import { VsInputWrapper } from '@/components';
+import { VsBlock, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 
 import type { InputValueType, VsFileDropStyleSet } from './types';
@@ -46,7 +52,7 @@ import type { InputValueType, VsFileDropStyleSet } from './types';
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsIcon },
+    components: { VsInputWrapper, VsIcon, VsBlock },
     props: {
         ...getInputProps<InputValueType>(),
         accept: { type: String, default: '' },
@@ -54,7 +60,7 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
         // v-model
-        modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
+        modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
     emits: ['update:modelValue', 'update:changed', 'change'],
     setup(props, context) {
@@ -71,6 +77,14 @@ export default defineComponent({
         const hover = ref(false);
 
         const messages: Ref<StateMessage[]> = ref([]);
+
+        const hasValue = computed(() => {
+            if (!inputValue.value) {
+                return false;
+            }
+
+            return inputValue.value.length > 0;
+        });
 
         const { computedId, computedDisabled, computedMessages, validate } = useInput(context, {
             inputValue,
@@ -115,7 +129,7 @@ export default defineComponent({
             if (multiple.value) {
                 inputValue.value = targetValue;
             } else {
-                inputValue.value = targetValue[0] || null;
+                inputValue.value = targetValue || [];
             }
         }
 
@@ -137,6 +151,7 @@ export default defineComponent({
             colorSchemeClass,
             computedStyleSet,
             inputValue,
+            hasValue,
             onMouseEnter,
             onMouseLeave,
             updateValue,

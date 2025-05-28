@@ -30,14 +30,31 @@
         cursor: pointer;
     }
 
-    .vs-file-drop-placeholder {
+    .vs-file-drop-content {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
         height: 100%;
+        width: 100%;
+
+        .vs-file-drop-files {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .vs-file-drop-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
     }
+
 
     .vs-messages {
         position: absolute;

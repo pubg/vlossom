@@ -1,3 +1,3 @@
-export type InputValueType = File | File[] | null;
+export type InputValueType = File[] | null;
 
 export interface VsFileDropStyleSet {}
