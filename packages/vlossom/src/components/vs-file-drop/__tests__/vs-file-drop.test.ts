@@ -333,6 +333,28 @@ describe('vs-file-drop', () => {
                 expect(content.html()).toContain(files[index].size);
             });
         });
+
+        it('dialog에서 파일 입력을 취소하면, 기존의 파일이 유지된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files: [],
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.vm.inputValue).toEqual(files);
+        });
     });
 
     /*

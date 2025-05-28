@@ -120,6 +120,10 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
 
+            if (!targetValue.length) {
+                return; // 'cancel' on dialog
+            }
+
             if (validateSingleFileUploadRule(targetValue)) {
                 messages.value.push({ state: 'error', text: 'You can only upload one file' });
                 validate();
