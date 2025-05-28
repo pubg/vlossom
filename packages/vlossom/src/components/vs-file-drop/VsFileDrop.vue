@@ -55,7 +55,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: null },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'update:changed', 'change'],
     setup(props, context) {
         const { id, colorScheme, styleSet, modelValue, disabled, multiple } = toRefs(props);
 
@@ -101,11 +101,25 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
 
+            if (validateSingleFileUpload(targetValue)) {
+                return;
+            }
+
             if (multiple.value) {
                 inputValue.value = targetValue;
             } else {
                 inputValue.value = targetValue[0] || null;
             }
+        }
+
+        function validateSingleFileUpload(v: InputValueType): string {
+            if (multiple.value) {
+                return '';
+            }
+            if (Array.isArray(v) && v.length > 1) {
+                return 'You can only upload one file';
+            }
+            return '';
         }
 
         return {

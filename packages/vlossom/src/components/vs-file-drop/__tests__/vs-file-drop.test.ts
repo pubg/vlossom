@@ -276,17 +276,20 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 어떤 파일도 등록되지 않고 에러 메시지가 노출된다', async () => {
+        it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 파일이 등록되지 않는다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
 
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('change', { target: { files } });
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
 
             // Then
-            // 에러 메시지 확인 및 파일이 등록되지 않았는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
     });
 
