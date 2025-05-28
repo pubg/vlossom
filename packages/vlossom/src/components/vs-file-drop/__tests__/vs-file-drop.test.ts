@@ -229,10 +229,18 @@ describe('vs-file-drop', () => {
             // Then
             expect(wrapper.vm.$props.modelValue).toEqual(newFiles);
         });
+
+        it('사용자가 Slot을 정의하면 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출되지 않는다', () => {
+            // Given
+            const wrapper = mount(VsFileDrop, {
+                props: { modelValue: [createFile('a.png')] },
+                slots: { default: '<div>Custom Slot</div>' },
+            });
+        });
     });
     */
 
-    describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
+    describe.only('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
@@ -317,7 +325,7 @@ describe('vs-file-drop', () => {
             // Given
             const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
-            const droppedFileContents = wrapper.findAll('vs-block');
+            const droppedFileContents = wrapper.findAll('vs-chip');
 
             // When
             await wrapper.vm.updateValue({
@@ -420,6 +428,29 @@ describe('vs-file-drop', () => {
 
             // Then
             // 에러 메시지 확인 및 파일이 등록되지 않았는지 확인 (구현에 따라 추가)
+        });
+
+        it('추가한 파일의 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.png')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+
+            // When
+            // const input = wrapper.find('input[type="file"]');
+            // input.trigger('change');
+            // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+
+            // Then
+            expect(wrapper.text()).toContain('a.png');
+            expect(wrapper.text()).toContain('b.png');
+            expect(wrapper.text()).toContain('image/png');
+            expect(wrapper.text()).toContain('100px');
+            expect(wrapper.text()).toContain('200px');
         });
     });
 

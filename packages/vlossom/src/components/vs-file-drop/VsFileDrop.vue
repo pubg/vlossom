@@ -24,9 +24,9 @@
             <div class="vs-file-drop-content">
                 <slot>
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-block v-for="file in inputValue" :key="file.name">
+                        <vs-chip v-for="file in inputValue" :key="file.name" closable no-round>
                             {{ `${file.name} (${file.size} bytes)` }}
-                        </vs-block>
+                        </vs-chip>
                     </div>
 
                     <div v-else class="vs-file-drop-placeholder">
@@ -44,7 +44,7 @@ import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
 import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
-import { VsBlock, VsInputWrapper } from '@/components';
+import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 
 import type { InputValueType, VsFileDropStyleSet } from './types';
@@ -52,7 +52,7 @@ import type { InputValueType, VsFileDropStyleSet } from './types';
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
     name,
-    components: { VsInputWrapper, VsIcon, VsBlock },
+    components: { VsInputWrapper, VsIcon, VsChip },
     props: {
         ...getInputProps<InputValueType>(),
         accept: { type: String, default: '' },
