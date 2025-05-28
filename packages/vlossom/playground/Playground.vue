@@ -12,6 +12,14 @@
             Vlossom is a Vue 3 component library that provides a set of high-quality components and themes for your Vue
             3 applications.
         </vs-section>
+
+        <vs-section>
+            <template #title>
+                <h3>File Drop</h3>
+            </template>
+
+            <vs-file-drop />
+        </vs-section>
     </vs-page>
 </template>
 
