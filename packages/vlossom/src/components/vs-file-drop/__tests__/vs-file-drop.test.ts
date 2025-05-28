@@ -240,7 +240,7 @@ describe('vs-file-drop', () => {
     });
     */
 
-    describe.only('클릭해서 dialog로 파일을 추가할 수 있다', () => {
+    describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
