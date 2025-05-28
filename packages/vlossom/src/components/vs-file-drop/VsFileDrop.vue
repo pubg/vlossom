@@ -4,6 +4,7 @@
         :id="computedId"
         :class="classObj"
         :required="required"
+        :messages="computedMessages"
         @mouseenter.stop="onMouseEnter"
         @mouseleave.stop="onMouseLeave"
     >
@@ -34,7 +35,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
-import { VsComponent, type ColorScheme } from '@/declaration';
+import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
 import { VsInputWrapper } from '@/components';
@@ -57,7 +58,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'change'],
     setup(props, context) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple } = toRefs(props);
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules } = toRefs(props);
 
         const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -69,11 +70,15 @@ export default defineComponent({
 
         const hover = ref(false);
 
-        const { computedId, computedDisabled } = useInput(context, {
+        const messages: Ref<StateMessage[]> = ref([]);
+
+        const { computedId, computedDisabled, computedMessages, validate } = useInput(context, {
             inputValue,
             modelValue,
             id,
             disabled,
+            rules,
+            messages,
         });
 
         const classObj = computed(() => ({
@@ -101,7 +106,9 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
 
-            if (validateSingleFileUpload(targetValue)) {
+            if (validateSingleFileUploadRule(targetValue)) {
+                messages.value.push({ state: 'error', text: 'You can only upload one file' });
+                validate();
                 return;
             }
 
@@ -112,7 +119,7 @@ export default defineComponent({
             }
         }
 
-        function validateSingleFileUpload(v: InputValueType): string {
+        function validateSingleFileUploadRule(v: InputValueType): string {
             if (multiple.value) {
                 return '';
             }
@@ -125,6 +132,7 @@ export default defineComponent({
         return {
             fileDropRef,
             computedId,
+            computedMessages,
             classObj,
             colorSchemeClass,
             computedStyleSet,

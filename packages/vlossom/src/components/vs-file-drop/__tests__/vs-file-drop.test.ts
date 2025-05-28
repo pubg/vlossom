@@ -291,6 +291,27 @@ describe('vs-file-drop', () => {
             // Then
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
+
+        it('multiple이 false일 때 여러 개의 파일을 추가하면 에러 메시지가 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.png')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: false } });
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.vm.computedMessages[0]).toEqual({
+                text: 'You can only upload one file',
+                state: 'error',
+            });
+        });
     });
 
     /*
