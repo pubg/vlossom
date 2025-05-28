@@ -6,32 +6,6 @@ function createFile(name = 'test.png', type = 'image/png') {
     return new File(['dummy'], name, { type });
 }
 
-/**
- * V2: AI only
-
-1. 명세 Wiki를 작성함
-
-  명세는 속성에 따른 동작을 정의하는 것이 아니라, 유스케이스(컨텍스트가 있는 상황과 기대되는 결과)를 정의한다.
-
-2. Cursor에게 Wiki를 기반으로 TC 작성(1)을 요청함
-
-  적절히 스위트를 분리하도록 요청한다
-
-  내가 명세하지 않은 임의의 TC를 생성하지 않도록 한다
-
-  보다보니까 TC가 그럴 법하면 Wiki 명세와 함께 추가한다
-
-3. 기대되는 UI를 이미지(2)와, 기대하는 코드 스니펫(3) 형태를 기존 코드에서 첨부하여 기본 코드 골격을 작성한다.
-
-  repository 컨텍스트를 참고해달라고 요청한다
-
-4. 테스트 스위트를 ‘하나 씩’ 만족하도록 개발을 요청한다.
-
-  이 때, 테스트 자체가 잘못된 경우(false positive)는 한땀 한땀봐야 한다…
-
-5. 모든 테스트를 통과하면 직접 컴퍼넌트 사용성을 테스트한다.
- */
-
 describe.only('vs-file-drop', () => {
     describe('입력된 파일이 없을 때', () => {
         let wrapper: VueWrapper<any>;
@@ -51,10 +25,11 @@ describe.only('vs-file-drop', () => {
 
         it('컴포넌트에 hover하면 wrapper 영역에 피드백이 노출된다', async () => {
             // When
-            await wrapper.trigger('mouseenter');
+            const dropZone = wrapper.find('.vs-file-drop');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.classes()).toContain('vs-hover');
+            expect(dropZone.classes()).toContain('vs-hover');
         });
 
         it('컴포넌트에서 마우스 커서가 벗어나면 hover 클래스가 제거된다', async () => {
@@ -69,23 +44,25 @@ describe.only('vs-file-drop', () => {
         it('disabled 상태일 때 hover하면 피드백이 노출되지 않는다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
+            const dropZone = wrapper.find('.vs-file-drop');
 
             // When
-            await wrapper.trigger('mouseenter');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.classes()).not.toContain('vs-hover');
+            expect(dropZone.classes()).not.toContain('vs-hover');
         });
 
         it('disabled 상태일 때 disabled 효과가 나타난다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
+            const dropZone = wrapper.find('.vs-file-drop');
 
             // When
-            await wrapper.trigger('mouseenter');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.classes()).toContain('vs-disabled');
+            expect(dropZone.classes()).toContain('vs-disabled');
         });
 
         it('content 영역에 placeholder가 노출된다', () => {
@@ -134,10 +111,11 @@ describe.only('vs-file-drop', () => {
 
         it('컴포넌트에 hover하면 wrapper 영역에 피드백이 노출된다', async () => {
             // When
-            await wrapper.trigger('mouseenter');
+            const dropZone = wrapper.find('.vs-file-drop');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.classes()).toContain('vs-hover');
+            expect(dropZone.classes()).toContain('vs-hover');
         });
 
         it('disable 상태일 때 피드백이 노출되지 않는다', async () => {
@@ -145,10 +123,10 @@ describe.only('vs-file-drop', () => {
             await wrapper.setProps({ disabled: true });
 
             // When
-            await wrapper.trigger('mouseenter');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.classes()).not.toContain('vs-hover');
+            expect(dropZone.classes()).not.toContain('vs-hover');
         });
 
         it('입력된 파일이 존재해도, 다시 클릭하면 dialog로 파일을 교체할 수 있다', async () => {
