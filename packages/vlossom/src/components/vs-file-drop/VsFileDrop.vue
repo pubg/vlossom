@@ -179,9 +179,10 @@ export default defineComponent({
                 return;
             }
 
-            const validateFileType = targetValue.some((file) => !props.accept || file.type.startsWith(props.accept));
-            if (!validateFileType) {
-                messages.value.push({ state: 'error', text: `Only ${props.accept} files are allowed` });
+            const accept = props.accept || '';
+            const hasInvalidFile = targetValue.some((file) => !file.type.startsWith(accept));
+            if (accept && hasInvalidFile) {
+                messages.value.push({ state: 'error', text: `Only ${accept} files are allowed` });
                 validate();
                 return;
             }

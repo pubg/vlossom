@@ -409,7 +409,7 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
-        it('accept가 없을 않는 파일이 추가된 경우, "Only ${accept} files are allowed" 메시지가 노출된다', async () => {
+        it('accept가 맞지 않는 파일이 추가된 경우, "Only ${accept} files are allowed" 메시지가 노출된다', async () => {
             // Given
             const accept = 'image/png';
             const wrapper = mount(VsFileDrop, { props: { accept } });
