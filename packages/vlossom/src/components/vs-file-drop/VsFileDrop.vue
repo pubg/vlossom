@@ -167,6 +167,10 @@ export default defineComponent({
             const targetValue = Array.from(target.files || []);
             ctx.emit('drop', targetValue);
 
+            if (disabled.value) {
+                return;
+            }
+
             const validateFileType = targetValue.some((file) => !props.accept || file.type.startsWith(props.accept));
             if (!validateFileType) {
                 messages.value.push({ state: 'error', text: `Only ${props.accept} files are allowed` });
