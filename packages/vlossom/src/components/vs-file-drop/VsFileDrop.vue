@@ -108,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs, nextTick } from 'vue';
 import { useColorScheme } from '@/composables/color-scheme-composable';
 import { useStyleSet } from '@/composables/style-set-composable';
 import { useInput } from '@/composables/input-composable';
@@ -143,7 +143,6 @@ export default defineComponent({
             messages,
             modelValue,
             readonly,
-            rules,
             state,
             noDefaultRules,
             noMessage,
@@ -158,21 +157,17 @@ export default defineComponent({
         const hover = ref(false);
         const label = ref('');
 
-        const { computedId, computedMessages, computedState, computedDisabled, computedReadonly, shake } = useInput(
-            context,
-            {
+        const { computedId, computedMessages, computedState, computedDisabled, computedReadonly, shake, validate } =
+            useInput(context, {
                 inputValue,
                 modelValue,
                 id,
                 disabled,
                 readonly,
                 messages,
-                rules,
-                defaultRules: [],
                 noDefaultRules,
                 state,
-            },
-        );
+            });
 
         const hasValue = computed(() => {
             if (Array.isArray(inputValue.value)) {
@@ -210,8 +205,23 @@ export default defineComponent({
 
             if (props.multiple) {
                 inputValue.value = targetValue;
+                messages.value = [];
             } else {
+                if (targetValue.length > 1) {
+                    inputValue.value = null;
+                    messages.value = [
+                        {
+                            text: 'You can only upload one file',
+                            state: 'error',
+                        },
+                    ];
+                    nextTick(() => {
+                        validate();
+                    });
+                    return;
+                }
                 inputValue.value = targetValue[0] || null;
+                messages.value = [];
             }
         }
         function onDrop(event: DragEvent) {
@@ -226,12 +236,31 @@ export default defineComponent({
             const fileList = Array.from(files);
             if (props.multiple) {
                 inputValue.value = fileList;
+                messages.value = [];
             } else {
+                if (fileList.length > 1) {
+                    inputValue.value = null;
+                    messages.value = [
+                        {
+                            text: 'You can only upload one file',
+                            state: 'error',
+                        },
+                    ];
+                    nextTick(() => {
+                        validate();
+                    });
+                    return;
+                }
                 inputValue.value = fileList[0] || null;
+                messages.value = [];
             }
         }
         function onClear() {
-            // 추후 구현
+            if (props.multiple) {
+                inputValue.value = [];
+            } else {
+                inputValue.value = null;
+            }
         }
         function onFocus(e: FocusEvent) {
             emit('focus', e);
