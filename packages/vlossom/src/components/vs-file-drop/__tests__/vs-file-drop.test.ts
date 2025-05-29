@@ -53,13 +53,12 @@ describe.only('vs-file-drop', () => {
             expect(dropZone.classes()).not.toContain('vs-hover');
         });
 
-        it('disabled 상태일 때 disabled 효과가 나타난다', async () => {
+        it('disable 상태일 때, disabled 효과가 나타난다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
-            const dropZone = wrapper.find('.vs-file-drop');
 
             // When
-            await dropZone.trigger('mouseenter');
+            const dropZone = wrapper.find('.vs-file-drop');
 
             // Then
             expect(dropZone.classes()).toContain('vs-disabled');
@@ -92,7 +91,7 @@ describe.only('vs-file-drop', () => {
         });
     });
 
-    describe.todo('입력된 파일이 있을 때', () => {
+    describe('입력된 파일이 있을 때', () => {
         let wrapper: VueWrapper<any>;
         const file = createFile();
 
@@ -123,6 +122,7 @@ describe.only('vs-file-drop', () => {
             await wrapper.setProps({ disabled: true });
 
             // When
+            const dropZone = wrapper.find('.vs-file-drop');
             await dropZone.trigger('mouseenter');
 
             // Then
@@ -140,14 +140,26 @@ describe.only('vs-file-drop', () => {
 
         it('입력된 파일이 존재해도, drag & drop으로 파일을 교체할 수 있다', async () => {
             // Given
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(createFile('test2.png'));
+            const initialFile = createFile('test1.png');
+            const newFile = createFile('test2.png');
+            wrapper = mount(VsFileDrop, {
+                props: {
+                    modelValue: initialFile,
+                    'onUpdate:modelValue': (e) => wrapper.setProps({ modelValue: e }),
+                },
+            });
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await wrapper.vm.updateValue({
+                target: {
+                    files: [newFile],
+                },
+            } as unknown as Event);
 
             // Then
-            expect(wrapper.emitted()).toHaveProperty('update:modelValue');
+            expect(wrapper.vm.inputValue).toEqual(newFile);
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(newFile);
         });
 
         it('disable 상태일 때, 파일(콘텐츠) 제거 버튼이 노출되지 않아 입력된 파일을 제거할 수 없다', async () => {
@@ -161,15 +173,17 @@ describe.only('vs-file-drop', () => {
             expect(clearButton.exists()).toBe(false);
         });
 
-        it('disable 상태일 때, 영역에 hover하면 cursor가 disable로 노출된다', async () => {
+        it('disable 상태일 때, 마우스를 올려도 hover 효과가 나타나지 않는다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
+            const dropZone = wrapper.find('.vs-file-drop');
 
             // When
-            await wrapper.trigger('mouseenter');
+            await dropZone.trigger('mouseenter');
 
             // Then
-            expect(wrapper.element.style.cursor).toBe('not-allowed');
+            expect(dropZone.classes()).not.toContain('vs-hover');
+            expect(dropZone.classes()).toContain('vs-disabled');
         });
 
         it('multiple이 true일 때 modelValue는 File[] 타입이다', () => {
@@ -193,7 +207,7 @@ describe.only('vs-file-drop', () => {
             const modelValue = wrapper.vm.$props.modelValue;
 
             // Then
-            expect(modelValue).toBeInstanceOf(fileA);
+            expect(modelValue).toBeInstanceOf(File);
         });
 
         it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', () => {

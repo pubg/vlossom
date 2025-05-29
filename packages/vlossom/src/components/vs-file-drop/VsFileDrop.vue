@@ -64,6 +64,7 @@
                             >
                                 <vs-icon icon="success" size="32" />
                                 <span>{{ file.name }}</span>
+                                <span v-if="fileCount" class="vs-file-count">{{ fileCount }}</span>
                                 <button
                                     v-if="!computedReadonly && !computedDisabled"
                                     class="vs-file-drop-clear"
@@ -79,6 +80,20 @@
                             <div class="vs-file-drop-file">
                                 <vs-icon icon="success" size="48" />
                                 <span>{{ inputValue && !Array.isArray(inputValue) ? inputValue.name : '' }}</span>
+                                <button
+                                    v-if="
+                                        !computedReadonly &&
+                                        !computedDisabled &&
+                                        inputValue &&
+                                        !Array.isArray(inputValue)
+                                    "
+                                    class="vs-file-drop-clear"
+                                    aria-label="Clear"
+                                    tabindex="-1"
+                                    @click.stop="onClear()"
+                                >
+                                    <vs-icon icon="close" size="16" />
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -167,19 +182,53 @@ export default defineComponent({
             }
         });
 
+        const fileCount = computed(() => {
+            if (!props.multiple || !Array.isArray(inputValue.value)) {
+                return '';
+            }
+            return inputValue.value.length > 1 ? `${inputValue.value.length} files` : '';
+        });
+
         function setDragging(val: boolean) {
             dragging.value = val;
         }
         function setHover(val: boolean) {
-            hover.value = val;
+            if (computedDisabled.value) {
+                hover.value = false;
+            } else {
+                hover.value = val;
+            }
         }
 
-        function updateValue() {
-            // 추후 구현
+        function updateValue(event?: Event) {
+            if (!event) {
+                return;
+            }
+
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            if (props.multiple) {
+                inputValue.value = targetValue;
+            } else {
+                inputValue.value = targetValue[0] || null;
+            }
         }
-        function onDrop() {
-            // 추후 구현
+        function onDrop(event: DragEvent) {
+            event.preventDefault();
             setDragging(false);
+
+            const files = event.dataTransfer?.files;
+            if (!files) {
+                return;
+            }
+
+            const fileList = Array.from(files);
+            if (props.multiple) {
+                inputValue.value = fileList;
+            } else {
+                inputValue.value = fileList[0] || null;
+            }
         }
         function onClear() {
             // 추후 구현
@@ -224,6 +273,7 @@ export default defineComponent({
             stateClasses,
             noMessage,
             label,
+            fileCount,
         };
     },
 });

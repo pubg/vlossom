@@ -113,5 +113,10 @@ $file-drop-radius: var(--vs-file-drop-radius, 2rem);
                 color: #e57300;
             }
         }
+        .vs-file-count {
+            margin-left: 8px;
+            color: var(--vs-text-secondary);
+            font-size: 0.9em;
+        }
     }
 } 
