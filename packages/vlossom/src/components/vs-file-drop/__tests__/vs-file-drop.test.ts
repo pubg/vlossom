@@ -473,7 +473,7 @@ describe('vs-file-drop', () => {
             await input.trigger('dragover');
 
             // Then
-            expect(wrapper.classes()).toContain('vs-file-drop-dragover');
+            expect(wrapper.classes()).toContain('vs-dragging');
         });
 
         it('drag 이벤트가 끝나면 파일 드롭 영역의 하이라이트가 제거된다', async () => {
@@ -488,7 +488,7 @@ describe('vs-file-drop', () => {
             await input.trigger('drop');
 
             // Then
-            expect(wrapper.classes()).not.toContain('vs-file-drop-dragover');
+            expect(wrapper.classes()).not.toContain('vs-dragging');
         });
 
         it('multiple이 true일 때 drag&drop으로 여러 파일을 추가할 수 있다', async () => {

@@ -18,8 +18,10 @@
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
-                @change.stop="onDialogConfirm($event)"
-                @drop.stop="onDrop($event)"
+                @change.stop="onDialogConfirm"
+                @drop.stop="onDrop"
+                @dragenter.stop="setDragging(true)"
+                @dragleave.stop="setDragging(false)"
             />
 
             <div class="vs-file-drop-content">
@@ -77,6 +79,8 @@ export default defineComponent({
 
         const hover = ref(false);
 
+        const dragging = ref(false);
+
         const messages: Ref<StateMessage[]> = ref([]);
 
         const computedInputValue = computed<File[]>(() => {
@@ -106,6 +110,7 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             'vs-hover': hover.value,
+            'vs-dragging': dragging.value,
             'vs-disabled': computedDisabled.value,
         }));
 
@@ -125,6 +130,10 @@ export default defineComponent({
             hover.value = false;
         }
 
+        function setDragging(value: boolean) {
+            dragging.value = value;
+        }
+
         function validateSingleFileUploadRule(v: InputValueType): string {
             if (multiple.value) {
                 return '';
@@ -138,8 +147,6 @@ export default defineComponent({
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
-
-            console.log('updateValue', targetValue);
 
             if (!targetValue.length) {
                 return; // 'cancel' on dialog
@@ -166,6 +173,7 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
             ctx.emit('drop', targetValue);
+            setDragging(false);
 
             if (disabled.value) {
                 return;
@@ -193,6 +201,7 @@ export default defineComponent({
             hasValue,
             onMouseEnter,
             onMouseLeave,
+            setDragging,
             updateValue,
             onDialogConfirm,
             onDrop,
