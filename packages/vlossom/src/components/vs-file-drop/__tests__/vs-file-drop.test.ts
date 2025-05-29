@@ -372,7 +372,7 @@ describe('vs-file-drop', () => {
             const files = [createFile('a.png')];
 
             // When
-            await wrapper.vm.updateValue({
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },
@@ -388,9 +388,10 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('accept에 맞지 않는 파일은 drag & drop으로 추가할 수 없다', async () => {
+        it('accept에 맞지 않는 파일은 추가할 수 없다', async () => {
             // Given
-            const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
+            const accept = 'image/png';
+            const wrapper = mount(VsFileDrop, { props: { accept } });
             const files = [createFile('test.txt', 'text/plain')];
 
             // When
@@ -406,7 +407,27 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('drop')?.length).toBe(1);
             expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
-            expect(wrapper.text()).toContain('Only image/png files are allowed');
+        });
+
+        it('accept가 없을 않는 파일이 추가된 경우, "Only ${accept} files are allowed" 메시지가 노출된다', async () => {
+            // Given
+            const accept = 'image/png';
+            const wrapper = mount(VsFileDrop, { props: { accept } });
+            const files = [createFile('test.txt', 'text/plain')];
+
+            // When
+            await wrapper.vm.onDrop({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.text()).toContain(`Only ${accept} files are allowed`);
         });
 
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
@@ -492,7 +513,7 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 어떤 파일도 등록되지 않고 에러 메시지가 노출된다', async () => {
+        it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 어떤 파일도 등록되지 않는다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
@@ -511,6 +532,23 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('drop')?.length).toBe(1);
             expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
+        });
+
+        it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 에러 메시지가 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.png')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: false } });
+
+            // When
+            //input.trigger('drop');
+            await wrapper.vm.onDrop({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
             expect(wrapper.text()).toContain('You can only upload one file');
         });
 

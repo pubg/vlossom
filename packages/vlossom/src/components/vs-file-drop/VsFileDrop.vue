@@ -64,7 +64,7 @@ export default defineComponent({
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
-    setup(props, context) {
+    setup(props, ctx) {
         const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules } = toRefs(props);
 
         const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
@@ -95,7 +95,7 @@ export default defineComponent({
             return computedInputValue.value.length > 0;
         });
 
-        const { computedId, computedDisabled, computedMessages, validate } = useInput(context, {
+        const { computedId, computedDisabled, computedMessages, validate } = useInput(ctx, {
             inputValue,
             modelValue,
             id,
@@ -139,6 +139,8 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
 
+            console.log('updateValue', targetValue);
+
             if (!targetValue.length) {
                 return; // 'cancel' on dialog
             }
@@ -163,7 +165,15 @@ export default defineComponent({
         function onDrop(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
-            context.emit('drop', targetValue);
+            ctx.emit('drop', targetValue);
+
+            const validateFileType = targetValue.some((file) => !props.accept || file.type.startsWith(props.accept));
+            if (!validateFileType) {
+                messages.value.push({ state: 'error', text: `Only ${props.accept} files are allowed` });
+                validate();
+                return;
+            }
+
             updateValue(event);
         }
 
