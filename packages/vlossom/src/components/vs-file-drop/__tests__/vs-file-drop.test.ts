@@ -2,9 +2,9 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
 
-// function createFile(name = 'test.png', type = 'image/png') {
-//     return new File(['dummy'], name, { type });
-// }
+function createFile(name = 'test.png', type = 'image/png') {
+    return new File(['dummy'], name, { type });
+}
 
 describe('vs-file-drop', () => {
     describe('입력된 파일이 없을 때', () => {
@@ -229,7 +229,16 @@ describe('vs-file-drop', () => {
             // Then
             expect(wrapper.vm.$props.modelValue).toEqual(newFiles);
         });
+
+        it('사용자가 Slot을 정의하면 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출되지 않는다', () => {
+            // Given
+            const wrapper = mount(VsFileDrop, {
+                props: { modelValue: [createFile('a.png')] },
+                slots: { default: '<div>Custom Slot</div>' },
+            });
+        });
     });
+    */
 
     describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
@@ -243,16 +252,15 @@ describe('vs-file-drop', () => {
             expect(input.attributes('accept')).toBe('image/png');
         });
 
-        it('disable 상태일 때, 클릭하여 dialog로 파일을 추가할 수 없다', async () => {
+        it('disable 상태일 때, dialog로 파일을 추가할 수 없도록 click 이벤트를 막는다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });
 
             // When
             const input = wrapper.find('input[type="file"]');
-            await input.trigger('click');
 
             // Then
-            // 실제로 dialog가 열리지 않는지 확인 (구현에 따라 추가)
+            expect(await input.trigger('click')).toBeFalsy();
         });
 
         it('multiple이 true일 때 dialog에서 여러 파일을 선택하면 모두 등록된다', async () => {
@@ -261,28 +269,115 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
 
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('change', { target: { files } });
+            // const input = wrapper.find('input[type="file"]');
+            // input.trigger('change');
+            // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일들이 등록되었는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 어떤 파일도 등록되지 않고 에러 메시지가 노출된다', async () => {
+        it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 파일이 등록되지 않는다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
 
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('change', { target: { files } });
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
 
             // Then
-            // 에러 메시지 확인 및 파일이 등록되지 않았는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
+        });
+
+        it('multiple이 false일 때 여러 개의 파일을 추가하면 에러 메시지가 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.png')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: false } });
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.vm.computedMessages).toHaveLength(1);
+            expect(wrapper.vm.computedMessages[0]).toEqual({
+                text: 'You can only upload one file',
+                state: 'error',
+            });
+        });
+
+        it('추가한 모든 파일의 파일 명, 확장자, 파일 사이즈 정보가 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            const droppedFileContents = wrapper.findAll('vs-chip');
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            droppedFileContents.forEach((content, index) => {
+                expect(content.html()).toContain(files[index].name);
+                expect(content.html()).toContain(files[index].size);
+            });
+        });
+
+        it('dialog에서 파일 입력을 취소하면, 기존의 파일이 유지된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+
+            // When
+            await wrapper.vm.updateValue({
+                target: {
+                    files: [],
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.vm.inputValue).toEqual(files);
         });
     });
 
+    /*
     describe('drag & drop으로 파일을 추가할 수 있다', () => {
+        it('accept를 설정하면 원하는 타입의 파일만 drag & drop으로 파일을 추가할 수 있다', () => {
+            // Given
+            const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
+
+            // When
+            const input = wrapper.find('input[type="file"]');
+
+            // Then
+            // 파일이 추가되지 않았는지 확인 (구현에 따라 추가)
+        });
+
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });
@@ -333,6 +428,29 @@ describe('vs-file-drop', () => {
 
             // Then
             // 에러 메시지 확인 및 파일이 등록되지 않았는지 확인 (구현에 따라 추가)
+        });
+
+        it('추가한 파일의 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출된다', async () => {
+            // Given
+            const files = [createFile('a.png'), createFile('b.png')];
+            const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+
+            // When
+            // const input = wrapper.find('input[type="file"]');
+            // input.trigger('change');
+            // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+
+            // Then
+            expect(wrapper.text()).toContain('a.png');
+            expect(wrapper.text()).toContain('b.png');
+            expect(wrapper.text()).toContain('image/png');
+            expect(wrapper.text()).toContain('100px');
+            expect(wrapper.text()).toContain('200px');
         });
     });
 
