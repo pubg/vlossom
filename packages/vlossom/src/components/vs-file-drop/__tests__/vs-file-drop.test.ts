@@ -370,11 +370,8 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
             const files = [createFile('a.png')];
-            const input = wrapper.find('input[type="file"]');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
             await wrapper.vm.updateValue({
                 target: {
                     files,
@@ -395,12 +392,9 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
             const files = [createFile('test.txt', 'text/plain')];
-            const input = wrapper.find('input[type="file"]');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
-            await wrapper.vm.updateValue({
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },
@@ -419,12 +413,9 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });
             const files = [createFile('test.png')];
-            const input = wrapper.find('input[type="file"]');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
-            await wrapper.vm.updateValue({
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },
@@ -483,12 +474,9 @@ describe('vs-file-drop', () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
-            const input = wrapper.find('input[type="file"]');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
-            await wrapper.vm.updateValue({
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },
@@ -508,12 +496,10 @@ describe('vs-file-drop', () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
-            const input = wrapper.find('input[type="file"]');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
-            await wrapper.vm.updateValue({
+            //input.trigger('drop');
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },
@@ -532,13 +518,10 @@ describe('vs-file-drop', () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
-            const input = wrapper.find('input[type="file"]');
             const droppedFileContents = wrapper.findAll('vs-chip');
 
             // When
-            await input.trigger('dragover');
-            await input.trigger('drop');
-            await wrapper.vm.updateValue({
+            await wrapper.vm.onDrop({
                 target: {
                     files,
                 },

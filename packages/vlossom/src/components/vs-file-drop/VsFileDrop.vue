@@ -18,7 +18,8 @@
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
-                @change.stop="updateValue($event)"
+                @change.stop="onDialogConfirm($event)"
+                @drop.stop="onDrop($event)"
             />
 
             <div class="vs-file-drop-content">
@@ -62,7 +63,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
-    emits: ['update:modelValue', 'update:changed', 'change'],
+    emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
     setup(props, context) {
         const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules } = toRefs(props);
 
@@ -124,6 +125,16 @@ export default defineComponent({
             hover.value = false;
         }
 
+        function validateSingleFileUploadRule(v: InputValueType): string {
+            if (multiple.value) {
+                return '';
+            }
+            if (Array.isArray(v) && v.length > 1) {
+                return 'You can only upload one file';
+            }
+            return '';
+        }
+
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
@@ -145,14 +156,15 @@ export default defineComponent({
             }
         }
 
-        function validateSingleFileUploadRule(v: InputValueType): string {
-            if (multiple.value) {
-                return '';
-            }
-            if (Array.isArray(v) && v.length > 1) {
-                return 'You can only upload one file';
-            }
-            return '';
+        function onDialogConfirm(event: Event) {
+            updateValue(event);
+        }
+
+        function onDrop(event: Event) {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+            context.emit('drop', targetValue);
+            updateValue(event);
         }
 
         return {
@@ -168,6 +180,8 @@ export default defineComponent({
             onMouseEnter,
             onMouseLeave,
             updateValue,
+            onDialogConfirm,
+            onDrop,
         };
     },
 });
