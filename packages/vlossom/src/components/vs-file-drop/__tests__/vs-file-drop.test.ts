@@ -429,7 +429,7 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
-        it('파일을 drag하여 영역에 hover하면 drop here 메시지가 노출된다', async () => {
+        it('파일을 drag하여 영역에 hover하면 "Drop files here or click to upload" 메시지가 노출된다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { modelValue: null } });
             const input = wrapper.find('input[type="file"]');
@@ -439,7 +439,7 @@ describe('vs-file-drop', () => {
             await input.trigger('dragover');
 
             // Then
-            expect(wrapper.text()).toContain('drop here');
+            expect(wrapper.text()).toContain('Drop files here or click to upload');
         });
 
         it('drag 이벤트가 발생하면 파일 드롭 영역이 하이라이트된다', async () => {
