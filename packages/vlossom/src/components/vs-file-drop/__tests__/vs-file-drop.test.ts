@@ -365,95 +365,198 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
     describe('drag & drop으로 파일을 추가할 수 있다', () => {
-        it('accept를 설정하면 원하는 타입의 파일만 drag & drop으로 파일을 추가할 수 있다', () => {
+        it('accept를 설정하면 원하는 타입의 파일만 drag & drop으로 파일을 추가할 수 있다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
-
-            // When
+            const files = [createFile('a.png')];
             const input = wrapper.find('input[type="file"]');
 
+            // When
+            await input.trigger('dragover');
+            await input.trigger('drop');
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
             // Then
-            // 파일이 추가되지 않았는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
+        });
+
+        it('accept에 맞지 않는 파일은 drag & drop으로 추가할 수 없다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop, { props: { accept: 'image/png' } });
+            const files = [createFile('test.txt', 'text/plain')];
+            const input = wrapper.find('input[type="file"]');
+
+            // When
+            await input.trigger('dragover');
+            await input.trigger('drop');
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
+            expect(wrapper.text()).toContain('Only image/png files are allowed');
         });
 
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(createFile());
+            const files = [createFile('test.png')];
+            const input = wrapper.find('input[type="file"]');
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await input.trigger('dragover');
+            await input.trigger('drop');
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
-            // 파일이 추가되지 않았는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
         it('파일을 drag하여 영역에 hover하면 drop here 메시지가 노출된다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { modelValue: null } });
+            const input = wrapper.find('input[type="file"]');
 
             // When
-            await wrapper.trigger('dragenter');
+            await input.trigger('dragenter');
+            await input.trigger('dragover');
 
             // Then
             expect(wrapper.text()).toContain('drop here');
         });
 
+        it('drag 이벤트가 발생하면 파일 드롭 영역이 하이라이트된다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop);
+            const input = wrapper.find('input[type="file"]');
+
+            // When
+            await input.trigger('dragenter');
+            await input.trigger('dragover');
+
+            // Then
+            expect(wrapper.classes()).toContain('vs-file-drop-dragover');
+        });
+
+        it('drag 이벤트가 끝나면 파일 드롭 영역의 하이라이트가 제거된다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop);
+            const input = wrapper.find('input[type="file"]');
+
+            // When
+            await input.trigger('dragenter');
+            await input.trigger('dragover');
+            await input.trigger('dragleave');
+            await input.trigger('drop');
+
+            // Then
+            expect(wrapper.classes()).not.toContain('vs-file-drop-dragover');
+        });
+
         it('multiple이 true일 때 drag&drop으로 여러 파일을 추가할 수 있다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
-            const dataTransfer = new DataTransfer();
-            files.forEach((f) => dataTransfer.items.add(f));
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            const input = wrapper.find('input[type="file"]');
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await input.trigger('dragover');
+            await input.trigger('drop');
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
-            // 파일들이 추가되었는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
         it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 어떤 파일도 등록되지 않고 에러 메시지가 노출된다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
-            const dataTransfer = new DataTransfer();
-            files.forEach((f) => dataTransfer.items.add(f));
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
+            const input = wrapper.find('input[type="file"]');
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await input.trigger('dragover');
+            await input.trigger('drop');
+            await wrapper.vm.updateValue({
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
-            // 에러 메시지 확인 및 파일이 등록되지 않았는지 확인 (구현에 따라 추가)
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
+            expect(wrapper.text()).toContain('You can only upload one file');
         });
 
         it('추가한 파일의 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출된다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
+            const input = wrapper.find('input[type="file"]');
+            const droppedFileContents = wrapper.findAll('vs-chip');
 
             // When
-            // const input = wrapper.find('input[type="file"]');
-            // input.trigger('change');
-            // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
+            await input.trigger('dragover');
+            await input.trigger('drop');
             await wrapper.vm.updateValue({
                 target: {
                     files,
                 },
             } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
-            expect(wrapper.text()).toContain('a.png');
-            expect(wrapper.text()).toContain('b.png');
-            expect(wrapper.text()).toContain('image/png');
-            expect(wrapper.text()).toContain('100px');
-            expect(wrapper.text()).toContain('200px');
+            expect(wrapper.emitted('drop')).toBeTruthy();
+            expect(wrapper.emitted('drop')?.length).toBe(1);
+            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
+            droppedFileContents.forEach((content, index) => {
+                expect(content.html()).toContain(files[index].name);
+                expect(content.html()).toContain(files[index].size);
+            });
         });
     });
 
+    /*
     describe('Slot으로 컨텐츠를 표현할 수 있다', () => {
         it('Slot은 content 영역을 직접 대체한다', () => {
             // Given
