@@ -130,11 +130,8 @@ export default defineComponent({
             dragging.value = value;
         }
 
-        function updateValue(event: Event) {
-            const target = event.target as HTMLInputElement;
-            const targetValue = Array.from(target.files || []);
-
-            const error = verifyMultipleFileUpload(targetValue);
+        function setInputValue(value: File[]): void {
+            const error = verifyMultipleFileUpload(value);
             if (error) {
                 messages.value.push({ state: 'error', text: error });
                 validate();
@@ -142,9 +139,9 @@ export default defineComponent({
             }
 
             if (multiple.value) {
-                inputValue.value = targetValue;
+                inputValue.value = value;
             } else {
-                inputValue.value = targetValue[0] || null;
+                inputValue.value = value[0] || null;
             }
         }
 
@@ -153,10 +150,10 @@ export default defineComponent({
             const targetValue = Array.from(target.files || []);
 
             if (!targetValue.length) {
-                return; // 'cancel' on dialog
+                return; // dialog canceled
             }
 
-            updateValue(event);
+            setInputValue(targetValue);
         }
 
         function handleFileDrop(event: Event): void {
@@ -176,7 +173,7 @@ export default defineComponent({
                 return;
             }
 
-            updateValue(event);
+            setInputValue(targetValue);
         }
 
         return {
@@ -191,7 +188,6 @@ export default defineComponent({
             hasValue,
             setHover,
             setDragging,
-            updateValue,
             handleFileDialog,
             handleFileDrop,
         };
