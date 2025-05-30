@@ -131,7 +131,7 @@ export default defineComponent({
         }
 
         function setInputValue(value: File[]): void {
-            const error = verifyMultipleFileUpload(value);
+            const error = verifyFileType(value) || verifyMultipleFileUpload(value);
             if (error) {
                 messages.value.push({ state: 'error', text: error });
                 validate();
@@ -159,17 +159,11 @@ export default defineComponent({
         function handleFileDrop(event: Event): void {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
+
             ctx.emit('drop', targetValue);
             setDragging(false);
 
             if (disabled.value) {
-                return;
-            }
-
-            const error = verifyFileType(targetValue);
-            if (error) {
-                messages.value.push({ state: 'error', text: error });
-                validate();
                 return;
             }
 
