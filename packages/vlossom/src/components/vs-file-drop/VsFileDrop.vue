@@ -5,8 +5,8 @@
         :class="classObj"
         :required="required"
         :messages="computedMessages"
-        @mouseenter.stop="onMouseEnter"
-        @mouseleave.stop="onMouseLeave"
+        @mouseenter.stop="setHover(true)"
+        @mouseleave.stop="setHover(false)"
     >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input
@@ -18,7 +18,10 @@
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
-                @change.stop="updateValue($event)"
+                @change.stop="handleFileDialog($event)"
+                @drop.stop="handleFileDrop($event)"
+                @dragenter.stop="setDragging(true)"
+                @dragleave.stop="setDragging(false)"
             />
 
             <div class="vs-file-drop-content">
@@ -40,13 +43,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
+import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
-
 import type { InputValueType, VsFileDropStyleSet } from './types';
 
 const name = VsComponent.VsFileDrop;
@@ -62,39 +65,25 @@ export default defineComponent({
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
-    emits: ['update:modelValue', 'update:changed', 'change'],
-    setup(props, context) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules } = toRefs(props);
+    emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
+    setup(props, ctx) {
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept } = toRefs(props);
 
-        const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
-
-        const { colorSchemeClass } = useColorScheme(name, colorScheme);
-
-        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
+        const fileDropRef = ref<HTMLInputElement | null>(null);
 
         const inputValue = ref<InputValueType>(modelValue.value);
 
         const hover = ref(false);
 
-        const messages: Ref<StateMessage[]> = ref([]);
+        const dragging = ref(false);
 
-        const computedInputValue = computed<File[]>(() => {
-            if (!inputValue.value) {
-                return [];
-            }
+        const messages = ref<StateMessage[]>([]);
 
-            if (Array.isArray(inputValue.value)) {
-                return inputValue.value;
-            }
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-            return [inputValue.value];
-        });
+        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
 
-        const hasValue = computed(() => {
-            return computedInputValue.value.length > 0;
-        });
-
-        const { computedId, computedDisabled, computedMessages, validate } = useInput(context, {
+        const { computedId, computedDisabled, computedMessages, validate } = useInput(ctx, {
             inputValue,
             modelValue,
             id,
@@ -103,56 +92,82 @@ export default defineComponent({
             messages,
         });
 
+        const { verifyFileType, verifyMultipleFileUpload } = useVsFileDropRules({
+            accept,
+            multiple,
+        });
+
+        const computedInputValue = computed<File[]>(() => {
+            if (!inputValue.value) {
+                return [];
+            }
+            return [inputValue.value].flat();
+        });
+
+        const hasValue = computed(() => {
+            return computedInputValue.value.length > 0;
+        });
+
         const classObj = computed(() => ({
             'vs-hover': hover.value,
+            'vs-dragging': dragging.value,
             'vs-disabled': computedDisabled.value,
         }));
 
-        function onMouseEnter() {
+        function setHover(value: boolean): void {
             if (disabled.value) {
                 return;
             }
 
-            hover.value = true;
+            hover.value = value;
         }
 
-        function onMouseLeave() {
+        function setDragging(value: boolean): void {
             if (disabled.value) {
                 return;
             }
 
-            hover.value = false;
+            dragging.value = value;
         }
 
-        function updateValue(event: Event) {
-            const target = event.target as HTMLInputElement;
-            const targetValue = Array.from(target.files || []);
-
-            if (!targetValue.length) {
-                return; // 'cancel' on dialog
-            }
-
-            if (validateSingleFileUploadRule(targetValue)) {
-                messages.value.push({ state: 'error', text: 'You can only upload one file' });
+        function setInputValue(value: File[]): void {
+            const error = verifyFileType(value) || verifyMultipleFileUpload(value);
+            if (error) {
+                messages.value.push({ state: 'error', text: error });
                 validate();
                 return;
             }
 
             if (multiple.value) {
-                inputValue.value = targetValue;
+                inputValue.value = value;
             } else {
-                inputValue.value = targetValue[0] || null;
+                inputValue.value = value[0] || null;
             }
         }
 
-        function validateSingleFileUploadRule(v: InputValueType): string {
-            if (multiple.value) {
-                return '';
+        function handleFileDialog(event: Event): void {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            if (!targetValue.length) {
+                return; // dialog canceled
             }
-            if (Array.isArray(v) && v.length > 1) {
-                return 'You can only upload one file';
+
+            setInputValue(targetValue);
+        }
+
+        function handleFileDrop(event: Event): void {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            ctx.emit('drop', targetValue);
+            setDragging(false);
+
+            if (disabled.value) {
+                return;
             }
-            return '';
+
+            setInputValue(targetValue);
         }
 
         return {
@@ -165,9 +180,10 @@ export default defineComponent({
             computedStyleSet,
             inputValue,
             hasValue,
-            onMouseEnter,
-            onMouseLeave,
-            updateValue,
+            setHover,
+            setDragging,
+            handleFileDialog,
+            handleFileDrop,
         };
     },
 });
