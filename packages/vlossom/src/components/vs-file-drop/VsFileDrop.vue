@@ -134,10 +134,6 @@ export default defineComponent({
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
 
-            if (!targetValue.length) {
-                return; // 'cancel' on dialog
-            }
-
             const error = verifyMultipleFileUpload(targetValue);
             if (error) {
                 messages.value.push({ state: 'error', text: error });
@@ -153,6 +149,13 @@ export default defineComponent({
         }
 
         function handleFileDialog(event: Event): void {
+            const target = event.target as HTMLInputElement;
+            const targetValue = Array.from(target.files || []);
+
+            if (!targetValue.length) {
+                return; // 'cancel' on dialog
+            }
+
             updateValue(event);
         }
 
