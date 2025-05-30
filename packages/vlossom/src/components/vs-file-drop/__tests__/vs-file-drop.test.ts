@@ -272,7 +272,7 @@ describe('vs-file-drop', () => {
             // const input = wrapper.find('input[type="file"]');
             // input.trigger('change');
             // To test `FileList` passed as target in nodeJs environment, we need to handle above as follows.
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files,
                 },
@@ -290,7 +290,7 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
 
             // When
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files,
                 },
@@ -306,7 +306,7 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { multiple: false } });
 
             // When
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files,
                 },
@@ -328,7 +328,7 @@ describe('vs-file-drop', () => {
             const droppedFileContents = wrapper.findAll('vs-chip');
 
             // When
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files,
                 },
@@ -346,14 +346,14 @@ describe('vs-file-drop', () => {
             // Given
             const files = [createFile('a.png'), createFile('b.exe'), createFile('c.txt')];
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files,
                 },
             } as unknown as Event);
 
             // When
-            await wrapper.vm.updateValue({
+            await wrapper.vm.handleFileDialog({
                 target: {
                     files: [],
                 },
@@ -372,7 +372,7 @@ describe('vs-file-drop', () => {
             const files = [createFile('a.png')];
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -395,7 +395,7 @@ describe('vs-file-drop', () => {
             const files = [createFile('test.txt', 'text/plain')];
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -416,7 +416,7 @@ describe('vs-file-drop', () => {
             const files = [createFile('test.txt', 'text/plain')];
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -436,7 +436,7 @@ describe('vs-file-drop', () => {
             const files = [createFile('test.png')];
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -497,7 +497,7 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { multiple: true } });
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -520,7 +520,7 @@ describe('vs-file-drop', () => {
 
             // When
             //input.trigger('drop');
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -541,7 +541,7 @@ describe('vs-file-drop', () => {
 
             // When
             //input.trigger('drop');
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },
@@ -559,7 +559,7 @@ describe('vs-file-drop', () => {
             const droppedFileContents = wrapper.findAll('vs-chip');
 
             // When
-            await wrapper.vm.onDrop({
+            await wrapper.vm.handleFileDrop({
                 target: {
                     files,
                 },

@@ -5,8 +5,8 @@
         :class="classObj"
         :required="required"
         :messages="computedMessages"
-        @mouseenter.stop="onMouseEnter"
-        @mouseleave.stop="onMouseLeave"
+        @mouseenter.stop="setHover(true)"
+        @mouseleave.stop="setHover(false)"
     >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input
@@ -18,8 +18,8 @@
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
-                @change.stop="onDialogConfirm"
-                @drop.stop="onDrop"
+                @change.stop="handleFileDialog($event)"
+                @drop.stop="handleFileDrop($event)"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
             />
@@ -114,23 +114,19 @@ export default defineComponent({
             'vs-disabled': computedDisabled.value,
         }));
 
-        function onMouseEnter() {
+        function setHover(value: boolean): void {
             if (disabled.value) {
                 return;
             }
 
-            hover.value = true;
+            hover.value = value;
         }
 
-        function onMouseLeave() {
+        function setDragging(value: boolean): void {
             if (disabled.value) {
                 return;
             }
 
-            hover.value = false;
-        }
-
-        function setDragging(value: boolean) {
             dragging.value = value;
         }
 
@@ -143,7 +139,6 @@ export default defineComponent({
             }
 
             const error = verifyMultipleFileUpload(targetValue);
-            console.log('error', error);
             if (error) {
                 messages.value.push({ state: 'error', text: error });
                 validate();
@@ -157,11 +152,11 @@ export default defineComponent({
             }
         }
 
-        function onDialogConfirm(event: Event) {
+        function handleFileDialog(event: Event): void {
             updateValue(event);
         }
 
-        function onDrop(event: Event) {
+        function handleFileDrop(event: Event): void {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
             ctx.emit('drop', targetValue);
@@ -191,12 +186,11 @@ export default defineComponent({
             computedStyleSet,
             inputValue,
             hasValue,
-            onMouseEnter,
-            onMouseLeave,
+            setHover,
             setDragging,
             updateValue,
-            onDialogConfirm,
-            onDrop,
+            handleFileDialog,
+            handleFileDrop,
         };
     },
 });
