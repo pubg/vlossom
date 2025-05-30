@@ -47,9 +47,9 @@ import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
 import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
+import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
-
 import type { InputValueType, VsFileDropStyleSet } from './types';
 
 const name = VsComponent.VsFileDrop;
@@ -67,7 +67,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
     setup(props, ctx) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules } = toRefs(props);
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept } = toRefs(props);
 
         const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
 
@@ -87,12 +87,7 @@ export default defineComponent({
             if (!inputValue.value) {
                 return [];
             }
-
-            if (Array.isArray(inputValue.value)) {
-                return inputValue.value;
-            }
-
-            return [inputValue.value];
+            return [inputValue.value].flat();
         });
 
         const hasValue = computed(() => {
@@ -106,6 +101,11 @@ export default defineComponent({
             disabled,
             rules,
             messages,
+        });
+
+        const { verifyFileType, verifyMultipleFileUpload } = useVsFileDropRules({
+            accept,
+            multiple,
         });
 
         const classObj = computed(() => ({
@@ -134,16 +134,6 @@ export default defineComponent({
             dragging.value = value;
         }
 
-        function validateSingleFileUploadRule(v: InputValueType): string {
-            if (multiple.value) {
-                return '';
-            }
-            if (Array.isArray(v) && v.length > 1) {
-                return 'You can only upload one file';
-            }
-            return '';
-        }
-
         function updateValue(event: Event) {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
@@ -152,8 +142,10 @@ export default defineComponent({
                 return; // 'cancel' on dialog
             }
 
-            if (validateSingleFileUploadRule(targetValue)) {
-                messages.value.push({ state: 'error', text: 'You can only upload one file' });
+            const error = verifyMultipleFileUpload(targetValue);
+            console.log('error', error);
+            if (error) {
+                messages.value.push({ state: 'error', text: error });
                 validate();
                 return;
             }
@@ -179,10 +171,9 @@ export default defineComponent({
                 return;
             }
 
-            const accept = props.accept || '';
-            const hasInvalidFile = targetValue.some((file) => !file.type.startsWith(accept));
-            if (accept && hasInvalidFile) {
-                messages.value.push({ state: 'error', text: `Only ${accept} files are allowed` });
+            const error = verifyFileType(targetValue);
+            if (error) {
+                messages.value.push({ state: 'error', text: error });
                 validate();
                 return;
             }
