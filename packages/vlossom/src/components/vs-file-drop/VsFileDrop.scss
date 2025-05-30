@@ -20,6 +20,10 @@
         @include disabled;
     }
 
+    &.vs-dragging {
+        box-shadow: 0 0 0.5rem 0.5rem rgba(255,255,255,0.75) inset;
+    }
+
     .vs-file-drop-ref {
         position: absolute;
         top: 0;
