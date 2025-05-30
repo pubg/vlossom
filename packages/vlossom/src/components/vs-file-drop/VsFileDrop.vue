@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, Ref, toRefs } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
@@ -69,11 +69,7 @@ export default defineComponent({
     setup(props, ctx) {
         const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept } = toRefs(props);
 
-        const fileDropRef: Ref<HTMLInputElement | null> = ref(null);
-
-        const { colorSchemeClass } = useColorScheme(name, colorScheme);
-
-        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
+        const fileDropRef = ref<HTMLInputElement | null>(null);
 
         const inputValue = ref<InputValueType>(modelValue.value);
 
@@ -81,18 +77,11 @@ export default defineComponent({
 
         const dragging = ref(false);
 
-        const messages: Ref<StateMessage[]> = ref([]);
+        const messages = ref<StateMessage[]>([]);
 
-        const computedInputValue = computed<File[]>(() => {
-            if (!inputValue.value) {
-                return [];
-            }
-            return [inputValue.value].flat();
-        });
+        const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const hasValue = computed(() => {
-            return computedInputValue.value.length > 0;
-        });
+        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
 
         const { computedId, computedDisabled, computedMessages, validate } = useInput(ctx, {
             inputValue,
@@ -106,6 +95,17 @@ export default defineComponent({
         const { verifyFileType, verifyMultipleFileUpload } = useVsFileDropRules({
             accept,
             multiple,
+        });
+
+        const computedInputValue = computed<File[]>(() => {
+            if (!inputValue.value) {
+                return [];
+            }
+            return [inputValue.value].flat();
+        });
+
+        const hasValue = computed(() => {
+            return computedInputValue.value.length > 0;
         });
 
         const classObj = computed(() => ({
