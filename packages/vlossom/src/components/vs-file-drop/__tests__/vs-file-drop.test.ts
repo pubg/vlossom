@@ -190,7 +190,7 @@ describe('vs-file-drop', () => {
             const modelValue = wrapper.vm.$props.modelValue;
 
             // Then
-            expect(Array.isArray(modelValue)).toBe(true);
+            expect(Array.isArray(modelValue)).toBeTruthy();
         });
 
         it('multiple이 false일 때 modelValue는 File 타입이다', () => {
@@ -202,7 +202,7 @@ describe('vs-file-drop', () => {
             const modelValue = wrapper.vm.$props.modelValue;
 
             // Then
-            expect(modelValue).toBeInstanceOf(fileA);
+            expect(File.prototype.isPrototypeOf(modelValue)).toBeTruthy();
         });
 
         it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', async () => {
