@@ -138,11 +138,16 @@ export default defineComponent({
                 return;
             }
 
-            if (multiple.value) {
-                inputValue.value = value;
-            } else {
+            if (!multiple.value) {
                 inputValue.value = value[0] || null;
+                return;
             }
+
+            if (value.length > 1) {
+                messages.value.push({ state: 'info', text: `${value.length} files` });
+            }
+
+            inputValue.value = value;
         }
 
         function handleFileDialog(event: Event): void {

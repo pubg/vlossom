@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
 
@@ -205,17 +205,24 @@ describe('vs-file-drop', () => {
             expect(modelValue).toBeInstanceOf(fileA);
         });
 
-        it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', () => {
+        it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
-            wrapper = mount(VsFileDrop, { props: { modelValue: files, multiple: true } });
+            wrapper = mount(VsFileDrop, { props: { modelValue: null, multiple: true } });
+            const messages = wrapper.find('.vs-messages');
 
             // When
-            const messages = wrapper.find('.vs-messages');
+            wrapper.vm.handleFileDialog({
+                // or handleFileDrop
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
             expect(messages.exists()).toBe(true);
-            expect(messages.html()).toContain('2 files');
+            expect(messages.html()).toContain(`${files.length} files`);
         });
 
         it('multiple이 true일 때 files array를 빈 배열로 할당하면 입력된 files가 비워진다', async () => {
