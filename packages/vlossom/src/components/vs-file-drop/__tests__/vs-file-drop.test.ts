@@ -711,30 +711,46 @@ describe('vs-file-drop', () => {
             expect(style).toContain('height: 200px');
         });
     });
+    */
 
     describe('keyboard control', () => {
-        it('탭 이벤트로 컴포넌트에 접근 가능하고, enter를 누르면 dialog가 출력된다', async () => {
+        it('탭 이벤트로 컴포넌트에 접근 가능하다', async () => {
             // Given
             const wrapper = mount(VsFileDrop);
 
             // When
             await wrapper.trigger('focus');
-            await wrapper.trigger('keydown.enter');
 
             // Then
-            // dialog 오픈 여부 확인 (구현에 따라 추가)
+            expect(wrapper.element.tabIndex).toBe(0);
         });
 
-        it('readonly 상태일 때, dialog가 노출되지 않는다', async () => {
+        it('탭 이벤트로 컴포넌트에 접근 가능하고, enter를 누르면 dialog가 출력된다', async () => {
             // Given
-            const wrapper = mount(VsFileDrop, { props: { readonly: true } });
+            const wrapper = mount(VsFileDrop);
+            const input = wrapper.find('input[type="file"]');
+            const clickSpy = vi.spyOn(input.element, 'click');
 
             // When
             await wrapper.trigger('focus');
             await wrapper.trigger('keydown.enter');
 
             // Then
-            // dialog가 열리지 않았는지 확인 (구현에 따라 추가)
+            expect(clickSpy).toHaveBeenCalled();
+        });
+
+        it('readonly 상태일 때, dialog가 노출되지 않는다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop, { props: { readonly: true } });
+            const input = wrapper.find('input[type="file"]');
+            const clickSpy = vi.spyOn(input.element, 'click');
+
+            // When
+            await wrapper.trigger('focus');
+            await wrapper.trigger('keydown.enter');
+
+            // Then
+            expect(clickSpy).not.toHaveBeenCalled();
         });
 
         it('disable 상태일 때, 탭 이벤트로 접근할 수 없다', async () => {
@@ -759,5 +775,4 @@ describe('vs-file-drop', () => {
             expect(clearBtn.attributes('tabindex')).toBe('-1');
         });
     });
-    */
 });
