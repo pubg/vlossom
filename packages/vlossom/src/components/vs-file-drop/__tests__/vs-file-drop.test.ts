@@ -1,6 +1,7 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
+import { h } from 'vue';
 
 function createFile(name = 'test.png', type = 'image/png') {
     return new File(['dummy'], name, { type });
@@ -89,7 +90,6 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
     describe('입력된 파일이 있을 때', () => {
         let wrapper: VueWrapper<any>;
         const file = createFile();
@@ -101,10 +101,28 @@ describe('vs-file-drop', () => {
 
         it('입력된 파일 element 옆에 제거 버튼(X)이 노출된다', () => {
             // When
-            const clearButton = wrapper.find('.vs-file-drop-clear');
+            const chip = wrapper.find('.vs-chip');
+            const closeButton = chip.find('.vs-chip-close-button');
 
             // Then
-            expect(clearButton.exists()).toBe(true);
+            expect(closeButton.exists()).toBe(true);
+        });
+
+        it('입력된 파일 element 옆에 제거 버튼(X)을 클릭하면 파일이 제거된다', async () => {
+            // Given
+            const target = createFile('a.png');
+            const files = [target, createFile('b.png')];
+            wrapper = mount(VsFileDrop, { props: { modelValue: files } });
+
+            // When
+            const chip = wrapper.find(`.vs-chip[id="${target.name}"]`);
+            const closeButton = chip.find('.vs-chip-close-button');
+            await closeButton.trigger('click');
+
+            // Then
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files.filter((f) => f !== target));
         });
 
         it('컴포넌트에 hover하면 wrapper 영역에 피드백이 노출된다', async () => {
@@ -127,24 +145,37 @@ describe('vs-file-drop', () => {
         });
 
         it('입력된 파일이 존재해도, 다시 클릭하면 dialog로 파일을 교체할 수 있다', async () => {
+            // Given
+            const updateFiles = [createFile('test3.png')];
+
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('click');
+            await wrapper.vm.handleFileDialog({
+                target: {
+                    files: updateFiles,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일 교체 dialog 오픈 여부는 실제 구현에 따라 추가
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(updateFiles);
         });
 
         it('입력된 파일이 존재해도, drag & drop으로 파일을 교체할 수 있다', async () => {
             // Given
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(createFile('test2.png'));
+            const updateFiles = [createFile('test3.png')];
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await wrapper.vm.handleFileDrop({
+                target: {
+                    files: updateFiles,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일 교체 여부 확인 (modelValue 등)
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(updateFiles);
         });
 
         it('disable 상태일 때, 파일(콘텐츠) 제거 버튼이 노출되지 않아 입력된 파일을 제거할 수 없다', async () => {
@@ -152,13 +183,13 @@ describe('vs-file-drop', () => {
             await wrapper.setProps({ disabled: true });
 
             // When
-            const clearButton = wrapper.find('.vs-file-drop-clear');
+            const clearButton = wrapper.find('.vs-chip-close-button');
 
             // Then
-            expect(clearButton.exists()).toBe(false);
+            expect(clearButton.exists()).toBeFalsy();
         });
 
-        it('disable 상태일 때, 영역에 hover하면 cursor가 disable로 노출된다', async () => {
+        it('disabled 상태일 때 disabled 효과가 나타난다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
 
@@ -166,7 +197,7 @@ describe('vs-file-drop', () => {
             await wrapper.trigger('mouseenter');
 
             // Then
-            expect(wrapper.element.style.cursor).toBe('not-allowed');
+            expect(wrapper.classes()).toContain('vs-disabled');
         });
 
         it('multiple이 true일 때 modelValue는 File[] 타입이다', () => {
@@ -178,7 +209,7 @@ describe('vs-file-drop', () => {
             const modelValue = wrapper.vm.$props.modelValue;
 
             // Then
-            expect(Array.isArray(modelValue)).toBe(true);
+            expect(Array.isArray(modelValue)).toBeTruthy();
         });
 
         it('multiple이 false일 때 modelValue는 File 타입이다', () => {
@@ -190,19 +221,27 @@ describe('vs-file-drop', () => {
             const modelValue = wrapper.vm.$props.modelValue;
 
             // Then
-            expect(modelValue).toBeInstanceOf(fileA);
+            expect(File.prototype.isPrototypeOf(modelValue)).toBeTruthy();
         });
 
-        it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', () => {
+        it('multiple이 true일 때 입력된 파일의 갯수가 2개 이상일 때, wrapper 영역에 "{n} files"와 같이 표시된다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
-            wrapper = mount(VsFileDrop, { props: { modelValue: files, multiple: true } });
+            wrapper = mount(VsFileDrop, { props: { modelValue: null, multiple: true } });
+            const messages = wrapper.find('.vs-messages');
 
             // When
-            const text = wrapper.text();
+            wrapper.vm.handleFileDialog({
+                // or handleFileDrop
+                target: {
+                    files,
+                },
+            } as unknown as Event);
+            await wrapper.vm.$nextTick();
 
             // Then
-            expect(text).toMatch(/2 files/);
+            expect(messages.exists()).toBe(true);
+            expect(messages.html()).toContain(`${files.length} files`);
         });
 
         it('multiple이 true일 때 files array를 빈 배열로 할당하면 입력된 files가 비워진다', async () => {
@@ -232,13 +271,21 @@ describe('vs-file-drop', () => {
 
         it('사용자가 Slot을 정의하면 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출되지 않는다', () => {
             // Given
-            const wrapper = mount(VsFileDrop, {
-                props: { modelValue: [createFile('a.png')] },
+            const slotWrapper = mount(VsFileDrop, {
+                props: { modelValue: null },
                 slots: { default: '<div>Custom Slot</div>' },
             });
+
+            // When
+            const content = slotWrapper.find('.vs-file-drop-content');
+            const fileContents = content.findAll('.vs-chip');
+            const customSlotText = slotWrapper.text();
+
+            // Then
+            expect(customSlotText).toContain('Custom Slot');
+            expect(fileContents.length).toBe(0);
         });
     });
-    */
 
     describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
@@ -577,8 +624,7 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
-    describe('Slot으로 컨텐츠를 표현할 수 있다', () => {
+    describe('<slot>을 주입하여 유저 컨텐츠를 표현할 수 있다', () => {
         it('Slot은 content 영역을 직접 대체한다', () => {
             // Given
             const wrapper = mount(VsFileDrop, {
@@ -609,17 +655,37 @@ describe('vs-file-drop', () => {
         it('사용자는 dragging 상태를 사용하여 content를 정의할 수 있다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, {
-                slots: { default: '<div v-if="dragging">Dragging!</div>' },
+                slots: {
+                    default: (slotProps) => (slotProps.dragging ? h('div', 'Dragging!') : null),
+                },
             });
 
             // When
-            await wrapper.setData({ dragging: true });
+            wrapper.vm.dragging = true;
+            await wrapper.vm.$nextTick();
 
             // Then
             expect(wrapper.text()).toContain('Dragging!');
         });
+
+        it('사용자는 hover 상태를 사용하여 content를 정의할 수 있다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop, {
+                slots: {
+                    default: (slotProps) => (slotProps.hover ? h('div', 'Hover!') : null),
+                },
+            });
+
+            // When
+            wrapper.vm.hover = true;
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.text()).toContain('Hover!');
+        });
     });
 
+    /*
     describe('크기를 조정할 수 있다', () => {
         it('크기를 설정 안 했을 때 기본 값을 가진다', () => {
             // Given
@@ -645,30 +711,46 @@ describe('vs-file-drop', () => {
             expect(style).toContain('height: 200px');
         });
     });
+    */
 
     describe('keyboard control', () => {
-        it('탭 이벤트로 컴포넌트에 접근 가능하고, enter를 누르면 dialog가 출력된다', async () => {
+        it('탭 이벤트로 컴포넌트에 접근 가능하다', async () => {
             // Given
             const wrapper = mount(VsFileDrop);
 
             // When
             await wrapper.trigger('focus');
-            await wrapper.trigger('keydown.enter');
 
             // Then
-            // dialog 오픈 여부 확인 (구현에 따라 추가)
+            expect(wrapper.element.tabIndex).toBe(0);
+        });
+
+        it('탭 이벤트로 컴포넌트에 접근 가능하고, enter를 누르면 dialog가 출력된다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop);
+            const input = wrapper.find('input[type="file"]');
+            const clickSpy = vi.spyOn(input.element as HTMLInputElement, 'click');
+
+            // When
+            await input.trigger('focus');
+            await input.trigger('keydown.enter');
+
+            // Then
+            expect(clickSpy).toHaveBeenCalled();
         });
 
         it('readonly 상태일 때, dialog가 노출되지 않는다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { readonly: true } });
+            const input = wrapper.find('input[type="file"]');
+            const clickSpy = vi.spyOn(input.element as HTMLInputElement, 'click');
 
             // When
-            await wrapper.trigger('focus');
-            await wrapper.trigger('keydown.enter');
+            await input.trigger('focus');
+            await input.trigger('keydown.enter');
 
             // Then
-            // dialog가 열리지 않았는지 확인 (구현에 따라 추가)
+            expect(clickSpy).not.toHaveBeenCalled();
         });
 
         it('disable 상태일 때, 탭 이벤트로 접근할 수 없다', async () => {
@@ -687,11 +769,10 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { modelValue: createFile() } });
 
             // When
-            const clearBtn = wrapper.find('.vs-file-drop-clear');
+            const clearBtn = wrapper.find('.vs-chip-close-button');
 
             // Then
             expect(clearBtn.attributes('tabindex')).toBe('-1');
         });
     });
-    */
 });
