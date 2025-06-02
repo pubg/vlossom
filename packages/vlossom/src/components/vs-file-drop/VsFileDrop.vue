@@ -25,7 +25,7 @@
             />
 
             <div class="vs-file-drop-content">
-                <slot>
+                <slot :dragging="dragging" :hover="hover">
                     <div v-if="hasValue" class="vs-file-drop-files">
                         <vs-chip
                             v-for="file in computedInputValue"
@@ -204,6 +204,8 @@ export default defineComponent({
             computedStyleSet,
             inputValue,
             hasValue,
+            dragging,
+            hover,
             setHover,
             setDragging,
             handleFileDialog,

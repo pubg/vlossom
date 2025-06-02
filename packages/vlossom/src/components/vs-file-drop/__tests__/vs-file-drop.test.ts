@@ -1,6 +1,7 @@
 import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { mount, VueWrapper } from '@vue/test-utils';
 import VsFileDrop from '../VsFileDrop.vue';
+import { h } from 'vue';
 
 function createFile(name = 'test.png', type = 'image/png') {
     return new File(['dummy'], name, { type });
@@ -655,15 +656,32 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop, {
                 slots: {
-                    default: (slotProps) => `<div v-if="${slotProps.dragging}">Dragging!</div>`,
+                    default: (slotProps) => (slotProps.dragging ? h('div', 'Dragging!') : null),
                 },
             });
 
             // When
-            await wrapper.setData({ dragging: true });
+            wrapper.vm.dragging = true;
+            await wrapper.vm.$nextTick();
 
             // Then
             expect(wrapper.text()).toContain('Dragging!');
+        });
+
+        it('사용자는 hover 상태를 사용하여 content를 정의할 수 있다', async () => {
+            // Given
+            const wrapper = mount(VsFileDrop, {
+                slots: {
+                    default: (slotProps) => (slotProps.hover ? h('div', 'Hover!') : null),
+                },
+            });
+
+            // When
+            wrapper.vm.hover = true;
+            await wrapper.vm.$nextTick();
+
+            // Then
+            expect(wrapper.text()).toContain('Hover!');
         });
     });
 
