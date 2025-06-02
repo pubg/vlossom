@@ -1,12 +1,14 @@
 <template>
     <vs-input-wrapper
         v-show="visible"
+        :tabindex="disabled ? -1 : 0"
         :id="computedId"
         :class="classObj"
         :required="required"
         :messages="computedMessages"
         @mouseenter.stop="setHover(true)"
         @mouseleave.stop="setHover(false)"
+        @keydown.enter.stop="openFileDialog()"
     >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input
@@ -25,9 +27,16 @@
             />
 
             <div class="vs-file-drop-content">
-                <slot>
+                <slot :dragging="dragging" :hover="hover">
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-chip v-for="file in computedInputValue" :key="file.name" closable no-round>
+                        <vs-chip
+                            v-for="file in computedInputValue"
+                            :key="file.name"
+                            :id="file.name"
+                            no-round
+                            :closable="!computedDisabled"
+                            @close="handleFileRemoveClick(file)"
+                        >
                             {{ `${file.name} (${file.size} bytes)` }}
                         </vs-chip>
                     </div>
@@ -67,7 +76,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
     setup(props, ctx) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept } = toRefs(props);
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly } = toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
 
@@ -138,11 +147,23 @@ export default defineComponent({
                 return;
             }
 
-            if (multiple.value) {
-                inputValue.value = value;
-            } else {
+            if (!multiple.value) {
                 inputValue.value = value[0] || null;
+                return;
             }
+
+            if (value.length > 1) {
+                messages.value.push({ state: 'info', text: `${value.length} files` });
+            }
+
+            inputValue.value = value;
+        }
+
+        function openFileDialog(): void {
+            if (computedDisabled.value || readonly.value) {
+                return;
+            }
+            fileDropRef.value?.click();
         }
 
         function handleFileDialog(event: Event): void {
@@ -170,20 +191,36 @@ export default defineComponent({
             setInputValue(targetValue);
         }
 
+        function handleFileRemoveClick(target: File): void {
+            if (!target || !inputValue.value) {
+                return;
+            }
+
+            const files = [inputValue.value].flat();
+            const filteredFiles = files.filter((file) => file !== target);
+
+            setInputValue(filteredFiles);
+        }
+
         return {
             fileDropRef,
             computedId,
             computedMessages,
             computedInputValue,
+            computedDisabled,
             classObj,
             colorSchemeClass,
             computedStyleSet,
             inputValue,
             hasValue,
+            dragging,
+            hover,
             setHover,
             setDragging,
+            openFileDialog,
             handleFileDialog,
             handleFileDrop,
+            handleFileRemoveClick,
         };
     },
 });
