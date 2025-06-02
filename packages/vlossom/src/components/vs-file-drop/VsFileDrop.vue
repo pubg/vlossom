@@ -1,12 +1,14 @@
 <template>
     <vs-input-wrapper
         v-show="visible"
+        :tabindex="disabled ? -1 : 0"
         :id="computedId"
         :class="classObj"
         :required="required"
         :messages="computedMessages"
         @mouseenter.stop="setHover(true)"
         @mouseleave.stop="setHover(false)"
+        @keydown.enter.stop="openFileDialog()"
     >
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input
@@ -74,7 +76,7 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
     setup(props, ctx) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept } = toRefs(props);
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly } = toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
 
@@ -157,6 +159,13 @@ export default defineComponent({
             inputValue.value = value;
         }
 
+        function openFileDialog(): void {
+            if (computedDisabled.value || readonly.value) {
+                return;
+            }
+            fileDropRef.value?.click();
+        }
+
         function handleFileDialog(event: Event): void {
             const target = event.target as HTMLInputElement;
             const targetValue = Array.from(target.files || []);
@@ -208,6 +217,7 @@ export default defineComponent({
             hover,
             setHover,
             setDragging,
+            openFileDialog,
             handleFileDialog,
             handleFileDrop,
             handleFileRemoveClick,

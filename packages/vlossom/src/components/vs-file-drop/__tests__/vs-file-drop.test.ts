@@ -729,11 +729,11 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop);
             const input = wrapper.find('input[type="file"]');
-            const clickSpy = vi.spyOn(input.element, 'click');
+            const clickSpy = vi.spyOn(input.element as HTMLInputElement, 'click');
 
             // When
-            await wrapper.trigger('focus');
-            await wrapper.trigger('keydown.enter');
+            await input.trigger('focus');
+            await input.trigger('keydown.enter');
 
             // Then
             expect(clickSpy).toHaveBeenCalled();
@@ -743,11 +743,11 @@ describe('vs-file-drop', () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { readonly: true } });
             const input = wrapper.find('input[type="file"]');
-            const clickSpy = vi.spyOn(input.element, 'click');
+            const clickSpy = vi.spyOn(input.element as HTMLInputElement, 'click');
 
             // When
-            await wrapper.trigger('focus');
-            await wrapper.trigger('keydown.enter');
+            await input.trigger('focus');
+            await input.trigger('keydown.enter');
 
             // Then
             expect(clickSpy).not.toHaveBeenCalled();
