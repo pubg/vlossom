@@ -188,7 +188,7 @@ describe('vs-file-drop', () => {
             expect(clearButton.exists()).toBeFalsy();
         });
 
-        it('disable 상태일 때, 영역에 hover하면 cursor가 disable로 노출된다', async () => {
+        it('disabled 상태일 때 disabled 효과가 나타난다', async () => {
             // Given
             await wrapper.setProps({ disabled: true });
 
@@ -196,7 +196,7 @@ describe('vs-file-drop', () => {
             await wrapper.trigger('mouseenter');
 
             // Then
-            expect(wrapper.element.style.cursor).toBe('not-allowed');
+            expect(wrapper.classes()).toContain('vs-disabled');
         });
 
         it('multiple이 true일 때 modelValue는 File[] 타입이다', () => {
