@@ -89,7 +89,6 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
     describe('입력된 파일이 있을 때', () => {
         let wrapper: VueWrapper<any>;
         const file = createFile();
@@ -127,24 +126,37 @@ describe('vs-file-drop', () => {
         });
 
         it('입력된 파일이 존재해도, 다시 클릭하면 dialog로 파일을 교체할 수 있다', async () => {
+            // Given
+            const updateFiles = [createFile('test3.png')];
+
             // When
-            const input = wrapper.find('input[type="file"]');
-            await input.trigger('click');
+            await wrapper.vm.handleFileDialog({
+                target: {
+                    files: updateFiles,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일 교체 dialog 오픈 여부는 실제 구현에 따라 추가
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(updateFiles);
         });
 
         it('입력된 파일이 존재해도, drag & drop으로 파일을 교체할 수 있다', async () => {
             // Given
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(createFile('test2.png'));
+            const updateFiles = [createFile('test3.png')];
 
             // When
-            await wrapper.trigger('drop', { dataTransfer });
+            await wrapper.vm.handleFileDrop({
+                target: {
+                    files: updateFiles,
+                },
+            } as unknown as Event);
 
             // Then
-            // 파일 교체 여부 확인 (modelValue 등)
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(updateFiles);
         });
 
         it('disable 상태일 때, 파일(콘텐츠) 제거 버튼이 노출되지 않아 입력된 파일을 제거할 수 없다', async () => {
@@ -199,10 +211,11 @@ describe('vs-file-drop', () => {
             wrapper = mount(VsFileDrop, { props: { modelValue: files, multiple: true } });
 
             // When
-            const text = wrapper.text();
+            const messages = wrapper.find('.vs-messages');
 
             // Then
-            expect(text).toMatch(/2 files/);
+            expect(messages.exists()).toBe(true);
+            expect(messages.html()).toContain('2 files');
         });
 
         it('multiple이 true일 때 files array를 빈 배열로 할당하면 입력된 files가 비워진다', async () => {
@@ -232,13 +245,21 @@ describe('vs-file-drop', () => {
 
         it('사용자가 Slot을 정의하면 파일 명, 확장자, 파일 사이즈 정보가 리스트로 노출되지 않는다', () => {
             // Given
-            const wrapper = mount(VsFileDrop, {
-                props: { modelValue: [createFile('a.png')] },
+            const slotWrapper = mount(VsFileDrop, {
+                props: { modelValue: null },
                 slots: { default: '<div>Custom Slot</div>' },
             });
+
+            // When
+            const content = slotWrapper.find('.vs-file-drop-content');
+            const fileContents = content.findAll('.vs-chip');
+            const customSlotText = slotWrapper.text();
+
+            // Then
+            expect(customSlotText).toContain('Custom Slot');
+            expect(fileContents.length).toBe(0);
         });
     });
-    */
 
     describe('클릭해서 dialog로 파일을 추가할 수 있다', () => {
         it('accept를 설정하면 원하는 타입의 파일만 dialog에서 확인할 수 있다', () => {
