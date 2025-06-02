@@ -27,7 +27,14 @@
             <div class="vs-file-drop-content">
                 <slot>
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-chip v-for="file in computedInputValue" :key="file.name" closable no-round>
+                        <vs-chip
+                            v-for="file in computedInputValue"
+                            :key="file.name"
+                            :id="file.name"
+                            no-round
+                            :closable="!computedDisabled"
+                            @close="handleFileRemoveClick(file)"
+                        >
                             {{ `${file.name} (${file.size} bytes)` }}
                         </vs-chip>
                     </div>
@@ -175,11 +182,23 @@ export default defineComponent({
             setInputValue(targetValue);
         }
 
+        function handleFileRemoveClick(target: File): void {
+            if (!target || !inputValue.value) {
+                return;
+            }
+
+            const files = [inputValue.value].flat();
+            const filteredFiles = files.filter((file) => file !== target);
+
+            setInputValue(filteredFiles);
+        }
+
         return {
             fileDropRef,
             computedId,
             computedMessages,
             computedInputValue,
+            computedDisabled,
             classObj,
             colorSchemeClass,
             computedStyleSet,
@@ -189,6 +208,7 @@ export default defineComponent({
             setDragging,
             handleFileDialog,
             handleFileDrop,
+            handleFileRemoveClick,
         };
     },
 });

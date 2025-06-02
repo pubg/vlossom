@@ -100,10 +100,28 @@ describe('vs-file-drop', () => {
 
         it('입력된 파일 element 옆에 제거 버튼(X)이 노출된다', () => {
             // When
-            const clearButton = wrapper.find('.vs-file-drop-clear');
+            const chip = wrapper.find('.vs-chip');
+            const closeButton = chip.find('.vs-chip-close-button');
 
             // Then
-            expect(clearButton.exists()).toBe(true);
+            expect(closeButton.exists()).toBe(true);
+        });
+
+        it('입력된 파일 element 옆에 제거 버튼(X)을 클릭하면 파일이 제거된다', async () => {
+            // Given
+            const target = createFile('a.png');
+            const files = [target, createFile('b.png')];
+            wrapper = mount(VsFileDrop, { props: { modelValue: files } });
+
+            // When
+            const chip = wrapper.find(`.vs-chip[id="${target.name}"]`);
+            const closeButton = chip.find('.vs-chip-close-button');
+            await closeButton.trigger('click');
+
+            // Then
+            expect(wrapper.emitted('update:modelValue')).toBeTruthy();
+            expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
+            expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files.filter((f) => f !== target));
         });
 
         it('컴포넌트에 hover하면 wrapper 영역에 피드백이 노출된다', async () => {
@@ -164,10 +182,10 @@ describe('vs-file-drop', () => {
             await wrapper.setProps({ disabled: true });
 
             // When
-            const clearButton = wrapper.find('.vs-file-drop-clear');
+            const clearButton = wrapper.find('.vs-chip-close-button');
 
             // Then
-            expect(clearButton.exists()).toBe(false);
+            expect(clearButton.exists()).toBeFalsy();
         });
 
         it('disable 상태일 때, 영역에 hover하면 cursor가 disable로 노출된다', async () => {
@@ -715,7 +733,7 @@ describe('vs-file-drop', () => {
             const wrapper = mount(VsFileDrop, { props: { modelValue: createFile() } });
 
             // When
-            const clearBtn = wrapper.find('.vs-file-drop-clear');
+            const clearBtn = wrapper.find('.vs-chip-close-button');
 
             // Then
             expect(clearBtn.attributes('tabindex')).toBe('-1');
