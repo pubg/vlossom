@@ -623,8 +623,7 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
-    describe('Slot으로 컨텐츠를 표현할 수 있다', () => {
+    describe('<slot>을 주입하여 유저 컨텐츠를 표현할 수 있다', () => {
         it('Slot은 content 영역을 직접 대체한다', () => {
             // Given
             const wrapper = mount(VsFileDrop, {
@@ -655,7 +654,9 @@ describe('vs-file-drop', () => {
         it('사용자는 dragging 상태를 사용하여 content를 정의할 수 있다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, {
-                slots: { default: '<div v-if="dragging">Dragging!</div>' },
+                slots: {
+                    default: (slotProps) => `<div v-if="${slotProps.dragging}">Dragging!</div>`,
+                },
             });
 
             // When
@@ -666,6 +667,7 @@ describe('vs-file-drop', () => {
         });
     });
 
+    /*
     describe('크기를 조정할 수 있다', () => {
         it('크기를 설정 안 했을 때 기본 값을 가진다', () => {
             // Given
