@@ -5,8 +5,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    width: var(--vs-file-drop-width, 100%);
+    height: var(--vs-file-drop-height, 100%);
     border-radius: 0.5rem; // TODO: 변수화
     border: 1px solid #ccc; // TODO: 변수화
     padding: 1rem; // TODO: 변수화

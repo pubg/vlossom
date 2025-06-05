@@ -69,6 +69,8 @@ export default defineComponent({
         ...getInputProps<InputValueType>(),
         accept: { type: String, default: '' },
         multiple: { type: Boolean, default: true },
+        height: { type: String, default: 'auto' },
+        width: { type: String, default: 'auto' },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
         // v-model
