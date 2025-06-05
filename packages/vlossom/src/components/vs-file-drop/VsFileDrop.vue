@@ -74,7 +74,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
-    emits: ['update:modelValue', 'update:changed', 'change', 'drop'],
+    emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'drop'],
     setup(props, ctx) {
         const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly } = toRefs(props);
 
