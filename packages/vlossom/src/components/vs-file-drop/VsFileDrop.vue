@@ -142,7 +142,7 @@ export default defineComponent({
         function setInputValue(value: File[]): void {
             const error = verifyFileType(value) || verifyMultipleFileUpload(value);
             if (error) {
-                messages.value.push({ state: 'error', text: error });
+                messages.value = [{ state: 'error', text: error }];
                 validate();
                 return;
             }
@@ -153,7 +153,7 @@ export default defineComponent({
             }
 
             if (value.length > 1) {
-                messages.value.push({ state: 'info', text: `${value.length} files` });
+                messages.value = [{ state: 'info', text: `${value.length} files` }];
             }
 
             inputValue.value = value;
