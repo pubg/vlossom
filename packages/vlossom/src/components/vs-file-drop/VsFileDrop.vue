@@ -1,6 +1,8 @@
 <template>
     <vs-input-wrapper
         v-show="visible"
+        :width="width"
+        :grid="grid"
         :tabindex="disabled ? -1 : 0"
         :id="computedId"
         :class="classObj"
@@ -57,8 +59,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { StateMessage, VsComponent, type ColorScheme } from '@/declaration';
-import { getInputProps } from '@/models';
+import { Breakpoints, StateMessage, VsComponent, type ColorScheme } from '@/declaration';
+import { getInputProps, getResponsiveProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet } from '@/composables';
 import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
@@ -71,10 +73,10 @@ export default defineComponent({
     components: { VsInputWrapper, VsIcon, VsChip },
     props: {
         ...getInputProps<InputValueType>(),
+        ...getResponsiveProps(),
         accept: { type: String, default: '' },
         multiple: { type: Boolean, default: true },
-        height: { type: String, default: 'auto' },
-        width: { type: String, default: 'auto' },
+        height: { type: [String, Number, Object] as PropType<string | number | Breakpoints>, default: 'auto' },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
         // v-model
@@ -82,8 +84,20 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'drop'],
     setup(props, ctx) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly, dense } =
-            toRefs(props);
+        const {
+            id,
+            colorScheme,
+            styleSet,
+            modelValue,
+            disabled,
+            multiple,
+            rules,
+            accept,
+            readonly,
+            dense,
+            height,
+            width,
+        } = toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
 
@@ -97,7 +111,11 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
+        const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(
+            name,
+            styleSet,
+            computed(() => ({ height: height.value, width: width.value })),
+        );
 
         const { computedId, computedDisabled, computedReadonly, computedMessages, validate } = useInput(ctx, {
             inputValue,
