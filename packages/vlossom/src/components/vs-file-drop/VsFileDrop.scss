@@ -6,86 +6,90 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
 .vs-input-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
     width: var(--vs-file-drop-width, 100%);
     height: var(--vs-file-drop-height, 100%);
-    border-radius: 0.5rem; // TODO: 변수화
-    border: 1px solid #ccc; // TODO: 변수화
-    padding: 1rem; // TODO: 변수화
 
-    &.vs-hover,
-    &:focus {
-        @include focus-outline;
-        @include hover-active-lighten;
+    .vs-label-box {
+        margin-bottom: 0.5rem;
     }
 
-    &.vs-disabled {
-        @include disabled;
-    }
+    .vs-file-drop {
+        position: relative;
+        width: 100%;
+        height: $file-drop-height;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        padding: 1rem;
 
-    &.vs-readonly {
-        @include readonly;
-    }
-
-    &.vs-dragging {
-        box-shadow: 0 0 0.5rem 0.5rem rgba(255,255,255,0.75) inset;
-    }
-    
-    &.vs-dense {
-        height: $file-drop-height-dense;
-        font-size: var(--vs-file-drop-fontSize, var(--vs-font-size-sm));
-
-        .vs-label-box {
-            padding-left: calc(#{$file-drop-height} + 0.4rem);
-            padding-right: 2rem;
+        &.vs-hover,
+        &:focus {
+            @include focus-outline;
+            @include hover-active-lighten;
         }
-        .vs-file-drop-placeholder {
-            width: $file-drop-height-dense;
-            height: $file-drop-height-dense;
 
-            .vs-icon {
+        &.vs-disabled {
+            @include disabled;
+        }
+
+        &.vs-readonly {
+            @include readonly;
+        }
+
+        &.vs-dragging {
+            box-shadow: 0 0 0.5rem 0.5rem rgba(255,255,255,0.75) inset;
+        }
+        
+        &.vs-dense {
+            height: $file-drop-height-dense;
+            font-size: var(--vs-file-drop-fontSize, var(--vs-font-size-sm));
+
+            .vs-file-drop-placeholder {
                 width: $file-drop-height-dense;
                 height: $file-drop-height-dense;
+
+                .vs-icon {
+                    width: $file-drop-height-dense;
+                    height: $file-drop-height-dense;
+                }
             }
         }
-    }
 
-    .vs-file-drop-ref {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    .vs-file-drop-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
-
-        .vs-file-drop-files {
-            display: flex;
-            height: 100%;
+        .vs-file-drop-ref {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            gap: 1rem;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
         }
 
-        .vs-file-drop-placeholder {
+        .vs-file-drop-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
             height: 100%;
+            width: 100%;
+
+            .vs-file-drop-files {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                gap: 1rem;
+            }
+
+            .vs-file-drop-placeholder {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+            }
         }
     }
-
 
     .vs-messages {
         position: absolute;

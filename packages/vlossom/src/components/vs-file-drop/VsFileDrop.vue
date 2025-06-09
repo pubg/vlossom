@@ -6,6 +6,7 @@
         :tabindex="disabled ? -1 : 0"
         :id="computedId"
         :class="classObj"
+        :label="label"
         :required="required"
         :dense="dense"
         :readonly="computedReadonly"
@@ -14,6 +15,10 @@
         @mouseleave.stop="setHover(false)"
         @keydown.enter.stop="openFileDialog()"
     >
+        <template #label v-if="label || $slots['label']">
+            <slot name="label" />
+        </template>
+
         <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
             <input
                 ref="fileDropRef"
