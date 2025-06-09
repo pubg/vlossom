@@ -19,7 +19,7 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-file-drop', colorSchemeClass, classObj]" :style="computedStyleSet">
+        <div :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
             <input
                 ref="fileDropRef"
                 class="vs-file-drop-ref"
@@ -66,7 +66,7 @@
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
 import { Breakpoints, StateMessage, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps, getResponsiveProps } from '@/models';
-import { useColorScheme, useInput, useStyleSet } from '@/composables';
+import { useColorScheme, useInput, useStyleSet, useStateClass } from '@/composables';
 import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
@@ -102,6 +102,7 @@ export default defineComponent({
             dense,
             height,
             width,
+            state,
         } = toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
@@ -122,15 +123,21 @@ export default defineComponent({
             computed(() => ({ height: height.value, width: width.value })),
         );
 
-        const { computedId, computedDisabled, computedReadonly, computedMessages, validate } = useInput(ctx, {
-            inputValue,
-            modelValue,
-            id,
-            disabled,
-            readonly,
-            rules,
-            messages,
-        });
+        const { computedId, computedDisabled, computedReadonly, computedMessages, computedState, validate } = useInput(
+            ctx,
+            {
+                inputValue,
+                modelValue,
+                id,
+                disabled,
+                readonly,
+                rules,
+                messages,
+                state,
+            },
+        );
+
+        const { stateClasses } = useStateClass(computedState);
 
         const { verifyFileType, verifyMultipleFileUpload } = useVsFileDropRules({
             accept,
@@ -255,6 +262,7 @@ export default defineComponent({
             handleFileDialog,
             handleFileDrop,
             handleFileRemoveClick,
+            stateClasses,
         };
     },
 });

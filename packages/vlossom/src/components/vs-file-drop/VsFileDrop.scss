@@ -60,6 +60,10 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
             }
         }
 
+        &.vs-state-box {
+            @include state-box;
+        }
+
         .vs-file-drop-ref {
             position: absolute;
             top: 0;
