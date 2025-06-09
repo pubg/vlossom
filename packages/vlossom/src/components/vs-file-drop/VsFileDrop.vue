@@ -43,7 +43,7 @@
 
                     <div v-else class="vs-file-drop-placeholder">
                         <vs-icon icon="attachFile" size="40" />
-                        <span>Drop files here or click to upload</span>
+                        <span>{{ placeholder }}</span>
                     </div>
                 </slot>
             </div>
