@@ -3,7 +3,6 @@
         v-show="visible"
         :width="width"
         :grid="grid"
-        :tabindex="disabled ? -1 : 0"
         :id="computedId"
         :class="classObj"
         :label="label"
@@ -11,9 +10,6 @@
         :dense="dense"
         :readonly="computedReadonly"
         :messages="computedMessages"
-        @mouseenter.stop="setHover(true)"
-        @mouseleave.stop="setHover(false)"
-        @keydown.enter.stop="openFileDialog()"
     >
         <template #label v-if="label || $slots['label']">
             <slot name="label" />
@@ -21,10 +17,11 @@
 
         <div :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
             <input
+                type="file"
                 ref="fileDropRef"
                 class="vs-file-drop-ref"
+                :tabindex="computedDisabled ? -1 : 0"
                 :id="computedId"
-                type="file"
                 :name="name"
                 :readonly="computedReadonly"
                 :required="required"
@@ -35,6 +32,10 @@
                 @drop.stop="handleFileDrop($event)"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
+                @mouseenter.stop="setHover(true)"
+                @mouseleave.stop="setHover(false)"
+                @keydown.enter.stop="openFileDialog()"
+                @keydown.space.prevent.stop="openFileDialog()"
             />
 
             <div class="vs-file-drop-content">
@@ -44,7 +45,6 @@
                             v-for="file in computedInputValue"
                             :key="file.name"
                             :id="file.name"
-                            no-round
                             :dense="dense"
                             :color-scheme="colorScheme"
                             :closable="!computedDisabled"

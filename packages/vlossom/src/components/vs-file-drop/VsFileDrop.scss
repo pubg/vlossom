@@ -26,8 +26,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
         color: var(--vs-file-drop-fontColor, var(--vs-font-color));
         box-sizing: border-box;
 
-        &.vs-hover,
-        &:focus {
+        &:focus-within {
             @include focus-outline;
             @include hover-active-lighten;
         }
