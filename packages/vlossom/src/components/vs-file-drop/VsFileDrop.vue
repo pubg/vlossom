@@ -45,6 +45,8 @@
                             :key="file.name"
                             :id="file.name"
                             no-round
+                            :dense="dense"
+                            :color-scheme="colorScheme"
                             :closable="!computedDisabled"
                             @close="handleFileRemoveClick(file)"
                         >
