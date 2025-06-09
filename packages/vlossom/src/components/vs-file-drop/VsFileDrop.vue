@@ -5,6 +5,7 @@
         :id="computedId"
         :class="classObj"
         :required="required"
+        :readonly="computedReadonly"
         :messages="computedMessages"
         @mouseenter.stop="setHover(true)"
         @mouseleave.stop="setHover(false)"
@@ -17,6 +18,7 @@
                 :id="computedId"
                 type="file"
                 :name="name"
+                :readonly="computedReadonly"
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
@@ -94,11 +96,12 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsFileDropStyleSet>(name, styleSet);
 
-        const { computedId, computedDisabled, computedMessages, validate } = useInput(ctx, {
+        const { computedId, computedDisabled, computedReadonly, computedMessages, validate } = useInput(ctx, {
             inputValue,
             modelValue,
             id,
             disabled,
+            readonly,
             rules,
             messages,
         });
@@ -123,10 +126,11 @@ export default defineComponent({
             'vs-hover': hover.value,
             'vs-dragging': dragging.value,
             'vs-disabled': computedDisabled.value,
+            'vs-readonly': computedReadonly.value,
         }));
 
         function setHover(value: boolean): void {
-            if (disabled.value) {
+            if (disabled.value || readonly.value) {
                 return;
             }
 
@@ -134,7 +138,7 @@ export default defineComponent({
         }
 
         function setDragging(value: boolean): void {
-            if (disabled.value) {
+            if (disabled.value || readonly.value) {
                 return;
             }
 
@@ -210,6 +214,7 @@ export default defineComponent({
             computedMessages,
             computedInputValue,
             computedDisabled,
+            computedReadonly,
             classObj,
             colorSchemeClass,
             computedStyleSet,
