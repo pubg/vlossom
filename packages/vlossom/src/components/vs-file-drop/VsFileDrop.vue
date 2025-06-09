@@ -10,6 +10,8 @@
         :dense="dense"
         :readonly="computedReadonly"
         :messages="computedMessages"
+        @mouseenter.stop="setHover(true)"
+        @mouseleave.stop="setHover(false)"
     >
         <template #label v-if="label || $slots['label']">
             <slot name="label" />
@@ -32,8 +34,6 @@
                 @drop.stop="handleFileDrop($event)"
                 @dragenter.stop="setDragging(true)"
                 @dragleave.stop="setDragging(false)"
-                @mouseenter.stop="setHover(true)"
-                @mouseleave.stop="setHover(false)"
                 @keydown.enter.stop="openFileDialog()"
                 @keydown.space.prevent.stop="openFileDialog()"
             />
