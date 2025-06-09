@@ -221,9 +221,8 @@ export default defineComponent({
             setInputValue(targetValue);
         }
 
-        function handleFileDrop(event: Event): void {
-            const target = event.target as HTMLInputElement;
-            const targetValue = Array.from(target.files || []);
+        function handleFileDrop(event: DragEvent): void {
+            const targetValue = Array.from(event.dataTransfer?.files || []);
 
             ctx.emit('drop', targetValue);
             setDragging(false);
