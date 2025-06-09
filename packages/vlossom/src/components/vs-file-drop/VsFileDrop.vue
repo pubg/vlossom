@@ -103,6 +103,7 @@ export default defineComponent({
             height,
             width,
             state,
+            messages,
         } = toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
@@ -113,7 +114,7 @@ export default defineComponent({
 
         const dragging = ref(false);
 
-        const messages = ref<StateMessage[]>([]);
+        const compMessages = ref<StateMessage[]>([]);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -132,7 +133,7 @@ export default defineComponent({
                 disabled,
                 readonly,
                 rules,
-                messages,
+                messages: messages.value.length > 0 ? messages : compMessages,
                 state,
             },
         );
@@ -180,9 +181,10 @@ export default defineComponent({
         }
 
         function setInputValue(value: File[]): void {
+            compMessages.value = [];
             const error = verifyFileType(value) || verifyMultipleFileUpload(value);
             if (error) {
-                messages.value = [{ state: 'error', text: error }];
+                compMessages.value = [{ state: 'error', text: error }];
                 validate();
                 return;
             }
@@ -193,7 +195,7 @@ export default defineComponent({
             }
 
             if (value.length > 1) {
-                messages.value = [{ state: 'info', text: `${value.length} files` }];
+                compMessages.value = [{ state: 'info', text: `${value.length} files` }];
             }
 
             inputValue.value = value;
