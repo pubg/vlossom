@@ -1,5 +1,8 @@
 @use '@/styles/mixin' as *;
 
+$file-drop-height: var(--vs-file-drop-height, var(--vs-input-comp-height));
+$file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-dense));
+
 .vs-input-wrapper {
     display: flex;
     flex-direction: column;
@@ -27,6 +30,25 @@
 
     &.vs-dragging {
         box-shadow: 0 0 0.5rem 0.5rem rgba(255,255,255,0.75) inset;
+    }
+    
+    &.vs-dense {
+        height: $file-drop-height-dense;
+        font-size: var(--vs-file-drop-fontSize, var(--vs-font-size-sm));
+
+        .vs-label-box {
+            padding-left: calc(#{$file-drop-height} + 0.4rem);
+            padding-right: 2rem;
+        }
+        .vs-file-drop-placeholder {
+            width: $file-drop-height-dense;
+            height: $file-drop-height-dense;
+
+            .vs-icon {
+                width: $file-drop-height-dense;
+                height: $file-drop-height-dense;
+            }
+        }
     }
 
     .vs-file-drop-ref {

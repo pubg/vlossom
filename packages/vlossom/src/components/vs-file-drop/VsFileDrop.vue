@@ -5,6 +5,7 @@
         :id="computedId"
         :class="classObj"
         :required="required"
+        :dense="dense"
         :readonly="computedReadonly"
         :messages="computedMessages"
         @mouseenter.stop="setHover(true)"
@@ -80,7 +81,8 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'drop'],
     setup(props, ctx) {
-        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly } = toRefs(props);
+        const { id, colorScheme, styleSet, modelValue, disabled, multiple, rules, accept, readonly, dense } =
+            toRefs(props);
 
         const fileDropRef = ref<HTMLInputElement | null>(null);
 
@@ -127,6 +129,7 @@ export default defineComponent({
             'vs-dragging': dragging.value,
             'vs-disabled': computedDisabled.value,
             'vs-readonly': computedReadonly.value,
+            'vs-dense': dense.value,
         }));
 
         function setHover(value: boolean): void {
