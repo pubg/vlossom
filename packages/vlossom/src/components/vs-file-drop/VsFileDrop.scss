@@ -8,7 +8,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
     flex-direction: column;
     align-items: flex-start;
     width: var(--vs-file-drop-width, 100%);
-    height: var(--vs-file-drop-height, 100%);
+    height: var(--vs-file-drop-height, auto);
 
     .vs-label-box {
         margin-bottom: 0.5rem;
@@ -16,12 +16,11 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
 
     .vs-file-drop {
         position: relative;
-        width: 100%;
-        height: $file-drop-height;
+        width: var(--vs-file-drop-width, 100%);
+        height: var(--vs-file-drop-height, auto);
         background-color: var(--vs-file-drop-backgroundColor, var(--vs-no-color));
         border: var(--vs-file-drop-border, 1px solid var(--vs-line-color));
         border-radius: var(--vs-file-drop-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
-        padding: var(--vs-file-drop-padding, 1rem);
         font-size: var(--vs-file-drop-fontSize, var(--vs-font-size));
         color: var(--vs-file-drop-fontColor, var(--vs-font-color));
         box-sizing: border-box;
@@ -50,7 +49,15 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
 
             .vs-file-drop-placeholder {
                 width: $file-drop-height-dense;
-                height: $file-drop-height-dense;
+                height: $file-drop-height-dense;     
+                
+                span {
+                    width: 100%;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
         }
 
@@ -77,17 +84,39 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
-            width: 100%;
+            width: var(--vs-file-drop-width, 100%);
+            height: var(--vs-file-drop-height, auto);
+            min-width: 0;
+            min-height: 0;
 
             .vs-file-drop-files {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
-                width: 100%;
+                margin: 0.5rem;
+                padding: var(--vs-file-drop-padding, 1rem);
+                width: var(--vs-file-drop-width, 100%);
+                height: var(--vs-file-drop-height, auto);
+                min-width: 0;
+                min-height: 0;
                 gap: 1rem;
+                overflow-y: auto;
+                overflow-x: hidden;
+
+                .vs-chip {
+                    width: 100%;
+                    min-width: 0;
+                    max-width: 100%;
+                    .vs-chip-content {
+                        display: block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        width: 100%;
+                        min-width: 0;
+                    }
+                }
             }
 
             .vs-file-drop-placeholder {
@@ -95,8 +124,17 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 100%;
-                height: 100%;
+                padding: var(--vs-file-drop-padding, 1rem);
+                width: var(--vs-file-drop-width, 100%);
+                height: var(--vs-file-drop-height, auto);
+
+                span {
+                    width: 100%;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
 
                 .vs-icon {
                     color: var(--vs-file-drop-iconColor, var(--vs-line-color));

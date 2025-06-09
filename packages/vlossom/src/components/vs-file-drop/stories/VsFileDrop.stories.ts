@@ -135,7 +135,7 @@ export const Required: Story = {
     },
 };
 
-export const Width: Story = {
+export const WidthAndHeight: Story = {
     render: (args: any) => ({
         components: { VsFileDrop, VsContainer },
         setup() {
@@ -143,8 +143,9 @@ export const Width: Story = {
         },
         template: `
             <vs-container>
-                <vs-file-drop v-bind="args" />
-                <vs-file-drop v-bind="args" />
+                <vs-file-drop v-bind="args" :width="'700px'" :height="'700px'" :placeholder="'size: 700px'" />
+                <vs-file-drop v-bind="args" :height="'100px'" :placeholder="'height: 100px'" />
+                <vs-file-drop v-bind="args" :width="'100px'" :placeholder="'width: 100px'" />
             </vs-container>
         `,
     }),

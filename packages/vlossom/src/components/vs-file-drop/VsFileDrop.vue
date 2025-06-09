@@ -48,6 +48,7 @@
                             :dense="dense"
                             :color-scheme="colorScheme"
                             :closable="!computedDisabled"
+                            no-round
                             @close="handleFileRemoveClick(file)"
                         >
                             {{ `${file.name} (${file.size} bytes)` }}
