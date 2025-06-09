@@ -18,9 +18,13 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
         position: relative;
         width: 100%;
         height: $file-drop-height;
-        border-radius: 0.5rem;
-        border: 1px solid #ccc;
-        padding: 1rem;
+        background-color: var(--vs-file-drop-backgroundColor, var(--vs-no-color));
+        border: var(--vs-file-drop-border, 1px solid var(--vs-line-color));
+        border-radius: var(--vs-file-drop-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
+        padding: var(--vs-file-drop-padding, 1rem);
+        font-size: var(--vs-file-drop-fontSize, var(--vs-font-size));
+        color: var(--vs-file-drop-fontColor, var(--vs-font-color));
+        box-sizing: border-box;
 
         &.vs-hover,
         &:focus {
@@ -37,6 +41,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
         }
 
         &.vs-dragging {
+            background-color: var(--vs-file-drop-dragBackgroundColor, var(--vs-no-color));
             box-shadow: 0 0 0.5rem 0.5rem rgba(255,255,255,0.75) inset;
         }
         
@@ -87,6 +92,10 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                 justify-content: center;
                 width: 100%;
                 height: 100%;
+
+                .vs-icon {
+                    color: var(--vs-file-drop-iconColor, var(--vs-line-color));
+                }
             }
         }
     }

@@ -8,4 +8,5 @@ export interface VsFileDropStyleSet extends VsBoxStyleSet, VsFlexStyleSet {
     border?: string;
     borderRadius?: string;
     dragBackgroundColor?: string;
+    iconColor?: string;
 }
