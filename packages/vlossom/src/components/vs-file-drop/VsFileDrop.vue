@@ -23,6 +23,7 @@
                 :required="required"
                 :accept="accept"
                 :multiple="multiple"
+                :aria-label="ariaLabel"
                 @change.stop="handleFileDialog($event)"
                 @drop.stop="handleFileDrop($event)"
                 @dragenter.stop="setDragging(true)"
