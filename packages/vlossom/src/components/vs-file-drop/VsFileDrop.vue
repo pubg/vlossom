@@ -53,7 +53,7 @@
                     </div>
 
                     <div v-else class="vs-file-drop-placeholder">
-                        <vs-icon icon="attachFile" size="40" />
+                        <vs-icon icon="attachFile" :size="dense ? 16 : 24" />
                         <span>{{ placeholder }}</span>
                     </div>
                 </slot>
