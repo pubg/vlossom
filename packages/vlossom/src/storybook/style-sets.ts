@@ -10,6 +10,7 @@ import type {
     VsDividerStyleSet,
     VsDrawerStyleSet,
     VsFileInputStyleSet,
+    VsFileDropStyleSet,
     VsFooterStyleSet,
     VsHeaderStyleSet,
     VsImageStyleSet,
@@ -114,6 +115,20 @@ const vsFileInput: VsFileInputStyleSet = {
     fontColor: '#99BC85',
     fontSize: '0.8rem',
     iconBackgroundColor: '#86A789',
+};
+
+const vsFileDrop: VsFileDropStyleSet = {
+    border: '1px solid #D4E7C5',
+    backgroundColor: '#D4E7C5',
+    fontColor: '#99BC85',
+    fontSize: '0.8rem',
+    iconBackgroundColor: '#86A789',
+    dragBackgroundColor: '#D4E7C5',
+    iconColor: '#99BC85',
+    padding: '0.8rem 1.5rem',
+    borderRadius: '0.8rem',
+    height: '100%',
+    width: '100%',
 };
 
 const vsFooter: VsFooterStyleSet = {
@@ -360,6 +375,7 @@ export const styleSet: StyleSet = {
     VsDivider: { myStyleSet: vsDivider },
     VsDrawer: { myStyleSet: vsDrawer },
     VsFileInput: { myStyleSet: vsFileInput },
+    VsFileDrop: { myStyleSet: vsFileDrop },
     VsFooter: { myStyleSet: vsFooter },
     VsHeader: { myStyleSet: vsHeader },
     VsImage: { myStyleSet: vsImage },
