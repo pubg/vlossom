@@ -4,11 +4,11 @@
             class="header bar-center"
             fixed
             primary
-            height="72px"
+            height="60px"
             :style-set="{ backgroundColor: 'black', fontColor: 'white' }"
         >
             <div class="header-left">
-                <vs-menu-button :style-set="{ fontColor: '#fff' }" @click="isDrawerOpen = !isDrawerOpen" />
+                <vs-menu-button v-model="isDrawerOpen" :style-set="{ fontColor: '#fff' }" />
                 <vs-image
                     src="/assets/vlossom-logo.png"
                     :style="{ marginLeft: '16px' }"

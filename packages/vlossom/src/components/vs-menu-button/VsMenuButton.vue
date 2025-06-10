@@ -2,7 +2,7 @@
     <div
         :class="['vs-menu-button', colorSchemeClass, { selected }]"
         :style="{ ...computedStyleSet, width: size, height: size }"
-        @click.stop="isOpen = !isOpen"
+        @click.prevent.stop="toggleOpen()"
     >
         <vs-icon icon="menu" :size="iconSize" />
     </div>
@@ -28,6 +28,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: false },
     },
+    emits: ['update:modelValue', 'change'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, size, modelValue } = toRefs(props);
 
@@ -48,8 +49,17 @@ export default defineComponent({
             return sizeValue;
         });
 
+        function toggleOpen() {
+            isOpen.value = !isOpen.value;
+            emit('change');
+        }
+
         watch(isOpen, (newVal) => {
             emit('update:modelValue', newVal);
+        });
+
+        watch(modelValue, (newVal) => {
+            isOpen.value = newVal;
         });
 
         return {
@@ -57,6 +67,7 @@ export default defineComponent({
             computedStyleSet,
             iconSize,
             isOpen,
+            toggleOpen,
         };
     },
 });
