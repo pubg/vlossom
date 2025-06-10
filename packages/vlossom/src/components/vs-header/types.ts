@@ -4,6 +4,7 @@ export interface VsHeaderStyleSet {
     fontColor?: string;
     height?: string;
     padding?: string;
+    position?: string;
     width?: string;
     zIndex?: string;
 }

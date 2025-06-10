@@ -1,5 +1,5 @@
 .vs-header {
-    position: absolute;
+    position: var(--vs-header-position, relative);
     top: 0;
     left: 0;
     background-color: var(--vs-header-backgroundColor, var(--vs-comp-bg));
@@ -8,14 +8,10 @@
     height: var(--vs-header-height, auto);
     padding: var(--vs-header-padding, 0.4rem 1rem);
     width: var(--vs-header-width, 100%);
+    z-index: var(--vs-header-zIndex, var(--vs-app-bar-z-index));
 
     &.vs-primary {
         background-color: var(--vs-header-backgroundColor, var(--vs-primary-comp-bg));
         color: var(--vs-header-fontColor, var(--vs-primary-comp-font));
-    }
-
-    &.vs-fixed {
-        position: fixed;
-        z-index: var(--vs-header-zIndex, var(--vs-app-bar-z-index));
     }
 }
