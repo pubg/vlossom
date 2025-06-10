@@ -122,7 +122,6 @@ const vsFileDrop: VsFileDropStyleSet = {
     backgroundColor: '#D4E7C5',
     fontColor: '#99BC85',
     fontSize: '0.8rem',
-    iconBackgroundColor: '#86A789',
     dragBackgroundColor: '#D4E7C5',
     iconColor: '#99BC85',
     padding: '0.8rem 1.5rem',
