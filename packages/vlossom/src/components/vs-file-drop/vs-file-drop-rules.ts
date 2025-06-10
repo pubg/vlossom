@@ -6,14 +6,22 @@ interface FileDropRuleParams {
     multiple: Ref<boolean>;
 }
 
+function parseAccept(accept: string): string {
+    if (!accept) {
+        return '';
+    }
+    return accept.replace(/./, ' ').trim();
+}
+
 export function useVsFileDropRules(params: FileDropRuleParams) {
     function verifyFileType(value: InputValueType): string {
         if (!params.accept.value || !value) {
             return '';
         }
+        const accept = parseAccept(params.accept.value);
         const values: File[] = [value].flat();
 
-        if (values.some((file) => !file.type.startsWith(params.accept.value))) {
+        if (values.some((file) => !file.type.includes(accept))) {
             return `Only ${params.accept.value} files are allowed`;
         }
 
