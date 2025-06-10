@@ -25,10 +25,10 @@
                     @keydown.stop="handleKeydown"
                 >
                     <div class="vs-step-num">
-                        <slot :name="`step-${step}`" :step="step" :index="index">{{ index + 1 }}</slot>
+                        <slot name="step" :step :index>{{ index + 1 }}</slot>
                     </div>
                     <div class="vs-step-label" v-if="!noLabel">
-                        <slot :name="`label-${step}`" :step="step" :index="index">{{ step }}</slot>
+                        <slot name="label" :step :index>{{ step }}</slot>
                     </div>
                 </li>
             </ul>
