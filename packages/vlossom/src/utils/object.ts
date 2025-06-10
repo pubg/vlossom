@@ -1,4 +1,4 @@
-import { get, isEqual, isArray, unique, isObject, omit, pick } from 'radash';
+import { get, isEqual, isArray, unique, isObject, omit, pick, shake } from 'radash';
 
 export const objectUtil = {
     get,
@@ -22,4 +22,5 @@ export const objectUtil = {
             {} as Record<string, any>,
         );
     },
+    shake,
 };
