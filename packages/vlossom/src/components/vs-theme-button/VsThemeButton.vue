@@ -3,7 +3,7 @@
         :class="['vs-theme-button', colorSchemeClass]"
         :style="computedStyleSet"
         :aria-label="`Switch to ${isDarkTheme ? 'light' : 'dark'} mode`"
-        @click.stop="toggleTheme()"
+        @click.prevent.stop="toggleTheme($event)"
     >
         <span class="vs-theme-icon vs-theme-light" :class="{ 'vs-on': !isDarkTheme }">
             <vs-icon icon="themeLight" size="20" />
@@ -32,7 +32,8 @@ export default defineComponent({
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsThemeButtonStyleSet> },
     },
-    setup(props) {
+    emits: ['change'],
+    setup(props, { emit }) {
         const { colorScheme, styleSet } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
@@ -43,8 +44,9 @@ export default defineComponent({
 
         const isDarkTheme = computed(() => vlossom?.theme === 'dark');
 
-        function toggleTheme() {
+        function toggleTheme(event: MouseEvent) {
             vlossom?.toggleTheme();
+            emit('change', event);
         }
 
         return {

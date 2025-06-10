@@ -7,7 +7,7 @@
                 aria-label="scroll to the left"
                 :disabled="isLeftEdge"
                 tabindex="-1"
-                @click.stop="goLeft"
+                @click.prevent.stop="goLeft"
                 dense
             >
                 <vs-icon icon="goPrev" size="1.6rem" />
@@ -23,7 +23,7 @@
                         :aria-selected="isSelected(index)"
                         :aria-disabled="isDisabled(index)"
                         :tabindex="isSelected(index) ? 0 : -1"
-                        @click.stop="selectTab(index)"
+                        @click.prevent.stop="selectTab(index)"
                         @keydown.stop="handleKeydown"
                     >
                         <slot :name="tab" :index="index">
@@ -39,7 +39,7 @@
                 :colorScheme="colorScheme"
                 :disabled="isRightEdge"
                 tabindex="-1"
-                @click.stop="goRight"
+                @click.prevent.stop="goRight"
                 dense
             >
                 <vs-icon icon="goNext" size="1.6rem" />

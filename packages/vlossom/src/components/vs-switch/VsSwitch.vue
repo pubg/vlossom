@@ -39,7 +39,7 @@
                 @blur.stop="onBlur"
             />
 
-            <div :class="['vs-switch-button', stateClasses]" @click.stop="onClick">
+            <div :class="['vs-switch-button', stateClasses]" @click.prevent.stop="onClick">
                 <span class="vs-status-label" data-value="true" v-show="isChecked">
                     {{ trueLabel }}
                 </span>
