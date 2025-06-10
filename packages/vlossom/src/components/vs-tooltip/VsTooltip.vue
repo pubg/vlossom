@@ -5,7 +5,7 @@
             class="vs-tooltip-trigger"
             @mouseenter.stop="onTriggerEnter"
             @mouseleave.stop="onTriggerLeave"
-            @click.stop="onTriggerClick"
+            @click.prevent.stop="onTriggerClick"
             @focusin.stop="onTriggerEnter"
             @focusout.stop="onTriggerLeave"
             @keydown.esc.stop="onTriggerLeave"

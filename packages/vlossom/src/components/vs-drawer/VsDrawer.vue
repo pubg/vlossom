@@ -6,7 +6,7 @@
             :class="['vs-drawer', colorSchemeClass, { 'vs-dimmed': dimmed }]"
             :style="computedStyleSet"
         >
-            <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.stop="onClickDimmed" />
+            <div v-if="dimmed" class="vs-drawer-dimmed" aria-hidden="true" @click.prevent.stop="onClickDimmed" />
             <vs-focus-trap ref="focusTrapRef" :focus-lock="focusLock" :initial-focus-ref="initialFocusRef">
                 <div :class="['vs-drawer-wrap', `vs-${placement}`, hasSpecifiedSize ? '' : size]" :style="layoutStyles">
                     <header v-if="$slots['header']" class="vs-drawer-header">

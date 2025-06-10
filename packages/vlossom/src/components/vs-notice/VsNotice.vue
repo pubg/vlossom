@@ -14,7 +14,13 @@
                 <slot />
             </div>
         </div>
-        <button type="button" class="vs-notice-close-button" @click.stop="closeNotice()" aria-label="close">
+        <button
+            v-if="closable"
+            type="button"
+            class="vs-notice-close-button"
+            aria-label="close"
+            @click.prevent.stop="closeNotice($event)"
+        >
             <vs-icon icon="close" size="20" />
         </button>
     </div>
@@ -34,6 +40,7 @@ export default defineComponent({
     name,
     components: { VsDivider, VsIcon },
     props: {
+        closable: { type: Boolean, default: true },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsNoticeStyleSet> },
         primary: { type: Boolean, default: true },
@@ -41,7 +48,7 @@ export default defineComponent({
         // v-model
         modelValue: { type: Boolean, default: true },
     },
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'close'],
     setup(props, { emit }) {
         const { colorScheme, styleSet, modelValue, primary } = toRefs(props);
 
@@ -49,24 +56,21 @@ export default defineComponent({
 
         const { computedStyleSet } = useStyleSet<VsNoticeStyleSet>(name, styleSet);
 
-        const isVisible = ref(true);
-
-        watch(
-            modelValue,
-            (visibie: boolean) => {
-                isVisible.value = visibie;
-            },
-            { immediate: true },
-        );
-
-        const closeNotice = () => {
-            isVisible.value = false;
-            emit('update:modelValue', false);
-        };
+        const isVisible = ref(modelValue.value);
 
         const classObj = computed(() => ({
             'vs-primary': primary.value,
         }));
+
+        function closeNotice(e: MouseEvent) {
+            isVisible.value = false;
+            emit('update:modelValue', false);
+            emit('close', e);
+        }
+
+        watch(modelValue, (visibie: boolean) => {
+            isVisible.value = visibie;
+        });
 
         return {
             colorSchemeClass,

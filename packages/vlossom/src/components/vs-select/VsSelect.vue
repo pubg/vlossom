@@ -21,7 +21,7 @@
             ref="triggerRef"
             :class="['vs-select', colorSchemeClass, classObj, stateClasses]"
             :style="computedStyleSet"
-            @click.stop="onClickTrigger()"
+            @click.prevent.stop="onClickTrigger()"
         >
             <div class="vs-select-wrap">
                 <input
@@ -94,7 +94,7 @@
                     class="vs-clear-button"
                     aria-label="Clear"
                     tabindex="-1"
-                    @click.stop="onClear()"
+                    @click.prevent.stop="onClear()"
                 >
                     <vs-icon icon="close" :size="dense ? 14 : 16" />
                 </button>
@@ -120,7 +120,7 @@
                     ]"
                     :style="computedStyleSet"
                 >
-                    <div class="vs-options-header" v-if="$slots['options-header']" @click.stop>
+                    <div class="vs-options-header" v-if="$slots['options-header']" @click.prevent.stop>
                         <slot name="options-header" />
                     </div>
                     <div
@@ -141,7 +141,7 @@
                             },
                         ]"
                         @mousemove.stop="onMouseMove('all')"
-                        @click.stop="selectAllOptions()"
+                        @click.prevent.stop="selectAllOptions()"
                     >
                         <slot name="select-all" :selected="isAllSelected">
                             <span>Select All</span>
@@ -173,7 +173,7 @@
                             :aria-setsize="filteredOptions.length"
                             :aria-posinset="(selectAll ? 2 : 1) + index"
                             @mousemove.stop="onMouseMove(option)"
-                            @click.stop="selectOption(option.value)"
+                            @click.prevent.stop="selectOption(option.value)"
                         >
                             <slot
                                 name="option"
@@ -186,9 +186,11 @@
                                 <span>{{ getOptionLabel(option.value) }}</span>
                             </slot>
                         </li>
-                        <li v-if="!loadedOptions.length" class="vs-option" @click.stop="closeOptions()">No Options</li>
+                        <li v-if="!loadedOptions.length" class="vs-option" @click.prevent.stop="closeOptions()">
+                            No Options
+                        </li>
                     </ul>
-                    <div class="vs-options-footer" v-if="$slots['options-footer']" @click.stop>
+                    <div class="vs-options-footer" v-if="$slots['options-footer']" @click.prevent.stop>
                         <slot name="options-footer" />
                     </div>
                 </div>
