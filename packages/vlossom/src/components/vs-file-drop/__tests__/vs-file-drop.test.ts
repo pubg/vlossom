@@ -167,10 +167,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files: updateFiles,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
 
             // Then
             expect(wrapper.emitted('update:modelValue')).toBeTruthy();
@@ -420,10 +420,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -443,10 +443,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -464,10 +464,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -484,10 +484,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -497,9 +497,9 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
-        it('파일을 drag하여 영역에 hover하면 "Drop files here or click to upload" 메시지가 노출된다', async () => {
+        it('파일을 drag하여 영역에 hover하면 ${placeholder} 메시지가 노출된다', async () => {
             // Given
-            const wrapper = mount(VsFileDrop, { props: { modelValue: null } });
+            const wrapper = mount(VsFileDrop, { props: { modelValue: null, placeholder: 'Drop files here' } });
             const input = wrapper.find('input[type="file"]');
 
             // When
@@ -507,7 +507,7 @@ describe('vs-file-drop', () => {
             await input.trigger('dragover');
 
             // Then
-            expect(wrapper.text()).toContain('Drop files here or click to upload');
+            expect(wrapper.text()).toContain(wrapper.vm.placeholder);
         });
 
         it('drag 이벤트가 발생하면 파일 드롭 영역이 하이라이트된다', async () => {
@@ -545,10 +545,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -568,10 +568,10 @@ describe('vs-file-drop', () => {
             // When
             //input.trigger('drop');
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -589,10 +589,10 @@ describe('vs-file-drop', () => {
             // When
             //input.trigger('drop');
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -607,10 +607,10 @@ describe('vs-file-drop', () => {
 
             // When
             await wrapper.vm.handleFileDrop({
-                target: {
+                dataTransfer: {
                     files,
                 },
-            } as unknown as Event);
+            } as unknown as DragEvent);
             await wrapper.vm.$nextTick();
 
             // Then
@@ -685,44 +685,17 @@ describe('vs-file-drop', () => {
         });
     });
 
-    /*
-    describe('크기를 조정할 수 있다', () => {
-        it('크기를 설정 안 했을 때 기본 값을 가진다', () => {
-            // Given
-            const wrapper = mount(VsFileDrop);
-
-            // When
-            const style = wrapper.attributes('style');
-
-            // Then
-            expect(style).toContain('width: 100%');
-            expect(style).toContain('height: 100%');
-        });
-
-        it('설정 했을 때 height와 width 크기를 조정할 수 있다', () => {
-            // Given
-            const wrapper = mount(VsFileDrop, { props: { width: '300px', height: '200px' } });
-
-            // When
-            const style = wrapper.attributes('style');
-
-            // Then
-            expect(style).toContain('width: 300px');
-            expect(style).toContain('height: 200px');
-        });
-    });
-    */
-
     describe('keyboard control', () => {
         it('탭 이벤트로 컴포넌트에 접근 가능하다', async () => {
             // Given
             const wrapper = mount(VsFileDrop);
+            const input = wrapper.find('input[type="file"]');
 
             // When
-            await wrapper.trigger('focus');
+            await input.trigger('focus');
 
             // Then
-            expect(wrapper.element.tabIndex).toBe(0);
+            expect(input.attributes('tabindex')).toBe('0');
         });
 
         it('탭 이벤트로 컴포넌트에 접근 가능하고, enter를 누르면 dialog가 출력된다', async () => {
