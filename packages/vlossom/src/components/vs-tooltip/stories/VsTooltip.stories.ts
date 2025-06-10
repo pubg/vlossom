@@ -205,7 +205,6 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            borderColor: 'transparent',
             borderRadius: '0.4rem',
             boxShadow: 'none',
             fontColor: 'white',
