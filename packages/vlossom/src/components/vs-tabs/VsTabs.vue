@@ -26,7 +26,7 @@
                         @click.prevent.stop="selectTab(index)"
                         @keydown.stop="handleKeydown"
                     >
-                        <slot :name="tab" :index="index">
+                        <slot name="tab" :tab :index>
                             {{ tab }}
                         </slot>
                     </li>
