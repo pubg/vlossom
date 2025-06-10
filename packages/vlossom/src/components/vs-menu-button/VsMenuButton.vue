@@ -2,13 +2,14 @@
     <div
         :class="['vs-menu-button', colorSchemeClass, { selected }]"
         :style="{ ...computedStyleSet, width: size, height: size }"
+        @click.prevent.stop="toggleOpen()"
     >
         <vs-icon icon="menu" :size="iconSize" />
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import { computed, defineComponent, PropType, ref, toRefs, watch } from 'vue';
 import { VsIcon } from '@/icons';
 import { ColorScheme, VsComponent } from '@/declaration';
 import { VsMenuButtonStyleSet } from './types';
@@ -23,13 +24,19 @@ export default defineComponent({
         styleSet: { type: [String, Object] as PropType<string | VsMenuButtonStyleSet> },
         selected: { type: Boolean, default: false },
         size: { type: String, default: '3.2rem' },
+
+        // v-model
+        modelValue: { type: Boolean, default: false },
     },
-    setup(props) {
-        const { colorScheme, styleSet, size } = toRefs(props);
+    emits: ['update:modelValue', 'change'],
+    setup(props, { emit }) {
+        const { colorScheme, styleSet, size, modelValue } = toRefs(props);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
         const { computedStyleSet } = useStyleSet<VsMenuButtonStyleSet>(name, styleSet);
+
+        const isOpen = ref(modelValue.value);
 
         const iconSize = computed(() => {
             const sizeValue = size.value;
@@ -42,10 +49,25 @@ export default defineComponent({
             return sizeValue;
         });
 
+        function toggleOpen() {
+            isOpen.value = !isOpen.value;
+            emit('change');
+        }
+
+        watch(isOpen, (newVal) => {
+            emit('update:modelValue', newVal);
+        });
+
+        watch(modelValue, (newVal) => {
+            isOpen.value = newVal;
+        });
+
         return {
             colorSchemeClass,
             computedStyleSet,
             iconSize,
+            isOpen,
+            toggleOpen,
         };
     },
 });
