@@ -3,10 +3,15 @@
         <div class="vs-confirm-wrap">
             <slot />
             <div class="vs-confirm-buttons">
-                <vs-button ref="okRef" :style-set="getButtonStyleSet(plainStyleSet?.okButton)" @click="ok" primary>
+                <vs-button
+                    ref="okRef"
+                    :style-set="getButtonStyleSet(plainStyleSet?.okButton)"
+                    primary
+                    @click.prevent.stop="ok"
+                >
                     {{ okText }}
                 </vs-button>
-                <vs-button :style-set="getButtonStyleSet(plainStyleSet?.cancelButton)" @click="cancel">
+                <vs-button :style-set="getButtonStyleSet(plainStyleSet?.cancelButton)" @click.prevent.stop="cancel">
                     {{ cancelText }}
                 </vs-button>
             </div>

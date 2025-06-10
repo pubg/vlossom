@@ -236,8 +236,8 @@ export default defineComponent({
             emit('blur', e);
         }
 
-        function onEnter() {
-            emit('enter');
+        function onEnter(e: KeyboardEvent) {
+            emit('enter', e);
         }
 
         function clearWithFocus() {
