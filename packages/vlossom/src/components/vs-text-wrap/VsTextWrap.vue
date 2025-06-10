@@ -26,7 +26,7 @@
                 v-if="copy"
                 class="vs-text-wrap-button vs-copy-button"
                 aria-label="copy"
-                @click.stop="copyInnerText"
+                @click.prevent.stop="copyInnerText"
             >
                 <vs-icon size="1.4rem" :icon="computedIcon" :class="{ copied }" />
             </button>
@@ -36,7 +36,7 @@
                 v-if="link"
                 class="vs-text-wrap-button vs-link-button"
                 aria-label="link"
-                @click.stop="openLink"
+                @click.prevent.stop="openLink"
             >
                 <vs-icon size="1.5rem" class="vs-link-icon" icon="link" />
             </button>

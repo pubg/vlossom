@@ -59,7 +59,7 @@
                 class="vs-clear-button"
                 aria-label="Clear"
                 tabindex="-1"
-                @click.stop="onClear()"
+                @click.prevent.stop="onClear()"
             >
                 <vs-icon icon="close" :size="dense ? 14 : 16" />
             </button>

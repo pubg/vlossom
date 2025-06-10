@@ -14,7 +14,7 @@
             class="vs-icon-container vs-chip-close-button"
             aria-label="close"
             tabindex="-1"
-            @click.stop="$emit('close')"
+            @click.prevent.stop="$emit('close', $event)"
         >
             <vs-icon icon="close" size="14px" />
         </button>

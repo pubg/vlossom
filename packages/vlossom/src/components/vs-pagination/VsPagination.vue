@@ -4,14 +4,19 @@
             v-if="edgeButtons"
             class="vs-page-button"
             :disabled="selected <= 1"
-            @click.stop="goFirst"
+            @click.prevent.stop="goFirst"
             aria-label="go to first page"
         >
             <slot name="first">
                 <vs-icon icon="goFirst" size="2rem" />
             </slot>
         </button>
-        <button class="vs-page-button" :disabled="selected <= 1" @click.stop="goPrev" aria-label="go to previous page">
+        <button
+            class="vs-page-button"
+            :disabled="selected <= 1"
+            @click.prevent.stop="goPrev"
+            aria-label="go to previous page"
+        >
             <slot name="prev">
                 <vs-icon icon="goPrev" size="2rem" />
             </slot>
@@ -22,14 +27,19 @@
                 :key="page"
                 :class="['vs-page-button', { 'vs-selected': page === selected }]"
                 :aria-label="`go to page ${page}`"
-                @click.stop="setPage(page)"
+                @click.prevent.stop="setPage(page)"
             >
                 <slot name="page" :page="page">
                     {{ page }}
                 </slot>
             </button>
         </div>
-        <button class="vs-page-button" :disabled="selected >= length" @click.stop="goNext" aria-label="go to next page">
+        <button
+            class="vs-page-button"
+            :disabled="selected >= length"
+            @click.prevent.stop="goNext"
+            aria-label="go to next page"
+        >
             <slot name="next">
                 <vs-icon icon="goNext" size="2rem" />
             </slot>
@@ -38,7 +48,7 @@
             v-if="edgeButtons"
             class="vs-page-button"
             :disabled="selected >= length"
-            @click.stop="goLast"
+            @click.prevent.stop="goLast"
             aria-label="go to last page"
         >
             <slot name="last">
