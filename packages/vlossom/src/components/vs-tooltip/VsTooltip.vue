@@ -74,7 +74,7 @@ export default defineComponent({
         disabled: { type: Boolean, default: false },
         enterDelay: { type: Number, default: 100 },
         leaveDelay: { type: Number, default: 100 },
-        margin: { type: Number, default: 5 },
+        margin: { type: [String, Number], default: 5 },
         placement: {
             type: String as PropType<Exclude<Placement, 'middle'>>,
             default: 'top',
@@ -122,7 +122,8 @@ export default defineComponent({
                     appear({
                         placement: placement.value,
                         align: align.value,
-                        margin: margin.value,
+                        margin:
+                            typeof margin.value === 'string' ? Number(margin.value.replace('px', '')) : margin.value,
                     });
                 });
             } else if (isVisible.value) {
