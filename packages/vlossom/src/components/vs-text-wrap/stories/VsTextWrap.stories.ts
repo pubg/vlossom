@@ -134,7 +134,6 @@ export const StyleSet: Story = {
     args: {
         styleSet: {
             backgroundColor: 'white',
-            borderColor: 'black',
             borderRadius: '0.4rem',
             boxShadow: 'none',
             fontColor: 'black',
