@@ -5,9 +5,7 @@
         </div>
 
         <div :class="['vs-flex-layout-body', { 'vs-hide-scroll': hideScroll }]">
-            <div class="vs-flex-layout-body-inner">
-                <slot />
-            </div>
+            <slot />
         </div>
 
         <div v-if="$slots['footer']" class="vs-flex-layout-footer">
