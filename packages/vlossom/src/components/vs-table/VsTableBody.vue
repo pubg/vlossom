@@ -22,7 +22,7 @@
                 :loading="loading"
                 :row-index="index"
                 :tr-style="trStyle"
-                @click="emitClickRow(element, index)"
+                @click="emitClickRow(element.data, index)"
                 @toggleExpand="toggleExpand"
             >
                 <template #check>
