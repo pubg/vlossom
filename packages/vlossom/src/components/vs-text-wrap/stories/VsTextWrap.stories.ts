@@ -133,12 +133,14 @@ export const Width: Story = {
 export const StyleSet: Story = {
     args: {
         styleSet: {
-            backgroundColor: 'white',
-            borderRadius: '0.4rem',
-            boxShadow: 'none',
-            fontColor: 'black',
-            fontSize: '0.9rem',
-            padding: '0.7rem 0.8rem',
+            tooltip: {
+                backgroundColor: 'white',
+                borderRadius: '0.4rem',
+                boxShadow: 'none',
+                fontColor: 'black',
+                fontSize: '0.9rem',
+                padding: '0.7rem 0.8rem',
+            },
             copyIconColor: '#394867',
             linkIconColor: '#526d82',
         },
