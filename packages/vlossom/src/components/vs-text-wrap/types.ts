@@ -1,6 +1,7 @@
 import { VsTooltipStyleSet } from './../vs-tooltip/types';
 
-export interface VsTextWrapStyleSet extends VsTooltipStyleSet {
+export interface VsTextWrapStyleSet {
+    tooltip?: VsTooltipStyleSet;
     copyIconColor?: string;
     linkIconColor?: string;
 }

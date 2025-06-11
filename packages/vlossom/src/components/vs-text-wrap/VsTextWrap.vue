@@ -2,7 +2,7 @@
     <div :class="['vs-text-wrap', colorSchemeClass]" :style="computedStyleSet">
         <vs-tooltip
             :color-scheme="colorScheme"
-            :style-set="styleSet"
+            :style-set="plainStyleSet.tooltip"
             :placement="placement"
             :align="align"
             :disabled="noTooltip"
@@ -82,7 +82,7 @@ export default defineComponent({
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
-        const { computedStyleSet } = useStyleSet<VsTextWrapStyleSet>(name, styleSet);
+        const { plainStyleSet, computedStyleSet } = useStyleSet<VsTextWrapStyleSet>(name, styleSet);
 
         const computedWidth = computed(() => utils.string.convertToStringSize(width.value));
 
@@ -115,6 +115,7 @@ export default defineComponent({
         }
         return {
             colorSchemeClass,
+            plainStyleSet,
             computedStyleSet,
             computedWidth,
             contentsRef,
