@@ -667,22 +667,6 @@ describe('vs-file-drop', () => {
             // Then
             expect(wrapper.text()).toContain('Dragging!');
         });
-
-        it('사용자는 hover 상태를 사용하여 content를 정의할 수 있다', async () => {
-            // Given
-            const wrapper = mount(VsFileDrop, {
-                slots: {
-                    default: (slotProps) => (slotProps.hover ? h('div', 'Hover!') : null),
-                },
-            });
-
-            // When
-            wrapper.vm.hover = true;
-            await wrapper.vm.$nextTick();
-
-            // Then
-            expect(wrapper.text()).toContain('Hover!');
-        });
     });
 
     describe('keyboard control', () => {
