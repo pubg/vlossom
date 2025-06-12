@@ -51,7 +51,8 @@
                             no-round
                             @close="handleFileRemoveClick(file)"
                         >
-                            {{ `${file.name} (${file.size} bytes)` }}
+                            <span class="vs-file-drop-file-name">{{ file.name }}</span>
+                            <span class="vs-file-drop-file-size">{{ `(${file.size} bytes)` }}</span>
                         </vs-chip>
                     </div>
 
