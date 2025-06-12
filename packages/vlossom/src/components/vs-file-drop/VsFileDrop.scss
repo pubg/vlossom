@@ -19,7 +19,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
         width: var(--vs-file-drop-width, 100%);
         height: var(--vs-file-drop-height, auto);
         background-color: var(--vs-file-drop-backgroundColor, var(--vs-no-color));
-        border: var(--vs-file-drop-border, 1px solid var(--vs-line-color));
+        border: var(--vs-file-drop-border, 0.1rem solid var(--vs-line-color));
         border-radius: var(--vs-file-drop-borderRadius, calc(var(--vs-radius-ratio) * var(--vs-radius)));
         font-size: var(--vs-file-drop-fontSize, var(--vs-font-size));
         color: var(--vs-file-drop-fontColor, var(--vs-font-color));
@@ -39,6 +39,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
         }
 
         &.vs-dragging {
+            outline: 0.2rem dashed var(--vs-line-color);
             background-color: var(--vs-file-drop-dragBackgroundColor, var(--vs-no-color));
             box-shadow: 0 0 0.2rem 0.2rem var(--vs-file-drop-border, var(--vs-line-color)) inset;
         }
