@@ -161,7 +161,7 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             'vs-hover': hover.value,
-            'vs-dragging': dragging.value,
+            'vs-dragging': dragging.value && !ctx.slots.default,
             'vs-disabled': computedDisabled.value,
             'vs-readonly': computedReadonly.value,
             'vs-dense': dense.value,
