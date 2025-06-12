@@ -104,7 +104,15 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                 overflow-y: auto;
                 overflow-x: hidden;
 
+                > div {
+                    display: flex;
+                    width: 100%;
+                    min-width: 0;
+                    max-width: 100%;
+                }
+                
                 .vs-chip {
+                    display: flex;
                     width: 100%;
                     min-width: 0;
                     max-width: 100%;

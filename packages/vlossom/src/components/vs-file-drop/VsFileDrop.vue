@@ -41,19 +41,19 @@
             <div class="vs-file-drop-content">
                 <slot :dragging="dragging">
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-chip
-                            v-for="file in computedInputValue"
-                            :key="file.name"
-                            :id="file.name"
-                            :dense="dense"
-                            :color-scheme="colorScheme"
-                            :closable="!computedDisabled"
-                            no-round
-                            @close="handleFileRemoveClick(file)"
-                        >
-                            <span class="vs-file-drop-file-name">{{ file.name }}</span>
-                            <span class="vs-file-drop-file-size">{{ `(${file.size} bytes)` }}</span>
-                        </vs-chip>
+                        <div v-for="file in computedInputValue" :key="file.name">
+                            <vs-chip
+                                :id="file.name"
+                                :dense="dense"
+                                :color-scheme="colorScheme"
+                                :closable="!computedDisabled"
+                                no-round
+                                @close="handleFileRemoveClick(file)"
+                            >
+                                <span class="vs-file-drop-file-name">{{ file.name }}</span>
+                                <span class="vs-file-drop-file-size">{{ `(${file.size} bytes)` }}</span>
+                            </vs-chip>
+                        </div>
                     </div>
 
                     <div v-else class="vs-file-drop-placeholder">
