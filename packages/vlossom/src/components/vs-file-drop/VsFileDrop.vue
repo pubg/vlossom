@@ -10,6 +10,7 @@
         :dense="dense"
         :readonly="computedReadonly"
         :messages="computedMessages"
+        :no-message="noMessage"
         @mouseenter.stop="setHover(true)"
         @mouseleave.stop="setHover(false)"
     >
@@ -17,7 +18,13 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
+        <div
+            :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]"
+            :style="computedStyleSet"
+            @drop.prevent.stop="handleFileDrop($event)"
+            @dragenter.prevent.stop="setDragging(true)"
+            @dragleave.prevent.stop="setDragging(false)"
+        >
             <input
                 type="file"
                 ref="fileDropRef"
@@ -31,33 +38,31 @@
                 :multiple="multiple"
                 :aria-label="ariaLabel"
                 @change.stop="handleFileDialog($event)"
-                @drop.stop="handleFileDrop($event)"
-                @dragenter.stop="setDragging(true)"
-                @dragleave.stop="setDragging(false)"
                 @keydown.enter.stop="openFileDialog()"
                 @keydown.space.prevent.stop="openFileDialog()"
             />
 
             <div class="vs-file-drop-content">
-                <slot :dragging="dragging" :hover="hover">
+                <slot :dragging="dragging">
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <vs-chip
-                            v-for="file in computedInputValue"
-                            :key="file.name"
-                            :id="file.name"
-                            :dense="dense"
-                            :color-scheme="colorScheme"
-                            :closable="!computedDisabled"
-                            no-round
-                            @close="handleFileRemoveClick(file)"
-                        >
-                            {{ `${file.name} (${file.size} bytes)` }}
-                        </vs-chip>
+                        <div v-for="file in computedInputValue" :key="file.name">
+                            <vs-chip
+                                :id="file.name"
+                                :dense="dense"
+                                :color-scheme="colorScheme"
+                                :closable="!computedDisabled"
+                                no-round
+                                @close="handleFileRemoveClick(file)"
+                            >
+                                <span class="vs-file-drop-file-name">{{ file.name }}</span>
+                                <span class="vs-file-drop-file-size">{{ `(${toFileSizeFormat(file.size)})` }}</span>
+                            </vs-chip>
+                        </div>
                     </div>
 
                     <div v-else class="vs-file-drop-placeholder">
                         <vs-icon icon="attachFile" :size="dense ? 16 : 24" />
-                        <span>{{ placeholder }}</span>
+                        <span class="vs-text-gray placeholder-text">{{ placeholder }}</span>
                     </div>
                 </slot>
             </div>
@@ -67,13 +72,14 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { Breakpoints, StateMessage, VsComponent, type ColorScheme } from '@/declaration';
+import { Breakpoints, Message, UIState, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps, getResponsiveProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet, useStateClass } from '@/composables';
 import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 import type { InputValueType, VsFileDropStyleSet } from './types';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
@@ -92,6 +98,8 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'drop'],
     setup(props, ctx) {
+        const toFileSizeFormat = utils.string.toFileSizeFormat;
+
         const {
             id,
             colorScheme,
@@ -117,7 +125,7 @@ export default defineComponent({
 
         const dragging = ref(false);
 
-        const compMessages = ref<StateMessage[]>([]);
+        const compMessages = ref<Message<InputValueType>[]>([]);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -127,19 +135,16 @@ export default defineComponent({
             computed(() => ({ height: height.value, width: width.value })),
         );
 
-        const { computedId, computedDisabled, computedReadonly, computedMessages, computedState, validate } = useInput(
-            ctx,
-            {
-                inputValue,
-                modelValue,
-                id,
-                disabled,
-                readonly,
-                rules,
-                messages: messages.value.length > 0 ? messages : compMessages,
-                state,
-            },
-        );
+        const { computedId, computedDisabled, computedReadonly, computedMessages, computedState } = useInput(ctx, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            rules,
+            messages: computed(() => [...messages.value, ...compMessages.value]),
+            state,
+        });
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -162,6 +167,7 @@ export default defineComponent({
         const classObj = computed(() => ({
             'vs-hover': hover.value,
             'vs-dragging': dragging.value,
+            'vs-dragging-shadow': dragging.value && !ctx.slots.default,
             'vs-disabled': computedDisabled.value,
             'vs-readonly': computedReadonly.value,
             'vs-dense': dense.value,
@@ -185,11 +191,10 @@ export default defineComponent({
 
         function setInputValue(value: File[]): void {
             compMessages.value = [];
-            const error = verifyFileType(value) || verifyMultipleFileUpload(value);
-            if (error) {
-                compMessages.value = [{ state: 'error', text: error }];
-                validate();
-                return;
+
+            const errors = [verifyFileType(value), verifyMultipleFileUpload(value)].filter(Boolean);
+            if (errors.length) {
+                compMessages.value.push(...errors.map((error) => ({ state: 'error' as UIState, text: error })));
             }
 
             if (!multiple.value) {
@@ -198,7 +203,7 @@ export default defineComponent({
             }
 
             if (value.length > 1) {
-                compMessages.value = [{ state: 'info', text: `${value.length} files` }];
+                compMessages.value.push({ state: 'info' as UIState, text: `${value.length} files` });
             }
 
             inputValue.value = value;
@@ -259,7 +264,6 @@ export default defineComponent({
             inputValue,
             hasValue,
             dragging,
-            hover,
             setHover,
             setDragging,
             openFileDialog,
@@ -267,6 +271,7 @@ export default defineComponent({
             handleFileDrop,
             handleFileRemoveClick,
             stateClasses,
+            toFileSizeFormat,
         };
     },
 });

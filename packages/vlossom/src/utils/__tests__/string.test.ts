@@ -116,4 +116,41 @@ describe('string util', () => {
             expect(result).toBe(`${size}px`);
         });
     });
+
+    describe('toFileSizeFormat', () => {
+        const { toFileSizeFormat } = stringUtil;
+
+        it('Given a number, when the function is called, then it should return the file size format', () => {
+            // Given
+            const size = 1e3;
+
+            // When
+            const result = toFileSizeFormat(size);
+
+            // Then
+            expect(result).toBe('1.0 KB');
+        });
+
+        it('Given a number, when the function is called, then it should return the file size format', () => {
+            // Given
+            const size = 1e6;
+
+            // When
+            const result = toFileSizeFormat(size);
+
+            // Then
+            expect(result).toBe('1.0 MB');
+        });
+
+        it('Given a number, when the function is called, then it should return the file size format', () => {
+            // Given
+            const size = 1e9;
+
+            // When
+            const result = toFileSizeFormat(size);
+
+            // Then
+            expect(result).toBe('1.0 GB');
+        });
+    });
 });
