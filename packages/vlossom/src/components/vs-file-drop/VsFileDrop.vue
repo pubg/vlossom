@@ -10,6 +10,7 @@
         :dense="dense"
         :readonly="computedReadonly"
         :messages="computedMessages"
+        :no-message="noMessage"
         @mouseenter.stop="setHover(true)"
         @mouseleave.stop="setHover(false)"
     >
