@@ -23,7 +23,6 @@
             :style="computedStyleSet"
             @drop.prevent.stop="handleFileDrop($event)"
             @dragenter.prevent.stop="setDragging(true)"
-            @dragover.prevent.stop
             @dragleave.prevent.stop="setDragging(false)"
         >
             <input

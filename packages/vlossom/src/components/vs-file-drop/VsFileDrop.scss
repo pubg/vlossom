@@ -124,6 +124,12 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                     width: 100%;
                     min-width: 0;
                     max-width: 100%;
+                    pointer-events: none;
+
+                    .vs-chip-close-button {
+                        pointer-events: auto;
+                    }
+
                     .vs-chip-content {
                         display: block;
                         overflow: hidden;
