@@ -18,7 +18,13 @@
             <slot name="label" />
         </template>
 
-        <div :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]" :style="computedStyleSet">
+        <div
+            :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]"
+            :style="computedStyleSet"
+            @drop.stop="handleFileDrop($event)"
+            @dragenter.stop="setDragging(true)"
+            @dragleave.stop="setDragging(false)"
+        >
             <input
                 type="file"
                 ref="fileDropRef"
@@ -32,9 +38,6 @@
                 :multiple="multiple"
                 :aria-label="ariaLabel"
                 @change.stop="handleFileDialog($event)"
-                @drop.stop="handleFileDrop($event)"
-                @dragenter.stop="setDragging(true)"
-                @dragleave.stop="setDragging(false)"
                 @keydown.enter.stop="openFileDialog()"
                 @keydown.space.prevent.stop="openFileDialog()"
             />
@@ -129,19 +132,16 @@ export default defineComponent({
             computed(() => ({ height: height.value, width: width.value })),
         );
 
-        const { computedId, computedDisabled, computedReadonly, computedMessages, computedState, validate } = useInput(
-            ctx,
-            {
-                inputValue,
-                modelValue,
-                id,
-                disabled,
-                readonly,
-                rules,
-                messages: computed(() => [...messages.value, ...compMessages.value]),
-                state,
-            },
-        );
+        const { computedId, computedDisabled, computedReadonly, computedMessages, computedState } = useInput(ctx, {
+            inputValue,
+            modelValue,
+            id,
+            disabled,
+            readonly,
+            rules,
+            messages: computed(() => [...messages.value, ...compMessages.value]),
+            state,
+        });
 
         const { stateClasses } = useStateClass(computedState);
 
@@ -187,11 +187,14 @@ export default defineComponent({
 
         function setInputValue(value: File[]): void {
             compMessages.value = [];
-            const error = verifyFileType(value) || verifyMultipleFileUpload(value);
-            if (error) {
-                compMessages.value = [{ state: 'error', text: error }];
-                validate();
-                return;
+
+            const errors = [verifyFileType(value), verifyMultipleFileUpload(value)];
+            if (errors.length) {
+                compMessages.value.push(
+                    ...(errors
+                        .filter(Boolean)
+                        .map((error) => ({ state: 'error', text: error })) as Message<InputValueType>[]),
+                );
             }
 
             if (!multiple.value) {
@@ -200,7 +203,7 @@ export default defineComponent({
             }
 
             if (value.length > 1) {
-                compMessages.value = [{ state: 'info', text: `${value.length} files` }];
+                compMessages.value.push({ state: 'info', text: `${value.length} files` });
             }
 
             inputValue.value = value;

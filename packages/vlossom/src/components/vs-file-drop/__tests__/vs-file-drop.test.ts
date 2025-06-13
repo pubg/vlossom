@@ -331,22 +331,6 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('multiple이 false일 때 dialog에서 여러 파일을 선택하면 파일이 등록되지 않는다', async () => {
-            // Given
-            const files = [createFile('a.png'), createFile('b.png')];
-            const wrapper = mount(VsFileDrop, { props: { multiple: false } });
-
-            // When
-            await wrapper.vm.handleFileDialog({
-                target: {
-                    files,
-                },
-            } as unknown as Event);
-
-            // Then
-            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
-        });
-
         it('multiple이 false일 때 여러 개의 파일을 추가하면 에러 메시지가 노출된다', async () => {
             // Given
             const files = [createFile('a.png'), createFile('b.png')];
@@ -433,27 +417,6 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')).toBeTruthy();
             expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
-        });
-
-        it('accept에 맞지 않는 파일은 추가할 수 없다', async () => {
-            // Given
-            const accept = 'image/png';
-            const wrapper = mount(VsFileDrop, { props: { accept } });
-            const files = [createFile('test.txt', 'text/plain')];
-
-            // When
-            await wrapper.vm.handleFileDrop({
-                dataTransfer: {
-                    files,
-                },
-            } as unknown as DragEvent);
-            await wrapper.vm.$nextTick();
-
-            // Then
-            expect(wrapper.emitted('drop')).toBeTruthy();
-            expect(wrapper.emitted('drop')?.length).toBe(1);
-            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
-            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
         it('accept가 맞지 않는 파일이 추가된 경우, "Only ${accept} files are allowed" 메시지가 노출된다', async () => {
@@ -558,27 +521,6 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')).toBeTruthy();
             expect(wrapper.emitted('update:modelValue')?.length).toBe(1);
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
-        });
-
-        it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 어떤 파일도 등록되지 않는다', async () => {
-            // Given
-            const files = [createFile('a.png'), createFile('b.png')];
-            const wrapper = mount(VsFileDrop, { props: { multiple: false } });
-
-            // When
-            //input.trigger('drop');
-            await wrapper.vm.handleFileDrop({
-                dataTransfer: {
-                    files,
-                },
-            } as unknown as DragEvent);
-            await wrapper.vm.$nextTick();
-
-            // Then
-            expect(wrapper.emitted('drop')).toBeTruthy();
-            expect(wrapper.emitted('drop')?.length).toBe(1);
-            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
-            expect(wrapper.emitted('update:modelValue')).toBeFalsy();
         });
 
         it('multiple이 false일 때 drag&drop으로 여러 파일을 추가하면 에러 메시지가 노출된다', async () => {
