@@ -34,7 +34,13 @@ export const stringUtil = {
         }
     },
 
-    toFileSizeFormat(number: number): string {
+    toFileSizeFormat(number: number | undefined | null): string {
+        if (number === undefined || number === null) {
+            throw new Error('File size is required');
+        }
+        if (number === 1) {
+            return '1 byte';
+        }
         if (number < 1e3) {
             return `${number} bytes`;
         }
