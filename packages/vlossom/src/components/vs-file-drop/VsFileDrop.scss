@@ -59,7 +59,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                 width: $file-drop-height-dense;
                 height: $file-drop-height-dense;     
                 
-                span {
+                .placeholder-text {
                     width: 100%;
                     text-align: center;
                     overflow: hidden;
@@ -166,7 +166,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                     margin-top: var(--vs-font-size-xs);
                 }
 
-                span {
+                .placeholder-text {
                     width: 100%;
                     margin-top: 0.5rem;
                     font-size: var(--vs-font-size-xs);
