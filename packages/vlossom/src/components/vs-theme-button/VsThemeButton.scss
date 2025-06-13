@@ -16,6 +16,10 @@ $vs-theme-button-height: 3rem;
 
     @include hover-active-darken;
 
+    &:focus-visible {
+        @include focus-outline;
+    }
+
     .vs-theme-icon {
         position: absolute;
         top: 50%;
