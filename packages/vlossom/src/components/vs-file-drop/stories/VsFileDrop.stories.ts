@@ -149,9 +149,7 @@ export const WidthAndHeight: Story = {
             </vs-container>
         `,
     }),
-    args: {
-        width: { sm: '200px', md: '300px', lg: '400px', xl: '500px' },
-    },
+    args: {},
 };
 
 export const Grid: Story = {
