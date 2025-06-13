@@ -44,6 +44,9 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
 
         &.vs-dragging {
             outline: 0.2rem dashed var(--vs-line-color);
+        }
+
+        &.vs-dragging-shadow {
             background-color: var(--vs-file-drop-dragBackgroundColor, var(--vs-no-color));
             box-shadow: 0 0 0.2rem 0.2rem var(--vs-file-drop-border, var(--vs-line-color)) inset;
         }

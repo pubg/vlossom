@@ -21,9 +21,10 @@
         <div
             :class="['vs-file-drop', colorSchemeClass, classObj, stateClasses]"
             :style="computedStyleSet"
-            @drop.stop="handleFileDrop($event)"
-            @dragenter.stop="setDragging(true)"
-            @dragleave.stop="setDragging(false)"
+            @drop.prevent.stop="handleFileDrop($event)"
+            @dragenter.prevent.stop="setDragging(true)"
+            @dragover.prevent.stop
+            @dragleave.prevent.stop="setDragging(false)"
         >
             <input
                 type="file"
@@ -164,7 +165,8 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             'vs-hover': hover.value,
-            'vs-dragging': dragging.value && !ctx.slots.default,
+            'vs-dragging': dragging.value,
+            'vs-dragging-shadow': dragging.value && !ctx.slots.default,
             'vs-disabled': computedDisabled.value,
             'vs-readonly': computedReadonly.value,
             'vs-dense': dense.value,
