@@ -55,7 +55,7 @@
                                 @close="handleFileRemoveClick(file)"
                             >
                                 <span class="vs-file-drop-file-name">{{ file.name }}</span>
-                                <span class="vs-file-drop-file-size">{{ `(${getFileSizeFormat(file.size)})` }}</span>
+                                <span class="vs-file-drop-file-size">{{ `(${toFileSizeFormat(file.size)})` }}</span>
                             </vs-chip>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 import type { InputValueType, VsFileDropStyleSet } from './types';
-import { getFileSizeFormat } from './utils';
+import { utils } from '@/utils';
 
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
@@ -98,6 +98,8 @@ export default defineComponent({
     },
     emits: ['update:modelValue', 'update:changed', 'update:valid', 'change', 'drop'],
     setup(props, ctx) {
+        const toFileSizeFormat = utils.string.toFileSizeFormat;
+
         const {
             id,
             colorScheme,
@@ -273,7 +275,7 @@ export default defineComponent({
             handleFileDrop,
             handleFileRemoveClick,
             stateClasses,
-            getFileSizeFormat,
+            toFileSizeFormat,
         };
     },
 });
