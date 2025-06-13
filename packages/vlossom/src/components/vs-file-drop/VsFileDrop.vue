@@ -192,13 +192,9 @@ export default defineComponent({
         function setInputValue(value: File[]): void {
             compMessages.value = [];
 
-            const errors = [verifyFileType(value), verifyMultipleFileUpload(value)];
+            const errors = [verifyFileType(value), verifyMultipleFileUpload(value)].filter(Boolean);
             if (errors.length) {
-                compMessages.value.push(
-                    ...(errors
-                        .filter(Boolean)
-                        .map((error) => ({ state: 'error', text: error })) as Message<InputValueType>[]),
-                );
+                compMessages.value.push(...errors.map((error) => ({ state: 'error', text: error })));
             }
 
             if (!multiple.value) {
