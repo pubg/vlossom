@@ -55,7 +55,7 @@
                                 @close="handleFileRemoveClick(file)"
                             >
                                 <span class="vs-file-drop-file-name">{{ file.name }}</span>
-                                <span class="vs-file-drop-file-size">{{ `(${file.size} bytes)` }}</span>
+                                <span class="vs-file-drop-file-size">{{ `(${getFileSizeFormat(file.size)})` }}</span>
                             </vs-chip>
                         </div>
                     </div>
@@ -79,6 +79,7 @@ import { useVsFileDropRules } from './vs-file-drop-rules';
 import { VsChip, VsInputWrapper } from '@/components';
 import { VsIcon } from '@/icons';
 import type { InputValueType, VsFileDropStyleSet } from './types';
+import { getFileSizeFormat } from './utils';
 
 const name = VsComponent.VsFileDrop;
 export default defineComponent({
@@ -271,6 +272,7 @@ export default defineComponent({
             handleFileDrop,
             handleFileRemoveClick,
             stateClasses,
+            getFileSizeFormat,
         };
     },
 });
