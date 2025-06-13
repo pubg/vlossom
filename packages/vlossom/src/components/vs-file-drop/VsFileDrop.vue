@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { Breakpoints, Message, VsComponent, type ColorScheme } from '@/declaration';
+import { Breakpoints, Message, UIState, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps, getResponsiveProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet, useStateClass } from '@/composables';
 import { useVsFileDropRules } from './vs-file-drop-rules';
@@ -194,7 +194,7 @@ export default defineComponent({
 
             const errors = [verifyFileType(value), verifyMultipleFileUpload(value)].filter(Boolean);
             if (errors.length) {
-                compMessages.value.push(...errors.map((error) => ({ state: 'error', text: error })));
+                compMessages.value.push(...errors.map((error) => ({ state: 'error' as UIState, text: error })));
             }
 
             if (!multiple.value) {
@@ -203,7 +203,7 @@ export default defineComponent({
             }
 
             if (value.length > 1) {
-                compMessages.value.push({ state: 'info', text: `${value.length} files` });
+                compMessages.value.push({ state: 'info' as UIState, text: `${value.length} files` });
             }
 
             inputValue.value = value;
