@@ -135,7 +135,7 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                         }
 
                         .vs-file-drop-file-size {
-                            font-size: var(--vs-file-drop-fontSize, var(--vs-font-size-xs));
+                            font-size: var(--vs-font-size-xs);
                             color: var(--vs-file-drop-fontColor, var(--vs-font-color));
                             margin-left: 0.5rem;
                         }
@@ -152,16 +152,19 @@ $file-drop-height-dense: var(--vs-file-drop-height, var(--vs-input-comp-height-d
                 width: var(--vs-file-drop-width, 100%);
                 height: var(--vs-file-drop-height, auto);
 
+                .vs-icon {
+                    color: var(--vs-file-drop-iconColor, var(--vs-line-color));
+                    margin-top: var(--vs-font-size-xs);
+                }
+
                 span {
                     width: 100%;
+                    margin-top: 0.5rem;
+                    font-size: var(--vs-font-size-xs);
                     text-align: center;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-                }
-
-                .vs-icon {
-                    color: var(--vs-file-drop-iconColor, var(--vs-line-color));
                 }
             }
         }
