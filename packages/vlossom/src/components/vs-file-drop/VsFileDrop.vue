@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, toRefs } from 'vue';
-import { Breakpoints, StateMessage, VsComponent, type ColorScheme } from '@/declaration';
+import { Breakpoints, Message, VsComponent, type ColorScheme } from '@/declaration';
 import { getInputProps, getResponsiveProps } from '@/models';
 import { useColorScheme, useInput, useStyleSet, useStateClass } from '@/composables';
 import { useVsFileDropRules } from './vs-file-drop-rules';
@@ -118,7 +118,7 @@ export default defineComponent({
 
         const dragging = ref(false);
 
-        const compMessages = ref<StateMessage[]>([]);
+        const compMessages = ref<Message<InputValueType>[]>([]);
 
         const { colorSchemeClass } = useColorScheme(name, colorScheme);
 
@@ -137,7 +137,7 @@ export default defineComponent({
                 disabled,
                 readonly,
                 rules,
-                messages: messages.value.length > 0 ? messages : compMessages,
+                messages: computed(() => [...messages.value, ...compMessages.value]),
                 state,
             },
         );
