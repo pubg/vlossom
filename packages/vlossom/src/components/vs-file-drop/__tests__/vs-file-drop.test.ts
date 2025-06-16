@@ -419,27 +419,6 @@ describe('vs-file-drop', () => {
             expect(wrapper.emitted('update:modelValue')?.[0][0]).toEqual(files);
         });
 
-        it('accept가 맞지 않는 파일이 추가된 경우, "Only ${accept} files are allowed" 메시지가 노출된다', async () => {
-            // Given
-            const accept = 'image/png';
-            const wrapper = mount(VsFileDrop, { props: { accept } });
-            const files = [createFile('test.txt', 'text/plain')];
-
-            // When
-            await wrapper.vm.handleFileDrop({
-                dataTransfer: {
-                    files,
-                },
-            } as unknown as DragEvent);
-            await wrapper.vm.$nextTick();
-
-            // Then
-            expect(wrapper.emitted('drop')).toBeTruthy();
-            expect(wrapper.emitted('drop')?.length).toBe(1);
-            expect(wrapper.emitted('drop')?.[0][0]).toEqual(files);
-            expect(wrapper.text()).toContain(`Only ${accept} files are allowed`);
-        });
-
         it('disable 상태일 때, drag & drop으로 파일을 추가할 수 없다', async () => {
             // Given
             const wrapper = mount(VsFileDrop, { props: { disabled: true } });

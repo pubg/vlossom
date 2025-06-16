@@ -108,7 +108,6 @@ export default defineComponent({
             disabled,
             multiple,
             rules,
-            accept,
             readonly,
             dense,
             height,
@@ -148,8 +147,7 @@ export default defineComponent({
 
         const { stateClasses } = useStateClass(computedState);
 
-        const { verifyFileType, verifyMultipleFileUpload } = useVsFileDropRules({
-            accept,
+        const { verifyMultipleFileUpload } = useVsFileDropRules({
             multiple,
         });
 
@@ -192,7 +190,7 @@ export default defineComponent({
         function setInputValue(value: File[]): void {
             compMessages.value = [];
 
-            const errors = [verifyFileType(value), verifyMultipleFileUpload(value)].filter(Boolean);
+            const errors = [verifyMultipleFileUpload(value)].filter(Boolean);
             if (errors.length) {
                 compMessages.value.push(...errors.map((error) => ({ state: 'error' as UIState, text: error })));
             }
