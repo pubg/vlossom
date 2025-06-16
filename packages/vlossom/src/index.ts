@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
         VsDivider: (typeof import('./components'))['VsDivider'];
         VsDrawer: (typeof import('./components'))['VsDrawer'];
         VsFileInput: (typeof import('./components'))['VsFileInput'];
+        VsFileDrop: (typeof import('./components'))['VsFileDrop'];
         VsFlexLayout: (typeof import('./components'))['VsFlexLayout'];
         VsFocusTrap: (typeof import('./components'))['VsFocusTrap'];
         VsFooter: (typeof import('./components'))['VsFooter'];

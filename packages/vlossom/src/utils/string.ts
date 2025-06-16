@@ -33,4 +33,23 @@ export const stringUtil = {
             return `${size}px`;
         }
     },
+
+    toFileSizeFormat(number: number | undefined | null): string {
+        if (number === undefined || number === null) {
+            throw new Error('File size is required');
+        }
+        if (number === 1) {
+            return '1 byte';
+        }
+        if (number < 1e3) {
+            return `${number} bytes`;
+        }
+        if (number >= 1e3 && number < 1e6) {
+            return `${(number / 1e3).toFixed(1)} KB`;
+        }
+        if (number >= 1e6 && number < 1e9) {
+            return `${(number / 1e6).toFixed(1)} MB`;
+        }
+        return `${(number / 1e9).toFixed(1)} GB`;
+    },
 };
