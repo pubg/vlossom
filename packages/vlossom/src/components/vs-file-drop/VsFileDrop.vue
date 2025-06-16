@@ -45,7 +45,7 @@
             <div class="vs-file-drop-content">
                 <slot :dragging="dragging">
                     <div v-if="hasValue" class="vs-file-drop-files">
-                        <div v-for="file in computedInputValue" :key="file.name">
+                        <div v-for="(file, index) in computedInputValue" :key="`${file.name}-${index}`">
                             <vs-chip
                                 :id="file.name"
                                 :dense="dense"
