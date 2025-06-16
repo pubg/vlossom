@@ -88,11 +88,11 @@ export default defineComponent({
     props: {
         ...getInputProps<InputValueType>(),
         ...getResponsiveProps(),
-        accept: { type: String, default: '' },
-        multiple: { type: Boolean, default: true },
-        height: { type: [String, Number, Object] as PropType<string | number | Breakpoints>, default: 'auto' },
         colorScheme: { type: String as PropType<ColorScheme> },
         styleSet: { type: [String, Object] as PropType<string | VsFileDropStyleSet> },
+        accept: { type: String, default: '' },
+        height: { type: [String, Number, Object] as PropType<string | number | Breakpoints>, default: 'auto' },
+        multiple: { type: Boolean, default: true },
         // v-model
         modelValue: { type: [Object, Array] as PropType<InputValueType>, default: [] as InputValueType },
     },
