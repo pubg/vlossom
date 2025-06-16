@@ -12,6 +12,7 @@ export enum VsComponent {
     VsContentRenderer = 'VsContentRenderer',
     VsDivider = 'VsDivider',
     VsDrawer = 'VsDrawer',
+    VsFileDrop = 'VsFileDrop',
     VsFileInput = 'VsFileInput',
     VsFocusTrap = 'VsFocusTrap',
     VsFooter = 'VsFooter',
