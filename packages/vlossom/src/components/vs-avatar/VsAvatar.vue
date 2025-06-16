@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-avatar', 'vs-inline-gap', colorSchemeClass]" :style="computedStyleSet">
+    <div :class="['vs-avatar', colorSchemeClass]" :style="computedStyleSet">
         <slot />
     </div>
 </template>

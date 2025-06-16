@@ -26,10 +26,6 @@ body {
     background-color: var(--vs-app-background-color);
 }
 
-.vs-inline-gap:has(+ .vs-inline-gap) {
-    margin-right: 0.5rem;
-}
-
 // vlossom scrollbar
 ::-webkit- {
     &scrollbar {

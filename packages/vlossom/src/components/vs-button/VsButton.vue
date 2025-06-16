@@ -1,7 +1,7 @@
 <template>
     <button
         type="button"
-        :class="['vs-button', 'vs-inline-gap', colorSchemeClass, classObj, stateClasses]"
+        :class="['vs-button', colorSchemeClass, classObj, stateClasses]"
         :style="computedStyleSet"
         :disabled="disabled"
         :aria-label="loading ? 'loading' : undefined"

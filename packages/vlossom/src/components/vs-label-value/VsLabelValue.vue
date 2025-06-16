@@ -46,7 +46,6 @@ export default defineComponent({
 
         const classObj = computed(() => ({
             'vs-inline': inline.value,
-            'vs-inline-gap': inline.value,
             'vs-dense': dense.value,
             'vs-primary': primary.value,
         }));
