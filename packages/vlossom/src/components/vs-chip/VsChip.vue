@@ -1,5 +1,5 @@
 <template>
-    <div :class="['vs-chip', 'vs-inline-gap', colorSchemeClass, classObj]" :style="computedStyleSet">
+    <div :class="['vs-chip', colorSchemeClass, classObj]" :style="computedStyleSet">
         <span v-if="hasIcon" class="vs-icon-container vs-chip-icon">
             <slot name="icon" />
         </span>
