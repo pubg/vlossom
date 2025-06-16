@@ -1,5 +1,45 @@
 # Changelog
 
+## [1.1.0](https://github.com/pubg/vlossom/compare/v1.0.11...v1.1.0) (2025-06-16)
+
+
+### Features
+
+* **components:** add `VsFileDrop` component ([#378](https://github.com/pubg/vlossom/issues/378)) ([791f734](https://github.com/pubg/vlossom/commit/791f734b8f756c9e5546858540ac0322e4ad4c2b))
+* **form:** add form & input ref interface ([#351](https://github.com/pubg/vlossom/issues/351)) ([a53020d](https://github.com/pubg/vlossom/commit/a53020dfe48745f4fbb4470808f1cf0790d9050e))
+* **input-components:** apply cursor styles to readonly and disabled states ([#353](https://github.com/pubg/vlossom/issues/353)) ([af2bd95](https://github.com/pubg/vlossom/commit/af2bd9514428cda1d9fbf93adc96dfd283b1e893))
+* **style-set:** add `VsFlexContainerStyleSet` interface for nested flex container ([#360](https://github.com/pubg/vlossom/issues/360)) ([53f4b13](https://github.com/pubg/vlossom/commit/53f4b1351ca9cca988b65e844ecd7602ccbbad5f))
+* **style:** remove `vs-inline-gap` selector ([#380](https://github.com/pubg/vlossom/issues/380)) ([3f7372e](https://github.com/pubg/vlossom/commit/3f7372e72a8dc0e19529482830bb170d3d1cdf30))
+* **VsButton:** add circle prop option ([#352](https://github.com/pubg/vlossom/issues/352)) ([d21b5cc](https://github.com/pubg/vlossom/commit/d21b5cceb93f25315cdc7da68c7d43ff5163a747))
+* **VsHeader,VsFooter:** change default position to relative ([#369](https://github.com/pubg/vlossom/issues/369)) ([df2f89b](https://github.com/pubg/vlossom/commit/df2f89b42256ed5250497c5e39b00493547fd99c))
+* **VsLabelValue:** change `value` slot to default slot ([#361](https://github.com/pubg/vlossom/issues/361)) ([5e76dd8](https://github.com/pubg/vlossom/commit/5e76dd893d9f4a3a0e8979863800380c15a8b046))
+* **VsLabelValue:** VsLabelValueStyleSet extends VsFlexStyleSet ([#359](https://github.com/pubg/vlossom/issues/359)) ([457e4fc](https://github.com/pubg/vlossom/commit/457e4fc2f03f6959ff5cd4ccf942bf9a9cc242a9))
+* **VsMenuButton:** add v-model binding ([#367](https://github.com/pubg/vlossom/issues/367)) ([982217a](https://github.com/pubg/vlossom/commit/982217a5ea6626aeb64d6148de169310aeb30983))
+* **VsStepper:** change stepper slot interface ([#373](https://github.com/pubg/vlossom/issues/373)) ([1cf121b](https://github.com/pubg/vlossom/commit/1cf121be4abd8da241921f08c077543ba3c4a233))
+* **VsTabs:** change tab slot interface ([#372](https://github.com/pubg/vlossom/issues/372)) ([38e5060](https://github.com/pubg/vlossom/commit/38e50601ee72038e459a1f87061a347a6bd397cf))
+* **VsTextWrap:** nested tooltip style-set ([#375](https://github.com/pubg/vlossom/issues/375)) ([d7959e2](https://github.com/pubg/vlossom/commit/d7959e27099ecd444198e805594656a9f4ab0bba))
+* **VsThemeButton:** Enhance keyboard access visibility ([#379](https://github.com/pubg/vlossom/issues/379)) ([ea12a94](https://github.com/pubg/vlossom/commit/ea12a9456292a28eb00baad7aa4f3c2550df3397))
+* **VsToast:** add component story to Storybook ([#356](https://github.com/pubg/vlossom/issues/356)) ([53b8215](https://github.com/pubg/vlossom/commit/53b8215c66c0840e62fdfa3c2178f5eaf0372d9e))
+* **VsTooltip:** change margin type string, number ([#371](https://github.com/pubg/vlossom/issues/371)) ([8e31c0a](https://github.com/pubg/vlossom/commit/8e31c0acfb3df9feeb0b21317d4cc1720c706973))
+* **VsTooltip:** change tooltip border style-set ([#370](https://github.com/pubg/vlossom/issues/370)) ([4df7359](https://github.com/pubg/vlossom/commit/4df7359c5fc1b096747d62d288ecd8cfa752d540))
+
+
+### Bug Fixes
+
+* **click:** add preventDefault on click events ([#368](https://github.com/pubg/vlossom/issues/368)) ([7b1bbef](https://github.com/pubg/vlossom/commit/7b1bbef88f2554704b722d6709af0970b30a0353))
+* **index-selector:** change next available index ([#345](https://github.com/pubg/vlossom/issues/345)) ([2bf698d](https://github.com/pubg/vlossom/commit/2bf698da4237b06ec313bb6f6a480da84f336fc2))
+* **scroll-lock:** prevent to add padding on touch device(browser) ([#357](https://github.com/pubg/vlossom/issues/357)) ([e5619ed](https://github.com/pubg/vlossom/commit/e5619edba69a4a1a937caf9851452fd7ecd7c9b9))
+* **scroll:** fix modal scroll lock bug ([#346](https://github.com/pubg/vlossom/issues/346)) ([db131ad](https://github.com/pubg/vlossom/commit/db131adbace6ea55b7b96f1905ef33c72f6d3e6c))
+* **style-set:** apply VsTextStyleSet on label styles ([#348](https://github.com/pubg/vlossom/issues/348)) ([b27f047](https://github.com/pubg/vlossom/commit/b27f047d3c5ebe56f5d6a7c8c5596f6855a660cb))
+* **type:** extend StateMessage state type ([#344](https://github.com/pubg/vlossom/issues/344)) ([d886fd6](https://github.com/pubg/vlossom/commit/d886fd68e3603ec3f6c8e245c93bc73e78389400))
+* **value-matcher:** fix initial checked for vs-checkbox, vs-switch ([#347](https://github.com/pubg/vlossom/issues/347)) ([89d9471](https://github.com/pubg/vlossom/commit/89d9471a29d9f9202994b7ee3d05b22a2165a1a5))
+* **VsCheckboxNode:** fix indeterminate font color & storybook ([#350](https://github.com/pubg/vlossom/issues/350)) ([ce59d60](https://github.com/pubg/vlossom/commit/ce59d6084be3b91dd69ada0755c5e499646aa600))
+* **VsDivider:** set default vertical height value to 100% ([#354](https://github.com/pubg/vlossom/issues/354)) ([1027325](https://github.com/pubg/vlossom/commit/10273256b78e5694e2f2f1f91850a3008c55cb22))
+* **VsFileDrop:** remove messages-absolute ([#381](https://github.com/pubg/vlossom/issues/381)) ([a57e671](https://github.com/pubg/vlossom/commit/a57e671fc806046b661d35f1dbfde0a844c4b2ed))
+* **VsFlexLayout:** remove flex layout body inner ([#374](https://github.com/pubg/vlossom/issues/374)) ([1c4bd8a](https://github.com/pubg/vlossom/commit/1c4bd8ab504385b973cfe709b4a5e9666ebe845c))
+* **VsModal:** not unmounting component when leaving Story ([#358](https://github.com/pubg/vlossom/issues/358)) ([03f94b8](https://github.com/pubg/vlossom/commit/03f94b81d9305f5a23a11b9df2cbb88ad2e8842a))
+* **VsTable:** change click-row event parameter ([#376](https://github.com/pubg/vlossom/issues/376)) ([b2bd698](https://github.com/pubg/vlossom/commit/b2bd69826faf389a02d11047a3751cf596cbaf06))
+
 ## [1.0.11](https://github.com/pubg/vlossom/compare/v1.0.10...v1.0.11) (2025-02-24)
 
 
