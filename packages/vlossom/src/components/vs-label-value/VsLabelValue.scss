@@ -30,7 +30,7 @@
         &.vs-value {
             flex: 1;
             overflow-x: auto;
-            background-color: var(--vs-label-value-value-backgroundColor, var(--vs-comp-bg));
+            background-color: var(--vs-label-value-value-backgroundColor, var(--vs-no-color));
             color: var(--vs-label-value-value-fontColor, var(--vs-comp-font));
             font-size: var(--vs-label-value-value-fontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
             font-weight: var(--vs-label-value-value-fontWeight, 500);
@@ -42,7 +42,7 @@
         }
 
         &.vs-actions {
-            background-color: var(--vs-label-value-actions-backgroundColor, var(--vs-comp-bg));
+            background-color: var(--vs-label-value-actions-backgroundColor, var(--vs-no-color));
             color: var(--vs-label-value-actions-fontColor, var(--vs-comp-font));
             font-size: var(--vs-label-value-actions-fontSize, var(--vs-label-value-fontSize, var(--vs-font-size)));
             font-weight: var(--vs-label-value-actions-fontWeight, 500);
