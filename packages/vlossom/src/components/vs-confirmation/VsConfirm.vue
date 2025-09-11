@@ -4,6 +4,7 @@
             <slot />
             <div class="vs-confirm-buttons">
                 <vs-button
+                    class="vs-confirm-button"
                     ref="okRef"
                     :style-set="getButtonStyleSet(plainStyleSet?.okButton)"
                     primary
@@ -11,7 +12,7 @@
                 >
                     {{ okText }}
                 </vs-button>
-                <vs-button :style-set="getButtonStyleSet(plainStyleSet?.cancelButton)" @click.prevent.stop="cancel">
+                <vs-button class="vs-confirm-button" :style-set="getButtonStyleSet(plainStyleSet?.cancelButton)" @click.prevent.stop="cancel">
                     {{ cancelText }}
                 </vs-button>
             </div>
