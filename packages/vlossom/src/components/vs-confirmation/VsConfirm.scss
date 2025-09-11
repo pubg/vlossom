@@ -16,5 +16,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        .vs-confirm-button + .vs-confirm-button {
+            margin-left: 0.8rem;
+        }
     }
 }
