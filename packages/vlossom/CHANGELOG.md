@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/pubg/vlossom/compare/v1.1.0...v1.1.1) (2025-09-11)
+
+
+### Bug Fixes
+
+* **VsConfirm:** fix confirm button margin ([ff0faeb](https://github.com/pubg/vlossom/commit/ff0faeb571519f0fdf391ba05c6c16f170d8d53a))
+* **VsLabelValue:** change value bg color (no-color) ([#383](https://github.com/pubg/vlossom/issues/383)) ([025a4aa](https://github.com/pubg/vlossom/commit/025a4aa54937cc8095936323fca5cf400a3cf167))
+
 ## [1.1.0](https://github.com/pubg/vlossom/compare/v1.0.11...v1.1.0) (2025-06-16)
 
 
