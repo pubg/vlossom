@@ -23,7 +23,7 @@ Vlossom is a vibrant and versatile Vue UI library designed to blossom your web a
 
 <div align="center">
 	<a href="https://www.krafton.com/" target="_blank">
-		<img src="https://logowik.com/content/uploads/images/krafton2779.jpg" width="300" alt="Krafton"> 
+		<img src="https://www.krafton.com/wp-content/uploads/2026/02/logo-krafton-brandcenter.png" width="300" alt="Krafton"> 
 	</a>
 	&nbsp;&nbsp;&nbsp;&nbsp
 	<a href="https://github.com/pubg" target="_blank">
